@@ -1,409 +1,116 @@
+import Image from 'next/image'
+import Link from 'next/link'
 import Navbar from '../components/Navbar'
 import Footer from '../components/Footer'
-import Link from 'next/link'
-import styles from './page.module.css'
 
 export const metadata = {
-  title: 'JourneyLite | #1 Weight Loss Surgery Center in Ohio, Indiana & Kentucky',
-  description: 'Board-certified bariatric surgeons with 6,000+ procedures. Gastric Sleeve from $10,000. Gastric Bypass, SADI, Lap Band, and GLP-1 medications. 5 locations. Free insurance check.',
-  alternates: { canonical: 'https://journeylite.com' }
+  title: 'Weight Loss Surgery Ohio | JourneyLite',
+  description: 'JourneyLite offers gastric sleeve, gastric bypass, SADI, and medical weight loss options across Ohio with trusted surgeons and personalized care.',
+  alternates: { canonical: 'https://journeylite.com/weight-loss-surgery-ohio' },
 }
 
-const procedures = [
-  {
-    icon: '🔹',
-    name: 'Gastric Sleeve (VSG)',
-    price: 'From $10,000',
-    desc: 'Removes a portion of the stomach to create a smaller, sleeve-shaped organ — reducing hunger and food intake without rerouting intestines.',
-    href: '/gastric-sleeve',
-    badge: 'Most Popular',
-    badgeColor: 'green',
-  },
-  {
-    icon: '🔸',
-    name: 'Gastric Bypass',
-    price: 'Self-pay pricing',
-    desc: 'The gold-standard Roux-en-Y procedure decreases stomach size and modifies the digestive tract for maximum weight loss and metabolic improvement.',
-    href: '/gastric-bypass',
-    badge: 'Gold Standard',
-    badgeColor: 'blue',
-  },
-  {
-    icon: '🔷',
-    name: 'SADI Surgery',
-    price: 'Self-pay pricing',
-    desc: 'A streamlined duodenal switch with a single intestinal connection — significant weight loss with fewer complications than traditional DS.',
-    href: '/sadi-surgery',
-    badge: 'Advanced',
-    badgeColor: 'green',
-  },
-  {
-    icon: '🟦',
-    name: 'Lap Band',
-    price: 'Self-pay pricing',
-    desc: 'Minimally invasive adjustable gastric banding — a silicone band around the upper stomach creates a smaller pouch for earlier satiety.',
-    href: '/lap-band',
-    badge: 'Adjustable',
-    badgeColor: 'blue',
-  },
-  {
-    icon: '🔄',
-    name: 'Sleeve Revision',
-    price: 'Self-pay pricing',
-    desc: 'Adjust or convert your initial gastric sleeve if you\'re experiencing issues or seeking improved outcomes. Low complication rate.',
-    href: '/sleeve-revision',
-    badge: 'Revision',
-    badgeColor: 'green',
-  },
-  {
-    icon: '💊',
-    name: 'GLP-1 Medications',
-    price: 'Special self-pay rates',
-    desc: 'WeGovy, Zepbound, and Adipex — medical weight loss for those who prefer non-surgical solutions with physician oversight.',
-    href: '/medications',
-    badge: 'Non-Surgical',
-    badgeColor: 'blue',
-  },
+const services = [
+  ['Gastric Sleeve', 'Most requested minimally invasive bariatric procedure.', '/gastric-sleeve-ohio'],
+  ['Gastric Bypass', 'Powerful metabolic surgery for long-term health change.', '/weight-loss-surgery-ohio'],
+  ['Lap Band', 'Adjustable option for select candidates.', '/weight-loss-surgery-ohio'],
+  ['SADI', 'Advanced single-anastomosis duodenal switch.', '/weight-loss-surgery-ohio'],
+  ['Gastric Balloon', 'Incision-free option for moderate weight loss.', '/weight-loss-surgery-ohio'],
+  ['Medications (GLP-1)', 'Physician-led Wegovy/Zepbound pathways.', '/weight-loss-medications'],
 ]
 
-const stats = [
-  { num: '6,000+', label: 'Gastric Sleeves Performed', icon: '✅' },
-  { num: '20+', label: 'Years of Experience', icon: '🏅' },
-  { num: '5', label: 'Locations in 3 States', icon: '📍' },
-  { num: '12,000', label: 'sq ft Dedicated Facility', icon: '🏥' },
-]
-
-const testimonials = [
-  {
-    name: 'Sarah M.',
-    location: 'Cincinnati, OH',
-    quote: 'JourneyLite changed my life. I lost 110 lbs after my gastric sleeve and have kept it off for 3 years. Dr. Curry and his team were with me every step of the way.',
-    lost: '110 lbs',
-    procedure: 'Gastric Sleeve'
-  },
-  {
-    name: 'James T.',
-    location: 'Indianapolis, IN',
-    quote: 'I\'d struggled with weight my whole life. After gastric bypass with Dr. Augusta, I\'m off diabetes medication and feel 20 years younger. Worth every penny.',
-    lost: '145 lbs',
-    procedure: 'Gastric Bypass'
-  },
-  {
-    name: 'Linda K.',
-    location: 'Columbus, OH',
-    quote: 'I was nervous about surgery, so I started with WeGovy through JourneyLite. They helped me lose 45 lbs medically, and I feel amazing. The team is so supportive.',
-    lost: '45 lbs',
-    procedure: 'Medical (WeGovy)'
-  },
-]
-
-const faqs = [
-  {
-    q: 'Do I qualify for bariatric surgery?',
-    a: 'The American Society for Metabolic and Bariatric Surgery recommends bariatric surgery for anyone with a BMI of 35 or greater, and for some patients with a BMI of 30–35 who have obesity-related health conditions like diabetes or sleep apnea.'
-  },
-  {
-    q: 'What does weight loss surgery cost?',
-    a: 'JourneyLite\'s gastric sleeve starts at just $10,000 for self-pay patients — one of the most competitive prices in the region. We also accept most major insurance plans and offer financing options.'
-  },
-  {
-    q: 'How long is recovery after gastric sleeve or bypass?',
-    a: 'Most patients return to desk work within 1–2 weeks and full activity within 4–6 weeks. JourneyLite\'s outpatient surgery center allows most patients to go home the same day.'
-  },
-  {
-    q: 'Does JourneyLite offer GLP-1 medications like WeGovy or Zepbound?',
-    a: 'Yes! JourneyLite has one of the most experienced medical weight loss teams in the Midwest. We offer WeGovy, Zepbound, Adipex, and other medications with special self-pay pricing for those without insurance coverage.'
-  },
-]
-
-const locations = [
-  { city: 'Cincinnati', state: 'OH', note: 'Main Surgery Center' },
-  { city: 'Columbus', state: 'OH', note: 'Consultations & Follow-up' },
-  { city: 'Dayton', state: 'OH', note: 'Consultations & Follow-up' },
-  { city: 'Indianapolis', state: 'IN', note: 'Full Service Location' },
-  { city: 'Northern Kentucky', state: 'KY', note: 'Greater Cincinnati Area' },
-]
-
-export default function Home() {
+export default function HomePage() {
   return (
     <>
       <Navbar />
       <main>
-        {/* HERO */}
-        <section className={styles.hero}>
-          <div className={styles.heroBg} aria-hidden="true">
-            <div className={styles.heroBlob1} />
-            <div className={styles.heroBlob2} />
-            <div className={styles.heroGrid} />
-          </div>
-          <div className="container">
-            <div className={styles.heroInner}>
-              <div className={styles.heroContent}>
-                <div className={`badge badge-green fade-up ${styles.heroBadge}`}>
-                  <span>🏆</span> MBSAQIP Accredited Center of Excellence
-                </div>
-                <h1 className={`fade-up-1 ${styles.heroH1}`}>
-                  Your Journey to <em className={styles.heroEm}>Lasting</em> Weight Loss Starts Here
-                </h1>
-                <p className={`fade-up-2 ${styles.heroSub}`}>
-                  Board-certified surgeons with <strong>6,000+ procedures</strong>. Gastric Sleeve, Bypass, SADI, GLP-1 medications, and more — at 5 locations across Ohio, Indiana & Kentucky.
-                </p>
-                <div className={`fade-up-3 ${styles.heroCtas}`}>
-                  <Link href="/appointment" className="btn btn-primary" style={{fontSize:'16px',padding:'16px 32px'}}>
-                    Book Free Consultation →
-                  </Link>
-                  <Link href="/pricing" className="btn btn-outline">
-                    See Pricing & Insurance
-                  </Link>
-                </div>
-                <div className={`fade-up-4 ${styles.heroTrust}`}>
-                  <span>✅ Insurance accepted</span>
-                  <span>✅ Self-pay from $10,000</span>
-                  <span>✅ Financing available</span>
-                </div>
+        <section className="relative isolate overflow-hidden bg-white py-16 md:py-24">
+          <div className="container-shell grid items-center gap-10 lg:grid-cols-2">
+            <div>
+              <p className="inline-flex rounded-full bg-brand-50 px-4 py-1 text-sm font-semibold text-brand-700">MBSAQIP Accredited Center</p>
+              <h1 className="mt-5 text-4xl font-bold leading-tight text-ink md:text-5xl">Lasting Weight Loss Starts Here</h1>
+              <p className="mt-4 max-w-xl text-lg text-gray-600">Surgical & non-surgical weight loss solutions tailored to you across Ohio, Indiana, and Kentucky.</p>
+              <div className="mt-8 flex flex-wrap gap-3">
+                <Link href="/appointment" className="rounded-full bg-brand-700 px-6 py-3 font-semibold text-white">Book Consultation</Link>
+                <a href="#services" className="rounded-full border border-gray-300 px-6 py-3 font-semibold text-gray-700">Explore Options</a>
               </div>
-              <div className={`fade-up-2 ${styles.heroCard}`}>
-                <div className={styles.heroCardInner}>
-                  <div className={styles.heroCardBadge}>🔥 Limited Time</div>
-                  <h2 className={styles.heroCardTitle}>Gastric Sleeve</h2>
-                  <div className={styles.heroCardPrice}>
-                    <span className={styles.heroCardPriceNum}>$10,000</span>
-                    <span className={styles.heroCardPriceSub}>self-pay</span>
-                  </div>
-                  <p className={styles.heroCardDesc}>One of the lowest prices in the Midwest — no hidden fees, transparent care.</p>
-                  <Link href="/gastric-sleeve" className="btn btn-primary" style={{width:'100%',justifyContent:'center'}}>
-                    Learn More →
-                  </Link>
-                  <div className={styles.heroCardAlso}>
-                    <span>Also:</span>
-                    <Link href="/allurion-balloon">Allurion Balloon from $4,000</Link>
-                  </div>
-                  <div className={styles.heroCardAccred}>
-                    <span>🏅 Anthem Blue Distinction+</span>
-                    <span>🏅 United Optum COE</span>
-                    <span>🏅 Aetna Institute of Quality</span>
-                  </div>
-                </div>
-              </div>
+            </div>
+            <div className="relative">
+              <Image src="https://images.unsplash.com/photo-1576091160399-112ba8d25d1d" alt="Healthy patient and physician" width={900} height={700} className="h-auto w-full rounded-3xl object-cover shadow-soft" priority />
             </div>
           </div>
         </section>
 
-        {/* STATS */}
-        <section className={styles.statsBar}>
-          <div className="container">
-            <div className={styles.statsGrid}>
-              {stats.map(s => (
-                <div key={s.num} className={styles.stat}>
-                  <span className={styles.statIcon}>{s.icon}</span>
-                  <span className={styles.statNum}>{s.num}</span>
-                  <span className={styles.statLabel}>{s.label}</span>
-                </div>
+        <section className="bg-brand-700 py-6 text-white">
+          <div className="container-shell grid gap-6 text-center sm:grid-cols-3">
+            <p><strong>20+ years</strong> experience</p><p><strong>10,000+</strong> procedures</p><p><strong>MBSAQIP</strong> accredited center</p>
+          </div>
+        </section>
+
+        <section id="services" className="py-16 md:py-20">
+          <div className="container-shell">
+            <h2 className="text-3xl font-bold">Treatment Options Built Around You</h2>
+            <div className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+              {services.map(([title, body, href]) => (
+                <article key={title} className="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm">
+                  <div className="text-2xl">⚕️</div>
+                  <h3 className="mt-3 text-xl font-semibold">{title}</h3>
+                  <p className="mt-2 text-sm text-gray-600">{body}</p>
+                  <Link href={href} className="mt-4 inline-block text-sm font-semibold text-brand-700">Learn More →</Link>
+                </article>
               ))}
             </div>
           </div>
         </section>
 
-        {/* PROCEDURES */}
-        <section className={styles.procedures} id="procedures">
-          <div className="container">
-            <div className={styles.sectionHeader}>
-              <p className="section-label">Weight Loss Solutions</p>
-              <h2 className={styles.sectionTitle}>Surgical & Non-Surgical Options Tailored to You</h2>
-              <p className={styles.sectionSub}>
-                JourneyLite knows there is no one-size-fits-all approach. We offer surgical, non-surgical, and medical weight loss — designed around your health goals and lifestyle.
-              </p>
+        <section id="results" className="bg-white py-16">
+          <div className="container-shell grid gap-8 lg:grid-cols-2">
+            <div className="rounded-2xl bg-brand-50 p-6">
+              <h2 className="text-2xl font-bold">Real Patient Transformations</h2>
+              <p className="mt-3 text-gray-700">“I lost 115 lbs and gained confidence, energy, and control of my health.”</p>
+              <p className="mt-2 text-sm font-semibold text-brand-700">— Verified JourneyLite Patient • ★★★★★</p>
             </div>
-            <div className={styles.procedureGrid}>
-              {procedures.map(p => (
-                <Link key={p.name} href={p.href} className={styles.procedureCard}>
-                  <div className={styles.procedureTop}>
-                    <span className={styles.procedureIcon}>{p.icon}</span>
-                    <span className={`badge ${p.badgeColor === 'green' ? 'badge-green' : 'badge-blue'}`}>
-                      {p.badge}
-                    </span>
-                  </div>
-                  <h3 className={styles.procedureName}>{p.name}</h3>
-                  <p className={styles.procedurePrice}>{p.price}</p>
-                  <p className={styles.procedureDesc}>{p.desc}</p>
-                  <span className={styles.procedureLink}>Learn more →</span>
-                </Link>
-              ))}
-            </div>
-            <div className={styles.procedureCta}>
-              <Link href="/appointment" className="btn btn-primary">Get Your Free Consultation</Link>
-              <Link href="/pricing" className="btn btn-outline">View All Pricing</Link>
+            <div className="rounded-2xl border border-gray-200 p-6">
+              <h3 className="text-xl font-semibold">Simple First Step</h3>
+              <form className="mt-4 grid gap-3">
+                <input className="rounded-xl border border-gray-300 px-4 py-3" placeholder="Name" />
+                <input className="rounded-xl border border-gray-300 px-4 py-3" placeholder="Phone" />
+                <input className="rounded-xl border border-gray-300 px-4 py-3" placeholder="Preferred Location" />
+                <select className="rounded-xl border border-gray-300 px-4 py-3"><option>Interest</option><option>Gastric Sleeve</option></select>
+                <button className="rounded-xl bg-brand-700 px-4 py-3 font-semibold text-white">Request Appointment</button>
+              </form>
             </div>
           </div>
         </section>
 
-        {/* DOCTORS */}
-        <section className={styles.doctors}>
-          <div className="container">
-            <div className={styles.doctorsInner}>
-              <div className={styles.doctorsContent}>
-                <p className="section-label">Your Expert Surgeons</p>
-                <h2 className={styles.sectionTitle}>Meet Cincinnati's Leading Bariatric Surgeons</h2>
-                <div className="divider" />
-                <div className={styles.doctorCards}>
-                  <div className={styles.doctorCard}>
-                    <div className={styles.doctorAvatar}>TC</div>
-                    <div>
-                      <h3 className={styles.doctorName}>Dr. Trace W. Curry, MD</h3>
-                      <p className={styles.doctorTitle}>Medical Director, Board-Certified Surgeon</p>
-                      <p className={styles.doctorBio}>
-                        Cincinnati native with <strong>20+ years</strong> of experience and thousands of advanced laparoscopic surgeries. Pioneered innovative non-surgical obesity treatments in Ohio.
-                      </p>
-                      <Link href="/about#dr-curry" className={styles.doctorLink}>View Profile →</Link>
-                    </div>
-                  </div>
-                  <div className={styles.doctorCard}>
-                    <div className={styles.doctorAvatar} style={{background:'var(--blue)'}}>JA</div>
-                    <div>
-                      <h3 className={styles.doctorName}>Dr. James Augusta, MD</h3>
-                      <p className={styles.doctorTitle}>Minimally Invasive Weight Loss Surgeon</p>
-                      <p className={styles.doctorBio}>
-                        Specializes in gastric sleeve, gastric bypass, and revisional surgery. Comprehensive training and residency in Ohio with a focus on minimally invasive techniques.
-                      </p>
-                      <Link href="/about#dr-augusta" className={styles.doctorLink}>View Profile →</Link>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div className={styles.doctorsAccred}>
-                <h3 className={styles.accredTitle}>Nationally Recognized</h3>
-                <div className={styles.accredList}>
-                  {[
-                    'MBSAQIP Accredited Bariatric Surgery Outpatient Center of Excellence',
-                    'Anthem Blue Distinction Plus',
-                    'United Health Optum Bariatric Center of Excellence',
-                    'Aetna Institute of Quality',
-                    'American Society for Metabolic & Bariatric Surgery Member',
-                  ].map(a => (
-                    <div key={a} className={styles.accredItem}>
-                      <span className={styles.accredCheck}>✓</span>
-                      <span>{a}</span>
-                    </div>
-                  ))}
-                </div>
-                <div className={styles.accredStat}>
-                  <span className={styles.accredStatNum}>6,000+</span>
-                  <span className={styles.accredStatLabel}>Gastric Sleeve Procedures Performed</span>
-                </div>
-              </div>
+        <section id="locations" className="py-16">
+          <div className="container-shell">
+            <h2 className="text-3xl font-bold">Locations</h2>
+            <p className="mt-2 text-gray-600">Cincinnati • Columbus • Dayton • Indianapolis • Kentucky</p>
+            <div className="mt-6 rounded-2xl bg-gray-200 p-14 text-center text-gray-600">Interactive map placeholder</div>
+          </div>
+        </section>
+
+        <section id="faqs" className="bg-white py-16">
+          <div className="container-shell max-w-4xl">
+            <h2 className="text-3xl font-bold">Weight Loss Education</h2>
+            <div className="mt-6 space-y-4">
+              {['What is gastric sleeve?', 'Surgery vs medication', 'Who qualifies?'].map((q) => <details key={q} className="rounded-xl border border-gray-200 bg-gray-50 p-4"><summary className="cursor-pointer font-semibold">{q}</summary><p className="mt-2 text-gray-600">Educational content placeholder with internal links to treatment pages.</p></details>)}
             </div>
           </div>
         </section>
 
-        {/* TESTIMONIALS */}
-        <section className={styles.testimonials}>
-          <div className="container">
-            <div className={styles.sectionHeader}>
-              <p className="section-label">Patient Stories</p>
-              <h2 className={styles.sectionTitle}>Real People, Real Results</h2>
-            </div>
-            <div className={styles.testimonialsGrid}>
-              {testimonials.map(t => (
-                <div key={t.name} className={styles.testimonialCard}>
-                  <div className={styles.testimonialLost}>
-                    <span className={styles.testimonialLostNum}>{t.lost}</span>
-                    <span className={styles.testimonialLostLabel}>lost</span>
-                  </div>
-                  <p className={styles.testimonialQuote}>"{t.quote}"</p>
-                  <div className={styles.testimonialMeta}>
-                    <span className={styles.testimonialName}>{t.name}</span>
-                    <span className={styles.testimonialLoc}>{t.location} · {t.procedure}</span>
-                  </div>
-                  <div className={styles.testimonialStars}>★★★★★</div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        {/* LOCATIONS */}
-        <section className={styles.locationsSection}>
-          <div className="container">
-            <div className={styles.locationsInner}>
-              <div>
-                <p className="section-label">Find Us Near You</p>
-                <h2 className={styles.sectionTitle}>5 Locations Across 3 States</h2>
-                <div className="divider" />
-                <p style={{color:'var(--text-muted)', marginBottom:32, maxWidth:420}}>
-                  Patients travel from across the country for JourneyLite's quality of care, experience, and affordability.
-                </p>
-                <div className={styles.locationsList}>
-                  {locations.map(l => (
-                    <Link key={l.city} href="/locations" className={styles.locationItem}>
-                      <span className={styles.locationPin}>📍</span>
-                      <div>
-                        <span className={styles.locationCity}>{l.city}, {l.state}</span>
-                        <span className={styles.locationNote}>{l.note}</span>
-                      </div>
-                      <span className={styles.locationArrow}>→</span>
-                    </Link>
-                  ))}
-                </div>
-              </div>
-              <div className={styles.locationsCta}>
-                <div className={styles.locationsCTABox}>
-                  <div className={styles.locationsCTAIcon}>📞</div>
-                  <h3>Ready to Get Started?</h3>
-                  <p>Call us or book your free consultation online. Our team will help you find the right plan.</p>
-                  <a href="tel:8558657144" className="btn btn-white" style={{marginBottom:12,justifyContent:'center',width:'100%'}}>
-                    (855) 865-7144
-                  </a>
-                  <Link href="/appointment" className="btn btn-outline" style={{borderColor:'#fff',color:'#fff',justifyContent:'center',width:'100%'}}>
-                    Request Appointment →
-                  </Link>
-                  <Link href="/pricing" className={styles.insuranceCheck}>
-                    Free Insurance Check →
-                  </Link>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* FAQ */}
-        <section className={styles.faq}>
-          <div className="container">
-            <div className={styles.sectionHeader}>
-              <p className="section-label">FAQ</p>
-              <h2 className={styles.sectionTitle}>Common Questions About Weight Loss Surgery</h2>
-            </div>
-            <div className={styles.faqGrid}>
-              {faqs.map(f => (
-                <div key={f.q} className={styles.faqItem}>
-                  <h3 className={styles.faqQ}>{f.q}</h3>
-                  <p className={styles.faqA}>{f.a}</p>
-                </div>
-              ))}
-            </div>
-            <div style={{textAlign:'center',marginTop:40}}>
-              <Link href="/faq" className="btn btn-outline">View All FAQs →</Link>
-            </div>
-          </div>
-        </section>
-
-        {/* CTA BANNER */}
-        <section className={styles.ctaBanner}>
-          <div className="container">
-            <div className={styles.ctaBannerInner}>
-              <div>
-                <h2 className={styles.ctaBannerTitle}>Start Your Journey Today</h2>
-                <p className={styles.ctaBannerSub}>Free consultation · Insurance check · Transparent pricing · No pressure</p>
-              </div>
-              <div className={styles.ctaBannerActions}>
-                <Link href="/appointment" className="btn btn-white" style={{fontSize:'16px'}}>Book Free Consult →</Link>
-                <a href="tel:8558657144" className="btn btn-outline" style={{borderColor:'rgba(255,255,255,0.5)',color:'#fff'}}>
-                  (855) 865-7144
-                </a>
-              </div>
+        <section className="py-16">
+          <div className="container-shell rounded-3xl bg-brand-700 p-8 text-center text-white md:p-12">
+            <h2 className="text-3xl font-bold">Take the first step today</h2>
+            <p className="mt-3">Book your consultation or call our care team now.</p>
+            <div className="mt-6 flex justify-center gap-3">
+              <Link href="/appointment" className="rounded-full bg-white px-6 py-3 font-semibold text-brand-700">Book Appointment</Link>
+              <a href="tel:+18558657144" className="rounded-full border border-white px-6 py-3 font-semibold">Call Now</a>
             </div>
           </div>
         </section>
       </main>
+      <a href="tel:+18558657144" className="fixed bottom-4 right-4 rounded-full bg-brand-700 px-5 py-3 text-sm font-semibold text-white shadow-soft md:hidden">Call Now</a>
       <Footer />
     </>
   )
