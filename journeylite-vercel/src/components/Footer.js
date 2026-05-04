@@ -1,61 +1,25 @@
 import Link from 'next/link'
-import styles from './Footer.module.css'
 
 export default function Footer() {
   return (
-    <footer className={styles.footer}>
-      <div className={styles.top}>
-        <div className="container">
-          <div className={styles.grid}>
-            <div className={styles.brand}>
-              <div className={styles.logo}>
-                <span className={styles.logoJ}>Journey</span><span className={styles.logoL}>Lite</span>
-              </div>
-              <p className={styles.tagline}>Your trusted partner in lasting weight loss — for life.</p>
-              <p className={styles.accred}>🏆 MBSAQIP Accredited Center of Excellence</p>
-              <a href="tel:8558657144" className={styles.phone}>(855) 865-7144</a>
-            </div>
-
-            <div className={styles.col}>
-              <h4>Surgical Options</h4>
-              <Link href="/gastric-sleeve">Gastric Sleeve (VSG)</Link>
-              <Link href="/gastric-bypass">Gastric Bypass</Link>
-              <Link href="/sadi-surgery">SADI Surgery</Link>
-              <Link href="/lap-band">Lap Band</Link>
-              <Link href="/sleeve-revision">Sleeve Revision</Link>
-              <Link href="/band-revision">Band Revision</Link>
-            </div>
-
-            <div className={styles.col}>
-              <h4>Weight Loss Options</h4>
-              <Link href="/gastric-balloon">Gastric Balloon</Link>
-              <Link href="/medications">WeGovy / Semaglutide</Link>
-              <Link href="/medications">Zepbound / Tirzepatide</Link>
-              <Link href="/medications">Adipex / Phentermine</Link>
-              <Link href="/pricing">Pricing & Financing</Link>
-            </div>
-
-            <div className={styles.col}>
-              <h4>Company</h4>
-              <Link href="/about">About JourneyLite</Link>
-              <Link href="/about#doctors">Our Surgeons</Link>
-              <Link href="/locations">Locations</Link>
-              <Link href="/appointment">Request Appointment</Link>
-              <Link href="/blog">Blog & Resources</Link>
-              <Link href="/faq">FAQ</Link>
-            </div>
-          </div>
+    <footer className="border-t border-gray-200 bg-white py-12">
+      <div className="container-shell grid gap-8 md:grid-cols-3">
+        <div>
+          <p className="text-lg font-semibold text-brand-700">JourneyLite</p>
+          <p className="mt-3 text-sm text-gray-600">Trusted bariatric and medical weight loss in Ohio, Indiana, and Kentucky.</p>
         </div>
-      </div>
-
-      <div className={styles.bottom}>
-        <div className="container">
-          <p>© {new Date().getFullYear()} JourneyLite Physicians. All rights reserved.</p>
-          <div className={styles.bottomLinks}>
-            <Link href="/privacy">Privacy Policy</Link>
-            <Link href="/terms">Terms of Service</Link>
-            <Link href="/sitemap.xml">Sitemap</Link>
-          </div>
+        <div>
+          <p className="text-sm font-semibold uppercase tracking-wide text-gray-700">Top Services</p>
+          <ul className="mt-3 space-y-2 text-sm text-gray-600">
+            <li><Link href="/weight-loss-surgery-ohio">Weight Loss Surgery Ohio</Link></li>
+            <li><Link href="/gastric-sleeve-ohio">Gastric Sleeve Ohio</Link></li>
+            <li><Link href="/weight-loss-medications">Weight Loss Medications</Link></li>
+          </ul>
+        </div>
+        <div>
+          <p className="text-sm font-semibold uppercase tracking-wide text-gray-700">Contact</p>
+          <a href="tel:+18558657144" className="mt-3 block text-sm font-medium text-brand-700">(855) 865-7144</a>
+          <p className="mt-2 text-sm text-gray-600">Mon–Fri • 8am–5pm</p>
         </div>
       </div>
     </footer>
