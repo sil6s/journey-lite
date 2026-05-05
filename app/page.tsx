@@ -148,7 +148,7 @@ export default function HomePage() {
                 plan around your BMI, health history, goals, and comfort level.
               </p>
               <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-                <CTAButton href="/#quiz">Book Consultation</CTAButton>
+                <CTAButton href="/contact">Book Consultation</CTAButton>
                 <CTAButton href="/#surgical" variant="secondary">
                   View Weight Loss Options
                 </CTAButton>
@@ -205,7 +205,7 @@ export default function HomePage() {
                 weight loss while preserving a straightforward long-term follow-up plan for eligible patients.
               </p>
               <div className="mt-6">
-                <CTAButton href="/#quiz">Explore Gastric Sleeve</CTAButton>
+                <CTAButton href="/services/gastric-sleeve">Explore Gastric Sleeve</CTAButton>
               </div>
             </div>
           </article>
@@ -227,7 +227,7 @@ export default function HomePage() {
             <CTAButton href="/#surgical" variant="secondary">
               Explore Surgical Options
             </CTAButton>
-            <CTAButton href="/#compare" variant="secondary">
+            <CTAButton href="/services/compare-weight-loss-options" variant="secondary">
               Compare Procedures
             </CTAButton>
           </div>
@@ -251,10 +251,10 @@ export default function HomePage() {
             active non-surgical procedure among the listed procedures.
           </p>
           <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
-            <CTAButton href="/gastric-balloon" variant="secondary">
+            <CTAButton href="/services/gastric-balloon" variant="secondary">
               Learn About Gastric Balloon
             </CTAButton>
-            <CTAButton href="/#non-surgical" variant="secondary">
+            <CTAButton href="/services/compare-weight-loss-options" variant="secondary">
               Explore Non-Surgical Options
             </CTAButton>
           </div>
@@ -307,7 +307,7 @@ export default function HomePage() {
             coverage, and provider evaluation.
           </p>
           <div className="mt-6">
-            <CTAButton href="/#quiz">Get a Personalized Recommendation</CTAButton>
+            <CTAButton href="/contact">Get a Personalized Recommendation</CTAButton>
           </div>
         </Section>
 
@@ -383,7 +383,7 @@ export default function HomePage() {
             individual factors.
           </p>
           <div className="mt-6 flex flex-col gap-3 sm:flex-row">
-            <CTAButton href="/#quiz">Start Your Journey</CTAButton>
+            <CTAButton href="/contact">Start Your Journey</CTAButton>
             <CTAButton href="/#outcomes" variant="secondary">
               See Patient Results
             </CTAButton>

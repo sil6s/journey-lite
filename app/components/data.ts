@@ -7,42 +7,42 @@ export const navGroups = [
     items: [
       {
         label: "Gastric Sleeve",
-        href: "/#gastric-sleeve",
+        href: "/services/gastric-sleeve",
         description: "JourneyLite's most performed bariatric procedure.",
       },
       {
         label: "Lap Band",
-        href: "/#lap-band-surgery",
+        href: "/services/lap-band-surgery",
         description: "An adjustable surgical weight loss tool for select patients.",
       },
       {
         label: "Gastric Bypass",
-        href: "/#gastric-bypass",
+        href: "/services/gastric-bypass",
         description: "A long-established option for metabolic health goals.",
       },
       {
         label: "SADI Surgery",
-        href: "/#sadi-surgery",
+        href: "/services/sadi-surgery",
         description: "An advanced metabolic bariatric surgery option.",
       },
       {
         label: "Gastric Band Revision",
-        href: "/#gastric-band-revision",
+        href: "/services/gastric-band-revision",
         description: "Revision support when prior band surgery is no longer working.",
       },
       {
         label: "Gastric Sleeve Revision",
-        href: "/#gastric-sleeve-revision",
+        href: "/services/gastric-sleeve-revision",
         description: "Evaluation for patients needing a new plan after sleeve surgery.",
       },
       {
         label: "General Surgery",
-        href: "/#general-surgery",
+        href: "/services/general-surgery",
         description: "Related surgical care from JourneyLite physicians.",
       },
       {
         label: "Appointment Request",
-        href: "/#quiz",
+        href: "/contact",
         description: "Start with a personalized consultation request.",
       },
     ],
@@ -52,27 +52,27 @@ export const navGroups = [
     items: [
       {
         label: "Gastric Balloon",
-        href: "/gastric-balloon",
+        href: "/services/gastric-balloon",
         description: "A temporary, incisionless weight loss procedure.",
       },
       {
         label: "Spatz Adjustable Gastric Balloon",
-        href: "/#spatz-adjustable-gastric-balloon",
+        href: "/services/spatz-adjustable-gastric-balloon",
         description: "An adjustable balloon option for comparison.",
       },
       {
         label: "Gastric Balloon Pricing",
-        href: "/#pricing",
+        href: "/services/gastric-balloon-pricing",
         description: "Review cost and program considerations.",
       },
       {
         label: "Gastric Balloon Instructions",
-        href: "/gastric-balloon",
+        href: "/services/gastric-balloon",
         description: "Learn what to expect with balloon treatment.",
       },
       {
         label: "Appointment Request",
-        href: "/#quiz",
+        href: "/contact",
         description: "Request a consultation for fit and availability.",
       },
     ],
@@ -82,32 +82,32 @@ export const navGroups = [
     items: [
       {
         label: "Prescription Weight Loss Medication",
-        href: "/#medications",
+        href: "/services/prescription-weight-loss-medications",
         description: "Medical weight loss options with provider monitoring.",
       },
       {
         label: "Injectable Medications",
-        href: "/#injectable-medications",
+        href: "/services/injectable-weight-loss-medications",
         description: "Weekly GLP-1 and GIP/GLP-1 options for eligible patients.",
       },
       {
         label: "Oral Medications",
-        href: "/#oral-medications",
+        href: "/services/oral-weight-loss-medications",
         description: "Prescription oral medication options and monitoring.",
       },
       {
         label: "After Weight Loss Surgery",
-        href: "/#post-op-weight-regain",
+        href: "/services/post-op-weight-regain-support",
         description: "Support for weight regain or maintenance concerns.",
       },
       {
         label: "Medication Pricing",
-        href: "/#medication-pricing",
+        href: "/services/medication-pricing",
         description: "Program details, cost, and insurance considerations.",
       },
       {
         label: "Appointment Request",
-        href: "/#quiz",
+        href: "/contact",
         description: "Start a medication-supported weight loss conversation.",
       },
     ],
@@ -117,12 +117,12 @@ export const navGroups = [
     items: [
       {
         label: "Pricing & Financing",
-        href: "/#pricing",
+        href: "/services/pricing-financing",
         description: "Review program and cost considerations.",
       },
       {
         label: "Compare Options",
-        href: "/#compare",
+        href: "/services/compare-weight-loss-options",
         description: "Use the detailed comparison table as a reference.",
       },
       {
@@ -163,7 +163,7 @@ export const surgicalOptions = [
     description:
       "A well-established bariatric procedure that can support significant weight loss and metabolic health goals.",
     bestFor: "May be a fit for patients with higher weight-loss goals, reflux concerns, or certain metabolic needs.",
-    href: "/#gastric-bypass",
+    href: "/services/gastric-bypass",
     cta: "Learn about Gastric Bypass",
   },
   {
@@ -172,7 +172,7 @@ export const surgicalOptions = [
     description:
       "An advanced bariatric option that may be recommended for eligible patients who need more powerful metabolic support.",
     bestFor: "May be a fit for patients with higher BMI ranges or complex metabolic goals.",
-    href: "/#sadi-surgery",
+    href: "/services/sadi-surgery",
     cta: "Explore SADI Surgery",
   },
   {
@@ -181,7 +181,7 @@ export const surgicalOptions = [
     description:
       "An adjustable surgical option that places a band around the upper stomach to support portion control.",
     bestFor: "May be a fit for select patients who want an adjustable surgical tool and ongoing follow-up.",
-    href: "/#lap-band-surgery",
+    href: "/services/lap-band-surgery",
     cta: "Learn about Lap Band",
   },
   {
@@ -190,7 +190,7 @@ export const surgicalOptions = [
     description:
       "Revision care for patients who had a prior lap band and need a new plan for comfort, safety, or weight loss.",
     bestFor: "May be a fit when a prior band is no longer meeting clinical or lifestyle goals.",
-    href: "/#gastric-band-revision",
+    href: "/services/gastric-band-revision",
     cta: "Review Band Revision",
   },
   {
@@ -199,7 +199,7 @@ export const surgicalOptions = [
     description:
       "Evaluation and planning for patients who previously had gastric sleeve surgery and need renewed support.",
     bestFor: "May be a fit for weight regain, anatomy concerns, or changing medical needs after sleeve surgery.",
-    href: "/#gastric-sleeve-revision",
+    href: "/services/gastric-sleeve-revision",
     cta: "Explore Sleeve Revision",
   },
   {
@@ -208,7 +208,7 @@ export const surgicalOptions = [
     description:
       "Related surgical care delivered by physicians with focused experience in abdominal and bariatric procedures.",
     bestFor: "May be a fit for patients who need coordinated surgical evaluation alongside weight loss care.",
-    href: "/#general-surgery",
+    href: "/services/general-surgery",
     cta: "View General Surgery",
   },
 ];
@@ -220,7 +220,7 @@ export const nonSurgicalOptions = [
     description:
       "A non-surgical, temporary device placed in the stomach to help patients feel fuller, reduce portion sizes, and develop healthier eating habits with medical support.",
     bestFor: "May fit patients looking for a less invasive option with structured follow-up.",
-    href: "/gastric-balloon",
+    href: "/services/gastric-balloon",
     cta: "Explore Gastric Balloon",
     status: "Available",
   },
@@ -230,7 +230,7 @@ export const nonSurgicalOptions = [
     description:
       "An adjustable gastric balloon option designed to support portion control and weight-loss progress during treatment.",
     bestFor: "May fit patients who want a balloon option that can be adjusted during the treatment period.",
-    href: "/gastric-balloon",
+    href: "/services/spatz-adjustable-gastric-balloon",
     cta: "Learn About Spatz",
     status: "Balloon comparison",
   },
@@ -240,7 +240,7 @@ export const nonSurgicalOptions = [
     description:
       "A temporary gastric balloon designed to occupy space in the stomach and support reduced food intake.",
     bestFor: "Useful for comparison when reviewing gastric balloon options.",
-    href: "/gastric-balloon",
+    href: "/services/orbera-gastric-balloon",
     cta: "Compare Balloon Options",
     status: "Balloon comparison",
   },
@@ -249,7 +249,7 @@ export const nonSurgicalOptions = [
     title: "Allurion Gastric Balloon",
     description: "A swallowable gastric balloon option used in some non-surgical weight-loss programs.",
     bestFor: "Included for educational comparison only unless this is currently offered.",
-    href: "/gastric-balloon",
+    href: "/services/allurion-gastric-balloon",
     cta: "Compare Options",
     status: "Educational comparison",
   },
@@ -259,7 +259,7 @@ export const nonSurgicalOptions = [
     description:
       "An incisionless endoscopic procedure that reduces stomach volume in some weight-loss programs.",
     bestFor: "Educational comparison only. JourneyLite currently emphasizes gastric balloon treatment among these procedures.",
-    href: "/#non-surgical",
+    href: "/services/endoscopic-sleeve-gastroplasty",
     cta: "Compare Non-Surgical Procedures",
     status: "Educational comparison",
   },
@@ -269,7 +269,7 @@ export const nonSurgicalOptions = [
     description:
       "A non-surgical weight-loss device historically used in some programs to support portion and calorie reduction.",
     bestFor: "Educational comparison only. Availability depends on current programs and provider evaluation.",
-    href: "/#non-surgical",
+    href: "/services/aspireassist",
     cta: "Compare Non-Surgical Procedures",
     status: "Educational comparison",
   },
@@ -282,7 +282,7 @@ export const oralMedicationOptions = [
     description: "An oral appetite suppressant that may help jump-start weight loss for appropriate patients.",
     bestFor:
       "Not appropriate for everyone, especially certain blood pressure, heart, anxiety, or insomnia concerns.",
-    href: "/#oral-medications",
+    href: "/services/phentermine-adipex",
     cta: "Learn About Oral Medications",
   },
   {
@@ -291,7 +291,7 @@ export const oralMedicationOptions = [
     description:
       "An oral prescription medication option that may help eligible patients manage appetite and weight-loss progress.",
     bestFor: "May be considered when provider screening supports oral medication therapy and monitoring.",
-    href: "/#oral-medications",
+    href: "/services/qsymia",
     cta: "Compare Oral Options",
   },
   {
@@ -300,7 +300,7 @@ export const oralMedicationOptions = [
     description:
       "An oral medication option that may support craving and appetite management for eligible patients.",
     bestFor: "May fit patients whose medical history and current medications allow this treatment path.",
-    href: "/#oral-medications",
+    href: "/services/contrave",
     cta: "Learn About Contrave",
   },
 ];
@@ -312,7 +312,7 @@ export const injectableMedicationOptions = [
     description:
       "A weekly GLP-1 medication that may support appetite control, metabolic health, and steady weight-loss progress for eligible patients.",
     bestFor: "Requires medical screening, dose titration, and follow-up.",
-    href: "/#injectable-medications",
+    href: "/services/wegovy-semaglutide",
     cta: "Learn About Injectable Medications",
   },
   {
@@ -321,7 +321,7 @@ export const injectableMedicationOptions = [
     description:
       "A weekly GIP/GLP-1 medication option that may support appetite regulation and metabolic weight-loss goals for eligible patients.",
     bestFor: "Coverage, cost, side effects, and eligibility vary.",
-    href: "/#injectable-medications",
+    href: "/services/zepbound-tirzepatide",
     cta: "Explore Zepbound Options",
   },
 ];
@@ -333,7 +333,7 @@ export const medicationSupportOptions = [
     description:
       "Medication-supported care may help some patients address weight regain, plateaus, or long-term maintenance after prior weight-loss surgery.",
     bestFor: "May fit patients who need renewed structure after prior weight-loss surgery.",
-    href: "/#post-op-weight-regain",
+    href: "/services/post-op-weight-regain-support",
     cta: "Discuss Weight Regain Support",
   },
   {
@@ -342,7 +342,7 @@ export const medicationSupportOptions = [
     description:
       "Program cost, insurance coverage, medication access, and follow-up needs vary by patient and treatment plan.",
     bestFor: "Useful for patients comparing oral and injectable medication programs before consultation.",
-    href: "/#medication-pricing",
+    href: "/services/medication-pricing",
     cta: "Review Program Details",
   },
 ];
@@ -375,7 +375,7 @@ export const comparisonRows = [
     useCase: "Durable weight loss for eligible patients seeking a long-term bariatric tool.",
     followUp: "Nutrition guidance, surgical follow-up, and long-term habit support.",
     bestFor: "Patients ready for a proven surgical path with ongoing accountability.",
-    href: "/#gastric-sleeve",
+    href: "/services/gastric-sleeve",
   },
   {
     option: "Gastric Bypass",
@@ -383,7 +383,7 @@ export const comparisonRows = [
     useCase: "Significant weight loss goals or specific metabolic health considerations.",
     followUp: "More detailed vitamin, nutrition, and clinical follow-up.",
     bestFor: "Patients whose history or goals may call for a more established metabolic procedure.",
-    href: "/#gastric-bypass",
+    href: "/services/gastric-bypass",
   },
   {
     option: "Gastric Balloon",
@@ -391,7 +391,7 @@ export const comparisonRows = [
     useCase: "Temporary support to reduce portions and build healthier eating patterns.",
     followUp: "Placement, removal, nutrition coaching, and habit support.",
     bestFor: "Patients seeking a less invasive option and medical structure.",
-    href: "/gastric-balloon",
+    href: "/services/gastric-balloon",
   },
   {
     option: "Weight Loss Medications",
@@ -399,7 +399,7 @@ export const comparisonRows = [
     useCase: "Appetite and craving support for eligible patients under supervision.",
     followUp: "Medication monitoring, progress reviews, and lifestyle support.",
     bestFor: "Patients interested in prescription-based non-surgical care.",
-    href: "/#medications",
+    href: "/services/prescription-weight-loss-medications",
   },
 ];
 

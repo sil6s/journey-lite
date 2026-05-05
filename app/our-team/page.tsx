@@ -44,11 +44,11 @@ export default function OurTeamPage() {
                 Kentucky, and Indiana.
               </p>
               <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
-                <CTAButton href="/#quiz">Book Consultation</CTAButton>
+                <CTAButton href="/contact">Book Consultation</CTAButton>
                 <CTAButton href="/#locations" variant="secondary">
                   View Locations
                 </CTAButton>
-                <CTAButton href="/#compare" variant="secondary">
+                <CTAButton href="/services/compare-weight-loss-options" variant="secondary">
                   Compare Weight Loss Options
                 </CTAButton>
               </div>
@@ -113,7 +113,7 @@ export default function OurTeamPage() {
               with the JourneyLite team.
             </p>
             <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
-              <CTAButton href="/#quiz" variant="light">
+              <CTAButton href="/contact" variant="light">
                 Book Consultation
               </CTAButton>
               <CTAButton href={phoneHref} variant="outline">

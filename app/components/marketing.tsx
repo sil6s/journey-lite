@@ -105,11 +105,17 @@ export function SiteHeader() {
           >
             Blog
           </Link>
+          <Link
+            className="rounded-md px-3 py-2 text-sm font-medium text-[#314139] transition hover:bg-[#f0f5f2] hover:text-[#145c42] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#145c42]"
+            href="/contact"
+          >
+            Contact
+          </Link>
         </nav>
 
         <div className="hidden items-center gap-3 lg:flex">
           <CallMenu />
-          <CTAButton href="/#quiz">Book Consultation</CTAButton>
+          <CTAButton href="/contact">Book Consultation</CTAButton>
         </div>
 
         <details className="group relative lg:hidden">
@@ -134,7 +140,7 @@ export function SiteHeader() {
               </div>
             ))}
             <div className="grid gap-2 pt-3">
-              <CTAButton href="/#quiz">Book Consultation</CTAButton>
+              <CTAButton href="/contact">Book Consultation</CTAButton>
               <CallMenu inline />
             </div>
           </div>
@@ -247,8 +253,8 @@ export function SiteFooter() {
         <FooterLinks
           title="Resources"
           links={[
-            ["Compare Options", "/#compare"],
-            ["Pricing & Financing", "/#pricing"],
+            ["Compare Options", "/services/compare-weight-loss-options"],
+            ["Pricing & Financing", "/services/pricing-financing"],
             ["Physicians", "/our-team"],
             ["Locations", "/#locations"],
             ["Testimonials", "/#reviews"],
@@ -258,7 +264,7 @@ export function SiteFooter() {
         <div>
           <h2 className="text-sm font-semibold text-white">Contact</h2>
           <p className="mt-3 text-sm">{phoneNumber}</p>
-          <CTAButton href="/#quiz" variant="light">
+          <CTAButton href="/contact" variant="light">
             Book Consultation
           </CTAButton>
         </div>
@@ -545,10 +551,10 @@ export function MedicationCtaBand() {
         </p>
       </div>
       <div className="mt-6 flex flex-col gap-3 sm:flex-row lg:mt-0 lg:shrink-0">
-        <CTAButton href="/#medications" variant="secondary">
+        <CTAButton href="/services/prescription-weight-loss-medications" variant="secondary">
           View Medication Options
         </CTAButton>
-        <CTAButton href="/#quiz">Start Medication Program</CTAButton>
+        <CTAButton href="/contact">Start Medication Program</CTAButton>
       </div>
     </section>
   );
@@ -937,7 +943,7 @@ export function PhysicianProfileCard({ physician, expanded = false }: { physicia
               {physician.email}
             </a>
             <div className="mt-5 flex">
-              <CTAButton href={expanded ? "/#quiz" : `/our-team#${physician.slug}`}>{expanded ? "Book Consultation" : physician.cta}</CTAButton>
+              <CTAButton href={expanded ? "/contact" : `/our-team#${physician.slug}`}>{expanded ? "Book Consultation" : physician.cta}</CTAButton>
             </div>
           </div>
         </aside>
@@ -969,8 +975,8 @@ export function PhysicianProfileCard({ physician, expanded = false }: { physicia
 
           {expanded ? (
             <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
-              <CTAButton href="/#quiz">Book Consultation</CTAButton>
-              <CTAButton href="/#compare" variant="secondary">
+              <CTAButton href="/contact">Book Consultation</CTAButton>
+              <CTAButton href="/services/compare-weight-loss-options" variant="secondary">
                 Compare Options
               </CTAButton>
               <CTAButton href="/#locations" variant="secondary">
@@ -1056,7 +1062,7 @@ export function FinalCTA() {
           </p>
         </div>
         <div className="flex flex-col gap-3 sm:flex-row lg:justify-end">
-          <CTAButton href="/#quiz" variant="light">
+          <CTAButton href="/contact" variant="light">
             Book Consultation
           </CTAButton>
           <CTAButton href={phoneHref} variant="outline">
