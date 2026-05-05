@@ -1,327 +1,456 @@
+import type { Metadata } from "next";
 import Image from "next/image";
-import { Inter, Playfair_Display } from "next/font/google";
+import Link from "next/link";
+import { HomeQuiz } from "./components/HomeQuiz";
+import {
+  ComparisonTable,
+  ComparisonCard,
+  CTAButton,
+  FeatureCard,
+  FinalCTA,
+  LocationCards,
+  MedicationComparisonTable,
+  PhysicianProfileCard,
+  ProcedureCard,
+  ReviewBadge,
+  ReviewGrid,
+  Section,
+  SiteFooter,
+  SiteHeader,
+  StatBand,
+} from "./components/marketing";
+import {
+  injectableMedicationOptions,
+  medicationSupportOptions,
+  nonSurgicalOptions,
+  oralMedicationOptions,
+  physicianCards,
+  surgicalOptions,
+} from "./components/data";
 
-const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
-const playfair = Playfair_Display({ subsets: ["latin"], variable: "--font-playfair" });
-
-const navLinks = [
-  { label: "Gastric Sleeve", href: "#services" },
-  { label: "Gastric Bypass", href: "#services" },
-  { label: "Medications", href: "#services" },
-  { label: "Pricing", href: "#pricing" },
-  { label: "Locations", href: "#locations" },
-];
-
-const serviceCards = [
-  {
-    title: "Gastric Sleeve (VSG)",
-    summary:
-      "Our most performed procedure with a clinically proven pathway for durable weight loss and metabolic improvement.",
-    price: "From $6,500",
-    featured: true,
-  },
-  {
-    title: "Gastric Bypass",
-    summary: "Ideal for advanced obesity and reflux concerns with strong long-term outcomes.",
-    price: "From $8,900",
-  },
-  {
-    title: "SADI Surgery",
-    summary: "A high-efficacy option for patients needing greater total body weight reduction.",
-    price: "From $9,200",
-  },
-  {
-    title: "Gastric Balloon",
-    summary: "A non-surgical option for early momentum with physician-guided support.",
-    price: "From $3,500",
-  },
-  {
-    title: "Weight Loss Medications",
-    summary: "GLP-1 and other evidence-based plans monitored by bariatric specialists.",
-    price: "From $250/mo",
-  },
-];
-
-const locationGroups = [
-  {
-    state: "Ohio",
-    locations: [
-      {
-        city: "Cincinnati, OH",
-        address1: "10475 Reading Rd #117",
-        address2: "Cincinnati, OH 45241",
-        phone: "(513) 559-1222",
-        map: "https://www.google.com/maps?q=10475+Reading+Rd+%23117+Cincinnati+OH+45241&output=embed",
-      },
-      {
-        city: "Columbus, OH",
-        address1: "2041 Stringtown Rd",
-        address2: "Grove City, OH 43123",
-        phone: "(614) 526-4463",
-        map: "https://www.google.com/maps?q=2041+Stringtown+Rd+Grove+City+OH+43123&output=embed",
-      },
-      {
-        city: "Dayton, OH",
-        address1: "2621 Dryden Rd Suite 301",
-        address2: "Moraine, OH 45439",
-        phone: "(937) 280-5673",
-        map: "https://www.google.com/maps?q=2621+Dryden+Rd+Suite+301+Moraine+OH+45439&output=embed",
-      },
-    ],
-  },
-  {
-    state: "Indiana",
-    locations: [
-      {
-        city: "Indianapolis, IN",
-        address1: "33 E. County Line Road, Suite E",
-        address2: "Greenwood, IN",
-        phone: "(463) 237-5999",
-        map: "https://www.google.com/maps?q=33+E+County+Line+Road+Suite+E+Greenwood+IN&output=embed",
-      },
-    ],
-  },
-  {
-    state: "Kentucky",
-    locations: [
-      {
-        city: "Northern Kentucky",
-        address1: "320 Thomas More Parkway",
-        address2: "Crestview Hills, KY",
-        phone: "(859) 331-1035",
-        map: "https://www.google.com/maps?q=320+Thomas+More+Parkway+Crestview+Hills+KY&output=embed",
-      },
-    ],
-  },
-];
-
-export const metadata = {
-  title: "JourneyLite Physicians | Weight Loss Surgery Ohio & Gastric Sleeve Cincinnati",
+export const metadata: Metadata = {
+  title: "JourneyLite Physicians | Weight Loss Surgery and Medical Weight Loss in Ohio",
   description:
-    "Weight loss surgery Ohio patients trust. JourneyLite Physicians offers gastric sleeve Cincinnati programs, bariatric surgery near me options, and medical weight loss across Ohio, Kentucky, and Indiana.",
+    "Compare bariatric surgery, gastric sleeve, gastric bypass, gastric balloon, medications, and medical weight loss options with JourneyLite Physicians in Ohio, Kentucky, and Indiana.",
 };
+
+const pathComparisonCards = [
+  {
+    title: "Surgery may fit if:",
+    items: [
+      "You are seeking more durable weight-loss support",
+      "You have higher weight-loss goals",
+      "You may have obesity-related health concerns",
+      "You are ready for a long-term surgical follow-up plan",
+    ],
+  },
+  {
+    title: "Non-surgical procedures may fit if:",
+    items: [
+      "You want a less invasive option",
+      "You are not ready for surgery",
+      "You want portion-control support",
+      "You are willing to commit to lifestyle changes and follow-up",
+    ],
+  },
+  {
+    title: "Medications may fit if:",
+    items: [
+      "You want medical appetite or craving support",
+      "You prefer oral or injectable treatment",
+      "You are managing weight regain or long-term maintenance",
+      "You want a structured program with monitoring",
+    ],
+  },
+];
+
+const whyCards = [
+  ["Dedicated bariatric surgeons", "Focused physicians help patients understand procedure fit, risk, recovery, and long-term expectations."],
+  ["Surgical and non-surgical care paths", "JourneyLite offers multiple options so the conversation can start with your goals, not a one-size-fits-all plan."],
+  ["Medication-supported programs", "Eligible patients can discuss prescription-based care alongside nutrition, progress tracking, and provider guidance."],
+  ["Personalized follow-up", "Care continues after the first appointment with follow-up designed around progress, questions, and next steps."],
+  ["Nutrition and lifestyle guidance", "Patients receive practical support for portions, habits, hydration, protein, and realistic routines."],
+  ["Multiple regional locations", "Five clinics support patients across Ohio, Kentucky, and Indiana with convenient regional access."],
+];
+
+const outcomeStats = [
+  {
+    value: "6,000+",
+    label: "Gastric sleeve procedures",
+    context: "High procedure volume helps patients choose a team familiar with common questions, timelines, and follow-up needs.",
+  },
+  {
+    value: "10,000+",
+    label: "Total procedures",
+    context: "JourneyLite's experience spans bariatric and related procedures across multiple care pathways.",
+  },
+  {
+    value: "20+",
+    label: "Years of experience",
+    context: "Long-standing regional care gives patients a consistent place to compare options and plan next steps.",
+  },
+];
 
 export default function HomePage() {
   return (
-    <div className={`${inter.variable} ${playfair.variable} bg-[#f7f8f6] text-[#37443e]`}>
-      <header className="border-b border-[#dde2de]">
-        <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
-          <a href="#" className="text-lg text-[#243129]">
-            <span className="font-semibold text-[#145c42]">JourneyLite</span> Physicians
-          </a>
-          <nav className="hidden items-center gap-5 text-sm md:flex">
-            {navLinks.map((link) => (
-              <a key={link.label} href={link.href} className="hover:text-[#145c42]">
-                {link.label}
-              </a>
-            ))}
-          </nav>
-          <div className="flex items-center gap-3">
-            <a href="tel:+18774422263" className="hidden text-sm sm:inline">
-              (877) 442-2263
-            </a>
-            <a href="#quiz" className="rounded-md bg-[#145c42] px-4 py-2 text-sm font-medium text-white">
-              Book Consultation
-            </a>
-          </div>
-        </div>
-      </header>
-
+    <>
+      <SiteHeader />
       <main>
-        <section className="mx-auto grid max-w-6xl gap-12 px-6 py-16 lg:grid-cols-2 lg:py-20">
-          <div>
-            <p className="mb-4 text-xs uppercase tracking-[0.2em] text-[#5f6b64]">20 years • 10,000+ procedures</p>
-            <h1 className="font-[var(--font-playfair)] text-5xl leading-tight text-[#1e2b24]">
-              Lasting weight loss, backed by <span className="text-[#145c42]">decades</span> of outcomes.
-            </h1>
-            <p className="mt-5 max-w-xl text-base leading-7 text-[#516059]">
-              A high-volume bariatric and medical weight loss practice serving Ohio, Kentucky, and Indiana with surgical,
-              non-surgical, and medication-based options.
-            </p>
-            <div className="mt-8 flex gap-3">
-              <a href="#quiz" className="rounded-md bg-[#145c42] px-5 py-3 text-sm font-medium text-white">Book Consultation</a>
-              <a href="#pricing" className="rounded-md border border-[#cdd5d0] bg-white px-5 py-3 text-sm font-medium">View Pricing</a>
-            </div>
-          </div>
-          <div className="rounded-lg border border-[#d9dfdb] bg-[#e9eeea] p-4">
-            <Image src="/hero-placeholder.svg" alt="JourneyLite Physicians clinic" width={640} height={520} className="h-[360px] w-full rounded-md object-cover" priority />
-          </div>
-        </section>
-
-        <section className="bg-[#0f3e2e] text-white">
-          <div className="mx-auto grid max-w-6xl grid-cols-2 gap-8 px-6 py-10 text-center md:grid-cols-4">
-            {[
-              ["6,000+", "Gastric Sleeves"],
-              ["10,000+", "Procedures"],
-              ["20+", "Years Experience"],
-              ["5", "Locations"],
-            ].map(([n, l]) => (
-              <div key={l}><p className="text-4xl font-[var(--font-playfair)]">{n}</p><p className="mt-2 text-xs uppercase tracking-[0.15em] text-[#d0ddd6]">{l}</p></div>
-            ))}
-          </div>
-        </section>
-
-        <section id="services" className="mx-auto max-w-6xl px-6 py-16">
-          <h2 className="font-[var(--font-playfair)] text-4xl text-[#1f2c25]">Surgical, non-surgical, and medication options—chosen with you.</h2>
-          <div className="mt-8 grid gap-4 md:grid-cols-3">
-            {serviceCards.map((card) => (
-              <article key={card.title} className={`rounded-lg border p-5 ${card.featured ? "border-[#145c42] bg-[#145c42] text-white md:col-span-2" : "border-[#d9dfdb] bg-white"}`}>
-                <h3 className="font-[var(--font-playfair)] text-2xl">{card.title}</h3>
-                <p className="mt-3 text-sm leading-6">{card.summary}</p>
-                <p className="mt-4 text-sm font-medium">{card.price}</p>
-              </article>
-            ))}
-          </div>
-        </section>
-
-        <section id="pricing" className="border-y border-[#dde2de] bg-white/70 py-16">
-          <div className="mx-auto max-w-5xl px-6 text-center">
-            <h2 className="font-[var(--font-playfair)] text-4xl text-[#1f2c25]">What&apos;s right for you depends on how much you&apos;d like to lose.</h2>
-            <div className="mt-8 grid gap-4 md:grid-cols-3">
-              {[
-                ["20–50 lbs", "Medication plans and gastric balloon"],
-                ["50–150 lbs", "The best fit range for sleeve and bypass", true],
-                ["150+ lbs", "Advanced surgery pathways"],
-              ].map(([range, text, featured]) => (
-                <div key={String(range)} className={`rounded-lg border p-5 text-left ${featured ? "border-[#145c42] bg-[#145c42] text-white" : "border-[#d9dfdb] bg-white"}`}>
-                  <h3 className="font-[var(--font-playfair)] text-3xl">{range}</h3>
-                  <p className="mt-2 text-sm">{text}</p>
-                </div>
-              ))}
-            </div>
-            <a href="#quiz" className="mt-8 inline-block rounded-md bg-[#145c42] px-5 py-3 text-sm font-medium text-white">Get Personalized Plan</a>
-          </div>
-        </section>
-
-        <section id="quiz" className="bg-[#e8eeea] py-16">
-          <div className="mx-auto grid max-w-6xl gap-8 px-6 lg:grid-cols-2">
+        <section className="bg-[#f7f8f6]">
+          <div className="mx-auto grid max-w-7xl gap-10 px-5 py-14 lg:grid-cols-[1.05fr_0.95fr] lg:items-center lg:px-8 lg:py-20">
             <div>
-              <p className="text-xs uppercase tracking-[0.2em] text-[#5f6b64]">Find your fit</p>
-              <h2 className="mt-3 font-[var(--font-playfair)] text-4xl text-[#1f2c25]">A 60-second guide to your best-fit option</h2>
-              <ul className="mt-6 space-y-3 text-sm leading-6">
-                <li>• Clarifies your likely care pathway.</li>
-                <li>• Helps estimate timeline and investment.</li>
-                <li>• Optional and pressure-free.</li>
-              </ul>
-            </div>
-            <aside className="rounded-xl border border-[#d4dbd6] bg-white p-6">
-              <div className="mb-5 flex items-center justify-between text-xs text-[#5f6b64]"><span>Step 1 of 4</span><span>About 60 seconds</span></div>
-              <h3 className="font-[var(--font-playfair)] text-3xl text-[#1f2c25]">How much weight are you looking to lose?</h3>
-              <div className="mt-6 space-y-3">
-                {[
-                  "20–50 lbs",
-                  "50–100 lbs",
-                  "100+ lbs",
-                ].map((option, idx) => (
-                  <button key={option} className={`flex w-full items-center justify-between rounded-md border px-4 py-3 text-left text-sm ${idx === 1 ? "border-[#145c42] bg-[#f2f8f5]" : "border-[#d6ddd8]"}`}>
-                    {option}<span className="h-4 w-4 rounded-full border border-[#b8c4bd]" />
-                  </button>
-                ))}
+              <p className="eyebrow">Bariatric and medical weight loss care</p>
+              <h1 className="mt-4 max-w-4xl font-serif text-5xl leading-[1.05] text-[#1e2b24] md:text-6xl">
+                Lasting weight loss, guided by experienced bariatric specialists.
+              </h1>
+              <p className="mt-6 max-w-2xl text-lg leading-8 text-[#516059]">
+                JourneyLite Physicians offers surgical, non-surgical, and medication-supported weight loss care for
+                patients across Ohio, Kentucky, and Indiana. Compare options with a medical team that helps you choose a
+                plan around your BMI, health history, goals, and comfort level.
+              </p>
+              <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+                <CTAButton href="/#quiz">Book Consultation</CTAButton>
+                <CTAButton href="/#surgical" variant="secondary">
+                  View Weight Loss Options
+                </CTAButton>
               </div>
+            </div>
+
+            <aside
+              aria-label="JourneyLite Cincinnati main office"
+              className="overflow-hidden rounded-2xl border border-[#d6e1da] bg-white shadow-2xl shadow-[#20372b]/10"
+            >
+              <Image
+                alt="JourneyLite bariatric care team and patient support"
+                className="h-[520px] w-full object-cover"
+                height={700}
+                priority
+                src="/hero-image.jpg"
+                width={760}
+              />
             </aside>
           </div>
         </section>
 
-        <section className="mx-auto max-w-6xl px-6 py-16">
-          <h2 className="font-[var(--font-playfair)] text-4xl text-[#1f2c25]">Two surgeons. Decades of dedicated bariatric practice.</h2>
-          <div className="mt-8 grid gap-4 md:grid-cols-2">
-            {["Dr. Trace Curry", "Dr. James Augusta"].map((name) => (
-              <article key={name} className="rounded-lg border border-[#d9dfdb] bg-white p-5">
-                <div className="flex gap-4">
-                  <div className="h-24 w-24 rounded-md bg-[#e4ebe6]" />
-                  <div>
-                    <h3 className="font-[var(--font-playfair)] text-2xl text-[#1f2c25]">{name}</h3>
-                    <p className="mt-2 text-sm text-[#52615a]">Board-certified bariatric surgeon focused on personalized, evidence-based care.</p>
-                  </div>
-                </div>
+        <StatBand />
+
+        <Section
+          eyebrow="Surgical care"
+          id="surgical"
+          intro="JourneyLite offers advanced bariatric surgery options for patients seeking durable, medically supervised weight loss. Your care team will help determine which procedure may fit your BMI, health history, weight-loss goals, and long-term needs."
+          title="Surgical Weight Loss Options"
+          tone="white"
+        >
+          <article
+            className="mt-8 grid gap-6 rounded-2xl border border-[#145c42] bg-[#0f3e2e] p-6 text-white shadow-xl shadow-[#0f3e2e]/15 lg:grid-cols-[1.25fr_0.75fr] lg:p-8"
+            id="gastric-sleeve"
+          >
+            <div>
+              <p className="eyebrow text-[#b9d2c5]">Featured surgical option</p>
+              <h3 className="mt-3 font-serif text-4xl leading-tight">Gastric Sleeve (VSG)</h3>
+              <p className="mt-4 max-w-3xl text-base leading-7 text-[#dbe8e1]">
+                Our most performed procedure with a clinically proven pathway for durable weight loss and metabolic
+                improvement.
+              </p>
+              <div className="mt-6 flex flex-wrap gap-2">
+                {["Commonly considered for patients seeking long-term weight loss support with structured follow-up."].map((chip) => (
+                  <span className="rounded-full bg-white/10 px-3 py-2 text-xs font-semibold text-[#edf7f1]" key={chip}>
+                    {chip}
+                  </span>
+                ))}
+              </div>
+            </div>
+            <div className="flex flex-col justify-between rounded-xl bg-white p-5 text-[#1f2c25]">
+              <p className="text-sm leading-6 text-[#53635b]">
+                Gastric sleeve surgery is a leading option for bariatric surgery in Ohio because it can support durable
+                weight loss while preserving a straightforward long-term follow-up plan for eligible patients.
+              </p>
+              <div className="mt-6">
+                <CTAButton href="/#quiz">Explore Gastric Sleeve</CTAButton>
+              </div>
+            </div>
+          </article>
+
+          <div className="mt-5 grid gap-4 md:grid-cols-2 xl:grid-cols-4">
+            {surgicalOptions.map((option) => (
+              <ProcedureCard key={option.title} {...option} />
+            ))}
+          </div>
+          <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
+            <CTAButton href="/#surgical" variant="secondary">
+              Explore Surgical Options
+            </CTAButton>
+            <CTAButton href="/#compare" variant="secondary">
+              Compare Procedures
+            </CTAButton>
+            <CTAButton href="/#quiz">Book Consultation</CTAButton>
+          </div>
+        </Section>
+
+        <Section
+          eyebrow="Incisionless and less invasive procedures"
+          id="non-surgical"
+          intro="Not every patient is ready for or needs surgery. JourneyLite offers incisionless and less invasive weight-loss procedures designed to help eligible patients reduce portions, build healthier habits, and receive structured medical support."
+          title="Non-Surgical Weight Loss Procedures"
+          tone="soft"
+        >
+          <div className="mt-8 grid gap-4 md:grid-cols-2 xl:grid-cols-3">
+            {nonSurgicalOptions.map((option) => (
+              <ProcedureCard key={option.title} {...option} />
+            ))}
+          </div>
+          <p className="mt-5 max-w-3xl rounded-lg border border-[#d4ddd7] bg-white p-4 text-sm leading-6 text-[#53635b]">
+            Some non-surgical procedures may be shown for education and comparison. Availability depends on JourneyLite&apos;s
+            current programs and provider evaluation. JourneyLite currently emphasizes gastric balloon treatment as its
+            active non-surgical procedure among the listed procedures.
+          </p>
+          <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
+            <CTAButton href="/#non-surgical" variant="secondary">
+              Explore Non-Surgical Options
+            </CTAButton>
+            <CTAButton href="/gastric-balloon" variant="secondary">
+              Learn About Gastric Balloon
+            </CTAButton>
+            <CTAButton href="/#quiz">Book Consultation</CTAButton>
+          </div>
+        </Section>
+
+        <Section
+          eyebrow="Medical weight loss"
+          id="medications"
+          intro="Medication-supported weight loss can help eligible patients manage appetite, cravings, and long-term progress with medical supervision. JourneyLite offers oral and injectable medication options as part of a structured care plan."
+          title="Prescription Weight Loss Medications"
+          tone="white"
+        >
+          <div className="mt-8 grid gap-8 lg:grid-cols-2">
+            <section aria-labelledby="oral-medications-title" id="oral-medications">
+              <h3 className="text-2xl font-semibold text-[#1f2c25]" id="oral-medications-title">
+                Oral Medications
+              </h3>
+              <div className="mt-4 grid gap-4">
+                {oralMedicationOptions.map((option) => (
+                  <ProcedureCard key={option.title} {...option} />
+                ))}
+              </div>
+            </section>
+            <section aria-labelledby="injectable-medications-title" id="injectable-medications">
+              <h3 className="text-2xl font-semibold text-[#1f2c25]" id="injectable-medications-title">
+                Injectable Medications
+              </h3>
+              <div className="mt-4 grid gap-4">
+                {injectableMedicationOptions.map((option) => (
+                  <ProcedureCard key={option.title} {...option} />
+                ))}
+              </div>
+            </section>
+          </div>
+          <div className="mt-6 grid gap-4 md:grid-cols-2">
+            {medicationSupportOptions.map((option) => (
+              <ProcedureCard key={option.title} {...option} />
+            ))}
+          </div>
+          <MedicationComparisonTable />
+          <p className="mt-5 max-w-4xl rounded-lg border border-[#dce4df] bg-[#f8fbf9] p-4 text-sm leading-6 text-[#53635b]">
+            Medication choice depends on medical history, current medications, side effect tolerance, pregnancy status,
+            insurance coverage, and provider evaluation. JourneyLite&apos;s prescription weight loss medication Ohio programs
+            may include Wegovy, Zepbound, oral medications, or post-op weight regain support for eligible patients.
+          </p>
+          <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
+            <CTAButton href="/#medications" variant="secondary">
+              View Medication Options
+            </CTAButton>
+            <CTAButton href="/#medications" variant="secondary">
+              Compare Medications
+            </CTAButton>
+            <CTAButton href="/#quiz">Start Medication Program</CTAButton>
+          </div>
+        </Section>
+
+        <Section
+          eyebrow="Decision support"
+          id="pricing"
+          intro="Surgery, non-surgical procedures, and prescription medications can all play different roles in medical weight loss across Ohio, Kentucky, and Indiana."
+          title="Which weight-loss path may fit you best?"
+          tone="light"
+        >
+          <div className="mt-8 grid gap-4 lg:grid-cols-3">
+            {pathComparisonCards.map((card) => (
+              <ComparisonCard key={card.title} {...card} />
+            ))}
+          </div>
+          <p className="mt-5 max-w-3xl text-sm leading-6 text-[#64736b]">
+            Final recommendations depend on BMI, medical history, weight-loss goals, medication history, insurance
+            coverage, and provider evaluation.
+          </p>
+          <div className="mt-6">
+            <CTAButton href="/#quiz">Get a Personalized Recommendation</CTAButton>
+          </div>
+        </Section>
+
+        <section className="bg-[#edf4ef] py-16 lg:py-20" id="quiz">
+          <div className="mx-auto grid max-w-7xl gap-10 px-5 lg:grid-cols-[0.8fr_1fr] lg:items-start lg:px-8">
+            <div>
+              <p className="eyebrow">60-second guide</p>
+              <h2 className="section-title">Compare your likely weight loss care path.</h2>
+              <p className="section-intro">
+                Answer a few questions to organize your next conversation. The guide does not diagnose or determine
+                eligibility, but it can help you prepare for a consultation.
+              </p>
+              <div className="mt-6 grid gap-3 text-sm leading-6 text-[#53635b]">
+                <p className="rounded-lg border border-[#d3ded7] bg-white p-4">
+                  Large, tappable options make the flow easy to complete on desktop or mobile.
+                </p>
+                <p className="rounded-lg border border-[#d3ded7] bg-white p-4">
+                  Results suggest next steps and link directly to consultation and comparison resources.
+                </p>
+              </div>
+            </div>
+            <HomeQuiz />
+          </div>
+        </section>
+
+        <Section eyebrow="Why JourneyLite" id="why" title="Why patients choose JourneyLite" tone="white">
+          <div className="mt-8 grid gap-4 md:grid-cols-2 xl:grid-cols-3">
+            {whyCards.map(([title, body]) => (
+              <FeatureCard key={title} title={title}>
+                <p>{body}</p>
+              </FeatureCard>
+            ))}
+          </div>
+        </Section>
+
+        <Section
+          eyebrow="Physicians"
+          id="physicians"
+          intro="JourneyLite patients are supported by experienced bariatric and minimally invasive weight loss surgeons who help compare surgical, non-surgical, and medical weight loss options with responsible expectations."
+          title="Meet the bariatric physicians behind JourneyLite."
+          tone="light"
+        >
+          <div className="mt-8 grid gap-6">
+            {physicianCards.map((physician) => (
+              <PhysicianProfileCard key={physician.name} physician={physician} />
+            ))}
+          </div>
+        </Section>
+
+        <Section
+          eyebrow="Patient feedback"
+          id="reviews"
+          intro="Short excerpts from public Google reviews help show the communication, follow-up, and patient-centered care experience patients describe."
+          title="Google reviews from JourneyLite patients"
+          tone="white"
+        >
+          <div className="mt-8 grid gap-5 lg:grid-cols-[0.72fr_1.28fr] lg:items-start">
+            <ReviewBadge />
+            <div>
+              <h3 className="text-2xl font-semibold text-[#1f2c25]">A public review signal for patient trust</h3>
+              <p className="mt-3 max-w-3xl text-sm leading-6 text-[#53635b]">
+                Review excerpts are shown with first names only and shortened for readability. The full Google listing
+                opens from the review badge.
+              </p>
+            </div>
+          </div>
+          <ReviewGrid />
+        </Section>
+
+        <Section
+          eyebrow="Outcomes"
+          id="outcomes"
+          intro="Numbers are most useful when they are paired with context. Procedure choice, medical history, nutrition habits, follow-up, and long-term adherence all influence results."
+          title="Real outcomes. Real numbers. Real people."
+          tone="white"
+        >
+          <div className="mt-8 grid gap-4 md:grid-cols-3">
+            {outcomeStats.map((stat) => (
+              <article className="rounded-lg border border-[#dce4df] bg-white p-6 shadow-sm" key={stat.label}>
+                <p className="font-serif text-4xl text-[#145c42]">{stat.value}</p>
+                <h3 className="mt-3 text-lg font-semibold text-[#1f2c25]">{stat.label}</h3>
+                <p className="mt-3 text-sm leading-6 text-[#53635b]">{stat.context}</p>
               </article>
             ))}
           </div>
-        </section>
-
-        <section className="border-y border-[#dde2de] bg-white/80 py-16">
-          <div className="mx-auto max-w-6xl px-6">
-            <h2 className="font-[var(--font-playfair)] text-4xl text-[#1f2c25]">Real outcomes. Real numbers. Real people.</h2>
-            <div className="mt-8 grid gap-4 md:grid-cols-3">
-              <div className="rounded-lg border border-[#d9dfdb] bg-white p-5"><p className="text-2xl font-[var(--font-playfair)]">94%</p><p className="text-sm">Would choose JourneyLite again</p></div>
-              <div className="rounded-lg border border-[#d9dfdb] bg-white p-5"><p className="text-2xl font-[var(--font-playfair)]">60–70%</p><p className="text-sm">Average excess weight loss</p></div>
-              <div className="rounded-lg border border-[#d9dfdb] bg-white p-5"><p className="text-2xl font-[var(--font-playfair)]">&lt;1%</p><p className="text-sm">Major complication rate</p></div>
-            </div>
+          <p className="mt-5 max-w-3xl text-sm leading-6 text-[#64736b]">
+            Outcomes vary by procedure, medical history, follow-up adherence, nutrition habits, activity, and other
+            individual factors.
+          </p>
+          <div className="mt-6 flex flex-col gap-3 sm:flex-row">
+            <CTAButton href="/#quiz">Start Your Journey</CTAButton>
+            <CTAButton href="/#outcomes" variant="secondary">
+              See Patient Results
+            </CTAButton>
           </div>
-        </section>
+        </Section>
 
-        <section className="bg-[#e8eeea] py-16">
-          <div className="mx-auto grid max-w-6xl gap-10 px-6 lg:grid-cols-2">
-            <div>
-              <h2 className="font-[var(--font-playfair)] text-4xl text-[#1f2c25]">Weight Loss Surgery in Ohio, Kentucky, and Indiana</h2>
-              <p className="mt-4 text-sm leading-7 text-[#4f5d57]">
-                If you are searching for gastric sleeve Cincinnati expertise, bariatric surgery Ohio patients trust, or a weight loss clinic near me with proven outcomes, JourneyLite Physicians provides comprehensive programs tailored to your medical history and goals.
+        <Section
+          eyebrow="Option comparison"
+          id="compare"
+          intro="Use this overview to understand the main differences between common JourneyLite care paths before your consultation."
+          title="Compare weight loss options"
+          tone="soft"
+        >
+          <ComparisonTable />
+        </Section>
+
+        <Section
+          eyebrow="Regional care"
+          id="regional"
+          intro="JourneyLite serves patients looking for weight loss surgery in Ohio, bariatric surgery in Ohio, non-surgical weight loss care, and medication-supported programs across nearby Kentucky and Indiana communities."
+          title="Weight Loss Surgery in Ohio, Kentucky, and Indiana"
+          tone="white"
+        >
+          <div className="mt-8 grid gap-6 lg:grid-cols-[1fr_0.9fr]">
+            <div className="space-y-4 text-base leading-8 text-[#53635b]">
+              <p>
+                Patients visit JourneyLite Physicians from Cincinnati, Dayton, Columbus, Northern Kentucky,
+                Indianapolis, and surrounding communities to compare surgical and non-surgical weight loss options in one
+                medical setting.
               </p>
+              <p>
+                The care team can help eligible patients understand gastric sleeve surgery, gastric bypass surgery,
+                gastric balloon treatment, weight loss medications, and medical weight loss clinic support without
+                reducing the decision to a single procedure.
+              </p>
+              <div className="flex flex-col gap-3 pt-2 sm:flex-row">
+                <CTAButton href="/#locations" variant="secondary">
+                  Find a Location
+                </CTAButton>
+                <CTAButton href="/#quiz">Book Consultation</CTAButton>
+              </div>
             </div>
-            <div>
-              <h3 className="font-[var(--font-playfair)] text-2xl text-[#1f2c25]">Services we offer</h3>
-              <ul className="mt-4 space-y-2 text-sm">
-                <li>• Gastric sleeve and gastric bypass surgery</li>
-                <li>• Revisional bariatric procedures</li>
-                <li>• Medical weight loss and GLP-1 plans</li>
-                <li>• Ongoing nutrition, behavior, and follow-up care</li>
-              </ul>
+            <div className="grid gap-3 sm:grid-cols-2">
+              {[
+                ["Cincinnati Weight Loss Care", "/#locations"],
+                ["Columbus Bariatric Options", "/#locations"],
+                ["Dayton Medical Weight Loss", "/#locations"],
+                ["Northern Kentucky Location", "/#locations"],
+                ["Indianapolis Area Care", "/#locations"],
+                ["Gastric Balloon", "/gastric-balloon"],
+              ].map(([label, href]) => (
+                <Link
+                  className="rounded-lg border border-[#dce4df] bg-white p-4 text-sm font-semibold text-[#1f2c25] shadow-sm transition hover:border-[#145c42] hover:text-[#145c42] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#145c42]"
+                  href={href}
+                  key={label}
+                >
+                  {label}
+                </Link>
+              ))}
             </div>
           </div>
-        </section>
+        </Section>
 
-        <section id="locations" className="mx-auto max-w-6xl px-6 py-16">
-          <h2 className="font-[var(--font-playfair)] text-4xl text-[#1f2c25]">Five clinics across Ohio, Kentucky, and Indiana</h2>
-          <div className="mt-8 space-y-10">
-            {locationGroups.map((group) => (
-              <section key={group.state}>
-                <h3 className="mb-4 font-[var(--font-playfair)] text-2xl text-[#1f2c25]">{group.state}</h3>
-                <div className="grid gap-4 lg:grid-cols-2">
-                  {group.locations.map((loc) => (
-                    <article key={loc.city} className="rounded-lg border border-[#d9dfdb] bg-white p-4">
-                      <h4 className="font-semibold text-[#1f2c25]">{loc.city}</h4>
-                      <p className="mt-2 text-sm">{loc.address1}<br />{loc.address2}<br />{loc.phone}</p>
-                      <div className="mt-4 overflow-hidden rounded-md border border-[#d9dfdb]">
-                        <iframe src={loc.map} title={`Map for ${loc.city}`} className="h-48 w-full" loading="lazy" referrerPolicy="no-referrer-when-downgrade" />
-                      </div>
-                    </article>
-                  ))}
-                </div>
-              </section>
-            ))}
-          </div>
-        </section>
+        <Section
+          eyebrow="Locations"
+          id="locations"
+          intro="The Cincinnati main office and JourneyLite Surgery Center anchor the practice, with additional locations supporting patients across Ohio, Kentucky, and Indiana."
+          title="Cincinnati Weight Loss Surgery Center and Main Office"
+          tone="light"
+        >
+          <LocationCards />
+        </Section>
 
-        <section className="bg-[#0f3e2e] py-16 text-center text-white">
-          <h2 className="font-[var(--font-playfair)] text-5xl">Start Your Weight Loss Journey</h2>
-          <p className="mx-auto mt-4 max-w-2xl text-[#d8e4dd]">Free consultation. No pressure. A patient-first roadmap that fits your goals.</p>
-          <div className="mt-8 flex justify-center gap-4">
-            <a href="#quiz" className="rounded-md bg-white px-5 py-3 text-sm font-medium text-[#0f3e2e]">Book Consultation</a>
-            <a href="tel:+18774422263" className="rounded-md border border-[#8ba597] px-5 py-3 text-sm font-medium">(877) 442-2263</a>
-          </div>
-        </section>
+        <FinalCTA />
       </main>
-
-      <footer className="bg-[#0b2c21] text-[#d1dfd7]">
-        <div className="mx-auto grid max-w-6xl gap-8 px-6 py-12 md:grid-cols-4">
-          <div>
-            <p className="text-lg"><span className="font-semibold text-white">JourneyLite</span> Physicians</p>
-            <p className="mt-3 text-sm">Weight loss surgery and medical weight loss care across Ohio, Kentucky, and Indiana.</p>
-          </div>
-          <div>
-            <h3 className="text-sm font-semibold text-white">Services</h3>
-            <ul className="mt-3 space-y-2 text-sm"><li><a href="#services">Gastric Sleeve</a></li><li><a href="#services">Gastric Bypass</a></li><li><a href="#services">Medications</a></li></ul>
-          </div>
-          <div>
-            <h3 className="text-sm font-semibold text-white">Company</h3>
-            <ul className="mt-3 space-y-2 text-sm"><li><a href="#">About</a></li><li><a href="#locations">Locations</a></li><li><a href="#quiz">Consultation</a></li></ul>
-          </div>
-          <div>
-            <h3 className="text-sm font-semibold text-white">Contact</h3>
-            <p className="mt-3 text-sm">(877) 442-2263</p>
-          </div>
-        </div>
-      </footer>
-    </div>
+      <SiteFooter />
+    </>
   );
 }

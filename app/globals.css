@@ -11,3 +11,48 @@ body {
   margin: 0;
   padding: 0;
 }
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: #f7f8f6;
+  color: #37443e;
+  font-family: var(--font-inter), system-ui, sans-serif;
+}
+
+a,
+button,
+summary,
+input {
+  -webkit-tap-highlight-color: transparent;
+}
+
+.font-serif {
+  font-family: var(--font-playfair), Georgia, serif;
+}
+
+.eyebrow {
+  font-size: 0.76rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #5f7569;
+}
+
+.section-title {
+  margin-top: 0.75rem;
+  font-family: var(--font-playfair), Georgia, serif;
+  font-size: clamp(2.25rem, 4vw, 3.8rem);
+  line-height: 1.08;
+  color: #1f2c25;
+}
+
+.section-intro {
+  margin-top: 1rem;
+  max-width: 48rem;
+  font-size: 1rem;
+  line-height: 1.75;
+  color: #53635b;
+}
