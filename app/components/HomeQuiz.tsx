@@ -99,10 +99,10 @@ export function HomeQuiz() {
             attempts, goals, and provider evaluation.
           </p>
           <div className="mt-6 flex flex-col gap-3 sm:flex-row">
-            <CTAButton href="/#quiz">Book Consultation</CTAButton>
             <CTAButton href="/#compare" variant="secondary">
-              Compare Options
+              See My Options
             </CTAButton>
+            <CTAButton href="/#quiz">Book Consultation</CTAButton>
           </div>
           <button
             className="mt-4 text-sm font-semibold text-[#145c42] underline-offset-4 hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#145c42]"

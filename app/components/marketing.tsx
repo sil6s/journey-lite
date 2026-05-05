@@ -58,7 +58,7 @@ export function SiteHeader() {
         >
           <Image
             alt="JourneyLite Bariatric Physicians"
-            className="h-auto w-[240px] max-w-[62vw] sm:w-[300px] lg:w-[320px]"
+            className="h-auto w-[210px] max-w-[58vw] sm:w-[250px] lg:w-[270px]"
             height={160}
             priority
             src="/journeylite-logo.svg"
@@ -98,6 +98,12 @@ export function SiteHeader() {
             href="/#locations"
           >
             Locations
+          </Link>
+          <Link
+            className="rounded-md px-3 py-2 text-sm font-medium text-[#314139] transition hover:bg-[#f0f5f2] hover:text-[#145c42] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#145c42]"
+            href="/blog"
+          >
+            Blog
           </Link>
         </nav>
 
@@ -242,9 +248,11 @@ export function SiteFooter() {
           title="Resources"
           links={[
             ["Compare Options", "/#compare"],
-            ["Pricing", "/#pricing"],
-            ["Our Team", "/our-team"],
+            ["Pricing & Financing", "/#pricing"],
+            ["Physicians", "/our-team"],
             ["Locations", "/#locations"],
+            ["Testimonials", "/#reviews"],
+            ["Blog", "/blog"],
           ]}
         />
         <div>
@@ -336,6 +344,7 @@ export function ProcedureCard({
   href,
   cta,
   status,
+  className = "",
 }: {
   id?: string;
   title: string;
@@ -344,10 +353,11 @@ export function ProcedureCard({
   href: string;
   cta: string;
   status?: string;
+  className?: string;
 }) {
   return (
     <article
-      className="flex h-full flex-col rounded-lg border border-[#dce4df] bg-white p-6 shadow-sm shadow-[#20372b]/5 transition hover:-translate-y-0.5 hover:shadow-md"
+      className={`flex h-full flex-col rounded-lg border border-[#dce4df] bg-white p-6 shadow-sm shadow-[#20372b]/5 transition hover:-translate-y-0.5 hover:shadow-md ${className}`}
       id={id}
     >
       {status ? (
@@ -372,7 +382,7 @@ export function ProcedureCard({
 
 export function MedicationComparisonTable() {
   return (
-    <div className="mt-8">
+    <div>
       <div className="hidden overflow-hidden rounded-lg border border-[#dce4df] bg-white shadow-sm lg:block">
         <table className="w-full border-collapse text-left text-sm">
           <thead className="bg-[#0f3e2e] text-white">
@@ -418,6 +428,129 @@ export function MedicationComparisonTable() {
         ))}
       </div>
     </div>
+  );
+}
+
+type MedicationOption = {
+  id?: string;
+  title: string;
+  description: string;
+  bestFor: string;
+  href: string;
+  cta: string;
+};
+
+export function MedicationCard({ option }: { option: MedicationOption }) {
+  return (
+    <article
+      className="flex min-h-[218px] flex-col rounded-lg border border-[#dce4df] bg-white p-5 shadow-sm shadow-[#20372b]/5"
+      id={option.id}
+    >
+      <h4 className="text-lg font-semibold text-[#1f2c25]">{option.title}</h4>
+      <p className="mt-3 text-sm leading-6 text-[#53635b]">{option.description}</p>
+      <p className="mt-4 rounded-md bg-[#f1f6f3] px-3 py-2 text-xs font-medium leading-5 text-[#355346]">
+        {option.bestFor}
+      </p>
+      <Link
+        className="mt-auto inline-flex pt-5 text-sm font-semibold text-[#145c42] underline-offset-4 hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#145c42]"
+        href={option.href}
+      >
+        {option.cta}
+      </Link>
+    </article>
+  );
+}
+
+export function MedicationCategoryPanel({
+  id,
+  title,
+  intro,
+  options,
+}: {
+  id: string;
+  title: string;
+  intro: string;
+  options: MedicationOption[];
+}) {
+  return (
+    <section
+      aria-labelledby={`${id}-title`}
+      className="flex h-full flex-col rounded-2xl border border-[#cbd9d1] bg-[#f8fbf9] p-5 shadow-sm lg:p-6"
+      id={id}
+    >
+      <h3 className="text-2xl font-semibold text-[#1f2c25]" id={`${id}-title`}>
+        {title}
+      </h3>
+      <p className="mt-3 text-sm leading-6 text-[#53635b]">{intro}</p>
+      <div className="mt-5 grid flex-1 gap-4">
+        {options.map((option) => (
+          <MedicationCard key={option.title} option={option} />
+        ))}
+      </div>
+    </section>
+  );
+}
+
+export function MedicationSupportCard({ option }: { option: MedicationOption }) {
+  return (
+    <article
+      className="flex h-full flex-col rounded-xl border border-[#dce4df] bg-white p-6 shadow-sm shadow-[#20372b]/5"
+      id={option.id}
+    >
+      <h3 className="text-xl font-semibold text-[#1f2c25]">{option.title}</h3>
+      <p className="mt-3 text-sm leading-6 text-[#53635b]">{option.description}</p>
+      <p className="mt-4 rounded-md bg-[#f1f6f3] px-3 py-2 text-xs font-medium leading-5 text-[#355346]">
+        {option.bestFor}
+      </p>
+      <Link
+        className="mt-auto inline-flex pt-5 text-sm font-semibold text-[#145c42] underline-offset-4 hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#145c42]"
+        href={option.href}
+      >
+        {option.cta}
+      </Link>
+    </article>
+  );
+}
+
+export function MedicationComparisonGuide() {
+  return (
+    <article className="mt-8 rounded-2xl border border-[#cbd9d1] bg-white p-5 shadow-lg shadow-[#20372b]/5 lg:p-8">
+      <div className="max-w-4xl">
+        <h3 className="text-2xl font-semibold text-[#1f2c25]">Medication comparison guide</h3>
+        <p className="mt-3 text-sm leading-6 text-[#53635b]">
+          Use this quick guide to understand how JourneyLite organizes medication-supported weight-loss options. Your
+          provider will recommend a plan based on your medical history, goals, medication tolerance, and coverage.
+        </p>
+      </div>
+      <div className="mt-6">
+        <MedicationComparisonTable />
+      </div>
+      <p className="mt-6 rounded-lg border border-[#cbd9d1] bg-[#edf4ef] p-4 text-sm leading-6 text-[#355346]">
+        Medication choice depends on medical history, current medications, side effect tolerance, pregnancy status,
+        insurance coverage, and provider evaluation. JourneyLite&apos;s prescription weight loss medication programs may
+        include oral medications, injectable medications, or post-op weight regain support for eligible patients.
+      </p>
+    </article>
+  );
+}
+
+export function MedicationCtaBand() {
+  return (
+    <section className="mt-8 rounded-2xl border border-[#cbd9d1] bg-[#edf4ef] p-6 lg:flex lg:items-center lg:justify-between lg:gap-8 lg:p-8">
+      <div className="max-w-3xl">
+        <h3 className="text-2xl font-semibold text-[#1f2c25]">Ready to compare medication options?</h3>
+        <p className="mt-3 text-sm leading-6 text-[#53635b]">
+          Schedule a consultation to review oral medications, injectable medications, pricing, and follow-up support
+          with the JourneyLite team.
+        </p>
+      </div>
+      <div className="mt-6 flex flex-col gap-3 sm:flex-row lg:mt-0 lg:shrink-0">
+        <CTAButton href="/#medications" variant="secondary">
+          View Medication Options
+        </CTAButton>
+        <CTAButton href="/#quiz">Start Medication Program</CTAButton>
+      </div>
+    </section>
   );
 }
 
@@ -608,13 +741,18 @@ export function FeaturedLocationCard({ includeMap = true }: { includeMap?: boole
               width={920}
             />
           </div>
-          <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
+          <div className="mt-6 grid gap-3 sm:grid-cols-3">
+            <div className="sm:col-span-3 [&_a]:w-full">
+              <CTAButton href="/#locations" variant="secondary">
+                View Cincinnati Location
+              </CTAButton>
+            </div>
             <CTAButton href={cincinnatiLocation.panels[0].voiceHref}>Call Cincinnati Office</CTAButton>
             <CTAButton href={cincinnatiLocation.panels[1].voiceHref} variant="secondary">
               Call Surgery Center
             </CTAButton>
-            <CTAButton href="/#locations" variant="secondary">
-              View Cincinnati Location
+            <CTAButton href={cincinnatiLocation.directions} variant="secondary">
+              Get Directions
             </CTAButton>
           </div>
         </div>
@@ -699,7 +837,7 @@ export function LocationCard({
         <CTAButton href="/#locations" variant="secondary">
           View Location
         </CTAButton>
-        <CTAButton ariaLabel={`Get directions to ${location.city}`} href={location.directions} variant="secondary">
+        <CTAButton ariaLabel={`Get directions to ${location.city}`} href={location.directions}>
           Get Directions
         </CTAButton>
       </div>
@@ -848,19 +986,21 @@ export function PhysicianProfileCard({ physician, expanded = false }: { physicia
 
 export function ReviewBadge() {
   return (
-    <article className="rounded-xl border border-[#d9c77b] bg-[#fffdf4] p-5 shadow-sm">
-      <p className="text-sm font-semibold text-[#1f2c25]">{reviewBadge.title}</p>
-      <div className="mt-3 flex flex-wrap items-center gap-2">
-        <span className="text-3xl font-semibold text-[#1f2c25]">{reviewBadge.rating}</span>
-        <span aria-label="Five star rating" className="text-sm font-semibold text-[#c89516]">
-          ★★★★★
-        </span>
+    <article className="rounded-xl border border-[#d9c77b] bg-[#fffdf4] p-6 text-left shadow-sm lg:flex lg:items-center lg:justify-between lg:gap-8">
+      <div>
+        <p className="text-sm font-semibold text-[#1f2c25]">{reviewBadge.title}</p>
+        <div className="mt-4 flex flex-wrap items-center gap-2">
+          <span className="text-3xl font-semibold text-[#1f2c25]">{reviewBadge.rating}</span>
+          <span aria-label="Five star rating" className="text-sm font-semibold text-[#c89516]">
+            ★★★★★
+          </span>
+        </div>
+        <p className="mt-2 text-sm text-[#53635b]">
+          {reviewBadge.reviews} · {reviewBadge.category}
+        </p>
       </div>
-      <p className="mt-2 text-sm text-[#53635b]">
-        {reviewBadge.reviews} · {reviewBadge.category}
-      </p>
       <a
-        className="mt-4 inline-flex rounded-md border border-[#d9c77b] bg-white px-4 py-2 text-sm font-semibold text-[#145c42] transition hover:border-[#145c42] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#145c42]"
+        className="mt-5 inline-flex rounded-md border border-[#d9c77b] bg-white px-4 py-2 text-sm font-semibold text-[#145c42] transition hover:border-[#145c42] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#145c42] lg:mt-0 lg:shrink-0"
         href={reviewBadge.href}
         rel="noopener noreferrer"
         target="_blank"

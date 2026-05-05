@@ -92,21 +92,12 @@ export default function OurTeamPage() {
 
         <Section
           eyebrow="Patient trust"
-          intro="Public review excerpts can help prospective patients understand the communication and care experience other patients describe."
-          title="5.0 rating from 481 Google reviews"
+          intro="Patients often describe JourneyLite's communication, follow-up, and supportive care experience throughout their weight loss journey."
+          title="Patient reviews from JourneyLite patients"
           tone="soft"
         >
-          <div className="mt-8 grid gap-6 lg:grid-cols-[0.7fr_1.3fr] lg:items-start">
+          <div className="mt-8">
             <ReviewBadge />
-            <div className="rounded-xl border border-[#dce4df] bg-white p-6">
-              <h3 className="text-2xl font-semibold text-[#1f2c25]">
-                JourneyLite Physicians / Dr. James Augusta Weight Loss Center
-              </h3>
-              <p className="mt-3 text-sm leading-6 text-[#53635b]">
-                Google review excerpts are shown with first names only and shortened for readability. The external review
-                listing opens in a new tab from the badge link.
-              </p>
-            </div>
           </div>
           <ReviewGrid />
         </Section>

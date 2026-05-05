@@ -112,6 +112,41 @@ export const navGroups = [
       },
     ],
   },
+  {
+    label: "Resources",
+    items: [
+      {
+        label: "Pricing & Financing",
+        href: "/#pricing",
+        description: "Review program and cost considerations.",
+      },
+      {
+        label: "Compare Options",
+        href: "/#compare",
+        description: "Use the detailed comparison table as a reference.",
+      },
+      {
+        label: "Physicians",
+        href: "/our-team",
+        description: "Meet the JourneyLite bariatric physicians.",
+      },
+      {
+        label: "Locations",
+        href: "/#locations",
+        description: "Find Cincinnati and regional office details.",
+      },
+      {
+        label: "Testimonials",
+        href: "/#reviews",
+        description: "Read Google review excerpts and trust signals.",
+      },
+      {
+        label: "Blog",
+        href: "/blog",
+        description: "Read educational articles and JourneyLite updates.",
+      },
+    ],
+  },
 ];
 
 export const statItems = [
@@ -296,7 +331,7 @@ export const medicationSupportOptions = [
     id: "post-op-weight-regain",
     title: "Post-op weight regain support",
     description:
-      "Medication-supported care may help some patients address weight regain or long-term maintenance after bariatric surgery.",
+      "Medication-supported care may help some patients address weight regain, plateaus, or long-term maintenance after prior weight-loss surgery.",
     bestFor: "May fit patients who need renewed structure after prior weight-loss surgery.",
     href: "/#post-op-weight-regain",
     cta: "Discuss Weight Regain Support",
@@ -527,7 +562,7 @@ export const physicianCards = [
 ];
 
 export const reviewBadge = {
-  title: "JourneyLite Physicians / Dr. James Augusta Weight Loss Center",
+  title: "JourneyLite Physicians",
   rating: "5.0",
   reviews: "481 Google reviews",
   category: "Weight loss service",

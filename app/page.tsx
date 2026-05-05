@@ -9,7 +9,10 @@ import {
   FeatureCard,
   FinalCTA,
   LocationCards,
-  MedicationComparisonTable,
+  MedicationCategoryPanel,
+  MedicationComparisonGuide,
+  MedicationCtaBand,
+  MedicationSupportCard,
   PhysicianProfileCard,
   ProcedureCard,
   ReviewBadge,
@@ -38,10 +41,10 @@ const pathComparisonCards = [
   {
     title: "Surgery may fit if:",
     items: [
-      "You are seeking more durable weight-loss support",
+      "You want more durable weight-loss support",
       "You have higher weight-loss goals",
       "You may have obesity-related health concerns",
-      "You are ready for a long-term surgical follow-up plan",
+      "You are ready for long-term follow-up",
     ],
   },
   {
@@ -50,7 +53,7 @@ const pathComparisonCards = [
       "You want a less invasive option",
       "You are not ready for surgery",
       "You want portion-control support",
-      "You are willing to commit to lifestyle changes and follow-up",
+      "You can commit to lifestyle changes and follow-up",
     ],
   },
   {
@@ -88,6 +91,42 @@ const outcomeStats = [
     value: "20+",
     label: "Years of experience",
     context: "Long-standing regional care gives patients a consistent place to compare options and plan next steps.",
+  },
+];
+
+const surgicalGridOptions = [
+  ...surgicalOptions.filter((option) =>
+    ["gastric-bypass", "sadi-surgery", "lap-band-surgery"].includes(option.id ?? ""),
+  ),
+  ...surgicalOptions.filter((option) =>
+    ["gastric-band-revision", "gastric-sleeve-revision", "general-surgery"].includes(option.id ?? ""),
+  ),
+];
+
+const homepageBlogPosts = [
+  {
+    title: "How to compare surgical and non-surgical weight loss options",
+    excerpt:
+      "A patient-friendly guide to comparing bariatric surgery, gastric balloon treatment, and medication-supported care before consultation.",
+    image: "/hero-image.jpg",
+    alt: "JourneyLite patient care consultation for weight loss options",
+    tag: "Treatment options",
+  },
+  {
+    title: "What to ask before starting prescription weight loss medication",
+    excerpt:
+      "Questions about eligibility, side effects, follow-up, cost, and long-term expectations for oral or injectable medication programs.",
+    image: "/weight-loss-med-featured.jpg",
+    alt: "Prescription weight loss medication education",
+    tag: "Medical weight loss",
+  },
+  {
+    title: "Preparing for your first bariatric consultation",
+    excerpt:
+      "What to bring, what to expect, and how to talk through goals, medical history, prior attempts, and comfort level with each path.",
+    image: "/weigt-consult-featured.jpg",
+    alt: "Patient preparing for a bariatric consultation",
+    tag: "Patient resources",
   },
 ];
 
@@ -171,9 +210,17 @@ export default function HomePage() {
             </div>
           </article>
 
-          <div className="mt-5 grid gap-4 md:grid-cols-2 xl:grid-cols-4">
-            {surgicalOptions.map((option) => (
-              <ProcedureCard key={option.title} {...option} />
+          <div className="mt-5 grid gap-4 lg:grid-cols-3">
+            {surgicalGridOptions.map((option) => (
+              <ProcedureCard
+                className={
+                  option.id === "lap-band-surgery"
+                    ? "border-[#b7cec2] bg-[#f8fbf9] ring-1 ring-[#dcebe3]"
+                    : undefined
+                }
+                key={option.title}
+                {...option}
+              />
             ))}
           </div>
           <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
@@ -183,7 +230,6 @@ export default function HomePage() {
             <CTAButton href="/#compare" variant="secondary">
               Compare Procedures
             </CTAButton>
-            <CTAButton href="/#quiz">Book Consultation</CTAButton>
           </div>
         </Section>
 
@@ -199,19 +245,18 @@ export default function HomePage() {
               <ProcedureCard key={option.title} {...option} />
             ))}
           </div>
-          <p className="mt-5 max-w-3xl rounded-lg border border-[#d4ddd7] bg-white p-4 text-sm leading-6 text-[#53635b]">
+          <p className="mt-5 rounded-lg border border-[#d4ddd7] bg-white p-4 text-sm leading-6 text-[#53635b]">
             Some non-surgical procedures may be shown for education and comparison. Availability depends on JourneyLite&apos;s
             current programs and provider evaluation. JourneyLite currently emphasizes gastric balloon treatment as its
             active non-surgical procedure among the listed procedures.
           </p>
           <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
-            <CTAButton href="/#non-surgical" variant="secondary">
-              Explore Non-Surgical Options
-            </CTAButton>
             <CTAButton href="/gastric-balloon" variant="secondary">
               Learn About Gastric Balloon
             </CTAButton>
-            <CTAButton href="/#quiz">Book Consultation</CTAButton>
+            <CTAButton href="/#non-surgical" variant="secondary">
+              Explore Non-Surgical Options
+            </CTAButton>
           </div>
         </Section>
 
@@ -222,48 +267,27 @@ export default function HomePage() {
           title="Prescription Weight Loss Medications"
           tone="white"
         >
-          <div className="mt-8 grid gap-8 lg:grid-cols-2">
-            <section aria-labelledby="oral-medications-title" id="oral-medications">
-              <h3 className="text-2xl font-semibold text-[#1f2c25]" id="oral-medications-title">
-                Oral Medications
-              </h3>
-              <div className="mt-4 grid gap-4">
-                {oralMedicationOptions.map((option) => (
-                  <ProcedureCard key={option.title} {...option} />
-                ))}
-              </div>
-            </section>
-            <section aria-labelledby="injectable-medications-title" id="injectable-medications">
-              <h3 className="text-2xl font-semibold text-[#1f2c25]" id="injectable-medications-title">
-                Injectable Medications
-              </h3>
-              <div className="mt-4 grid gap-4">
-                {injectableMedicationOptions.map((option) => (
-                  <ProcedureCard key={option.title} {...option} />
-                ))}
-              </div>
-            </section>
+          <div className="mt-8 grid items-stretch gap-6 lg:grid-cols-2">
+            <MedicationCategoryPanel
+              id="oral-medications"
+              intro="Oral medications may help appropriate patients manage appetite, cravings, or short-term weight-loss momentum with provider screening and monitoring."
+              options={oralMedicationOptions}
+              title="Oral Medications"
+            />
+            <MedicationCategoryPanel
+              id="injectable-medications"
+              intro="Weekly injectable medications may support appetite regulation and metabolic weight-loss goals for eligible patients with structured follow-up."
+              options={injectableMedicationOptions}
+              title="Injectable Medications"
+            />
           </div>
           <div className="mt-6 grid gap-4 md:grid-cols-2">
             {medicationSupportOptions.map((option) => (
-              <ProcedureCard key={option.title} {...option} />
+              <MedicationSupportCard key={option.title} option={option} />
             ))}
           </div>
-          <MedicationComparisonTable />
-          <p className="mt-5 max-w-4xl rounded-lg border border-[#dce4df] bg-[#f8fbf9] p-4 text-sm leading-6 text-[#53635b]">
-            Medication choice depends on medical history, current medications, side effect tolerance, pregnancy status,
-            insurance coverage, and provider evaluation. JourneyLite&apos;s prescription weight loss medication Ohio programs
-            may include Wegovy, Zepbound, oral medications, or post-op weight regain support for eligible patients.
-          </p>
-          <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
-            <CTAButton href="/#medications" variant="secondary">
-              View Medication Options
-            </CTAButton>
-            <CTAButton href="/#medications" variant="secondary">
-              Compare Medications
-            </CTAButton>
-            <CTAButton href="/#quiz">Start Medication Program</CTAButton>
-          </div>
+          <MedicationComparisonGuide />
+          <MedicationCtaBand />
         </Section>
 
         <Section
@@ -296,14 +320,6 @@ export default function HomePage() {
                 Answer a few questions to organize your next conversation. The guide does not diagnose or determine
                 eligibility, but it can help you prepare for a consultation.
               </p>
-              <div className="mt-6 grid gap-3 text-sm leading-6 text-[#53635b]">
-                <p className="rounded-lg border border-[#d3ded7] bg-white p-4">
-                  Large, tappable options make the flow easy to complete on desktop or mobile.
-                </p>
-                <p className="rounded-lg border border-[#d3ded7] bg-white p-4">
-                  Results suggest next steps and link directly to consultation and comparison resources.
-                </p>
-              </div>
             </div>
             <HomeQuiz />
           </div>
@@ -336,19 +352,12 @@ export default function HomePage() {
         <Section
           eyebrow="Patient feedback"
           id="reviews"
-          intro="Short excerpts from public Google reviews help show the communication, follow-up, and patient-centered care experience patients describe."
-          title="Google reviews from JourneyLite patients"
+          intro="Patients often describe JourneyLite's communication, follow-up, and supportive care experience throughout their weight loss journey."
+          title="Patient reviews from JourneyLite patients"
           tone="white"
         >
-          <div className="mt-8 grid gap-5 lg:grid-cols-[0.72fr_1.28fr] lg:items-start">
+          <div className="mt-8">
             <ReviewBadge />
-            <div>
-              <h3 className="text-2xl font-semibold text-[#1f2c25]">A public review signal for patient trust</h3>
-              <p className="mt-3 max-w-3xl text-sm leading-6 text-[#53635b]">
-                Review excerpts are shown with first names only and shortened for readability. The full Google listing
-                opens from the review badge.
-              </p>
-            </div>
           </div>
           <ReviewGrid />
         </Section>
@@ -414,7 +423,9 @@ export default function HomePage() {
                 <CTAButton href="/#locations" variant="secondary">
                   Find a Location
                 </CTAButton>
-                <CTAButton href="/#quiz">Book Consultation</CTAButton>
+                <CTAButton href="https://www.google.com/maps?q=10475+Reading+Road+Cincinnati+OH+45241">
+                  Get Directions
+                </CTAButton>
               </div>
             </div>
             <div className="grid gap-3 sm:grid-cols-2">
@@ -446,6 +457,47 @@ export default function HomePage() {
           tone="light"
         >
           <LocationCards />
+        </Section>
+
+        <Section
+          eyebrow="Blog"
+          id="blog"
+          intro="Read practical JourneyLite articles about bariatric surgery, non-surgical procedures, prescription weight loss medications, and preparing for care."
+          title="Featured weight loss education"
+          tone="white"
+        >
+          <div className="mt-8 grid gap-5 lg:grid-cols-3">
+            {homepageBlogPosts.map((post) => (
+              <article
+                className="flex h-full flex-col overflow-hidden rounded-xl border border-[#dce4df] bg-white shadow-sm shadow-[#20372b]/5 transition hover:-translate-y-0.5 hover:shadow-md"
+                key={post.title}
+              >
+                <Image
+                  alt={post.alt}
+                  className="h-56 w-full object-cover"
+                  height={360}
+                  src={post.image}
+                  width={620}
+                />
+                <div className="flex flex-1 flex-col p-6">
+                  <p className="text-xs font-semibold uppercase tracking-[0.12em] text-[#145c42]">{post.tag}</p>
+                  <h3 className="mt-3 text-xl font-semibold leading-tight text-[#1f2c25]">{post.title}</h3>
+                  <p className="mt-3 text-sm leading-6 text-[#53635b]">{post.excerpt}</p>
+                  <Link
+                    className="mt-auto inline-flex pt-5 text-sm font-semibold text-[#145c42] underline-offset-4 hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#145c42]"
+                    href="/blog"
+                  >
+                    Read article
+                  </Link>
+                </div>
+              </article>
+            ))}
+          </div>
+          <div className="mt-8">
+            <CTAButton href="/blog" variant="secondary">
+              View Blog
+            </CTAButton>
+          </div>
         </Section>
 
         <FinalCTA />
