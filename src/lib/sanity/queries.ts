@@ -14,6 +14,14 @@ const postFields = groq`
   "excerpt": coalesce(excerpt, pt::text(body[0...1])),
   publishedAt,
   updatedAt,
+  keyTakeaways,
+  showSources,
+  sources[] {
+    title,
+    publisher,
+    url,
+    note
+  },
   seoTitle,
   seoDescription,
   "featuredImage": coalesce(featuredImage, image),
@@ -22,7 +30,7 @@ const postFields = groq`
   tags,
   relatedServices,
   "category": category->{name, "slug": slug.current, description},
-  "author": author->{name, title, bio, credentials, image}
+  "author": author->{name, title, bio, credentials, image{..., asset->}}
 `;
 
 export const postsQuery = groq`

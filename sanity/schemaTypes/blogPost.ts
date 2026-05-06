@@ -10,6 +10,150 @@ const serviceOptions = [
   { title: "Contact JourneyLite", value: "/contact" },
 ];
 
+
+const ctaFields = [
+  defineField({
+    name: "label",
+    title: "Button label",
+    type: "string",
+    validation: (rule) => rule.max(60),
+  }),
+  defineField({
+    name: "href",
+    title: "Button URL",
+    type: "url",
+    validation: (rule) =>
+      rule.uri({
+        scheme: ["http", "https", "mailto", "tel"],
+        allowRelative: true,
+      }),
+  }),
+];
+
+export const factCardsMember = defineArrayMember({
+  name: "factCards",
+  title: "Fact cards",
+  type: "object",
+  fields: [
+    defineField({
+      name: "title",
+      title: "Section title",
+      type: "string",
+      initialValue: "Quick facts",
+    }),
+    defineField({
+      name: "cards",
+      title: "Cards",
+      type: "array",
+      of: [
+        defineArrayMember({
+          type: "object",
+          fields: [
+            defineField({
+              name: "label",
+              title: "Label",
+              type: "string",
+              validation: (rule) => rule.required().max(60),
+            }),
+            defineField({
+              name: "value",
+              title: "Value",
+              type: "string",
+              validation: (rule) => rule.max(80),
+            }),
+            defineField({
+              name: "description",
+              title: "Description",
+              type: "text",
+              rows: 2,
+              validation: (rule) => rule.max(180),
+            }),
+          ],
+          preview: {
+            select: {
+              title: "label",
+              subtitle: "value",
+            },
+          },
+        }),
+      ],
+      validation: (rule) => rule.min(1),
+    }),
+  ],
+  preview: {
+    select: {
+      title: "title",
+    },
+    prepare: ({ title }) => ({
+      title: title || "Fact cards",
+      subtitle: "Inline fact card section",
+    }),
+  },
+});
+
+export const ctaBlockMember = defineArrayMember({
+  name: "ctaBlock",
+  title: "CTA block",
+  type: "object",
+  fields: [
+    defineField({
+      name: "eyebrow",
+      title: "Eyebrow text",
+      type: "string",
+      validation: (rule) => rule.max(50),
+    }),
+    defineField({
+      name: "title",
+      title: "Title",
+      type: "string",
+      validation: (rule) => rule.required().max(120),
+    }),
+    defineField({
+      name: "text",
+      title: "Supporting text",
+      type: "text",
+      rows: 3,
+      validation: (rule) => rule.max(260),
+    }),
+    defineField({
+      name: "primaryCta",
+      title: "Primary button",
+      type: "object",
+      fields: ctaFields,
+    }),
+    defineField({
+      name: "secondaryCta",
+      title: "Secondary button",
+      type: "object",
+      fields: ctaFields,
+    }),
+  ],
+  preview: {
+    select: {
+      title: "title",
+      subtitle: "eyebrow",
+    },
+  },
+});
+
+export const sectionBreakMember = defineArrayMember({
+  name: "sectionBreak",
+  title: "Section break",
+  type: "object",
+  fields: [
+    defineField({
+      name: "label",
+      title: "Optional label",
+      type: "string",
+      validation: (rule) => rule.max(80),
+    }),
+  ],
+  preview: {
+    select: { title: "label" },
+    prepare: ({ title }) => ({ title: title || "Section break" }),
+  },
+});
+
 export const blogPost = defineType({
   name: "blogPost",
   title: "Blog Post",
@@ -45,6 +189,15 @@ export const blogPost = defineType({
       group: "content",
       description: "Short summary shown on the blog index and article hero.",
       validation: (rule) => rule.required().min(40).max(220),
+    }),
+    defineField({
+      name: "keyTakeaways",
+      title: "Key takeaways",
+      type: "array",
+      group: "content",
+      description: "Optional bullets shown near the top of the article.",
+      of: [defineArrayMember({ type: "string" })],
+      validation: (rule) => rule.max(6),
     }),
     defineField({
       name: "featuredImage",
@@ -189,8 +342,67 @@ export const blogPost = defineType({
             },
           },
         }),
+        factCardsMember,
+        ctaBlockMember,
+        sectionBreakMember,
       ],
       validation: (rule) => rule.required(),
+    }),
+    defineField({
+      name: "showSources",
+      title: "Show sources section",
+      type: "boolean",
+      group: "settings",
+      description: "Turn on to show the Sources section at the bottom of the article.",
+      initialValue: false,
+    }),
+    defineField({
+      name: "sources",
+      title: "Sources",
+      type: "array",
+      group: "settings",
+      description: "Optional citations or references shown only when the sources section is enabled.",
+      of: [
+        defineArrayMember({
+          type: "object",
+          fields: [
+            defineField({
+              name: "title",
+              title: "Source title",
+              type: "string",
+              validation: (rule) => rule.required().max(180),
+            }),
+            defineField({
+              name: "publisher",
+              title: "Publisher",
+              type: "string",
+              validation: (rule) => rule.max(120),
+            }),
+            defineField({
+              name: "url",
+              title: "URL",
+              type: "url",
+              validation: (rule) =>
+                rule.uri({
+                  scheme: ["http", "https"],
+                }),
+            }),
+            defineField({
+              name: "note",
+              title: "Optional note",
+              type: "text",
+              rows: 2,
+              validation: (rule) => rule.max(220),
+            }),
+          ],
+          preview: {
+            select: {
+              title: "title",
+              subtitle: "publisher",
+            },
+          },
+        }),
+      ],
     }),
     defineField({
       name: "relatedServices",

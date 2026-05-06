@@ -61,7 +61,9 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
 
   const toc = getTableOfContents(post.body ?? []);
   const relatedServices = post.relatedServices ?? [];
+  const sources = post.showSources ? (post.sources ?? []).filter((source) => source.title || source.url) : [];
   const featuredImageUrl = post.featuredImage ? urlFor(post.featuredImage).width(1400).height(760).fit("crop").url() : null;
+  const authorImageUrl = post.author?.image ? urlFor(post.author.image).width(160).height(160).fit("crop").url() : null;
 
   const blogSchema = {
     "@context": "https://schema.org",
@@ -76,6 +78,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
           "@type": "Person",
           name: post.author.name,
           jobTitle: post.author.title,
+          image: authorImageUrl,
         }
       : {
           "@type": "Organization",
@@ -90,6 +93,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
       },
     },
     mainEntityOfPage: `${siteUrl}/blog/${post.slug}`,
+    citation: sources.map((source) => source.url || source.title).filter(Boolean),
   };
 
   const breadcrumbSchema = {
@@ -171,7 +175,10 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
               </aside>
 
               <div className="max-w-3xl">
+                <AuthorCard imageUrl={authorImageUrl} post={post} />
+                <KeyTakeaways items={post.keyTakeaways} />
                 {post.body?.length ? <PortableTextRenderer value={post.body} /> : null}
+                <SourcesList sources={sources} />
 
                 <aside className="mt-12 rounded-xl border border-[#d8c88b] bg-[#fffdf4] p-5 text-sm leading-6 text-[#5e5235]">
                   <p className="font-semibold text-[#1f2c25]">Medical disclaimer</p>
@@ -253,6 +260,89 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(blogSchema) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
     </>
+  );
+}
+
+function AuthorCard({ imageUrl, post }: { imageUrl: string | null; post: BlogPost }) {
+  if (!post.author?.name) return null;
+
+  return (
+    <aside className="mb-8 rounded-2xl border border-[#dce4df] bg-[#f8fbf9] p-5">
+      <p className="text-xs font-semibold uppercase tracking-[0.14em] text-[#145c42]">Published by</p>
+      <div className="mt-4 flex gap-4">
+        {imageUrl ? (
+          <Image
+            alt={post.author.name}
+            className="h-16 w-16 rounded-full object-cover"
+            height={64}
+            src={imageUrl}
+            width={64}
+          />
+        ) : (
+          <div className="flex h-16 w-16 items-center justify-center rounded-full bg-[#dce8e1] text-xl font-semibold text-[#145c42]">
+            {post.author.name.charAt(0)}
+          </div>
+        )}
+        <div>
+          <h2 className="text-xl font-semibold leading-tight text-[#1f2c25]">{post.author.name}</h2>
+          {[post.author.title, post.author.credentials].filter(Boolean).length ? (
+            <p className="mt-1 text-sm font-semibold text-[#64736b]">
+              {[post.author.title, post.author.credentials].filter(Boolean).join(" • ")}
+            </p>
+          ) : null}
+          {post.author.bio ? <p className="mt-3 text-sm leading-6 text-[#53635b]">{post.author.bio}</p> : null}
+        </div>
+      </div>
+    </aside>
+  );
+}
+
+function KeyTakeaways({ items }: { items?: string[] }) {
+  const takeaways = items?.filter(Boolean) ?? [];
+  if (!takeaways.length) return null;
+
+  return (
+    <section className="mb-10 rounded-2xl border border-[#cbd9d1] bg-[#edf4ef] p-6">
+      <p className="text-xs font-semibold uppercase tracking-[0.14em] text-[#145c42]">Key takeaways</p>
+      <ul className="mt-4 space-y-3 text-sm leading-6 text-[#355346]">
+        {takeaways.map((item) => (
+          <li className="flex gap-3" key={item}>
+            <span className="mt-2 h-2 w-2 rounded-full bg-[#145c42]" aria-hidden="true" />
+            <span>{item}</span>
+          </li>
+        ))}
+      </ul>
+    </section>
+  );
+}
+
+function SourcesList({ sources }: { sources: NonNullable<BlogPost["sources"]> }) {
+  if (!sources.length) return null;
+
+  return (
+    <section className="mt-12 rounded-2xl border border-[#dce4df] bg-white p-6">
+      <p className="text-xs font-semibold uppercase tracking-[0.14em] text-[#145c42]">Sources</p>
+      <ol className="mt-4 space-y-4 text-sm leading-6 text-[#53635b]">
+        {sources.map((source, index) => (
+          <li className="border-b border-[#edf2ef] pb-4 last:border-b-0 last:pb-0" key={`${source.title}-${index}`}>
+            {source.url ? (
+              <a
+                className="font-semibold text-[#1f2c25] underline-offset-4 hover:text-[#145c42] hover:underline"
+                href={source.url}
+                rel="noopener noreferrer"
+                target="_blank"
+              >
+                {source.title || source.url}
+              </a>
+            ) : (
+              <span className="font-semibold text-[#1f2c25]">{source.title}</span>
+            )}
+            {source.publisher ? <p className="mt-1 text-xs font-semibold uppercase tracking-[0.1em] text-[#64736b]">{source.publisher}</p> : null}
+            {source.note ? <p className="mt-2">{source.note}</p> : null}
+          </li>
+        ))}
+      </ol>
+    </section>
   );
 }
 
