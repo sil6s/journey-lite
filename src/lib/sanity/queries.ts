@@ -1,16 +1,23 @@
 import { groq } from "next-sanity";
 
+const blogDocumentFilter = groq`
+  _type in ["blogPost", "post"] &&
+  defined(slug.current) &&
+  (!defined(publishedAt) || publishedAt <= now())
+`;
+
 const postFields = groq`
   _id,
+  _type,
   title,
   "slug": slug.current,
-  excerpt,
+  "excerpt": coalesce(excerpt, pt::text(body[0...1])),
   publishedAt,
   updatedAt,
   seoTitle,
   seoDescription,
-  featuredImage,
-  featuredImageAlt,
+  "featuredImage": coalesce(featuredImage, image),
+  "featuredImageAlt": coalesce(featuredImageAlt, image.alt),
   ogImage,
   tags,
   relatedServices,
@@ -19,14 +26,15 @@ const postFields = groq`
 `;
 
 export const postsQuery = groq`
-  *[_type == "blogPost" && defined(slug.current) && defined(publishedAt) && publishedAt <= now()]
-  | order(publishedAt desc) {
+  *[${blogDocumentFilter}]
+  | order(coalesce(publishedAt, _createdAt) desc) {
     ${postFields}
   }
 `;
 
 export const postSlugsQuery = groq`
-  *[_type == "blogPost" && defined(slug.current) && defined(publishedAt) && publishedAt <= now()] {
+  *[${blogDocumentFilter}]
+  | order(coalesce(publishedAt, _createdAt) desc) {
     "slug": slug.current,
     updatedAt,
     publishedAt
@@ -34,7 +42,7 @@ export const postSlugsQuery = groq`
 `;
 
 export const postBySlugQuery = groq`
-  *[_type == "blogPost" && slug.current == $slug && defined(publishedAt) && publishedAt <= now()][0] {
+  *[${blogDocumentFilter} && slug.current == $slug][0] {
     ${postFields},
     body[] {
       ...,
@@ -45,12 +53,9 @@ export const postBySlugQuery = groq`
       }
     },
     "relatedPosts": *[
-      _type == "blogPost" &&
-      defined(slug.current) &&
-      slug.current != $slug &&
-      defined(publishedAt) &&
-      publishedAt <= now()
-    ] | order(publishedAt desc)[0...3] {
+      ${blogDocumentFilter} &&
+      slug.current != $slug
+    ] | order(coalesce(publishedAt, _createdAt) desc)[0...3] {
       ${postFields}
     }
   }

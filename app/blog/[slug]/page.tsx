@@ -9,7 +9,7 @@ import { postBySlugQuery, postSlugsQuery } from "@/src/lib/sanity/queries";
 import type { BlogPost } from "@/src/lib/sanity/types";
 import { urlFor } from "@/src/lib/sanity/image";
 
-export const revalidate = 3600;
+export const revalidate = 30;
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://journeylite.com";
 

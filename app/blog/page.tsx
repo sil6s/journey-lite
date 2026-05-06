@@ -7,7 +7,7 @@ import { categoriesQuery, postsQuery } from "@/src/lib/sanity/queries";
 import type { BlogCategory, BlogPost } from "@/src/lib/sanity/types";
 import { urlFor } from "@/src/lib/sanity/image";
 
-export const revalidate = 3600;
+export const revalidate = 30;
 
 export const metadata: Metadata = {
   title: "Weight Loss Blog | JourneyLite",
