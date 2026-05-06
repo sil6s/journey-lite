@@ -1515,12 +1515,12 @@ function buildService(seed: Seed): ServicePageData {
       "A consultation helps clarify pricing, coverage, authorization, and what is included in the treatment plan.",
       ...(seed.category === "Surgical Weight Loss"
         ? [
-            "Legacy JourneyLite surgical packages described EKG, anesthesia, surgery, and one year of office aftercare as included for many primary outpatient packages; revisions and hospital cases may cost more, and prices should be verified before launch.",
+            "JourneyLite surgical packages have described EKG, anesthesia, surgery, and one year of office aftercare as included for many primary outpatient packages; revisions and hospital cases may cost more, and current package details should be confirmed during consultation.",
           ]
         : []),
       ...(seed.category === "Prescription Weight Loss Medication"
         ? [
-            "Legacy medication pricing content included initial visit and follow-up visit anchors, oral medication ranges, HSA/FSA language, and Kemba, CareCredit, and Prosper financing references; these should remain centralized on the medication pricing page and verified before launch.",
+            "Medication pricing may include an initial visit, follow-up visits, prescription costs, insurance or prior authorization requirements, HSA/FSA considerations, and financing questions. Current pricing should be confirmed during consultation.",
           ]
         : []),
     ],
@@ -1537,7 +1537,7 @@ function buildService(seed: Seed): ServicePageData {
       type: option.includes("Medication") || option.includes("Wegovy") || option.includes("Zepbound") || option.includes("Oral") || option.includes("Injectable") ? "Medication-supported" : option.includes("Balloon") ? "Non-surgical" : "Surgical or procedural",
       bestFor: `Patients comparing ${option.toLowerCase()} with ${seed.title.toLowerCase()} during consultation.`,
       considerations: "Fit depends on BMI, medical history, goals, comfort level, coverage, and provider evaluation.",
-      href: `/services/${slugFromTitle(option)}`,
+      href: hrefFromTitle(option),
     })),
     faqs: buildFaqs(seed),
     relatedServices: seed.related,
@@ -1656,7 +1656,30 @@ function slugFromTitle(title: string) {
   return map[title] ?? title.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "");
 }
 
-export const servicePages: ServicePageData[] = allSeeds.map(buildService);
+function hrefFromTitle(title: string) {
+  const medicationAnchors: Record<string, string> = {
+    "Prescription Weight Loss Medications": "/medications",
+    "Prescription Medications": "/medications",
+    "Injectable Medications": "/medications#injectable-medications",
+    "Oral Medications": "/medications#oral-medications",
+    "Post-op Support": "/medications#post-op-support",
+    "Post-op Weight Regain Support": "/medications#post-op-support",
+    "Medication Support": "/medications",
+    "Medication-supported care": "/medications",
+  };
+  return medicationAnchors[title] ?? `/services/${slugFromTitle(title)}`;
+}
+
+const retiredMedicationSlugs = new Set([
+  "prescription-weight-loss-medications",
+  "injectable-weight-loss-medications",
+  "oral-weight-loss-medications",
+  "post-op-weight-regain-support",
+]);
+
+export const servicePages: ServicePageData[] = allSeeds
+  .map(buildService)
+  .filter((page) => !retiredMedicationSlugs.has(page.slug));
 
 export const servicePageMap = Object.fromEntries(servicePages.map((page) => [page.slug, page]));
 

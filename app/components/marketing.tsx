@@ -243,10 +243,10 @@ export function SiteFooter() {
         <FooterLinks
           title="Medications"
           links={[
-            ["Prescription Medication", "/#medications"],
-            ["Injectable Medications", "/#injectable-medications"],
-            ["Oral Medications", "/#oral-medications"],
-            ["After Weight Loss Surgery", "/#post-op-weight-regain"],
+            ["Medication Weight Loss", "/medications"],
+            ["Injectable Options", "/medications#injectable-medications"],
+            ["Oral Options", "/medications#oral-medications"],
+            ["Post-op Support", "/medications#post-op-support"],
           ]}
         />
         <FooterLinks
@@ -254,6 +254,7 @@ export function SiteFooter() {
           links={[
             ["Compare Options", "/services/compare-weight-loss-options"],
             ["Pricing & Financing", "/services/pricing-financing"],
+            ["Bariatric Metrics", "/bariatric-metrics"],
             ["Physicians", "/our-team"],
             ["Locations", "/#locations"],
             ["Testimonials", "/#reviews"],
@@ -550,7 +551,7 @@ export function MedicationCtaBand() {
         </p>
       </div>
       <div className="mt-6 flex flex-col gap-3 sm:flex-row lg:mt-0 lg:shrink-0">
-        <CTAButton href="/services/prescription-weight-loss-medications" variant="secondary">
+        <CTAButton href="/medications" variant="secondary">
           View Medication Options
         </CTAButton>
         <CTAButton href="/contact">Start Medication Program</CTAButton>

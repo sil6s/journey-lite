@@ -278,7 +278,7 @@ function labelForService(href: string) {
     "/services/gastric-sleeve": "Gastric Sleeve",
     "/services/gastric-bypass": "Gastric Bypass",
     "/services/gastric-balloon": "Gastric Balloon",
-    "/services/prescription-weight-loss-medications": "Prescription Medications",
+    "/medications": "Medication Weight Loss",
     "/services/pricing-financing": "Pricing & Financing",
     "/services/compare-weight-loss-options": "Compare Options",
     "/contact": "Contact JourneyLite",

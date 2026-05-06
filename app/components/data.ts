@@ -76,24 +76,29 @@ export const navGroups = [
     label: "Medications",
     items: [
       {
-        label: "Prescription Weight Loss Medication",
-        href: "/services/prescription-weight-loss-medications",
-        description: "Medical weight loss options with provider monitoring.",
+        label: "Medication Weight Loss",
+        href: "/medications",
+        description: "Complete guide to physician-led medication-supported care.",
       },
       {
-        label: "Injectable Medications",
-        href: "/services/injectable-weight-loss-medications",
-        description: "Weekly GLP-1 and GIP/GLP-1 options for eligible patients.",
+        label: "Injectable Options",
+        href: "/medications#injectable-medications",
+        description: "Weekly medication paths reviewed during consultation.",
       },
       {
-        label: "Oral Medications",
-        href: "/services/oral-weight-loss-medications",
-        description: "Prescription oral medication options and monitoring.",
+        label: "Oral Options",
+        href: "/medications#oral-medications",
+        description: "Pill-based medication options with monitoring.",
       },
       {
-        label: "After Weight Loss Surgery",
-        href: "/services/post-op-weight-regain-support",
-        description: "Support for weight regain or maintenance concerns.",
+        label: "Post-Op Weight Regain Support",
+        href: "/medications#post-op-support",
+        description: "Medication and follow-up support after prior surgery.",
+      },
+      {
+        label: "Pricing & Financing",
+        href: "/medications#pricing",
+        description: "Medication cost, coverage, and prior authorization questions.",
       },
       {
         label: "Appointment Request",
@@ -114,6 +119,11 @@ export const navGroups = [
         label: "Compare Options",
         href: "/services/compare-weight-loss-options",
         description: "Use the detailed comparison table as a reference.",
+      },
+      {
+        label: "Bariatric Metrics",
+        href: "/bariatric-metrics",
+        description: "Understand BMI, %TWL, goal progress, and regain metrics.",
       },
       {
         label: "Physicians",
@@ -323,7 +333,7 @@ export const medicationSupportOptions = [
     description:
       "Medication-supported care may help some patients address weight regain, plateaus, or long-term maintenance after prior weight-loss surgery.",
     bestFor: "May fit patients who need renewed structure after prior weight-loss surgery.",
-    href: "/services/post-op-weight-regain-support",
+    href: "/medications#post-op-support",
     cta: "Discuss Weight Regain Support",
   },
   {
@@ -389,7 +399,7 @@ export const comparisonRows = [
     useCase: "Appetite and craving support for eligible patients under supervision.",
     followUp: "Medication monitoring, progress reviews, and lifestyle support.",
     bestFor: "Patients interested in prescription-based non-surgical care.",
-    href: "/services/prescription-weight-loss-medications",
+    href: "/medications",
   },
 ];
 

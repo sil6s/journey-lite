@@ -1,17 +1,17 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import {
   CTAButton,
   FAQAccordion,
-  PhysicianProfileCard,
   ReviewBadge,
   ReviewGrid,
   Section,
   SiteFooter,
   SiteHeader,
 } from "../../components/marketing";
-import { ServiceComparisonDiagram, ServiceDiagram, ServiceHeroVisual } from "../../components/ServiceVisuals";
+import { ServiceDiagram } from "../../components/ServiceVisuals";
 import { phoneHref, phoneNumber, physicianCards } from "../../components/data";
 import { servicePageMap, servicePages, serviceSlugs } from "../../components/serviceData";
 import type { ServicePageData } from "../../components/serviceData";
@@ -314,6 +314,24 @@ export default async function ServicePage({ params }: PageProps) {
     },
   };
 
+  const medicalProcedureSchema =
+    service.category === "Pricing and Comparison"
+      ? null
+      : {
+          "@context": "https://schema.org",
+          "@type": "MedicalProcedure",
+          name: service.title,
+          description: service.heroSummary,
+          howPerformed: service.diagramDescription,
+          preparation: service.processSteps[0],
+          followup: service.quickFacts.find((fact) => fact.label === "Follow-up needs")?.value,
+          provider: {
+            "@type": "MedicalOrganization",
+            name: "JourneyLite Physicians",
+            telephone: phoneNumber,
+          },
+        };
+
   const related = service.relatedServices
     .map((slug) => servicePages.find((page) => page.slug === slug))
     .filter(Boolean)
@@ -335,170 +353,152 @@ export default async function ServicePage({ params }: PageProps) {
   return (
     <>
       <SiteHeader />
-      <main>
-        <section className="bg-[#f7f8f6]">
-          <div className="mx-auto grid max-w-7xl gap-8 px-5 py-9 lg:grid-cols-[1fr_0.88fr] lg:items-center lg:px-8 lg:py-12">
+      <main id="overview">
+        <section className="bg-white">
+          <div className="mx-auto grid max-w-7xl gap-8 px-5 py-10 lg:grid-cols-[1fr_0.78fr] lg:items-center lg:px-8 lg:py-14">
             <div>
-              <p className="eyebrow">{service.category}</p>
+              <p className="eyebrow">{getHeroEyebrow(service)}</p>
               <h1 className="mt-3 max-w-4xl font-serif text-4xl leading-[1.04] text-[#1e2b24] md:text-5xl xl:text-6xl">
                 {service.h1}
               </h1>
               <p className="mt-5 max-w-3xl text-base leading-7 text-[#516059] md:text-lg">{service.heroSummary}</p>
-              <p className="mt-4 max-w-3xl rounded-lg border border-[#cbd9d1] bg-white px-4 py-3 text-sm font-semibold leading-6 text-[#355346]">
-                {service.trustLine}
-              </p>
               {service.status ? (
-                <p className="mt-3 rounded-lg border border-[#d8c88b] bg-[#fffdf4] px-4 py-3 text-sm font-semibold leading-6 text-[#5e5235]">
+                <p className="mt-4 rounded-lg border border-[#d8c88b] bg-[#fffdf4] px-4 py-3 text-sm font-semibold leading-6 text-[#5e5235]">
                   {service.status}
                 </p>
               ) : null}
-              <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
+              <div className="mt-7 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
                 <CTAButton href="/contact">Book Consultation</CTAButton>
                 <CTAButton href="/services/compare-weight-loss-options" variant="secondary">
-                  Compare Treatment Options
+                  Compare Options
                 </CTAButton>
                 <CTAButton href="/services/pricing-financing" variant="secondary">
                   Check Insurance & Financing
                 </CTAButton>
               </div>
-              <p className="mt-3 max-w-2xl text-xs leading-5 text-[#64736b]">
-                Most patients start with a consultation to confirm eligibility, insurance requirements, and the best
-                treatment path.
-              </p>
+              <HeroTrustChips service={service} />
             </div>
 
-            <ServiceHeroVisual service={service} />
+            <figure className="overflow-hidden rounded-2xl border border-[#dce4df] bg-[#f7f8f6] shadow-sm">
+              <div className="relative aspect-[4/3]">
+                <Image
+                  alt={service.productImageAlt}
+                  className="object-cover"
+                  fill
+                  priority
+                  sizes="(min-width: 1024px) 42vw, 100vw"
+                  src={service.productImage}
+                />
+              </div>
+              <figcaption className="border-t border-[#dce4df] bg-white px-5 py-4 text-sm leading-6 text-[#53635b]">
+                {service.productImageCaption}
+              </figcaption>
+            </figure>
           </div>
         </section>
 
-        <section className="border-y border-[#dce4df] bg-white py-6">
-          <div className="mx-auto max-w-7xl px-5 lg:px-8">
-            <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-              {service.trustStats.map((stat) => (
-                <article className="rounded-lg border border-[#dce4df] bg-[#f8fbf9] p-5" key={`${stat.value}-${stat.label}`}>
-                  <p className="font-serif text-3xl leading-none text-[#145c42]">{stat.value}</p>
-                  <p className="mt-2 text-sm font-semibold uppercase tracking-[0.08em] text-[#355346]">{stat.label}</p>
-                  {stat.microcopy ? <p className="mt-2 text-xs leading-5 text-[#64736b]">{stat.microcopy}</p> : null}
-                </article>
-              ))}
-            </div>
-          </div>
-        </section>
+        <ServiceMiniNav />
 
-        <DecisionCta
-          copy="Not sure which option fits? A consultation can help compare surgical, non-surgical, and medication-supported paths."
-          tertiaryHref="/services/pricing-financing"
+        <AtAGlance service={service} />
+
+        <ContextStats service={service} />
+
+        <CtaStrip
+          copy="Not sure if this is the right option? Compare treatment paths before narrowing your next step."
+          primaryLabel="Compare Treatment Options"
+          primaryHref="/services/compare-weight-loss-options"
+          secondaryLabel="Book Consultation"
+          secondaryHref="/contact"
           tertiaryLabel="View Pricing"
+          tertiaryHref="/services/pricing-financing"
         />
 
         <Section
-          eyebrow="Quick answer"
-          intro={`${service.primaryKeyword} questions usually come down to fit, safety, cost, and follow-up. These facts give you a starting point before consultation.`}
-          title="Key facts to know before choosing a path"
-          tone="white"
-        >
-          <div className="mt-8 grid gap-4 md:grid-cols-2 xl:grid-cols-3">
-            {service.quickFacts.map((fact, index) => (
-              <article className="rounded-lg border border-[#dce4df] bg-white p-5 shadow-sm" key={fact.label}>
-                <div className="flex items-start gap-3">
-                  <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-[#dfece5] text-sm font-bold text-[#145c42]">
-                    {index + 1}
-                  </span>
-                  <h2 className="text-sm font-semibold uppercase tracking-[0.08em] text-[#355346]">{fact.label}</h2>
-                </div>
-                <p className="mt-3 text-sm leading-6 text-[#53635b]">{fact.value}</p>
-              </article>
-            ))}
-          </div>
-        </Section>
-
-        <Section
+          id="quick-answer"
           eyebrow={service.primaryKeyword}
-          intro={`JourneyLite uses this section to explain ${service.title.toLowerCase()} in plain language, without guarantees or pressure.`}
-          title={`What is ${service.title}?`}
+          intro="This page explains the treatment in plain English so you can prepare better questions for a JourneyLite consultation."
+          title={`Quick answer: what is ${service.title}?`}
           tone="soft"
         >
-          <div className="mt-8 grid gap-6 lg:grid-cols-[1fr_0.85fr]">
+          <div className="mt-8 grid gap-8 lg:grid-cols-[1fr_0.72fr]">
             <div className="space-y-4 text-base leading-8 text-[#53635b]">
               {service.whatIs.map((paragraph) => (
                 <p key={paragraph}>{paragraph}</p>
               ))}
             </div>
-            <div className="grid gap-3">
-              {related.map((item) =>
-                item ? (
-                  <Link
-                    className="rounded-lg border border-[#dce4df] bg-white p-4 text-sm font-semibold text-[#1f2c25] transition hover:border-[#145c42] hover:text-[#145c42] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#145c42]"
-                    href={`/services/${item.slug}`}
-                    key={item.slug}
-                  >
-                    {item.title}
-                  </Link>
-                ) : null,
-              )}
-              <Link
-                className="rounded-lg border border-[#dce4df] bg-white p-4 text-sm font-semibold text-[#1f2c25] transition hover:border-[#145c42] hover:text-[#145c42] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#145c42]"
-                href="/contact"
-              >
-                Request consultation
-              </Link>
-              <Link
-                className="rounded-lg border border-[#dce4df] bg-white p-4 text-sm font-semibold text-[#1f2c25] transition hover:border-[#145c42] hover:text-[#145c42] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#145c42]"
-                href="/blog"
-              >
-                Blog and patient resources
-              </Link>
-            </div>
+            <aside className="rounded-xl border border-[#dce4df] bg-white p-6 shadow-sm">
+              <h2 className="text-xl font-semibold text-[#1f2c25]">Useful related pages</h2>
+              <div className="mt-4 grid gap-3">
+                {related.map((item) =>
+                  item ? (
+                    <Link
+                      className="rounded-lg border border-[#dce4df] bg-[#f8fbf9] p-4 text-sm font-semibold text-[#1f2c25] transition hover:border-[#145c42] hover:text-[#145c42] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#145c42]"
+                      href={`/services/${item.slug}`}
+                      key={item.slug}
+                    >
+                      {item.title}
+                    </Link>
+                  ) : null,
+                )}
+              </div>
+            </aside>
           </div>
         </Section>
 
         <Section
-          eyebrow="How it works"
-          intro="This visual is simplified to help patients understand the main idea before talking with a provider."
-          title={`How ${service.title.toLowerCase()} works`}
+          id="how-it-works"
+          eyebrow="What happens"
+          intro="A simplified visual and step-by-step overview can make the treatment easier to discuss with your provider."
+          title={`What actually happens during ${service.title}?`}
           tone="white"
         >
-          <div className="mt-8 grid gap-6 lg:grid-cols-[1.1fr_0.9fr]">
+          <div className="mt-8 grid gap-8 lg:grid-cols-[0.95fr_1.05fr]">
             <ServiceDiagram service={service} />
-            <div className="grid content-start gap-4">
-              {service.supportingVisuals.map((item) => (
-                <article className="rounded-xl border border-[#dce4df] bg-white p-5 shadow-sm" key={item.title}>
-                  <h3 className="text-lg font-semibold text-[#1f2c25]">{item.title}</h3>
-                  <p className="mt-2 text-sm leading-6 text-[#53635b]">{item.description}</p>
-                </article>
-              ))}
-              <article className="rounded-xl border border-[#d8c88b] bg-[#fffdf4] p-5 text-sm leading-6 text-[#5e5235]">
-                <h3 className="text-lg font-semibold text-[#1f2c25]">Visual note</h3>
-                <p className="mt-2">{service.diagramCaption}</p>
-                <p className="mt-2">{service.visualDisclaimer}</p>
-              </article>
-            </div>
+            <ProcessCards steps={service.processSteps.slice(0, 6)} />
           </div>
+          <p className="mt-5 rounded-lg border border-[#d8c88b] bg-[#fffdf4] p-4 text-sm leading-6 text-[#5e5235]">
+            {service.diagramCaption} {service.visualDisclaimer}
+          </p>
         </Section>
 
         <Section
-          eyebrow="Is this right for me?"
-          intro="The lists below help organize your questions. They do not determine eligibility."
+          eyebrow="Mechanism"
+          intro={service.diagramAccessibleSummary}
+          title="How this supports weight loss"
+          tone="light"
+        >
+          <MechanismCards items={service.supportingVisuals} />
+        </Section>
+
+        <Section
+          id="candidates"
+          eyebrow="Fit and eligibility"
+          intro="These lists are educational. They do not determine eligibility or replace a provider evaluation."
           title="Who may be a candidate?"
           tone="white"
         >
           <div className="mt-8 grid gap-5 lg:grid-cols-2">
-            <Checklist title="May be a fit if..." items={service.candidateFit} />
-            <Checklist title="May not be a fit if..." items={service.notCandidateFit} />
+            <Checklist title="May be worth discussing if..." items={service.candidateFit} />
+            <Checklist title="May not be the best fit if..." items={service.notCandidateFit} />
           </div>
         </Section>
 
-        <DecisionCta
-          copy={`A consultation can confirm whether ${service.title.toLowerCase()} fits your medical history, goals, and coverage requirements.`}
-          tertiaryHref="/#locations"
-          tertiaryLabel="Find a Location"
+        <CtaStrip
+          copy={`Want to understand whether ${service.title.toLowerCase()} fits your history, goals, and coverage?`}
+          primaryLabel="Book Consultation"
+          primaryHref="/contact"
+          secondaryLabel="Find a Location"
+          secondaryHref="/#locations"
+          tertiaryLabel="Call JourneyLite"
+          tertiaryHref={phoneHref}
         />
 
         <Section
-          eyebrow="Balanced expectations"
-          intro="JourneyLite pages are designed to help patients understand both upside and responsibility."
+          id="benefits-risks"
+          eyebrow="Balanced decision-making"
+          intro="A good treatment page should explain both the potential upside and the responsibilities that come with care."
           title="Benefits and considerations"
-          tone="light"
+          tone="soft"
         >
           <div className="mt-8 grid gap-5 lg:grid-cols-2">
             <Checklist title="Potential benefits" items={service.benefits} />
@@ -506,44 +506,30 @@ export default async function ServicePage({ params }: PageProps) {
           </div>
         </Section>
 
-        <DecisionCta
-          copy="Balanced decision-making matters. Compare benefits, limitations, costs, recovery, and follow-up before choosing a path."
-          tertiaryHref="/services/compare-weight-loss-options"
-          tertiaryLabel="Compare Options"
-        />
-
         <Section
+          id="research"
           eyebrow="Research-backed context"
-          intro="Medical decisions should be grounded in reliable information and individual evaluation. These sources provide context for discussion with JourneyLite."
+          intro="Research provides context, but individual results vary. A JourneyLite provider can interpret these findings against your health history and goals."
           title={`What research says about ${service.title.toLowerCase()}`}
           tone="white"
         >
-          <div className="mt-8 grid gap-4 md:grid-cols-2 xl:grid-cols-3">
-            {service.researchCards.map((card) => (
-              <article className="flex h-full flex-col rounded-lg border border-[#dce4df] bg-white p-5 shadow-sm" key={card.href}>
-                <p className="text-xs font-semibold uppercase tracking-[0.12em] text-[#64736b]">{card.source}</p>
-                <h2 className="mt-2 text-lg font-semibold text-[#1f2c25]">{card.title}</h2>
-                <p className="mt-3 text-sm leading-6 text-[#53635b]">{card.summary}</p>
-                <a
-                  className="mt-auto inline-flex pt-4 text-sm font-semibold text-[#145c42] underline-offset-4 hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#145c42]"
-                  href={card.href}
-                  rel={card.href.startsWith("/") ? undefined : "noopener noreferrer"}
-                  target={card.href.startsWith("/") ? undefined : "_blank"}
-                >
-                  {card.linkLabel}
-                </a>
-              </article>
-            ))}
-          </div>
-          <div className="mt-5 rounded-lg border border-[#dce4df] bg-[#f8fbf9] p-4 text-sm leading-6 text-[#53635b]">
-            <p className="font-semibold text-[#1f2c25]">JourneyLite content migration note</p>
-            <p className="mt-1">{service.migrationNote}</p>
-          </div>
+          <ResearchCards service={service} />
         </Section>
 
+        <CtaStrip
+          copy="Research gives context. Your plan should still be personal."
+          primaryLabel="Talk With JourneyLite"
+          primaryHref="/contact"
+          secondaryLabel="Compare Options"
+          secondaryHref="/services/compare-weight-loss-options"
+          tertiaryLabel="View Sources"
+          tertiaryHref="#research"
+        />
+
         <Section
-          eyebrow="Pricing and coverage"
-          intro="Exact pricing and coverage cannot be determined from a web page alone, but patients can prepare for the right questions."
+          id="pricing"
+          eyebrow="Cost and coverage"
+          intro="Pricing and insurance depend on the treatment path, medical needs, plan rules, and follow-up requirements."
           title="Pricing, insurance, and financing"
           tone="soft"
         >
@@ -555,104 +541,46 @@ export default async function ServicePage({ params }: PageProps) {
             ))}
           </div>
           <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-            <CTAButton href="/services/pricing-financing" variant="secondary">
-              View Pricing & Financing
+            <CTAButton href="/services/pricing-financing">Check Insurance & Financing</CTAButton>
+            <CTAButton href="/contact" variant="secondary">
+              Ask About This Option
             </CTAButton>
-            <CTAButton href="/contact">Ask About Cost</CTAButton>
           </div>
         </Section>
 
         <Section
-          eyebrow="Legacy patient education"
-          intro="Useful details from the old JourneyLite site were preserved and reorganized into this cleaner service-page pattern."
-          title="Patient education details carried forward"
-          tone="white"
-        >
-          <div className="mt-8 grid gap-4 md:grid-cols-2">
-            {service.legacyHighlights.map((item) => (
-              <article className="rounded-lg border border-[#dce4df] bg-white p-5 shadow-sm" key={item}>
-                <p className="text-sm leading-6 text-[#53635b]">{item}</p>
-              </article>
-            ))}
-          </div>
-        </Section>
-
-        <Section
-          eyebrow="JourneyLite process"
-          intro="Every care path starts with evaluation and ends with support, not a one-time transaction."
+          eyebrow="Care timeline"
+          intro="JourneyLite care is designed around evaluation, treatment planning, and follow-up support."
           title="What the process looks like"
           tone="white"
         >
-          <div className="mt-8 grid gap-4 md:grid-cols-2 xl:grid-cols-3">
-            {service.processSteps.map((step, index) => (
-              <article className="rounded-lg border border-[#dce4df] bg-white p-5 shadow-sm" key={step}>
-                <p className="font-serif text-4xl leading-none text-[#145c42]">{index + 1}</p>
-                <p className="mt-4 text-sm leading-6 text-[#53635b]">{step}</p>
-              </article>
-            ))}
-          </div>
+          <ProcessTimeline steps={service.processSteps} />
         </Section>
 
         <Section
+          id="compare"
           eyebrow="Compare options"
-          intro={`Compare ${service.title.toLowerCase()} with related JourneyLite options before your visit.`}
-          title={`${service.title} compared with related options`}
+          intro={`Patients often compare ${service.title.toLowerCase()} with a small set of related JourneyLite options before deciding what to discuss next.`}
+          title={`How ${service.title} compares with other options`}
           tone="light"
         >
-          <ServiceComparisonDiagram service={service} />
-          <div className="mt-8 overflow-hidden rounded-lg border border-[#dce4df] bg-white shadow-sm">
-            <table className="hidden w-full border-collapse text-left text-sm md:table">
-              <thead className="bg-[#0f3e2e] text-white">
-                <tr>
-                  {["Option", "Type", "Best for", "Key considerations", ""].map((heading) => (
-                    <th className="px-4 py-4 font-semibold" key={heading}>
-                      {heading}
-                    </th>
-                  ))}
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-[#edf1ee]">
-                {service.comparisonRows.map((row) => (
-                  <tr key={row.option}>
-                    <td className="px-4 py-4 font-semibold text-[#1f2c25]">{row.option}</td>
-                    <td className="px-4 py-4 text-[#53635b]">{row.type}</td>
-                    <td className="px-4 py-4 text-[#53635b]">{row.bestFor}</td>
-                    <td className="px-4 py-4 text-[#53635b]">{row.considerations}</td>
-                    <td className="px-4 py-4">
-                      <Link className="font-semibold text-[#145c42] underline-offset-4 hover:underline" href={row.href}>
-                        Learn
-                      </Link>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-            <div className="grid gap-4 p-4 md:hidden">
-              {service.comparisonRows.map((row) => (
-                <article className="rounded-lg border border-[#dce4df] p-4" key={row.option}>
-                  <h2 className="font-semibold text-[#1f2c25]">{row.option}</h2>
-                  <p className="mt-2 text-sm text-[#53635b]">{row.type}</p>
-                  <p className="mt-3 text-sm leading-6 text-[#53635b]">{row.bestFor}</p>
-                  <Link className="mt-4 inline-flex font-semibold text-[#145c42]" href={row.href}>
-                    Learn more
-                  </Link>
-                </article>
-              ))}
-            </div>
-          </div>
+          <ComparisonCards rows={service.comparisonRows} />
         </Section>
 
-        <DecisionCta
-          copy={`Compare ${service.title.toLowerCase()} with related JourneyLite options, then use consultation to choose the most appropriate next step.`}
-          tertiaryHref="/services/pricing-financing"
-          tertiaryLabel="View Pricing"
-        />
+        <Section
+          eyebrow="Consultation prep"
+          intro="These questions can help you use the consultation well, especially if you are comparing more than one treatment path."
+          title="Questions to ask during consultation"
+          tone="white"
+        >
+          <ConsultationQuestions service={service} />
+        </Section>
 
         <Section
           eyebrow="Ohio, Kentucky, and Indiana"
           intro={service.locationCopy}
           title={`${service.title} support across the region`}
-          tone="white"
+          tone="soft"
         >
           <div className="mt-8 flex flex-col gap-3 sm:flex-row">
             <CTAButton href="/#locations" variant="secondary">
@@ -665,26 +593,38 @@ export default async function ServicePage({ params }: PageProps) {
         <Section
           eyebrow="Care team"
           intro={service.physicianFocus}
-          title="Meet the physicians behind JourneyLite"
-          tone="soft"
+          title="Physician-led care and follow-up"
+          tone="white"
         >
-          <div className="mt-8 grid gap-6">
+          <div className="mt-8 grid gap-4 lg:grid-cols-2">
             {physicianCards.slice(0, 2).map((physician) => (
-              <PhysicianProfileCard key={physician.name} physician={physician} />
+              <article className="rounded-xl border border-[#dce4df] bg-white p-5 shadow-sm" key={physician.name}>
+                <div className="flex items-start gap-4">
+                  <Image
+                    alt={physician.avatarAlt}
+                    className="h-16 w-16 rounded-full object-cover"
+                    height={80}
+                    src={physician.imageSrc}
+                    width={80}
+                  />
+                  <div>
+                    <h2 className="text-lg font-semibold text-[#1f2c25]">{physician.name}</h2>
+                    <p className="mt-1 text-sm font-semibold text-[#355346]">{physician.primaryTitle}</p>
+                  </div>
+                </div>
+                <p className="mt-4 text-sm leading-6 text-[#53635b]">{physician.credibility}</p>
+                <Link className="mt-4 inline-flex text-sm font-semibold text-[#145c42] underline-offset-4 hover:underline" href={`/our-team/${physician.slug}`}>
+                  {physician.cta}
+                </Link>
+              </article>
             ))}
           </div>
         </Section>
 
-        <DecisionCta
-          copy="Physician-led evaluation helps match the treatment path to your history, anatomy, medications, goals, and follow-up needs."
-          tertiaryHref="/our-team"
-          tertiaryLabel="Meet Physicians"
-        />
-
         <Section
           eyebrow="Patient confidence"
-          intro="JourneyLite pairs educational content with physician-led evaluation, follow-up, and a documented patient experience."
-          title="Reviews and patient trust"
+          intro="Patient feedback can help show the communication, follow-up, and care experience patients describe. Reviews do not guarantee outcomes."
+          title="A care experience built around follow-up"
           tone="white"
         >
           <div className="mt-8">
@@ -704,7 +644,18 @@ export default async function ServicePage({ params }: PageProps) {
           ) : null}
         </Section>
 
+        <CtaStrip
+          copy="Still comparing options? Review the full treatment guide or ask JourneyLite to help narrow the next conversation."
+          primaryLabel="View All Weight-Loss Options"
+          primaryHref="/services/compare-weight-loss-options"
+          secondaryLabel="Book Consultation"
+          secondaryHref="/contact"
+          tertiaryLabel="Call JourneyLite"
+          tertiaryHref={phoneHref}
+        />
+
         <Section
+          id="faq"
           eyebrow="FAQs"
           intro={`Common questions about ${service.title.toLowerCase()} and how JourneyLite helps patients compare next steps.`}
           title={`${service.title} frequently asked questions`}
@@ -713,12 +664,6 @@ export default async function ServicePage({ params }: PageProps) {
           <FAQAccordion items={service.faqs} />
         </Section>
 
-        <DecisionCta
-          copy={`Still comparing? JourneyLite can help you decide whether ${service.title.toLowerCase()} or another treatment path deserves the next conversation.`}
-          tertiaryHref="/#locations"
-          tertiaryLabel="Find a Location"
-        />
-
         <section className="bg-[#0f3e2e] py-16 text-white lg:py-20">
           <div className="mx-auto max-w-7xl px-5 lg:px-8">
             <p className="eyebrow text-[#b9d2c5]">Personalized next step</p>
@@ -726,8 +671,8 @@ export default async function ServicePage({ params }: PageProps) {
               Find out if {service.title} is right for you.
             </h2>
             <p className="mt-4 max-w-2xl text-base leading-7 text-[#d8e6de]">
-              Schedule a consultation with JourneyLite to compare your options, review pricing and coverage, and build a
-              plan around your goals.
+              The right weight-loss path depends on your health history, goals, comfort level, coverage, and long-term
+              plan. JourneyLite can help you compare your options and choose the next step with medical guidance.
             </p>
             <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
               <CTAButton href="/contact" variant="light">
@@ -749,6 +694,9 @@ export default async function ServicePage({ params }: PageProps) {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(medicalBusinessSchema) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(medicalWebPageSchema) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceSchema) }} />
+      {medicalProcedureSchema ? (
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(medicalProcedureSchema) }} />
+      ) : null}
     </>
   );
 }
@@ -1018,7 +966,7 @@ function PricingFinancingPage({
                 <CTAButton href="/services/pricing-financing#self-pay-pricing" variant="secondary">
                   Ask About Medication Costs
                 </CTAButton>
-                <CTAButton href="/services/injectable-weight-loss-medications" variant="secondary">
+                <CTAButton href="/medications#injectable-medications" variant="secondary">
                   Compare Injections
                 </CTAButton>
               </div>
@@ -1141,12 +1089,137 @@ function PricingFinancingPage({
   );
 }
 
-function DecisionCta({
+function getHeroEyebrow(service: ServicePageData) {
+  if (service.category === "Surgical Weight Loss") return "Surgical weight loss option";
+  if (service.category === "Non-Surgical Weight Loss") return "Non-surgical weight loss option";
+  return service.category;
+}
+
+function getQuickFact(service: ServicePageData, labels: string[]) {
+  return service.quickFacts.find((fact) => labels.includes(fact.label))?.value;
+}
+
+function HeroTrustChips({ service }: { service: ServicePageData }) {
+  const chips = [
+    service.category === "Surgical Weight Loss" ? "Physician-led bariatric care" : "Physician-led evaluation",
+    getQuickFact(service, ["Follow-up needs"]) ? "Structured follow-up" : "Care team guidance",
+    "Regional locations",
+    "Insurance and financing review",
+  ];
+
+  return (
+    <div className="mt-6 flex flex-wrap gap-2" aria-label="JourneyLite service page trust indicators">
+      {chips.map((chip) => (
+        <span className="rounded-full border border-[#cbd7d0] bg-[#f8fbf9] px-3 py-1.5 text-xs font-semibold text-[#355346]" key={chip}>
+          {chip}
+        </span>
+      ))}
+    </div>
+  );
+}
+
+function ServiceMiniNav() {
+  const links = [
+    ["Overview", "#overview"],
+    ["How it works", "#how-it-works"],
+    ["Candidates", "#candidates"],
+    ["Benefits & risks", "#benefits-risks"],
+    ["Research", "#research"],
+    ["Pricing", "#pricing"],
+    ["Compare", "#compare"],
+    ["FAQ", "#faq"],
+  ];
+
+  return (
+    <nav className="sticky top-[64px] z-30 border-y border-[#dce4df] bg-white/95 backdrop-blur" aria-label="Service page sections">
+      <div className="mx-auto flex max-w-7xl gap-2 overflow-x-auto px-5 py-3 lg:px-8">
+        {links.map(([label, href]) => (
+          <Link
+            className="shrink-0 rounded-full border border-[#dce4df] bg-white px-3 py-2 text-xs font-semibold text-[#355346] transition hover:border-[#145c42] hover:text-[#145c42] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#145c42]"
+            href={href}
+            key={href}
+          >
+            {label}
+          </Link>
+        ))}
+      </div>
+    </nav>
+  );
+}
+
+function AtAGlance({ service }: { service: ServicePageData }) {
+  const facts = [
+    {
+      title: "Treatment type",
+      value: getQuickFact(service, ["Treatment type"]) ?? service.category,
+    },
+    {
+      title: "Typical timing / recovery",
+      value: getQuickFact(service, ["Recovery or adjustment"]) ?? getQuickFact(service, ["Typical timing"]) ?? "Timing and recovery vary by treatment plan.",
+    },
+    {
+      title: "Follow-up",
+      value: getQuickFact(service, ["Follow-up needs"]) ?? "Follow-up helps track progress, nutrition, symptoms, and next steps.",
+    },
+    {
+      title: "Best discussed by patients who...",
+      value: getQuickFact(service, ["Fit profile", "Typical use case"]) ?? "Patients comparing weight-loss options with medical guidance.",
+    },
+  ];
+
+  return (
+    <Section
+      eyebrow="At a glance"
+      intro="A short summary first, then the deeper treatment guide below."
+      title="Key details before you compare options"
+      tone="white"
+    >
+      <div className="mt-8 grid gap-4 md:grid-cols-2 xl:grid-cols-4">
+        {facts.map((fact) => (
+          <article className="rounded-xl border border-[#dce4df] bg-white p-5 shadow-sm" key={fact.title}>
+            <h2 className="text-sm font-semibold uppercase tracking-[0.08em] text-[#355346]">{fact.title}</h2>
+            <p className="mt-3 text-sm leading-6 text-[#53635b]">{fact.value}</p>
+          </article>
+        ))}
+      </div>
+    </Section>
+  );
+}
+
+function ContextStats({ service }: { service: ServicePageData }) {
+  if (!service.trustStats.length) return null;
+
+  return (
+    <section className="border-y border-[#dce4df] bg-[#f8fbf9] py-8">
+      <div className="mx-auto max-w-7xl px-5 lg:px-8">
+        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          {service.trustStats.slice(0, 4).map((stat) => (
+            <article className="rounded-xl border border-[#dce4df] bg-white p-5 shadow-sm" key={`${stat.value}-${stat.label}`}>
+              <p className="font-serif text-3xl leading-none text-[#145c42]">{stat.value}</p>
+              <h2 className="mt-2 text-sm font-semibold uppercase tracking-[0.08em] text-[#355346]">{stat.label}</h2>
+              {stat.microcopy ? <p className="mt-2 text-xs leading-5 text-[#64736b]">{stat.microcopy}</p> : null}
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function CtaStrip({
   copy,
+  primaryHref,
+  primaryLabel,
+  secondaryHref,
+  secondaryLabel,
   tertiaryHref,
   tertiaryLabel,
 }: {
   copy: string;
+  primaryHref: string;
+  primaryLabel: string;
+  secondaryHref: string;
+  secondaryLabel: string;
   tertiaryHref: string;
   tertiaryLabel: string;
 }) {
@@ -1155,9 +1228,9 @@ function DecisionCta({
       <div className="mx-auto flex max-w-7xl flex-col gap-4 px-5 lg:flex-row lg:items-center lg:justify-between lg:px-8">
         <p className="max-w-3xl text-sm font-semibold leading-6 text-[#355346]">{copy}</p>
         <div className="flex flex-col gap-3 sm:flex-row lg:shrink-0">
-          <CTAButton href="/contact">Book Consultation</CTAButton>
-          <CTAButton href={phoneHref} variant="secondary">
-            Call JourneyLite
+          <CTAButton href={primaryHref}>{primaryLabel}</CTAButton>
+          <CTAButton href={secondaryHref} variant="secondary">
+            {secondaryLabel}
           </CTAButton>
           <CTAButton href={tertiaryHref} variant="secondary">
             {tertiaryLabel}
@@ -1165,6 +1238,121 @@ function DecisionCta({
         </div>
       </div>
     </section>
+  );
+}
+
+function ProcessCards({ steps }: { steps: string[] }) {
+  return (
+    <div className="grid content-start gap-4 sm:grid-cols-2">
+      {steps.map((step, index) => (
+        <article className="rounded-xl border border-[#dce4df] bg-white p-5 shadow-sm" key={step}>
+          <span className="flex h-9 w-9 items-center justify-center rounded-full bg-[#dfece5] text-sm font-bold text-[#145c42]">
+            {index + 1}
+          </span>
+          <p className="mt-4 text-sm leading-6 text-[#53635b]">{step}</p>
+        </article>
+      ))}
+    </div>
+  );
+}
+
+function MechanismCards({ items }: { items: ServicePageData["supportingVisuals"] }) {
+  return (
+    <div className="mt-8 grid gap-4 md:grid-cols-2 xl:grid-cols-3">
+      {items.map((item) => (
+        <article className="rounded-xl border border-[#dce4df] bg-white p-5 shadow-sm" key={item.title}>
+          <h2 className="text-lg font-semibold text-[#1f2c25]">{item.title}</h2>
+          <p className="mt-3 text-sm leading-6 text-[#53635b]">{item.description}</p>
+        </article>
+      ))}
+    </div>
+  );
+}
+
+function ResearchCards({ service }: { service: ServicePageData }) {
+  return (
+    <div className="mt-8 grid gap-4 md:grid-cols-2 xl:grid-cols-3">
+      {service.researchCards.map((card) => (
+        <article className="flex h-full flex-col rounded-xl border border-[#dce4df] bg-white p-5 shadow-sm" key={card.href}>
+          <p className="text-xs font-semibold uppercase tracking-[0.12em] text-[#64736b]">{card.source}</p>
+          <h2 className="mt-2 text-lg font-semibold text-[#1f2c25]">{card.title}</h2>
+          <p className="mt-3 text-sm leading-6 text-[#53635b]">{card.summary}</p>
+          <p className="mt-4 rounded-lg bg-[#f8fbf9] p-3 text-sm leading-6 text-[#355346]">
+            What this means: use the research as context, then confirm fit with an individual medical evaluation.
+          </p>
+          <a
+            className="mt-auto inline-flex pt-4 text-sm font-semibold text-[#145c42] underline-offset-4 hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#145c42]"
+            href={card.href}
+            rel={card.href.startsWith("/") ? undefined : "noopener noreferrer"}
+            target={card.href.startsWith("/") ? undefined : "_blank"}
+          >
+            {card.linkLabel}
+          </a>
+        </article>
+      ))}
+    </div>
+  );
+}
+
+function ProcessTimeline({ steps }: { steps: string[] }) {
+  return (
+    <ol className="mt-8 grid gap-4 md:grid-cols-2 xl:grid-cols-3">
+      {steps.map((step, index) => (
+        <li className="rounded-xl border border-[#dce4df] bg-white p-5 shadow-sm" key={step}>
+          <p className="font-serif text-4xl leading-none text-[#145c42]">{index + 1}</p>
+          <p className="mt-4 text-sm leading-6 text-[#53635b]">{step}</p>
+        </li>
+      ))}
+    </ol>
+  );
+}
+
+function ComparisonCards({ rows }: { rows: ServicePageData["comparisonRows"] }) {
+  return (
+    <div className="mt-8 grid gap-4 lg:grid-cols-2">
+      {rows.map((row) => (
+        <article className="rounded-xl border border-[#dce4df] bg-white p-5 shadow-sm" key={row.option}>
+          <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
+            <div>
+              <p className="text-xs font-semibold uppercase tracking-[0.12em] text-[#64736b]">{row.type}</p>
+              <h2 className="mt-2 text-xl font-semibold text-[#1f2c25]">{row.option}</h2>
+            </div>
+            <Link className="shrink-0 text-sm font-semibold text-[#145c42] underline-offset-4 hover:underline" href={row.href}>
+              Compare this option
+            </Link>
+          </div>
+          <p className="mt-4 text-sm leading-6 text-[#53635b]">
+            <span className="font-semibold text-[#1f2c25]">Why patients ask: </span>
+            {row.bestFor}
+          </p>
+          <p className="mt-3 text-sm leading-6 text-[#53635b]">
+            <span className="font-semibold text-[#1f2c25]">Key difference: </span>
+            {row.considerations}
+          </p>
+        </article>
+      ))}
+    </div>
+  );
+}
+
+function ConsultationQuestions({ service }: { service: ServicePageData }) {
+  const questions = [
+    `How does ${service.title.toLowerCase()} compare with my other choices?`,
+    "What results are realistic for someone with my history?",
+    "What follow-up will I need after treatment?",
+    "What are the main risks, side effects, or tradeoffs?",
+    "What happens if I regain weight or my progress stalls?",
+    "How does insurance, self-pay pricing, or financing work?",
+  ];
+
+  return (
+    <div className="mt-8 grid gap-4 md:grid-cols-2 xl:grid-cols-3">
+      {questions.map((question) => (
+        <div className="rounded-xl border border-[#dce4df] bg-white p-5 text-sm font-semibold leading-6 text-[#355346] shadow-sm" key={question}>
+          {question}
+        </div>
+      ))}
+    </div>
   );
 }
 

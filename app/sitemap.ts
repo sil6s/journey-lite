@@ -11,6 +11,8 @@ const staticRoutes = [
   "/contact",
   "/our-team",
   "/gastric-balloon",
+  "/bariatric-metrics",
+  "/medications",
 ];
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {

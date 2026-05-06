@@ -158,8 +158,7 @@ export function ContactExperience() {
   const [submitted, setSubmitted] = useState(false);
   const formRef = useRef<HTMLDivElement>(null);
 
-  const hasSubreason = Boolean(data.contactReason && subreasonOptions[data.contactReason]?.length);
-  const steps = ["reason", ...(hasSubreason ? ["subreason"] : []), "contact", "details", "review"];
+  const steps = ["reason", "subreason", "contact", "details", "review"];
   const safeStep = Math.min(step, steps.length - 1);
   const current = steps[safeStep] ?? steps[0];
   const progress = Math.round(((safeStep + 1) / steps.length) * 100);
@@ -240,7 +239,7 @@ export function ContactExperience() {
   }
 
   return (
-    <div className="mx-auto max-w-3xl">
+    <div className="mx-auto max-w-4xl">
       <section className="scroll-mt-28 rounded-xl border border-[#dce4df] bg-white p-5 shadow-xl shadow-[#20372b]/8 lg:p-8" id="contact-form" ref={formRef}>
         <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
           <div>
@@ -522,11 +521,11 @@ function CardChoiceGroup({
   return (
     <fieldset>
       <legend className="text-lg font-semibold text-[#1f2c25]">{label}</legend>
-      <div className="mt-4 grid gap-3 sm:grid-cols-2">
+      <div className="mt-4 grid gap-2 sm:grid-cols-2 lg:grid-cols-4">
         {options.map((option) => (
           <button
             aria-pressed={value === option.value}
-            className={`min-h-16 rounded-lg border px-4 py-3 text-left text-sm font-semibold transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#145c42] ${
+            className={`min-h-12 rounded-lg border px-3 py-2.5 text-left text-sm font-semibold transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#145c42] ${
               value === option.value
                 ? "border-[#145c42] bg-[#edf4ef] text-[#145c42] shadow-sm"
                 : "border-[#dce4df] bg-white text-[#1f2c25] hover:border-[#145c42]"
