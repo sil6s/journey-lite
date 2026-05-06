@@ -61,11 +61,6 @@ export const navGroups = [
         description: "An adjustable balloon option for comparison.",
       },
       {
-        label: "Gastric Balloon Pricing",
-        href: "/services/gastric-balloon-pricing",
-        description: "Review cost and program considerations.",
-      },
-      {
         label: "Gastric Balloon Instructions",
         href: "/services/gastric-balloon",
         description: "Learn what to expect with balloon treatment.",
@@ -99,11 +94,6 @@ export const navGroups = [
         label: "After Weight Loss Surgery",
         href: "/services/post-op-weight-regain-support",
         description: "Support for weight regain or maintenance concerns.",
-      },
-      {
-        label: "Medication Pricing",
-        href: "/services/medication-pricing",
-        description: "Program details, cost, and insurance considerations.",
       },
       {
         label: "Appointment Request",
@@ -337,13 +327,13 @@ export const medicationSupportOptions = [
     cta: "Discuss Weight Regain Support",
   },
   {
-    id: "medication-pricing",
-    title: "Medication pricing / program details",
+    id: "pricing-financing",
+    title: "Pricing and financing details",
     description:
       "Program cost, insurance coverage, medication access, and follow-up needs vary by patient and treatment plan.",
     bestFor: "Useful for patients comparing oral and injectable medication programs before consultation.",
-    href: "/services/medication-pricing",
-    cta: "Review Program Details",
+    href: "/services/pricing-financing",
+    cta: "Review Pricing & Financing",
   },
 ];
 

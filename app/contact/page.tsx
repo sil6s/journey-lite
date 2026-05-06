@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { ContactExperience, ContactInternalLinks, EmergencyNotice } from "./ContactForm";
+import { ContactExperience } from "./ContactForm";
 import { CTAButton, FAQAccordion, Section, SiteFooter, SiteHeader } from "../components/marketing";
 import { cincinnatiLocation, locationGroups, phoneHref, phoneNumber } from "../components/data";
 
@@ -102,6 +102,70 @@ const medicalBusinessSchema = {
   },
 };
 
+const prepDetails = [
+  {
+    title: "Consultation or procedure questions",
+    copy:
+      "Share the option you are considering, your preferred location, and whether you want help comparing surgery, gastric balloon care, or medication-supported treatment.",
+  },
+  {
+    title: "Pricing, financing, or insurance",
+    copy:
+      "Include the service you are comparing and whether you are asking about self-pay pricing, financing, insurance requirements, medication costs, or revision surgery.",
+  },
+  {
+    title: "Existing patient questions",
+    copy:
+      "Use the form for non-urgent questions only. For urgent post-operative or medical concerns, call the office directly or seek emergency care.",
+  },
+];
+
+const oldContentNotes = [
+  [
+    "Surgery preparation",
+    "JourneyLite preparation guidance points patients toward pre-op history forms, medication review, insurance cards, and notifying the team about illness or medication changes before a procedure.",
+  ],
+  [
+    "Pricing and financing",
+    "Existing pricing pages explain self-pay package questions, financing partners, insurance variability, and the need to confirm current details during consultation.",
+  ],
+  [
+    "Medication costs",
+    "Medication content separates office visit costs from prescription costs, insurance coverage, lab needs, and long-term follow-up questions.",
+  ],
+  [
+    "Procedure-specific questions",
+    "Gastric balloon instructions and gastric band revision content add useful context for prep, follow-up, conversions, and complexity questions.",
+  ],
+];
+
+const sourceCards = [
+  {
+    title: "Obesity as a chronic condition",
+    copy: "CDC context can help patients understand why medical weight management is often approached as long-term care, not a quick transaction.",
+    href: "https://www.cdc.gov/obesity/adult-obesity-facts/index.html",
+    label: "CDC adult obesity facts",
+  },
+  {
+    title: "Health risks and medical context",
+    copy: "CDC information on obesity-related health risks supports medically responsible conversations about eligibility and treatment goals.",
+    href: "https://www.cdc.gov/obesity/php/about/consequences.html",
+    label: "CDC obesity health risks",
+  },
+  {
+    title: "Bariatric surgery types",
+    copy: "NIDDK explains common bariatric procedure categories that patients may compare before requesting a consultation.",
+    href: "https://www.niddk.nih.gov/health-information/weight-management/bariatric-surgery/types",
+    label: "NIDDK bariatric surgery types",
+  },
+  {
+    title: "Procedure education",
+    copy: "ASMBS patient education explains how bariatric procedures can differ in anatomy, follow-up, and candidacy considerations.",
+    href: "https://asmbs.org/patients/bariatric-surgery-procedures/",
+    label: "ASMBS bariatric surgery procedures",
+  },
+];
+
 export default function ContactPage() {
   const secondaryLocations = locationGroups.flatMap((group) => group.locations);
 
@@ -109,63 +173,128 @@ export default function ContactPage() {
     <>
       <SiteHeader />
       <main>
-        <section className="bg-[#f7f8f6]">
-          <div className="mx-auto grid max-w-7xl gap-10 px-5 py-14 lg:grid-cols-[1.1fr_0.9fr] lg:items-center lg:px-8 lg:py-20">
-            <div>
+        <section className="bg-white">
+          <div className="mx-auto max-w-7xl px-5 pb-8 pt-10 lg:px-8 lg:pb-10 lg:pt-12">
+            <div className="max-w-4xl">
               <p className="eyebrow">Contact JourneyLite</p>
-              <h1 className="mt-4 max-w-4xl font-serif text-5xl leading-[1.05] text-[#1e2b24] md:text-6xl">
-                Start your weight loss journey with the right next step.
+              <h1 className="mt-4 font-serif text-4xl leading-[1.08] text-[#1e2b24] md:text-5xl">
+                Contact JourneyLite for weight loss surgery, medication, and pricing questions.
               </h1>
-              <p className="mt-6 max-w-3xl text-lg leading-8 text-[#516059]">
-                Request a weight loss consultation in Ohio, ask a question, compare treatment options, or contact a
-                specific JourneyLite location. This form does not replace medical advice or emergency care.
+              <p className="mt-5 max-w-3xl text-base leading-7 text-[#516059]">
+                Tell us what you need, and the JourneyLite team can route your request to the right person for
+                consultation scheduling, pricing, financing, insurance, medication, surgery, or existing patient questions.
               </p>
-              <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+              <div className="mt-7 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
                 <CTAButton href="#contact-form">Request Consultation</CTAButton>
                 <CTAButton href={phoneHref} variant="secondary">
                   Call {phoneNumber}
                 </CTAButton>
+                <CTAButton href="/services/pricing-financing" variant="secondary">
+                  Pricing & Financing
+                </CTAButton>
               </div>
+              <p className="mt-4 text-sm leading-6 text-[#8a3b22]">
+                For urgent medical concerns, call the office directly or seek emergency care.
+              </p>
             </div>
-            <aside className="rounded-2xl border border-[#d6e1da] bg-white p-6 shadow-2xl shadow-[#20372b]/10">
-              <p className="eyebrow">Trusted regional care</p>
-              <div className="mt-5 grid gap-3 sm:grid-cols-2">
-                {[
-                  ["10,000+", "procedures"],
-                  ["6,000+", "gastric sleeves"],
-                  ["20+", "years experience"],
-                  ["5", "regional locations"],
-                ].map(([value, label]) => (
-                  <div className="rounded-lg border border-[#dce4df] bg-[#f8fbf9] p-4" key={label}>
-                    <p className="font-serif text-4xl text-[#145c42]">{value}</p>
-                    <p className="mt-2 text-sm font-semibold text-[#53635b]">{label}</p>
-                  </div>
-                ))}
-              </div>
-            </aside>
           </div>
         </section>
 
-        <section className="bg-white py-10">
-          <div className="mx-auto max-w-7xl px-5 lg:px-8">
-            <EmergencyNotice />
-          </div>
-        </section>
-
-        <section className="bg-[#edf4ef] py-16 lg:py-20">
+        <section className="bg-[#f3f6f1] py-10 lg:py-12">
           <div className="mx-auto max-w-7xl px-5 lg:px-8">
             <ContactExperience />
           </div>
         </section>
 
-        <Section
-          eyebrow="Helpful links"
-          intro="Use these links if you want to compare options before or after submitting a request."
-          title="Explore JourneyLite services before your consultation"
-          tone="white"
-        >
-          <ContactInternalLinks />
-        </Section>
+        <section className="bg-white py-12 lg:py-16">
+          <div className="mx-auto max-w-7xl px-5 lg:px-8">
+            <div className="grid gap-10 lg:grid-cols-[0.9fr_1.1fr]">
+              <div>
+                <p className="eyebrow">Before you submit</p>
+                <h2 className="mt-3 font-serif text-4xl leading-tight text-[#1f2c25]">
+                  Include only the details that help the team respond.
+                </h2>
+                <p className="mt-4 text-base leading-7 text-[#53635b]">
+                  The form is intentionally short. JourneyLite can follow up for medical history, benefit checks, financing
+                  details, surgical preparation, or documentation when those details are needed.
+                </p>
+                <p className="mt-4 text-sm leading-6 text-[#53635b]">
+                  Existing JourneyLite content on preparing for surgery, pricing, medication costs, gastric balloon
+                  instructions, gastric band revision, and Katy&apos;s VSG story informed these contact paths. Individual
+                  patient stories are not a guarantee of results.
+                </p>
+              </div>
+              <div className="grid gap-4">
+                {prepDetails.map((item) => (
+                  <article className="rounded-lg border border-[#dce4df] bg-[#fafbf9] p-5" key={item.title}>
+                    <h3 className="text-lg font-semibold text-[#1f2c25]">{item.title}</h3>
+                    <p className="mt-2 text-sm leading-6 text-[#53635b]">{item.copy}</p>
+                  </article>
+                ))}
+              </div>
+            </div>
+
+            <div className="mt-10 overflow-hidden rounded-xl border border-[#dce4df] bg-white">
+              <div className="border-b border-[#dce4df] bg-[#f7f8f6] px-5 py-4">
+                <h3 className="text-xl font-semibold text-[#1f2c25]">Common topics patients ask about</h3>
+                <p className="mt-1 text-sm leading-6 text-[#53635b]">
+                  These examples are adapted from JourneyLite&apos;s existing patient education and pricing content.
+                </p>
+              </div>
+              <div className="divide-y divide-[#e6ece8]">
+                {oldContentNotes.map(([topic, detail]) => (
+                  <div className="grid gap-2 px-5 py-4 md:grid-cols-[220px_1fr]" key={topic}>
+                    <p className="text-sm font-semibold text-[#1f2c25]">{topic}</p>
+                    <p className="text-sm leading-6 text-[#53635b]">{detail}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
+              <CTAButton href="/services/compare-weight-loss-options" variant="secondary">
+                Compare Treatment Options
+              </CTAButton>
+              <CTAButton href="/services/pricing-financing" variant="secondary">
+                Review Pricing & Financing
+              </CTAButton>
+              <CTAButton href="/services/gastric-band-revision" variant="secondary">
+                Gastric Band Revision
+              </CTAButton>
+            </div>
+          </div>
+        </section>
+
+        <section className="bg-[#f7f8f6] py-12 lg:py-16">
+          <div className="mx-auto max-w-7xl px-5 lg:px-8">
+            <div className="max-w-3xl">
+              <p className="eyebrow">Trusted medical context</p>
+              <h2 className="mt-3 font-serif text-4xl leading-tight text-[#1f2c25]">
+                Sources that support responsible treatment conversations.
+              </h2>
+              <p className="mt-4 text-base leading-7 text-[#53635b]">
+                These references are not a substitute for medical evaluation, but they provide credible context for
+                weight management, bariatric surgery, and treatment comparison questions.
+              </p>
+            </div>
+            <div className="mt-8 grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+              {sourceCards.map((source) => (
+                <article className="flex h-full flex-col rounded-lg border border-[#dce4df] bg-white p-5 shadow-sm" key={source.title}>
+                  <h3 className="text-lg font-semibold text-[#1f2c25]">{source.title}</h3>
+                  <p className="mt-3 flex-1 text-sm leading-6 text-[#53635b]">{source.copy}</p>
+                  <a
+                    className="mt-5 text-sm font-semibold text-[#145c42] underline-offset-4 hover:underline"
+                    href={source.href}
+                    rel="noreferrer"
+                    target="_blank"
+                  >
+                    {source.label}
+                  </a>
+                </article>
+              ))}
+            </div>
+          </div>
+        </section>
 
         <Section
           eyebrow="Locations"

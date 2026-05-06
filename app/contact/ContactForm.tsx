@@ -1,12 +1,11 @@
 "use client";
 
-import type { ReactNode } from "react";
-import { useMemo, useRef, useState } from "react";
-import Link from "next/link";
+import { useRef, useState } from "react";
 import { CTAButton } from "../components/marketing";
 
 type FormData = {
   contactReason: string;
+  contactSubreason: string;
   patientStatus: string;
   treatmentInterest: string;
   preferredLocation: string;
@@ -30,6 +29,7 @@ type FormData = {
 
 const initialData: FormData = {
   contactReason: "",
+  contactSubreason: "",
   patientStatus: "",
   treatmentInterest: "",
   preferredLocation: "",
@@ -52,18 +52,26 @@ const initialData: FormData = {
 };
 
 const reasonOptions = [
-  ["consultation", "Request a consultation", "Start a new appointment request or compare next steps."],
-  ["general", "General question", "Ask a non-urgent question for the JourneyLite team."],
-  ["pricing", "Pricing or financing", "Ask about self-pay, financing, or cost factors."],
-  ["insurance", "Insurance question", "Ask about coverage, plan rules, or authorization."],
-  ["medication", "Prescription weight loss medication", "Ask about oral or injectable medication programs."],
-  ["surgical", "Surgical weight loss", "Ask about gastric sleeve, bypass, SADI, revisions, or surgery."],
-  ["non-surgical", "Non-surgical procedure", "Ask about gastric balloon or comparison options."],
-  ["existing", "Existing patient question", "Ask a non-urgent question as an existing patient."],
-  ["location", "Location-specific question", "Contact a JourneyLite regional location."],
+  ["consultation", "Request a consultation"],
+  ["pricing", "Pricing or financing"],
+  ["insurance", "Insurance question"],
+  ["surgical", "Surgical weight loss"],
+  ["non-surgical", "Non-surgical procedure"],
+  ["medication", "Prescription weight loss medication"],
+  ["existing", "Existing patient question"],
+  ["general", "General question"],
 ];
 
-const patientOptions = ["New patient", "Existing patient", "I'm helping someone else", "Not sure"];
+const subreasonOptions: Record<string, string[]> = {
+  consultation: ["Compare options", "Surgery consultation", "Medication consultation", "Balloon consultation", "Not sure yet"],
+  pricing: ["Self-pay pricing", "Financing", "Surgery cost", "Medication cost", "Balloon cost"],
+  insurance: ["Surgery coverage", "Medication coverage", "Benefit requirements", "Prior authorization", "Not sure"],
+  surgical: ["Gastric sleeve", "Gastric bypass", "SADI surgery", "Lap Band", "Revision surgery"],
+  "non-surgical": ["Gastric balloon", "Spatz balloon", "Allurion balloon", "Compare non-surgical options"],
+  medication: ["Injectable medication", "Oral medication", "GLP-1 questions", "Medication pricing", "Eligibility"],
+  existing: ["Appointment question", "Billing question", "Follow-up question", "Non-urgent clinical question"],
+  general: ["Location question", "Provider question", "Records question", "Other"],
+};
 
 const treatmentOptions = [
   "Gastric Sleeve",
@@ -118,6 +126,18 @@ function needsTreatment(reason: string) {
   return ["consultation", "medication", "surgical", "non-surgical", "pricing", "insurance"].includes(reason);
 }
 
+function needsLocation(reason: string) {
+  return ["consultation", "pricing", "insurance", "medication", "surgical", "non-surgical", "existing"].includes(reason);
+}
+
+function needsInsurance(reason: string) {
+  return ["insurance", "pricing", "consultation"].includes(reason);
+}
+
+function needsTimeframe(reason: string) {
+  return ["consultation", "medication", "surgical", "non-surgical"].includes(reason);
+}
+
 function placeholder(reason: string) {
   const map: Record<string, string> = {
     consultation: "Tell us a little about your goals, timeline, and any procedures or programs you are considering.",
@@ -138,15 +158,11 @@ export function ContactExperience() {
   const [submitted, setSubmitted] = useState(false);
   const formRef = useRef<HTMLDivElement>(null);
 
-  const steps = useMemo(() => {
-    const base = ["reason", "patient"];
-    if (needsTreatment(data.contactReason)) base.push("treatment");
-    base.push("location", "contact", "details", "review");
-    return base;
-  }, [data.contactReason]);
-
-  const current = steps[step] ?? steps[0];
-  const progress = Math.round(((step + 1) / steps.length) * 100);
+  const hasSubreason = Boolean(data.contactReason && subreasonOptions[data.contactReason]?.length);
+  const steps = ["reason", ...(hasSubreason ? ["subreason"] : []), "contact", "details", "review"];
+  const safeStep = Math.min(step, steps.length - 1);
+  const current = steps[safeStep] ?? steps[0];
+  const progress = Math.round(((safeStep + 1) / steps.length) * 100);
 
   function update<K extends keyof FormData>(key: K, value: FormData[K]) {
     setData((prev) => ({ ...prev, [key]: value }));
@@ -154,17 +170,14 @@ export function ContactExperience() {
   }
 
   function chooseReason(reason: string) {
-    update("contactReason", reason);
-    setStep(1);
-    window.setTimeout(() => formRef.current?.scrollIntoView({ behavior: "smooth", block: "start" }), 0);
+    setData((prev) => ({ ...prev, contactReason: reason, contactSubreason: "" }));
+    setErrors((prev) => ({ ...prev, contactReason: "", contactSubreason: "" }));
   }
 
   function validateCurrent() {
     const nextErrors: Record<string, string> = {};
     if (current === "reason" && !data.contactReason) nextErrors.contactReason = "Choose a reason for contact.";
-    if (current === "patient" && !data.patientStatus) nextErrors.patientStatus = "Choose a patient status.";
-    if (current === "treatment" && !data.treatmentInterest) nextErrors.treatmentInterest = "Choose a treatment interest.";
-    if (current === "location" && !data.preferredLocation) nextErrors.preferredLocation = "Choose a preferred location.";
+    if (current === "subreason" && !data.contactSubreason) nextErrors.contactSubreason = "Choose the closest match.";
     if (current === "contact") {
       if (!data.firstName.trim()) nextErrors.firstName = "First name is required.";
       if (!data.lastName.trim()) nextErrors.lastName = "Last name is required.";
@@ -172,7 +185,10 @@ export function ContactExperience() {
       if (data.email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(data.email)) nextErrors.email = "Enter a valid email address.";
       if (data.phone && data.phone.replace(/\D/g, "").length < 10) nextErrors.phone = "Enter a valid phone number.";
       if (!data.preferredContactMethod) nextErrors.preferredContactMethod = "Choose a preferred contact method.";
-      if (!data.bestContactTime) nextErrors.bestContactTime = "Choose a best contact time.";
+    }
+    if (current === "details") {
+      if (needsTreatment(data.contactReason) && !data.treatmentInterest) nextErrors.treatmentInterest = "Choose a service interest.";
+      if (needsLocation(data.contactReason) && !data.preferredLocation) nextErrors.preferredLocation = "Choose a preferred location.";
     }
     if (current === "review") {
       if (!data.emergencyAcknowledgement) nextErrors.emergencyAcknowledgement = "Confirm this is not for emergencies.";
@@ -224,40 +240,21 @@ export function ContactExperience() {
   }
 
   return (
-    <div className="grid gap-8">
-      <section aria-labelledby="quick-contact-title">
-        <div className="max-w-3xl">
-          <p className="eyebrow">Quick contact paths</p>
-          <h2 className="section-title" id="quick-contact-title">
-            Choose the path that best matches your question.
-          </h2>
-        </div>
-        <div className="mt-8 grid gap-4 md:grid-cols-2 xl:grid-cols-4">
-          {reasonOptions.slice(0, 8).map(([value, label, description], index) => (
-            <button
-              className="rounded-lg border border-[#dce4df] bg-white p-5 text-left shadow-sm transition hover:-translate-y-0.5 hover:border-[#145c42] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#145c42]"
-              key={value}
-              onClick={() => chooseReason(value)}
-              type="button"
-            >
-              <span className="flex h-9 w-9 items-center justify-center rounded-full bg-[#edf4ef] text-xs font-bold text-[#145c42]">
-                {String(index + 1).padStart(2, "0")}
-              </span>
-              <span className="mt-4 block text-lg font-semibold text-[#1f2c25]">{label}</span>
-              <span className="mt-2 block text-sm leading-6 text-[#53635b]">{description}</span>
-            </button>
-          ))}
-        </div>
-      </section>
-
-      <section className="rounded-2xl border border-[#dce4df] bg-white p-5 shadow-xl shadow-[#20372b]/8 lg:p-8" id="contact-form" ref={formRef}>
+    <div className="mx-auto max-w-3xl">
+      <section className="scroll-mt-28 rounded-xl border border-[#dce4df] bg-white p-5 shadow-xl shadow-[#20372b]/8 lg:p-8" id="contact-form" ref={formRef}>
         <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
           <div>
-            <p className="eyebrow">Appointment request form</p>
+            <p className="eyebrow">Contact JourneyLite</p>
             <h2 className="mt-3 text-3xl font-semibold text-[#1f2c25]">Tell us what you need.</h2>
+            <p className="mt-3 max-w-2xl text-sm leading-6 text-[#53635b]">
+              Choose the reason for your message and we&apos;ll route it to the right JourneyLite team member.
+            </p>
+            <p className="mt-2 text-xs font-semibold leading-5 text-[#8a3b22]">
+              For urgent medical concerns, call the office directly or seek emergency care.
+            </p>
           </div>
           <p className="text-sm font-semibold text-[#53635b]">
-            Step {step + 1} of {steps.length}: {labelForStep(current)}
+            Step {safeStep + 1} of {steps.length}: {labelForStep(current)}
           </p>
         </div>
         <div className="mt-6 h-2 overflow-hidden rounded-full bg-[#edf4ef]" aria-hidden="true">
@@ -266,53 +263,24 @@ export function ContactExperience() {
 
         <div className="mt-8">
           {current === "reason" ? (
-            <ChoiceGrid
-              error={errors.contactReason}
-              name="contactReason"
-              onChoose={(value) => update("contactReason", value)}
-              options={reasonOptions.map(([value, label, description]) => ({ value, label, description }))}
-              selected={data.contactReason}
-              title="What can we help you with?"
-            />
+            <div>
+              <CardChoiceGroup
+                error={errors.contactReason}
+                label="What can we help you with?"
+                onChange={chooseReason}
+                options={reasonOptions.map(([value, label]) => ({ value, label }))}
+                value={data.contactReason}
+              />
+            </div>
           ) : null}
 
-          {current === "patient" ? (
-            <ChoiceGrid
-              error={errors.patientStatus}
-              name="patientStatus"
-              onChoose={(value) => update("patientStatus", value)}
-              options={patientOptions.map((item) => ({ value: item, label: item }))}
-              selected={data.patientStatus}
-              title="Are you a new or existing JourneyLite patient?"
-            >
-              {data.patientStatus === "Existing patient" ? (
-                <p className="mt-5 rounded-lg border border-[#d8c88b] bg-[#fffdf4] p-4 text-sm leading-6 text-[#5e5235]">
-                  For urgent post-operative or medical concerns, please call the office directly. If this is an
-                  emergency, call 911.
-                </p>
-              ) : null}
-            </ChoiceGrid>
-          ) : null}
-
-          {current === "treatment" ? (
-            <ChoiceGrid
-              error={errors.treatmentInterest}
-              name="treatmentInterest"
-              onChoose={(value) => update("treatmentInterest", value)}
-              options={treatmentOptions.map((item) => ({ value: item, label: item }))}
-              selected={data.treatmentInterest}
-              title="Which option are you interested in?"
-            />
-          ) : null}
-
-          {current === "location" ? (
-            <ChoiceGrid
-              error={errors.preferredLocation}
-              name="preferredLocation"
-              onChoose={(value) => update("preferredLocation", value)}
-              options={locations.map((loc) => ({ value: loc.label, label: loc.label, description: `${loc.address} | ${loc.phone}` }))}
-              selected={data.preferredLocation}
-              title="Which location is most convenient?"
+          {current === "subreason" ? (
+            <CardChoiceGroup
+              error={errors.contactSubreason}
+              label="Which best matches your request?"
+              onChange={(value) => update("contactSubreason", value)}
+              options={(subreasonOptions[data.contactReason] ?? []).map((item) => ({ value: item, label: item }))}
+              value={data.contactSubreason}
             />
           ) : null}
 
@@ -321,7 +289,7 @@ export function ContactExperience() {
           ) : null}
 
           {current === "details" ? (
-            <DetailsFields data={data} update={update} />
+            <DetailsFields data={data} errors={errors} update={update} />
           ) : null}
 
           {current === "review" ? (
@@ -339,12 +307,10 @@ export function ContactExperience() {
           value={data.website}
         />
 
-        <EmergencyNotice compact />
-
         <div className="mt-8 flex flex-col-reverse gap-3 sm:flex-row sm:justify-between">
           <button
-            className="inline-flex min-h-11 items-center justify-center rounded-md border border-[#cbd7d0] bg-white px-5 py-3 text-sm font-semibold text-[#17362a] transition hover:border-[#145c42] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#145c42]"
-            disabled={step === 0}
+            className="inline-flex min-h-11 items-center justify-center rounded-md border border-[#cbd7d0] bg-white px-5 py-3 text-sm font-semibold text-[#17362a] transition hover:border-[#145c42] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#145c42] disabled:cursor-not-allowed disabled:opacity-40"
+            disabled={safeStep === 0}
             onClick={goBack}
             type="button"
           >
@@ -355,7 +321,7 @@ export function ContactExperience() {
             onClick={current === "review" ? submit : goNext}
             type="button"
           >
-            {current === "review" ? "Submit Request" : "Continue"}
+            {current === "review" ? "Send Request" : "Continue"}
           </button>
         </div>
       </section>
@@ -363,78 +329,15 @@ export function ContactExperience() {
   );
 }
 
-export function EmergencyNotice({ compact = false }: { compact?: boolean }) {
-  return (
-    <div
-      className={`rounded-xl border border-[#d8c88b] bg-[#fffdf4] text-[#5e5235] ${compact ? "mt-8 p-4 text-sm leading-6" : "p-5 text-sm leading-6 shadow-sm"}`}
-      role="note"
-    >
-      <p className="font-semibold text-[#1f2c25]">Emergency and urgent care notice</p>
-      <p className="mt-2">
-        If you are experiencing a medical emergency, call 911 immediately. Do not use this form for urgent or emergency
-        medical needs. For urgent post-operative concerns, call the office directly using the appropriate location phone
-        number.
-      </p>
-    </div>
-  );
-}
-
 function labelForStep(step: string) {
   const labels: Record<string, string> = {
-    reason: "Reason",
-    patient: "Patient status",
-    treatment: "Treatment interest",
-    location: "Location",
+    reason: "Reason for contact",
+    subreason: "Request type",
     contact: "Contact information",
     details: "Details",
-    review: "Review",
+    review: "Review and submit",
   };
   return labels[step] ?? step;
-}
-
-function ChoiceGrid({
-  title,
-  options,
-  selected,
-  onChoose,
-  name,
-  error,
-  children,
-}: {
-  title: string;
-  options: { value: string; label: string; description?: string }[];
-  selected: string;
-  onChoose: (value: string) => void;
-  name: string;
-  error?: string;
-  children?: ReactNode;
-}) {
-  return (
-    <fieldset>
-      <legend className="text-2xl font-semibold text-[#1f2c25]">{title}</legend>
-      <div className="mt-5 grid gap-3 md:grid-cols-2">
-        {options.map((option) => (
-          <button
-            aria-pressed={selected === option.value}
-            className={`rounded-lg border p-4 text-left transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#145c42] ${
-              selected === option.value
-                ? "border-[#145c42] bg-[#edf4ef] shadow-sm"
-                : "border-[#dce4df] bg-white hover:border-[#145c42]"
-            }`}
-            key={option.value}
-            name={name}
-            onClick={() => onChoose(option.value)}
-            type="button"
-          >
-            <span className="block font-semibold text-[#1f2c25]">{option.label}</span>
-            {option.description ? <span className="mt-2 block text-sm leading-6 text-[#53635b]">{option.description}</span> : null}
-          </button>
-        ))}
-      </div>
-      {children}
-      {error ? <p className="mt-3 text-sm font-semibold text-[#8a3b22]">{error}</p> : null}
-    </fieldset>
-  );
 }
 
 function ContactFields({
@@ -448,57 +351,86 @@ function ContactFields({
 }) {
   return (
     <div>
-      <h3 className="text-2xl font-semibold text-[#1f2c25]">How should we contact you?</h3>
+      <h3 className="text-2xl font-semibold text-[#1f2c25]">Contact information</h3>
       <div className="mt-5 grid gap-4 md:grid-cols-2">
         <TextField error={errors.firstName} label="First name" onChange={(value) => update("firstName", value)} value={data.firstName} />
         <TextField error={errors.lastName} label="Last name" onChange={(value) => update("lastName", value)} value={data.lastName} />
         <TextField error={errors.email} label="Email" onChange={(value) => update("email", value)} type="email" value={data.email} />
         <TextField error={errors.phone} label="Phone" onChange={(value) => update("phone", value)} type="tel" value={data.phone} />
       </div>
-      <div className="mt-6 grid gap-5 lg:grid-cols-2">
-        <ChoiceGrid
-          error={errors.preferredContactMethod}
-          name="preferredContactMethod"
-          onChoose={(value) => update("preferredContactMethod", value)}
-          options={contactMethods.map((item) => ({ value: item, label: item }))}
-          selected={data.preferredContactMethod}
-          title="Preferred contact method"
-        />
-        <ChoiceGrid
-          error={errors.bestContactTime}
-          name="bestContactTime"
-          onChoose={(value) => update("bestContactTime", value)}
-          options={contactTimes.map((item) => ({ value: item, label: item }))}
-          selected={data.bestContactTime}
-          title="Best time to contact"
-        />
-      </div>
+      <RadioGroup
+        error={errors.preferredContactMethod}
+        label="Preferred contact method"
+        onChange={(value) => update("preferredContactMethod", value)}
+        options={contactMethods}
+        value={data.preferredContactMethod}
+      />
     </div>
   );
 }
 
 function DetailsFields({
   data,
+  errors,
   update,
 }: {
   data: FormData;
+  errors: Record<string, string>;
   update: <K extends keyof FormData>(key: K, value: FormData[K]) => void;
 }) {
+  const showLocation = needsLocation(data.contactReason);
+  const showTreatment = needsTreatment(data.contactReason);
+  const showInsurance = needsInsurance(data.contactReason);
+  const showTimeframe = needsTimeframe(data.contactReason);
+
   return (
     <div>
-      <h3 className="text-2xl font-semibold text-[#1f2c25]">Add helpful context.</h3>
-      <div className="mt-5 grid gap-4 md:grid-cols-2">
-        <TextField label="Insurance provider (optional)" onChange={(value) => update("insuranceProvider", value)} value={data.insuranceProvider} />
-        <TextField
-          label="Preferred appointment timeframe (optional)"
-          onChange={(value) => update("preferredAppointmentTimeframe", value)}
-          value={data.preferredAppointmentTimeframe}
-        />
+      <h3 className="text-2xl font-semibold text-[#1f2c25]">Details</h3>
+      <div className="mt-5 grid gap-4">
+        {showLocation ? (
+          <SelectField
+            error={errors.preferredLocation}
+            label="Location preference"
+            onChange={(value) => update("preferredLocation", value)}
+            options={locations.map((loc) => ({ value: loc.label, label: loc.label }))}
+            placeholder="Choose a location"
+            value={data.preferredLocation}
+          />
+        ) : null}
+        {showTreatment ? (
+          <SelectField
+            error={errors.treatmentInterest}
+            label="Service interest"
+            onChange={(value) => update("treatmentInterest", value)}
+            options={treatmentOptions.map((item) => ({ value: item, label: item }))}
+            placeholder="Choose a service"
+            value={data.treatmentInterest}
+          />
+        ) : null}
+        <div className="grid gap-4 md:grid-cols-2">
+          {showInsurance ? (
+            <TextField label="Insurance provider (optional)" onChange={(value) => update("insuranceProvider", value)} value={data.insuranceProvider} />
+          ) : null}
+          {showTimeframe ? (
+            <TextField
+              label="Preferred appointment timeframe (optional)"
+              onChange={(value) => update("preferredAppointmentTimeframe", value)}
+              value={data.preferredAppointmentTimeframe}
+            />
+          ) : null}
+          <SelectField
+            label="Best time to contact (optional)"
+            onChange={(value) => update("bestContactTime", value)}
+            options={contactTimes.map((item) => ({ value: item, label: item }))}
+            placeholder="No preference"
+            value={data.bestContactTime}
+          />
+        </div>
       </div>
       <label className="mt-5 block">
         <span className="text-sm font-semibold text-[#1f2c25]">Message</span>
         <textarea
-          className="mt-2 min-h-40 w-full rounded-lg border border-[#cbd7d0] bg-white px-4 py-3 text-sm leading-6 text-[#1f2c25] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#145c42]"
+          className="mt-2 min-h-32 w-full rounded-lg border border-[#cbd7d0] bg-white px-4 py-3 text-sm leading-6 text-[#1f2c25] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#145c42]"
           onChange={(event) => update("message", event.target.value)}
           placeholder={placeholder(data.contactReason)}
           value={data.message}
@@ -523,25 +455,25 @@ function ReviewStep({
   update: <K extends keyof FormData>(key: K, value: FormData[K]) => void;
 }) {
   const rows = [
-    ["Reason for contact", data.contactReason],
-    ["Patient status", data.patientStatus],
-    ["Treatment interest", data.treatmentInterest || "Not provided"],
+    ["Reason for contact", labelForReason(data.contactReason)],
+    ["Request type", data.contactSubreason],
+    ["Service interest", data.treatmentInterest],
     ["Preferred location", data.preferredLocation],
     ["Name", `${data.firstName} ${data.lastName}`],
-    ["Email", data.email || "Not provided"],
-    ["Phone", data.phone || "Not provided"],
+    ["Email", data.email],
+    ["Phone", data.phone],
     ["Preferred contact method", data.preferredContactMethod],
     ["Best contact time", data.bestContactTime],
-    ["Insurance provider", data.insuranceProvider || "Not provided"],
-    ["Message", data.message || "Not provided"],
-  ];
+    ["Insurance provider", data.insuranceProvider],
+    ["Message", data.message],
+  ].filter(([, value]) => value && value !== " ");
 
   return (
     <div>
-      <h3 className="text-2xl font-semibold text-[#1f2c25]">Review before submitting.</h3>
+      <h3 className="text-2xl font-semibold text-[#1f2c25]">Review and submit</h3>
       <dl className="mt-5 grid gap-3">
         {rows.map(([label, value]) => (
-          <div className="rounded-lg border border-[#dce4df] bg-[#f8fbf9] p-4" key={label}>
+          <div className="rounded-lg border border-[#dce4df] bg-[#fafbf9] p-4" key={label}>
             <dt className="text-xs font-semibold uppercase tracking-[0.08em] text-[#66756d]">{label}</dt>
             <dd className="mt-1 text-sm leading-6 text-[#1f2c25]">{value}</dd>
           </div>
@@ -567,6 +499,122 @@ function ReviewStep({
         />
       </div>
     </div>
+  );
+}
+
+function labelForReason(reason: string) {
+  return reasonOptions.find(([value]) => value === reason)?.[1] ?? reason;
+}
+
+function CardChoiceGroup({
+  label,
+  options,
+  value,
+  onChange,
+  error,
+}: {
+  label: string;
+  options: { value: string; label: string }[];
+  value: string;
+  onChange: (value: string) => void;
+  error?: string;
+}) {
+  return (
+    <fieldset>
+      <legend className="text-lg font-semibold text-[#1f2c25]">{label}</legend>
+      <div className="mt-4 grid gap-3 sm:grid-cols-2">
+        {options.map((option) => (
+          <button
+            aria-pressed={value === option.value}
+            className={`min-h-16 rounded-lg border px-4 py-3 text-left text-sm font-semibold transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#145c42] ${
+              value === option.value
+                ? "border-[#145c42] bg-[#edf4ef] text-[#145c42] shadow-sm"
+                : "border-[#dce4df] bg-white text-[#1f2c25] hover:border-[#145c42]"
+            }`}
+            key={option.value}
+            onClick={() => onChange(option.value)}
+            type="button"
+          >
+            {option.label}
+          </button>
+        ))}
+      </div>
+      {error ? <p className="mt-3 text-sm font-semibold text-[#8a3b22]">{error}</p> : null}
+    </fieldset>
+  );
+}
+
+function SelectField({
+  label,
+  value,
+  onChange,
+  options,
+  placeholder,
+  error,
+}: {
+  label: string;
+  value: string;
+  onChange: (value: string) => void;
+  options: { value: string; label: string }[];
+  placeholder: string;
+  error?: string;
+}) {
+  return (
+    <label className="block">
+      <span className="text-sm font-semibold text-[#1f2c25]">{label}</span>
+      <select
+        className="mt-2 w-full rounded-lg border border-[#cbd7d0] bg-white px-4 py-3 text-sm text-[#1f2c25] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#145c42]"
+        onChange={(event) => onChange(event.target.value)}
+        value={value}
+      >
+        <option value="">{placeholder}</option>
+        {options.map((option) => (
+          <option key={option.value} value={option.value}>
+            {option.label}
+          </option>
+        ))}
+      </select>
+      {error ? <span className="mt-2 block text-sm font-semibold text-[#8a3b22]">{error}</span> : null}
+    </label>
+  );
+}
+
+function RadioGroup({
+  label,
+  options,
+  value,
+  onChange,
+  error,
+}: {
+  label: string;
+  options: string[];
+  value: string;
+  onChange: (value: string) => void;
+  error?: string;
+}) {
+  return (
+    <fieldset className="mt-6">
+      <legend className="text-sm font-semibold text-[#1f2c25]">{label}</legend>
+      <div className="mt-3 flex flex-col gap-2 sm:flex-row sm:flex-wrap">
+        {options.map((option) => (
+          <label
+            className={`inline-flex min-h-10 items-center rounded-md border px-3 py-2 text-sm font-semibold ${
+              value === option ? "border-[#145c42] bg-[#edf4ef] text-[#145c42]" : "border-[#dce4df] bg-white text-[#53635b]"
+            }`}
+            key={option}
+          >
+            <input
+              checked={value === option}
+              className="mr-2 accent-[#145c42]"
+              onChange={() => onChange(option)}
+              type="radio"
+            />
+            {option}
+          </label>
+        ))}
+      </div>
+      {error ? <p className="mt-2 text-sm font-semibold text-[#8a3b22]">{error}</p> : null}
+    </fieldset>
   );
 }
 
@@ -621,30 +669,5 @@ function Checkbox({
       </span>
       {error ? <span className="mt-2 block font-semibold text-[#8a3b22]">{error}</span> : null}
     </label>
-  );
-}
-
-export function ContactInternalLinks() {
-  return (
-    <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
-      {[
-        ["Surgical Options", "/#surgical"],
-        ["Gastric Sleeve", "/services/gastric-sleeve"],
-        ["Gastric Bypass", "/services/gastric-bypass"],
-        ["Gastric Balloon", "/services/gastric-balloon"],
-        ["Prescription Medications", "/services/prescription-weight-loss-medications"],
-        ["Pricing & Financing", "/services/pricing-financing"],
-        ["Locations", "/#locations"],
-        ["Compare Options", "/services/compare-weight-loss-options"],
-      ].map(([label, href]) => (
-        <Link
-          className="rounded-lg border border-[#dce4df] bg-white p-4 text-sm font-semibold text-[#1f2c25] transition hover:border-[#145c42] hover:text-[#145c42] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#145c42]"
-          href={href}
-          key={label}
-        >
-          {label}
-        </Link>
-      ))}
-    </div>
   );
 }

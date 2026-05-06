@@ -40,7 +40,7 @@ export function CTAButton({
   return (
     <Link
       aria-label={ariaLabel}
-      className={`inline-flex min-h-11 items-center justify-center rounded-md px-5 py-3 text-sm font-semibold transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 ${classes[variant]}`}
+      className={`inline-flex min-h-10 items-center justify-center rounded-md px-4 py-2.5 text-sm font-semibold transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 ${classes[variant]}`}
       href={href}
     >
       {children}
@@ -51,14 +51,14 @@ export function CTAButton({
 export function SiteHeader() {
   return (
     <header className="sticky top-0 z-40 border-b border-[#dce4df] bg-white/95 backdrop-blur">
-      <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-5 py-3 lg:px-8">
+      <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-5 py-2 lg:px-8">
         <Link
           href="/"
           className="rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#145c42] focus-visible:ring-offset-4"
         >
           <Image
             alt="JourneyLite Bariatric Physicians"
-            className="h-auto w-[210px] max-w-[58vw] sm:w-[250px] lg:w-[270px]"
+            className="h-auto w-[176px] max-w-[54vw] sm:w-[198px] lg:w-[214px]"
             height={160}
             priority
             src="/journeylite-logo.svg"
@@ -71,7 +71,7 @@ export function SiteHeader() {
             <div className="group relative" key={group.label}>
               <button
                 aria-haspopup="true"
-                className="rounded-md px-3 py-2 text-sm font-medium text-[#314139] transition hover:bg-[#f0f5f2] hover:text-[#145c42] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#145c42]"
+                className="rounded-md px-2.5 py-2 text-[13px] font-medium text-[#314139] transition hover:bg-[#f0f5f2] hover:text-[#145c42] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#145c42]"
                 type="button"
               >
                 {group.label}
@@ -94,33 +94,34 @@ export function SiteHeader() {
             </div>
           ))}
           <Link
-            className="rounded-md px-3 py-2 text-sm font-medium text-[#314139] transition hover:bg-[#f0f5f2] hover:text-[#145c42] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#145c42]"
+            className="rounded-md px-2.5 py-2 text-[13px] font-medium text-[#314139] transition hover:bg-[#f0f5f2] hover:text-[#145c42] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#145c42]"
             href="/#locations"
           >
             Locations
           </Link>
           <Link
-            className="rounded-md px-3 py-2 text-sm font-medium text-[#314139] transition hover:bg-[#f0f5f2] hover:text-[#145c42] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#145c42]"
+            className="rounded-md px-2.5 py-2 text-[13px] font-medium text-[#314139] transition hover:bg-[#f0f5f2] hover:text-[#145c42] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#145c42]"
             href="/blog"
           >
             Blog
           </Link>
           <Link
-            className="rounded-md px-3 py-2 text-sm font-medium text-[#314139] transition hover:bg-[#f0f5f2] hover:text-[#145c42] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#145c42]"
+            className="rounded-md px-2.5 py-2 text-[13px] font-medium text-[#314139] transition hover:bg-[#f0f5f2] hover:text-[#145c42] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#145c42]"
             href="/contact"
           >
             Contact
           </Link>
         </nav>
 
-        <div className="hidden items-center gap-3 lg:flex">
+        <div className="hidden items-center gap-2 lg:flex">
           <CallMenu />
           <CTAButton href="/contact">Book Consultation</CTAButton>
         </div>
 
         <details className="group relative lg:hidden">
           <summary className="list-none rounded-md border border-[#cbd7d0] bg-white px-3 py-2 text-sm font-semibold text-[#17362a] marker:hidden focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#145c42]">
-            Menu
+            <span aria-hidden="true">☰</span>
+            <span className="sr-only">Open menu</span>
           </summary>
           <div className="absolute right-0 top-12 max-h-[80vh] w-[min(92vw,360px)] overflow-y-auto rounded-lg border border-[#dce4df] bg-white p-3 shadow-xl">
             {navGroups.map((group) => (
@@ -169,7 +170,7 @@ export function CallMenu({ inline = false }: { inline?: boolean }) {
 
   return (
     <details className={inline ? "group" : "group relative"}>
-      <summary className="inline-flex min-h-11 w-full cursor-pointer list-none items-center justify-center rounded-md border border-[#cbd7d0] bg-white px-5 py-3 text-sm font-semibold text-[#17362a] transition marker:hidden hover:border-[#145c42] hover:text-[#145c42] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#145c42] focus-visible:ring-offset-2 lg:w-auto">
+      <summary className="inline-flex min-h-10 w-full cursor-pointer list-none items-center justify-center rounded-md border border-[#cbd7d0] bg-white px-4 py-2.5 text-sm font-semibold text-[#17362a] transition marker:hidden hover:border-[#145c42] hover:text-[#145c42] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#145c42] focus-visible:ring-offset-2 lg:w-auto">
         Call
       </summary>
       <div
@@ -235,7 +236,6 @@ export function SiteFooter() {
           links={[
             ["Gastric Balloon", "/gastric-balloon"],
             ["Spatz Adjustable Balloon", "/#spatz-adjustable-gastric-balloon"],
-            ["Gastric Balloon Pricing", "/#pricing"],
             ["Balloon Instructions", "/gastric-balloon"],
             ["Appointment Request", "/#quiz"],
           ]}
@@ -247,7 +247,6 @@ export function SiteFooter() {
             ["Injectable Medications", "/#injectable-medications"],
             ["Oral Medications", "/#oral-medications"],
             ["After Weight Loss Surgery", "/#post-op-weight-regain"],
-            ["Medication Pricing", "/#medication-pricing"],
           ]}
         />
         <FooterLinks
@@ -312,7 +311,7 @@ export function Section({
   };
 
   return (
-    <section className={`${toneClass[tone]} py-16 lg:py-20`} id={id}>
+    <section className={`${toneClass[tone]} py-12 lg:py-16`} id={id}>
       <div className="mx-auto max-w-7xl px-5 lg:px-8">
         <div className="max-w-3xl">
           {eyebrow ? <p className="eyebrow">{eyebrow}</p> : null}
