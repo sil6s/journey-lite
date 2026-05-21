@@ -33,17 +33,27 @@ function isSensitive(alt: string, src: string): boolean {
 function filenameFromUrl(url: string, postSlug: string): string {
   try {
     const u = new URL(url);
-    const basename = path.basename(u.pathname).replace(/[^a-zA-Z0-9._-]/g, "-");
-    return `${postSlug}__${basename}`;
+    const rawBase = path.basename(u.pathname).replace(/[^a-zA-Z0-9._-]/g, "-");
+    const ext = path.extname(rawBase).slice(0, 10) || ".jpg";
+    const stem = rawBase.slice(0, rawBase.length - ext.length).slice(0, 60);
+    const prefix = postSlug.slice(0, 60);
+    // Total stays well under macOS 255-byte filename limit
+    return `${prefix}__${stem}${ext}`;
   } catch {
-    return `${postSlug}__image-${Date.now()}.jpg`;
+    return `${postSlug.slice(0, 60)}__img-${Date.now()}.jpg`;
   }
 }
 
 function downloadFile(url: string, dest: string): Promise<void> {
   return new Promise((resolve, reject) => {
     const proto = url.startsWith("https") ? https : http;
-    const file = fs.createWriteStream(dest);
+    let file: fs.WriteStream;
+    try {
+      file = fs.createWriteStream(dest);
+    } catch (err) {
+      reject(err);
+      return;
+    }
     proto
       .get(url, { timeout: 15000 }, (res) => {
         if (res.statusCode && res.statusCode >= 300 && res.statusCode < 400 && res.headers.location) {

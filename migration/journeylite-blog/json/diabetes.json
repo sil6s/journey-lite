@@ -1,0 +1,40 @@
+{
+  "sourceUrl": "https://journeylite.com/diabetes/",
+  "canonicalUrl": "https://journeylite.com/diabetes/",
+  "oldSlug": "diabetes",
+  "slug": "diabetes",
+  "title": "Pre and Post Operative Diabetes Management",
+  "seoTitle": "Pre and Post Operative Diabetes Management",
+  "metaDescription": "",
+  "excerpt": "",
+  "publishedAt": "2019-02-19T18:38:44+00:00",
+  "updatedAt": "2019-02-19T18:45:24+00:00",
+  "author": "DrCurry",
+  "categories": [
+    "Education"
+  ],
+  "tags": [
+    "diabetes"
+  ],
+  "featuredImageUrl": "/legacy-blog/type-2-diabetes-medicare__Glucometer.jpg.webp",
+  "featuredImageAlt": "",
+  "inlineImages": [],
+  "bodyHtml": "<div class=\"entry-content\"><div class=\"wpb-content-wrapper\"><div class=\"vc_row wpb_row vc_row-fluid\"><div class=\"wpb_column vc_column_container vc_col-sm-12\"><div class=\"vc_column-inner\"><div class=\"wpb_wrapper\">\n\t<div class=\"wpb_video_widget wpb_content_element vc_clearfix   vc_video-aspect-ratio-169 vc_video-el-width-100 vc_video-align-left\">\n\t\t<div class=\"wpb_wrapper\">\n\t\t\t<h2 class=\"wpb_heading wpb_video_heading\">Management of Diabetes Before and After Weight Loss Surgery</h2>\n\t\t\t<div class=\"wpb_video_wrapper\"><iframe title=\"Diabetes Management\" width=\"500\" height=\"281\" src=\"https://www.youtube.com/embed/EKoPxTVqu3s?feature=oembed\" frameborder=\"0\" allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share\" allowfullscreen=\"\" loading=\"lazy\"></iframe></div>\n\t\t</div>\n\t</div>\n</div></div></div></div></div></div>",
+  "bodyMarkdown": "## Management of Diabetes Before and After Weight Loss Surgery",
+  "internalLinks": [],
+  "externalLinks": [],
+  "ctaLinks": [],
+  "resourceType": "patient-story",
+  "wordCount": 10,
+  "readingTime": 1,
+  "needsReview": true,
+  "medicalReviewRecommended": true,
+  "migrationNotes": [
+    "Meta description missing — excerpt used as suggestion",
+    "Body is short (10 words) — review content",
+    "Contains medical/medication content — medical review recommended",
+    "Contains before/after references — check images for sensitive content",
+    "Warning: No meta description",
+    "Warning: Featured image has no alt text"
+  ]
+}

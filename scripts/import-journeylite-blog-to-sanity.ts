@@ -21,7 +21,9 @@ import type { NormalizedPost } from "../lib/migration/journeylite/normalizePost"
 
 // ── Env / config ─────────────────────────────────────────────────────────────
 const PROJECT_ID =
-  process.env.SANITY_PROJECT_ID || process.env.NEXT_PUBLIC_SANITY_PROJECT_ID || "";
+  process.env.SANITY_PROJECT_ID ||
+  process.env.NEXT_PUBLIC_SANITY_PROJECT_ID ||
+  "44pkofuy"; // fallback matches src/lib/sanity/env.ts
 const DATASET =
   process.env.SANITY_DATASET || process.env.NEXT_PUBLIC_SANITY_DATASET || "production";
 const API_VERSION =
@@ -59,12 +61,14 @@ function log(msg: string) {
   console.log(`[${new Date().toISOString()}] ${msg}`);
 }
 
+// Sanity document IDs are capped at 128 chars
 function draftId(slug: string): string {
-  return `drafts.jl-blog-${slug}`;
+  const prefix = "drafts.jl-blog-";
+  return (prefix + slug).slice(0, 128);
 }
 
 function publishedId(slug: string): string {
-  return `jl-blog-${slug}`;
+  return ("jl-blog-" + slug).slice(0, 128);
 }
 
 // ── Import report ─────────────────────────────────────────────────────────────
@@ -81,14 +85,11 @@ const results: ImportResult[] = [];
 async function main() {
   if (!DRY_RUN && !WRITE_TOKEN) {
     console.error(
-      "ERROR: SANITY_WRITE_TOKEN is not set. Export it as an environment variable.\n" +
-        "Get a token from: https://www.sanity.io/manage → project → API → Tokens"
+      "ERROR: SANITY_WRITE_TOKEN is not set.\n" +
+        "Export it: export SANITY_WRITE_TOKEN=your_token\n" +
+        "Get a token at: https://www.sanity.io/manage → project → API → Tokens\n" +
+        "To preview without writing, use: --dry-run"
     );
-    process.exit(1);
-  }
-
-  if (!PROJECT_ID) {
-    console.error("ERROR: SANITY_PROJECT_ID is not set.");
     process.exit(1);
   }
 
@@ -159,7 +160,7 @@ async function main() {
       // Remove _migration from the Sanity doc (not in schema) — log it separately
       const { _migration, ...sanityDoc } = doc as typeof doc & { _migration?: unknown };
 
-      if (existingDraft && UPDATE_EXISTING) {
+      if (UPDATE_EXISTING) {
         await sanity.createOrReplace(sanityDoc as Parameters<typeof sanity.createOrReplace>[0]);
         log(`Updated draft: ${docId}`);
         results.push({ slug, title: post.title, action: "updated", sanityId: docId });

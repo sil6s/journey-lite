@@ -48,6 +48,7 @@ export type BlogPost = {
   relatedServices?: string[];
   category?: BlogCategory;
   author?: BlogAuthor;
+  isMigrated?: boolean;
   body?: PortableTextBlock[];
   relatedPosts?: BlogPost[];
 };

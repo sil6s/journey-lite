@@ -1,205 +1,3273 @@
 {
-  "https://journeylite.com/appointment-request/": {
+  "https://journeylite.com/testimonial/the-journeylite-team-is-there-for-whatever-you-may-need-dont-be-afraid-to-reach-out/": {
     "anchorTexts": [
-      "Request an Appointment",
-      "Get a Self-Pay Estimate",
-      "Request a General Surgery Consultation"
+      "The JourneyLite team is there for whatever you may need! Don’t be afraid to reach out.",
+      "Read more “The JourneyLite team is there for whatever you may need! Don’t be afraid to reach out.”"
     ],
     "mappedSlug": null,
     "needsMapping": true
   },
-  "https://journeylite.com/map-schedule-and-info/": {
+  "https://journeylite.com/wp-content/smush-webp/2025/03/Rebeca-before-and-after-gastric-sleeve-scaled.jpg.webp": {
     "anchorTexts": [
-      "See Maps & Locations",
-      "View Maps & Locations",
-      "View Maps & Contacts"
+      ""
     ],
     "mappedSlug": null,
     "needsMapping": true
   },
-  "https://journeylite.com/information-request/": {
+  "https://journeylite.com/contact-us/": {
     "anchorTexts": [
-      "Request Information",
-      "Request More Information"
+      "contact JourneyLite"
     ],
     "mappedSlug": null,
     "needsMapping": true
   },
-  "https://journeylite.com/easy-appointment-request/": {
+  "https://journeylite.com/terms-and-conditions/": {
     "anchorTexts": [
-      "Request an Appointment",
-      "Start With a Consultation"
+      "Terms & Conditions"
     ],
     "mappedSlug": null,
     "needsMapping": true
+  },
+  "https://journeylite.com/privacy": {
+    "anchorTexts": [
+      "Privacy Policy"
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/contact-us": {
+    "anchorTexts": [
+      "Contact Us",
+      "contact form"
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/testimonial/i-couldnt-dance-in-public-lol-now-im-the-1st-and-sometimes-only-person-on-the-dance-floor/": {
+    "anchorTexts": [
+      "I couldn’t dance in public! Lol…now I’m the 1st and sometimes only person on the dance floor!"
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/wp-content/uploads/2024/06/gastric-sleeve-before-and-after-tracy-after-cropped-e1722867468478.jpg": {
+    "anchorTexts": [
+      ""
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/product-category/pre-op-diet/": {
+    "anchorTexts": [
+      "regular pre-op diet"
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/download/carbohydrate-facts/": {
+    "anchorTexts": [
+      "Carbohydrate Facts"
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/download/how-to-meal-plan-a-step-by-step-guide/": {
+    "anchorTexts": [
+      "How to Meal Plan A Step-by-Step Guide"
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/download/quick-and-easy-meal-ideas-apps-plans-and-websites/": {
+    "anchorTexts": [
+      "Quick and Easy Meal Ideas, Apps, Plans, and Websites"
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/nobody-can-afford-wegovy/": {
+    "anchorTexts": [
+      "compounded medications"
+    ],
+    "mappedSlug": "nobody-can-afford-wegovy",
+    "needsMapping": false
   },
   "https://journeylite.com/surgical-weight-loss/gastric-sleeve-vsg/": {
     "anchorTexts": [
       "gastric sleeve",
-      "Gastric Sleeve Details"
-    ],
-    "mappedSlug": null,
-    "needsMapping": true
-  },
-  "https://journeylite.com/surgical-weight-loss/gastric-bypass-surgery/": {
-    "anchorTexts": [
+      "gastric sleeve procedure",
+      "sleeve gastrectomy",
+      "gastric sleeve surgery",
+      "VSG/gastric sleeve",
+      "Gastric sleeve surgery",
+      "vertical sleeve gastrectomy",
+      "Gastric sleeve",
+      "",
       "gastric bypass",
-      "Gastric Bypass Details"
-    ],
-    "mappedSlug": null,
-    "needsMapping": true
-  },
-  "https://journeylite.com/surgical-weight-loss/sadi-surgery/": {
-    "anchorTexts": [
-      "SADI surgery",
-      "SADI/SIPS Details"
-    ],
-    "mappedSlug": null,
-    "needsMapping": true
-  },
-  "https://journeylite.com/revision-weight-loss-surgery/": {
-    "anchorTexts": [
-      "revision procedures"
-    ],
-    "mappedSlug": null,
-    "needsMapping": true
-  },
-  "https://journeylite.com/weight-loss-medications/": {
-    "anchorTexts": [
-      "medical weight loss"
-    ],
-    "mappedSlug": null,
-    "needsMapping": true
-  },
-  "https://journeylite.com/allurion-swallowable-gastric-balloon/": {
-    "anchorTexts": [
-      "Allurion swallowable gastric balloon"
-    ],
-    "mappedSlug": null,
-    "needsMapping": true
-  },
-  "https://journeylite.com/pricing-financing/": {
-    "anchorTexts": [
-      "pricing and financing page",
-      "View Pricing & Financing",
-      "Pricing & Financing"
-    ],
-    "mappedSlug": null,
-    "needsMapping": true
-  },
-  "https://journeylite.com/about-dr-trace-curry/": {
-    "anchorTexts": [
-      "Dr. Trace Curry, MD, FASMBS",
-      "About Dr. Curry →"
-    ],
-    "mappedSlug": null,
-    "needsMapping": true
-  },
-  "https://journeylite.com/weight-loss-surgery-navigator/": {
-    "anchorTexts": [
-      "Try the Weight Loss Navigator",
-      "Weight Loss Navigator"
+      "click here",
+      "Learn About Gastric Sleeve",
+      "Learn about gastric sleeve"
     ],
     "mappedSlug": null,
     "needsMapping": true
   },
   "https://journeylite.com/self-pay-gastric-sleeve-only-10000/": {
     "anchorTexts": [
-      "$10,000 Self-Pay Offer",
-      "View $10,000 Sleeve Offer"
+      "Click to learn more!",
+      "",
+      "Self-Pay Gastric Sleeve 2025 Special",
+      "For a limited time, JourneyLite is offering gastric sleeve surgery for $10,000. Learn more here.",
+      "Click for details!"
+    ],
+    "mappedSlug": "self-pay-gastric-sleeve-only-10000",
+    "needsMapping": false
+  },
+  "https://journeylite.com/": {
+    "anchorTexts": [
+      "JourneyLite",
+      "",
+      "journeylite.com"
     ],
     "mappedSlug": null,
     "needsMapping": true
   },
-  "https://journeylite.com/gastric-sleeve-before-and-after/": {
+  "https://journeylite.com/surgical-weight-loss/sadi-surgery/": {
     "anchorTexts": [
-      "Before & After Results",
-      "See Before & After Results"
+      "SADI-S",
+      "SADI-S procedure",
+      "SADI procedure"
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/courses/surgery-pre-op-class-medical/lesson/gastric-bypass/": {
+    "anchorTexts": [
+      "gastric bypass"
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/weight-loss-medications/": {
+    "anchorTexts": [
+      "GLP-1 medications, oral weight loss medications",
+      "medications",
+      "weight loss medications",
+      "Adipex (phentermine)",
+      "Qsymia",
+      "Contrave",
+      "Read more",
+      "appetite suppression programs",
+      "phentermine, Qsymia, or Contrave",
+      "Compare Medical Weight Loss",
+      "Learn about medications"
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/weight-loss-medications/gastric-balloon-surgery/": {
+    "anchorTexts": [
+      "Spatz-3 Adjustable Gastric Balloon",
+      "",
+      "Spatz Gastric Balloon 2025 Special Pricing",
+      "gastric balloon",
+      "Spatz",
+      "Orbera",
+      "Spatz 3",
+      "Intra-gastric Balloon"
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/new-years-semaglutide-special-at-journeylite/": {
+    "anchorTexts": [
+      "",
+      "New Year’s Semaglutide Special"
+    ],
+    "mappedSlug": "new-years-semaglutide-special-at-journeylite",
+    "needsMapping": false
+  },
+  "https://journeylite.com/compounded-liraglutide-saxenda-injections-now-available-at-journeylite/": {
+    "anchorTexts": [
+      "Learn more about liraglutide!"
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/map-schedule-and-info/": {
+    "anchorTexts": [
+      "JourneyLite",
+      "Contact JourneyLite",
+      "locations",
+      "View Maps & Locations",
+      "Columbus",
+      "Dayton",
+      "Northern Kentucky",
+      "Maps & Contacts",
+      "Dayton office"
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/non-surgical-weight-loss/": {
+    "anchorTexts": [
+      "Spatz3 Adjustable Gastric Balloon",
+      "gastric balloon",
+      "non-surgical options",
+      "invasive weight loss surgery"
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/testimonial/9-years-out-from-my-gastric-sleeve-and-doing-great/": {
+    "anchorTexts": [
+      "gastric sleeve",
+      "9 years out from my gastric sleeve and doing great!"
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/surgical-weight-loss/gastric-bypass-surgery/": {
+    "anchorTexts": [
+      "bypass",
+      "gastric bypass",
+      "Gastric bypass",
+      "Roux-en-Y gastric bypass surgery"
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/pricing-financing/": {
+    "anchorTexts": [
+      "Surgery Costs",
+      "transparent pricing",
+      "Explore Financing",
+      "Pricing & Financing",
+      "For more information on self pay options, click here",
+      "as we have transparent self-pay pricing which you can see here",
+      "We have transparent self-pay pricing for all of our procedures which you can see here.",
+      "cost of weight loss surgery coming down dramatically for self pay patients",
+      "payment solutions",
+      "self paying for surgery",
+      "You can find more information self-pay pricing and financing here.",
+      "Financing"
     ],
     "mappedSlug": null,
     "needsMapping": true
   },
   "https://journeylite.com/surgical-weight-loss/lap-band/": {
     "anchorTexts": [
-      "Lap Band Details"
+      "adjustable gastric banding",
+      "lap band",
+      "Lap Band"
     ],
     "mappedSlug": null,
     "needsMapping": true
   },
-  "https://journeylite.com/surgical-weight-loss/gastric-band-revision/": {
+  "https://journeylite.com/surgical-weight-loss/": {
     "anchorTexts": [
-      "Gastric Band Revision"
+      "surgical procedures",
+      "surgeries",
+      "gastric sleeve",
+      "weight loss surgery",
+      "Read more",
+      ""
     ],
     "mappedSlug": null,
     "needsMapping": true
   },
-  "https://journeylite.com/surgical-weight-loss/gastric-sleeve-revision/": {
+  "https://journeylite.com/easy-appointment-request/": {
     "anchorTexts": [
-      "Sleeve Revision"
+      "Request Appointment!",
+      "Book now!",
+      "Schedule an Appointment",
+      "Request an Appointment"
     ],
     "mappedSlug": null,
     "needsMapping": true
   },
-  "https://journeylite.com/online-info-session/": {
+  "https://journeylite.com/wegovy/": {
     "anchorTexts": [
-      "Online Info Session"
+      "semaglutide",
+      "Wegovy",
+      "Semaglutide (Ozempic/Wegovy)"
+    ],
+    "mappedSlug": "wegovy",
+    "needsMapping": false
+  },
+  "https://journeylite.com/zepbound-tirzepatide-a-new-injectable-fda-approved-weight-loss-drug/": {
+    "anchorTexts": [
+      "tirzepatide",
+      "Tirzepatide (Mounjaro/Zepbound)"
+    ],
+    "mappedSlug": "zepbound-tirzepatide-a-new-injectable-fda-approved-weight-loss-drug",
+    "needsMapping": false
+  },
+  "https://journeylite.com/injectable-medications-for-weight-loss/": {
+    "anchorTexts": [
+      "GLP-1 receptor agonists",
+      "GLP-1’s"
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/product/sadi-sips-90-days/": {
+    "anchorTexts": [
+      "SADI/SIPS > 90 Days\n\t$212.50"
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/product/gastric-sleeve-90-days/": {
+    "anchorTexts": [
+      "Gastric Sleeve > 90 Days\n\t$156.75"
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/product/gastric-sleeve-90-days-2/": {
+    "anchorTexts": [
+      "Gastric Bypass > 90 Days\n\t$156.75"
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/product/gastric-band-90-days/": {
+    "anchorTexts": [
+      "Gastric Band > 90 Days\n\t$61.75"
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/product/biotin-capsules/": {
+    "anchorTexts": [
+      "Biotin Capsules (90ct)\n\t$18.75"
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/insurance-tips-pursuing-weight-loss-surgery-process/": {
+    "anchorTexts": [
+      "useful tips for pursuing insurance coverage",
+      "just click here and we can help you find out about your coverage",
+      ""
+    ],
+    "mappedSlug": "insurance-tips-pursuing-weight-loss-surgery-process",
+    "needsMapping": false
+  },
+  "https://journeylite.com/appointment-request/": {
+    "anchorTexts": [
+      "Request an appointment!",
+      "Appointment Request",
+      "",
+      "Request an Appointment",
+      "please click here!",
+      "Request an appointment now!",
+      "To schedule a consultation with Dr. Augusta, click here!",
+      "click here",
+      "Click here to request a consultation with Dr. Curry for the Obalon gastric balloon!",
+      "Click here to schedule an Obalon “swallowable” gastric balloon consultation!",
+      "make an appointment",
+      "If you don’t have an initial consultation already scheduled with us you can request one here.",
+      "If you want to learn more about the SIPS procedure click here to schedule a consultation!"
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/gastric-sleeve-requirements/": {
+    "anchorTexts": [
+      "",
+      "Gastric Sleeve Requirements Guide",
+      "Discover everything that’s necessary if you’re interested in a gastric sleeve procedure."
+    ],
+    "mappedSlug": "gastric-sleeve-requirements",
+    "needsMapping": false
+  },
+  "https://journeylite.com/weight-loss-surgery-vs-glp-1-receptor-agonists-which-is-better/": {
+    "anchorTexts": [
+      "",
+      "Weight Loss Surgery vs GLP-1 Receptor Agonists – Which is Better?",
+      "Learn about the similarities and differences between weight loss medication and surgery.",
+      "Weight Loss Surgery vs GLP-1 Receptor Agonists-Which is Better?",
+      "Learn the pros and cons of GLP-1 receptor agonists compared to weight loss surgery…",
+      "Weight Loss Surgery vs. GLP-1 Receptor Agonists-Which is Better?",
+      "Discover all the pros and cons of weight loss medications vs. surgery.",
+      "Discover how to weigh the differences between bariatric surgery and GLP-1 receptor agonists…"
+    ],
+    "mappedSlug": "weight-loss-surgery-vs-glp-1-receptor-agonists-which-is-better",
+    "needsMapping": false
+  },
+  "https://journeylite.com/gastric-sleeve-pros-and-cons-you-need-to-know/": {
+    "anchorTexts": [
+      "",
+      "Gastric Sleeve Pros and Cons",
+      "Find out about the advantages and disadvantages of having a gastric sleeve procedure.",
+      "Get an in-depth look at the advantages and disadvantages of gastric sleeve surgery…",
+      "guide to the pros and cons of gastric sleeve surgery"
+    ],
+    "mappedSlug": "gastric-sleeve-pros-and-cons-you-need-to-know",
+    "needsMapping": false
+  },
+  "https://journeylite.com/weight-loss-surgery-requirements-explained/": {
+    "anchorTexts": [
+      "Our guide to bariatric surgery requirements will help"
+    ],
+    "mappedSlug": "weight-loss-surgery-requirements-explained",
+    "needsMapping": false
+  },
+  "https://journeylite.com/interactive-seminar-calculate-bmi/": {
+    "anchorTexts": [
+      "Calculate Your BMI",
+      "",
+      "online weight loss navigator"
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/gastric-sleeve-cost-explained/": {
+    "anchorTexts": [
+      "If you have questions about gastric sleeve surgery cost, read this guide."
+    ],
+    "mappedSlug": "gastric-sleeve-cost-explained",
+    "needsMapping": false
+  },
+  "https://journeylite.com/guide-to-gastric-sleeve-recovery/": {
+    "anchorTexts": [
+      "guide to gastric sleeve recovery",
+      "",
+      "Skilled Surgeon’s Guide to Gastric Sleeve Recovery",
+      "See what to expect as you recover from gastric sleeve surgery…"
+    ],
+    "mappedSlug": "guide-to-gastric-sleeve-recovery",
+    "needsMapping": false
+  },
+  "https://journeylite.com/tirzepatide-pricing/": {
+    "anchorTexts": [
+      "",
+      "Tirzepatide Pricing",
+      "Discover how JourneyLite is helping control the cost of your tirzepatide prescription…",
+      "Learn what JourneyLite is doing to help control the costs of your weight loss medications.",
+      "Learn how you can control your tirzepatide costs with JourneyLite…"
+    ],
+    "mappedSlug": "tirzepatide-pricing",
+    "needsMapping": false
+  },
+  "https://journeylite.com/download/product-allergens-bariatrix-proti/": {
+    "anchorTexts": [
+      "Product Allergens-Bariatrix/Proti"
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/zepbound-versus-wegovy-zepbound-tirzepatide-superior-to-wegovy-semaglutide-in-early-study/": {
+    "anchorTexts": [
+      "GLP-1 receptor agonists"
+    ],
+    "mappedSlug": "zepbound-versus-wegovy-zepbound-tirzepatide-superior-to-wegovy-semaglutide-in-early-study",
+    "needsMapping": false
+  },
+  "https://journeylite.com/?p=76819&preview=true": {
+    "anchorTexts": [
+      "Tirzepatide Pricing"
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/post-op-diet-clear-liquids/": {
+    "anchorTexts": [
+      "clear liquid diet"
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/post-op-diet-puree/": {
+    "anchorTexts": [
+      "pureed foods"
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/surgical-pre-op-navigator-post-op-diet-progression-sleeve-bypass-sips-band-soft-diet/": {
+    "anchorTexts": [
+      "soft solid food"
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/gastric-bypass-versus-gastric-sleeve-cost-benefits-and-key-differences/": {
+    "anchorTexts": [
+      "gastric sleeve vs gastric bypass"
+    ],
+    "mappedSlug": "gastric-bypass-versus-gastric-sleeve-cost-benefits-and-key-differences",
+    "needsMapping": false
+  },
+  "https://journeylite.com/fmla": {
+    "anchorTexts": [
+      "More information on FMLA can be found here"
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/our-team/": {
+    "anchorTexts": [
+      ""
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/wp-content/smush-webp/2019/04/shutterstock_sleeve.jpg.webp": {
+    "anchorTexts": [
+      ""
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/wp-content/smush-webp/2016/06/Candi.jpg.webp": {
+    "anchorTexts": [
+      ""
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/staple-line-leaks-after-bariatric-surgery/": {
+    "anchorTexts": [
+      "staple line leaks",
+      "staple line leak"
+    ],
+    "mappedSlug": "staple-line-leaks-after-bariatric-surgery",
+    "needsMapping": false
+  },
+  "https://journeylite.com/compounded-tirzepatide-injection-instructions-phase-1-month-2/": {
+    "anchorTexts": [
+      "Phase 1/Month 2"
+    ],
+    "mappedSlug": "compounded-tirzepatide-injection-instructions-phase-1-month-2",
+    "needsMapping": false
+  },
+  "https://journeylite.com/compounded-tirzepatide-injection-instructions-phase-2-month-1/": {
+    "anchorTexts": [
+      "Phase 2/Month 1"
+    ],
+    "mappedSlug": "compounded-tirzepatide-injection-instructions-phase-2-month-1",
+    "needsMapping": false
+  },
+  "https://journeylite.com/compounded-tirzepatide-injection-instructions-phase-2-month-2/": {
+    "anchorTexts": [
+      "Phase 2/Month 2"
+    ],
+    "mappedSlug": "compounded-tirzepatide-injection-instructions-phase-2-month-2",
+    "needsMapping": false
+  },
+  "https://journeylite.com/compounded-tirzepatide-injection-instructions-phase-3-month-1/": {
+    "anchorTexts": [
+      "Phase 3/Month 1"
+    ],
+    "mappedSlug": "compounded-tirzepatide-injection-instructions-phase-3-month-1",
+    "needsMapping": false
+  },
+  "https://journeylite.com/compounded-tirzepatide-injection-instructions-phase-3-month-2/": {
+    "anchorTexts": [
+      "Phase 3/Month 2"
+    ],
+    "mappedSlug": "compounded-tirzepatide-injection-instructions-phase-3-month-2",
+    "needsMapping": false
+  },
+  "https://journeylite.com/wp-content/smush-webp/2024/01/gastric-bypass-RNY.jpg.webp": {
+    "anchorTexts": [
+      ""
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/wp-content/smush-webp/2024/01/gastric-sleeve-VSG.jpg.webp": {
+    "anchorTexts": [
+      ""
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/bmi-calculator/": {
+    "anchorTexts": [
+      "BMI",
+      "You can check out your BMI here",
+      "Check your BMI here!",
+      "Click here to calculate your BMI",
+      "You can check your BMI here",
+      "there is a BMI calculator here"
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/information-request/": {
+    "anchorTexts": [
+      "Request More Information"
     ],
     "mappedSlug": null,
     "needsMapping": true
   },
   "https://journeylite.com/weight-loss-medication-cost/": {
     "anchorTexts": [
-      "Compare Medication Costs",
-      "Medication Cost Guide"
+      "monthly medication costs"
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/gastric-sleeve-before-and-after/": {
+    "anchorTexts": [
+      "★\n      \n        See Gastric Sleeve Before & After Results\n        Real JourneyLite patient stories\n      \n      →"
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/new-semaglutide-glp-1-pricing/": {
+    "anchorTexts": [
+      "",
+      "New Semaglutide/GLP-1 Pricing!",
+      "See how you can get better pricing on your semaglutide prescription."
+    ],
+    "mappedSlug": "new-semaglutide-glp-1-pricing",
+    "needsMapping": false
+  },
+  "https://journeylite.com/privacy/": {
+    "anchorTexts": [
+      "Privacy Policy."
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/insurance-exclusions-and-weight-loss-surgery/": {
+    "anchorTexts": [
+      "exclude weight loss surgery",
+      "exclusion for weight loss surgery",
+      "exclusion"
+    ],
+    "mappedSlug": "insurance-exclusions-and-weight-loss-surgery",
+    "needsMapping": false
+  },
+  "https://journeylite.com/infosession-part-one/": {
+    "anchorTexts": [
+      ""
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/shop/": {
+    "anchorTexts": [
+      "",
+      "e­Store at JourneyLite.com"
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/carbonated-drinks-after-bariatric-surgery/": {
+    "anchorTexts": [
+      "",
+      "Read more",
+      "Avoiding Carbonation After Bariatric Surgery for Life"
     ],
     "mappedSlug": null,
     "needsMapping": true
   },
   "https://journeylite.com/glp-1-pills-vs-weight-loss-surgery/": {
     "anchorTexts": [
-      "Compare GLP-1 Pills vs. Surgery"
+      "",
+      "Read more",
+      "GLP-1 Pills Are Here: Are They Better Than Weight Loss Surgery?"
     ],
     "mappedSlug": null,
     "needsMapping": true
   },
-  "https://journeylite.com/sleeve-vs-glp-1s/": {
+  "https://journeylite.com/willpower-or-decision-fatigue/": {
     "anchorTexts": [
-      "Gastric Sleeve vs. GLP-1s"
+      "",
+      "Read more"
     ],
     "mappedSlug": null,
     "needsMapping": true
   },
-  "https://journeylite.com/about-dr-james-augusta/": {
+  "https://journeylite.com/sadi-surgery/": {
     "anchorTexts": [
-      "About Dr. Augusta →"
+      "Duodenal switch (or a modification know as SIPS or SADI)",
+      "SIPS"
     ],
     "mappedSlug": null,
     "needsMapping": true
   },
-  "https://journeylite.com/journeylite-surgery-center/": {
+  "https://journeylite.com/journeylite-accepts-most-insurance-plans-for-weight-loss-surgery/": {
     "anchorTexts": [
-      "About JourneyLite Surgery Center"
+      "For a comprehensive list, check here"
+    ],
+    "mappedSlug": "journeylite-accepts-most-insurance-plans-for-weight-loss-surgery",
+    "needsMapping": false
+  },
+  "https://journeylite.com/do-i-have-coverage-for-weight-loss-surgery/": {
+    "anchorTexts": [
+      "Find out if you have coverage for weight loss surgery!",
+      "Do I have coverage for weight loss surgery?"
+    ],
+    "mappedSlug": "do-i-have-coverage-for-weight-loss-surgery",
+    "needsMapping": false
+  },
+  "https://journeylite.com/support/": {
+    "anchorTexts": [
+      "https://journeylite.com/support/"
+    ],
+    "mappedSlug": "support",
+    "needsMapping": false
+  },
+  "https://journeylite.com/download/vitamin-c-food-sources/": {
+    "anchorTexts": [
+      "Vitamin C Food Sources"
     ],
     "mappedSlug": null,
     "needsMapping": true
   },
-  "https://journeylite.com/weight-loss-surgery-ohio/": {
+  "https://journeylite.com/testimonial/justices-gastric-sleeve-success-story/": {
     "anchorTexts": [
-      "Ohio Weight Loss Surgery"
+      "Justice’s Gastric Sleeve Success Story",
+      "Read more “Justice’s Gastric Sleeve Success Story”"
     ],
     "mappedSlug": null,
     "needsMapping": true
   },
-  "https://journeylite.com/weight-loss-surgery-indiana/": {
+  "https://journeylite.com/wp-content/smush-webp/2026/02/Justice-before-and-after-gastric-sleeve_2000x635-scaled.jpg.webp": {
     "anchorTexts": [
-      "Indiana Weight Loss Surgery"
+      ""
     ],
     "mappedSlug": null,
     "needsMapping": true
   },
-  "https://journeylite.com/testimonials/": {
+  "https://journeylite.com/testimonial/robins-gastric-sleeve-success-story/": {
     "anchorTexts": [
-      "Browse Testimonials"
+      "Robin’s Gastric Sleeve Success Story",
+      "Read more “Robin’s Gastric Sleeve Success Story”"
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/wp-content/smush-webp/2026/02/Robin-lost-130-pounds-with-a-VSG-at-JourneyLite-scaled.jpg.webp": {
+    "anchorTexts": [
+      ""
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/testimonial/alisas-gastric-sleeve-before-and-after-story/": {
+    "anchorTexts": [
+      "After My VSG, I Finally Feel Like Myself!",
+      "Read more “After My VSG, I Finally Feel Like Myself!”"
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/wp-content/smush-webp/2026/02/Alisa-before-and-after-gastric-sleeve-hero-scaled.jpg.webp": {
+    "anchorTexts": [
+      ""
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/testimonial/heathers-story-i-finally-feel-aligned-with-myself/": {
+    "anchorTexts": [
+      "Heather’s Story: “I finally feel aligned with myself.”"
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/wp-content/smush-webp/2026/01/heather_gastric_sleeve_before_and_after_hero-scaled.jpg.webp": {
+    "anchorTexts": [
+      ""
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/testimonial/hesitant-patient-turned-most-enthusiastic-supporter/": {
+    "anchorTexts": [
+      "Hesitant Patient Turned Most Enthusiastic Supporter"
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/testimonial/sues-story-if-i-can-do-it-you-can-too/": {
+    "anchorTexts": [
+      "Sue’s Story: “If I can do it, you can too.”",
+      "Read more “Sue’s Story: “If I can do it, you can too.””"
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/wp-content/smush-webp/2025/12/Sue-before-and-after-gastric-bypass-featured-scaled.jpg.webp": {
+    "anchorTexts": [
+      ""
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/testimonial/michaels-story-i-finally-changed-my-mind-and-my-life/": {
+    "anchorTexts": [
+      "Michael’s Story: “I finally changed my mind—and my life.”",
+      "Read more “Michael’s Story: “I finally changed my mind—and my life.””"
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/wp-content/smush-webp/2025/12/Michael-before-and-after-featured-scaled.jpg.webp": {
+    "anchorTexts": [
+      ""
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/testimonial/kellys-gastric-sleeve-success-story/": {
+    "anchorTexts": [
+      "Kelly’s Gastric Sleeve Success Story",
+      "Read more “Kelly’s Gastric Sleeve Success Story”"
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/wp-content/smush-webp/2025/11/kelly-featured-scaled.jpg.webp": {
+    "anchorTexts": [
+      ""
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/testimonial/gastric-sleeve-before-after-leslies-112-pound-weight-loss-with-dr-james-augusta/": {
+    "anchorTexts": [
+      "Gastric Sleeve Before & After: Leslie’s 112-Pound Weight Loss with Dr. James Augusta",
+      "Read more “Gastric Sleeve Before & After: Leslie’s 112-Pound Weight Loss with Dr. James Augusta”"
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/wp-content/smush-webp/2025/11/leslie_gastric_sleeve_before_after_featured-scaled.jpg.webp": {
+    "anchorTexts": [
+      ""
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/testimonial/at-52-i-chose-me-tinas-life-changing-gastric-sleeve-with-dr-james-augusta/": {
+    "anchorTexts": [
+      "At 52, I Chose Me: Tina’s Life-Changing Gastric Sleeve with Dr. James Augusta",
+      "Read more “At 52, I Chose Me: Tina’s Life-Changing Gastric Sleeve with Dr. James Augusta”"
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/wp-content/smush-webp/2025/11/tina-journeylite-before-and-after-vsg-featured-scaled.jpg.webp": {
+    "anchorTexts": [
+      ""
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/testimonial/from-283-to-189-my-gastric-bypass-success-story-with-journeylite/": {
+    "anchorTexts": [
+      "From 283 to 189: My Gastric Bypass Success Story with JourneyLite",
+      "Read more “From 283 to 189: My Gastric Bypass Success Story with JourneyLite”"
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/wp-content/smush-webp/2025/11/heather-before-after-featured-scaled.jpg.webp": {
+    "anchorTexts": [
+      ""
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/testimonial/chrissys-gastric-sleeve-before-and-after-testimonial/": {
+    "anchorTexts": [
+      "Chrissy’s Gastric Sleeve Before and After Testimonial",
+      "Read more “Chrissy’s Gastric Sleeve Before and After Testimonial”"
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/wp-content/smush-webp/2025/11/Chrissy-before-gastric-sleeve-featured-scaled.jpg.webp": {
+    "anchorTexts": [
+      ""
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/testimonial/bens-gastric-sleeve-before-and-after-testimonial/": {
+    "anchorTexts": [
+      "Ben’s Gastric Sleeve Before and After Testimonial",
+      "Read more “Ben’s Gastric Sleeve Before and After Testimonial”"
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/wp-content/smush-webp/2025/11/Ben-before-and-after-gastric-sleeve-featured-scaled.jpg.webp": {
+    "anchorTexts": [
+      ""
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/testimonial/robins-gastric-bypass-testimonial-at-journylite/": {
+    "anchorTexts": [
+      "Robin’s Gastric Bypass Testimonial at JournyLite",
+      "Read more “Robin’s Gastric Bypass Testimonial at JournyLite”"
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/wp-content/smush-webp/2025/11/Robin-before-after-landscape-scaled.jpg.webp": {
+    "anchorTexts": [
+      ""
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/testimonial/amazing-every-aspect-of-this/": {
+    "anchorTexts": [
+      "Amazing! Every aspect of this",
+      "Read more “Amazing! Every aspect of this”"
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/testimonial/christophers-journeylite-gastric-bypass-before-and-after/": {
+    "anchorTexts": [
+      "Christopher’s JourneyLite Gastric Bypass Before and After"
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/wp-content/smush-webp/2025/09/JourneyLite_featured_2000x635-scaled.jpg.webp": {
+    "anchorTexts": [
+      ""
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/testimonial/kandaces-vsg-before-and-after-testimonial/": {
+    "anchorTexts": [
+      "Kandace’s VSG Before and After Testimonial"
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/wp-content/smush-webp/2025/08/Kandace_Before_After_Featured-scaled.jpg.webp": {
+    "anchorTexts": [
+      ""
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/testimonial/bobbys-vsg-before-and-after-testimonial/": {
+    "anchorTexts": [
+      "Bobby’s VSG Before and After Testimonial",
+      "Read more “Bobby’s VSG Before and After Testimonial”"
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/wp-content/smush-webp/2025/07/Transformation_Collage-scaled.jpg.webp": {
+    "anchorTexts": [
+      ""
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/testimonial/a-new-chance/": {
+    "anchorTexts": [
+      "A new chance!",
+      "Read more “A new chance!”"
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/testimonial/mindys-vsg-before-and-after-testimonial/": {
+    "anchorTexts": [
+      "Mindy’s VSG Before and After Testimonial"
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/wp-content/smush-webp/2025/07/Mindy-JourneyLite-VSG-before-and-after.jpg.webp": {
+    "anchorTexts": [
+      ""
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/testimonial/alonas-79-lb-weight-loss-with-journeylite-in-cincinnati/": {
+    "anchorTexts": [
+      "Alona’s 79 lb Weight Loss with JourneyLite in Cincinnati",
+      "Read more “Alona’s 79 lb Weight Loss with JourneyLite in Cincinnati”"
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/wp-content/smush-webp/2025/07/Alona-before-and-after-VSG.jpg.webp": {
+    "anchorTexts": [
+      ""
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/testimonial/my-journey-with-journeylite-a-life-changing-year/": {
+    "anchorTexts": [
+      "My Journey with JourneyLite – A Life-Changing Year",
+      "Read more “My Journey with JourneyLite – A Life-Changing Year”"
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/testimonial/audreys-gastric-sleeve-before-and-after-transformation/": {
+    "anchorTexts": [
+      "Audrey’s Gastric Sleeve Before and After Transformation"
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/wp-content/smush-webp/2025/07/Audrey_before_and_after_vsg_at_journeylite-scaled.jpg.webp": {
+    "anchorTexts": [
+      ""
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/testimonial/down-125-lbs-jennifers-vsg-before-and-after-story/": {
+    "anchorTexts": [
+      "Down 125 lbs! Jennifer’s VSG Before and After Story"
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/wp-content/smush-webp/2025/06/Jennifer_VSG_Transformation_Reordered-scaled.jpg.webp": {
+    "anchorTexts": [
+      ""
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/testimonial/krystals-vsg-before-and-after-transformation/": {
+    "anchorTexts": [
+      "Krystal’s VSG Before and After Transformation",
+      "Read more “Krystal’s VSG Before and After Transformation”"
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/wp-content/smush-webp/2025/06/Krystal-featured-image-scaled.jpg.webp": {
+    "anchorTexts": [
+      ""
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/testimonial/vsg-before-and-after-heidis-journey-from-self-doubt-to-self-confidence/": {
+    "anchorTexts": [
+      "VSG Before and After-Heidi’s Journey: From Self-Doubt to Self-Confidence"
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/wp-content/smush-webp/2025/06/Heidi_1400x800_bordered-scaled.jpg.webp": {
+    "anchorTexts": [
+      ""
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/testimonial/rebeccas-journey-from-exhaustion-to-empowered/": {
+    "anchorTexts": [
+      "Rebecca’s Journey: From Exhaustion to Empowered"
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/wp-content/smush-webp/2025/06/Rebecca_transformation_combined-scaled.jpg.webp": {
+    "anchorTexts": [
+      ""
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/testimonial/bruces-journey-from-19-medications-to-a-new-life/": {
+    "anchorTexts": [
+      "Bruce’s Journey: From 19 Medications to a New Life"
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/wp-content/smush-webp/2025/06/Bruce_before_after_vsg_combined-scaled.jpg.webp": {
+    "anchorTexts": [
+      ""
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/testimonial/callies-journey-from-struggle-to-strength/": {
+    "anchorTexts": [
+      "Callie’s Journey: From Struggle to Strength"
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/wp-content/smush-webp/2025/06/Callie_combined_before_and_after_vsg.jpg.webp": {
+    "anchorTexts": [
+      ""
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/testimonial/kaylas-vsg-before-and-after-testimonial/": {
+    "anchorTexts": [
+      "Kayla’s VSG Before and After Testimonial"
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/wp-content/smush-webp/2025/06/Kayla_combined_side_by_side-scaled.jpg.webp": {
+    "anchorTexts": [
+      ""
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/testimonial/jeremiahs-journey-from-376-to-218-pounds/": {
+    "anchorTexts": [
+      "Jeremiah’s Journey: From 376 to 218 Pounds"
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/wp-content/smush-webp/2025/06/Jeremiah_before_after_combined-scaled.jpg.webp": {
+    "anchorTexts": [
+      ""
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/testimonial/kristins-gastric-bypass-before-and-after-testimonial/": {
+    "anchorTexts": [
+      "Kristin’s gastric bypass before and after testimonial"
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/wp-content/smush-webp/2025/06/kristin-before-after-side-by-side-scaled.jpg.webp": {
+    "anchorTexts": [
+      ""
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/testimonial/jonathons-gastric-sleeve-vsg-before-and-after-testimonial/": {
+    "anchorTexts": [
+      "Jonathon’s gastric sleeve (VSG) before and after testimonial"
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/wp-content/smush-webp/2025/06/Before_and_After_VSG-scaled.jpg.webp": {
+    "anchorTexts": [
+      ""
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/testimonial/jamies-gastric-sleeve-vsg-before-and-after-testimonial/": {
+    "anchorTexts": [
+      "Jamie’s gastric sleeve (VSG) before and after testimonial"
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/wp-content/smush-webp/2025/05/resized_Jamie_beforeaftertext.jpg.webp": {
+    "anchorTexts": [
+      ""
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/testimonial/heathers-vsg-before-and-after/": {
+    "anchorTexts": [
+      "Heather’s VSG Before and After"
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/wp-content/smush-webp/2025/05/Heather-VSG-before-and-after-combined.jpg.webp": {
+    "anchorTexts": [
+      ""
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/testimonial/katys-vsg-before-and-after/": {
+    "anchorTexts": [
+      "Katy’s VSG Before and After"
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/wp-content/smush-webp/2025/05/katy-vsg-before-and-after-scaled.jpg.webp": {
+    "anchorTexts": [
+      ""
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/testimonial/alicias-vsg-before-and-after-testimonial-with-journeylite/": {
+    "anchorTexts": [
+      "Alicia’s VSG before and after testimonial with JourneyLite"
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/wp-content/smush-webp/2025/04/Alicia-before-and-after-VSG-scaled.jpg.webp": {
+    "anchorTexts": [
+      ""
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/testimonial/christies-gastric-sleeve-before-and-after-testimonial/": {
+    "anchorTexts": [
+      "Christie’s gastric sleeve before and after testimonial"
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/wp-content/smush-webp/2025/04/Before-and-After-scaled.jpg.webp": {
+    "anchorTexts": [
+      ""
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/testimonial/alexa-gastric-sleeve-before-and-after/": {
+    "anchorTexts": [
+      "Alexa-Gastric Sleeve Before and After"
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/wp-content/smush-webp/2025/04/Alexa-featured-scaled.jpg.webp": {
+    "anchorTexts": [
+      ""
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/testimonial/my-gastric-sleeve-surgery-was-the-best-thing-ive-ever-done/": {
+    "anchorTexts": [
+      "My Gastric Sleeve Surgery Was the Best Thing I’ve Ever Done!"
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/testimonial/i-can-buy-clothes-anywhere/": {
+    "anchorTexts": [
+      "I can buy clothes ANYWHERE!"
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/wp-content/smush-webp/2024/09/Heather_Featured-scaled.jpg.webp": {
+    "anchorTexts": [
+      ""
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/testimonial/my-life-has-changed-for-the-better-in-countless-ways-since-having-weight-loss-surgery/": {
+    "anchorTexts": [
+      "My life has changed for the better in countless ways since having weight loss surgery!"
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/wp-content/smush-webp/2024/07/HeatherAfterGastricBypass.jpg.webp": {
+    "anchorTexts": [
+      ""
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/testimonial/the-dieticians-nurse-practioners-and-my-doctor-dr-curry-have-been-amazing/": {
+    "anchorTexts": [
+      "The dieticians, nurse practioners and my doctor Dr.Curry have been amazing!"
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/wp-content/smush-webp/2024/07/MeaganAfterGastricSleeve-cropped-e1722866709462.jpg.webp": {
+    "anchorTexts": [
+      ""
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/testimonial/so-in-december-2021-at-nearly-205lbs-i-had-a-gastric-sleeve-best-decision-ever/": {
+    "anchorTexts": [
+      "So in December 2021 at nearly 205lbs I had a gastric sleeve. Best. Decision. Ever."
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/wp-content/smush-webp/2024/07/tracy-after-gastric-sleeve-cropped.jpg.webp": {
+    "anchorTexts": [
+      ""
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/testimonial/having-a-smaller-stomach-capacity-has-allowed-me-to-gain-greater-control-over-my-emotional-eating/": {
+    "anchorTexts": [
+      "Having a smaller stomach capacity has allowed me to gain greater control over my emotional eating."
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/wp-content/smush-webp/2024/06/gastric-sleeve-before-and-after-Lori-after-cropped-e1722867008415.jpg.webp": {
+    "anchorTexts": [
+      ""
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/testimonial/i-started-gaining-weight-after-having-my-children-life-was-very-stressful/": {
+    "anchorTexts": [
+      "I started gaining weight after having my children. Life was very stressful."
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/wp-content/smush-webp/2024/06/gastric-sleeve-before-and-after-Kristy-after-cropped.jpg.webp": {
+    "anchorTexts": [
+      ""
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/testimonial/i-had-tried-every-diet-imaginable-nothing-worked/": {
+    "anchorTexts": [
+      "I had tried every diet imaginable. Nothing worked!"
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/wp-content/smush-webp/2024/06/gastric-sleeve-before-and-after-Christi-after-cropped-e1722867243361.jpg.webp": {
+    "anchorTexts": [
+      ""
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/testimonial/for-me-it-was-the-best-decision-i-ever-made-i-should-have-done-it-years-ago/": {
+    "anchorTexts": [
+      "For me, it was the best decision I ever made, I should have done it years ago."
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/wp-content/smush-webp/2024/06/gastric-sleeve-before-and-after-Jenny-after-cropped-e1722866640766.jpg.webp": {
+    "anchorTexts": [
+      ""
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/testimonial/being-morbidly-obsessed-affected-me-negatively-as-a-child-teenager-adult/": {
+    "anchorTexts": [
+      "Being morbidly obsessed affected me negatively as a child, teenager & adult."
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/wp-content/smush-webp/2024/06/gastric-sleeve-before-and-after-Kathy-after.jpg.webp": {
+    "anchorTexts": [
+      ""
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/testimonial/when-i-came-to-journeylite-i-was-desperate-for-help-i-have-struggled-with-my-weight-my-entire-life-i-felt-like-if-i-did-not-take-control-i-was-literally-going-to-die/": {
+    "anchorTexts": [
+      "When I came to Journeylite, I was desperate for help. I have struggled with my weight my entire life. I felt like if I did not take control, I was literally going to die."
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/wp-content/smush-webp/2024/06/gastric-sleeve-before-and-after-Amanda-after-cropped-e1722867404806.jpg.webp": {
+    "anchorTexts": [
+      ""
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/wp-content/smush-webp/2024/06/gastric-sleeve-before-and-after-tracy-after-cropped-e1722867468478.jpg.webp": {
+    "anchorTexts": [
+      ""
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/testimonial/the-surgery-has-literally-been-life-changing/": {
+    "anchorTexts": [
+      "The surgery has literally been life changing!"
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/wp-content/smush-webp/2024/06/gastric-sleeve-before-and-after-kinde-after-cropped.jpg.webp": {
+    "anchorTexts": [
+      ""
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/testimonial/everyone-on-the-team-at-journeylite-is-amazing-from-the-front-desk-nurses-dietician-and-dr-curry/": {
+    "anchorTexts": [
+      "Everyone on the team at JourneyLite is amazing from the front desk, nurses, dietician and Dr. Curry!"
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/wp-content/smush-webp/2024/06/gastric-sleeve-before-and-after-Jacki-after-cropped-e1722867523655.jpg.webp": {
+    "anchorTexts": [
+      ""
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/testimonial/i-have-been-the-fat-kid-my-entire-life-and-really-thought-it-was-just-the-life-i-had-to-live/": {
+    "anchorTexts": [
+      "I have been the ‘fat’ kid my entire life and really thought it was just the life I had to live."
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/wp-content/smush-webp/2024/06/Gastric-Sleeve-Before-and-After-Julie-After-150x150-1.jpg.webp": {
+    "anchorTexts": [
+      ""
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/testimonial/i-feel-like-this-surgery-gave-me-life-back-confidence-i-never-had-before/": {
+    "anchorTexts": [
+      "I feel like this surgery gave me life back. Confidence I never had before!"
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/wp-content/smush-webp/2024/06/kimberly-after-gastric-sleeve-surgery-cropped.jpg.webp": {
+    "anchorTexts": [
+      ""
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/testimonial/i-looked-up-journey-lite-and-made-the-appointment-i-will-never-regret-that-decision/": {
+    "anchorTexts": [
+      "I looked up Journey Lite and made the appointment. I will NEVER regret that decision."
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/wp-content/smush-webp/2024/06/Kathy-After-cropped.jpg.webp": {
+    "anchorTexts": [
+      ""
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/wp-content/smush-webp/2024/06/JH7-cropped.jpg.webp": {
+    "anchorTexts": [
+      ""
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/testimonial/hi-im-jackie-k/": {
+    "anchorTexts": [
+      "Hi I’m Jackie K",
+      "Read more “Hi I’m Jackie K”"
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/testimonial/my-wife-had-vsg-with/": {
+    "anchorTexts": [
+      "My wife had VSG with",
+      "Read more “My wife had VSG with”"
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/testimonial/i-cant-thank-this-team/": {
+    "anchorTexts": [
+      "I can’t thank this team",
+      "Read more “I can’t thank this team”"
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/testimonial/gastric-sleeve/": {
+    "anchorTexts": [
+      "Gastric sleeve",
+      "Read more “Gastric sleeve”"
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/testimonial/you-are-worth-it/": {
+    "anchorTexts": [
+      "You are worth it!!",
+      "Read more “You are worth it!!”"
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/testimonial/dr-curry-and-his-whole/": {
+    "anchorTexts": [
+      "Dr. Curry and his whole team were amazing!",
+      "Read more “Dr. Curry and his whole team were amazing!”"
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/testimonial/feeling-great/": {
+    "anchorTexts": [
+      "Feeling great",
+      "Read more “Feeling great”"
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/testimonial/new-year-new-me/": {
+    "anchorTexts": [
+      "New Year, New Me.",
+      "Read more “New Year, New Me.”"
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/testimonial/i-can-not-believe-how-much-better-i-feel/": {
+    "anchorTexts": [
+      "I can not believe how much better I feel",
+      "Read more “I can not believe how much better I feel”"
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/wp-content/smush-webp/2024/01/Col.jpg.webp": {
+    "anchorTexts": [
+      ""
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/testimonial/journeylite-is-wonderful/": {
+    "anchorTexts": [
+      "JOURNEYLITE IS WONDERFUL!",
+      "Read more “JOURNEYLITE IS WONDERFUL!”"
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/testimonial/outstanding-service/": {
+    "anchorTexts": [
+      "Outstanding service",
+      "Read more “Outstanding service”"
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/testimonial/quality-care/": {
+    "anchorTexts": [
+      "Quality Care!",
+      "Read more “Quality Care!”"
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/testimonial/my-journey-with-journey-light/": {
+    "anchorTexts": [
+      "My journey with journey light",
+      "Read more “My journey with journey light”"
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/testimonial/wonderful-experience-with-a-wonderful-team/": {
+    "anchorTexts": [
+      "Wonderful experience with a wonderful team",
+      "Read more “Wonderful experience with a wonderful team”"
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/wp-content/smush-webp/2023/11/Snapchat-215766302-scaled.jpg.webp": {
+    "anchorTexts": [
+      ""
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/testimonial/all-i-wanted-and-needed/": {
+    "anchorTexts": [
+      "All I Wanted and Needed",
+      "Read more “All I Wanted and Needed”"
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/testimonial/excellent/": {
+    "anchorTexts": [
+      "Excellent",
+      "Read more “Excellent”"
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/testimonial/great-experience-with-my-gastric-sleeve/": {
+    "anchorTexts": [
+      "Great experience with my gastric sleeve.",
+      "Read more “Great experience with my gastric sleeve.”"
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/testimonial/wonderful-experience-2/": {
+    "anchorTexts": [
+      "Wonderful Experience",
+      "Read more “Wonderful Experience”"
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/testimonial/emily-em-is-the-best/": {
+    "anchorTexts": [
+      "Emily, ‘Em, is the best.",
+      "Read more “Emily, ‘Em, is the best.”"
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/testimonial/a-dream-come-true/": {
+    "anchorTexts": [
+      "A Dream Come True",
+      "Read more “A Dream Come True”"
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/testimonial/my-journey-2/": {
+    "anchorTexts": [
+      "My Journey",
+      "Read more “My Journey”"
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/testimonial/beyond-grateful/": {
+    "anchorTexts": [
+      "Beyond grateful",
+      "Read more “Beyond grateful”"
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/testimonial/i-had-the-best-experience/": {
+    "anchorTexts": [
+      "I had the best experience",
+      "Read more “I had the best experience”"
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/testimonial/a-journey-to-wls-success/": {
+    "anchorTexts": [
+      "A Journey To WLS Success",
+      "Read more “A Journey To WLS Success”"
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/testimonial/journeylite-featured-patient-of-the-month-june-2023-ann-g/": {
+    "anchorTexts": [
+      "JourneyLite Featured Patient of the Month-June 2023: Ann G."
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/wp-content/smush-webp/2023/06/Ann1.jpg.webp": {
+    "anchorTexts": [
+      ""
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/testimonial/journeylite-featured-patient-of-the-month-july-2023/": {
+    "anchorTexts": [
+      "JourneyLite Featured Patient of the Month-July 2023:"
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/wp-content/smush-webp/2023/07/T_Before.jpg.webp": {
+    "anchorTexts": [
+      ""
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/testimonial/exceptional-care/": {
+    "anchorTexts": [
+      "Exceptional Care",
+      "Read more “Exceptional Care”"
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/testimonial/my-dietician-is-the-best/": {
+    "anchorTexts": [
+      "My dietician is THE BEST!",
+      "Read more “My dietician is THE BEST!”"
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/testimonial/gastric-sleeve-surgery/": {
+    "anchorTexts": [
+      "Gastric Sleeve Surgery",
+      "Read more “Gastric Sleeve Surgery”"
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/testimonial/life-changing-3/": {
+    "anchorTexts": [
+      "Life Changing",
+      "Read more “Life Changing”"
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/wp-content/uploads/2023/06/IMG_1393.jpg": {
+    "anchorTexts": [
+      ""
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/testimonial/one-year-after/": {
+    "anchorTexts": [
+      "One year after",
+      "Read more “One year after”"
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/wp-content/smush-webp/2023/06/IMG_0801-scaled.jpeg.webp": {
+    "anchorTexts": [
+      ""
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/testimonial/great-decision/": {
+    "anchorTexts": [
+      "Great Decision",
+      "Read more “Great Decision”"
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/testimonial/ive-had-a-wonderful-experience/": {
+    "anchorTexts": [
+      "I’ve had a wonderful experience",
+      "Read more “I’ve had a wonderful experience”"
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/wp-content/smush-webp/2023/05/inCollage_20230510_090412783.jpg.webp": {
+    "anchorTexts": [
+      ""
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/testimonial/best-thing-i-could-have-done-for-myself/": {
+    "anchorTexts": [
+      "Best thing I could have done for myself!",
+      "Read more “Best thing I could have done for myself!”"
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/wp-content/smush-webp/2023/04/95620ABA-37C9-4B18-A259-091C05958B98-scaled.jpeg.webp": {
+    "anchorTexts": [
+      ""
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/testimonial/very-pleased-with-journeylite/": {
+    "anchorTexts": [
+      "Very Pleased with JourneyLite",
+      "Read more “Very Pleased with JourneyLite”"
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/testimonial/the-biggest-thank-you/": {
+    "anchorTexts": [
+      "The Biggest Thank You!!!",
+      "Read more “The Biggest Thank You!!!”"
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/testimonial/the-extra-services-are-my-key-to-success/": {
+    "anchorTexts": [
+      "The Extra Services Are My Key To Success!",
+      "Read more “The Extra Services Are My Key To Success!”"
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/testimonial/best-decision-of-my-life-2/": {
+    "anchorTexts": [
+      "Best Decision of my Life",
+      "Read more “Best Decision of my Life”"
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/wp-content/smush-webp/2023/03/PhotoCollage_20230311_095835553.jpg.webp": {
+    "anchorTexts": [
+      ""
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/testimonial/my-journey/": {
+    "anchorTexts": [
+      "My Journey",
+      "Read more “My Journey”"
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/wp-content/smush-webp/2023/03/Screenshot_20230302-151454_Facebook.jpg.webp": {
+    "anchorTexts": [
+      ""
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/testimonial/i-couldnt-be-happier/": {
+    "anchorTexts": [
+      "I couldn’t be happier",
+      "Read more “I couldn’t be happier”"
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/wp-content/smush-webp/2023/03/56E9D139-2ABE-49B9-B437-E17F255B58BB.jpeg.webp": {
+    "anchorTexts": [
+      ""
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/testimonial/amazingly-friendly-staff/": {
+    "anchorTexts": [
+      "Amazingly friendly staff",
+      "Read more “Amazingly friendly staff”"
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/testimonial/life-changing-2/": {
+    "anchorTexts": [
+      "Life changing!",
+      "Read more “Life changing!”"
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/wp-content/smush-webp/2023/02/B59F1346-17D7-435B-BDE4-5E72E2CDC3AA-scaled.jpeg.webp": {
+    "anchorTexts": [
+      ""
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/testimonial/such-an-amazing-experience/": {
+    "anchorTexts": [
+      "Such an amazing experience",
+      "Read more “Such an amazing experience”"
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/testimonial/best-decision-ive-ever-made-2/": {
+    "anchorTexts": [
+      "Best decision I’ve ever made",
+      "Read more “Best decision I’ve ever made”"
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/testimonial/great-care/": {
+    "anchorTexts": [
+      "Great Care!!",
+      "Read more “Great Care!!”"
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/testimonial/reaching-weight-loss-goals/": {
+    "anchorTexts": [
+      "Reaching weight loss goals",
+      "Read more “Reaching weight loss goals”"
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/testimonial/best-decision-ive-ever-made/": {
+    "anchorTexts": [
+      "Best decision I’ve ever made",
+      "Read more “Best decision I’ve ever made”"
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/wp-content/smush-webp/2023/02/E9DFF909-0C9C-497D-A544-E8D7A6690581-scaled.jpeg.webp": {
+    "anchorTexts": [
+      ""
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/testimonial/i-wish-i-did-it-sooner/": {
+    "anchorTexts": [
+      "I wish I did it sooner",
+      "Read more “I wish I did it sooner”"
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/testimonial/amazing-start-to-ongoing-finish/": {
+    "anchorTexts": [
+      "Amazing-start to (ongoing) finish",
+      "Read more “Amazing-start to (ongoing) finish”"
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/testimonial/weight-loss/": {
+    "anchorTexts": [
+      "Weight loss",
+      "Read more “Weight loss”"
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/testimonial/wonderful-experience/": {
+    "anchorTexts": [
+      "Wonderful experience",
+      "Read more “Wonderful experience”"
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/testimonial/fantastic-experience/": {
+    "anchorTexts": [
+      "Fantastic experience!",
+      "Read more “Fantastic experience!”"
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/testimonial/new-lease-on-life/": {
+    "anchorTexts": [
+      "New Lease On Life",
+      "Read more “New Lease On Life”"
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/wp-content/smush-webp/2023/02/GridArt_20221002_103443776-scaled.jpg.webp": {
+    "anchorTexts": [
+      ""
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/testimonial/a-new-outlook-on-life/": {
+    "anchorTexts": [
+      "A new outlook on life",
+      "Read more “A new outlook on life”"
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/wp-content/smush-webp/2023/02/1F3F70DB-5E73-45B5-81A9-4AE7244812B6.jpeg.webp": {
+    "anchorTexts": [
+      ""
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/testimonial/i-had-surgery-about-6/": {
+    "anchorTexts": [
+      "I had surgery about 6",
+      "Read more “I had surgery about 6”"
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/testimonial/losing-weight-gaining-confidence/": {
+    "anchorTexts": [
+      "Losing weight! Gaining confidence!",
+      "Read more “Losing weight! Gaining confidence!”"
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/testimonial/exceeded-my-expectations/": {
+    "anchorTexts": [
+      "Exceeded my Expectations",
+      "Read more “Exceeded my Expectations”"
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/testimonial/im-shocked-everyday/": {
+    "anchorTexts": [
+      "I’m SHOCKED everyday!",
+      "Read more “I’m SHOCKED everyday!”"
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/testimonial/healthier-happier/": {
+    "anchorTexts": [
+      "Healthier & Happier!",
+      "Read more “Healthier & Happier!”"
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/wp-content/smush-webp/2023/01/7F70597A-1BF2-4544-9D74-9ADC92171F4D.jpeg.webp": {
+    "anchorTexts": [
+      ""
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/testimonial/6-month-post-op-sleeve/": {
+    "anchorTexts": [
+      "6 month post op sleeve",
+      "Read more “6 month post op sleeve”"
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/testimonial/new-beginnings/": {
+    "anchorTexts": [
+      "New Beginnings",
+      "Read more “New Beginnings”"
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/testimonial/finally-living-again/": {
+    "anchorTexts": [
+      "Finally Living Again",
+      "Read more “Finally Living Again”"
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/wp-content/smush-webp/2022/12/B57A3395-A9F1-4D39-8053-A9CBD9E19C57.jpeg.webp": {
+    "anchorTexts": [
+      ""
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/testimonial/free-at-last/": {
+    "anchorTexts": [
+      "Free at last",
+      "Read more “Free at last”"
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/testimonial/%e2%ad%90%ef%b8%8f%e2%ad%90%ef%b8%8f%e2%ad%90%ef%b8%8f%e2%ad%90%ef%b8%8f%e2%ad%90%ef%b8%8f-5-star-experience/": {
+    "anchorTexts": [
+      "⭐️⭐️⭐️⭐️⭐️ 5 star experience",
+      "Read more “⭐️⭐️⭐️⭐️⭐️ 5 star experience”"
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/testimonial/great-results/": {
+    "anchorTexts": [
+      "Great Results",
+      "Read more “Great Results”"
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/testimonial/my-next-chapter/": {
+    "anchorTexts": [
+      "My next chapter",
+      "Read more “My next chapter”"
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/wp-content/smush-webp/2022/12/015ED8AF-1F64-4CCE-AFD8-AB77E917DFE3.jpeg.webp": {
+    "anchorTexts": [
+      ""
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/testimonial/surgery/": {
+    "anchorTexts": [
+      "Surgery",
+      "Read more “Surgery”"
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/testimonial/life-changing/": {
+    "anchorTexts": [
+      "Life Changing!",
+      "Read more “Life Changing!”"
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/surgical-weight-loss/gastric-bypass/": {
+    "anchorTexts": [
+      ""
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/surgical-weight-loss/sips-procedure/": {
+    "anchorTexts": [
+      ""
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/spatz-adjustable-gastric-balloon/": {
+    "anchorTexts": [
+      ""
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/weight-loss-medications/orbera-gastric-balloon/": {
+    "anchorTexts": [
+      ""
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/non-surgical-weight-loss/gastric-balloon/": {
+    "anchorTexts": [
+      "Read more",
+      "For current gastric balloons click here!",
+      "Learn about gastric balloons"
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/surgical-weight-loss/weight-loss-surgery-revisions/": {
+    "anchorTexts": [
+      "Read more"
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/compounded-semaglutide-injection-instructions/": {
+    "anchorTexts": [
+      "click here"
+    ],
+    "mappedSlug": "compounded-semaglutide-injection-instructions",
+    "needsMapping": false
+  },
+  "https://journeylite.com/why-weight-loss-surgery-can-be-a-problem-after-nissen-fundoplication/": {
+    "anchorTexts": [
+      "Click here for more information"
+    ],
+    "mappedSlug": "why-weight-loss-surgery-can-be-a-problem-after-nissen-fundoplication",
+    "needsMapping": false
+  },
+  "https://journeylite.com/product/semaglutide-starter-vial/": {
+    "anchorTexts": [
+      "eStore"
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/compounded-semaglutide-injection-instructions-0-5mg/": {
+    "anchorTexts": [
+      "0.5mg"
+    ],
+    "mappedSlug": "compounded-semaglutide-injection-instructions-0-5mg",
+    "needsMapping": false
+  },
+  "https://journeylite.com/compounded-semaglutide-injection-instructions-1mg/": {
+    "anchorTexts": [
+      "1mg"
+    ],
+    "mappedSlug": "compounded-semaglutide-injection-instructions-1mg",
+    "needsMapping": false
+  },
+  "https://journeylite.com/compounded-semaglutide-injection-instructions-1-5-2-2-5/": {
+    "anchorTexts": [
+      "1.5/2/2.5mg"
+    ],
+    "mappedSlug": "compounded-semaglutide-injection-instructions-1-5-2-2-5",
+    "needsMapping": false
+  },
+  "https://journeylite.com/compounded-semaglutide-injection-instructions-2-5mg/": {
+    "anchorTexts": [
+      "2.5mg"
+    ],
+    "mappedSlug": "compounded-semaglutide-injection-instructions-2-5mg",
+    "needsMapping": false
+  },
+  "https://journeylite.com/orbera-gastric-balloon/": {
+    "anchorTexts": [
+      "Orbera"
+    ],
+    "mappedSlug": "orbera-gastric-balloon",
+    "needsMapping": false
+  },
+  "https://journeylite.com/download/ohio-2023-revised-rules-for-weight-loss-medications/": {
+    "anchorTexts": [
+      "Ohio 2023 revised rules for weight loss medications"
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/gastric-sleeve-vsg/": {
+    "anchorTexts": [
+      "",
+      "gastric sleeve",
+      "sleeve gastrectomy"
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/gastric-bypass/": {
+    "anchorTexts": [
+      ""
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/sips-procedure/": {
+    "anchorTexts": [
+      ""
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/lap-band/": {
+    "anchorTexts": [
+      "",
+      "Lap Band",
+      "gastric band"
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/wp-content/smush-webp/2014/02/scale.jpeg.webp": {
+    "anchorTexts": [
+      ""
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/surgical-pre-op-navigator-post-op-meds-and-activity-incision/": {
+    "anchorTexts": [
+      "Go back to the post-op navigator"
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/healthtrac/": {
+    "anchorTexts": [
+      "Healthtrac"
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/low-impact-exercise-for-overweight-patients/": {
+    "anchorTexts": [
+      "If your mobility is significantly limited, check out these low-impact exercise options for overweight patients.",
+      ""
+    ],
+    "mappedSlug": "low-impact-exercise-for-overweight-patients",
+    "needsMapping": false
+  },
+  "https://journeylite.com/surgery-post-op-diet-tips/": {
+    "anchorTexts": [
+      "",
+      "Surgery Post-op Diet Tips"
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/first-allurion-balloon-patients-us-results/": {
+    "anchorTexts": [
+      "",
+      "First Commercial Allurion Balloon Patients in the U.S. Are Ahead of Schedule"
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/a-legacy-of-weight-loss-success-journeylites-20-year-history-of-bariatric-excellence/": {
+    "anchorTexts": [
+      "",
+      "A Legacy of Weight Loss Success: JourneyLite’s 20-Year History of Bariatric Excellence"
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/how-to-achieve-success-after-weight-loss-surgery-the-three-ms/": {
+    "anchorTexts": [
+      "Read more \"How To Achieve Success After Weight Loss Surgery-The Three “M’s”\""
+    ],
+    "mappedSlug": "how-to-achieve-success-after-weight-loss-surgery-the-three-ms",
+    "needsMapping": false
+  },
+  "https://journeylite.com/testing-required-for-spatz-balloon-fda-study/": {
+    "anchorTexts": [
+      "Click here for more info"
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/plenity/": {
+    "anchorTexts": [
+      "click here"
+    ],
+    "mappedSlug": "plenity",
+    "needsMapping": false
+  },
+  "https://journeylite.com/download/healthy-lifestyle-eating-plan/": {
+    "anchorTexts": [
+      "Healthy Lifestyle Eating Plan"
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/education/gastric-balloon-pre-procedure-instructions/": {
+    "anchorTexts": [
+      "gastric balloon pre-and-post procedure instructions",
+      "here"
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/goodrx-emend/": {
+    "anchorTexts": [
+      "this link explains how to reduce the cost of the medication using the GoodRx app"
+    ],
+    "mappedSlug": "goodrx-emend",
+    "needsMapping": false
+  },
+  "https://journeylite.com/download/jp-drain-output-log/": {
+    "anchorTexts": [
+      "JP Drain Output Log"
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/post-op-navigator/post-op-activity/": {
+    "anchorTexts": [
+      "Back to post-op navigator"
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/download/cardiac-clearance-request/": {
+    "anchorTexts": [
+      "Cardiac Clearance Request"
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/wp-content/uploads/2020/12/Cardiac-Clearance-Request-12.2020.pdf": {
+    "anchorTexts": [
+      "Cardiac Clearance Request 12.2020"
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/wp-content/uploads/2020/09/patient-satisfaction-surveys.pdf": {
+    "anchorTexts": [
+      "patient satisfaction surveys"
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/athena-portal/": {
+    "anchorTexts": [
+      "Athena portal"
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/wp-content/smush-webp/2020/02/EWL-under50-1024x847.jpg.webp": {
+    "anchorTexts": [
+      ""
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/wp-content/smush-webp/2020/02/EWL-over50-1024x825.jpg.webp": {
+    "anchorTexts": [
+      ""
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/follow-up-appointment-request-form/": {
+    "anchorTexts": [
+      "here"
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/reversebmi/": {
+    "anchorTexts": [
+      "",
+      "reverse BMI calculator"
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/download/supervised-diet-manual/": {
+    "anchorTexts": [
+      ""
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/download/pcp-supervised-diet-form/": {
+    "anchorTexts": [
+      "here is a helpful form"
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/wp-content/smush-webp/2020/01/PS8-792x1024.jpg.webp": {
+    "anchorTexts": [
+      ""
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/wp-content/smush-webp/2020/01/PS9-792x1024.jpg.webp": {
+    "anchorTexts": [
+      ""
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/wp-content/smush-webp/2020/01/PS3-791x1024.jpg.webp": {
+    "anchorTexts": [
+      ""
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/wp-content/smush-webp/2020/01/PS4-794x1024.jpg.webp": {
+    "anchorTexts": [
+      ""
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/wp-content/smush-webp/2020/01/PS5-786x1024.jpg.webp": {
+    "anchorTexts": [
+      ""
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/wp-content/smush-webp/2020/01/PS6-788x1024.jpg.webp": {
+    "anchorTexts": [
+      ""
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/wp-content/smush-webp/2020/01/PS7-790x1024.jpg.webp": {
+    "anchorTexts": [
+      ""
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/wp-content/smush-webp/2020/01/PS2-802x1024.jpg.webp": {
+    "anchorTexts": [
+      ""
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/wp-content/smush-webp/2020/01/PS1-793x1024.jpg.webp": {
+    "anchorTexts": [
+      ""
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "http://journeylite.com/1000-off/": {
+    "anchorTexts": [
+      "Learn More!"
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/gastric-balloon/obalon/": {
+    "anchorTexts": [
+      "non-surgical gastric balloon",
+      "Obalon “swallowable” gastric balloon procedure"
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/weight-loss-medications/apidex/": {
+    "anchorTexts": [
+      ""
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/plenity": {
+    "anchorTexts": [
+      ""
+    ],
+    "mappedSlug": "plenity",
+    "needsMapping": false
+  },
+  "https://journeylite.com/do-i-have-coverage-for-saxenda/": {
+    "anchorTexts": [
+      "click here"
+    ],
+    "mappedSlug": "do-i-have-coverage-for-saxenda",
+    "needsMapping": false
+  },
+  "https://journeylite.com/wp-content/uploads/2019/06/9Round-Screenthos-634x1024.png": {
+    "anchorTexts": [
+      ""
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/wp-content/smush-webp/2019/06/9Round-hyde-park-e1561723560133.jpg.webp": {
+    "anchorTexts": [
+      ""
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/wp-content/smush-webp/2019/06/SpeedBag.jpg.webp": {
+    "anchorTexts": [
+      ""
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/gastric-balloon/": {
+    "anchorTexts": [
+      ""
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "http://journeylite.com/financing-options/": {
+    "anchorTexts": [
+      "Explore Financing Options"
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "http://journeylite.com/appointment-request/": {
+    "anchorTexts": [
+      "Request Appointment Now!"
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/currycare/": {
+    "anchorTexts": [
+      "HealthTrac",
+      "HealthTrac app"
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/index.php/appointment-request/": {
+    "anchorTexts": [
+      "Request Appointment!"
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/download/exercise-support-group-handout/": {
+    "anchorTexts": [
+      "Exercise Support Group Handout"
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/reshape-gastric-balloon/": {
+    "anchorTexts": [
+      "ReShape",
+      "Learn more about the ReShape system by clicking here"
+    ],
+    "mappedSlug": "reshape-gastric-balloon",
+    "needsMapping": false
+  },
+  "https://journeylite.com/vhpgo/": {
+    "anchorTexts": [
+      "click here",
+      "LoseWeightCincy/VHPGO",
+      "LoseWeightCincy.com/VHPGO"
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/download/goal-sharing-presentation/": {
+    "anchorTexts": [
+      "Goal Sharing Presentation"
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/download/goal-sharing-handout/": {
+    "anchorTexts": [
+      "Goal Sharing Handout"
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/overstitch-transoral-endoscopic-pouch-reduction-for-weight-gain-after-gastric-bypass/": {
+    "anchorTexts": [
+      "Overstitch"
+    ],
+    "mappedSlug": "overstitch-transoral-endoscopic-pouch-reduction-for-weight-gain-after-gastric-bypass",
+    "needsMapping": false
+  },
+  "https://journeylite.com/download/support-group-cookbook-72617/": {
+    "anchorTexts": [
+      "Support Group Cookbook 7/26/17"
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/download/support-group-high-protein-recipes-72617/": {
+    "anchorTexts": [
+      "Support Group High Protein Recipes 7/26/17"
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/psych-eval/": {
+    "anchorTexts": [
+      "We have a number of providers who offer telehealth for psych evaluations as well."
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/sips-sadi-lds-versus-sleeve-whats-the-difference/": {
+    "anchorTexts": [
+      "",
+      "Read more"
+    ],
+    "mappedSlug": "sips-sadi-lds-versus-sleeve-whats-the-difference",
+    "needsMapping": false
+  },
+  "https://journeylite.com/new-study-finds-weight-loss-surgery-extends-lives/": {
+    "anchorTexts": [
+      "",
+      "Read more"
+    ],
+    "mappedSlug": "new-study-finds-weight-loss-surgery-extends-lives",
+    "needsMapping": false
+  },
+  "https://journeylite.com/gerd-treatments/stretta-therapy/": {
+    "anchorTexts": [
+      "",
+      "Read more",
+      "Stretta"
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/gerd-treatments/": {
+    "anchorTexts": [
+      "",
+      "Read more"
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/product-category/vitamins-2/": {
+    "anchorTexts": [
+      "eStore"
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/product-category/vitamins-2/b-vitamins/vitamin-b12/": {
+    "anchorTexts": [
+      "B12 (2)"
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/product/gastric-band-starter-kit/": {
+    "anchorTexts": [
+      "Gastric Band Starter Kit\n\t$60.00"
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/product/gastric-bypass-starter-kit/": {
+    "anchorTexts": [
+      "Gastric Bypass Starter Kit\n\t$117.50"
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/product/gastric-sleeve-starter-kit/": {
+    "anchorTexts": [
+      "Gastric Sleeve Starter Kit\n\t$117.50"
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/product/sadi-starter-kit/": {
+    "anchorTexts": [
+      "SADI/SIPS Starter Kit\n\t$170.75"
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/product-category/vitamins-2/sleeverny/": {
+    "anchorTexts": [
+      ""
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/product-category/vitamins-2/sadi-sips-vitamins-2/": {
+    "anchorTexts": [
+      ""
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/product-category/vitamins-2/bandvitamins/": {
+    "anchorTexts": [
+      ""
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/bloodwork-gastric-bypass/": {
+    "anchorTexts": [
+      "Read more"
+    ],
+    "mappedSlug": "bloodwork-gastric-bypass",
+    "needsMapping": false
+  },
+  "https://journeylite.com/bloodwork-duodenal-switchsips/": {
+    "anchorTexts": [
+      "Read more"
+    ],
+    "mappedSlug": "bloodwork-duodenal-switchsips",
+    "needsMapping": false
+  },
+  "https://journeylite.com/bloodwork-gastric-sleeve/": {
+    "anchorTexts": [
+      "Gastric Sleeve",
+      "Read more"
+    ],
+    "mappedSlug": "bloodwork-gastric-sleeve",
+    "needsMapping": false
+  },
+  "https://journeylite.com/lovenox/": {
+    "anchorTexts": [
+      "",
+      "Read more"
+    ],
+    "mappedSlug": "lovenox",
+    "needsMapping": false
+  },
+  "https://journeylite.com/download/post-op-diet-discharge-instructions/": {
+    "anchorTexts": [
+      "Post-op Diet & Discharge Instructions (Green Book)"
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/gerd-treatments/laparoscopic-nissen-fundoplication/": {
+    "anchorTexts": [
+      "Nissen fundoplication"
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/index.php/info": {
+    "anchorTexts": [
+      "click here"
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/home/our-team/": {
+    "anchorTexts": [
+      "Dr. Tracy Pitt"
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/wp-content/smush-webp/2015/05/resahpe_duo.jpg.webp": {
+    "anchorTexts": [
+      ""
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/wp-content/smush-webp/2015/12/ReShape-Balloon-in-Stomach-Web.jpg.webp": {
+    "anchorTexts": [
+      ""
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/wp-content/smush-webp/2015/12/Chris-Vicki.jpg.webp": {
+    "anchorTexts": [
+      ""
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/wp-content/smush-webp/2015/12/Patient-Starter-Kit-Binder-and-Plate.png.webp": {
+    "anchorTexts": [
+      ""
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/wp-content/smush-webp/2015/08/IMG_9307.jpg.webp": {
+    "anchorTexts": [
+      ""
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/orbera-intra-gastric-weight-loss-balloon-infosession-with-dr-trace-curry/": {
+    "anchorTexts": [
+      "To learn more about gastric balloon click here."
+    ],
+    "mappedSlug": "orbera-intra-gastric-weight-loss-balloon-infosession-with-dr-trace-curry",
+    "needsMapping": false
+  },
+  "https://journeylite.com/weight-loss-medications/combination-therapy/": {
+    "anchorTexts": [
+      "Combination Therapy"
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/wp-content/uploads/2014/06/ORBERA-Inflated-web.jpg": {
+    "anchorTexts": [
+      ""
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/wp-content/uploads/2015/08/IMG_9307.jpg": {
+    "anchorTexts": [
+      ""
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "http://www.journeylite.com/": {
+    "anchorTexts": [
+      "JourneyLite of Cincinnati"
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/wp-content/smush-webp/2015/08/File-Aug-28-1-04-19-PM-e1440781550861.jpeg.webp": {
+    "anchorTexts": [
+      ""
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/weight-loss-medications/gastric-balloon-surgery/#h2-Types-of-Gastric-Balloons": {
+    "anchorTexts": [
+      "Spatz 3 gastric balloon"
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/wp-content/smush-webp/2015/08/ORBERA-In-Stomach-web.jpg.webp": {
+    "anchorTexts": [
+      ""
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/wp-content/smush-webp/2015/08/ORBERA-Inflated-Uninflated-web.jpg.webp": {
+    "anchorTexts": [
+      ""
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/index.php/body-mass-index-calculator/": {
+    "anchorTexts": [
+      "here"
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/wp-content/uploads/2015/05/resahpe_duo.jpg": {
+    "anchorTexts": [
+      ""
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/wp-content/uploads/2015/06/ThisTimeItCounts.png": {
+    "anchorTexts": [
+      ""
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/wp-content/smush-webp/2015/02/orbera-procedure.jpg.webp": {
+    "anchorTexts": [
+      ""
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/about-dr-trace-curry/": {
+    "anchorTexts": [
+      "Learn more about Dr. Curry"
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/wp-content/uploads/2014/02/SleevePic.gif": {
+    "anchorTexts": [
+      ""
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/wp-content/smush-webp/2015/05/OverStitch.jpg.webp": {
+    "anchorTexts": [
+      ""
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/index.php/financing-options/": {
+    "anchorTexts": [
+      "here"
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/index.php/bmi-calculators/bmi-surgical/": {
+    "anchorTexts": [
+      "BMI"
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/wp-content/smush-webp/2014/11/IMG_9486.jpg.webp": {
+    "anchorTexts": [
+      ""
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/wp-content/smush-webp/2014/07/FitBit.jpg.webp": {
+    "anchorTexts": [
+      ""
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/wp-content/smush-webp/2014/06/weightgain.jpeg.webp": {
+    "anchorTexts": [
+      ""
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/index.php/bmi-calculators/bmi-medical/": {
+    "anchorTexts": [
+      "Click here to see our medical weight loss BMI calculator"
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/wp-content/smush-webp/2014/03/nasalHCG.jpeg.webp": {
+    "anchorTexts": [
+      ""
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/wp-content/smush-webp/2014/02/Robot.jpeg.webp": {
+    "anchorTexts": [
+      ""
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/index.php/gastric-sleeve/": {
+    "anchorTexts": [
+      "click here"
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/wp-content/smush-webp/2014/02/Phentermine.jpg.webp": {
+    "anchorTexts": [
+      ""
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/wp-content/uploads/2014/02/scale.jpeg": {
+    "anchorTexts": [
+      ""
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/download/clear-liquids-sleevebypasssipsesg/": {
+    "anchorTexts": [
+      "Clear Liquids-Sleeve+Bypass+SIPS+ESG"
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/wp-content/smush-webp/2013/10/Bar.jpg.webp": {
+    "anchorTexts": [
+      ""
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/product-category/shakes/": {
+    "anchorTexts": [
+      "Dr. Curry’s brand"
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/product-category/bars-very-low-carb/": {
+    "anchorTexts": [
+      "Dr. Curry’s brand"
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/index.php/map-schedule-and-info/": {
+    "anchorTexts": [
+      "Click <here> for our contact info!"
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/wp-content/smush-webp/2013/10/Fat.jpeg.webp": {
+    "anchorTexts": [
+      ""
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/wp-content/smush-webp/2013/10/Journal.jpeg.webp": {
+    "anchorTexts": [
+      ""
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/wp-content/smush-webp/2013/10/Macronutrients.jpeg.webp": {
+    "anchorTexts": [
+      ""
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/wp-content/uploads/2013/10/FoodLabel.png": {
+    "anchorTexts": [
+      ""
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/wp-content/smush-webp/2013/10/LowCarb.jpeg.webp": {
+    "anchorTexts": [
+      ""
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/wp-content/smush-webp/2013/10/FrozenDinner.jpeg.webp": {
+    "anchorTexts": [
+      ""
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/product/multivitamin-dark-cherry-chews-60-count/": {
+    "anchorTexts": [
+      "Multi Vitamin Chews – Dark Cherry (60 ct)\n\t$35.75"
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/product/dry-vitamin-d-60ct/": {
+    "anchorTexts": [
+      "Vitamin D3 Capsules (60ct)\n\t$9.00"
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/wp-content/smush-webp/2013/08/Obesity.jpeg.webp": {
+    "anchorTexts": [
+      ""
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/wp-content/smush-webp/2013/08/soda_diet_640.jpg.webp": {
+    "anchorTexts": [
+      ""
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/wp-content/uploads/2012/09/Coca_Cola.jpeg": {
+    "anchorTexts": [
+      ""
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/wp-content/smush-webp/2012/11/StuffedPeppers.jpg.webp": {
+    "anchorTexts": [
+      ""
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/wp-content/smush-webp/2012/11/BreadlessStuffing.jpg.webp": {
+    "anchorTexts": [
+      ""
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/wp-content/smush-webp/2012/11/CrustlessPizza.png.webp": {
+    "anchorTexts": [
+      ""
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/wp-content/smush-webp/2012/10/AsianWraps.png.webp": {
+    "anchorTexts": [
+      ""
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/wp-content/smush-webp/2012/09/Chicken3.png.webp": {
+    "anchorTexts": [
+      ""
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/wp-content/smush-webp/2012/09/Coca_Cola.jpeg.webp": {
+    "anchorTexts": [
+      ""
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/wp-content/smush-webp/2012/09/Screen-Shot-2012-09-13-at-8.18.59-AM.jpg.webp": {
+    "anchorTexts": [
+      ""
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/wp-content/smush-webp/2012/09/plastics.jpeg.webp": {
+    "anchorTexts": [
+      ""
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/info/": {
+    "anchorTexts": [
+      "Click here to register for an online seminar to find out more about your options!"
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/wp-content/smush-webp/2012/08/cast-erlanger-21.jpeg.webp": {
+    "anchorTexts": [
+      ""
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/wp-content/smush-webp/2012/08/insulin.jpeg.webp": {
+    "anchorTexts": [
+      ""
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/wp-content/smush-webp/2012/07/20120709-211535.jpg.webp": {
+    "anchorTexts": [
+      ""
     ],
     "mappedSlug": null,
     "needsMapping": true

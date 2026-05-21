@@ -204,9 +204,10 @@ async function discoverPostUrls(): Promise<string[]> {
       break;
     }
 
-    // Check for next page link
+    // Check for next page link — Genesis/WordPress uses .pagination-next and <link rel="next">
     const hasNextPage =
-      $("a.next.page-numbers, .nav-links a[rel='next'], a[rel='next']").length > 0;
+      $(".pagination-next a, a.next.page-numbers, .nav-links a[rel='next'], a[rel='next']").length > 0 ||
+      $("link[rel='next']").length > 0;
     if (!hasNextPage) {
       log("No next page link found — done with archive");
       break;

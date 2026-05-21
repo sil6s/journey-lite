@@ -1,0 +1,36 @@
+{
+  "sourceUrl": "https://journeylite.com/manage-call-calendar/",
+  "canonicalUrl": "https://journeylite.com/manage-call-calendar/",
+  "oldSlug": "manage-call-calendar",
+  "slug": "manage-call-calendar",
+  "title": "How to manage call calendar",
+  "seoTitle": "How to manage call calendar",
+  "metaDescription": "There is no excerpt because this is a protected post.",
+  "excerpt": "There is no excerpt because this is a protected post.",
+  "publishedAt": "2014-07-18T12:34:26+00:00",
+  "updatedAt": "2014-07-18T12:40:37+00:00",
+  "author": "DrCurry",
+  "categories": [
+    "Office"
+  ],
+  "tags": [],
+  "featuredImageUrl": "",
+  "featuredImageAlt": "",
+  "inlineImages": [],
+  "bodyHtml": "<div class=\"entry-content\"><form action=\"https://journeylite.com/wp-login.php?action=postpass&amp;wpe-login=true\" class=\"post-password-form\" method=\"post\"><input type=\"hidden\" name=\"redirect_to\" value=\"https://journeylite.com/manage-call-calendar/\">\n\t<p>This content is password-protected. To view it, please enter the password below.</p>\n\t<p><label for=\"pwbox-1682\">Password: <input name=\"post_password\" id=\"pwbox-1682\" type=\"password\" spellcheck=\"false\" required=\"\" size=\"20\"></label> <input type=\"submit\" name=\"Submit\" value=\"Enter\"></p></form>\n\t</div>",
+  "bodyMarkdown": "This content is password-protected. To view it, please enter the password below.\n\nPassword:",
+  "internalLinks": [],
+  "externalLinks": [],
+  "ctaLinks": [],
+  "resourceType": "education",
+  "wordCount": 13,
+  "readingTime": 1,
+  "needsReview": true,
+  "medicalReviewRecommended": false,
+  "migrationNotes": [
+    "Featured image missing",
+    "Body is short (13 words) — review content",
+    "Warning: No featured image",
+    "Warning: No tags"
+  ]
+}

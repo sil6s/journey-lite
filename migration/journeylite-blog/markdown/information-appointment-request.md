@@ -56,7 +56,7 @@ Choose your next step with JourneyLite. Request information or submit an appoint
 Choose your next step with JourneyLite. Request information or submit an appointment request for medical weight loss, GLP-1 medications, gastric sleeve, gastric bypass, SADI surgery, or gastric balloon options.
 
 ## Featured Image
-https://journeylite.com/wp-content/uploads/2019/11/JourneyLiteScale-Icon-200x200.jpg
+/legacy-blog/information-appointment-request__JourneyLiteScale-Icon-200x200.jpg
 
 ## Featured Image Alt Text
 Need Information or Ready for an Appointment? — JourneyLite
@@ -119,7 +119,7 @@ Choose this option if you want to learn more about JourneyLite’s programs, com
 
 **This does not schedule an appointment.** It is a lower-commitment way to ask questions and learn more before deciding what to do next.
 
-[Request Information](https://journeylite.com/information-request/)
+(https://journeylite.com/information-request/)
 
 ## Request an Appointment
 
@@ -135,7 +135,7 @@ Choose this option if you are ready for JourneyLite to contact you about schedul
 
 **This is the best choice if you are committed to moving forward.** Our team will use your information to help guide the appointment request process.
 
-[Request an Appointment](https://journeylite.com/easy-appointment-request/)
+(https://journeylite.com/easy-appointment-request/)
 
 ## What Can JourneyLite Help With?
 
@@ -143,15 +143,15 @@ JourneyLite is different because patients can compare several weight loss option
 
 ### Surgical Weight Loss
 
-Learn about [gastric sleeve](https://journeylite.com/surgical-weight-loss/gastric-sleeve-vsg/), [gastric bypass](https://journeylite.com/surgical-weight-loss/gastric-bypass-surgery/), [SADI surgery](https://journeylite.com/surgical-weight-loss/sadi-surgery/), and [revision procedures](https://journeylite.com/revision-weight-loss-surgery/).
+Learn about (https://journeylite.com/surgical-weight-loss/gastric-sleeve-vsg/), (https://journeylite.com/surgical-weight-loss/gastric-bypass-surgery/), (https://journeylite.com/surgical-weight-loss/sadi-surgery/), and (https://journeylite.com/revision-weight-loss-surgery/).
 
 ### Medical Weight Loss
 
-Ask about [medical weight loss](https://journeylite.com/weight-loss-medications/), GLP-1 medications, medication costs, maintenance options, and long-term weight management support.
+Ask about (https://journeylite.com/weight-loss-medications/), GLP-1 medications, medication costs, maintenance options, and long-term weight management support.
 
 ### Gastric Balloon
 
-Explore non-surgical balloon options, including the [Allurion swallowable gastric balloon](https://journeylite.com/allurion-swallowable-gastric-balloon/), for patients who want a procedure-free or lower-commitment option.
+Explore non-surgical balloon options, including the (https://journeylite.com/allurion-swallowable-gastric-balloon/), for patients who want a procedure-free or lower-commitment option.
 
 ## Which Option Should I Choose?
 
@@ -161,7 +161,7 @@ Explore non-surgical balloon options, including the [Allurion swallowable gastri
 
 There is no wrong choice. If you submit an information request and later decide you are ready for an appointment, our team can help guide you to the appropriate next step.
 
-[Request Information](https://journeylite.com/information-request/) [Request an Appointment](https://journeylite.com/easy-appointment-request/)
+(https://journeylite.com/information-request/) (https://journeylite.com/easy-appointment-request/)
 
 ## Common Reasons Patients Contact JourneyLite
 
@@ -171,7 +171,7 @@ Many patients are not sure whether medication, balloon, sleeve, bypass, or SADI 
 
 ### “I want to compare cost.”
 
-JourneyLite can help patients compare self-pay pricing, insurance coverage, financing, and long-term medication costs. You can also review our [pricing and financing page](https://journeylite.com/pricing-financing/).
+JourneyLite can help patients compare self-pay pricing, insurance coverage, financing, and long-term medication costs. You can also review our (https://journeylite.com/pricing-financing/).
 
 ### “I am ready to move forward.”
 
@@ -199,10 +199,10 @@ Can I request information about cost before scheduling?
 
 Yes. Patients often request information about self-pay pricing, insurance coverage, financing, medication costs, and procedure options before scheduling.
 
-![Dr. Trace Curry, bariatric surgeon and medical director of JourneyLite](https://journeylite.com/wp-content/smush-webp/2025/10/about-dr-Trace-Curry.jpg.webp)
+!(/legacy-blog/surgery-post-op-diet-tips__about-dr-Trace-Curry.jpg.webp)
 
 ## Reviewed by Dr. Trace Curry
 
-[Dr. Trace Curry, MD, FASMBS](https://journeylite.com/about-dr-trace-curry/), is the Medical Director of JourneyLite and a board-certified general surgeon with extensive experience in bariatric and metabolic surgery, gastric balloon procedures, revision surgery, and medical weight loss.
+(https://journeylite.com/about-dr-trace-curry/), is the Medical Director of JourneyLite and a board-certified general surgeon with extensive experience in bariatric and metabolic surgery, gastric balloon procedures, revision surgery, and medical weight loss.
 
 JourneyLite’s goal is to help patients understand their options clearly so they can choose the next step that best fits their health, goals, budget, and readiness.

@@ -1,0 +1,48 @@
+{
+  "sourceUrl": "https://journeylite.com/new-estore-test/",
+  "canonicalUrl": "https://journeylite.com/new-estore-test/",
+  "oldSlug": "new-estore-test",
+  "slug": "new-estore-test",
+  "title": "NEW ESTORE TEST!",
+  "seoTitle": "NEW ESTORE TEST!",
+  "metaDescription": "",
+  "excerpt": "[![Sugary drinks lead to obesity!](https://journeylite.com/wp-content/smush-webp/2012/09/CocaCola.jpeg.webp)](https://journeylite.com/wp-content/uploads/2012/09/CocaCola.jpeg)",
+  "publishedAt": "2013-02-03T16:37:35+00:00",
+  "updatedAt": "2014-01-19T17:00:11+00:00",
+  "author": "DrCurry",
+  "categories": [
+    "Uncategorized"
+  ],
+  "tags": [],
+  "featuredImageUrl": "/legacy-blog/new-estore-test__Coca_Cola.jpeg",
+  "featuredImageAlt": "",
+  "inlineImages": [
+    {
+      "src": "/legacy-blog/new-estore-test__Coca_Cola.jpeg.webp",
+      "alt": "Sugary drinks lead to obesity!",
+      "caption": ""
+    }
+  ],
+  "bodyHtml": "<div class=\"entry-content\"><a href=\"https://journeylite.com/wp-content/uploads/2012/09/Coca_Cola.jpeg\"><img decoding=\"async\" class=\"size-full wp-image-290\" alt=\"Sugary drinks lead to obesity!\" src=\"https://journeylite.com/wp-content/smush-webp/2012/09/Coca_Cola.jpeg.webp\" width=\"227\" height=\"222\" loading=\"lazy\"></a></div>",
+  "bodyMarkdown": "[!(/legacy-blog/sugary-drinks-linked-to-obesity__Coca_Cola.jpeg.webp)](/legacy-blog/sugary-drinks-linked-to-obesity__Coca_Cola.jpeg)",
+  "internalLinks": [
+    {
+      "text": "",
+      "url": "https://journeylite.com/wp-content/uploads/2012/09/Coca_Cola.jpeg"
+    }
+  ],
+  "externalLinks": [],
+  "ctaLinks": [],
+  "resourceType": "other",
+  "wordCount": 5,
+  "readingTime": 1,
+  "needsReview": true,
+  "medicalReviewRecommended": false,
+  "migrationNotes": [
+    "Meta description missing — excerpt used as suggestion",
+    "Body is short (5 words) — review content",
+    "Warning: No meta description",
+    "Warning: No tags",
+    "Warning: Featured image has no alt text"
+  ]
+}

@@ -1,0 +1,85 @@
+## Content Mode
+migrated
+
+## Source URL
+https://journeylite.com/how-to-stop-weight-gain-after-bariatric-surgery/
+
+## Canonical URL
+https://journeylite.com/how-to-stop-weight-gain-after-bariatric-surgery/
+
+## Original Slug
+how-to-stop-weight-gain-after-bariatric-surgery
+
+## Title
+How to stop weight gain after bariatric surgery
+
+## Slug
+how-to-stop-weight-gain-after-bariatric-surgery
+
+## Resource Type
+education
+
+## Category
+Uncategorized
+
+## Tags
+- (none)
+
+## Original Author
+DrCurry
+
+## Author
+DrCurry
+
+## Reviewed By
+
+
+## Published At
+2014-06-22T14:02:18+00:00
+
+## Original Published At
+2014-06-22T14:02:18+00:00
+
+## Updated At
+2014-06-22T14:32:50+00:00
+
+## SEO Focus Keyword
+
+
+## Meta Title
+How to stop weight gain after bariatric surgery
+
+## Meta Description
+Find out how to stop weight gain after bariatric surgery. Dr. Trace Curry and his team can help. Find out more!
+
+## Excerpt
+Find out how to stop weight gain after bariatric surgery. Dr. Trace Curry and his team can help. Find out more!
+
+## Featured Image
+/legacy-blog/how-to-stop-weight-gain-after-bariatric-surgery__weightgain-150x150.jpeg
+
+## Featured Image Alt Text
+How to stop weight gain after bariatric surgery — JourneyLite
+
+## Internal Links
+- [](https://journeylite.com/wp-content/smush-webp/2014/06/weightgain.jpeg.webp)
+
+## External Sources
+- (none)
+
+## Migration Notes
+- Warning: No tags
+- Warning: Featured image has no alt text
+
+## Needs Review
+false
+
+## Medical Review Recommended
+false
+
+## Body
+**How to stop weight gain after bariatric surgery, by Dr. Trace Curry**
+
+<a href="/legacy-blog/breaking-a-plateau-after-weight-loss-surgery__weightgain.jpeg.webp"></a>Get the scale moving in the right direction!
+
+  Often times when I see a new patient in the office for a Lap Band or sleeve consult, they tell me that their family and friends think they are taking the “easy way out.”  I always tell them the same thing, weight loss surgery is “easier” but it’s definitely not the “easy way out.”  Being successful after a Lap Band, sleeve, or gastric bypass takes a lifetime of commitment to a healthier lifestyle. It’s really no different than losing weight without surgery–you must watch your diet and exercise regularly.  The surgery is a tool that is very powerful, but like any tool you have to use it right or it won’t work. Typically when I see a patient who has gained some weight after bariatric surgery there is not just one single cause to blame.  It’s a combination of the following:   **1\.  Transition of diet over to soft, high-calorie carbohydrates** Soft, high-calorie carbohydrates are a big temptation for surgical weight loss patients.  If you attach a garden hose to a spigot and turn it on high, you can get a lot of water through it in a day.  If you think of your sleeve as about the diameter of a garden hose, you can see that it would be possible to get a lot of liquid, whether it be regular pop, ice cream, milk shakes, etc, through your sleeve. **2\.  Lack of exercise** Everyone knows it’s hard to lose weight through exercising.  We’ve all tried it before with the theory that “If I exercise every day I can just eat whatever I want and still lose weight.”  It doesn’t exactly work that way, and if you’ve tried it you already know this.  However, if you are following a healthy diet, burning just a few hundred calories each day on the cross trainer will likely tip you from being “weight gain” to “weight loss” mode.  For simplicity, let’s say patient X needs 1800 calories per day to maintain their weight.  If the patient is consuming 1900 then he will gain a pound or two a month.  If that same patient eats the same way but exercises every day and burns 300 calories, he will lose three or four pounds a month.  The problem is that we are an immediate gratification society, but we don’t see immediate results from regular exercise!  Speaking personally as a Lap Band patient who is 5 years+ out from surgery, when I stop exercising the scale starts creeping up almost immediately. **3\.  Not enough protein in the diet** If you’ve had a Lap Band, gastric sleeve, or gastric bypass, protein is the key!  Your dietitian should be able to give you an accurate daily goal, but if you are getting in at least 80 grams daily that should be fine for most patients.  Protein is the fuel that are body uses to keep us going.  Eating high protein meals will reduce hunger and help you stay away from the carbs.  Also, if you are eating solid proteins such as beef, chicken, or pork, these foods will stay in your new smaller stomach longer and help keep you full for a long time! So now that we have identified the most common issues for weight gain after bariatric surgery, how can a patient get back on track?  Dr. Trace Curry’s team specializes in treating this problem and we have a number of different programs to get the scale moving in the right direction.  If you want to find out more, just fill out one of the appointment request forms below, and one of our patient service representatives will contact you to discuss all of your options! \

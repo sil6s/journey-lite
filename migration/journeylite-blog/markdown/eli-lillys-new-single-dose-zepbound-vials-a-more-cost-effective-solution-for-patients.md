@@ -1,0 +1,90 @@
+## Content Mode
+migrated
+
+## Source URL
+https://journeylite.com/eli-lillys-new-single-dose-zepbound-vials-a-more-cost-effective-solution-for-patients/
+
+## Canonical URL
+https://journeylite.com/eli-lillys-new-single-dose-zepbound-vials-a-more-cost-effective-solution-for-patients/
+
+## Original Slug
+eli-lillys-new-single-dose-zepbound-vials-a-more-cost-effective-solution-for-patients
+
+## Title
+Eli Lilly's New Single-Dose Zepbound Vials: A More Cost-Effective Solution for Patients
+
+## Slug
+eli-lillys-new-single-dose-zepbound-vials-a-more-cost-effective-solution-for-patients
+
+## Resource Type
+other
+
+## Category
+Announcements
+
+## Tags
+- (none)
+
+## Original Author
+DrCurry
+
+## Author
+DrCurry
+
+## Reviewed By
+
+
+## Published At
+2025-03-18T14:14:01+00:00
+
+## Original Published At
+2025-03-18T14:14:01+00:00
+
+## Updated At
+
+
+## SEO Focus Keyword
+
+
+## Meta Title
+Eli Lilly's New Single-Dose Zepbound Vials: A More Cost-Effective Solution for Patients
+
+## Meta Description
+Explore the benefits of Zepbound single dose vial as a more affordable option for managing obesity and related conditions.
+
+## Excerpt
+Explore the benefits of Zepbound single dose vial as a more affordable option for managing obesity and related conditions.
+
+## Featured Image
+/legacy-blog/zepbound-tirzepatide-a-new-injectable-fda-approved-weight-lo__zepbound-prescription.jpg.webp
+
+## Featured Image Alt Text
+Eli Lilly's New Single-Dose Zepbound Vials: A More Cost-Effective Solution for Patients — JourneyLite
+
+## Internal Links
+- (none)
+
+## External Sources
+- (none)
+
+## Migration Notes
+- Contains medical/medication content — medical review recommended
+- Warning: No tags
+- Warning: Featured image has no alt text
+
+## Needs Review
+true
+
+## Medical Review Recommended
+true
+
+## Body
+For quite a while now patients have been able to take advantage of compounded GLP-1 medications at a much lower price point than brand-name meds like Zepbound and Wegovy. This was due to the fact that both of these drugs had been on the FDA shortage list, which allowed compounding pharmacies to make generic versions of the brand names even though they are still under patent. For better or worse, the FDA has removed both of these drugs from the shortage list and the compounded versions are no longer going to be available. To ease the sticker shock that patients might experience in transitioning over to the brand-name meds, Eli Lilly has introduced new single-dose vials of Zepbound. This is a brand-name version of tirzepatide, offering a more affordable and accessible option for patients managing obesity and related conditions.
+
+The new Zepbound vials are available in doses of 2.5 mg, 5 mg, 7.5 mg, and 10 mg, with prices starting at $349 per month for the lowest dose. These vials are significantly cheaper than the single-dose injector pens, which can cost around $1,000 per month before insurance. By offering these vials through its direct-to-consumer platform, LillyDirect, Eli Lilly ensures transparency in pricing and eliminates third-party supply chain costs.
+
+Patients who previously relied on compounded tirzepatide for its affordability now have a more viable alternative. The new vials not only reduce cost but also provide a safe and FDA-approved option. This is particularly beneficial for those without insurance coverage, as many health plans do not cover weight-loss medications.
+
+The introduction of these vials also aligns with Eli Lilly’s commitment to improving access to obesity treatments. By expanding dosage options and reducing prices, the company aims to support patients in their weight-loss journeys while addressing the challenges posed by the discontinuation of compounded tirzepatide.
+
+In summary, the new single-dose Zepbound vials represent a significant step forward in making obesity management more affordable and accessible. For patients navigating the transition from compounded tirzepatide, these vials offer a reliable and cost-effective solution.

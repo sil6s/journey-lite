@@ -1,34 +1,56 @@
-export async function verifyRecaptchaToken(token: string | undefined, action: string, remoteIp?: string) {
-  const secret = process.env.RECAPTCHA_SECRET_KEY;
-  if (!secret) {
-    return {
-      ok: process.env.NODE_ENV !== "production",
-      bypassed: process.env.NODE_ENV !== "production",
-      reason: "reCAPTCHA secret is not configured.",
-    };
+const ENTERPRISE_SITE_KEY = "6LfmhvUsAAAAAI1x4uOucOQ7L4hy8c-LDwSmpntA";
+
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+export async function verifyRecaptchaToken(token: string | undefined, action: string, _remoteIp?: string) {
+  const apiKey = process.env.RECAPTCHA_ENTERPRISE_API_KEY;
+  const projectId = process.env.RECAPTCHA_ENTERPRISE_PROJECT_ID;
+
+  // Dev bypass: allow when env vars are not set
+  if (!apiKey || !projectId) {
+    if (process.env.NODE_ENV === "production") {
+      return { ok: false, bypassed: false, score: 0, reason: "reCAPTCHA Enterprise is not configured." };
+    }
+    return { ok: true, bypassed: true, score: 1, reason: "Dev bypass — RECAPTCHA_ENTERPRISE_API_KEY not set." };
   }
 
-  if (!token) return { ok: false, bypassed: false, reason: "Missing reCAPTCHA token." };
+  if (!token) return { ok: false, bypassed: false, score: 0, reason: "Missing reCAPTCHA token." };
 
-  const response = await fetch("https://www.google.com/recaptcha/api/siteverify", {
+  const url = `https://recaptchaenterprise.googleapis.com/v1/projects/${projectId}/assessments?key=${apiKey}`;
+
+  const response = await fetch(url, {
     method: "POST",
-    headers: { "Content-Type": "application/x-www-form-urlencoded" },
-    body: new URLSearchParams({
-      secret,
-      response: token,
-      ...(remoteIp ? { remoteip: remoteIp } : {}),
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      event: {
+        token,
+        siteKey: ENTERPRISE_SITE_KEY,
+        expectedAction: action,
+      },
     }),
   });
+
+  if (!response.ok) {
+    const text = await response.text().catch(() => "");
+    return { ok: false, bypassed: false, score: 0, reason: `Enterprise API error ${response.status}: ${text.slice(0, 120)}` };
+  }
+
   const result = (await response.json()) as {
-    success?: boolean;
-    score?: number;
-    action?: string;
-    "error-codes"?: string[];
+    tokenProperties?: { valid?: boolean; action?: string };
+    riskAnalysis?: { score?: number };
+    name?: string;
   };
 
-  if (!result.success) return { ok: false, bypassed: false, reason: result["error-codes"]?.join(", ") || "reCAPTCHA failed." };
-  if (result.action && result.action !== action) return { ok: false, bypassed: false, reason: "reCAPTCHA action mismatch." };
-  if (typeof result.score === "number" && result.score < 0.5) return { ok: false, bypassed: false, reason: "reCAPTCHA score too low." };
+  if (!result.tokenProperties?.valid) {
+    return { ok: false, bypassed: false, score: 0, reason: "reCAPTCHA token invalid." };
+  }
+  if (result.tokenProperties.action && result.tokenProperties.action !== action) {
+    return { ok: false, bypassed: false, score: 0, reason: "reCAPTCHA action mismatch." };
+  }
 
-  return { ok: true, bypassed: false };
+  const score = result.riskAnalysis?.score ?? 0;
+  if (score < 0.5) {
+    return { ok: false, bypassed: false, score, reason: `reCAPTCHA score too low (${score}).` };
+  }
+
+  return { ok: true, bypassed: false, score };
 }

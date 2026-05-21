@@ -1,0 +1,39 @@
+{
+  "sourceUrl": "https://journeylite.com/support-group-dietitian-panel/",
+  "canonicalUrl": "https://journeylite.com/support-group-dietitian-panel/",
+  "oldSlug": "support-group-dietitian-panel",
+  "slug": "support-group-dietitian-panel",
+  "title": "Support Group: Dietitian Panel",
+  "seoTitle": "Support Group: Dietitian Panel",
+  "metaDescription": "",
+  "excerpt": "",
+  "publishedAt": "2016-05-25T17:57:03+00:00",
+  "updatedAt": "2016-05-26T14:46:55+00:00",
+  "author": "DrCurry",
+  "categories": [
+    "Support Group"
+  ],
+  "tags": [],
+  "featuredImageUrl": "/legacy-blog/information-appointment-request__JourneyLiteScale-Icon-200x200.jpg",
+  "featuredImageAlt": "",
+  "inlineImages": [],
+  "bodyHtml": "<div class=\"entry-content\"><iframe width=\"560\" height=\"315\" src=\"https://www.youtube.com/embed/upVwC9b1T1w\" frameborder=\"0\" allowfullscreen=\"\" loading=\"lazy\"></iframe></div>",
+  "bodyMarkdown": "",
+  "internalLinks": [],
+  "externalLinks": [],
+  "ctaLinks": [],
+  "resourceType": "other",
+  "wordCount": 0,
+  "readingTime": 0,
+  "needsReview": true,
+  "medicalReviewRecommended": false,
+  "migrationNotes": [
+    "Meta description missing — excerpt used as suggestion",
+    "Body is short (0 words) — review content",
+    "No body content extracted",
+    "VALIDATION ERROR: bodyMarkdown: Too small: expected string to have >=1 characters",
+    "Warning: No meta description",
+    "Warning: No tags",
+    "Warning: Featured image has no alt text"
+  ]
+}

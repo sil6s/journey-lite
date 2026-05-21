@@ -1,1 +1,22 @@
-{}
+{
+  "DrCurry": {
+    "displayName": "DrCurry",
+    "sanityRef": null,
+    "needsMapping": true
+  },
+  "Devon RD": {
+    "displayName": "Devon RD",
+    "sanityRef": null,
+    "needsMapping": true
+  },
+  "outerboxseo": {
+    "displayName": "outerboxseo",
+    "sanityRef": null,
+    "needsMapping": true
+  },
+  "jenrul": {
+    "displayName": "jenrul",
+    "sanityRef": null,
+    "needsMapping": true
+  }
+}

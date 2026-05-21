@@ -126,6 +126,8 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
       <SiteHeader />
       <main>
         <article>
+          {post.isMigrated ? <MigrationBanner /> : null}
+
           <header className="bg-[#f7f8f6] py-16 lg:py-20">
             <div className="mx-auto max-w-7xl px-5 lg:px-8">
               <div className="max-w-4xl">
@@ -381,6 +383,17 @@ function slugify(value: string) {
     .toLowerCase()
     .replace(/[^a-z0-9]+/g, "-")
     .replace(/(^-|-$)/g, "");
+}
+
+function MigrationBanner() {
+  return (
+    <div className="border-b border-[#d4c97a] bg-[#fffae8] py-3 text-center text-sm text-[#5c4d1a]">
+      <span className="font-semibold">Archived post</span> — this article was migrated from our previous blog. Formatting may not be perfect.{" "}
+      <Link className="underline underline-offset-4 hover:text-[#3b3210]" href="/blog/legacy">
+        Browse all archived posts
+      </Link>
+    </div>
+  );
 }
 
 function formatDate(date?: string) {

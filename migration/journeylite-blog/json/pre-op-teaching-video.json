@@ -1,0 +1,39 @@
+{
+  "sourceUrl": "https://journeylite.com/pre-op-teaching-video/",
+  "canonicalUrl": "https://journeylite.com/pre-op-teaching-video/",
+  "oldSlug": "pre-op-teaching-video",
+  "slug": "pre-op-teaching-video",
+  "title": "Pre op Teaching Video",
+  "seoTitle": "Pre op Teaching Video",
+  "metaDescription": "",
+  "excerpt": "",
+  "publishedAt": "2014-07-18T23:21:17+00:00",
+  "updatedAt": "2014-07-18T23:21:32+00:00",
+  "author": "DrCurry",
+  "categories": [
+    "Pre op"
+  ],
+  "tags": [],
+  "featuredImageUrl": "/legacy-blog/information-appointment-request__JourneyLiteScale-Icon-200x200.jpg",
+  "featuredImageAlt": "",
+  "inlineImages": [],
+  "bodyHtml": "<div class=\"entry-content\"><iframe class=\"tscplayer_inline embeddedObject\" name=\"tsc_player\" scrolling=\"no\" frameborder=\"0\" type=\"text/html\" style=\"overflow:hidden;\" src=\"http://www.screencast.com/users/Trace_Curry/folders/Default/media/c9b9f906-b3ef-4fe6-82a4-f27f2aa160c4/embed\" height=\"600\" width=\"800\" webkitallowfullscreen=\"\" mozallowfullscreen=\"\" allowfullscreen=\"\" loading=\"lazy\"></iframe> </div>",
+  "bodyMarkdown": "",
+  "internalLinks": [],
+  "externalLinks": [],
+  "ctaLinks": [],
+  "resourceType": "other",
+  "wordCount": 0,
+  "readingTime": 0,
+  "needsReview": true,
+  "medicalReviewRecommended": false,
+  "migrationNotes": [
+    "Meta description missing — excerpt used as suggestion",
+    "Body is short (0 words) — review content",
+    "No body content extracted",
+    "VALIDATION ERROR: bodyMarkdown: Too small: expected string to have >=1 characters",
+    "Warning: No meta description",
+    "Warning: No tags",
+    "Warning: Featured image has no alt text"
+  ]
+}

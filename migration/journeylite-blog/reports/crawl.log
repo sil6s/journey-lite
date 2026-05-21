@@ -1,0 +1,995 @@
+
+> journey-lite@0.1.0 crawl:journeylite-blog
+> tsx scripts/crawl-journeylite-blog.ts --resume
+
+[2026-05-21T17:36:16.779Z] Starting JourneyLite blog crawl
+[2026-05-21T17:36:16.780Z] Crawling archive page 1: https://journeylite.com/blog
+[2026-05-21T17:36:17.236Z] Found 10 new posts on archive page 1 (total: 10)
+[2026-05-21T17:36:18.039Z] Crawling archive page 2: https://journeylite.com/blog/page/2/
+[2026-05-21T17:36:18.253Z] Found 10 new posts on archive page 2 (total: 20)
+[2026-05-21T17:36:19.055Z] Crawling archive page 3: https://journeylite.com/blog/page/3/
+[2026-05-21T17:36:19.301Z] Found 10 new posts on archive page 3 (total: 30)
+[2026-05-21T17:36:20.104Z] Crawling archive page 4: https://journeylite.com/blog/page/4/
+[2026-05-21T17:36:20.339Z] Found 10 new posts on archive page 4 (total: 40)
+[2026-05-21T17:36:21.142Z] Crawling archive page 5: https://journeylite.com/blog/page/5/
+[2026-05-21T17:36:21.389Z] Found 10 new posts on archive page 5 (total: 50)
+[2026-05-21T17:36:22.192Z] Crawling archive page 6: https://journeylite.com/blog/page/6/
+[2026-05-21T17:36:22.437Z] Found 10 new posts on archive page 6 (total: 60)
+[2026-05-21T17:36:23.240Z] Crawling archive page 7: https://journeylite.com/blog/page/7/
+[2026-05-21T17:36:23.484Z] Found 10 new posts on archive page 7 (total: 70)
+[2026-05-21T17:36:24.287Z] Crawling archive page 8: https://journeylite.com/blog/page/8/
+[2026-05-21T17:36:24.534Z] Found 10 new posts on archive page 8 (total: 80)
+[2026-05-21T17:36:25.337Z] Crawling archive page 9: https://journeylite.com/blog/page/9/
+[2026-05-21T17:36:25.598Z] Found 10 new posts on archive page 9 (total: 90)
+[2026-05-21T17:36:26.400Z] Crawling archive page 10: https://journeylite.com/blog/page/10/
+[2026-05-21T17:36:26.634Z] Found 10 new posts on archive page 10 (total: 100)
+[2026-05-21T17:36:27.437Z] Crawling archive page 11: https://journeylite.com/blog/page/11/
+[2026-05-21T17:36:27.677Z] Found 10 new posts on archive page 11 (total: 110)
+[2026-05-21T17:36:28.480Z] Crawling archive page 12: https://journeylite.com/blog/page/12/
+[2026-05-21T17:36:28.730Z] Found 10 new posts on archive page 12 (total: 120)
+[2026-05-21T17:36:29.532Z] Crawling archive page 13: https://journeylite.com/blog/page/13/
+[2026-05-21T17:36:29.781Z] Found 10 new posts on archive page 13 (total: 130)
+[2026-05-21T17:36:30.584Z] Crawling archive page 14: https://journeylite.com/blog/page/14/
+[2026-05-21T17:36:30.829Z] Found 10 new posts on archive page 14 (total: 140)
+[2026-05-21T17:36:31.632Z] Crawling archive page 15: https://journeylite.com/blog/page/15/
+[2026-05-21T17:36:31.897Z] Found 10 new posts on archive page 15 (total: 150)
+[2026-05-21T17:36:32.700Z] Crawling archive page 16: https://journeylite.com/blog/page/16/
+[2026-05-21T17:36:32.981Z] Found 10 new posts on archive page 16 (total: 160)
+[2026-05-21T17:36:33.784Z] Crawling archive page 17: https://journeylite.com/blog/page/17/
+[2026-05-21T17:36:33.969Z] Found 10 new posts on archive page 17 (total: 170)
+[2026-05-21T17:36:34.772Z] Crawling archive page 18: https://journeylite.com/blog/page/18/
+[2026-05-21T17:36:35.018Z] Found 10 new posts on archive page 18 (total: 180)
+[2026-05-21T17:36:35.820Z] Crawling archive page 19: https://journeylite.com/blog/page/19/
+[2026-05-21T17:36:36.069Z] Found 10 new posts on archive page 19 (total: 190)
+[2026-05-21T17:36:36.872Z] Crawling archive page 20: https://journeylite.com/blog/page/20/
+[2026-05-21T17:36:37.120Z] Found 10 new posts on archive page 20 (total: 200)
+[2026-05-21T17:36:37.923Z] Crawling archive page 21: https://journeylite.com/blog/page/21/
+[2026-05-21T17:36:38.190Z] Found 10 new posts on archive page 21 (total: 210)
+[2026-05-21T17:36:38.991Z] Crawling archive page 22: https://journeylite.com/blog/page/22/
+[2026-05-21T17:36:39.220Z] Found 10 new posts on archive page 22 (total: 220)
+[2026-05-21T17:36:40.022Z] Crawling archive page 23: https://journeylite.com/blog/page/23/
+[2026-05-21T17:36:40.261Z] Found 10 new posts on archive page 23 (total: 230)
+[2026-05-21T17:36:41.063Z] Crawling archive page 24: https://journeylite.com/blog/page/24/
+[2026-05-21T17:36:41.308Z] Found 10 new posts on archive page 24 (total: 240)
+[2026-05-21T17:36:42.112Z] Crawling archive page 25: https://journeylite.com/blog/page/25/
+[2026-05-21T17:36:42.356Z] Found 10 new posts on archive page 25 (total: 250)
+[2026-05-21T17:36:43.159Z] Crawling archive page 26: https://journeylite.com/blog/page/26/
+[2026-05-21T17:36:43.409Z] Found 10 new posts on archive page 26 (total: 260)
+[2026-05-21T17:36:44.212Z] Crawling archive page 27: https://journeylite.com/blog/page/27/
+[2026-05-21T17:36:44.459Z] Found 10 new posts on archive page 27 (total: 270)
+[2026-05-21T17:36:45.262Z] Crawling archive page 28: https://journeylite.com/blog/page/28/
+[2026-05-21T17:36:45.509Z] Found 10 new posts on archive page 28 (total: 280)
+[2026-05-21T17:36:46.312Z] Crawling archive page 29: https://journeylite.com/blog/page/29/
+[2026-05-21T17:36:46.554Z] Found 10 new posts on archive page 29 (total: 290)
+[2026-05-21T17:36:47.357Z] Crawling archive page 30: https://journeylite.com/blog/page/30/
+[2026-05-21T17:36:47.621Z] Found 10 new posts on archive page 30 (total: 300)
+[2026-05-21T17:36:48.422Z] Crawling archive page 31: https://journeylite.com/blog/page/31/
+[2026-05-21T17:36:48.656Z] Found 10 new posts on archive page 31 (total: 310)
+[2026-05-21T17:36:49.459Z] Crawling archive page 32: https://journeylite.com/blog/page/32/
+[2026-05-21T17:36:49.700Z] Found 10 new posts on archive page 32 (total: 320)
+[2026-05-21T17:36:50.503Z] Crawling archive page 33: https://journeylite.com/blog/page/33/
+[2026-05-21T17:36:50.749Z] Found 10 new posts on archive page 33 (total: 330)
+[2026-05-21T17:36:51.552Z] Crawling archive page 34: https://journeylite.com/blog/page/34/
+[2026-05-21T17:36:51.799Z] Found 10 new posts on archive page 34 (total: 340)
+[2026-05-21T17:36:52.602Z] Crawling archive page 35: https://journeylite.com/blog/page/35/
+[2026-05-21T17:36:52.841Z] Found 10 new posts on archive page 35 (total: 350)
+[2026-05-21T17:36:53.644Z] Crawling archive page 36: https://journeylite.com/blog/page/36/
+[2026-05-21T17:36:53.895Z] Found 10 new posts on archive page 36 (total: 360)
+[2026-05-21T17:36:54.696Z] Crawling archive page 37: https://journeylite.com/blog/page/37/
+[2026-05-21T17:36:54.941Z] Found 10 new posts on archive page 37 (total: 370)
+[2026-05-21T17:36:55.743Z] Crawling archive page 38: https://journeylite.com/blog/page/38/
+[2026-05-21T17:36:55.990Z] Found 10 new posts on archive page 38 (total: 380)
+[2026-05-21T17:36:56.794Z] Crawling archive page 39: https://journeylite.com/blog/page/39/
+[2026-05-21T17:36:57.037Z] Found 10 new posts on archive page 39 (total: 390)
+[2026-05-21T17:36:57.840Z] Crawling archive page 40: https://journeylite.com/blog/page/40/
+[2026-05-21T17:36:58.084Z] Found 10 new posts on archive page 40 (total: 400)
+[2026-05-21T17:36:58.886Z] Crawling archive page 41: https://journeylite.com/blog/page/41/
+[2026-05-21T17:36:59.139Z] Found 10 new posts on archive page 41 (total: 410)
+[2026-05-21T17:36:59.941Z] Crawling archive page 42: https://journeylite.com/blog/page/42/
+[2026-05-21T17:37:00.182Z] Found 10 new posts on archive page 42 (total: 420)
+[2026-05-21T17:37:00.986Z] Crawling archive page 43: https://journeylite.com/blog/page/43/
+[2026-05-21T17:37:01.232Z] Found 10 new posts on archive page 43 (total: 430)
+[2026-05-21T17:37:02.034Z] Crawling archive page 44: https://journeylite.com/blog/page/44/
+[2026-05-21T17:37:02.281Z] Found 10 new posts on archive page 44 (total: 440)
+[2026-05-21T17:37:03.084Z] Crawling archive page 45: https://journeylite.com/blog/page/45/
+[2026-05-21T17:37:03.328Z] Found 7 new posts on archive page 45 (total: 447)
+[2026-05-21T17:37:03.331Z] No next page link found — done with archive
+[2026-05-21T17:37:03.331Z] Discovered 447 post URLs
+[2026-05-21T17:37:03.331Z] Processing 447 posts (limit: Infinity)
+[2026-05-21T17:37:04.134Z] Processing: https://journeylite.com/surgery-post-op-diet-tips/
+[2026-05-21T17:37:04.136Z] Processing: https://journeylite.com/carbonated-drinks-after-bariatric-surgery/
+[2026-05-21T17:37:04.139Z] Processing: https://journeylite.com/glp-1-pills-vs-weight-loss-surgery/
+[2026-05-21T17:37:04.423Z] Resuming — skipping already-saved: surgery-post-op-diet-tips
+[2026-05-21T17:37:04.454Z] Resuming — skipping already-saved: carbonated-drinks-after-bariatric-surgery
+[2026-05-21T17:37:04.481Z] Resuming — skipping already-saved: glp-1-pills-vs-weight-loss-surgery
+[2026-05-21T17:37:05.224Z] Processing: https://journeylite.com/first-allurion-balloon-patients-us-results/
+[2026-05-21T17:37:05.256Z] Processing: https://journeylite.com/a-legacy-of-weight-loss-success-journeylites-20-year-history-of-bariatric-excellence/
+[2026-05-21T17:37:05.280Z] Processing: https://journeylite.com/willpower-or-decision-fatigue/
+[2026-05-21T17:37:05.434Z] Resuming — skipping already-saved: first-allurion-balloon-patients-us-results
+[2026-05-21T17:37:05.485Z] Resuming — skipping already-saved: a-legacy-of-weight-loss-success-journeylites-20-year-history-of-bariatric-excellence
+[2026-05-21T17:37:05.503Z] Resuming — skipping already-saved: willpower-or-decision-fatigue
+[2026-05-21T17:37:06.234Z] Processing: https://journeylite.com/first-allurion-balloon-us/
+[2026-05-21T17:37:06.286Z] Processing: https://journeylite.com/foundayo-vs-zepbound-cost-weight-loss-comparisonfoundayo-vs-zepbound-is-the-new-weight-loss-pill-better-than-the-shot/
+[2026-05-21T17:37:06.304Z] Processing: https://journeylite.com/weight-stalls-after-bariatric-surgery/
+[2026-05-21T17:37:06.495Z] Resuming — skipping already-saved: first-allurion-balloon-us
+[2026-05-21T17:37:06.518Z] Resuming — skipping already-saved: foundayo-vs-zepbound-cost-weight-loss-comparisonfoundayo-vs-zepbound-is-the-new-weight-loss-pill
+[2026-05-21T17:37:06.536Z] Resuming — skipping already-saved: weight-stalls-after-bariatric-surgery
+[2026-05-21T17:37:07.297Z] Processing: https://journeylite.com/weight-loss-surgery-indiana/
+[2026-05-21T17:37:07.319Z] Processing: https://journeylite.com/what-really-triggers-nighttime-cravings/
+[2026-05-21T17:37:07.336Z] Processing: https://journeylite.com/allurion-gastric-balloon-cost-offer/
+[2026-05-21T17:37:07.554Z] Resuming — skipping already-saved: weight-loss-surgery-indiana
+[2026-05-21T17:37:07.576Z] Resuming — skipping already-saved: what-really-triggers-nighttime-cravings
+[2026-05-21T17:37:07.596Z] Resuming — skipping already-saved: allurion-gastric-balloon-cost-offer
+[2026-05-21T17:37:08.355Z] Processing: https://journeylite.com/best-glp-1-alternatives/
+[2026-05-21T17:37:08.378Z] Processing: https://journeylite.com/justices-vsg-before-and-after-story-with-journeylite/
+[2026-05-21T17:37:08.397Z] Processing: https://journeylite.com/allurion-swallowable-gastric-balloon/
+[2026-05-21T17:37:08.595Z] Resuming — skipping already-saved: best-glp-1-alternatives
+[2026-05-21T17:37:08.615Z] Resuming — skipping already-saved: justices-vsg-before-and-after-story-with-journeylite
+[2026-05-21T17:37:08.653Z] Resuming — skipping already-saved: allurion-swallowable-gastric-balloon
+[2026-05-21T17:37:09.397Z] Processing: https://journeylite.com/robins-vsg-before-and-after-story/
+[2026-05-21T17:37:09.415Z] Processing: https://journeylite.com/get-tired-after-eating-lets-talk-about-why/
+[2026-05-21T17:37:09.455Z] Processing: https://journeylite.com/alisa-gastric-sleeve-success-story/
+[2026-05-21T17:37:09.627Z] Resuming — skipping already-saved: get-tired-after-eating-lets-talk-about-why
+[2026-05-21T17:37:09.643Z] Resuming — skipping already-saved: robins-vsg-before-and-after-story
+[2026-05-21T17:37:09.660Z] Resuming — skipping already-saved: alisa-gastric-sleeve-success-story
+[2026-05-21T17:37:10.428Z] Processing: https://journeylite.com/reactive-eating/
+[2026-05-21T17:37:10.444Z] Processing: https://journeylite.com/phentermine-vs-glp-1s-lower-cost-weight-loss-options/
+[2026-05-21T17:37:10.461Z] Processing: https://journeylite.com/the-blueprint-for-meal-structure-after-bariatric-surgery/
+[2026-05-21T17:37:10.699Z] Resuming — skipping already-saved: reactive-eating
+[2026-05-21T17:37:10.740Z] Resuming — skipping already-saved: the-blueprint-for-meal-structure-after-bariatric-surgery
+[2026-05-21T17:37:10.740Z] Resuming — skipping already-saved: phentermine-vs-glp-1s-lower-cost-weight-loss-options
+[2026-05-21T17:37:11.499Z] Processing: https://journeylite.com/74-pounds-down-and-a-lifetime-ahead-heathers-gastric-sleeve-success-story/
+[2026-05-21T17:37:11.540Z] Processing: https://journeylite.com/the-holidays-dont-define-you/
+[2026-05-21T17:37:11.542Z] Processing: https://journeylite.com/step-out-of-the-winter-blues/
+[2026-05-21T17:37:11.732Z] Resuming — skipping already-saved: 74-pounds-down-and-a-lifetime-ahead-heathers-gastric-sleeve-success-story
+[2026-05-21T17:37:11.757Z] Resuming — skipping already-saved: step-out-of-the-winter-blues
+[2026-05-21T17:37:11.772Z] Resuming — skipping already-saved: the-holidays-dont-define-you
+[2026-05-21T17:37:12.533Z] Processing: https://journeylite.com/glp1-vs-surgery-long-term-results-and-costs/
+[2026-05-21T17:37:12.558Z] Processing: https://journeylite.com/making-the-commitment/
+[2026-05-21T17:37:12.572Z] Processing: https://journeylite.com/oral-wegovy-is-here-a-needle-free-lower-cost-option-for-powerful-weight-loss-results/
+[2026-05-21T17:37:12.780Z] Resuming — skipping already-saved: making-the-commitment
+[2026-05-21T17:37:12.807Z] Resuming — skipping already-saved: glp1-vs-surgery-long-term-results-and-costs
+[2026-05-21T17:37:12.837Z] Resuming — skipping already-saved: oral-wegovy-is-here-a-needle-free-lower-cost-option-for-powerful-weight-loss-results
+[2026-05-21T17:37:13.582Z] Processing: https://journeylite.com/setting-goals-that-actually-stick-a-simple-honest-guide-to-starting-the-new-year-strong-part-4/
+[2026-05-21T17:37:13.609Z] Processing: https://journeylite.com/start-the-new-year-right-with-a-free-weight-loss-consultation/
+[2026-05-21T17:37:13.637Z] Processing: https://journeylite.com/setting-goals-that-actually-stick-a-simple-honest-guide-to-starting-the-new-year-strong-part-3/
+[2026-05-21T17:37:13.832Z] Resuming — skipping already-saved: start-the-new-year-right-with-a-free-weight-loss-consultation
+[2026-05-21T17:37:13.856Z] Resuming — skipping already-saved: setting-goals-that-actually-stick-a-simple-honest-guide-to-starting-the-new-year-strong-part-4
+[2026-05-21T17:37:13.875Z] Resuming — skipping already-saved: setting-goals-that-actually-stick-a-simple-honest-guide-to-starting-the-new-year-strong-part-3
+[2026-05-21T17:37:14.633Z] Processing: https://journeylite.com/sues-gastric-bypass-before-and-after-story/
+[2026-05-21T17:37:14.656Z] Processing: https://journeylite.com/setting-goals-that-actually-stick-a-simple-honest-guide-to-starting-the-new-year-strong-part-2/
+[2026-05-21T17:37:14.675Z] Processing: https://journeylite.com/setting-goals-that-actually-stick-a-simple-honest-guide-to-starting-the-new-year-strong/
+[2026-05-21T17:37:14.876Z] Resuming — skipping already-saved: sues-gastric-bypass-before-and-after-story
+[2026-05-21T17:37:14.899Z] Resuming — skipping already-saved: setting-goals-that-actually-stick-a-simple-honest-guide-to-starting-the-new-year-strong-part-2
+[2026-05-21T17:37:14.915Z] Resuming — skipping already-saved: setting-goals-that-actually-stick-a-simple-honest-guide-to-starting-the-new-year-strong
+[2026-05-21T17:37:15.678Z] Processing: https://journeylite.com/portion-control/
+[2026-05-21T17:37:15.700Z] Processing: https://journeylite.com/from-299-to-192-michaels-sleeve-win-with-dr-augusta/
+[2026-05-21T17:37:15.717Z] Processing: https://journeylite.com/kellys-gastric-sleeve-success-story/
+[2026-05-21T17:37:15.926Z] Resuming — skipping already-saved: portion-control
+[2026-05-21T17:37:15.962Z] Resuming — skipping already-saved: from-299-to-192-michaels-sleeve-win-with-dr-augusta
+[2026-05-21T17:37:15.962Z] Resuming — skipping already-saved: kellys-gastric-sleeve-success-story
+[2026-05-21T17:37:16.727Z] Processing: https://journeylite.com/how-to-decide-if-a-holiday-food-is-worth-it-after-bariatric-surgery/
+[2026-05-21T17:37:16.763Z] Processing: https://journeylite.com/leslies-gastric-sleeve-before-and-after-story/
+[2026-05-21T17:37:16.765Z] Processing: https://journeylite.com/tinas-gastric-sleeve-success-dr-james-augusta/
+[2026-05-21T17:37:17.001Z] Resuming — skipping already-saved: leslies-gastric-sleeve-before-and-after-story
+[2026-05-21T17:37:17.001Z] Resuming — skipping already-saved: tinas-gastric-sleeve-success-dr-james-augusta
+[2026-05-21T17:37:17.018Z] Resuming — skipping already-saved: how-to-decide-if-a-holiday-food-is-worth-it-after-bariatric-surgery
+[2026-05-21T17:37:17.802Z] Processing: https://journeylite.com/heathers-gastric-bypass-before-and-after-story/
+[2026-05-21T17:37:17.804Z] Processing: https://journeylite.com/getting-through-the-holidays/
+[2026-05-21T17:37:17.818Z] Processing: https://journeylite.com/chrissys-gastric-sleeve-before-and-after-story/
+[2026-05-21T17:37:18.028Z] Resuming — skipping already-saved: getting-through-the-holidays
+[2026-05-21T17:37:18.063Z] Resuming — skipping already-saved: heathers-gastric-bypass-before-and-after-story
+[2026-05-21T17:37:18.063Z] Resuming — skipping already-saved: chrissys-gastric-sleeve-before-and-after-story
+[2026-05-21T17:37:18.828Z] Processing: https://journeylite.com/support-group-wednesday-september-19th-5pm/
+[2026-05-21T17:37:18.865Z] Processing: https://journeylite.com/bens-gastric-sleeve-before-and-after-story/
+[2026-05-21T17:37:18.866Z] Processing: https://journeylite.com/digestion-hormones-and-hunger-understanding-the-science-behind-cravings-and-satiety/
+[2026-05-21T17:37:19.039Z] Resuming — skipping already-saved: support-group-wednesday-september-19th-5pm
+[2026-05-21T17:37:19.054Z] Resuming — skipping already-saved: bens-gastric-sleeve-before-and-after-story
+[2026-05-21T17:37:19.071Z] Resuming — skipping already-saved: digestion-hormones-and-hunger-understanding-the-science-behind-cravings-and-satiety
+[2026-05-21T17:37:19.840Z] Processing: https://journeylite.com/robin-gastric-bypass-success-story-journeylite-dr-augusta/
+[2026-05-21T17:37:19.855Z] Processing: https://journeylite.com/candy/
+[2026-05-21T17:37:19.872Z] Processing: https://journeylite.com/understanding-hair-loss-after-bariatric-surgery/
+[2026-05-21T17:37:20.108Z] Resuming — skipping already-saved: candy
+[2026-05-21T17:37:20.124Z] Resuming — skipping already-saved: robin-gastric-bypass-success-story-journeylite-dr-augusta
+[2026-05-21T17:37:20.145Z] Resuming — skipping already-saved: understanding-hair-loss-after-bariatric-surgery
+[2026-05-21T17:37:20.909Z] Processing: https://journeylite.com/portion-management/
+[2026-05-21T17:37:20.925Z] Processing: https://journeylite.com/phentermine-vs-glp-1-weight-loss/
+[2026-05-21T17:37:20.946Z] Processing: https://journeylite.com/pureed-stage/
+[2026-05-21T17:37:21.170Z] Resuming — skipping already-saved: portion-management
+[2026-05-21T17:37:21.210Z] Resuming — skipping already-saved: pureed-stage
+[2026-05-21T17:37:21.210Z] Resuming — skipping already-saved: phentermine-vs-glp-1-weight-loss
+[2026-05-21T17:37:21.971Z] Processing: https://journeylite.com/why-surgery-delivers-lasting-weight-loss-when-glp-1s-dont/
+[2026-05-21T17:37:22.011Z] Processing: https://journeylite.com/carbonation/
+[2026-05-21T17:37:22.012Z] Processing: https://journeylite.com/plant-based-protein/
+[2026-05-21T17:37:22.220Z] Resuming — skipping already-saved: carbonation
+[2026-05-21T17:37:22.257Z] Resuming — skipping already-saved: plant-based-protein
+[2026-05-21T17:37:22.283Z] Resuming — skipping already-saved: why-surgery-delivers-lasting-weight-loss-when-glp-1s-dont
+[2026-05-21T17:37:23.021Z] Processing: https://journeylite.com/caffeine/
+[2026-05-21T17:37:23.058Z] Processing: https://journeylite.com/support-group-building-lifelong-habits/
+[2026-05-21T17:37:23.084Z] Processing: https://journeylite.com/cleveland-clinic-m6-bariatric-surgery-vs-glp1/
+[2026-05-21T17:37:23.264Z] Resuming — skipping already-saved: caffeine
+[2026-05-21T17:37:23.286Z] Resuming — skipping already-saved: support-group-building-lifelong-habits
+[2026-05-21T17:37:23.410Z] Resuming — skipping already-saved: cleveland-clinic-m6-bariatric-surgery-vs-glp1
+[2026-05-21T17:37:24.065Z] Processing: https://journeylite.com/fiber-and-weight-management/
+[2026-05-21T17:37:24.087Z] Processing: https://journeylite.com/reset-diet-or-habit-refresh-why-quick-fixes-arent-the-answer-to-long-term-bariatric-success/
+[2026-05-21T17:37:24.211Z] Processing: https://journeylite.com/eating-after-bariatric-surgery-avoiding-the-traffic-jam/
+[2026-05-21T17:37:24.314Z] Resuming — skipping already-saved: fiber-and-weight-management
+[2026-05-21T17:37:24.336Z] Resuming — skipping already-saved: reset-diet-or-habit-refresh-why-quick-fixes-arent-the-answer-to-long-term-bariatric-success
+[2026-05-21T17:37:24.427Z] Resuming — skipping already-saved: eating-after-bariatric-surgery-avoiding-the-traffic-jam
+[2026-05-21T17:37:25.116Z] Processing: https://journeylite.com/eating-vs-burning-calories-why-weight-loss-is-harder-than-it-looks/
+[2026-05-21T17:37:25.138Z] Processing: https://journeylite.com/motivation/
+[2026-05-21T17:37:25.229Z] Processing: https://journeylite.com/sauces/
+[2026-05-21T17:37:25.364Z] Resuming — skipping already-saved: motivation
+[2026-05-21T17:37:25.387Z] Resuming — skipping already-saved: eating-vs-burning-calories-why-weight-loss-is-harder-than-it-looks
+[2026-05-21T17:37:25.497Z] Resuming — skipping already-saved: sauces
+[2026-05-21T17:37:26.165Z] Processing: https://journeylite.com/audreys-gastric-sleeve-vsg-before-and-after-story/
+[2026-05-21T17:37:26.188Z] Processing: https://journeylite.com/kandaces-vsg-before-and-after-story/
+[2026-05-21T17:37:26.298Z] Processing: https://journeylite.com/start-small-exercise-habit/
+[2026-05-21T17:37:26.410Z] Resuming — skipping already-saved: kandaces-vsg-before-and-after-story
+[2026-05-21T17:37:26.430Z] Resuming — skipping already-saved: audreys-gastric-sleeve-vsg-before-and-after-story
+[2026-05-21T17:37:26.550Z] Resuming — skipping already-saved: start-small-exercise-habit
+[2026-05-21T17:37:27.211Z] Processing: https://journeylite.com/bobbys-vsg-before-and-after-story/
+[2026-05-21T17:37:27.231Z] Processing: https://journeylite.com/exercise-and-weight-loss-mindset/
+[2026-05-21T17:37:27.352Z] Processing: https://journeylite.com/mindys-vsg-before-and-after-story/
+[2026-05-21T17:37:27.461Z] Resuming — skipping already-saved: exercise-and-weight-loss-mindset
+[2026-05-21T17:37:27.482Z] Resuming — skipping already-saved: bobbys-vsg-before-and-after-story
+[2026-05-21T17:37:27.595Z] Resuming — skipping already-saved: mindys-vsg-before-and-after-story
+[2026-05-21T17:37:28.262Z] Processing: https://journeylite.com/power-up-your-day-with-high-protein-snacks/
+[2026-05-21T17:37:28.284Z] Processing: https://journeylite.com/protein-during-weight-loss/
+[2026-05-21T17:37:28.395Z] Processing: https://journeylite.com/alonas-vsg-before-and-after-story/
+[2026-05-21T17:37:28.532Z] Resuming — skipping already-saved: protein-during-weight-loss
+[2026-05-21T17:37:28.532Z] Resuming — skipping already-saved: power-up-your-day-with-high-protein-snacks
+[2026-05-21T17:37:28.651Z] Resuming — skipping already-saved: alonas-vsg-before-and-after-story
+[2026-05-21T17:37:29.333Z] Processing: https://journeylite.com/vitamin-d-after-bariatric-surgery/
+[2026-05-21T17:37:29.336Z] Processing: https://journeylite.com/compounded-liraglutide-saxenda-injections-now-available-at-journeylite/
+[2026-05-21T17:37:29.451Z] Processing: https://journeylite.com/compounded-liraglutide-injection-instructions-maintenance/
+[2026-05-21T17:37:29.564Z] Resuming — skipping already-saved: vitamin-d-after-bariatric-surgery
+[2026-05-21T17:37:29.600Z] Resuming — skipping already-saved: compounded-liraglutide-saxenda-injections-now-available-at-journeylite
+[2026-05-21T17:37:29.677Z] Resuming — skipping already-saved: compounded-liraglutide-injection-instructions-maintenance
+[2026-05-21T17:37:30.365Z] Processing: https://journeylite.com/compounded-liraglutide-injection-instructions-month-one/
+[2026-05-21T17:37:30.401Z] Processing: https://journeylite.com/bariatric-surgery-yields-5x-more-weight-loss-than-glp-1/
+[2026-05-21T17:37:30.479Z] Processing: https://journeylite.com/meal-logging/
+[2026-05-21T17:37:30.607Z] Resuming — skipping already-saved: compounded-liraglutide-injection-instructions-month-one
+[2026-05-21T17:37:30.630Z] Resuming — skipping already-saved: bariatric-surgery-yields-5x-more-weight-loss-than-glp-1
+[2026-05-21T17:37:30.746Z] Resuming — skipping already-saved: meal-logging
+[2026-05-21T17:37:31.408Z] Processing: https://journeylite.com/125-pounds-down-jennifers-vsg-before-and-after-story/
+[2026-05-21T17:37:31.431Z] Processing: https://journeylite.com/krystals-vsg-before-and-after-story/
+[2026-05-21T17:37:31.547Z] Processing: https://journeylite.com/bariatric-surgery-10-healthy-habits/
+[2026-05-21T17:37:31.655Z] Resuming — skipping already-saved: 125-pounds-down-jennifers-vsg-before-and-after-story
+[2026-05-21T17:37:31.678Z] Resuming — skipping already-saved: krystals-vsg-before-and-after-story
+[2026-05-21T17:37:31.854Z] Resuming — skipping already-saved: bariatric-surgery-10-healthy-habits
+[2026-05-21T17:37:32.456Z] Processing: https://journeylite.com/required-weight-checks/
+[2026-05-21T17:37:32.479Z] Processing: https://journeylite.com/rebeccas-vsg-before-and-after-story/
+[2026-05-21T17:37:32.655Z] Processing: https://journeylite.com/callies-vsg-before-and-after-story/
+[2026-05-21T17:37:32.701Z] Resuming — skipping already-saved: rebeccas-vsg-before-and-after-story
+[2026-05-21T17:37:32.722Z] Resuming — skipping already-saved: required-weight-checks
+[2026-05-21T17:37:32.819Z] Resuming — skipping already-saved: callies-vsg-before-and-after-story
+[2026-05-21T17:37:33.502Z] Processing: https://journeylite.com/kaylas-vsg-before-and-after-story/
+[2026-05-21T17:37:33.523Z] Processing: https://journeylite.com/24-hour-clear-liquid-diet/
+[2026-05-21T17:37:33.621Z] Processing: https://journeylite.com/atomic-habits-explained/
+[2026-05-21T17:37:33.770Z] Resuming — skipping already-saved: 24-hour-clear-liquid-diet
+[2026-05-21T17:37:33.770Z] Resuming — skipping already-saved: kaylas-vsg-before-and-after-story
+[2026-05-21T17:37:33.921Z] Resuming — skipping already-saved: atomic-habits-explained
+[2026-05-21T17:37:34.571Z] Processing: https://journeylite.com/jeremiahs-vsg-before-and-after-story/
+[2026-05-21T17:37:34.573Z] Processing: https://journeylite.com/meal-prep/
+[2026-05-21T17:37:34.722Z] Processing: https://journeylite.com/kristins-gastric-bypass-before-and-after-story/
+[2026-05-21T17:37:34.801Z] Resuming — skipping already-saved: jeremiahs-vsg-before-and-after-story
+[2026-05-21T17:37:34.822Z] Resuming — skipping already-saved: meal-prep
+[2026-05-21T17:37:34.931Z] Resuming — skipping already-saved: kristins-gastric-bypass-before-and-after-story
+[2026-05-21T17:37:35.602Z] Processing: https://journeylite.com/jonathons-gastric-sleeve-vsg-before-and-after-story/
+[2026-05-21T17:37:35.623Z] Processing: https://journeylite.com/support-group-cooking-with-devon/
+[2026-05-21T17:37:35.734Z] Processing: https://journeylite.com/understanding-your-metabolism-after-bariatric-surgery/
+[2026-05-21T17:37:35.850Z] Resuming — skipping already-saved: support-group-cooking-with-devon
+[2026-05-21T17:37:35.899Z] Resuming — skipping already-saved: jonathons-gastric-sleeve-vsg-before-and-after-story
+[2026-05-21T17:37:35.988Z] Resuming — skipping already-saved: understanding-your-metabolism-after-bariatric-surgery
+[2026-05-21T17:37:36.651Z] Processing: https://journeylite.com/jamies-gastric-sleeve-vsg-before-and-after-story/
+[2026-05-21T17:37:36.700Z] Processing: https://journeylite.com/kathis-gastric-sleeve-vsg-before-and-after-back-to-the-future/
+[2026-05-21T17:37:36.790Z] Processing: https://journeylite.com/end-of-schoolendlessly-busy-nights/
+[2026-05-21T17:37:36.934Z] Resuming — skipping already-saved: jamies-gastric-sleeve-vsg-before-and-after-story
+[2026-05-21T17:37:36.947Z] Resuming — skipping already-saved: kathis-gastric-sleeve-vsg-before-and-after-back-to-the-future
+[2026-05-21T17:37:37.024Z] Resuming — skipping already-saved: end-of-schoolendlessly-busy-nights
+[2026-05-21T17:37:37.735Z] Processing: https://journeylite.com/heathers-vsg-before-and-after-story/
+[2026-05-21T17:37:37.748Z] Processing: https://journeylite.com/katys-vsg-before-and-after-story/
+[2026-05-21T17:37:37.826Z] Processing: https://journeylite.com/why-bariatric-vitamins-are-a-must-have-after-weight-loss-surgery/
+[2026-05-21T17:37:38.026Z] Resuming — skipping already-saved: heathers-vsg-before-and-after-story
+[2026-05-21T17:37:38.026Z] Resuming — skipping already-saved: katys-vsg-before-and-after-story
+[2026-05-21T17:37:38.056Z] Resuming — skipping already-saved: why-bariatric-vitamins-are-a-must-have-after-weight-loss-surgery
+[2026-05-21T17:37:38.827Z] Processing: https://journeylite.com/the-cost-effectiveness-of-gastric-sleeve-surgery-vs-a-lifetime-of-wegovy/
+[2026-05-21T17:37:38.829Z] Processing: https://journeylite.com/why-you-need-a-pre-op-diet-before-bariatric-surgery-key-benefits-what-to-expect/
+[2026-05-21T17:37:38.857Z] Processing: https://journeylite.com/alicias-vsg-before-and-after-story-at-journeylite/
+[2026-05-21T17:37:39.033Z] Resuming — skipping already-saved: the-cost-effectiveness-of-gastric-sleeve-surgery-vs-a-lifetime-of-wegovy
+[2026-05-21T17:37:39.054Z] Resuming — skipping already-saved: why-you-need-a-pre-op-diet-before-bariatric-surgery-key-benefits-what-to-expect
+[2026-05-21T17:37:39.115Z] Resuming — skipping already-saved: alicias-vsg-before-and-after-story-at-journeylite
+[2026-05-21T17:37:39.834Z] Processing: https://journeylite.com/walking-for-weight-loss/
+[2026-05-21T17:37:39.856Z] Processing: https://journeylite.com/christies-vsg-before-and-after-testimonial/
+[2026-05-21T17:37:39.916Z] Processing: https://journeylite.com/how-when-and-what-to-eat-after-bariatric-surgery/
+[2026-05-21T17:37:40.047Z] Resuming — skipping already-saved: walking-for-weight-loss
+[2026-05-21T17:37:40.069Z] Resuming — skipping already-saved: christies-vsg-before-and-after-testimonial
+[2026-05-21T17:37:40.186Z] Resuming — skipping already-saved: how-when-and-what-to-eat-after-bariatric-surgery
+[2026-05-21T17:37:40.848Z] Processing: https://journeylite.com/alexas-gastric-sleeve-before-and-after-testimonial/
+[2026-05-21T17:37:40.870Z] Processing: https://journeylite.com/how-to-avoid-dehydration-after-weight-loss-surgery/
+[2026-05-21T17:37:40.988Z] Processing: https://journeylite.com/compounded-sublingual-tirzepatide-450-mg/
+[2026-05-21T17:37:41.088Z] Resuming — skipping already-saved: how-to-avoid-dehydration-after-weight-loss-surgery
+[2026-05-21T17:37:41.109Z] Resuming — skipping already-saved: alexas-gastric-sleeve-before-and-after-testimonial
+[2026-05-21T17:37:41.217Z] Resuming — skipping already-saved: compounded-sublingual-tirzepatide-450-mg
+[2026-05-21T17:37:41.889Z] Processing: https://journeylite.com/compounded-sublingual-tirzepatide-375-mg/
+[2026-05-21T17:37:41.910Z] Processing: https://journeylite.com/compounded-sublingual-tirzepatide-300-mg/
+[2026-05-21T17:37:42.018Z] Processing: https://journeylite.com/compounded-sublingual-tirzepatide-225-mg/
+[2026-05-21T17:37:42.138Z] Resuming — skipping already-saved: compounded-sublingual-tirzepatide-375-mg
+[2026-05-21T17:37:42.171Z] Resuming — skipping already-saved: compounded-sublingual-tirzepatide-300-mg
+[2026-05-21T17:37:42.238Z] Resuming — skipping already-saved: compounded-sublingual-tirzepatide-225-mg
+[2026-05-21T17:37:42.939Z] Processing: https://journeylite.com/compounded-sublingual-tirzepatide-150-mg/
+[2026-05-21T17:37:42.972Z] Processing: https://journeylite.com/compounded-sublingual-tirzepatide-120-mg/
+[2026-05-21T17:37:43.039Z] Processing: https://journeylite.com/compounded-sublingual-tirzepatide-90-mg/
+[2026-05-21T17:37:43.241Z] Resuming — skipping already-saved: compounded-sublingual-tirzepatide-150-mg
+[2026-05-21T17:37:43.263Z] Resuming — skipping already-saved: compounded-sublingual-tirzepatide-120-mg
+[2026-05-21T17:37:43.279Z] Resuming — skipping already-saved: compounded-sublingual-tirzepatide-90-mg
+[2026-05-21T17:37:44.043Z] Processing: https://journeylite.com/compounded-sublingual-semaglutide-and-tirzepatide-drops-a-new-frontier-in-weight-management-at-journeylite/
+[2026-05-21T17:37:44.064Z] Processing: https://journeylite.com/compounded-sublingual-semaglutide-45-mg/
+[2026-05-21T17:37:44.079Z] Processing: https://journeylite.com/compounded-sublingual-semaglutide-30-mg/
+[2026-05-21T17:37:44.260Z] Resuming — skipping already-saved: compounded-sublingual-semaglutide-and-tirzepatide-drops-a-new-frontier-in-weight-management-at-j
+[2026-05-21T17:37:44.544Z] Saved: compounded-sublingual-semaglutide-45-mg | words: 95 | review: true | medical: true
+[2026-05-21T17:37:44.791Z] Saved: compounded-sublingual-semaglutide-30-mg | words: 102 | review: true | medical: true
+[2026-05-21T17:37:45.061Z] Processing: https://journeylite.com/compounded-sublingual-semaglutide-75-mg/
+[2026-05-21T17:37:45.345Z] Processing: https://journeylite.com/compounded-sublingual-semaglutide-60-mg/
+[2026-05-21T17:37:45.593Z] Processing: https://journeylite.com/compounded-sublingual-semaglutide-18-mg/
+[2026-05-21T17:37:45.796Z] Saved: compounded-sublingual-semaglutide-75-mg | words: 102 | review: true | medical: true
+[2026-05-21T17:37:46.094Z] Saved: compounded-sublingual-semaglutide-60-mg | words: 111 | review: true | medical: true
+[2026-05-21T17:37:46.324Z] Saved: compounded-sublingual-semaglutide-18-mg | words: 87 | review: true | medical: true
+[2026-05-21T17:37:46.598Z] Processing: https://journeylite.com/hydration-and-fat-metabolism/
+[2026-05-21T17:37:46.895Z] Processing: https://journeylite.com/rebeca-gastric-sleeve-before-and-after/
+[2026-05-21T17:37:47.126Z] Processing: https://journeylite.com/eli-lillys-new-single-dose-zepbound-vials-a-more-cost-effective-solution-for-patients/
+[2026-05-21T17:37:47.474Z] Saved: hydration-and-fat-metabolism | words: 64 | review: true | medical: false
+[2026-05-21T17:37:47.731Z] Saved: rebeca-gastric-sleeve-before-and-after | words: 223 | review: true | medical: true
+[2026-05-21T17:37:47.904Z] Saved: eli-lillys-new-single-dose-zepbound-vials-a-more-cost-effective-solution-for-patients | words: 338 | review: true | medical: true
+[2026-05-21T17:37:48.275Z] Processing: https://journeylite.com/jacks-gastric-sleeve-journey/
+[2026-05-21T17:37:48.533Z] Processing: https://journeylite.com/lantern-weight-loss-surgery-understand-your-options-page-sep-journeylite/
+[2026-05-21T17:37:48.706Z] Processing: https://journeylite.com/tracy-gastric-sleeve-before-and-after/
+[2026-05-21T17:37:49.326Z] Saved: jacks-gastric-sleeve-journey | words: 47 | review: true | medical: false
+[2026-05-21T17:37:49.483Z] Saved: lantern-weight-loss-surgery-understand-your-options-page-sep-journeylite | words: 1882 | review: false | medical: true
+[2026-05-21T17:37:49.550Z] Saved: tracy-gastric-sleeve-before-and-after | words: 275 | review: true | medical: true
+[2026-05-21T17:37:50.127Z] Processing: https://journeylite.com/modified-pre-op-diet-for-vegans/
+[2026-05-21T17:37:50.284Z] Processing: https://journeylite.com/carbohydrate-facts/
+[2026-05-21T17:37:50.351Z] Processing: https://journeylite.com/how-to-meal-plan-a-step-by-step-guide/
+[2026-05-21T17:37:51.017Z] Saved: modified-pre-op-diet-for-vegans | words: 562 | review: false | medical: false
+[2026-05-21T17:37:51.061Z] Saved: carbohydrate-facts | words: 842 | review: true | medical: false
+[2026-05-21T17:37:51.568Z] Saved: how-to-meal-plan-a-step-by-step-guide | words: 834 | review: false | medical: false
+[2026-05-21T17:37:51.819Z] Processing: https://journeylite.com/quick-and-easy-meal-ideas-apps-plans-and-websites/
+[2026-05-21T17:37:51.863Z] Processing: https://journeylite.com/thiamine/
+[2026-05-21T17:37:52.369Z] Processing: https://journeylite.com/zepbound-no-longer-in-shortage-what-this-means-for-compounded-tirzepatide/
+[2026-05-21T17:37:52.637Z] Saved: quick-and-easy-meal-ideas-apps-plans-and-websites | words: 795 | review: false | medical: true
+[2026-05-21T17:37:52.717Z] Saved: thiamine | words: 366 | review: true | medical: false
+[2026-05-21T17:37:53.181Z] Saved: zepbound-no-longer-in-shortage-what-this-means-for-compounded-tirzepatide | words: 557 | review: false | medical: true
+[2026-05-21T17:37:53.438Z] Processing: https://journeylite.com/protein/
+[2026-05-21T17:37:53.518Z] Processing: https://journeylite.com/copper/
+[2026-05-21T17:37:53.983Z] Processing: https://journeylite.com/zinc/
+[2026-05-21T17:37:54.314Z] Saved: protein | words: 402 | review: true | medical: false
+[2026-05-21T17:37:54.331Z] Saved: copper | words: 392 | review: true | medical: false
+[2026-05-21T17:37:54.874Z] Saved: zinc | words: 652 | review: true | medical: false
+[2026-05-21T17:37:55.116Z] Processing: https://journeylite.com/transform-your-weight-loss-journey-with-the-spatz3-adjustable-gastric-balloon/
+[2026-05-21T17:37:55.133Z] Processing: https://journeylite.com/2025-weight-loss-specials/
+[2026-05-21T17:37:55.675Z] Processing: https://journeylite.com/new-years-semaglutide-special-at-journeylite/
+[2026-05-21T17:37:56.401Z] Saved: 2025-weight-loss-specials | words: 283 | review: true | medical: true
+[2026-05-21T17:37:56.617Z] Saved: new-years-semaglutide-special-at-journeylite | words: 1041 | review: false | medical: true
+[2026-05-21T17:37:56.778Z] Saved: transform-your-weight-loss-journey-with-the-spatz3-adjustable-gastric-balloon | words: 1222 | review: false | medical: true
+[2026-05-21T17:37:57.203Z] Processing: https://journeylite.com/linx-procedure-for-reflux-after-gastric-sleeve/
+[2026-05-21T17:37:57.419Z] Processing: https://journeylite.com/is-weight-loss-surgery-tax-deductible/
+[2026-05-21T17:37:57.580Z] Processing: https://journeylite.com/bariatric-surgery-vs-glp-1s-which-is-better/
+[2026-05-21T17:37:58.233Z] Saved: is-weight-loss-surgery-tax-deductible | words: 588 | review: false | medical: true
+[2026-05-21T17:37:58.252Z] Saved: linx-procedure-for-reflux-after-gastric-sleeve | words: 482 | review: false | medical: false
+[2026-05-21T17:37:58.393Z] Saved: bariatric-surgery-vs-glp-1s-which-is-better | words: 1035 | review: false | medical: true
+[2026-05-21T17:37:59.035Z] Processing: https://journeylite.com/unlock-your-weight-loss-potential-with-journeylites-glp-1-program/
+[2026-05-21T17:37:59.053Z] Processing: https://journeylite.com/fda-removes-tirzepatide-from-shortage-list/
+[2026-05-21T17:37:59.194Z] Processing: https://journeylite.com/5-reasons-weight-loss-surgery-beats-glp-1s/
+[2026-05-21T17:37:59.919Z] Saved: unlock-your-weight-loss-potential-with-journeylites-glp-1-program | words: 186 | review: false | medical: true
+[2026-05-21T17:38:00.200Z] Saved: 5-reasons-weight-loss-surgery-beats-glp-1s | words: 921 | review: false | medical: true
+[2026-05-21T17:38:00.232Z] Saved: fda-removes-tirzepatide-from-shortage-list | words: 1107 | review: false | medical: true
+[2026-05-21T17:38:00.721Z] Processing: https://journeylite.com/vitamins-after-weight-loss-surgery-90-days-and-beyond/
+[2026-05-21T17:38:01.002Z] Processing: https://journeylite.com/back-to-school-semaglutide-special-at-journeylite/
+[2026-05-21T17:38:01.033Z] Processing: https://journeylite.com/does-insurance-cover-weight-loss-surgery/
+[2026-05-21T17:38:01.896Z] Saved: back-to-school-semaglutide-special-at-journeylite | words: 981 | review: false | medical: true
+[2026-05-21T17:38:02.547Z] Saved: vitamins-after-weight-loss-surgery-90-days-and-beyond | words: 177 | review: true | medical: false
+[2026-05-21T17:38:02.695Z] Saved: does-insurance-cover-weight-loss-surgery | words: 1628 | review: false | medical: true
+[2026-05-21T17:38:02.696Z] Processing: https://journeylite.com/gastric-sleeve-requirements/
+[2026-05-21T17:38:03.349Z] Processing: https://journeylite.com/weight-loss-surgery-vs-glp-1-receptor-agonists-which-is-better/
+[2026-05-21T17:38:03.496Z] Processing: https://journeylite.com/allergens/
+[2026-05-21T17:38:03.970Z] Saved: gastric-sleeve-requirements | words: 1604 | review: false | medical: true
+[2026-05-21T17:38:04.413Z] Saved: weight-loss-surgery-vs-glp-1-receptor-agonists-which-is-better | words: 972 | review: false | medical: true
+[2026-05-21T17:38:04.434Z] Saved: allergens | words: 27 | review: true | medical: false
+[2026-05-21T17:38:04.771Z] Processing: https://journeylite.com/tirzepatide-pricing/
+[2026-05-21T17:38:05.213Z] Processing: https://journeylite.com/compounded-tirzepatide-injection-instructions-phase-3-month-2/
+[2026-05-21T17:38:05.235Z] Processing: https://journeylite.com/compounded-tirzepatide-injection-instructions-phase-3-month-1/
+[2026-05-21T17:38:05.500Z] Saved: tirzepatide-pricing | words: 405 | review: false | medical: true
+[2026-05-21T17:38:06.251Z] Saved: compounded-tirzepatide-injection-instructions-phase-3-month-1 | words: 492 | review: false | medical: true
+[2026-05-21T17:38:06.299Z] Processing: https://journeylite.com/compounded-tirzepatide-injection-instructions-phase-2-month-2/
+[2026-05-21T17:38:06.358Z] Saved: compounded-tirzepatide-injection-instructions-phase-3-month-2 | words: 416 | review: false | medical: true
+[2026-05-21T17:38:07.053Z] Processing: https://journeylite.com/compounded-tirzepatide-injection-instructions-phase-2-month-1/
+[2026-05-21T17:38:07.158Z] Processing: https://journeylite.com/compounded-tirzepatide-injection-instructions-phase-1-month-2/
+[2026-05-21T17:38:07.350Z] Saved: compounded-tirzepatide-injection-instructions-phase-2-month-2 | words: 540 | review: false | medical: true
+[2026-05-21T17:38:07.991Z] Saved: compounded-tirzepatide-injection-instructions-phase-2-month-1 | words: 483 | review: false | medical: true
+[2026-05-21T17:38:08.150Z] Processing: https://journeylite.com/new-semaglutide-glp-1-pricing/
+[2026-05-21T17:38:08.192Z] Saved: compounded-tirzepatide-injection-instructions-phase-1-month-2 | words: 517 | review: false | medical: true
+[2026-05-21T17:38:08.793Z] Processing: https://journeylite.com/guide-to-gastric-sleeve-recovery/
+[2026-05-21T17:38:08.913Z] Saved: new-semaglutide-glp-1-pricing | words: 475 | review: true | medical: true
+[2026-05-21T17:38:08.993Z] Processing: https://journeylite.com/compounded-semaglutide-injection-instructions-2-5mg/
+[2026-05-21T17:38:09.715Z] Processing: https://journeylite.com/compounded-semaglutide-injection-instructions-1-5-2-2-5/
+[2026-05-21T17:38:09.789Z] Saved: guide-to-gastric-sleeve-recovery | words: 2269 | review: false | medical: false
+[2026-05-21T17:38:10.083Z] Saved: compounded-semaglutide-injection-instructions-2-5mg | words: 354 | review: false | medical: true
+[2026-05-21T17:38:10.591Z] Processing: https://journeylite.com/compounded-semaglutide-injection-instructions-1mg/
+[2026-05-21T17:38:10.885Z] Processing: https://journeylite.com/compounded-semaglutide-injection-instructions-0-5mg/
+[2026-05-21T17:38:10.980Z] Saved: compounded-semaglutide-injection-instructions-1-5-2-2-5 | words: 639 | review: false | medical: true
+[2026-05-21T17:38:11.504Z] Saved: compounded-semaglutide-injection-instructions-1mg | words: 356 | review: false | medical: true
+[2026-05-21T17:38:11.740Z] Saved: compounded-semaglutide-injection-instructions-0-5mg | words: 351 | review: false | medical: true
+[2026-05-21T17:38:11.780Z] Processing: https://journeylite.com/gastric-sleeve-pros-and-cons-you-need-to-know/
+[2026-05-21T17:38:12.306Z] Processing: https://journeylite.com/gastric-bypass-versus-gastric-sleeve-cost-benefits-and-key-differences/
+[2026-05-21T17:38:12.541Z] Processing: https://journeylite.com/compounded-tirzepatide-injection-instructions/
+[2026-05-21T17:38:13.052Z] Saved: gastric-sleeve-pros-and-cons-you-need-to-know | words: 1621 | review: true | medical: true
+[2026-05-21T17:38:13.115Z] Saved: compounded-tirzepatide-injection-instructions | words: 663 | review: false | medical: true
+[2026-05-21T17:38:13.596Z] Saved: gastric-bypass-versus-gastric-sleeve-cost-benefits-and-key-differences | words: 1857 | review: false | medical: true
+[2026-05-21T17:38:13.853Z] Processing: https://journeylite.com/zepbound-dosing-and-injection-instructions/
+[2026-05-21T17:38:13.915Z] Processing: https://journeylite.com/zepbound-now-prescribing-at-journeylite/
+[2026-05-21T17:38:14.433Z] Processing: https://journeylite.com/zepbound-versus-wegovy-zepbound-tirzepatide-superior-to-wegovy-semaglutide-in-early-study/
+[2026-05-21T17:38:14.739Z] Saved: zepbound-now-prescribing-at-journeylite | words: 267 | review: true | medical: true
+[2026-05-21T17:38:14.762Z] Saved: zepbound-dosing-and-injection-instructions | words: 780 | review: false | medical: true
+[2026-05-21T17:38:15.541Z] Processing: https://journeylite.com/zepbound-tirzepatide-a-new-injectable-fda-approved-weight-loss-drug/
+[2026-05-21T17:38:15.563Z] Processing: https://journeylite.com/self-pay-gastric-sleeve-only-10000/
+[2026-05-21T17:38:15.689Z] Saved: zepbound-versus-wegovy-zepbound-tirzepatide-superior-to-wegovy-semaglutide-in-early-study | words: 814 | review: false | medical: true
+[2026-05-21T17:38:16.442Z] Saved: self-pay-gastric-sleeve-only-10000 | words: 1526 | review: true | medical: true
+[2026-05-21T17:38:16.491Z] Processing: https://journeylite.com/surgeryplus-transcarent-and-bariatric-surgery/
+[2026-05-21T17:38:16.916Z] Saved: zepbound-tirzepatide-a-new-injectable-fda-approved-weight-loss-drug | words: 1215 | review: false | medical: true
+[2026-05-21T17:38:17.274Z] Processing: https://journeylite.com/gastric-sleeve-cost-explained/
+[2026-05-21T17:38:17.718Z] Processing: https://journeylite.com/weight-loss-surgery-requirements-explained/
+[2026-05-21T17:38:18.431Z] Saved: surgeryplus-transcarent-and-bariatric-surgery | words: 699 | review: false | medical: true
+[2026-05-21T17:38:19.231Z] Processing: https://journeylite.com/support-group-wednesday-9-27-2023/
+[2026-05-21T17:38:19.488Z] Saved: weight-loss-surgery-requirements-explained | words: 1933 | review: false | medical: true
+[2026-05-21T17:38:20.097Z] Saved: support-group-wednesday-9-27-2023 | words: 68 | review: true | medical: false
+[2026-05-21T17:38:20.290Z] Processing: https://journeylite.com/what-to-do-after-your-gastric-balloon/
+[2026-05-21T17:38:20.899Z] Processing: https://journeylite.com/journeylite-accepts-most-insurance-plans-for-weight-loss-surgery/
+[2026-05-21T17:38:21.294Z] Saved: what-to-do-after-your-gastric-balloon | words: 622 | review: true | medical: false
+[2026-05-21T17:38:21.808Z] Saved: journeylite-accepts-most-insurance-plans-for-weight-loss-surgery | words: 360 | review: true | medical: true
+[2026-05-21T17:38:22.095Z] Processing: https://journeylite.com/vitamin-c-food-sources/
+[2026-05-21T17:38:22.608Z] Processing: https://journeylite.com/journeylite-virtual-support-group-8-29-2023-1230pm/
+[2026-05-21T17:38:23.218Z] Saved: vitamin-c-food-sources | words: 352 | review: true | medical: false
+[2026-05-21T17:38:23.286Z] Saved: journeylite-virtual-support-group-8-29-2023-1230pm | words: 260 | review: true | medical: false
+[2026-05-21T17:38:24.018Z] Processing: https://journeylite.com/do-i-have-coverage-for-weight-loss-surgery/
+[2026-05-21T17:38:24.087Z] Processing: https://journeylite.com/weight-loss-surgery-indianapolis/
+[2026-05-21T17:38:24.212Z] Saved: gastric-sleeve-cost-explained | words: 6161 | review: true | medical: true
+[2026-05-21T17:38:24.906Z] Saved: do-i-have-coverage-for-weight-loss-surgery | words: 91 | review: true | medical: true
+[2026-05-21T17:38:25.012Z] Processing: https://journeylite.com/journeylite-the-trusted-team-for-weight-loss-surgery/
+[2026-05-21T17:38:25.707Z] Processing: https://journeylite.com/journeylite-featured-patient-of-the-month-july-2023-teresa-t/
+[2026-05-21T17:38:25.810Z] Saved: weight-loss-surgery-indianapolis | words: 745 | review: false | medical: true
+[2026-05-21T17:38:26.612Z] Processing: https://journeylite.com/nobody-can-afford-wegovy/
+[2026-05-21T17:38:26.913Z] Saved: journeylite-the-trusted-team-for-weight-loss-surgery | words: 725 | review: true | medical: false
+[2026-05-21T17:38:27.713Z] Processing: https://journeylite.com/compounded-semaglutide-injection-instructions/
+[2026-05-21T17:38:27.716Z] Saved: nobody-can-afford-wegovy | words: 1704 | review: false | medical: true
+[2026-05-21T17:38:28.516Z] Processing: https://journeylite.com/journeylite-featured-patient-of-the-month-6-2023/
+[2026-05-21T17:38:28.580Z] Saved: compounded-semaglutide-injection-instructions | words: 684 | review: false | medical: true
+[2026-05-21T17:38:29.380Z] Processing: https://journeylite.com/medical-weight-loss-consultation-175/
+[2026-05-21T17:38:29.542Z] Saved: journeylite-featured-patient-of-the-month-6-2023 | words: 811 | review: false | medical: false
+[2026-05-21T17:38:30.063Z] Saved: medical-weight-loss-consultation-175 | words: 181 | review: true | medical: true
+[2026-05-21T17:38:30.343Z] Processing: https://journeylite.com/glp-1-receptor-agonists-vs-weight-loss-surgery-5-things-you-should-know-wegovy-ozempic-mounjaro/
+[2026-05-21T17:38:30.864Z] Processing: https://journeylite.com/blue-cross-blue-shield-bcbs-weight-loss-surgery-coverage-updates/
+[2026-05-21T17:38:31.247Z] Saved: glp-1-receptor-agonists-vs-weight-loss-surgery-5-things-you-should-know-wegovy-ozempic-mounjaro | words: 2682 | review: false | medical: true
+[2026-05-21T17:38:32.020Z] Saved: blue-cross-blue-shield-bcbs-weight-loss-surgery-coverage-updates | words: 1236 | review: false | medical: true
+[2026-05-21T17:38:32.048Z] Processing: https://journeylite.com/new-2023-ohio-rules-for-weight-loss-medications/
+[2026-05-21T17:38:32.556Z] Saved: journeylite-featured-patient-of-the-month-july-2023-teresa-t | words: 13784 | review: true | medical: true
+[2026-05-21T17:38:32.820Z] Processing: https://journeylite.com/sips-sadi-lds-versus-sleeve-whats-the-difference/
+[2026-05-21T17:38:33.036Z] Saved: new-2023-ohio-rules-for-weight-loss-medications | words: 1598 | review: true | medical: true
+[2026-05-21T17:38:33.357Z] Processing: https://journeylite.com/pre-op-ekg-requirements-for-journeylite-surgery-center/
+[2026-05-21T17:38:33.837Z] Processing: https://journeylite.com/new-study-finds-weight-loss-surgery-extends-lives/
+[2026-05-21T17:38:34.334Z] Saved: pre-op-ekg-requirements-for-journeylite-surgery-center | words: 262 | review: false | medical: false
+[2026-05-21T17:38:34.369Z] Saved: sips-sadi-lds-versus-sleeve-whats-the-difference | words: 1234 | review: false | medical: true
+[2026-05-21T17:38:35.135Z] Processing: https://journeylite.com/office-follow-up-schedule-after-weight-loss-surgery/
+[2026-05-21T17:38:35.170Z] Processing: https://journeylite.com/pre-op-weight-loss/
+[2026-05-21T17:38:35.578Z] Saved: new-study-finds-weight-loss-surgery-extends-lives | words: 877 | review: false | medical: true
+[2026-05-21T17:38:36.108Z] Saved: office-follow-up-schedule-after-weight-loss-surgery | words: 127 | review: true | medical: false
+[2026-05-21T17:38:36.109Z] Saved: pre-op-weight-loss | words: 377 | review: false | medical: false
+[2026-05-21T17:38:36.379Z] Processing: https://journeylite.com/journeylite-and-transcarent-inc-partner-to-provide-lower-cost-weight-loss-surgery/
+[2026-05-21T17:38:36.909Z] Processing: https://journeylite.com/crushing-medications-after-weight-loss-surgery/
+[2026-05-21T17:38:36.911Z] Processing: https://journeylite.com/incisional-pain-after-gastric-bypass-surgery/
+[2026-05-21T17:38:37.345Z] Saved: journeylite-and-transcarent-inc-partner-to-provide-lower-cost-weight-loss-surgery | words: 278 | review: true | medical: false
+[2026-05-21T17:38:37.957Z] Saved: crushing-medications-after-weight-loss-surgery | words: 184 | review: true | medical: false
+[2026-05-21T17:38:38.050Z] Saved: incisional-pain-after-gastric-bypass-surgery | words: 423 | review: true | medical: false
+[2026-05-21T17:38:38.146Z] Processing: https://journeylite.com/how-to-achieve-success-after-weight-loss-surgery-the-three-ms/
+[2026-05-21T17:38:38.758Z] Processing: https://journeylite.com/low-impact-exercise-for-overweight-patients/
+[2026-05-21T17:38:38.851Z] Processing: https://journeylite.com/breaking-a-plateau-after-weight-loss-surgery/
+[2026-05-21T17:38:39.787Z] Saved: low-impact-exercise-for-overweight-patients | words: 213 | review: true | medical: false
+[2026-05-21T17:38:39.853Z] Saved: breaking-a-plateau-after-weight-loss-surgery | words: 419 | review: true | medical: false
+[2026-05-21T17:38:39.986Z] Saved: how-to-achieve-success-after-weight-loss-surgery-the-three-ms | words: 991 | review: false | medical: true
+[2026-05-21T17:38:40.588Z] Processing: https://journeylite.com/diabetes-weight-loss-surgery-and-sglt2-inhibitors/
+[2026-05-21T17:38:40.655Z] Processing: https://journeylite.com/negative-sleep-apnea-test/
+[2026-05-21T17:38:40.787Z] Processing: https://journeylite.com/moderate-to-severe-sleep-apnea/
+[2026-05-21T17:38:41.531Z] Saved: diabetes-weight-loss-surgery-and-sglt2-inhibitors | words: 206 | review: true | medical: true
+[2026-05-21T17:38:41.873Z] Saved: negative-sleep-apnea-test | words: 107 | review: true | medical: false
+[2026-05-21T17:38:41.925Z] Saved: moderate-to-severe-sleep-apnea | words: 190 | review: true | medical: false
+[2026-05-21T17:38:42.332Z] Processing: https://journeylite.com/spatz-study/
+[2026-05-21T17:38:42.674Z] Processing: https://journeylite.com/weight-loss-surgery-and-hair-loss/
+[2026-05-21T17:38:42.725Z] Processing: https://journeylite.com/plenity-dosing-for-surgical-weight-loss-patients/
+[2026-05-21T17:38:43.486Z] Saved: spatz-study | words: 2207 | review: false | medical: true
+[2026-05-21T17:38:43.803Z] Saved: plenity-dosing-for-surgical-weight-loss-patients | words: 315 | review: true | medical: false
+[2026-05-21T17:38:43.838Z] Saved: weight-loss-surgery-and-hair-loss | words: 508 | review: true | medical: false
+[2026-05-21T17:38:44.288Z] Processing: https://journeylite.com/importance-of-post-op-labs/
+[2026-05-21T17:38:44.604Z] Processing: https://journeylite.com/mild-sleep-apnea-and-weight-loss/
+[2026-05-21T17:38:44.639Z] Processing: https://journeylite.com/plenity/
+[2026-05-21T17:38:45.096Z] Saved: importance-of-post-op-labs | words: 103 | review: true | medical: false
+[2026-05-21T17:38:45.328Z] Saved: mild-sleep-apnea-and-weight-loss | words: 212 | review: true | medical: false
+[2026-05-21T17:38:45.427Z] Saved: plenity | words: 464 | review: false | medical: false
+[2026-05-21T17:38:45.898Z] Processing: https://journeylite.com/gerd-after-weight-loss-surgery/
+[2026-05-21T17:38:46.129Z] Processing: https://journeylite.com/potassium/
+[2026-05-21T17:38:46.229Z] Processing: https://journeylite.com/calcium/
+[2026-05-21T17:38:47.157Z] Saved: potassium | words: 566 | review: true | medical: false
+[2026-05-21T17:38:47.195Z] Saved: calcium | words: 466 | review: true | medical: false
+[2026-05-21T17:38:47.271Z] Saved: gerd-after-weight-loss-surgery | words: 686 | review: true | medical: true
+[2026-05-21T17:38:47.958Z] Processing: https://journeylite.com/iron/
+[2026-05-21T17:38:47.996Z] Processing: https://journeylite.com/vitamin-b9-folic-acid/
+[2026-05-21T17:38:48.073Z] Processing: https://journeylite.com/vitamin-b6-pyridoxine/
+[2026-05-21T17:38:48.825Z] Saved: vitamin-b6-pyridoxine | words: 298 | review: true | medical: false
+[2026-05-21T17:38:48.880Z] Saved: iron | words: 438 | review: true | medical: false
+[2026-05-21T17:38:48.933Z] Saved: vitamin-b9-folic-acid | words: 508 | review: true | medical: false
+[2026-05-21T17:38:49.626Z] Processing: https://journeylite.com/vitamin-b3-niacin/
+[2026-05-21T17:38:49.681Z] Processing: https://journeylite.com/vitamin-k/
+[2026-05-21T17:38:49.735Z] Processing: https://journeylite.com/vitamin-e/
+[2026-05-21T17:38:50.385Z] Saved: vitamin-b3-niacin | words: 272 | review: true | medical: false
+[2026-05-21T17:38:50.435Z] Saved: vitamin-k | words: 306 | review: true | medical: false
+[2026-05-21T17:38:50.454Z] Saved: vitamin-e | words: 221 | review: true | medical: false
+[2026-05-21T17:38:51.186Z] Processing: https://journeylite.com/vitamin-d/
+[2026-05-21T17:38:51.236Z] Processing: https://journeylite.com/vitamin-b12/
+[2026-05-21T17:38:51.255Z] Processing: https://journeylite.com/vitamin-a/
+[2026-05-21T17:38:51.921Z] Saved: vitamin-d | words: 212 | review: true | medical: false
+[2026-05-21T17:38:52.016Z] Saved: vitamin-b12 | words: 216 | review: true | medical: false
+[2026-05-21T17:38:52.042Z] Saved: vitamin-a | words: 404 | review: true | medical: false
+[2026-05-21T17:38:52.722Z] Processing: https://journeylite.com/wegovy/
+[2026-05-21T17:38:52.818Z] Processing: https://journeylite.com/christ-hospital-pre-operative-instructions/
+[2026-05-21T17:38:52.844Z] Processing: https://journeylite.com/gastric-bypass-and-smoking/
+[2026-05-21T17:38:53.753Z] Saved: christ-hospital-pre-operative-instructions | words: 624 | review: false | medical: true
+[2026-05-21T17:38:54.023Z] Saved: wegovy | words: 1203 | review: false | medical: true
+[2026-05-21T17:38:54.083Z] Saved: gastric-bypass-and-smoking | words: 406 | review: true | medical: false
+[2026-05-21T17:38:54.554Z] Processing: https://journeylite.com/support/
+[2026-05-21T17:38:54.824Z] Processing: https://journeylite.com/dr-james-augusta/
+[2026-05-21T17:38:54.884Z] Processing: https://journeylite.com/healthy-lifestyle-eating-plan/
+[2026-05-21T17:38:55.655Z] Saved: support | words: 318 | review: true | medical: false
+[2026-05-21T17:38:55.687Z] Saved: healthy-lifestyle-eating-plan | words: 752 | review: false | medical: false
+[2026-05-21T17:38:55.720Z] Saved: dr-james-augusta | words: 225 | review: true | medical: false
+[2026-05-21T17:38:56.455Z] Processing: https://journeylite.com/why-weight-loss-surgery-can-be-a-problem-after-nissen-fundoplication/
+[2026-05-21T17:38:56.488Z] Processing: https://journeylite.com/pcp-bariatric-surgery-insurance-clearance/
+[2026-05-21T17:38:56.521Z] Processing: https://journeylite.com/christ-hospital-recommended-hotel/
+[2026-05-21T17:38:57.598Z] Saved: christ-hospital-recommended-hotel | words: 69 | review: true | medical: false
+[2026-05-21T17:38:57.811Z] Saved: pcp-bariatric-surgery-insurance-clearance | words: 316 | review: true | medical: true
+[2026-05-21T17:38:57.976Z] Saved: why-weight-loss-surgery-can-be-a-problem-after-nissen-fundoplication | words: 556 | review: true | medical: false
+[2026-05-21T17:38:58.399Z] Processing: https://journeylite.com/your-prescriptions-have-been-sent/
+[2026-05-21T17:38:58.612Z] Processing: https://journeylite.com/goodrx-emend/
+[2026-05-21T17:38:58.777Z] Processing: https://journeylite.com/jp-drain-care/
+[2026-05-21T17:38:59.310Z] Saved: your-prescriptions-have-been-sent | words: 187 | review: false | medical: true
+[2026-05-21T17:38:59.383Z] Saved: goodrx-emend | words: 148 | review: true | medical: false
+[2026-05-21T17:38:59.861Z] Saved: jp-drain-care | words: 602 | review: false | medical: false
+[2026-05-21T17:39:00.112Z] Processing: https://journeylite.com/how-to-prepare-for-your-endoscopy/
+[2026-05-21T17:39:00.185Z] Processing: https://journeylite.com/pre-operative-cardiac-clearance/
+[2026-05-21T17:39:00.661Z] Processing: https://journeylite.com/sleep-apnea-cpap/
+[2026-05-21T17:39:01.075Z] Saved: pre-operative-cardiac-clearance | words: 181 | review: true | medical: false
+[2026-05-21T17:39:01.269Z] Saved: how-to-prepare-for-your-endoscopy | words: 374 | review: false | medical: true
+[2026-05-21T17:39:01.796Z] Saved: sleep-apnea-cpap | words: 161 | review: true | medical: false
+[2026-05-21T17:39:01.875Z] Processing: https://journeylite.com/q1-patient-satisfaction-surveys/
+[2026-05-21T17:39:02.070Z] Processing: https://journeylite.com/covid-19-and-obesity-cdc-guidelines/
+[2026-05-21T17:39:02.598Z] Processing: https://journeylite.com/new-columbus-location/
+[2026-05-21T17:39:02.700Z] Saved: q1-patient-satisfaction-surveys | words: 20 | review: true | medical: false
+[2026-05-21T17:39:03.021Z] Saved: covid-19-and-obesity-cdc-guidelines | words: 345 | review: false | medical: false
+[2026-05-21T17:39:03.407Z] Saved: new-columbus-location | words: 91 | review: true | medical: false
+[2026-05-21T17:39:03.502Z] Processing: https://journeylite.com/constipation-after-weight-loss-surgery-medical-weight-loss/
+[2026-05-21T17:39:03.822Z] Processing: https://journeylite.com/drug-shoppe/
+[2026-05-21T17:39:04.208Z] Processing: https://journeylite.com/goodrx-and-adipex-phentermine-savings/
+[2026-05-21T17:39:04.479Z] Saved: constipation-after-weight-loss-surgery-medical-weight-loss | words: 243 | review: false | medical: false
+[2026-05-21T17:39:04.510Z] Saved: drug-shoppe | words: 56 | review: true | medical: false
+[2026-05-21T17:39:04.821Z] Saved: goodrx-and-adipex-phentermine-savings | words: 178 | review: true | medical: true
+[2026-05-21T17:39:05.280Z] Processing: https://journeylite.com/insurance-exclusions-and-weight-loss-surgery/
+[2026-05-21T17:39:05.311Z] Processing: https://journeylite.com/dayton-tuesdays-thursdays-virtual-fridays-live/
+[2026-05-21T17:39:05.623Z] Processing: https://journeylite.com/do-i-have-coverage-for-saxenda/
+[2026-05-21T17:39:06.051Z] Saved: dayton-tuesdays-thursdays-virtual-fridays-live | words: 61 | review: true | medical: false
+[2026-05-21T17:39:06.186Z] Saved: insurance-exclusions-and-weight-loss-surgery | words: 843 | review: false | medical: true
+[2026-05-21T17:39:06.793Z] Saved: do-i-have-coverage-for-saxenda | words: 140 | review: true | medical: true
+[2026-05-21T17:39:06.852Z] Processing: https://journeylite.com/weight-loss-surgery-in-low-bmi-patients/
+[2026-05-21T17:39:06.987Z] Processing: https://journeylite.com/activity-exercise-after-weight-loss-surgery/
+[2026-05-21T17:39:07.620Z] Processing: https://journeylite.com/immunospressants-steroids-after-weight-loss-surgery/
+[2026-05-21T17:39:07.659Z] Saved: activity-exercise-after-weight-loss-surgery | words: 212 | review: true | medical: false
+[2026-05-21T17:39:07.663Z] Saved: weight-loss-surgery-in-low-bmi-patients | words: 380 | review: false | medical: true
+[2026-05-21T17:39:08.460Z] Processing: https://journeylite.com/qsymia-mail-order-program/
+[2026-05-21T17:39:08.465Z] Processing: https://journeylite.com/how-do-you-start-adipex-phentermine/
+[2026-05-21T17:39:08.610Z] Saved: immunospressants-steroids-after-weight-loss-surgery | words: 419 | review: true | medical: true
+[2026-05-21T17:39:09.222Z] Saved: qsymia-mail-order-program | words: 199 | review: true | medical: true
+[2026-05-21T17:39:09.372Z] Saved: how-do-you-start-adipex-phentermine | words: 333 | review: true | medical: true
+[2026-05-21T17:39:09.412Z] Processing: https://journeylite.com/did-you-know-that-your-weight-loss-1-month-after-surgery-predicts-your-long-term-success/
+[2026-05-21T17:39:10.022Z] Processing: https://journeylite.com/q4-2019-satisfaction-surveys/
+[2026-05-21T17:39:10.173Z] Processing: https://journeylite.com/supervised-diet/
+[2026-05-21T17:39:10.808Z] Saved: did-you-know-that-your-weight-loss-1-month-after-surgery-predicts-your-long-term-success | words: 528 | review: false | medical: false
+[2026-05-21T17:39:11.230Z] Saved: supervised-diet | words: 802 | review: false | medical: true
+[2026-05-21T17:39:11.610Z] Processing: https://journeylite.com/band-to-sleeve-conversion/
+[2026-05-21T17:39:12.032Z] Processing: https://journeylite.com/cleveland-clinic-study/
+[2026-05-21T17:39:12.502Z] Saved: band-to-sleeve-conversion | words: 145 | review: true | medical: false
+[2026-05-21T17:39:12.807Z] Saved: q4-2019-satisfaction-surveys | words: 166 | review: true | medical: false
+[2026-05-21T17:39:13.195Z] Saved: cleveland-clinic-study | words: 1606 | review: false | medical: true
+[2026-05-21T17:39:13.304Z] Processing: https://journeylite.com/great-news-from-caresource-coverage-for-diabetics-with-bmi-30-35/
+[2026-05-21T17:39:13.609Z] Processing: https://journeylite.com/journeylite-surgery-center-now-an-optum-center-of-excellence/
+[2026-05-21T17:39:14.022Z] Processing: https://journeylite.com/journeylite-and-medtronics-new-signia-smart-stapler/
+[2026-05-21T17:39:14.207Z] Saved: great-news-from-caresource-coverage-for-diabetics-with-bmi-30-35 | words: 1544 | review: true | medical: true
+[2026-05-21T17:39:14.694Z] Saved: journeylite-surgery-center-now-an-optum-center-of-excellence | words: 1768 | review: true | medical: true
+[2026-05-21T17:39:14.904Z] Saved: journeylite-and-medtronics-new-signia-smart-stapler | words: 81 | review: true | medical: false
+[2026-05-21T17:39:15.008Z] Processing: https://journeylite.com/saxenda-a-new-injectable-weight-loss-medication/
+[2026-05-21T17:39:15.494Z] Processing: https://journeylite.com/my-new-addiction-9round-kickboxing/
+[2026-05-21T17:39:15.705Z] Processing: https://journeylite.com/new-dayton-location/
+[2026-05-21T17:39:16.054Z] Saved: saxenda-a-new-injectable-weight-loss-medication | words: 450 | review: true | medical: true
+[2026-05-21T17:39:16.470Z] Saved: new-dayton-location | words: 163 | review: false | medical: false
+[2026-05-21T17:39:16.855Z] Processing: https://journeylite.com/1000-off/
+[2026-05-21T17:39:17.034Z] Saved: my-new-addiction-9round-kickboxing | words: 494 | review: true | medical: false
+[2026-05-21T17:39:17.272Z] Processing: https://journeylite.com/1000-off-self-pay-gastric-sleeve/
+[2026-05-21T17:39:17.841Z] Processing: https://journeylite.com/new-medtronics-signia-smart-stapler/
+[2026-05-21T17:39:18.079Z] Saved: 1000-off | words: 176 | review: true | medical: false
+[2026-05-21T17:39:18.196Z] Saved: 1000-off-self-pay-gastric-sleeve | words: 220 | review: true | medical: false
+[2026-05-21T17:39:18.635Z] Saved: new-medtronics-signia-smart-stapler | words: 263 | review: true | medical: false
+[2026-05-21T17:39:18.880Z] Processing: https://journeylite.com/diabetes/
+[2026-05-21T17:39:18.998Z] Processing: https://journeylite.com/winter-medical-weight-loss-specials/
+[2026-05-21T17:39:19.436Z] Processing: https://journeylite.com/obalon-6000/
+[2026-05-21T17:39:19.647Z] Saved: diabetes | words: 10 | review: true | medical: true
+[2026-05-21T17:39:19.917Z] Saved: winter-medical-weight-loss-specials | words: 179 | review: true | medical: false
+[2026-05-21T17:39:20.449Z] Processing: https://journeylite.com/free-november-sleeve-consult/
+[2026-05-21T17:39:20.465Z] Saved: obalon-6000 | words: 512 | review: true | medical: false
+[2026-05-21T17:39:20.718Z] Processing: https://journeylite.com/medical-weight-loss-what-is-it/
+[2026-05-21T17:39:21.266Z] Processing: https://journeylite.com/obalon-swallowable-gastric-balloon-better-together-bring-a-friend-and-get-up-to-3000-off/
+[2026-05-21T17:39:21.320Z] Saved: free-november-sleeve-consult | words: 1588 | review: true | medical: true
+[2026-05-21T17:39:21.503Z] Saved: medical-weight-loss-what-is-it | words: 1682 | review: false | medical: true
+[2026-05-21T17:39:22.121Z] Processing: https://journeylite.com/get-up-to-1500-of-off-the-new-obalon-swallowable-gastric-balloon/
+[2026-05-21T17:39:22.289Z] Saved: obalon-swallowable-gastric-balloon-better-together-bring-a-friend-and-get-up-to-3000-off | words: 436 | review: true | medical: true
+[2026-05-21T17:39:22.304Z] Processing: https://journeylite.com/obalon-pre-procedure-meds/
+[2026-05-21T17:39:23.014Z] Saved: get-up-to-1500-of-off-the-new-obalon-swallowable-gastric-balloon | words: 376 | review: true | medical: true
+[2026-05-21T17:39:23.090Z] Processing: https://journeylite.com/obalon-placebo-swallow/
+[2026-05-21T17:39:23.289Z] Saved: obalon-pre-procedure-meds | words: 261 | review: true | medical: false
+[2026-05-21T17:39:23.816Z] Processing: https://journeylite.com/support-group-exercise/
+[2026-05-21T17:39:23.817Z] Saved: obalon-placebo-swallow | words: 165 | review: false | medical: false
+[2026-05-21T17:39:24.090Z] Processing: https://journeylite.com/free-obalon-gastric-balloon-consult/
+[2026-05-21T17:39:24.618Z] Processing: https://journeylite.com/obalon-swallowable-gastric-balloon-cincinnati-ohio/
+[2026-05-21T17:39:24.636Z] Saved: support-group-exercise | words: 28 | review: true | medical: false
+[2026-05-21T17:39:24.760Z] Saved: free-obalon-gastric-balloon-consult | words: 277 | review: true | medical: false
+[2026-05-21T17:39:25.283Z] Saved: obalon-swallowable-gastric-balloon-cincinnati-ohio | words: 645 | review: true | medical: false
+[2026-05-21T17:39:25.438Z] Processing: https://journeylite.com/support-group-jan-2018/
+[2026-05-21T17:39:25.560Z] Processing: https://journeylite.com/first-virtual-support-group/
+[2026-05-21T17:39:26.112Z] Processing: https://journeylite.com/lovenox/
+[2026-05-21T17:39:26.285Z] Saved: support-group-jan-2018 | words: 77 | review: true | medical: false
+[2026-05-21T17:39:26.593Z] Saved: first-virtual-support-group | words: 186 | review: true | medical: false
+[2026-05-21T17:39:27.062Z] Saved: lovenox | words: 284 | review: true | medical: true
+[2026-05-21T17:39:27.086Z] Processing: https://journeylite.com/sleep/
+[2026-05-21T17:39:27.395Z] Processing: https://journeylite.com/endoscopic-sleeve-gastroplasty-a-new-tool/
+[2026-05-21T17:39:27.878Z] Processing: https://journeylite.com/high-protein-recipes/
+[2026-05-21T17:39:27.880Z] Saved: sleep | words: 13 | review: true | medical: false
+[2026-05-21T17:39:28.682Z] Processing: https://journeylite.com/type-2-diabetes-medicare/
+[2026-05-21T17:39:28.745Z] Saved: endoscopic-sleeve-gastroplasty-a-new-tool | words: 477 | review: true | medical: false
+[2026-05-21T17:39:28.792Z] Saved: high-protein-recipes | words: 167 | review: false | medical: false
+[2026-05-21T17:39:29.491Z] Saved: type-2-diabetes-medicare | words: 343 | review: true | medical: true
+[2026-05-21T17:39:29.545Z] Processing: https://journeylite.com/esg/
+[2026-05-21T17:39:29.593Z] Processing: https://journeylite.com/insurance-tips-pursuing-weight-loss-surgery-process/
+[2026-05-21T17:39:30.181Z] Saved: esg | words: 287 | review: true | medical: false
+[2026-05-21T17:39:30.293Z] Processing: https://journeylite.com/announcing-wednesday-office-hours-northern-kentucky-office/
+[2026-05-21T17:39:30.633Z] Saved: insurance-tips-pursuing-weight-loss-surgery-process | words: 1652 | review: false | medical: true
+[2026-05-21T17:39:30.980Z] Processing: https://journeylite.com/reshape-infosession/
+[2026-05-21T17:39:31.017Z] Saved: announcing-wednesday-office-hours-northern-kentucky-office | words: 82 | review: true | medical: false
+[2026-05-21T17:39:31.435Z] Processing: https://journeylite.com/now-journeylite-physicians/
+[2026-05-21T17:39:31.818Z] Processing: https://journeylite.com/giving-back-gatlinburg/
+[2026-05-21T17:39:31.877Z] Saved: reshape-infosession | words: 1575 | review: true | medical: true
+[2026-05-21T17:39:32.470Z] Saved: now-journeylite-physicians | words: 117 | review: true | medical: false
+[2026-05-21T17:39:32.505Z] Saved: giving-back-gatlinburg | words: 113 | review: true | medical: false
+[2026-05-21T17:39:32.678Z] Processing: https://journeylite.com/journeylite-first-cincinnati-sips/
+[2026-05-21T17:39:33.271Z] Processing: https://journeylite.com/first-stretta-in-cincinnati/
+[2026-05-21T17:39:33.306Z] Processing: https://journeylite.com/vitamins/
+[2026-05-21T17:39:33.955Z] Saved: journeylite-first-cincinnati-sips | words: 491 | review: true | medical: false
+[2026-05-21T17:39:34.757Z] Processing: https://journeylite.com/labs/
+[2026-05-21T17:39:35.008Z] Saved: first-stretta-in-cincinnati | words: 359 | review: true | medical: false
+[2026-05-21T17:39:35.379Z] Saved: vitamins | words: 668 | review: false | medical: false
+[2026-05-21T17:39:35.810Z] Processing: https://journeylite.com/bloodwork-duodenal-switchsips/
+[2026-05-21T17:39:35.940Z] Saved: labs | words: 293 | review: false | medical: false
+[2026-05-21T17:39:36.181Z] Processing: https://journeylite.com/bloodwork-gastric-bypass/
+[2026-05-21T17:39:36.672Z] Saved: bloodwork-duodenal-switchsips | words: 176 | review: true | medical: false
+[2026-05-21T17:39:36.743Z] Processing: https://journeylite.com/bloodwork-gastric-sleeve/
+[2026-05-21T17:39:37.054Z] Saved: bloodwork-gastric-bypass | words: 125 | review: true | medical: false
+[2026-05-21T17:39:37.472Z] Processing: https://journeylite.com/whats-cooking-kitchen-honey-cayenne-asparagus-scramble/
+[2026-05-21T17:39:37.474Z] Saved: bloodwork-gastric-sleeve | words: 118 | review: true | medical: false
+[2026-05-21T17:39:37.857Z] Processing: https://journeylite.com/soft-calorie-syndrome/
+[2026-05-21T17:39:38.120Z] Saved: whats-cooking-kitchen-honey-cayenne-asparagus-scramble | words: 171 | review: false | medical: false
+[2026-05-21T17:39:38.276Z] Processing: https://journeylite.com/billing-policy/
+[2026-05-21T17:39:38.922Z] Processing: https://journeylite.com/whats-cooking-kitchen-low-carb-eggs-purgatory-shakshouka/
+[2026-05-21T17:39:39.022Z] Saved: billing-policy | words: 984 | review: true | medical: true
+[2026-05-21T17:39:39.023Z] Saved: soft-calorie-syndrome | words: 424 | review: false | medical: false
+[2026-05-21T17:39:39.824Z] Processing: https://journeylite.com/post-op-bariatric-surgery-diet-video/
+[2026-05-21T17:39:39.826Z] Processing: https://journeylite.com/whats-cooking-kitchen-bacon-wrapped-guacamole-stuffed-chicken-turnip-chips/
+[2026-05-21T17:39:40.066Z] Saved: whats-cooking-kitchen-low-carb-eggs-purgatory-shakshouka | words: 316 | review: false | medical: false
+[2026-05-21T17:39:40.781Z] Saved: post-op-bariatric-surgery-diet-video | words: 195 | review: false | medical: false
+[2026-05-21T17:39:40.868Z] Processing: https://journeylite.com/staple-line-leaks-after-bariatric-surgery/
+[2026-05-21T17:39:40.874Z] Saved: whats-cooking-kitchen-bacon-wrapped-guacamole-stuffed-chicken-turnip-chips | words: 278 | review: false | medical: false
+[2026-05-21T17:39:41.583Z] Processing: https://journeylite.com/paper-gastric-balloon-accepted-asmbs/
+[2026-05-21T17:39:41.676Z] Processing: https://journeylite.com/new-surgeon-new-procedure/
+[2026-05-21T17:39:42.522Z] Saved: paper-gastric-balloon-accepted-asmbs | words: 186 | review: false | medical: false
+[2026-05-21T17:39:42.705Z] Saved: new-surgeon-new-procedure | words: 345 | review: true | medical: false
+[2026-05-21T17:39:43.325Z] Processing: https://journeylite.com/youtube-support-group-stream-whats-new-market-630pm-tonight-727/
+[2026-05-21T17:39:43.508Z] Processing: https://journeylite.com/support-group-dr-kurtis-martin/
+[2026-05-21T17:39:43.927Z] Saved: youtube-support-group-stream-whats-new-market-630pm-tonight-727 | words: 0 | review: true | medical: false
+[2026-05-21T17:39:44.128Z] Saved: support-group-dr-kurtis-martin | words: 0 | review: true | medical: false
+[2026-05-21T17:39:44.728Z] Processing: https://journeylite.com/weight-loss-surgery-now-recommended-type-2-diabetes/
+[2026-05-21T17:39:44.930Z] Processing: https://journeylite.com/sleeve-success-story-candi/
+[2026-05-21T17:39:45.477Z] Saved: weight-loss-surgery-now-recommended-type-2-diabetes | words: 231 | review: false | medical: false
+[2026-05-21T17:39:45.874Z] Saved: sleeve-success-story-candi | words: 68 | review: true | medical: true
+[2026-05-21T17:39:46.279Z] Processing: https://journeylite.com/jenna-sleeve-success-story/
+[2026-05-21T17:39:46.493Z] Saved: staple-line-leaks-after-bariatric-surgery | words: 1522 | review: false | medical: false
+[2026-05-21T17:39:46.677Z] Processing: https://journeylite.com/support-group-dietitian-panel/
+[2026-05-21T17:39:47.283Z] Saved: jenna-sleeve-success-story | words: 250 | review: true | medical: true
+[2026-05-21T17:39:47.295Z] Processing: https://journeylite.com/reshape-gastric-balloon-success-story/
+[2026-05-21T17:39:47.402Z] Saved: support-group-dietitian-panel | words: 0 | review: true | medical: false
+[2026-05-21T17:39:48.034Z] Saved: reshape-gastric-balloon-success-story | words: 386 | review: false | medical: false
+[2026-05-21T17:39:48.085Z] Processing: https://journeylite.com/stretta-therapy/
+[2026-05-21T17:39:48.202Z] Processing: https://journeylite.com/live-orbera-gastric-balloon-placement/
+[2026-05-21T17:39:48.806Z] Saved: live-orbera-gastric-balloon-placement | words: 191 | review: true | medical: false
+[2026-05-21T17:39:48.836Z] Processing: https://journeylite.com/reshape-duo-gastric-balloon-at-journeylite/
+[2026-05-21T17:39:48.847Z] Saved: stretta-therapy | words: 390 | review: false | medical: true
+[2026-05-21T17:39:49.605Z] Saved: reshape-duo-gastric-balloon-at-journeylite | words: 1620 | review: true | medical: true
+[2026-05-21T17:39:49.607Z] Processing: https://journeylite.com/plastics/
+[2026-05-21T17:39:49.649Z] Processing: https://journeylite.com/watch-our-reshape-gastric-balloon-news-segment-from-local12/
+[2026-05-21T17:39:50.328Z] Saved: watch-our-reshape-gastric-balloon-news-segment-from-local12 | words: 27 | review: true | medical: false
+[2026-05-21T17:39:50.406Z] Processing: https://journeylite.com/side-effects-of-reshape-gastric-balloon/
+[2026-05-21T17:39:50.553Z] Saved: plastics | words: 332 | review: true | medical: false
+[2026-05-21T17:39:51.108Z] Saved: side-effects-of-reshape-gastric-balloon | words: 298 | review: true | medical: false
+[2026-05-21T17:39:51.128Z] Processing: https://journeylite.com/reshape-gastric-balloon-patient-testimonials/
+[2026-05-21T17:39:51.356Z] Processing: https://journeylite.com/reshape-gastric-balloon-2/
+[2026-05-21T17:39:51.850Z] Saved: reshape-gastric-balloon-patient-testimonials | words: 0 | review: true | medical: false
+[2026-05-21T17:39:51.909Z] Processing: https://journeylite.com/low-carb-snack-options/
+[2026-05-21T17:39:52.008Z] Saved: reshape-gastric-balloon-2 | words: 18 | review: true | medical: false
+[2026-05-21T17:39:52.652Z] Processing: https://journeylite.com/first-reshape-duo-dual-gastric-balloon-placement-in-ohio-by-dr-trace-curry/
+[2026-05-21T17:39:52.681Z] Saved: low-carb-snack-options | words: 1024 | review: false | medical: false
+[2026-05-21T17:39:52.810Z] Processing: https://journeylite.com/reshape-ready-the-new-reshape-gastric-balloon/
+[2026-05-21T17:39:53.481Z] Processing: https://journeylite.com/elipse-gastric-balloon/
+[2026-05-21T17:39:53.729Z] Saved: reshape-ready-the-new-reshape-gastric-balloon | words: 1698 | review: true | medical: true
+[2026-05-21T17:39:54.052Z] Saved: first-reshape-duo-dual-gastric-balloon-placement-in-ohio-by-dr-trace-curry | words: 1860 | review: true | medical: true
+[2026-05-21T17:39:54.252Z] Saved: elipse-gastric-balloon | words: 1561 | review: false | medical: true
+[2026-05-21T17:39:54.532Z] Processing: https://journeylite.com/weight-loss-medications-after-phentermine/
+[2026-05-21T17:39:54.823Z] Saved: weight-loss-medications-after-phentermine | words: 368 | review: true | medical: true
+[2026-05-21T17:39:54.854Z] Processing: https://journeylite.com/5-new-weight-loss-options-for-2015/
+[2026-05-21T17:39:55.054Z] Processing: https://journeylite.com/pre-holiday-weight-loss-orbera-gastric-balloon-special/
+[2026-05-21T17:39:55.624Z] Processing: https://journeylite.com/orbera-intra-gastric-weight-loss-balloon-infosession-with-dr-trace-curry/
+[2026-05-21T17:39:55.814Z] Saved: 5-new-weight-loss-options-for-2015 | words: 1993 | review: true | medical: true
+[2026-05-21T17:39:56.113Z] Saved: pre-holiday-weight-loss-orbera-gastric-balloon-special | words: 63 | review: true | medical: false
+[2026-05-21T17:39:56.595Z] Saved: orbera-intra-gastric-weight-loss-balloon-infosession-with-dr-trace-curry | words: 1580 | review: true | medical: true
+[2026-05-21T17:39:56.616Z] Processing: https://journeylite.com/track-weights-and-steps-by-texting-our-patient-support-center/
+[2026-05-21T17:39:56.914Z] Processing: https://journeylite.com/first-orbera-intra-gastric-balloon-in-ohio/
+[2026-05-21T17:39:57.251Z] Saved: track-weights-and-steps-by-texting-our-patient-support-center | words: 47 | review: true | medical: false
+[2026-05-21T17:39:57.395Z] Processing: https://journeylite.com/cabin/
+[2026-05-21T17:39:57.939Z] Saved: first-orbera-intra-gastric-balloon-in-ohio | words: 1623 | review: true | medical: true
+[2026-05-21T17:39:58.037Z] Saved: cabin | words: 13 | review: true | medical: false
+[2026-05-21T17:39:58.054Z] Processing: https://journeylite.com/intra-gastric-balloon-faqs/
+[2026-05-21T17:39:58.741Z] Processing: https://journeylite.com/apollo-endosurgery-inc-announces-fda-approval-of-the-orbera-gastric-balloon-a-non-surgical-solution-to-assist-patients-in-weight-loss/
+[2026-05-21T17:39:58.839Z] Processing: https://journeylite.com/reshape-gastric-balloon/
+[2026-05-21T17:39:59.271Z] Saved: intra-gastric-balloon-faqs | words: 2047 | review: false | medical: true
+[2026-05-21T17:39:59.500Z] Saved: apollo-endosurgery-inc-announces-fda-approval-of-the-orbera-gastric-balloon-a-non-surgical-solut | words: 2367 | review: false | medical: true
+[2026-05-21T17:39:59.839Z] Saved: reshape-gastric-balloon | words: 1567 | review: true | medical: true
+[2026-05-21T17:40:00.074Z] Processing: https://journeylite.com/weight-loss-surgery-and-diabetes-new-study-shows-surgery-better-than-diet-and-exercise/
+[2026-05-21T17:40:00.302Z] Processing: https://journeylite.com/this-time-it-counts-weight-loss-surgery-success-stories/
+[2026-05-21T17:40:00.641Z] Processing: https://journeylite.com/obesity-in-america-startling-new-statistics-in-jama/
+[2026-05-21T17:40:00.814Z] Saved: weight-loss-surgery-and-diabetes-new-study-shows-surgery-better-than-diet-and-exercise | words: 298 | review: true | medical: true
+[2026-05-21T17:40:01.222Z] Saved: this-time-it-counts-weight-loss-surgery-success-stories | words: 301 | review: false | medical: false
+[2026-05-21T17:40:01.414Z] Saved: obesity-in-america-startling-new-statistics-in-jama | words: 177 | review: true | medical: false
+[2026-05-21T17:40:01.616Z] Processing: https://journeylite.com/goal-this-week/
+[2026-05-21T17:40:02.025Z] Processing: https://journeylite.com/northern-kentucky-weight-loss-surgery-support-group/
+[2026-05-21T17:40:02.215Z] Processing: https://journeylite.com/dual-or-single-intra-gastric-balloons-reshape-vs-orbera/
+[2026-05-21T17:40:02.335Z] Saved: goal-this-week | words: 24 | review: true | medical: false
+[2026-05-21T17:40:02.841Z] Saved: northern-kentucky-weight-loss-surgery-support-group | words: 47 | review: true | medical: false
+[2026-05-21T17:40:03.138Z] Processing: https://journeylite.com/low-bmi-lap-band-study/
+[2026-05-21T17:40:03.179Z] Saved: dual-or-single-intra-gastric-balloons-reshape-vs-orbera | words: 1886 | review: false | medical: true
+[2026-05-21T17:40:03.642Z] Processing: https://journeylite.com/the-backyard-bbq/
+[2026-05-21T17:40:03.980Z] Processing: https://journeylite.com/body-contouring-after-weight-loss/
+[2026-05-21T17:40:03.997Z] Saved: low-bmi-lap-band-study | words: 1468 | review: false | medical: true
+[2026-05-21T17:40:04.347Z] Saved: the-backyard-bbq | words: 328 | review: false | medical: false
+[2026-05-21T17:40:04.800Z] Processing: https://journeylite.com/sleeve-gastrectomy-is-a-less-invasive-option-for-patients-considering-surgical-weight-loss/
+[2026-05-21T17:40:05.040Z] Saved: body-contouring-after-weight-loss | words: 87 | review: true | medical: false
+[2026-05-21T17:40:05.150Z] Processing: https://journeylite.com/overstitch-transoral-endoscopic-pouch-reduction-for-weight-gain-after-gastric-bypass/
+[2026-05-21T17:40:05.755Z] Saved: sleeve-gastrectomy-is-a-less-invasive-option-for-patients-considering-surgical-weight-loss | words: 353 | review: false | medical: false
+[2026-05-21T17:40:05.842Z] Processing: https://journeylite.com/orbera-gastric-balloon/
+[2026-05-21T17:40:06.282Z] Saved: overstitch-transoral-endoscopic-pouch-reduction-for-weight-gain-after-gastric-bypass | words: 342 | review: false | medical: true
+[2026-05-21T17:40:06.565Z] Processing: https://journeylite.com/starts-today/
+[2026-05-21T17:40:07.006Z] Saved: orbera-gastric-balloon | words: 1765 | review: false | medical: true
+[2026-05-21T17:40:07.084Z] Processing: https://journeylite.com/now-prescribing-new-weight-loss-drug-contrave-naltrexone-hclbupropion-hcl/
+[2026-05-21T17:40:07.326Z] Saved: starts-today | words: 15 | review: true | medical: false
+[2026-05-21T17:40:07.807Z] Processing: https://journeylite.com/course-post-op-diet/
+[2026-05-21T17:40:07.899Z] Saved: now-prescribing-new-weight-loss-drug-contrave-naltrexone-hclbupropion-hcl | words: 361 | review: true | medical: true
+[2026-05-21T17:40:08.127Z] Processing: https://journeylite.com/gastric-band-fill-video/
+[2026-05-21T17:40:08.474Z] Saved: course-post-op-diet | words: 20 | review: true | medical: false
+[2026-05-21T17:40:08.700Z] Processing: https://journeylite.com/verify/
+[2026-05-21T17:40:08.931Z] Saved: gastric-band-fill-video | words: 33 | review: true | medical: false
+[2026-05-21T17:40:09.275Z] Processing: https://journeylite.com/diabetes-walk/
+[2026-05-21T17:40:09.456Z] Saved: verify | words: 193 | review: true | medical: true
+[2026-05-21T17:40:09.732Z] Processing: https://journeylite.com/turkey-legs/
+[2026-05-21T17:40:10.257Z] Processing: https://journeylite.com/join-curry-losers/
+[2026-05-21T17:40:10.473Z] Saved: diabetes-walk | words: 155 | review: true | medical: false
+[2026-05-21T17:40:10.565Z] Saved: turkey-legs | words: 836 | review: false | medical: false
+[2026-05-21T17:40:11.033Z] Saved: join-curry-losers | words: 66 | review: true | medical: false
+[2026-05-21T17:40:11.275Z] Processing: https://journeylite.com/sync-fitbit-jawbone-fatsecret-fast-track-patient-support-center/
+[2026-05-21T17:40:11.366Z] Processing: https://journeylite.com/help-expand-coverage-treatment-obesity/
+[2026-05-21T17:40:11.835Z] Processing: https://journeylite.com/fitbit-part-deux/
+[2026-05-21T17:40:12.091Z] Saved: sync-fitbit-jawbone-fatsecret-fast-track-patient-support-center | words: 128 | review: true | medical: false
+[2026-05-21T17:40:12.123Z] Saved: help-expand-coverage-treatment-obesity | words: 135 | review: true | medical: false
+[2026-05-21T17:40:12.893Z] Processing: https://journeylite.com/get-fit-fitbit/
+[2026-05-21T17:40:12.924Z] Processing: https://journeylite.com/pre-op-teaching-video/
+[2026-05-21T17:40:13.251Z] Saved: fitbit-part-deux | words: 81 | review: true | medical: false
+[2026-05-21T17:40:13.642Z] Saved: pre-op-teaching-video | words: 0 | review: true | medical: false
+[2026-05-21T17:40:13.923Z] Saved: get-fit-fitbit | words: 146 | review: true | medical: false
+[2026-05-21T17:40:14.053Z] Processing: https://journeylite.com/manage-call-calendar/
+[2026-05-21T17:40:14.443Z] Processing: https://journeylite.com/block-tc-tp-raintree/
+[2026-05-21T17:40:14.725Z] Processing: https://journeylite.com/obesity-may-shorten-life-14-years/
+[2026-05-21T17:40:14.799Z] Saved: manage-call-calendar | words: 13 | review: true | medical: false
+[2026-05-21T17:40:15.252Z] Saved: block-tc-tp-raintree | words: 13 | review: true | medical: false
+[2026-05-21T17:40:15.637Z] Processing: https://journeylite.com/post-op-discharge-instructions/
+[2026-05-21T17:40:15.751Z] Saved: obesity-may-shorten-life-14-years | words: 186 | review: false | medical: false
+[2026-05-21T17:40:16.052Z] Processing: https://journeylite.com/patient-support-center-webinar-recording/
+[2026-05-21T17:40:16.311Z] Saved: post-op-discharge-instructions | words: 18 | review: true | medical: false
+[2026-05-21T17:40:16.553Z] Processing: https://journeylite.com/live-webinar-monday-july-7th/
+[2026-05-21T17:40:16.837Z] Saved: patient-support-center-webinar-recording | words: 19 | review: true | medical: false
+[2026-05-21T17:40:17.121Z] Processing: https://journeylite.com/fatsecret-fitbit-partnerships/
+[2026-05-21T17:40:17.164Z] Saved: live-webinar-monday-july-7th | words: 63 | review: true | medical: false
+[2026-05-21T17:40:17.638Z] Processing: https://journeylite.com/new-study-bariatric-surgery-reduces-cancer-risk/
+[2026-05-21T17:40:17.845Z] Saved: fatsecret-fitbit-partnerships | words: 76 | review: true | medical: false
+[2026-05-21T17:40:17.966Z] Processing: https://journeylite.com/how-to-stop-weight-gain-after-bariatric-surgery/
+[2026-05-21T17:40:18.405Z] Saved: new-study-bariatric-surgery-reduces-cancer-risk | words: 222 | review: true | medical: false
+[2026-05-21T17:40:18.648Z] Processing: https://journeylite.com/new-studies-jama-weight-loss-surgery-can-improve-diabetes/
+[2026-05-21T17:40:18.900Z] Saved: how-to-stop-weight-gain-after-bariatric-surgery | words: 690 | review: false | medical: false
+[2026-05-21T17:40:19.249Z] Processing: https://journeylite.com/support-group-nky/
+[2026-05-21T17:40:19.291Z] Saved: new-studies-jama-weight-loss-surgery-can-improve-diabetes | words: 260 | review: true | medical: true
+[2026-05-21T17:40:19.700Z] Processing: https://journeylite.com/welcome-new-site/
+[2026-05-21T17:40:19.973Z] Saved: support-group-nky | words: 77 | review: true | medical: false
+[2026-05-21T17:40:20.092Z] Processing: https://journeylite.com/menu-guidelines-soft-regular-diets/
+[2026-05-21T17:40:20.465Z] Saved: welcome-new-site | words: 17 | review: true | medical: false
+[2026-05-21T17:40:20.765Z] Saved: menu-guidelines-soft-regular-diets | words: 223 | review: false | medical: false
+[2026-05-21T17:40:20.774Z] Processing: https://journeylite.com/hcg-diet-apple-day-what-is-it/
+[2026-05-21T17:40:21.266Z] Processing: https://journeylite.com/federal-employees-may-have-coverage-for-weight-loss-medications-qsymiabelviq/
+[2026-05-21T17:40:21.376Z] Saved: hcg-diet-apple-day-what-is-it | words: 215 | review: false | medical: false
+[2026-05-21T17:40:21.566Z] Processing: https://journeylite.com/support-group-with-dr-jennifer-butterfield/
+[2026-05-21T17:40:22.037Z] Saved: federal-employees-may-have-coverage-for-weight-loss-medications-qsymiabelviq | words: 124 | review: true | medical: true
+[2026-05-21T17:40:22.210Z] Processing: https://journeylite.com/weight-loss-surgery-reverses-diabetes/
+[2026-05-21T17:40:22.250Z] Saved: support-group-with-dr-jennifer-butterfield | words: 101 | review: true | medical: false
+[2026-05-21T17:40:22.840Z] Processing: https://journeylite.com/interested-in-being-involved-in-a-media-interview-about-surgical-weight-loss-and-diabetes/
+[2026-05-21T17:40:22.873Z] Saved: weight-loss-surgery-reverses-diabetes | words: 123 | review: true | medical: false
+[2026-05-21T17:40:23.051Z] Processing: https://journeylite.com/whats-the-scoop-on-qsymia/
+[2026-05-21T17:40:23.481Z] Saved: interested-in-being-involved-in-a-media-interview-about-surgical-weight-loss-and-diabetes | words: 41 | review: true | medical: false
+[2026-05-21T17:40:23.674Z] Processing: https://journeylite.com/hcg-2-0-is-here/
+[2026-05-21T17:40:23.768Z] Saved: whats-the-scoop-on-qsymia | words: 205 | review: true | medical: true
+[2026-05-21T17:40:24.305Z] Processing: https://journeylite.com/new-nasal-hcg-option/
+[2026-05-21T17:40:24.342Z] Saved: hcg-2-0-is-here | words: 120 | review: true | medical: true
+[2026-05-21T17:40:24.569Z] Processing: https://journeylite.com/northern-kentucky-support-group/
+[2026-05-21T17:40:25.143Z] Processing: https://journeylite.com/health-plans-dont-cover-weight-loss-surgery/
+[2026-05-21T17:40:25.295Z] Saved: new-nasal-hcg-option | words: 148 | review: true | medical: true
+[2026-05-21T17:40:25.334Z] Saved: northern-kentucky-support-group | words: 87 | review: true | medical: false
+[2026-05-21T17:40:25.794Z] Saved: health-plans-dont-cover-weight-loss-surgery | words: 104 | review: true | medical: true
+[2026-05-21T17:40:26.096Z] Processing: https://journeylite.com/weight-loss-pill-turns-into-gastric-balloon-when-swallowed/
+[2026-05-21T17:40:26.135Z] Processing: https://journeylite.com/whats-the-deal-with-robotic-surgery/
+[2026-05-21T17:40:26.596Z] Processing: https://journeylite.com/rosie-odonnell-update/
+[2026-05-21T17:40:27.018Z] Saved: weight-loss-pill-turns-into-gastric-balloon-when-swallowed | words: 183 | review: true | medical: false
+[2026-05-21T17:40:27.256Z] Saved: whats-the-deal-with-robotic-surgery | words: 199 | review: false | medical: false
+[2026-05-21T17:40:27.439Z] Saved: rosie-odonnell-update | words: 102 | review: true | medical: false
+[2026-05-21T17:40:27.820Z] Processing: https://journeylite.com/many-cincinnati-doctors-are-recommending-sleeve-gastrectomy-for-diabetes/
+[2026-05-21T17:40:28.058Z] Processing: https://journeylite.com/how-fast-is-the-weight-loss-with-adipex-phentermine/
+[2026-05-21T17:40:28.240Z] Processing: https://journeylite.com/does-the-hcg-diet-work/
+[2026-05-21T17:40:28.584Z] Saved: many-cincinnati-doctors-are-recommending-sleeve-gastrectomy-for-diabetes | words: 203 | review: true | medical: false
+[2026-05-21T17:40:28.947Z] Saved: how-fast-is-the-weight-loss-with-adipex-phentermine | words: 180 | review: true | medical: true
+[2026-05-21T17:40:29.126Z] Saved: does-the-hcg-diet-work | words: 174 | review: true | medical: false
+[2026-05-21T17:40:29.384Z] Processing: https://journeylite.com/fast-track-protein-pack-instructions/
+[2026-05-21T17:40:29.747Z] Processing: https://journeylite.com/obesity-increases-risk-of-death-by-20-reduces-life-span-by-4-years/
+[2026-05-21T17:40:29.928Z] Processing: https://journeylite.com/weight-loss-surgery-safer-than-previously-thought/
+[2026-05-21T17:40:30.057Z] Saved: fast-track-protein-pack-instructions | words: 952 | review: false | medical: false
+[2026-05-21T17:40:30.474Z] Saved: obesity-increases-risk-of-death-by-20-reduces-life-span-by-4-years | words: 35 | review: true | medical: false
+[2026-05-21T17:40:30.609Z] Saved: weight-loss-surgery-safer-than-previously-thought | words: 44 | review: true | medical: false
+[2026-05-21T17:40:30.858Z] Processing: https://journeylite.com/5-myths-about-obesity/
+[2026-05-21T17:40:31.275Z] Processing: https://journeylite.com/new-anti-obesity-compound-identified/
+[2026-05-21T17:40:31.410Z] Processing: https://journeylite.com/is-obesity-a-disease-or-merely-a-condition/
+[2026-05-21T17:40:31.572Z] Saved: 5-myths-about-obesity | words: 9 | review: true | medical: false
+[2026-05-21T17:40:32.047Z] Saved: new-anti-obesity-compound-identified | words: 8 | review: true | medical: false
+[2026-05-21T17:40:32.100Z] Saved: is-obesity-a-disease-or-merely-a-condition | words: 14 | review: true | medical: false
+[2026-05-21T17:40:32.374Z] Processing: https://journeylite.com/obesity-caused-by-food-industry/
+[2026-05-21T17:40:32.848Z] Processing: https://journeylite.com/is-there-a-relationship-between-obesity-and-cancer/
+[2026-05-21T17:40:32.901Z] Processing: https://journeylite.com/study-shows-theres-no-such-thing-as-healthy-obesity/
+[2026-05-21T17:40:33.088Z] Saved: obesity-caused-by-food-industry | words: 4 | review: true | medical: false
+[2026-05-21T17:40:33.638Z] Saved: is-there-a-relationship-between-obesity-and-cancer | words: 38 | review: true | medical: false
+[2026-05-21T17:40:33.723Z] Saved: study-shows-theres-no-such-thing-as-healthy-obesity | words: 58 | review: true | medical: false
+[2026-05-21T17:40:33.888Z] Processing: https://journeylite.com/new-study-compares-sleeve-gastrectomy-to-gastric-bypass/
+[2026-05-21T17:40:34.439Z] Processing: https://journeylite.com/test/
+[2026-05-21T17:40:34.525Z] Processing: https://journeylite.com/stage-1-clear-liquid-diet/
+[2026-05-21T17:40:34.668Z] Saved: new-study-compares-sleeve-gastrectomy-to-gastric-bypass | words: 54 | review: true | medical: false
+[2026-05-21T17:40:35.309Z] Saved: stage-1-clear-liquid-diet | words: 21 | review: true | medical: false
+[2026-05-21T17:40:35.438Z] Saved: test | words: 13 | review: true | medical: false
+[2026-05-21T17:40:35.470Z] Processing: https://journeylite.com/protein-supplement-ideas/
+[2026-05-21T17:40:36.110Z] Processing: https://journeylite.com/tips-for-eating-away-from-home/
+[2026-05-21T17:40:36.238Z] Processing: https://journeylite.com/protein-facts/
+[2026-05-21T17:40:36.481Z] Saved: protein-supplement-ideas | words: 102 | review: true | medical: false
+[2026-05-21T17:40:36.808Z] Saved: tips-for-eating-away-from-home | words: 329 | review: true | medical: false
+[2026-05-21T17:40:36.948Z] Saved: protein-facts | words: 671 | review: true | medical: false
+[2026-05-21T17:40:37.282Z] Processing: https://journeylite.com/fiber-facts/
+[2026-05-21T17:40:37.610Z] Processing: https://journeylite.com/fat-facts/
+[2026-05-21T17:40:37.749Z] Processing: https://journeylite.com/bland-diet/
+[2026-05-21T17:40:37.948Z] Saved: fiber-facts | words: 175 | review: false | medical: false
+[2026-05-21T17:40:38.363Z] Saved: bland-diet | words: 129 | review: true | medical: false
+[2026-05-21T17:40:38.612Z] Saved: fat-facts | words: 696 | review: false | medical: false
+[2026-05-21T17:40:38.748Z] Processing: https://journeylite.com/5-and-1-diet/
+[2026-05-21T17:40:39.165Z] Processing: https://journeylite.com/3-and-2/
+[2026-05-21T17:40:39.389Z] Saved: 5-and-1-diet | words: 13 | review: true | medical: false
+[2026-05-21T17:40:39.412Z] Processing: https://journeylite.com/food-journaling/
+[2026-05-21T17:40:39.872Z] Saved: 3-and-2 | words: 13 | review: true | medical: false
+[2026-05-21T17:40:40.191Z] Processing: https://journeylite.com/macronutrients/
+[2026-05-21T17:40:40.357Z] Saved: food-journaling | words: 541 | review: false | medical: false
+[2026-05-21T17:40:40.674Z] Processing: https://journeylite.com/low-carb-cheat-sheet-2/
+[2026-05-21T17:40:41.158Z] Processing: https://journeylite.com/low-carb-cheat-sheet/
+[2026-05-21T17:40:41.182Z] Saved: macronutrients | words: 2509 | review: true | medical: false
+[2026-05-21T17:40:41.541Z] Saved: low-carb-cheat-sheet-2 | words: 84 | review: true | medical: false
+[2026-05-21T17:40:41.984Z] Processing: https://journeylite.com/frozen-dinners-is-there-a-good-choice/
+[2026-05-21T17:40:42.071Z] Saved: low-carb-cheat-sheet | words: 378 | review: true | medical: false
+[2026-05-21T17:40:42.343Z] Processing: https://journeylite.com/495/
+[2026-05-21T17:40:42.874Z] Processing: https://journeylite.com/vitamin-supplementation-for-gastric-band-patients/
+[2026-05-21T17:40:42.876Z] Saved: frozen-dinners-is-there-a-good-choice | words: 445 | review: true | medical: false
+[2026-05-21T17:40:43.633Z] Saved: 495 | words: 447 | review: true | medical: false
+[2026-05-21T17:40:43.677Z] Processing: https://journeylite.com/obesity-death-toll-under-rated/
+[2026-05-21T17:40:43.693Z] Saved: vitamin-supplementation-for-gastric-band-patients | words: 359 | review: true | medical: false
+[2026-05-21T17:40:44.433Z] Processing: https://journeylite.com/soda-public-enemy-1/
+[2026-05-21T17:40:44.494Z] Processing: https://journeylite.com/belviq-new-weight-loss-drug-prescribed-in-cincinnati-dayton-and-columbus/
+[2026-05-21T17:40:44.591Z] Saved: obesity-death-toll-under-rated | words: 34 | review: true | medical: false
+[2026-05-21T17:40:45.205Z] Saved: belviq-new-weight-loss-drug-prescribed-in-cincinnati-dayton-and-columbus | words: 103 | review: true | medical: true
+[2026-05-21T17:40:45.392Z] Processing: https://journeylite.com/new-estore-test/
+[2026-05-21T17:40:45.472Z] Saved: soda-public-enemy-1 | words: 60 | review: true | medical: false
+[2026-05-21T17:40:46.040Z] Processing: https://journeylite.com/surgery-in-dayton-in-2013/
+[2026-05-21T17:40:46.272Z] Processing: https://journeylite.com/low-carb-philly-cheese-stuffed-peppers/
+[2026-05-21T17:40:46.445Z] Saved: new-estore-test | words: 5 | review: true | medical: false
+[2026-05-21T17:40:46.821Z] Saved: surgery-in-dayton-in-2013 | words: 50 | review: true | medical: false
+[2026-05-21T17:40:47.231Z] Saved: low-carb-philly-cheese-stuffed-peppers | words: 203 | review: false | medical: false
+[2026-05-21T17:40:47.245Z] Processing: https://journeylite.com/breadless-stuffing/
+[2026-05-21T17:40:47.621Z] Processing: https://journeylite.com/crust-less-low-carb-pizza/
+[2026-05-21T17:40:48.031Z] Processing: https://journeylite.com/asian-lettuce-wraps/
+[2026-05-21T17:40:48.225Z] Saved: breadless-stuffing | words: 229 | review: false | medical: false
+[2026-05-21T17:40:48.748Z] Saved: crust-less-low-carb-pizza | words: 161 | review: false | medical: false
+[2026-05-21T17:40:49.025Z] Processing: https://journeylite.com/308/
+[2026-05-21T17:40:49.274Z] Saved: asian-lettuce-wraps | words: 148 | review: true | medical: false
+[2026-05-21T17:40:49.550Z] Processing: https://journeylite.com/298/
+[2026-05-21T17:40:49.799Z] Saved: 308 | words: 97 | review: true | medical: false
+[2026-05-21T17:40:50.076Z] Processing: https://journeylite.com/sugary-drinks-linked-to-obesity/
+[2026-05-21T17:40:50.567Z] Saved: 298 | words: 226 | review: false | medical: false
+[2026-05-21T17:40:50.601Z] Processing: https://journeylite.com/282/
+[2026-05-21T17:40:50.954Z] Saved: sugary-drinks-linked-to-obesity | words: 87 | review: true | medical: false
+[2026-05-21T17:40:51.372Z] Processing: https://journeylite.com/recipe-kalua-pig-in-a-slow-cooker/
+[2026-05-21T17:40:51.374Z] Saved: 282 | words: 28 | review: true | medical: false
+[2026-05-21T17:40:51.756Z] Processing: https://journeylite.com/new-tv-spot-get-your-numbers-down/
+[2026-05-21T17:40:52.175Z] Processing: https://journeylite.com/article-about-nutritional-for-plastic-surgery/
+[2026-05-21T17:40:52.455Z] Saved: recipe-kalua-pig-in-a-slow-cooker | words: 173 | review: false | medical: false
+[2026-05-21T17:40:52.503Z] Saved: new-tv-spot-get-your-numbers-down | words: 20 | review: true | medical: false
+[2026-05-21T17:40:53.194Z] Saved: article-about-nutritional-for-plastic-surgery | words: 346 | review: true | medical: false
+[2026-05-21T17:40:53.256Z] Processing: https://journeylite.com/hospital-update/
+[2026-05-21T17:40:53.304Z] Processing: https://journeylite.com/weight-loss-surgery-cuts-diabetes-risk-by-78/
+[2026-05-21T17:40:53.995Z] Processing: https://journeylite.com/215/
+[2026-05-21T17:40:54.041Z] Saved: hospital-update | words: 37 | review: true | medical: false
+[2026-05-21T17:40:54.090Z] Saved: weight-loss-surgery-cuts-diabetes-risk-by-78 | words: 74 | review: true | medical: false
+[2026-05-21T17:40:54.842Z] Processing: https://journeylite.com/stamping-out-diabetes-with-sleeve-gastrectomy/
+[2026-05-21T17:40:54.890Z] Processing: https://journeylite.com/181/
+[2026-05-21T17:40:55.039Z] Saved: 215 | words: 134 | review: true | medical: true
+[2026-05-21T17:40:55.598Z] Saved: 181 | words: 101 | review: true | medical: true
+[2026-05-21T17:40:55.840Z] Processing: https://journeylite.com/diabetes-is-it-now-a-surgical-disease/
+[2026-05-21T17:40:55.934Z] Saved: stamping-out-diabetes-with-sleeve-gastrectomy | words: 58 | review: true | medical: false
+[2026-05-21T17:40:56.399Z] Processing: https://journeylite.com/qsymia-vs-qnexa-whats-the-diff/
+[2026-05-21T17:40:56.736Z] Processing: https://journeylite.com/fda-approves-2nd-weight-loss-medication-qnexa/
+[2026-05-21T17:40:56.866Z] Saved: diabetes-is-it-now-a-surgical-disease | words: 155 | review: true | medical: false
+[2026-05-21T17:40:57.354Z] Saved: qsymia-vs-qnexa-whats-the-diff | words: 184 | review: false | medical: true
+[2026-05-21T17:40:57.439Z] Saved: fda-approves-2nd-weight-loss-medication-qnexa | words: 179 | review: false | medical: true
+[2026-05-21T17:40:57.668Z] Processing: https://journeylite.com/support-group-july-14th-11am/
+[2026-05-21T17:40:58.155Z] Processing: https://journeylite.com/how-many-calories-in-a-starbucks-caramel-frappuccino/
+[2026-05-21T17:40:58.249Z] Processing: https://journeylite.com/unprecedented-expansion-for-coverage-of-surgical-weight-loss-at-cleveland-clinic-health-system/
+[2026-05-21T17:40:58.714Z] Saved: support-group-july-14th-11am | words: 55 | review: true | medical: false
+[2026-05-21T17:40:58.878Z] Saved: unprecedented-expansion-for-coverage-of-surgical-weight-loss-at-cleveland-clinic-health-system | words: 79 | review: true | medical: false
+[2026-05-21T17:40:58.903Z] Saved: how-many-calories-in-a-starbucks-caramel-frappuccino | words: 24 | review: true | medical: false
+[2026-05-21T17:40:59.514Z] Processing: https://journeylite.com/fda-clears-first-new-weight-loss-pill-in-13-years/
+[2026-05-21T17:40:59.679Z] Processing: https://journeylite.com/cms-medicare-approves-sleeve-gastrectomy/
+[2026-05-21T17:40:59.705Z] Processing: https://journeylite.com/expanded-columbus-office-hours/
+[2026-05-21T17:41:00.287Z] Saved: fda-clears-first-new-weight-loss-pill-in-13-years | words: 99 | review: true | medical: false
+[2026-05-21T17:41:00.436Z] Saved: cms-medicare-approves-sleeve-gastrectomy | words: 96 | review: true | medical: false
+[2026-05-21T17:41:00.447Z] Saved: expanded-columbus-office-hours | words: 13 | review: true | medical: false
+[2026-05-21T17:41:01.089Z] Processing: https://journeylite.com/new-dayton-office-opens-tuesday-july-2nd/
+[2026-05-21T17:41:01.237Z] Processing: https://journeylite.com/29th-annual-meeting-of-the-american-society-of-metabolic-and-bariatric-surgery/
+[2026-05-21T17:41:01.860Z] Saved: new-dayton-office-opens-tuesday-july-2nd | words: 84 | review: true | medical: false
+[2026-05-21T17:41:02.057Z] Saved: 29th-annual-meeting-of-the-american-society-of-metabolic-and-bariatric-surgery | words: 69 | review: true | medical: false
+[2026-05-21T17:41:02.115Z] Reports saved to /Users/silascurry/Documents/GitHub/journey-lite/migration/journeylite-blog/reports
+[2026-05-21T17:41:02.115Z] Summary: 332 posts | 0 failed | 226 need review
+[2026-05-21T17:41:02.115Z] Crawl complete.

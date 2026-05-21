@@ -3,6 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import { BookConsultButton } from "@/components/site/BookConsultButton";
 import { Card, CardContent } from "@/components/ui/card";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { cn } from "@/lib/utils";
@@ -118,7 +119,7 @@ export function SiteHeader() {
 
         <div className="hidden items-center gap-2 lg:flex">
           <CallMenu />
-          <CTAButton href="/contact">Book Consultation</CTAButton>
+          <BookConsultButton />
         </div>
 
         <details className="group relative lg:hidden">
@@ -144,7 +145,7 @@ export function SiteHeader() {
               </div>
             ))}
             <div className="grid gap-2 pt-3">
-              <CTAButton href="/contact">Book Consultation</CTAButton>
+              <BookConsultButton />
               <CallMenu inline />
             </div>
           </div>
@@ -1080,9 +1081,7 @@ export function FinalCTA() {
           </p>
         </div>
         <div className="flex flex-col gap-3 sm:flex-row lg:justify-end">
-          <CTAButton href="/contact" variant="light">
-            Book Consultation
-          </CTAButton>
+          <BookConsultButton variant="light">Book Consultation</BookConsultButton>
           <CTAButton href={phoneHref} variant="outline">
             Call {phoneNumber}
           </CTAButton>

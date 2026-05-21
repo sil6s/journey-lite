@@ -13,14 +13,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { cn } from "@/lib/utils";
 
-declare global {
-  interface Window {
-    grecaptcha?: {
-      ready: (callback: () => void) => void;
-      execute: (siteKey: string, options: { action: string }) => Promise<string>;
-    };
-  }
-}
+// window.grecaptcha type is declared in types/recaptcha-enterprise.d.ts
 
 const recaptchaSiteKey = process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY;
 
@@ -37,10 +30,10 @@ export default function AdminLoginPage() {
 
   async function getRecaptchaToken() {
     if (!recaptchaSiteKey) return "development-bypass";
-    if (!window.grecaptcha) throw new Error("reCAPTCHA has not loaded yet.");
+    if (!window.grecaptcha?.enterprise) throw new Error("reCAPTCHA Enterprise has not loaded yet.");
     return new Promise<string>((resolve, reject) => {
-      window.grecaptcha?.ready(() => {
-        window.grecaptcha?.execute(recaptchaSiteKey, { action: "admin_login" }).then(resolve).catch(reject);
+      window.grecaptcha.enterprise.ready(() => {
+        window.grecaptcha.enterprise.execute(recaptchaSiteKey, { action: "admin_login" }).then(resolve).catch(reject);
       });
     });
   }

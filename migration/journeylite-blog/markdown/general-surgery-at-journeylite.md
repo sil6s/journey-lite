@@ -56,7 +56,7 @@ JourneyLite offers outpatient general surgery services including laparoscopic ga
 JourneyLite offers outpatient general surgery services including laparoscopic gallbladder removal, hernia repair, endoscopy, lipoma removal, and skin lesion excision for patients in Ohio, Kentucky, and Indiana.
 
 ## Featured Image
-https://journeylite.com/wp-content/uploads/2026/04/general-surgery-at-journeylite-scaled.webp
+https://journeylite.com/wp-content/uploads/2026/04/general-surgery-at-journeylite-scaled
 
 ## Featured Image Alt Text
 General Surgery at JourneyLite — JourneyLite
@@ -94,7 +94,7 @@ Many aren't aware that bariatric surgery is complex general surgery, so it shoul
 
 With a focus on minimally invasive techniques, efficient scheduling, and patient-centered care, JourneyLite is designed to make the surgical experience as straightforward and comfortable as possible.
 
-[Request an Appointment](https://journeylite.com/appointment-request/)
+(https://journeylite.com/appointment-request/)
 
 ## No Insurance or High Deductible? Our General Surgery Pricing Can Be Less Than Half of Hospital Charges!
 
@@ -113,7 +113,7 @@ Because we’re a focused outpatient practice, we can keep overhead lower and sc
 
 Want a straightforward estimate? Request an appointment and we’ll review your symptoms, prior testing, and the most likely next steps.
 
-[Get a Self-Pay Estimate](https://journeylite.com/appointment-request/) [See Maps & Locations](https://journeylite.com/map-schedule-and-info/)
+(https://journeylite.com/appointment-request/) (https://journeylite.com/map-schedule-and-info/)
 
 ## Outpatient General Surgery Services
 
@@ -206,7 +206,7 @@ Because JourneyLite has extensive experience with bariatric, abdominal, and mini
 
 If you’re looking for **cash-pay general surgery** or a lower-cost outpatient option, we can help you understand whether your condition is a good fit and provide a clear estimate before moving forward.
 
-[Request a General Surgery Consultation](https://journeylite.com/appointment-request/)
+(https://journeylite.com/appointment-request/)
 
 ## General Surgery FAQ
 
@@ -236,12 +236,12 @@ Yes. JourneyLite offers transparent self-pay options for select outpatient gener
 
 How do I schedule a general surgery consultation?
 
-You can request an appointment online using JourneyLite’s appointment request form. Our team will help determine the appropriate next step based on your symptoms, history, and surgical needs.  
-  
-[Request an Appointment](https://journeylite.com/appointment-request/)
+You can request an appointment online using JourneyLite’s appointment request form. Our team will help determine the appropriate next step based on your symptoms, history, and surgical needs.
+
+(https://journeylite.com/appointment-request/)
 
 ## Request a General Surgery Consultation
 
 Whether you are dealing with gallbladder symptoms, a hernia, upper GI concerns, or a lipoma or skin lesion, JourneyLite can help you take the next step toward treatment.
 
-[Request an Appointment](https://journeylite.com/appointment-request/) [View Maps & Locations](https://journeylite.com/map-schedule-and-info/)
+(https://journeylite.com/appointment-request/) (https://journeylite.com/map-schedule-and-info/)

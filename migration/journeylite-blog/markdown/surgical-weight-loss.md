@@ -56,7 +56,7 @@ Expert weight loss surgery in Ohio/Kentucky/Indiana for self-pay & insurance pat
 Expert weight loss surgery in Ohio/Kentucky/Indiana for self-pay & insurance patients. Gastric sleeve, Lap Band, bypass, SIPS, & revisions.
 
 ## Featured Image
-https://journeylite.com/wp-content/uploads/2014/11/surgeons.jpg
+/legacy-blog/surgical-weight-loss__surgeons.jpg
 
 ## Featured Image Alt Text
 Weight Loss Surgery Options at JourneyLite — JourneyLite
@@ -126,7 +126,7 @@ Surgical Weight Loss • Ohio, Kentucky & Indiana
 
 JourneyLite offers a full range of surgical weight-loss procedures, including gastric sleeve, gastric bypass, SADI/SIPS, Lap Band, and revisional bariatric surgery. Our goal is to help you choose the safest, most effective option for your body, health history, and long-term goals.
 
-[Request an Appointment](https://journeylite.com/easy-appointment-request/) [Request More Information](https://journeylite.com/information-request/) [View Pricing & Financing](https://journeylite.com/pricing-financing/)
+(https://journeylite.com/easy-appointment-request/) (https://journeylite.com/information-request/) (https://journeylite.com/pricing-financing/)
 
 ## Which Weight Loss Surgery Is Right for You?
 
@@ -134,7 +134,7 @@ There is no single “best” bariatric procedure for every patient. Gastric sle
 
 During your consultation, JourneyLite reviews your BMI, weight history, medical conditions, reflux symptoms, prior surgeries, insurance or self-pay options, and long-term goals to help guide the decision.
 
-[Start With a Consultation](https://journeylite.com/easy-appointment-request/) [Try the Weight Loss Navigator](https://journeylite.com/weight-loss-surgery-navigator/)
+(https://journeylite.com/easy-appointment-request/) (https://journeylite.com/weight-loss-surgery-navigator/)
 
 ## Why Surgery Works Differently
 
@@ -169,7 +169,7 @@ Gastric sleeve surgery reduces the stomach into a smaller sleeve-shaped pouch. I
 -   No intestinal bypass
 -   Can produce significant, durable weight loss
 
-[Gastric Sleeve Details](https://journeylite.com/surgical-weight-loss/gastric-sleeve-vsg/) [$10,000 Self-Pay Offer](https://journeylite.com/self-pay-gastric-sleeve-only-10000/) [Before & After Results](https://journeylite.com/gastric-sleeve-before-and-after/)
+(https://journeylite.com/surgical-weight-loss/gastric-sleeve-vsg/) [$10,000 Self-Pay Offer](https://journeylite.com/self-pay-gastric-sleeve-only-10000/) (https://journeylite.com/gastric-sleeve-before-and-after/)
 
 Powerful Metabolic Option
 
@@ -181,7 +181,7 @@ Gastric bypass combines a smaller stomach pouch with intestinal rerouting. It ma
 -   Often helpful for reflux-prone patients
 -   Common revision option after Lap Band or sleeve
 
-[Gastric Bypass Details](https://journeylite.com/surgical-weight-loss/gastric-bypass-surgery/) [Pricing & Financing](https://journeylite.com/pricing-financing/)
+(https://journeylite.com/surgical-weight-loss/gastric-bypass-surgery/) (https://journeylite.com/pricing-financing/)
 
 Advanced Procedure
 
@@ -193,7 +193,7 @@ SADI/SIPS combines sleeve gastrectomy with intestinal bypass to create a powerfu
 -   Can be used in selected revision settings
 -   Requires long-term vitamin and nutrition follow-up
 
-[SADI/SIPS Details](https://journeylite.com/surgical-weight-loss/sadi-surgery/) [Pricing & Financing](https://journeylite.com/pricing-financing/)
+(https://journeylite.com/surgical-weight-loss/sadi-surgery/) (https://journeylite.com/pricing-financing/)
 
 Adjustable Option
 
@@ -205,7 +205,7 @@ Lap Band surgery uses an adjustable band around the upper stomach. It is less co
 -   No stomach removal
 -   Requires ongoing band follow-up and adjustments
 
-[Lap Band Details](https://journeylite.com/surgical-weight-loss/lap-band/) [Pricing & Financing](https://journeylite.com/pricing-financing/)
+(https://journeylite.com/surgical-weight-loss/lap-band/) (https://journeylite.com/pricing-financing/)
 
 Second Chance
 
@@ -217,7 +217,7 @@ Some patients need revision surgery because of weight regain, reflux, band probl
 -   Sleeve-to-bypass or sleeve-to-SADI in selected cases
 -   Individualized based on anatomy and goals
 
-[Gastric Band Revision](https://journeylite.com/surgical-weight-loss/gastric-band-revision/) [Sleeve Revision](https://journeylite.com/surgical-weight-loss/gastric-sleeve-revision/)
+(https://journeylite.com/surgical-weight-loss/gastric-band-revision/) (https://journeylite.com/surgical-weight-loss/gastric-sleeve-revision/)
 
 Need Help Choosing?
 
@@ -229,7 +229,7 @@ Not ready to schedule yet? Start with educational resources that explain your op
 -   Compare surgical and non-surgical options
 -   Prepare better questions for your consultation
 
-[Weight Loss Navigator](https://journeylite.com/weight-loss-surgery-navigator/) [Online Info Session](https://journeylite.com/online-info-session/)
+(https://journeylite.com/weight-loss-surgery-navigator/) (https://journeylite.com/online-info-session/)
 
 ## Quick Procedure Comparison
 
@@ -275,19 +275,19 @@ Requires careful long-term nutrition and vitamin monitoring.
 
 JourneyLite offers transparent self-pay options for bariatric surgery, including a limited-time self-pay gastric sleeve offer for eligible primary sleeve patients. Financing options may also be available.
 
-[View $10,000 Sleeve Offer](https://journeylite.com/self-pay-gastric-sleeve-only-10000/) [View Pricing & Financing](https://journeylite.com/pricing-financing/) [Compare Medication Costs](https://journeylite.com/weight-loss-medication-cost/)
+(https://journeylite.com/self-pay-gastric-sleeve-only-10000/) (https://journeylite.com/pricing-financing/) (https://journeylite.com/weight-loss-medication-cost/)
 
 ## Surgery vs. GLP-1 Medications
 
 GLP-1 medications can be helpful for many patients, but surgery may provide more durable weight loss for appropriate candidates. JourneyLite offers both surgical and medical weight-loss options, so your consultation can focus on what fits your long-term health and budget.
 
-[Compare GLP-1 Pills vs. Surgery](https://journeylite.com/glp-1-pills-vs-weight-loss-surgery/) [Gastric Sleeve vs. GLP-1s](https://journeylite.com/sleeve-vs-glp-1s/) [Medication Cost Guide](https://journeylite.com/weight-loss-medication-cost/)
+(https://journeylite.com/glp-1-pills-vs-weight-loss-surgery/) (https://journeylite.com/sleeve-vs-glp-1s/) (https://journeylite.com/weight-loss-medication-cost/)
 
 ## Meet the JourneyLite Bariatric Surgeons
 
 Your surgeon matters. JourneyLite’s surgical program is led by experienced bariatric and minimally invasive surgeons who focus on patient education, safety, outcomes, and long-term support.
 
-![Dr. Trace Curry, MD, FASMBS, Medical Director of JourneyLite](https://journeylite.com/wp-content/smush-webp/2025/10/about-dr-Trace-Curry.jpg.webp)
+!(/legacy-blog/surgery-post-op-diet-tips__about-dr-Trace-Curry.jpg.webp)
 
 ### Dr. Trace Curry, MD, FASMBS
 
@@ -295,9 +295,9 @@ Medical Director • Bariatric Surgeon
 
 Dr. Trace Curry is the founder and Medical Director of JourneyLite. He is a board-certified general surgeon with extensive experience in gastric sleeve, gastric bypass, SADI/SIPS, revisional bariatric surgery, gastric balloon therapy, and medical weight management.
 
-[About Dr. Curry →](https://journeylite.com/about-dr-trace-curry/)
+(https://journeylite.com/about-dr-trace-curry/)
 
-![Dr. James Augusta, DO, FACOS, bariatric and minimally invasive surgeon at JourneyLite](https://journeylite.com/wp-content/smush-webp/2023/08/drAugustaHeadShotWeb-214x300.jpg.webp)
+!(/legacy-blog/surgical-weight-loss__drAugustaHeadShotWeb-214x300.jpg.webp.webp)
 
 ### Dr. James Augusta, DO, FACOS
 
@@ -305,7 +305,7 @@ Bariatric & Minimally Invasive Surgeon
 
 Dr. James Augusta is a board-certified general surgeon specializing in advanced laparoscopic and bariatric surgery. His focus includes gastric sleeve, gastric bypass, SADI-S, revisional bariatric surgery, and minimally invasive general surgery.
 
-[About Dr. Augusta →](https://journeylite.com/about-dr-james-augusta/)
+(https://journeylite.com/about-dr-james-augusta/)
 
 ## Accreditation, Safety & Experience
 
@@ -317,7 +317,7 @@ JourneyLite emphasizes bariatric experience, patient education, careful selectio
 -   Virtual visits available for many patients
 -   Nutrition support and long-term follow-up after surgery
 
-[About JourneyLite Surgery Center](https://journeylite.com/journeylite-surgery-center/) [Learn About AAAHC Accreditation](https://www.aaahc.org/accreditation/) [Learn About MBSAQIP](https://www.facs.org/quality-programs/mbsaqip/)
+(https://journeylite.com/journeylite-surgery-center/) (https://www.aaahc.org/accreditation/) (https://www.facs.org/quality-programs/mbsaqip/)
 
 ## Locations Serving Ohio, Kentucky & Indiana
 
@@ -333,7 +333,7 @@ JourneyLite serves patients across the tri-state region through several office l
 
 **Northern Kentucky** Crestview Hills
 
-[View Maps & Contacts](https://journeylite.com/map-schedule-and-info/) [Ohio Weight Loss Surgery](https://journeylite.com/weight-loss-surgery-ohio/) [Indiana Weight Loss Surgery](https://journeylite.com/weight-loss-surgery-indiana/)
+(https://journeylite.com/map-schedule-and-info/) (https://journeylite.com/weight-loss-surgery-ohio/) (https://journeylite.com/weight-loss-surgery-indiana/)
 
 ## Real Patient Stories
 
@@ -341,7 +341,7 @@ JourneyLite serves patients across the tri-state region through several office l
 
 Patient stories can help you understand what life after surgery may look like, but individual results vary.
 
-[See Before & After Results](https://journeylite.com/gastric-sleeve-before-and-after/) [Browse Testimonials](https://journeylite.com/testimonials/)
+(https://journeylite.com/gastric-sleeve-before-and-after/) (https://journeylite.com/testimonials/)
 
 ## Frequently Asked Questions
 
@@ -373,6 +373,6 @@ Many patients can begin with a virtual consultation, especially those traveling 
 
 Whether you are just starting to research bariatric surgery or already know which procedure interests you, JourneyLite can help you compare options and take the next step.
 
-[Request an Appointment](https://journeylite.com/easy-appointment-request/) [Request More Information](https://journeylite.com/information-request/) [Pricing & Financing](https://journeylite.com/pricing-financing/)
+(https://journeylite.com/easy-appointment-request/) (https://journeylite.com/information-request/) (https://journeylite.com/pricing-financing/)
 
 This page is for general educational information only and is not a substitute for medical advice. Individual results, risks, benefits, recovery, and candidacy vary. A consultation and medical evaluation are required to determine whether bariatric surgery is appropriate.

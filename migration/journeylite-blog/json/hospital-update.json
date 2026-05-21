@@ -1,0 +1,47 @@
+{
+  "sourceUrl": "https://journeylite.com/hospital-update/",
+  "canonicalUrl": "https://journeylite.com/hospital-update/",
+  "oldSlug": "hospital-update",
+  "slug": "hospital-update",
+  "title": "Hospital update",
+  "seoTitle": "Hospital update",
+  "metaDescription": "Many of you are aware that we are doing our inpatient cases at Christ Hospital. We are excited about developing […]",
+  "excerpt": "Many of you are aware that we are doing our inpatient cases at Christ Hospital. We are excited about developing […]",
+  "publishedAt": "2012-09-04T16:32:40+00:00",
+  "updatedAt": "2023-07-06T15:42:01+00:00",
+  "author": "DrCurry",
+  "categories": [
+    "Uncategorized"
+  ],
+  "tags": [
+    "diabetes",
+    "gastric band",
+    "lap band",
+    "realize band",
+    "sleeve gastrectomy",
+    "Weight loss"
+  ],
+  "featuredImageUrl": "/legacy-blog/christ-hospital-pre-operative-instructions__Christ.jpg",
+  "featuredImageAlt": "",
+  "inlineImages": [
+    {
+      "src": "/legacy-blog/christ-hospital-pre-operative-instructions__Christ.jpg",
+      "alt": "The Christ Hospital",
+      "caption": ""
+    }
+  ],
+  "bodyHtml": "<div class=\"entry-content\"><img decoding=\"async\" class=\"size-full wp-image-74442 aligncenter\" src=\"https://journeylite.com/wp-content/uploads/2021/04/Christ.jpg\" alt=\"The Christ Hospital\" width=\"276\" height=\"183\" loading=\"lazy\">\n\nMany of you are aware that we are doing our inpatient cases at Christ Hospital. We are excited about developing a great bariatric program at Christ, stay tuned for more info!\n\nTrace Curry MD</div>",
+  "bodyMarkdown": "!(/legacy-blog/christ-hospital-pre-operative-instructions__Christ.jpg) Many of you are aware that we are doing our inpatient cases at Christ Hospital. We are excited about developing a great bariatric program at Christ, stay tuned for more info! Trace Curry MD",
+  "internalLinks": [],
+  "externalLinks": [],
+  "ctaLinks": [],
+  "resourceType": "other",
+  "wordCount": 37,
+  "readingTime": 1,
+  "needsReview": true,
+  "medicalReviewRecommended": false,
+  "migrationNotes": [
+    "Body is short (37 words) — review content",
+    "Warning: Featured image has no alt text"
+  ]
+}

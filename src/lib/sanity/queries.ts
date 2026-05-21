@@ -30,7 +30,8 @@ const postFields = groq`
   tags,
   relatedServices,
   "category": category->{name, "slug": slug.current, description},
-  "author": author->{name, title, bio, credentials, image{..., asset->}}
+  "author": author->{name, title, bio, credentials, image{..., asset->}},
+  isMigrated
 `;
 
 export const postsQuery = groq`
@@ -66,6 +67,17 @@ export const postBySlugQuery = groq`
     ] | order(coalesce(publishedAt, _createdAt) desc)[0...3] {
       ${postFields}
     }
+  }
+`;
+
+export const migratedPostsQuery = groq`
+  *[
+    _type == "blogPost" &&
+    isMigrated == true &&
+    defined(slug.current) &&
+    (!defined(publishedAt) || publishedAt <= now())
+  ] | order(coalesce(publishedAt, _createdAt) desc) {
+    ${postFields}
   }
 `;
 

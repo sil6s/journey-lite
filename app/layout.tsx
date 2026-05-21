@@ -1,6 +1,7 @@
 import "./globals.css";
 import type { Metadata } from "next";
 import { Inter, Playfair_Display, Geist } from "next/font/google";
+import Script from "next/script";
 import { cn } from "@/lib/utils";
 import { Providers } from "@/components/site/providers";
 
@@ -20,6 +21,12 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" className={cn("font-sans", geist.variable)}>
+      <head>
+        <Script
+          src="https://www.google.com/recaptcha/enterprise.js?render=6LfmhvUsAAAAAI1x4uOucOQ7L4hy8c-LDwSmpntA"
+          strategy="afterInteractive"
+        />
+      </head>
       <body className={`${inter.variable} ${playfair.variable}`}>
         <Providers>{children}</Providers>
       </body>

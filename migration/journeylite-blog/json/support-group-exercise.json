@@ -1,0 +1,48 @@
+{
+  "sourceUrl": "https://journeylite.com/support-group-exercise/",
+  "canonicalUrl": "https://journeylite.com/support-group-exercise/",
+  "oldSlug": "support-group-exercise",
+  "slug": "support-group-exercise",
+  "title": "Support Group: Exercise",
+  "seoTitle": "Support Group: Exercise",
+  "metaDescription": "Thanks to all who participated in our exercise support group!  Here is the handout to download.",
+  "excerpt": "Thanks to all who participated in our exercise support group!  Here is the handout to download.",
+  "publishedAt": "2018-04-25T22:35:00+00:00",
+  "updatedAt": "2018-04-25T22:37:25+00:00",
+  "author": "DrCurry",
+  "categories": [
+    "Support Group"
+  ],
+  "tags": [
+    "exercise",
+    "support group"
+  ],
+  "featuredImageUrl": "/legacy-blog/support-group-exercise__JourneyLiteScale.png",
+  "featuredImageAlt": "",
+  "inlineImages": [
+    {
+      "src": "/legacy-blog/getting-through-the-holidays__pdf.svg",
+      "alt": "Icon",
+      "caption": ""
+    }
+  ],
+  "bodyHtml": "<div class=\"entry-content\">Thanks to all who participated in our exercise support group!&nbsp; Here is the handout to download.\n\n<div class=\"w3eden\"><!-- WPDM Link Template: Call to Action 3 -->\n\n<div class=\"well c2a3\">\n    <div class=\"media\">\n        <div class=\"mr-3\" align=\"left\">\n            <img decoding=\"async\" class=\"wpdm_icon\" alt=\"Icon\" src=\"https://journeylite.com/wp-content/plugins/download-manager/assets/file-type-icons/pdf.svg\" loading=\"lazy\">\n        </div>\n        <div class=\"media-body\">\n            <h3 class=\"media-heading\" style=\"padding-top: 0px;border:0px;margin: 0 0 5px 0;font-size:12pt;\">\n                <a style=\"font-weight: 700\" href=\"https://journeylite.com/download/exercise-support-group-handout/\">Exercise Support Group Handout</a>\n                <span style=\"font-size:8pt;font-weight:300\" class=\"text-muted ml-4\">\n                    <i class=\"fas fa-hdd mr-1\"></i> 557.18 KB\n                    <i class=\"ml-3 far fa-arrow-alt-circle-down mr-1\"></i> 1322 downloads\n                </span>\n            </h3>\n            ...\n        </div>\n        <div class=\"ml-3\" align=\"right\">\n            <a class=\"wpdm-download-link download-on-click btn btn-primary \" rel=\"nofollow\" href=\"#\" data-downloadurl=\"https://journeylite.com/download/exercise-support-group-handout/?wpdmdl=8913&amp;refresh=6a0f434c324bf1779385164\">Download</a>\n        </div>\n    </div>\n\n</div>\n\n</div></div>",
+  "bodyMarkdown": "Thanks to all who participated in our exercise support group!  Here is the handout to download.\n\n!(/legacy-blog/getting-through-the-holidays__pdf.svg)\n\n### (https://journeylite.com/download/exercise-support-group-handout/) 557.18 KB 1322 downloads\n\n...\n\n(#)",
+  "internalLinks": [
+    {
+      "text": "Exercise Support Group Handout",
+      "url": "https://journeylite.com/download/exercise-support-group-handout/"
+    }
+  ],
+  "externalLinks": [],
+  "ctaLinks": [],
+  "resourceType": "other",
+  "wordCount": 28,
+  "readingTime": 1,
+  "needsReview": true,
+  "medicalReviewRecommended": false,
+  "migrationNotes": [
+    "Body is short (28 words) — review content",
+    "Warning: Featured image has no alt text"
+  ]
+}

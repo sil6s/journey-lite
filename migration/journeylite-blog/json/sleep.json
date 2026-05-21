@@ -1,0 +1,39 @@
+{
+  "sourceUrl": "https://journeylite.com/sleep/",
+  "canonicalUrl": "https://journeylite.com/sleep/",
+  "oldSlug": "sleep",
+  "slug": "sleep",
+  "title": "Sleep Apnea Screening",
+  "seoTitle": "Sleep Apnea Screening",
+  "metaDescription": "There is no excerpt because this is a protected post.",
+  "excerpt": "There is no excerpt because this is a protected post.",
+  "publishedAt": "",
+  "updatedAt": "2022-11-03T18:01:25+00:00",
+  "author": "DrCurry",
+  "categories": [
+    "Uncategorized"
+  ],
+  "tags": [],
+  "featuredImageUrl": "",
+  "featuredImageAlt": "",
+  "inlineImages": [],
+  "bodyHtml": "<div class=\"entry-content\"><form action=\"https://journeylite.com/wp-login.php?action=postpass&amp;wpe-login=true\" class=\"post-password-form\" method=\"post\"><input type=\"hidden\" name=\"redirect_to\" value=\"https://journeylite.com/sleep/\">\n\t<p>This content is password-protected. To view it, please enter the password below.</p>\n\t<p><label for=\"pwbox-62828\">Password: <input name=\"post_password\" id=\"pwbox-62828\" type=\"password\" spellcheck=\"false\" required=\"\" size=\"20\"></label> <input type=\"submit\" name=\"Submit\" value=\"Enter\"></p></form>\n\t</div>",
+  "bodyMarkdown": "This content is password-protected. To view it, please enter the password below.\n\nPassword:",
+  "internalLinks": [],
+  "externalLinks": [],
+  "ctaLinks": [],
+  "resourceType": "other",
+  "wordCount": 13,
+  "readingTime": 1,
+  "needsReview": true,
+  "medicalReviewRecommended": false,
+  "migrationNotes": [
+    "Publish date is missing",
+    "Category is missing — set to Uncategorized",
+    "Featured image missing",
+    "Body is short (13 words) — review content",
+    "VALIDATION ERROR: publishedAt: Too small: expected string to have >=1 characters",
+    "Warning: No featured image",
+    "Warning: No tags"
+  ]
+}

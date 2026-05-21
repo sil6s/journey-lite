@@ -1,0 +1,36 @@
+{
+  "sourceUrl": "https://journeylite.com/5-and-1-diet/",
+  "canonicalUrl": "https://journeylite.com/5-and-1-diet/",
+  "oldSlug": "5-and-1-diet",
+  "slug": "5-and-1-diet",
+  "title": "5-and-1 Diet",
+  "seoTitle": "5-and-1 Diet",
+  "metaDescription": "There is no excerpt because this is a protected post.",
+  "excerpt": "There is no excerpt because this is a protected post.",
+  "publishedAt": "2013-10-19T14:10:24+00:00",
+  "updatedAt": "2023-07-06T16:00:30+00:00",
+  "author": "DrCurry",
+  "categories": [
+    "Uncategorized"
+  ],
+  "tags": [],
+  "featuredImageUrl": "",
+  "featuredImageAlt": "",
+  "inlineImages": [],
+  "bodyHtml": "<div class=\"entry-content\"><form action=\"https://journeylite.com/wp-login.php?action=postpass&amp;wpe-login=true\" class=\"post-password-form\" method=\"post\"><input type=\"hidden\" name=\"redirect_to\" value=\"https://journeylite.com/5-and-1-diet/\">\n\t<p>This content is password-protected. To view it, please enter the password below.</p>\n\t<p><label for=\"pwbox-532\">Password: <input name=\"post_password\" id=\"pwbox-532\" type=\"password\" spellcheck=\"false\" required=\"\" size=\"20\"></label> <input type=\"submit\" name=\"Submit\" value=\"Enter\"></p></form>\n\t</div>",
+  "bodyMarkdown": "This content is password-protected. To view it, please enter the password below.\n\nPassword:",
+  "internalLinks": [],
+  "externalLinks": [],
+  "ctaLinks": [],
+  "resourceType": "other",
+  "wordCount": 13,
+  "readingTime": 1,
+  "needsReview": true,
+  "medicalReviewRecommended": false,
+  "migrationNotes": [
+    "Featured image missing",
+    "Body is short (13 words) — review content",
+    "Warning: No featured image",
+    "Warning: No tags"
+  ]
+}

@@ -1,0 +1,39 @@
+{
+  "sourceUrl": "https://journeylite.com/reshape-gastric-balloon-patient-testimonials/",
+  "canonicalUrl": "https://journeylite.com/reshape-gastric-balloon-patient-testimonials/",
+  "oldSlug": "reshape-gastric-balloon-patient-testimonials",
+  "slug": "reshape-gastric-balloon-patient-testimonials",
+  "title": "ReShape Gastric Balloon Patient Testimonials",
+  "seoTitle": "ReShape Gastric Balloon Patient Testimonials",
+  "metaDescription": "",
+  "excerpt": "",
+  "publishedAt": "2016-01-19T18:09:53+00:00",
+  "updatedAt": "",
+  "author": "DrCurry",
+  "categories": [
+    "Uncategorized"
+  ],
+  "tags": [],
+  "featuredImageUrl": "/legacy-blog/information-appointment-request__JourneyLiteScale-Icon-200x200.jpg",
+  "featuredImageAlt": "",
+  "inlineImages": [],
+  "bodyHtml": "<div class=\"entry-content\"><iframe src=\"https://www.youtube.com/embed/YMlyj0Est4I\" width=\"560\" height=\"315\" frameborder=\"0\" allowfullscreen=\"allowfullscreen\" loading=\"lazy\"></iframe></div>",
+  "bodyMarkdown": "",
+  "internalLinks": [],
+  "externalLinks": [],
+  "ctaLinks": [],
+  "resourceType": "other",
+  "wordCount": 0,
+  "readingTime": 0,
+  "needsReview": true,
+  "medicalReviewRecommended": false,
+  "migrationNotes": [
+    "Meta description missing — excerpt used as suggestion",
+    "Body is short (0 words) — review content",
+    "No body content extracted",
+    "VALIDATION ERROR: bodyMarkdown: Too small: expected string to have >=1 characters",
+    "Warning: No meta description",
+    "Warning: No tags",
+    "Warning: Featured image has no alt text"
+  ]
+}

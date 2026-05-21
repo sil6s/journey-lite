@@ -1,0 +1,55 @@
+{
+  "sourceUrl": "https://journeylite.com/your-prescriptions-have-been-sent/",
+  "canonicalUrl": "https://journeylite.com/your-prescriptions-have-been-sent/",
+  "oldSlug": "your-prescriptions-have-been-sent",
+  "slug": "your-prescriptions-have-been-sent",
+  "title": "Your prescriptions have been sent!",
+  "seoTitle": "Your prescriptions have been sent!",
+  "metaDescription": "",
+  "excerpt": "<figure class=\"wpbwrapper vcfigure\"><div class=\"vcsingleimage-wrapper   vcboxbordergrey\"><img decoding=\"async\" class=\"vcsingleimage-img \" src=\"https://journeylite.com/wp-content/uploads/2015/08/IMG9307-150x250.jpg\" width",
+  "publishedAt": "2021-02-01T19:48:01+00:00",
+  "updatedAt": "2024-02-01T14:51:44+00:00",
+  "author": "DrCurry",
+  "categories": [
+    "Education"
+  ],
+  "tags": [
+    "balloon",
+    "emend",
+    "prescriptions"
+  ],
+  "featuredImageUrl": "/legacy-blog/your-prescriptions-have-been-sent__GoodRx.png",
+  "featuredImageAlt": "",
+  "inlineImages": [
+    {
+      "src": "/legacy-blog/your-prescriptions-have-been-sent__IMG_9307-150x250.jpg",
+      "alt": "Dr. Curry's First Orbera Gastric Balloon Patient",
+      "caption": ""
+    }
+  ],
+  "bodyHtml": "<div class=\"entry-content\"><div class=\"wpb-content-wrapper\"><div class=\"vc_row wpb_row vc_row-fluid\"><div class=\"wpb_column vc_column_container vc_col-sm-3\"><div class=\"vc_column-inner\"><div class=\"wpb_wrapper\">\n\t<div class=\"wpb_single_image wpb_content_element vc_align_center wpb_content_element\">\n\t\t\n\t\t<figure class=\"wpb_wrapper vc_figure\">\n\t\t\t<div class=\"vc_single_image-wrapper   vc_box_border_grey\"><img decoding=\"async\" class=\"vc_single_image-img \" src=\"https://journeylite.com/wp-content/uploads/2015/08/IMG_9307-150x250.jpg\" width=\"150\" height=\"250\" alt=\"Dr. Curry's First Orbera Gastric Balloon Patient\" title=\"First Orbera Patient\" loading=\"lazy\"></div>\n\t\t</figure>\n\t</div>\n</div></div></div><div class=\"wpb_column vc_column_container vc_col-sm-9\"><div class=\"vc_column-inner\"><div class=\"wpb_wrapper\">\n\t<div class=\"wpb_text_column wpb_content_element\">\n\t\t<div class=\"wpb_wrapper\">\n\t\t\t<p>If you received a text with a link to this page, your balloon prescriptions have been sent to your pharmacy.&nbsp; Please pick them up prior to surgery, and if you haven’t already looked over the <a href=\"https://journeylite.com/education/gastric-balloon-pre-procedure-instructions/\" rel=\"noopener noreferrer\">gastric balloon pre-and-post procedure instructions</a>, you can check them out here.</p>\n<p>One of the medications prescribed for your procedure is a powerful anti-nausea medication called Emend (generic: aprepitant).&nbsp; Bring this with you to your procedure as you will take it on arrival to the center. You will also take it the following morning at home.&nbsp; If this is not covered by your insurance, <a href=\"https://journeylite.com/goodrx-emend/\">this link explains how to reduce the cost of the medication using the GoodRx app</a>.</p>\n<p>You will get a call from the surgery center the day before your procedure with an arrival time. Please have nothing to eat or drink after midnight, and have a responsible adult drive (not a Lyft, Uber, or Taxi) available to drive you home from the procedure.</p>\n<p>See you soon!</p>\n<p>JourneyLite Physicians</p>\n\n\t\t</div>\n\t</div>\n</div></div></div></div></div></div>",
+  "bodyMarkdown": "If you received a text with a link to this page, your balloon prescriptions have been sent to your pharmacy.  Please pick them up prior to surgery, and if you haven’t already looked over the (https://journeylite.com/education/gastric-balloon-pre-procedure-instructions/), you can check them out here.\n\nOne of the medications prescribed for your procedure is a powerful anti-nausea medication called Emend (generic: aprepitant).  Bring this with you to your procedure as you will take it on arrival to the center. You will also take it the following morning at home.  If this is not covered by your insurance, (https://journeylite.com/goodrx-emend/).\n\nYou will get a call from the surgery center the day before your procedure with an arrival time. Please have nothing to eat or drink after midnight, and have a responsible adult drive (not a Lyft, Uber, or Taxi) available to drive you home from the procedure.\n\nSee you soon!\n\nJourneyLite Physicians",
+  "internalLinks": [
+    {
+      "text": "gastric balloon pre-and-post procedure instructions",
+      "url": "https://journeylite.com/education/gastric-balloon-pre-procedure-instructions/"
+    },
+    {
+      "text": "this link explains how to reduce the cost of the medication using the GoodRx app",
+      "url": "https://journeylite.com/goodrx-emend/"
+    }
+  ],
+  "externalLinks": [],
+  "ctaLinks": [],
+  "resourceType": "education",
+  "wordCount": 187,
+  "readingTime": 1,
+  "needsReview": false,
+  "medicalReviewRecommended": true,
+  "migrationNotes": [
+    "Meta description missing — excerpt used as suggestion",
+    "Contains medical/medication content — medical review recommended",
+    "Warning: No meta description",
+    "Warning: Featured image has no alt text"
+  ]
+}

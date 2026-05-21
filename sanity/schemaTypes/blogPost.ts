@@ -243,6 +243,15 @@ export const blogPost = defineType({
       description: "Optional author shown on the article page.",
     }),
     defineField({
+      name: "isMigrated",
+      title: "Migrated from WordPress",
+      type: "boolean",
+      group: "settings",
+      description: "Set automatically during migration. Marks posts imported from the legacy WordPress blog.",
+      initialValue: false,
+      hidden: true,
+    }),
+    defineField({
       name: "publishedAt",
       title: "Published date",
       type: "datetime",

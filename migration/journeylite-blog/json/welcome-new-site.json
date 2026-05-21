@@ -1,0 +1,35 @@
+{
+  "sourceUrl": "https://journeylite.com/welcome-new-site/",
+  "canonicalUrl": "https://journeylite.com/welcome-new-site/",
+  "oldSlug": "welcome-new-site",
+  "slug": "welcome-new-site",
+  "title": "Welcome to our new site!",
+  "seoTitle": "Welcome to our new site!",
+  "metaDescription": "Check out our new web site and subscribe to my blog for future updates! Dr. Curry [my_calendar]",
+  "excerpt": "Check out our new web site and subscribe to my blog for future updates! Dr. Curry [my_calendar]",
+  "publishedAt": "2014-06-11T11:27:06+00:00",
+  "updatedAt": "2014-06-12T18:17:03+00:00",
+  "author": "DrCurry",
+  "categories": [
+    "Uncategorized"
+  ],
+  "tags": [],
+  "featuredImageUrl": "/legacy-blog/information-appointment-request__JourneyLiteScale-Icon-200x200.jpg",
+  "featuredImageAlt": "",
+  "inlineImages": [],
+  "bodyHtml": "<div class=\"entry-content\">Check out our new web site and subscribe to my blog for future updates!\n\nDr. Curry\n\n[my_calendar]</div>",
+  "bodyMarkdown": "Check out our new web site and subscribe to my blog for future updates! Dr. Curry \\",
+  "internalLinks": [],
+  "externalLinks": [],
+  "ctaLinks": [],
+  "resourceType": "other",
+  "wordCount": 17,
+  "readingTime": 1,
+  "needsReview": true,
+  "medicalReviewRecommended": false,
+  "migrationNotes": [
+    "Body is short (17 words) — review content",
+    "Warning: No tags",
+    "Warning: Featured image has no alt text"
+  ]
+}

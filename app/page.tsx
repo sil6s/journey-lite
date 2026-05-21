@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { HomeQuiz } from "./components/HomeQuiz";
+import { BookConsultButton } from "@/components/site/BookConsultButton";
 import {
   ComparisonTable,
   ComparisonCard,
@@ -148,7 +149,7 @@ export default function HomePage() {
                 plan around your BMI, health history, goals, and comfort level.
               </p>
               <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-                <CTAButton href="/contact">Book Consultation</CTAButton>
+                <BookConsultButton />
                 <CTAButton href="/#surgical" variant="secondary">
                   View Weight Loss Options
                 </CTAButton>

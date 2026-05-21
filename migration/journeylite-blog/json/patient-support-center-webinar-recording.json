@@ -1,0 +1,35 @@
+{
+  "sourceUrl": "https://journeylite.com/patient-support-center-webinar-recording/",
+  "canonicalUrl": "https://journeylite.com/patient-support-center-webinar-recording/",
+  "oldSlug": "patient-support-center-webinar-recording",
+  "slug": "patient-support-center-webinar-recording",
+  "title": "Patient Support Center Webinar Recording",
+  "seoTitle": "Patient Support Center Webinar Recording",
+  "metaDescription": "Watch this nice little 20 minute video to learn about all the new features in our Patient Support Center!",
+  "excerpt": "Watch this nice little 20 minute video to learn about all the new features in our Patient Support Center!",
+  "publishedAt": "2014-07-08T12:04:13+00:00",
+  "updatedAt": "2025-02-19T21:04:05+00:00",
+  "author": "DrCurry",
+  "categories": [
+    "Education"
+  ],
+  "tags": [],
+  "featuredImageUrl": "/legacy-blog/information-appointment-request__JourneyLiteScale-Icon-200x200.jpg",
+  "featuredImageAlt": "",
+  "inlineImages": [],
+  "bodyHtml": "<div class=\"entry-content\">Watch this nice little 20 minute video to learn about all the new features in our Patient Support Center!\n\n<iframe class=\"tscplayer_inline embeddedObject\" name=\"tsc_player\" scrolling=\"no\" frameborder=\"0\" type=\"text/html\" style=\"overflow:hidden;\" src=\"http://www.screencast.com/users/Trace_Curry/folders/Default/media/a9f44e27-da25-4764-89b2-76ff0893e199/embed\" height=\"768\" width=\"1376\" webkitallowfullscreen=\"\" mozallowfullscreen=\"\" allowfullscreen=\"\" loading=\"lazy\"></iframe> </div>",
+  "bodyMarkdown": "Watch this nice little 20 minute video to learn about all the new features in our Patient Support Center!",
+  "internalLinks": [],
+  "externalLinks": [],
+  "ctaLinks": [],
+  "resourceType": "other",
+  "wordCount": 19,
+  "readingTime": 1,
+  "needsReview": true,
+  "medicalReviewRecommended": false,
+  "migrationNotes": [
+    "Body is short (19 words) — review content",
+    "Warning: No tags",
+    "Warning: Featured image has no alt text"
+  ]
+}

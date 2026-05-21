@@ -1,6 +1,116 @@
 {
+  "Education": {
+    "normalized": "Education",
+    "sanityRef": null,
+    "needsMapping": true
+  },
+  "Semaglutide": {
+    "normalized": "Semaglutide",
+    "sanityRef": null,
+    "needsMapping": true
+  },
+  "Share": {
+    "normalized": "Share",
+    "sanityRef": null,
+    "needsMapping": true
+  },
+  "Announcements": {
+    "normalized": "Announcements",
+    "sanityRef": null,
+    "needsMapping": true
+  },
+  "Patient of the Month": {
+    "normalized": "Patient of the Month",
+    "sanityRef": null,
+    "needsMapping": true
+  },
+  "Gastric Sleeve": {
+    "normalized": "Gastric Sleeve",
+    "sanityRef": null,
+    "needsMapping": true
+  },
+  "Gastric Sleeve/VSG": {
+    "normalized": "Gastric Sleeve/VSG",
+    "sanityRef": null,
+    "needsMapping": true
+  },
+  "Testimonial": {
+    "normalized": "Testimonial",
+    "sanityRef": null,
+    "needsMapping": true
+  },
+  "Vitamins/Minerals/Micronutrients": {
+    "normalized": "Vitamins/Minerals/Micronutrients",
+    "sanityRef": null,
+    "needsMapping": true
+  },
+  "Gastric Bypass/RNY": {
+    "normalized": "Gastric Bypass/RNY",
+    "sanityRef": null,
+    "needsMapping": true
+  },
+  "Medical Weight Loss": {
+    "normalized": "Medical Weight Loss",
+    "sanityRef": null,
+    "needsMapping": true
+  },
+  "Pre op": {
+    "normalized": "Pre op",
+    "sanityRef": null,
+    "needsMapping": true
+  },
+  "Offers": {
+    "normalized": "Offers",
+    "sanityRef": null,
+    "needsMapping": true
+  },
+  "Post op": {
+    "normalized": "Post op",
+    "sanityRef": null,
+    "needsMapping": true
+  },
   "Uncategorized": {
     "normalized": "Uncategorized",
+    "sanityRef": null,
+    "needsMapping": true
+  },
+  "Diabetes": {
+    "normalized": "Diabetes",
+    "sanityRef": null,
+    "needsMapping": true
+  },
+  "Support Group": {
+    "normalized": "Support Group",
+    "sanityRef": null,
+    "needsMapping": true
+  },
+  "Nutrition & Lifestyle": {
+    "normalized": "Nutrition & Lifestyle",
+    "sanityRef": null,
+    "needsMapping": true
+  },
+  "Lap Band": {
+    "normalized": "Lap Band",
+    "sanityRef": null,
+    "needsMapping": true
+  },
+  "gastric-bypass-rny": {
+    "normalized": "gastric-bypass-rny",
+    "sanityRef": null,
+    "needsMapping": true
+  },
+  "gastric-sleeve-vsg": {
+    "normalized": "gastric-sleeve-vsg",
+    "sanityRef": null,
+    "needsMapping": true
+  },
+  "Courses": {
+    "normalized": "Courses",
+    "sanityRef": null,
+    "needsMapping": true
+  },
+  "Office": {
+    "normalized": "Office",
     "sanityRef": null,
     "needsMapping": true
   }

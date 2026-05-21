@@ -126,10 +126,8 @@ function isMedicalReviewNeeded(title: string, body: string): boolean {
 }
 
 function makeSlug(raw: string, title: string): string {
-  if (raw) {
-    return slugify(raw, { lower: true, strict: true });
-  }
-  return slugify(title, { lower: true, strict: true });
+  const base = raw || title;
+  return slugify(base, { lower: true, strict: true }).slice(0, 96);
 }
 
 function extractExcerpt(bodyMarkdown: string, metaDescription: string): string {

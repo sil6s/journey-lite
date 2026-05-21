@@ -1,0 +1,48 @@
+{
+  "sourceUrl": "https://journeylite.com/allergens/",
+  "canonicalUrl": "https://journeylite.com/allergens/",
+  "oldSlug": "allergens",
+  "slug": "allergens",
+  "title": "eStore Product Allergens",
+  "seoTitle": "eStore Product Allergens",
+  "metaDescription": "If you have any food allergies and are ordering from our eStore, download this document with allergens listed!",
+  "excerpt": "If you have any food allergies and are ordering from our eStore, download this document with allergens listed!",
+  "publishedAt": "2024-02-23T14:57:45+00:00",
+  "updatedAt": "2024-02-23T14:59:35+00:00",
+  "author": "DrCurry",
+  "categories": [
+    "Education",
+    "Pre op"
+  ],
+  "tags": [
+    "allergens"
+  ],
+  "featuredImageUrl": "/legacy-blog/allergens__Chewy.jpg",
+  "featuredImageAlt": "",
+  "inlineImages": [
+    {
+      "src": "/legacy-blog/getting-through-the-holidays__pdf.svg",
+      "alt": "Icon",
+      "caption": ""
+    }
+  ],
+  "bodyHtml": "<div class=\"entry-content\">\n<p>If you have any food allergies and are ordering from our eStore, download this document with allergens listed!</p>\n\n\n<div class=\"w3eden\"><!-- WPDM Link Template: Default Template -->\n\n<div class=\"link-template-default card mb-2\">\n    <div class=\"card-body\">\n        <div class=\"media\">\n            <div class=\"mr-3 img-48\"><img decoding=\"async\" class=\"wpdm_icon\" alt=\"Icon\" src=\"https://journeylite.com/wp-content/plugins/download-manager/assets/file-type-icons/pdf.svg\" loading=\"lazy\"></div>\n            <div class=\"media-body\">\n                <h3 class=\"package-title\"><a href=\"https://journeylite.com/download/product-allergens-bariatrix-proti/\">Product Allergens-Bariatrix/Proti</a></h3>\n                <div class=\"text-muted text-small\"><i class=\"fas fa-copy\"></i> 1 file(s) <i class=\"fas fa-hdd ml-3\"></i> 187.09 KB</div>\n            </div>\n            <div class=\"ml-3\">\n                <a class=\"wpdm-download-link download-on-click btn btn-primary \" rel=\"nofollow\" href=\"#\" data-downloadurl=\"https://journeylite.com/download/product-allergens-bariatrix-proti/?wpdmdl=75299&amp;refresh=6a0f42fbefd591779385083\">Download</a>\n            </div>\n        </div>\n    </div>\n</div>\n\n</div>\n</div>",
+  "bodyMarkdown": "If you have any food allergies and are ordering from our eStore, download this document with allergens listed!\n\n!(/legacy-blog/getting-through-the-holidays__pdf.svg)\n\n### (https://journeylite.com/download/product-allergens-bariatrix-proti/)\n\n1 file(s) 187.09 KB\n\n(#)",
+  "internalLinks": [
+    {
+      "text": "Product Allergens-Bariatrix/Proti",
+      "url": "https://journeylite.com/download/product-allergens-bariatrix-proti/"
+    }
+  ],
+  "externalLinks": [],
+  "ctaLinks": [],
+  "resourceType": "other",
+  "wordCount": 27,
+  "readingTime": 1,
+  "needsReview": true,
+  "medicalReviewRecommended": false,
+  "migrationNotes": [
+    "Body is short (27 words) — review content",
+    "Warning: Featured image has no alt text"
+  ]
+}

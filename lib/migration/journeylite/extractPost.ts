@@ -57,6 +57,45 @@ function resolveUrl(href: string, base: string): string {
 export function extractPost(html: string, sourceUrl: string): RawExtractedPost {
   const $ = cheerio.load(html);
 
+  // --- Extract metadata from the full DOM BEFORE removing page chrome ---
+  // (Genesis theme puts categories/tags inside .entry-footer which is inside the article footer)
+
+  const preCleanCategories: string[] = [];
+  $(".entry-categories a, .cat-links a, .category-links a, a[rel='category tag']").each((_, el) => {
+    const text = $(el).text().trim();
+    if (text) preCleanCategories.push(text);
+  });
+
+  const preCleanTags: string[] = [];
+  $(".entry-tags a, .tags-links a, .tag-links a, a[rel='tag']").each((_, el) => {
+    const text = $(el).text().trim();
+    if (text) preCleanTags.push(text);
+  });
+
+  let preCleanAuthor =
+    $(".entry-author-name, .author-name, .byline .author, span.byline .author, a[rel='author']")
+      .first()
+      .text()
+      .trim() ||
+    $('meta[name="author"]').attr("content") ||
+    "";
+
+  // Genesis / GTM4WP injects JSON data in <script> blocks
+  const allScriptText = $("script").map((_, el) => $(el).html() || "").get().join("\n");
+  if (!preCleanAuthor) {
+    const authorMatch = allScriptText.match(/"pagePostAuthor"\s*:\s*"([^"]+)"/);
+    if (authorMatch) preCleanAuthor = authorMatch[1];
+  }
+  if (preCleanCategories.length === 0) {
+    const catMatch = allScriptText.match(/"pageCategory"\s*:\s*(\[[^\]]+\])/);
+    if (catMatch) {
+      try {
+        const cats: string[] = JSON.parse(catMatch[1]);
+        preCleanCategories.push(...cats);
+      } catch {}
+    }
+  }
+
   // --- Remove page chrome ---
   $(
     "header, footer, nav, .sidebar, .widget, .wp-block-group.is-layout-flow:has(.wp-block-navigation), " +
@@ -105,25 +144,12 @@ export function extractPost(html: string, sourceUrl: string): RawExtractedPost {
     $(".updated").attr("datetime") ||
     "";
 
-  // --- Author ---
-  const author =
-    $(".author-name, .entry-author-name, span.author, a[rel='author']").first().text().trim() ||
-    $('meta[name="author"]').attr("content") ||
+  // Use values extracted before chrome removal
+  const author = preCleanAuthor ||
     $('meta[property="article:author"]').attr("content") ||
     "";
-
-  // --- Categories & tags ---
-  const categories: string[] = [];
-  $(".cat-links a, .category-links a, a[rel='category tag']").each((_, el) => {
-    const text = $(el).text().trim();
-    if (text) categories.push(text);
-  });
-
-  const tags: string[] = [];
-  $(".tags-links a, .tag-links a, a[rel='tag']").each((_, el) => {
-    const text = $(el).text().trim();
-    if (text) tags.push(text);
-  });
+  const categories = preCleanCategories;
+  const tags = preCleanTags;
 
   // --- Featured image ---
   let featuredImageUrl =
