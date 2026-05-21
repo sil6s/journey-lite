@@ -22,6 +22,13 @@ export type BlogAuthor = {
   image?: SanityImageAsset;
 };
 
+export type BlogSource = {
+  title?: string;
+  publisher?: string;
+  url?: string;
+  note?: string;
+};
+
 export type BlogPost = {
   _id: string;
   title: string;
@@ -29,6 +36,9 @@ export type BlogPost = {
   excerpt?: string;
   publishedAt?: string;
   updatedAt?: string;
+  keyTakeaways?: string[];
+  showSources?: boolean;
+  sources?: BlogSource[];
   seoTitle?: string;
   seoDescription?: string;
   featuredImage?: SanityImageAsset;
