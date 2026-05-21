@@ -1,0 +1,46 @@
+[
+  {
+    "originalUrl": "https://journeylite.com/wp-content/uploads/2019/11/JourneyLiteScale-Icon-200x200.jpg",
+    "localPath": "migration/journeylite-blog/images/information-appointment-request__JourneyLiteScale-Icon-200x200.jpg",
+    "alt": "",
+    "caption": "",
+    "postSlug": "information-appointment-request",
+    "downloaded": true,
+    "error": null,
+    "sensitiveMedicalImage": false,
+    "suggestedAlt": "Image from information-appointment-request article"
+  },
+  {
+    "originalUrl": "https://journeylite.com/wp-content/smush-webp/2025/10/about-dr-Trace-Curry.jpg.webp",
+    "localPath": "migration/journeylite-blog/images/information-appointment-request__about-dr-Trace-Curry.jpg.webp",
+    "alt": "Dr. Trace Curry, bariatric surgeon and medical director of JourneyLite",
+    "caption": "",
+    "postSlug": "information-appointment-request",
+    "downloaded": true,
+    "error": null,
+    "sensitiveMedicalImage": false,
+    "suggestedAlt": "Dr. Trace Curry, bariatric surgeon and medical director of JourneyLite"
+  },
+  {
+    "originalUrl": "https://journeylite.com/wp-content/uploads/2014/11/surgeons.jpg",
+    "localPath": "migration/journeylite-blog/images/surgical-weight-loss__surgeons.jpg",
+    "alt": "",
+    "caption": "",
+    "postSlug": "surgical-weight-loss",
+    "downloaded": true,
+    "error": null,
+    "sensitiveMedicalImage": false,
+    "suggestedAlt": "Image from surgical-weight-loss article"
+  },
+  {
+    "originalUrl": "https://journeylite.com/wp-content/smush-webp/2023/08/drAugustaHeadShotWeb-214x300.jpg.webp",
+    "localPath": "migration/journeylite-blog/images/surgical-weight-loss__drAugustaHeadShotWeb-214x300.jpg.webp",
+    "alt": "Dr. James Augusta, DO, FACOS, bariatric and minimally invasive surgeon at JourneyLite",
+    "caption": "",
+    "postSlug": "surgical-weight-loss",
+    "downloaded": true,
+    "error": null,
+    "sensitiveMedicalImage": false,
+    "suggestedAlt": "Dr. James Augusta, DO, FACOS, bariatric and minimally invasive surgeon at JourneyLite"
+  }
+]

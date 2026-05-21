@@ -1,0 +1,207 @@
+{
+  "https://journeylite.com/appointment-request/": {
+    "anchorTexts": [
+      "Request an Appointment",
+      "Get a Self-Pay Estimate",
+      "Request a General Surgery Consultation"
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/map-schedule-and-info/": {
+    "anchorTexts": [
+      "See Maps & Locations",
+      "View Maps & Locations",
+      "View Maps & Contacts"
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/information-request/": {
+    "anchorTexts": [
+      "Request Information",
+      "Request More Information"
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/easy-appointment-request/": {
+    "anchorTexts": [
+      "Request an Appointment",
+      "Start With a Consultation"
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/surgical-weight-loss/gastric-sleeve-vsg/": {
+    "anchorTexts": [
+      "gastric sleeve",
+      "Gastric Sleeve Details"
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/surgical-weight-loss/gastric-bypass-surgery/": {
+    "anchorTexts": [
+      "gastric bypass",
+      "Gastric Bypass Details"
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/surgical-weight-loss/sadi-surgery/": {
+    "anchorTexts": [
+      "SADI surgery",
+      "SADI/SIPS Details"
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/revision-weight-loss-surgery/": {
+    "anchorTexts": [
+      "revision procedures"
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/weight-loss-medications/": {
+    "anchorTexts": [
+      "medical weight loss"
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/allurion-swallowable-gastric-balloon/": {
+    "anchorTexts": [
+      "Allurion swallowable gastric balloon"
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/pricing-financing/": {
+    "anchorTexts": [
+      "pricing and financing page",
+      "View Pricing & Financing",
+      "Pricing & Financing"
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/about-dr-trace-curry/": {
+    "anchorTexts": [
+      "Dr. Trace Curry, MD, FASMBS",
+      "About Dr. Curry →"
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/weight-loss-surgery-navigator/": {
+    "anchorTexts": [
+      "Try the Weight Loss Navigator",
+      "Weight Loss Navigator"
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/self-pay-gastric-sleeve-only-10000/": {
+    "anchorTexts": [
+      "$10,000 Self-Pay Offer",
+      "View $10,000 Sleeve Offer"
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/gastric-sleeve-before-and-after/": {
+    "anchorTexts": [
+      "Before & After Results",
+      "See Before & After Results"
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/surgical-weight-loss/lap-band/": {
+    "anchorTexts": [
+      "Lap Band Details"
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/surgical-weight-loss/gastric-band-revision/": {
+    "anchorTexts": [
+      "Gastric Band Revision"
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/surgical-weight-loss/gastric-sleeve-revision/": {
+    "anchorTexts": [
+      "Sleeve Revision"
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/online-info-session/": {
+    "anchorTexts": [
+      "Online Info Session"
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/weight-loss-medication-cost/": {
+    "anchorTexts": [
+      "Compare Medication Costs",
+      "Medication Cost Guide"
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/glp-1-pills-vs-weight-loss-surgery/": {
+    "anchorTexts": [
+      "Compare GLP-1 Pills vs. Surgery"
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/sleeve-vs-glp-1s/": {
+    "anchorTexts": [
+      "Gastric Sleeve vs. GLP-1s"
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/about-dr-james-augusta/": {
+    "anchorTexts": [
+      "About Dr. Augusta →"
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/journeylite-surgery-center/": {
+    "anchorTexts": [
+      "About JourneyLite Surgery Center"
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/weight-loss-surgery-ohio/": {
+    "anchorTexts": [
+      "Ohio Weight Loss Surgery"
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/weight-loss-surgery-indiana/": {
+    "anchorTexts": [
+      "Indiana Weight Loss Surgery"
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  },
+  "https://journeylite.com/testimonials/": {
+    "anchorTexts": [
+      "Browse Testimonials"
+    ],
+    "mappedSlug": null,
+    "needsMapping": true
+  }
+}

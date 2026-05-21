@@ -7,3 +7,8 @@ export const client = createClient({
   apiVersion,
   useCdn: true,
 });
+
+export const adminClient = client.withConfig({
+  useCdn: false,
+  token: process.env.SANITY_API_WRITE_TOKEN || process.env.SANITY_WRITE_TOKEN,
+});

@@ -1,6 +1,11 @@
 import type { ReactNode } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import { cn } from "@/lib/utils";
 import {
   cincinnatiLocation,
   comparisonRows,
@@ -28,23 +33,21 @@ export function CTAButton({
 }) {
   const classes: Record<ButtonVariant, string> = {
     primary:
-      "bg-[#145c42] text-white shadow-sm shadow-[#145c42]/20 hover:bg-[#0f4d37] focus-visible:ring-[#145c42]",
+      "!bg-[#145c42] !text-white shadow-sm shadow-[#145c42]/20 hover:!bg-[#0f4d37]",
     secondary:
-      "border border-[#cbd7d0] bg-white text-[#17362a] hover:border-[#145c42] hover:text-[#145c42] focus-visible:ring-[#145c42]",
+      "!border !border-[#cbd7d0] !bg-white !text-[#17362a] hover:!border-[#145c42] hover:!text-[#145c42] focus-visible:!ring-[#145c42]",
     light:
-      "bg-white text-[#0f3e2e] hover:bg-[#eff6f2] focus-visible:ring-white",
+      "!bg-white !text-[#0f3e2e] hover:!bg-[#eff6f2] focus-visible:!ring-white",
     outline:
-      "border border-[#90aa9c] text-white hover:bg-white/10 focus-visible:ring-white",
+      "!border !border-[#90aa9c] !bg-transparent !text-white hover:!bg-white/10 focus-visible:!ring-white",
   };
 
   return (
-    <Link
-      aria-label={ariaLabel}
-      className={`inline-flex min-h-10 items-center justify-center rounded-md px-4 py-2.5 text-sm font-semibold transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 ${classes[variant]}`}
-      href={href}
-    >
-      {children}
-    </Link>
+    <Button asChild className={classes[variant]} size="lg" variant={variant === "primary" ? "default" : "outline"}>
+      <Link aria-label={ariaLabel} href={href}>
+        {children}
+      </Link>
+    </Button>
   );
 }
 
@@ -264,9 +267,17 @@ export function SiteFooter() {
         <div>
           <h2 className="text-sm font-semibold text-white">Contact</h2>
           <p className="mt-3 text-sm">{phoneNumber}</p>
-          <CTAButton href="/contact" variant="light">
-            Book Consultation
-          </CTAButton>
+          <div className="mt-4 grid gap-2">
+            <CTAButton href="/contact" variant="light">
+              Book Consultation
+            </CTAButton>
+            <CTAButton href="/admin/login" variant="outline">
+              Admin Portal
+            </CTAButton>
+            <CTAButton href="/studio" variant="outline">
+              Studio Portal
+            </CTAButton>
+          </div>
         </div>
       </div>
     </footer>
@@ -335,10 +346,12 @@ export function FeatureCard({
   className?: string;
 }) {
   return (
-    <article className={`rounded-lg border border-[#dce4df] bg-white p-6 shadow-sm shadow-[#20372b]/5 ${className}`}>
-      <h3 className="text-xl font-semibold text-[#1f2c25]">{title}</h3>
-      <div className="mt-3 text-sm leading-6 text-[#53635b]">{children}</div>
-    </article>
+    <Card className={cn("rounded-lg border-[#dce4df] bg-white shadow-sm shadow-[#20372b]/5", className)}>
+      <CardContent className="p-6">
+        <h3 className="text-xl font-semibold text-[#1f2c25]">{title}</h3>
+        <div className="mt-3 text-sm leading-6 text-[#53635b]">{children}</div>
+      </CardContent>
+    </Card>
   );
 }
 
@@ -362,14 +375,17 @@ export function ProcedureCard({
   className?: string;
 }) {
   return (
-    <article
-      className={`flex h-full flex-col rounded-lg border border-[#dce4df] bg-white p-6 shadow-sm shadow-[#20372b]/5 transition hover:-translate-y-0.5 hover:shadow-md ${className}`}
+    <Card
+      className={cn(
+        "flex h-full flex-col rounded-lg border-[#dce4df] bg-white p-6 shadow-sm shadow-[#20372b]/5 transition hover:-translate-y-0.5 hover:shadow-md",
+        className,
+      )}
       id={id}
     >
       {status ? (
-        <p className="mb-3 inline-flex w-fit rounded-full bg-[#edf4ef] px-3 py-1 text-xs font-semibold text-[#145c42]">
+        <Badge className="mb-3 w-fit bg-[#edf4ef] text-[#145c42]" variant="secondary">
           {status}
-        </p>
+        </Badge>
       ) : null}
       <h3 className="text-xl font-semibold text-[#1f2c25]">{title}</h3>
       <p className="mt-3 text-sm leading-6 text-[#53635b]">{description}</p>
@@ -382,7 +398,7 @@ export function ProcedureCard({
       >
         {cta}
       </Link>
-    </article>
+    </Card>
   );
 }
 
@@ -603,33 +619,33 @@ export function ComparisonTable({ compact = false }: { compact?: boolean }) {
   return (
     <div className="mt-8">
       <div className="hidden overflow-hidden rounded-lg border border-[#dce4df] bg-white shadow-sm md:block">
-        <table className="w-full border-collapse text-left text-sm">
-          <thead className="bg-[#0f3e2e] text-white">
-            <tr>
+        <Table>
+          <TableHeader className="bg-[#0f3e2e] text-white">
+            <TableRow className="hover:bg-[#0f3e2e]">
               {["Option", "Type", "Typical use case", "Follow-up needs", "Best for", ""].map((heading) => (
-                <th className="px-4 py-4 font-semibold" key={heading}>
+                <TableHead className="px-4 py-4 font-semibold text-white" key={heading}>
                   {heading}
-                </th>
+                </TableHead>
               ))}
-            </tr>
-          </thead>
-          <tbody className="divide-y divide-[#edf1ee]">
+            </TableRow>
+          </TableHeader>
+          <TableBody>
             {comparisonRows.map((row) => (
-              <tr key={row.option}>
-                <td className="px-4 py-4 font-semibold text-[#1f2c25]">{row.option}</td>
-                <td className="px-4 py-4 text-[#53635b]">{row.type}</td>
-                <td className="px-4 py-4 text-[#53635b]">{row.useCase}</td>
-                <td className="px-4 py-4 text-[#53635b]">{row.followUp}</td>
-                <td className="px-4 py-4 text-[#53635b]">{row.bestFor}</td>
-                <td className="px-4 py-4">
+              <TableRow key={row.option}>
+                <TableCell className="px-4 py-4 font-semibold text-[#1f2c25]">{row.option}</TableCell>
+                <TableCell className="px-4 py-4 text-[#53635b]">{row.type}</TableCell>
+                <TableCell className="px-4 py-4 text-[#53635b]">{row.useCase}</TableCell>
+                <TableCell className="px-4 py-4 text-[#53635b]">{row.followUp}</TableCell>
+                <TableCell className="px-4 py-4 text-[#53635b]">{row.bestFor}</TableCell>
+                <TableCell className="px-4 py-4">
                   <Link className="font-semibold text-[#145c42] underline-offset-4 hover:underline" href={row.href}>
                     Compare
                   </Link>
-                </td>
-              </tr>
+                </TableCell>
+              </TableRow>
             ))}
-          </tbody>
-        </table>
+          </TableBody>
+        </Table>
       </div>
       <div className="grid gap-4 md:hidden">
         {comparisonRows.map((row) => (
@@ -1019,7 +1035,8 @@ export function ReviewBadge() {
 
 export function ReviewCard({ review }: { review: { name: string; excerpt: string } }) {
   return (
-    <article className="rounded-lg border border-[#dce4df] bg-white p-5 shadow-sm">
+    <Card className="rounded-lg border-[#dce4df] bg-white shadow-sm">
+      <CardContent className="p-5">
       <div className="flex items-center gap-3">
         <div className="flex h-10 w-10 items-center justify-center rounded-full bg-[#edf4ef] text-sm font-semibold text-[#145c42]">
           {review.name[0]}
@@ -1033,7 +1050,8 @@ export function ReviewCard({ review }: { review: { name: string; excerpt: string
         ★★★★★
       </p>
       <p className="mt-3 text-sm leading-6 text-[#53635b]">{review.excerpt}</p>
-    </article>
+      </CardContent>
+    </Card>
   );
 }
 
