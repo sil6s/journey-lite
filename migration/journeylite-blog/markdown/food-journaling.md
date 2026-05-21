@@ -98,9 +98,9 @@ Examples of Manual Journaling would be:
 
 Online Journaling is becoming very popular with the increasing amount of individuals that own computers and utilize the internet for research and entertainment.  If this sounds interesting to you, try out these websites:
 
--   -   (http://www.myfitnesspal.com)
-    -   www.sparkpeople.com
-    -   (https://www.myfooddiary.com/)
+-   (http://www.myfitnesspal.com)
+- www.sparkpeople.com
+- (https://www.myfooddiary.com/)
 
 **General Guidelines with Food Journaling:**
 
@@ -115,11 +115,11 @@ Online Journaling is becoming very popular with the increasing amount of individ
 You may want to ask yourself the following questions if you think there may be something off with your diet.
 
 -   **Are you skipping meals?**
-    -   Skipping meals can cause increased hunger, which can lead to overeating.
+- Skipping meals can cause increased hunger, which can lead to overeating.
 -   **Are you overeating at certain times in the day?**
-    -   Monitor if you are eating/snacking late in the day, many people struggle with boredom eating in the evening after dinner.
+- Monitor if you are eating/snacking late in the day, many people struggle with boredom eating in the evening after dinner.
 -   **Are you eating protein based meals?**
-    -   Protein based meals keep you full for long periods of time, where starchy meals will have you snacking before you know it.
+- Protein based meals keep you full for long periods of time, where starchy meals will have you snacking before you know it.
 
 -   **Do you attempt to overeat or eat too quickly when you wait to long to eat?**
 

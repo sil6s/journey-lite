@@ -95,5 +95,3 @@ Give these a shot today and keep your portions (and goals) on track. You’ve go
 Registered Dietitian, JourneyLite Physicians
 
 Devon Price is a licensed and registered dietitian who specializes in nutrition care for weight loss surgery and medical weight management patients. With years of experience guiding individuals through their pre- and post-operative journeys, Devon helps patients build sustainable, balanced eating habits that support long-term success after bariatric surgery.
-
-(https://journeylite.com/about-devon-price/)

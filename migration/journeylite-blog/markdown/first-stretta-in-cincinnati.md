@@ -104,12 +104,8 @@ Congratulations to JourneyLite for breaking new ground!
 
 NOTICEThe company that manufactures the Stretta device is currently restructuring and unable to provide the product. We are therefore currently \[...\]
 
-(https://journeylite.com/gerd-treatments/stretta-therapy/ "Read more")
-
 !(/legacy-blog/stretta-therapy__Stretta-cartoon.jpg.webp)
 
 #### GERD Treatments
 
 Treatments for GERD GERD, or gastroesophageal reflux disease, is a chronic condition that affects millions of Americans. Effective medications, called \[...\]
-
-(https://journeylite.com/gerd-treatments/ "Read more")

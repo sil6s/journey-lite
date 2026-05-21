@@ -95,15 +95,11 @@ Weight loss surgery options can be confusing, as there are many different progra
 
 **Our JourneyLite Weight Loss Physicians/Surgeons**
 
-Dr. Trace Curry
-
 Dr. James Augusta
 
 ## Weight Loss Surgery
 
 We offer powerful surgical weight loss options such as (https://journeylite.com/surgical-weight-loss/gastric-sleeve-vsg/) (VSG), (https://journeylite.com/surgical-weight-loss/gastric-bypass-surgery/), (https://journeylite.com/surgical-weight-loss/lap-band/), and (https://journeylite.com/sadi-surgery/) (SADI). Surgical options have been proven to provide the highest amount of weight loss and the highest long-term success rate. Get your diabetes, high blood pressure, high cholesterol, and sleep apnea under control!
-
-(https://journeylite.com/surgical-weight-loss/)
 
 <a href="https://www.spatzmedical.com/" target="_blank" class="vc_single_image-wrapper vc_box_shadow_3d  vc_box_border_grey"></a>
 
@@ -111,19 +107,13 @@ We offer powerful surgical weight loss options such as (https://journeylite.com/
 
 Some patients want to lose weight without permanently changing their anatomy, and don’t like the side effects of medications. A (https://en.wikipedia.org/wiki/Gastric_balloon) such as the (https://journeylite.com/weight-loss-medications/gastric-balloon-surgery/) and (https://journeylite.com/weight-loss-medications/gastric-balloon-surgery/) can provide weight loss of up to 30-50 pounds and still achieve those goals!
 
-(https://journeylite.com/non-surgical-weight-loss/gastric-balloon/)
-
 ## Weight Loss Medications
 
 There are several medications that can help patients lose weight without any procedures at all. If you are trying to avoid surgery, or even if you have already had a surgical weight loss procedure and want to maximize your results, we have the team for you!
 
-(https://journeylite.com/weight-loss-medications/)
-
 ## Revisional Surgery
 
 Although most patients succeed with surgical weight loss, not everyone does. If you have had a past procedure and are looking for revisional weight loss surgery, JourneyLite has an experienced team that can help. We offer gastric sleeve and gastric band conversions to gastric bypass or SIPS/SADI.
-
-(https://journeylite.com/surgical-weight-loss/weight-loss-surgery-revisions/)
 
 JourneyLite Physicians & JourneyLite Surgery Center
 

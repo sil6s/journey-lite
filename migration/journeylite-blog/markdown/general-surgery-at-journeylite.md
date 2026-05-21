@@ -94,8 +94,6 @@ Many aren't aware that bariatric surgery is complex general surgery, so it shoul
 
 With a focus on minimally invasive techniques, efficient scheduling, and patient-centered care, JourneyLite is designed to make the surgical experience as straightforward and comfortable as possible.
 
-(https://journeylite.com/appointment-request/)
-
 ## No Insurance or High Deductible? Our General Surgery Pricing Can Be Less Than Half of Hospital Charges!
 
 If you’re paying out of pocket—or you have a high-deductible plan—hospital pricing can be shocking once facility fees, anesthesia billing, and separate charges are added. JourneyLite offers **transparent self-pay options for select outpatient general surgery procedures** that are **often less than half the total cost of hospital-based surgery**.
@@ -206,8 +204,6 @@ Because JourneyLite has extensive experience with bariatric, abdominal, and mini
 
 If you’re looking for **cash-pay general surgery** or a lower-cost outpatient option, we can help you understand whether your condition is a good fit and provide a clear estimate before moving forward.
 
-(https://journeylite.com/appointment-request/)
-
 ## General Surgery FAQ
 
 Does JourneyLite perform gallbladder removal?
@@ -237,8 +233,6 @@ Yes. JourneyLite offers transparent self-pay options for select outpatient gener
 How do I schedule a general surgery consultation?
 
 You can request an appointment online using JourneyLite’s appointment request form. Our team will help determine the appropriate next step based on your symptoms, history, and surgical needs.
-
-(https://journeylite.com/appointment-request/)
 
 ## Request a General Surgery Consultation
 

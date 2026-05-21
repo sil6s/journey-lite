@@ -172,13 +172,13 @@ Some patients do benefit from adjunctive use of GLP-1 therapy after surgery, esp
 
 1.  -   **Proven superiority in weight loss magnitude and durability.**Surpassing medical therapy by large margins in both controlled and real-world data.
 
-    -   **Systemic metabolic benefits.**Better glycemic control, remission of diabetes, reduction of cardiovascular and renal risks, and lower mortality.
+- **Systemic metabolic benefits.**Better glycemic control, remission of diabetes, reduction of cardiovascular and renal risks, and lower mortality.
 
-    -   **Cost-effectiveness over time.**Studies show that when you consider total costs (surgery + care) versus long-term drug and medical costs, surgery may be more economical in the long run. For example, over two years, total costs averaged ~$51,794 for surgical patients vs ~$63,483 for GLP-1 therapy. (https://www.tctmd.com/news/better-outcomes-and-lower-cost-bariatric-surgery-over-glp-1s?utm_source=chatgpt.com)
+- **Cost-effectiveness over time.**Studies show that when you consider total costs (surgery + care) versus long-term drug and medical costs, surgery may be more economical in the long run. For example, over two years, total costs averaged ~$51,794 for surgical patients vs ~$63,483 for GLP-1 therapy. (https://www.tctmd.com/news/better-outcomes-and-lower-cost-bariatric-surgery-over-glp-1s?utm_source=chatgpt.com)
 
-    -   **Reduced burden of continuous therapy.**No need to remain on drugs indefinitely (with their side effects, cost, and adherence challenges) if surgery is successful.
+- **Reduced burden of continuous therapy.**No need to remain on drugs indefinitely (with their side effects, cost, and adherence challenges) if surgery is successful.
 
-    -   **Better long-term health trajectory.**The durability and breadth of benefits create more opportunity to “escape” the cycle of chronic disease.
+- **Better long-term health trajectory.**The durability and breadth of benefits create more opportunity to “escape” the cycle of chronic disease.
 
 While GLP-1 injections have a legitimate and growing role in obesity management, they are not a cure-all. The weight loss journey isn’t just about losing weight—it’s about _keeping the weight off_, reducing long-term disease risk, and improving quality of life. The rapidly growing body of evidence shows that bariatric/metabolic surgery holds advantages in magnitude, durability, cost, and health outcomes for many patients.
 
@@ -191,8 +191,6 @@ If you’re exploring weight loss options, JourneyLite is committed to helping y
 Medical Director, JourneyLite Physicians
 
 Dr. Curry is a board-certified bariatric surgeon and the Medical Director of JourneyLite Physicians and JourneyLite Surgery Center in Cincinnati, Ohio. He has performed over 5,000 minimally invasive weight-loss procedures and is nationally recognized for his work in metabolic and bariatric medicine.
-
-(https://journeylite.com/our-team/)
 
 ## Appointment Request-Free Consultation
 
@@ -254,9 +252,7 @@ Date of Birth\*
 
  MM slash DD slash YYYY
 
-
-
-At some point we may need to text you appointment reminders or other important information. By providing your phone number, you agree to receive text messages from JourneyLite. Message & data rates may apply. Message frequency varies, we try to keep it to a minimum. Reply STOP to any message to opt out, reply HELP for help. Click here for our (https://journeylite.com/terms-and-conditions/ "Terms & Conditions") or our (https://journeylite.com/privacy "Privacy Policy").
+At some point we may need to text you appointment reminders or other important information. By providing your phone number, you agree to receive text messages from JourneyLite. Message & data rates may apply. Message frequency varies, we try to keep it to a minimum. Reply STOP to any message to opt out, reply HELP for help. Click here for our (https://journeylite.com/terms-and-conditions/) or our (https://journeylite.com/privacy).
 
 Permission to Text/SMS
 
@@ -266,13 +262,9 @@ Permission to Text/SMS
 
 Phone
 
-
-
 Address:
 
  Street AddressCity AlabamaAlaskaAmerican SamoaArizonaArkansasCaliforniaColoradoConnecticutDelawareDistrict of ColumbiaFloridaGeorgiaGuamHawaiiIdahoIllinoisIndianaIowaKansasKentuckyLouisianaMaineMarylandMassachusettsMichiganMinnesotaMississippiMissouriMontanaNebraskaNevadaNew HampshireNew JerseyNew MexicoNew YorkNorth CarolinaNorth DakotaNorthern Mariana IslandsOhioOklahomaOregonPennsylvaniaPuerto RicoRhode IslandSouth CarolinaSouth DakotaTennesseeTexasUtahU.S. Virgin IslandsVermontVirginiaWashingtonWest VirginiaWisconsinWyomingArmed Forces AmericasArmed Forces EuropeArmed Forces Pacific State ZIP Code
-
-
 
 Height (ft)\*
 
@@ -294,8 +286,6 @@ Preferred Location:\*
 
 **State law requires a live, in-person initial consultation to start weight loss medications. You may be eligible for virtual visits for refills.**
 
-
-
 Weight loss medication interest(s):\*
 
  Adipex (phentermine)
@@ -309,8 +299,6 @@ Weight loss medication interest(s):\*
  Wegovy/Mounjaro/Ozempic/Semaglutide/Tirzepatide
 
  Unsure (or other)
-
-
 
 Select Procedures of Interest
 
@@ -373,8 +361,6 @@ Self-payUnsureAetna AmbetterAnthemAetnaBuckeyeCaresourceCignaHumanaHumana Medica
 If you are going through insurance, select your company from the list. If you are unsure about your coverage, select "Unsure." If you know you're insurance doesn't cover surgery, select "Self-pay."
 
 **Currently we are not accepting this plan, please check back in the future! If you are a self-pay patient, please proceed.**
-
-
 
 Additional Message
 

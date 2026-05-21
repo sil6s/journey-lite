@@ -89,18 +89,18 @@ Let’s break it down.
 
 After surgery, your digestive system functions differently:
 
--   -   Stomach capacity is smaller
-    -   Gastric emptying may be faster
-    -   Hunger and fullness cues are altered
-    -   Blood sugar regulation can be more sensitive
+-   Stomach capacity is smaller
+- Gastric emptying may be faster
+- Hunger and fullness cues are altered
+- Blood sugar regulation can be more sensitive
 
 This makes _how_ and _when_ you eat just as important as _what_ you eat. Consistent meal structure helps:
 
--   -   Support protein intake
-    -   Reduce grazing
-    -   Improve energy and blood sugar stability
-    -   Minimize dumping syndrome and reflux
-    -   Create habits that support long-term success
+-   Support protein intake
+- Reduce grazing
+- Improve energy and blood sugar stability
+- Minimize dumping syndrome and reflux
+- Create habits that support long-term success
 
 But the **goal of structure changes over time**.
 
@@ -110,10 +110,10 @@ In the early phase, nutrition is about **healing and adaptation**, not perfectio
 
 ### **Primary Goals:**
 
--   -   Protect the surgical site
-    -   Meet protein and fluid need
-    -   Learn tolerance cues
-    -   Avoid discomfort and complications
+-   Protect the surgical site
+- Meet protein and fluid need
+- Learn tolerance cues
+- Avoid discomfort and complications
 
 ### **Meal Frequency & Timing**
 
@@ -122,10 +122,10 @@ Early post-op patients often do best with:
 
 Eating every 2-3  hours helps:
 
--   -   Prevent nausea and dizziness
-    -   Support protein goals
-    -   Avoid extreme hunger
-    -   Reduce dumping syndrome risk
+-   Prevent nausea and dizziness
+- Support protein goals
+- Avoid extreme hunger
+- Reduce dumping syndrome risk
 
 Skipping meals early on can lead to fatigue, dehydration, and poor protein intake. 
 
@@ -135,8 +135,8 @@ Protein is the top priority in early recovery.
 
 General targets:
 
--   -   **20–30 g protein per meal**
-    -   **10–15 g protein per snack/mini meal**
+-   **20–30 g protein per meal**
+- **10–15 g protein per snack/mini meal**
 
 Protein should be eaten _first_, before vegetables or carbs. If protein isn’t tolerated well yet, protein shakes or soft proteins may be necessary – and that’s completely normal.
 
@@ -146,10 +146,10 @@ Early post-op bodies do _not_ tolerate rushed meals.
 
 Helpful rules:
 
--   -   Meals should last **20–30 minutes**
-    -   Small bites, thorough chewing
-    -   Stop at the first sign of fullness
-    -   No drinking **5-10 minutes before meals and 20-30 minutes after meals**
+-   Meals should last **20–30 minutes**
+- Small bites, thorough chewing
+- Stop at the first sign of fullness
+- No drinking **5-10 minutes before meals and 20-30 minutes after meals**
 
 These habits reduce vomiting, pain, reflux, and dumping syndrome. 
 
@@ -157,15 +157,15 @@ These habits reduce vomiting, pain, reflux, and dumping syndrome. 
 
 Early post-op patients are often more sensitive to:
 
--   -   Sugar
-    -   Refined carbs
-    -   Liquid calories
+-   Sugar
+- Refined carbs
+- Liquid calories
 
 Carbs should:
 
--   -   Be paired with protein
-    -   Come from vegetables/fruits or small portions of other whole foods
-    -   Be introduced slowly based on tolerance
+-   Be paired with protein
+- Come from vegetables/fruits or small portions of other whole foods
+- Be introduced slowly based on tolerance
 
 At this stage, **structure protects your body while it heals**.
 
@@ -175,10 +175,10 @@ Once healing is complete, nutrition shifts from protection to **long-term metabo
 
 ### **Primary Goals:**
 
--   -   Maintain weight loss
-    -   Preserve lean muscle
-    -   Prevent grazing and regain
-    -   Support energy and quality of life
+-   Maintain weight loss
+- Preserve lean muscle
+- Prevent grazing and regain
+- Support energy and quality of life
 
 ### **Meal Frequency Becomes Flexible – But Intentional**
 
@@ -198,16 +198,16 @@ Protein remains essential long-term, but many patients unintentionally **backloa
 
 Better strategy:
 
--   -   Spread protein evenly throughout the day
-    -   Include protein in meals and snacks
-    -   Aim for satiety, not restriction
+-   Spread protein evenly throughout the day
+- Include protein in meals and snacks
+- Aim for satiety, not restriction
 
 Protein supports:
 
--   -   Muscle preservation
-    -   Metabolic rate
-    -   Blood sugar stability
-    -   Fullness between meals
+-   Muscle preservation
+- Metabolic rate
+- Blood sugar stability
+- Fullness between meals
 
 ### **Carbs Require Strategy, Not Fear**
 
@@ -215,10 +215,10 @@ Long-term patients often tolerate carbs better – but timing and pairing matter
 
 Best practices:
 
--   -   Pair carbs with protein
-    -   Choose fiber rich carbs
-    -   Avoid liquid carbs and “slider foods”
-    -   Watch carb-heavy snacks that don’t provide satiety
+-   Pair carbs with protein
+- Choose fiber rich carbs
+- Avoid liquid carbs and “slider foods”
+- Watch carb-heavy snacks that don’t provide satiety
 
 ### **Reflux, Dumping, and Comfort Eating**
 
@@ -226,10 +226,10 @@ Meal timing can make or break digestive comfort long-term.
 
 Helpful habits:
 
--   -   Finish eating **2–3 hours before bed**
-    -   Avoid large evening meals
-    -   Eat slowly even years after surgery
-    -   Be mindful of trigger foods (spicy, acidic, high-fat)
+-   Finish eating **2–3 hours before bed**
+- Avoid large evening meals
+- Eat slowly even years after surgery
+- Be mindful of trigger foods (spicy, acidic, high-fat)
 
 Many long-term symptoms improve simply by adjusting _when_ meals happen.
 
@@ -240,10 +240,10 @@ Long-term structure is about **protecting habits**.
 
 Without structure:
 
--   -   Grazing increases
-    -   Protein intake drops
-    -   Calorie-dense foods sneak in
-    -   Hunger cues become unreliable
+-   Grazing increases
+- Protein intake drops
+- Calorie-dense foods sneak in
+- Hunger cues become unreliable
 
 Structure doesn’t mean rigidity – it means **support**.
 
@@ -253,10 +253,10 @@ A powerful mindset shift: Structure isn’t punishment. It’s self-care.
 
 Early post-op and long-term bariatric patients need **different approaches**, but the foundation remains the same:
 
--   -   Eat intentionally
-    -   Prioritize protein
-    -   Respect timing
-    -   Listen to your body
+-   Eat intentionally
+- Prioritize protein
+- Respect timing
+- Listen to your body
 
 If meeting your nutrition goals feels harder as time goes on, it doesn’t mean you’ve failed – it usually means your **strategy needs updating**.
 

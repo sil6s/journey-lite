@@ -88,8 +88,8 @@ Let’s break that belief down and take a closer look at how exercise supports w
 
 There are technically four types of exercise: strength, aerobic, balance, and stretching. But to simplify things, let’s focus on the two categories that most directly impact weight loss:
 
--   -   **Cardio (Aerobic Exercise)**
-    -   **Strength Training (Resistance Training)**
+-   **Cardio (Aerobic Exercise)**
+- **Strength Training (Resistance Training)**
 
 ### **Cardio: Burn Calories Now, Improve Your Heart Forever**
 
@@ -97,11 +97,11 @@ Cardio is any form of exercise that gets your heart rate up and boosts your endu
 
 The benefits of cardio go far beyond just weight loss:
 
--   -   It burns calories _while_ you’re doing it.
-    -   It improves cardiovascular health.
-    -   It reduces inflammation.
-    -   It can lower cholesterol levels.
-    -   It improves how oxygen and nutrients move through your body (Harvard Health).
+-   It burns calories _while_ you’re doing it.
+- It improves cardiovascular health.
+- It reduces inflammation.
+- It can lower cholesterol levels.
+- It improves how oxygen and nutrients move through your body (Harvard Health).
 
 In terms of weight loss, cardio helps you achieve a **calorie deficit**, which is necessary for losing fat. When your body needs more energy than it gets from food, it turns to stored fat for fuel. Cardio increases this energy need, making it easier to shed weight ((https://www.cdc.gov/healthy-weight-growth/physical-activity/?CDC_AAref_Val=https://www.cdc.gov/healthyweight/physical_activity/)).
 
@@ -111,9 +111,9 @@ While cardio focuses on burning calories in the moment, strength training builds
 
 Here’s why that matters:
 
--   -   **Muscle burns more calories than fat**—even at rest ((https://www.mayoclinic.org/healthy-lifestyle/fitness/in-depth/strength-training/art-20046670)).
-    -   The more muscle you have, the more calories your body burns 24/7.
-    -   You’ll lose fat while preserving or even gaining muscle (ACE Fitness).
+-   **Muscle burns more calories than fat**—even at rest ((https://www.mayoclinic.org/healthy-lifestyle/fitness/in-depth/strength-training/art-20046670)).
+- The more muscle you have, the more calories your body burns 24/7.
+- You’ll lose fat while preserving or even gaining muscle (ACE Fitness).
 
 Strength training includes bodyweight exercises like yoga and Pilates, resistance workouts using bands or water (like swimming), and classic weightlifting with dumbbells or machines.
 
@@ -121,8 +121,8 @@ Strength training includes bodyweight exercises like yoga and Pilates, resistanc
 
 Both! But they play different roles:
 
--   -   **Cardio** helps reduce fat and contributes to visible weight loss on the scale.
-    -   **Strength training** reshapes your body by building lean muscle, increasing metabolism, and tightening your overall appearance.
+-   **Cardio** helps reduce fat and contributes to visible weight loss on the scale.
+- **Strength training** reshapes your body by building lean muscle, increasing metabolism, and tightening your overall appearance.
 
 Here’s the twist: sometimes, the scale doesn’t move much with strength training. But that doesn’t mean your body isn’t changing.
 
@@ -140,11 +140,11 @@ Exercise isn’t just good for your body—it’s one of the most powerful tools
 
 Even just 10–15 minutes of movement can:
 
--   -   Release endorphins (your brain’s feel-good chemicals)
-    -   Reduce anxiety and symptoms of depression
-    -   Improve focus and clarity
-    -   Boost your mood and energy levels
-    -   Help manage stress and improve sleep ((https://www.apa.org/monitor/2011/12/exercise), Harvard Health)
+-   Release endorphins (your brain’s feel-good chemicals)
+- Reduce anxiety and symptoms of depression
+- Improve focus and clarity
+- Boost your mood and energy levels
+- Help manage stress and improve sleep ((https://www.apa.org/monitor/2011/12/exercise), Harvard Health)
 
 In fact, regular movement has been shown to be as effective as medication for mild to moderate depression. That means whether you’re walking around the block or hitting the gym, you’re not just improving your body—you’re supporting your mind and emotional well-being too.
 
@@ -154,12 +154,12 @@ Whether it’s a walk around the block, a short bodyweight routine, or a few min
 
 As you gradually add more movement to your week, your body will reward you with:
 
--   -   More energy
-    -   Faster metabolism
-    -   Fat loss
-    -   Increased strength and stamina
-    -   A renewed sense of confidence
-    -   A calmer, clearer mind
+-   More energy
+- Faster metabolism
+- Fat loss
+- Increased strength and stamina
+- A renewed sense of confidence
+- A calmer, clearer mind
 
 So the next time you think _“What’s the point if I can’t do a full workout?”_—remember this: the point is progress, not perfection. One step, one squat, one walk at a time… it all adds up.
 

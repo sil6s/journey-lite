@@ -10,7 +10,10 @@
     "crawl:journeylite-blog": "tsx scripts/crawl-journeylite-blog.ts",
     "import:journeylite-blog": "tsx scripts/import-journeylite-blog-to-sanity.ts",
     "clean:migration": "tsx scripts/clean-migration-files.ts",
-    "patch:migrated": "tsx scripts/patch-migrated-sanity-posts.ts"
+    "patch:migrated": "tsx scripts/patch-migrated-sanity-posts.ts",
+    "upload:images": "tsx scripts/upload-images-to-sanity.ts",
+    "patch:featured-images": "tsx scripts/patch-featured-images.ts",
+    "publish:migrated": "tsx scripts/publish-migrated-posts.ts"
   },
   "dependencies": {
     "@portabletext/react": "^6.1.0",

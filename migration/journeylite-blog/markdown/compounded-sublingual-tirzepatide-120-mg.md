@@ -90,7 +90,6 @@ true
 -   After 2 minutes, swish the medication around in your mouth for a few seconds and then swallow it
 -   Do not eat or drink anything for the next 30 minutes
 
-
  
 
 #### You are currently on

@@ -107,14 +107,14 @@ So your goals and your plan must have room to evolve too.
 
 “Rinse and repeat” means:
 
--   -   You regularly revisit your goal
-    -   You evaluate what’s working
-    -   You adjust what isn’t
-    -   You simplify when needed
-    -   You restart without guilt
-    -   You stay flexible
-    -   You stay engaged
-    -   You stay intentional
+-   You regularly revisit your goal
+- You evaluate what’s working
+- You adjust what isn’t
+- You simplify when needed
+- You restart without guilt
+- You stay flexible
+- You stay engaged
+- You stay intentional
 
 It’s not about starting over.
 It’s about _continuing_ – with refinement.
@@ -146,13 +146,13 @@ Set a weekly or monthly time to check in with yourself. This doesn’t need to b
 
 Ask yourself:
 
--   -   What worked well this week or month?
-    -   What didn’t go as planned?
-    -   What patterns am I noticing?
-    -   What progress did I make?
-    -   What felt easier than expected?
-    -   What felt heavy or forced?
-    -   What do I want to adjust moving forward?
+-   What worked well this week or month?
+- What didn’t go as planned?
+- What patterns am I noticing?
+- What progress did I make?
+- What felt easier than expected?
+- What felt heavy or forced?
+- What do I want to adjust moving forward?
 
 These questions help you stay connected to your goal instead of letting it slide into autopilot.
 
@@ -160,11 +160,11 @@ Once you know what’s working and what isn’t, make small adjustments.
 
 Examples:
 
--   -   If your bedtime is too late, try shifting it by 10 minutes instead of 30.
-    -   If meal prepping all meals is overwhelming, prep only lunches.
-    -   If a 30-minute walk feels too long, walk for 10–15 minutes.
-    -   If tracking daily feels tedious, switch to weekly summaries.
-    -   If you realize your goal needs a new direction, allow that shift.
+-   If your bedtime is too late, try shifting it by 10 minutes instead of 30.
+- If meal prepping all meals is overwhelming, prep only lunches.
+- If a 30-minute walk feels too long, walk for 10–15 minutes.
+- If tracking daily feels tedious, switch to weekly summaries.
+- If you realize your goal needs a new direction, allow that shift.
 
 Revision is not failure.
 Revision is wisdom.
@@ -181,9 +181,9 @@ This is important: recommitting does NOT mean starting over. It means continuing
 
 Ask yourself:
 
--   -   What’s the next small step I’m committed to taking?
-    -   What can I realistically do this week?
-    -   What am I choosing to focus on right now?
+-   What’s the next small step I’m committed to taking?
+- What can I realistically do this week?
+- What am I choosing to focus on right now?
 
 Recommitment helps you stay engaged with your goal in a gentle but powerful way.
 
@@ -212,10 +212,10 @@ Sometimes, as life shifts, your priority shifts too.
 
 Examples:
 
--   -   A goal about weight loss might become a goal about energy or strength.
-    -   A goal about saving money might shift into managing spending more effectively.
-    -   A goal about movement might become a goal about habits or routine.
-    -   A goal about cooking every night might shift into simplifying meals or using a rotating menu.
+-   A goal about weight loss might become a goal about energy or strength.
+- A goal about saving money might shift into managing spending more effectively.
+- A goal about movement might become a goal about habits or routine.
+- A goal about cooking every night might shift into simplifying meals or using a rotating menu.
 
 Your goals should serve your life – not the other way around.
 
@@ -249,13 +249,13 @@ Every time you go through a rinse-and-repeat cycle, that’s a win. It means you
 
 Celebrate:
 
--   -   Adjusting your plan instead of abandoning it
-    -   Noticing a pattern and choosing to fix it
-    -   Restarting after a rough week
-    -   Keeping your goal front-of-mind
-    -   Staying flexible
-    -   Staying patient
-    -   Staying kind to yourself
+-   Adjusting your plan instead of abandoning it
+- Noticing a pattern and choosing to fix it
+- Restarting after a rough week
+- Keeping your goal front-of-mind
+- Staying flexible
+- Staying patient
+- Staying kind to yourself
 
 These moments are the heartbeat of long-term success.
 
@@ -267,12 +267,12 @@ People think transformation is dramatic. But it’s not.
 
 Transformation happens quietly:
 
--   -   Choosing to show up again
-    -   Giving yourself grace
-    -   Making tiny shifts
-    -   Reflecting regularly
-    -   Repeating small habits
-    -   Staying consistent, not perfect
+-   Choosing to show up again
+- Giving yourself grace
+- Making tiny shifts
+- Reflecting regularly
+- Repeating small habits
+- Staying consistent, not perfect
 
 It doesn’t look spectacular on the outside, but it feels steady, grounded, and empowering on the inside.
 

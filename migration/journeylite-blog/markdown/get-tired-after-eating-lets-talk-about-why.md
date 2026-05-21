@@ -90,19 +90,19 @@ The official term for feeling tired after eating is **postprandial somnolence**.
 
 Contrary to the old myth that all your blood rushes to your digestive system and away from your brain after you eat, scientists now know the real causes are more complex and involve several natural systems:
 
--   -   **Your Body’s Internal Clock Matters** – Your **circadian rhythm** – the 24-hour biological clock that regulates sleep and alertness – naturally dips in the early afternoon. This makes you more prone to feeling tired after lunch.
-    -   **Chemical Changes After Eating** – Eating triggers hormonal shifts: levels of alertness-promoting hormones drop, while sleep-associated substances like **serotonin** and **melatonin** rise. Certain foods – especially those containing melatonin or the amino acid tryptophan – can make this effect feel stronger.
-    -   **Cytokines and Fatigu**e – Proteins called **cytokines**, which are tied to inflammation and immune responses, rise after eating – especially larger meals – and have been linked to feelings of tiredness.
-    -   **Insulin and Blood Sugar Fluctuations** – Large or carbohydrate-heavy meals can cause **blood sugar spikes followed by a crash**, which is another trigger for fatigue. Some research shows that these shifts can suppress alertness regulators in your brain.
+-   **Your Body’s Internal Clock Matters** – Your **circadian rhythm** – the 24-hour biological clock that regulates sleep and alertness – naturally dips in the early afternoon. This makes you more prone to feeling tired after lunch.
+- **Chemical Changes After Eating** – Eating triggers hormonal shifts: levels of alertness-promoting hormones drop, while sleep-associated substances like **serotonin** and **melatonin** rise. Certain foods – especially those containing melatonin or the amino acid tryptophan – can make this effect feel stronger.
+- **Cytokines and Fatigu**e – Proteins called **cytokines**, which are tied to inflammation and immune responses, rise after eating – especially larger meals – and have been linked to feelings of tiredness.
+- **Insulin and Blood Sugar Fluctuations** – Large or carbohydrate-heavy meals can cause **blood sugar spikes followed by a crash**, which is another trigger for fatigue. Some research shows that these shifts can suppress alertness regulators in your brain.
 
 ### **Foods That Make Sleepiness More Likely**
 
 Not all meals are equal when it comes to post-meal drowsiness. Some foods tend to increase sleepiness more than others:
 
--   -   **High-fat meals** – fatty or fried foods can contribute to stronger fatigue.
-    -   **High-carbohydrate meals** – especially processed carbs and sugary foods can cause bigger blood sugar swings.
-    -   **(https://www.eatingwell.com/foods-with-melatonin-8663994)** – such as tart cherries, walnuts, and tomatoes.
-    -   **(https://www.health.com/foods-high-in-tryptophan-11716129)** – like turkey, eggs, milk, cheese, tofu, and pumpkin seeds.
+-   **High-fat meals** – fatty or fried foods can contribute to stronger fatigue.
+- **High-carbohydrate meals** – especially processed carbs and sugary foods can cause bigger blood sugar swings.
+- such as tart cherries, walnuts, and tomatoes.
+- like turkey, eggs, milk, cheese, tofu, and pumpkin seeds.
 
 It’s not that these foods directly put you to sleep – but when paired with a large meal or lots of carbs, they can amplify the effect.
 
@@ -110,24 +110,19 @@ It’s not that these foods directly put you to sleep – but when paired with a
 
 Sleepiness after eating isn’t just about the meal itself. Several other things can make it worse:
 
--   -   **Not enough sleep at night** – The longer you are awake, sleep pressure builds up. sleep pressure is your body’s natural urge to sleep, and your body is more ready to nap after eating.
-    -   **Blood sugar issues** – people with diabetes or insulin resistance may experience more intense post-meal drowsiness.
-    -   **Iron deficiency and anemia** – low iron can cause fatigue that’s noticeable after meals.
+-   **Not enough sleep at night** – The longer you are awake, sleep pressure builds up. sleep pressure is your body’s natural urge to sleep, and your body is more ready to nap after eating.
+- **Blood sugar issues** – people with diabetes or insulin resistance may experience more intense post-meal drowsiness.
+- **Iron deficiency and anemia** – low iron can cause fatigue that’s noticeable after meals.
 
 ### **What You Can Do to Stay More Alert After Eating**
 
 While you probably can’t completely eliminate post-meal drowsiness, there are practical ways to reduce it:
 
--   -   **Eat Smaller, Balanced Meals
-        **Large meals are more likely to trigger your body’s sleep pathways. Smaller portions that balance protein, fiber, and healthy fats can help stabilize blood sugar. _After Bariatric surgery, your meal pattern should look like 5-6 mini meals or 3 meals, and 1-2 snacks spaced throughout the day._
-    -   **Stay Hydrated
-        **Even mild dehydration makes you feel sluggish. Drinking water with meals keeps digestion running smoothly and can help you feel more alert. _Aim for 64+ ounces of fluids daily._
-    -   **Get Moving After Eating
-        **A short walk or light activity boosts circulation, helps regulate blood sugar, and reduces the urge to nap. _Just 5-10 minutes of movement after each meal is enough to help._
-    -   **Take Advantage of Natural Light
-        **Sunlight helps reset your circadian rhythm and can counteract the afternoon dip. _Even better, take that 5–10-minute walk outside or at least near some windows._
-    -   **Prioritize Good Nighttime Sleep
-        **Feeling well-rested makes post-meal sleepiness less intense. Aim for consistent sleep habits to reduce daytime fatigue. _Create a bedtime routine to help ease your body into being ready to sleep._
+-   **Eat Smaller, Balanced Meals** Large meals are more likely to trigger your body’s sleep pathways. Smaller portions that balance protein, fiber, and healthy fats can help stabilize blood sugar. _After Bariatric surgery, your meal pattern should look like 5-6 mini meals or 3 meals, and 1-2 snacks spaced throughout the day._
+- **Stay Hydrated** Even mild dehydration makes you feel sluggish. Drinking water with meals keeps digestion running smoothly and can help you feel more alert. _Aim for 64+ ounces of fluids daily._
+- **Get Moving After Eating** A short walk or light activity boosts circulation, helps regulate blood sugar, and reduces the urge to nap. _Just 5-10 minutes of movement after each meal is enough to help._
+- **Take Advantage of Natural Light** Sunlight helps reset your circadian rhythm and can counteract the afternoon dip. _Even better, take that 5–10-minute walk outside or at least near some windows._
+- **Prioritize Good Nighttime Sleep** Feeling well-rested makes post-meal sleepiness less intense. Aim for consistent sleep habits to reduce daytime fatigue. _Create a bedtime routine to help ease your body into being ready to sleep._
 
 ### **Bottom Line**
 

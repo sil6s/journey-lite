@@ -96,7 +96,7 @@ matthew.arling@9Round.com
 [9round.com/CincinnatiOHPaxtonAve](https://9round.com/CincinnatiOHPaxtonAve)
 
 Happy losing!
-Dr. Trace Curry
+
 Medical Director
 JourneyLite Physicians
 

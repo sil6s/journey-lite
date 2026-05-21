@@ -100,7 +100,7 @@ A History and Physical with clearance is required from your PCP. This must speci
 **Medical Mutual:**
 
 -   A History and Physical with clearance is required  from from your PCP. This must include:
-    -   a normal EKG within 3 months of submission
-    -   a normal hemoglobin A1C within 3 months of submission
+- a normal EKG within 3 months of submission
+- a normal hemoglobin A1C within 3 months of submission
 
 In addition, if a comorbid condition is present, specialty clearance is required. For example, if you have a diagnosis of sleep apnea, you will have to get pulmonology (sleep doctor) clearance.

@@ -97,8 +97,6 @@ Congratulations you have made it to the _maintenance phase_ of your compounded s
 
 Your cart is currently empty.
 
-(https://journeylite.com/shop/)
-
 #### What's Next?
 
 You should have just had a live, in-office month 5 office appointment and placed a new order for a vial of semaglutide and syringes. Each vial will last a month. Contact us before the end of the 3rd week so that we can collect payment and order the next month’s supply of medication and syringes. You can reach us at:

@@ -89,13 +89,13 @@ One of the biggest mistakes beginners make is trying to do too much, too fast. I
 
 You might start with:
 
--   -   10 minutes in the morning
-    -   10 minutes during lunch
-    -   10 minutes in the evening
+-   10 minutes in the morning
+- 10 minutes during lunch
+- 10 minutes in the evening
 
 Or even:
 
--   -   One 15-minute walk per day and build from there
+-   One 15-minute walk per day and build from there
 
 What matters most is **consistency**. Once walking becomes part of your routine, increasing duration and frequency becomes much easier.
 
@@ -105,9 +105,9 @@ Aiming for **30 minutes of walking on at least five days per week** creates a st
 
 This doesn’t have to be a single continuous walk. You can break it up throughout the day:
 
--   -   Park farther away when running errands
-    -   Take a short walk after meals
-    -   Walk while listening to a podcast or audiobook
+-   Park farther away when running errands
+- Take a short walk after meals
+- Walk while listening to a podcast or audiobook
 
 If time is tight, even shorter walks still count. Something is always better than nothing.
 
@@ -117,9 +117,9 @@ One of the most effective ways to increase daily movement is simply to **track y
 
 Using a smartwatch, fitness tracker, or phone app helps you:
 
--   -   Understand your current activity level
-    -   Set realistic goals
-    -   Stay motivated by seeing progress
+-   Understand your current activity level
+- Set realistic goals
+- Stay motivated by seeing progress
 
 Many people are surprised to learn how few steps they take in a typical day. That awareness alone often encourages more movement without forcing it.
 
@@ -130,9 +130,9 @@ Instead of jumping straight to a high step goal, try a gradual and sustainable a
 
 For example:
 
--   -   If you average 3,000 steps today, aim for 3,300 tomorrow
-    -   Once that feels comfortable, increase to 3,600
-    -   Continue building gradually over time
+-   If you average 3,000 steps today, aim for 3,300 tomorrow
+- Once that feels comfortable, increase to 3,600
+- Continue building gradually over time
 
 Three hundred steps is roughly a 3–5 minute walk – small enough to feel doable, but meaningful enough to add up quickly. Over a few weeks, these small increases can result in thousands of additional steps per day without burnout.
 

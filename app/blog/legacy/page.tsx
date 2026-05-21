@@ -16,8 +16,13 @@ export const metadata: Metadata = {
   robots: { index: false },
 };
 
-export default async function LegacyBlogPage() {
-  const posts = await client.fetch<BlogPost[]>(migratedPostsQuery, {}, { next: { revalidate } });
+type LegacyPageProps = {
+  searchParams?: Promise<{ category?: string }>;
+};
+
+export default async function LegacyBlogPage({ searchParams }: LegacyPageProps) {
+  const { category } = await (searchParams ?? Promise.resolve({ category: undefined }));
+  const posts = await client.fetch<BlogPost[]>(migratedPostsQuery, { category: category ?? null }, { next: { revalidate } });
 
   return (
     <>

@@ -86,8 +86,6 @@ false
 ## Body
 The company that manufactured the Obalon balloon went out of business during the pandemic. This information is provided for historical purposes only!
 
-(https://journeylite.com/non-surgical-weight-loss/gastric-balloon/)
-
 In Cincinnati, Ohio our physicians at JourneyLite have done many ReShape and Orbera insertions over the years.  Gastric balloons have been a significant breakthrough in the field of non-surgical weight loss, and now a new device, the Obalon “swallowable” gastric balloon is out.
 
 Overall, advantages of gastric balloons include:
@@ -111,8 +109,6 @@ This technique has some major advantages over traditional gastric balloons.  Mo
 Their initial trial, (https://clinicaltrials.gov/ct2/show/NCT02235870), showed excellent safety profile with no balloon leaks or early removal.  Weight loss was roughly double that of the control group.
 
 The development of less-invasive treatments such as Obalon will hopefully allow physicians to attack the disease of obesity much earlier, avoiding major disease like type 2 diabetes and sleep apnea.
-
-(https://journeylite.com/appointment-request/)
 
 **Table 1**
 

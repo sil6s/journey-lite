@@ -93,16 +93,16 @@ NOTE:  These are general guidelines, your surgeon may elect to use a different 
 **Sleeve/SIPS/Band:**  
 
 -   Ideally a patient will wean off chronic oral steroids (prednisone) completely by 4 weeks prior to surgery, and hold it for 4 weeks after surgery.  
--   -   -   Short-term steroids such as a Medrol dose pack or intra-muscular injections need to be held for 4 weeks prior and 4 weeks after also.  
-        -   Injectable steroids in joints or epidural space need to be held for 2 weeks prior and 2 weeks after.  
-        -   Topical and/or inhaled steroids are ok and do not need to be stopped.
+-   -   Short-term steroids such as a Medrol dose pack or intra-muscular injections need to be held for 4 weeks prior and 4 weeks after also.  
+- Injectable steroids in joints or epidural space need to be held for 2 weeks prior and 2 weeks after.  
+- Topical and/or inhaled steroids are ok and do not need to be stopped.
 
 **Bypass:**  
 
--   -   -   Gastric bypass patients cannot take steroids ever, therefore if a patient takes chronic steroids they are not a candidate for the procedure at all.    
-        -   Short-term steroids such as a Medrol dose pack or intra-muscular injections need to be held for 4 weeks prior and 4 weeks after also.    
-        -   Injectable steroids in joints or epidural space need to be held for 2 weeks prior and 2 weeks after. 
-        -   Topical and/or inhaled steroids are ok and do not need to be stopped.
+-   -   Gastric bypass patients cannot take steroids ever, therefore if a patient takes chronic steroids they are not a candidate for the procedure at all.    
+- Short-term steroids such as a Medrol dose pack or intra-muscular injections need to be held for 4 weeks prior and 4 weeks after also.    
+- Injectable steroids in joints or epidural space need to be held for 2 weeks prior and 2 weeks after. 
+- Topical and/or inhaled steroids are ok and do not need to be stopped.
 
 * * *
 

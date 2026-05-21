@@ -86,7 +86,7 @@ true
 -   This medication **does not** need to be refrigerated.
 
 -   When ready to dose, use the dropper to draw up 0.66mL of medication.
-    -   It’s impossible to dose exactly 0.66mL, just draw up a volume that is a tad past the halfway mark between 0.6mL and 0.7mL
+- It’s impossible to dose exactly 0.66mL, just draw up a volume that is a tad past the halfway mark between 0.6mL and 0.7mL
 -   Squirt the medication under your tongue and hold it there for at least 2 minutes
 -   After 2 minutes, swish the medication around in your mouth for a few seconds and then swallow it
 -   Do not eat or drink anything for the next 30 minutes

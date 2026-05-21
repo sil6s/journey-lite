@@ -121,8 +121,8 @@ If you are unsure about your coverage for surgical weight loss, just complete an
 
 -   Do you have a secondary insurance?\*
 
-    -    Yes
-    -    No
+- Yes
+- No
 
 -   Secondary Insurance Company
 
@@ -147,7 +147,6 @@ If you are unsure about your coverage for surgical weight loss, just complete an
     Max. file size: 50 MB.
 
 -   ## Additional Info
-
 
 -   Consent to Transmit\*
 

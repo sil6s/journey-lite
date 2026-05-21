@@ -140,8 +140,6 @@ Date of Birth\*
 
 Your Email\*
 
-
-
 Permission to Text/SMS\*
 
  I agree to receive texts
@@ -150,15 +148,11 @@ Permission to Text/SMS\*
 
 Phone
 
-At some point we may need to text you appointment reminders or other important information. By providing your phone number, you agree to receive text messages from JourneyLite. Message & data rates may apply. Message frequency varies, we try to keep it to a minimum. Reply STOP to any message to opt out, reply HELP for help. Click here for our (https://journeylite.com/terms-and-conditions/ "Terms & Conditions") or our (https://journeylite.com/privacy "Privacy Policy").
-
-
+At some point we may need to text you appointment reminders or other important information. By providing your phone number, you agree to receive text messages from JourneyLite. Message & data rates may apply. Message frequency varies, we try to keep it to a minimum. Reply STOP to any message to opt out, reply HELP for help. Click here for our (https://journeylite.com/terms-and-conditions/) or our (https://journeylite.com/privacy).
 
 Address (optional):
 
  Street AddressCity AlabamaAlaskaAmerican SamoaArizonaArkansasCaliforniaColoradoConnecticutDelawareDistrict of ColumbiaFloridaGeorgiaGuamHawaiiIdahoIllinoisIndianaIowaKansasKentuckyLouisianaMaineMarylandMassachusettsMichiganMinnesotaMississippiMissouriMontanaNebraskaNevadaNew HampshireNew JerseyNew MexicoNew YorkNorth CarolinaNorth DakotaNorthern Mariana IslandsOhioOklahomaOregonPennsylvaniaPuerto RicoRhode IslandSouth CarolinaSouth DakotaTennesseeTexasUtahU.S. Virgin IslandsVermontVirginiaWashingtonWest VirginiaWisconsinWyomingArmed Forces AmericasArmed Forces EuropeArmed Forces Pacific State ZIP Code
-
-
 
 Height (ft - e.g. 5'0 enter a 5)\*
 
@@ -173,8 +167,6 @@ Preferred Location:\*
 \-SELECT LOCATION-CincinnatiColumbusDaytonIndianapolisNorthern KyVirtual
 
 Your location is far away! We do serve patients from all over the country, but we need to get some more information first. Please send us your information, including your location, by using our  (https://journeylite.com/contact-us) form to see if you are a candidate!
-
-
 
 Weight loss medication interest(s):\*
 
@@ -203,8 +195,6 @@ Are you interested in information on surgical options?
 YesNo thanks
 
 Your BMI is over 35, are you interested in a free video consultation with Dr. Curry to discuss the pro's and con's of surgery vs. meds?
-
-
 
 Select Procedures of Interest
 
@@ -270,8 +260,6 @@ If you're going through insurance, select your company from the list. If you're 
 
 **Currently we are not accepting this plan, please check back in the future! If you are a self-pay patient, please proceed.**
 
-
-
 Additional Message
 
 How did you first hear about us?
@@ -304,8 +292,6 @@ By clicking the "Submit Your Appointment Request" button, you give permission fo
 
 Your location is far away! Please send us your info with our  (https://journeylite.com/contact-us) form to see if you are a candidate.
 
-
-
 (https://lanterncare.com/) (formerly Surgery Plus) partners with major employers throughout the United States to provide high-quality care for bariatric and weight loss surgery patients.
 
 In the United States, only a small fraction of patients who would benefit from weight loss surgery actually have insurance that will cover it.
@@ -318,21 +304,21 @@ In addition to increasing access to life-saving bariatric procedures such as gas
 
 Here are just a few of the major employees partnering with Lantern Care and JourneyLite:
 
--   -   American Airlines
+-   American Airlines
 
-    -   Delta
+- Delta
 
-    -   Hyatt
+- Hyatt
 
-    -   State Farm
+- State Farm
 
-    -   Home Depot
+- Home Depot
 
-    -   CVS
+- CVS
 
-    -   Hilton
+- Hilton
 
-    -   Autozone
+- Autozone
 
 If you don’t see your employer listed (https://journeylite.com/contact-us/) and/or Lantern Care to find out if your employer offers the benefit.
 
@@ -383,8 +369,6 @@ Date of Birth\*
 
 Your Email\*
 
-
-
 Permission to Text/SMS\*
 
  I agree to receive texts
@@ -393,15 +377,11 @@ Permission to Text/SMS\*
 
 Phone
 
-At some point we may need to text you appointment reminders or other important information. By providing your phone number, you agree to receive text messages from JourneyLite. Message & data rates may apply. Message frequency varies, we try to keep it to a minimum. Reply STOP to any message to opt out, reply HELP for help. Click here for our (https://journeylite.com/terms-and-conditions/ "Terms & Conditions") or our (https://journeylite.com/privacy "Privacy Policy").
-
-
+At some point we may need to text you appointment reminders or other important information. By providing your phone number, you agree to receive text messages from JourneyLite. Message & data rates may apply. Message frequency varies, we try to keep it to a minimum. Reply STOP to any message to opt out, reply HELP for help. Click here for our (https://journeylite.com/terms-and-conditions/) or our (https://journeylite.com/privacy).
 
 Address (optional):
 
  Street AddressCity AlabamaAlaskaAmerican SamoaArizonaArkansasCaliforniaColoradoConnecticutDelawareDistrict of ColumbiaFloridaGeorgiaGuamHawaiiIdahoIllinoisIndianaIowaKansasKentuckyLouisianaMaineMarylandMassachusettsMichiganMinnesotaMississippiMissouriMontanaNebraskaNevadaNew HampshireNew JerseyNew MexicoNew YorkNorth CarolinaNorth DakotaNorthern Mariana IslandsOhioOklahomaOregonPennsylvaniaPuerto RicoRhode IslandSouth CarolinaSouth DakotaTennesseeTexasUtahU.S. Virgin IslandsVermontVirginiaWashingtonWest VirginiaWisconsinWyomingArmed Forces AmericasArmed Forces EuropeArmed Forces Pacific State ZIP Code
-
-
 
 Height (ft - e.g. 5'0 enter a 5)\*
 
@@ -416,8 +396,6 @@ Preferred Location:\*
 \-SELECT LOCATION-CincinnatiColumbusDaytonIndianapolisNorthern KyVirtual
 
 Your location is far away! We do serve patients from all over the country, but we need to get some more information first. Please send us your information, including your location, by using our  (https://journeylite.com/contact-us) form to see if you are a candidate!
-
-
 
 Weight loss medication interest(s):\*
 
@@ -446,8 +424,6 @@ Are you interested in information on surgical options?
 YesNo thanks
 
 Your BMI is over 35, are you interested in a free video consultation with Dr. Curry to discuss the pro's and con's of surgery vs. meds?
-
-
 
 Select Procedures of Interest
 
@@ -512,8 +488,6 @@ Self-payUnsureAetna AmbetterAnthemAetnaBuckeyeCaresourceCignaHumanaHumana Medica
 If you're going through insurance, select your company from the list. If you're unsure about your coverage, select "Unsure." If you know your insurance doesn't cover surgery, select "Self-pay."
 
 **Currently we are not accepting this plan, please check back in the future! If you are a self-pay patient, please proceed.**
-
-
 
 Additional Message
 

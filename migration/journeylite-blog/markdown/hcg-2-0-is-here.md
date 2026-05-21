@@ -86,7 +86,7 @@ Our HCG 2.0 program combines the traditional HCG diet with the powerful appetite
 
 We are running a special introductory price for our 4-stage HCG 2.0 diet with a 4-week stage 2 at $495 + $30/month for Adipex.  The HCG and Adipex both get shipped directly to your door and are highest-quality, pharmaceutical grade.
 
-Patients must meet their state’s phentermine BMI guidelines to qualify for this program.  (https://journeylite.com/index.php/bmi-calculators/bmi-medical/ "Medical BMI Calculator").
+Patients must meet their state’s phentermine BMI guidelines to qualify for this program.  (https://journeylite.com/index.php/bmi-calculators/bmi-medical/).
 
 For more info:
 

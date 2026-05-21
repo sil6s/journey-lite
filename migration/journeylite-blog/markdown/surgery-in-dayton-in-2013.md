@@ -80,4 +80,4 @@ true
 false
 
 ## Body
-Starting in 2013 we will begin doing procedures in Dayton at The (http://www.riverviewhealthinstitute.com/ "Riverview Health Institute"). This is the same building where our new Dayton office is located, at 1 Elizabeth Place, right off Edwin C. Moses Boulevard! (https://maps.google.com/maps/ms?msid=203583916251527321888.0004d02120802257be578&msa=0 "Map to Riverview Health Institute")
+Starting in 2013 we will begin doing procedures in Dayton at The (http://www.riverviewhealthinstitute.com/). This is the same building where our new Dayton office is located, at 1 Elizabeth Place, right off Edwin C. Moses Boulevard! (https://maps.google.com/maps/ms?msid=203583916251527321888.0004d02120802257be578&msa=0)

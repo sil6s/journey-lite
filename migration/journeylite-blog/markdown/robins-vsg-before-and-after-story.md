@@ -83,8 +83,6 @@ true
 ## Body
 Robin B.
 
-(https://journeylite.com/testimonial/robins-gastric-sleeve-success-story/)
-
 I didn’t always realize how much my weight was taking from me—until I started hiding my life behind closed doors.
 
 After having kids, my weight climbed and eventually reached 421 lbs. I was ashamed of where I had let myself get to, and that shame turned into isolation. Depression set in, and I became an emotional eater. I wasn’t just gaining weight—I was losing _me_.

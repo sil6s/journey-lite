@@ -95,6 +95,4 @@ If you are interested in trying this exciting new medication, call 513-559-1222 
 
 Sincerely,
 
-Dr. Trace Curry
-
 \

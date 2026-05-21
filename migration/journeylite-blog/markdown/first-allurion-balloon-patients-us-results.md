@@ -108,10 +108,6 @@ Written by
 
 ## Dr. Trace Curry, MD, FASMBS
 
-Dr. Trace Curry is the Medical Director and founder of JourneyLite. He is a board-certified general surgeon and Fellow of the American Society for Metabolic and Bariatric Surgery, with more than 20 years of experience helping patients compare surgical and non-surgical weight-loss options.
-
-(https://journeylite.com/about-dr-trace-curry/)
-
 ## The first two patients are off to a fantastic start
 
 These are early results, and individual outcomes vary, but both patients are progressing ahead of the pace we would typically expect this early in a balloon program. Just as important, both patients are using the Allurion Balloon the right way: as a tool within a structured plan that includes nutrition, habit change, accountability, and follow-up.

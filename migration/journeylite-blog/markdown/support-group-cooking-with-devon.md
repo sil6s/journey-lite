@@ -85,5 +85,3 @@ Devon the Dietitian
 **JOIN US ON TUESDAY, JUNE 10th at 6pm!**
 
 Join Devon, RDN for a LIVE demonstration on cooking a quick & healthy summer stir fry. She will walk you through the entire process from first chop to plating it up. This will be a great time to ask questions about cooking techniques, meal prep, and even some recipe resources to help you expand your summer recipe lineup. **This is a JourneyLite first, so don’t miss out!**
-
-(https://journeylite.com/support)

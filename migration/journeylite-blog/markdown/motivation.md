@@ -87,21 +87,21 @@ According to _Webster’s Dictionary_, motivation stems from the word _motive_�
 
 When it comes to your health, your _why_ matters more than you think.
 
--   -   **Why** do you want to lose weight?
-    -   **Why** do you want to make smarter food choices?
-    -   **Why** do you want to exercise?
-    -   **Why** do you want to fit into smaller clothes?
-    -   **Why** do you want to feel confident?
+-   **Why** do you want to lose weight?
+- **Why** do you want to make smarter food choices?
+- **Why** do you want to exercise?
+- **Why** do you want to fit into smaller clothes?
+- **Why** do you want to feel confident?
 
 You can’t have sustainable motivation without knowing your motive. When you dig deep and answer honestly, you uncover the real reasons driving your actions.
 
 For example:
 
--   -   _I want to lose weight because I’m tired of being tired and I know extra weight is stealing my energy._
-    -   _I want to make smarter food choices because I know food impacts how I feel—my digestive system can attest to that._
-    -   _I want to exercise because I want to stay mobile as I age._
-    -   _I want to fit into smaller clothes because I want to feel proud of my appearance instead of hiding behind clothing._
-    -   _I want to feel confident because confidence makes me happier, kinder, and more engaged in life._
+-   _I want to lose weight because I’m tired of being tired and I know extra weight is stealing my energy._
+- _I want to make smarter food choices because I know food impacts how I feel—my digestive system can attest to that._
+- _I want to exercise because I want to stay mobile as I age._
+- _I want to fit into smaller clothes because I want to feel proud of my appearance instead of hiding behind clothing._
+- _I want to feel confident because confidence makes me happier, kinder, and more engaged in life._
 
 ### **Intrinsic vs. Extrinsic Motivation**
 

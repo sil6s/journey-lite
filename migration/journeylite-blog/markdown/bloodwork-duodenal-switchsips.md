@@ -81,23 +81,23 @@ false
 Duodenal switch and the SIPS Procedure are the most powerful weight loss operations out there, but due to the amount of small intestine bypassed, patients are at highest risk for developing potentially severe vitamin/nutrient deficiencies if they don’t take their vitamins and get their labs checked.  **It is very important that you come in for your post-op bloodwork visits every 6 months!  We recommend checking the following labs:**
 
 -   Starting at 6 months post-op, then every 6 months
-    -   Complete blood count (CBC)
-    -   Comprehensive metabolic profile (CMP)
-    -   Vitamin levels
-    -   Vit D25, folate, B6, B12, and whole blood thiamine
-    -   Iron – TIBC, Serum iron
-    -   Albumin and Pre-albumin
-    -   RBC folate
-    -   Fat-soluble vitamins (6-12 months)
-    -   Vitamin A
-    -   Vitamin D, 25-OH
-    -   Vitamin E
-    -   Vitamin K1 and INR
-    -   Trace elements
-    -   Zinc, selenium, copper, calcium, magnesium
-    -   Optional
-        -   Hemoglobin A1C
-        -   Thyroid: TSH
-        -   Lipid profile
+- Complete blood count (CBC)
+- Comprehensive metabolic profile (CMP)
+- Vitamin levels
+- Vit D25, folate, B6, B12, and whole blood thiamine
+- Iron – TIBC, Serum iron
+- Albumin and Pre-albumin
+- RBC folate
+- Fat-soluble vitamins (6-12 months)
+- Vitamin A
+- Vitamin D, 25-OH
+- Vitamin E
+- Vitamin K1 and INR
+- Trace elements
+- Zinc, selenium, copper, calcium, magnesium
+- Optional
+- Hemoglobin A1C
+- Thyroid: TSH
+- Lipid profile
 
 If you are having your PCP or another doctor order your post-op labs, please have them faxed to us at (513) 559-1235!

@@ -82,8 +82,6 @@ true
 true
 
 ## Body
-(https://journeylite.com/testimonial/christies-gastric-sleeve-before-and-after-testimonial/)
-
 \\\\
 **Christie**
 

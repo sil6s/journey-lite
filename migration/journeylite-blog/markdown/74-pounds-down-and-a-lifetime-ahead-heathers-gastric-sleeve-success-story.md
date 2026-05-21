@@ -80,13 +80,8 @@ true
 true
 
 ## Body
-(https://journeylite.com/testimonial/heathers-story-i-finally-feel-aligned-with-myself/)
-
 \\\
-**Procedure:** Gastric sleeve
-**Surgeon:** Dr. James Augusta
-**Date:** September 2024
-**Highest weight:** 289 lbs → **Current:** 215 lbs (**74 lbs lost so far**)
+**Procedure:** Gastric sleeve** Surgeon:** Dr. James Augusta** Date:** September 2024** Highest weight:** 289 lbs → **Current:** 215 lbs (**74 lbs lost so far**)
 
 I’ve lived in a larger body for as long as I can remember. As a kid, I ran slower, shopped in different sections than my friends, and—at eight years old—I realized I could fit into my mom’s clothes. Little moments like that told me I wasn’t like everyone else, and over time my weight became part of my identity, whether I wanted it to or not.
 

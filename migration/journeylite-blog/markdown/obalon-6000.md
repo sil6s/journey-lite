@@ -102,11 +102,7 @@ Weight loss goals are the same for all balloons, hoping for 30-50 pounds over th
 
 **New Year Savings!**
 
-Dr. Trace Curry and his team at JourneyLite Physicians are some of the most experienced in the US for gastric balloons. With any procedure, experience leads to better results and a lower complication rate. To help you with your New Year’s weight loss resolution, we are offering the Obalon system for a limited time for just $6000.00! This includes three balloon swallows, endoscopic removal at 6 months, and a 6 month registered dietitian program.
-
 Call now or click below to request a consultation with Dr. Trace Curry! For your convenience we have offices in Cincinnati, Northern Kentucky, Columbus, and Dayton. Virtual visits are also available for out-of-town patients through our new smartphone app, “(https://journeylite.com/currycare/)“.
-
-(https://journeylite.com/index.php/appointment-request/)
 
 **Cincinnati**: (513) 559-1222 **Northern Ky**: (859) 331-1035
 

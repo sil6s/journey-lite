@@ -83,8 +83,6 @@ false
 ## Body
 I really appreciate everyone who donated to the Red Cross Disaster Relief Fund to help the people of Gatlinburg and Sevier County after the devastating wildfires they experienced.  It’s not too late to donate, just text REDCROSS to 90999 to donate $10.  Share this video around and maybe we can double what we’ve already collected!
 
-Dr. Trace Curry
-
 ## Giving Back To Gatlinburg
 
 PS I’ve always been interested in roots music, but until about 6 months ago had never even heard of a gourd banjo until I was listening to Pandora and heard an artist by the name of Adam Hurt.  Check out his album called Earth Tones for some really good clawhammer!

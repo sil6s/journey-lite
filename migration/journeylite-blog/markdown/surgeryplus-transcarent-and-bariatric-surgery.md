@@ -154,20 +154,14 @@ SurgeryPlus and Transcarent are contracting with more and more employers every m
 
 Bariatric Surgery Nutrition Tips Can You Drink Carbonated Beverages After Bariatric Surgery? After gastric sleeve, gastric bypass, SADI, or other \[...\]
 
-(https://journeylite.com/carbonated-drinks-after-bariatric-surgery/ "Read more")
-
 !(/legacy-blog/surgeryplus-transcarent-and-bariatric-surgery__glp-1-pills-vs-weight-loss-surgery-comparisons-1024x341.webp)
 
 #### GLP-1 Pills Are Here: Are They Better Than Weight Loss Surgery?
 
 2026 Weight Loss Treatment Update GLP-1 Pills vs. Weight Loss Surgery: What Patients Should Know in 2026 Oral GLP-1 medications \[...\]
 
-(https://journeylite.com/glp-1-pills-vs-weight-loss-surgery/ "Read more")
-
 !(/legacy-blog/surgeryplus-transcarent-and-bariatric-surgery__EASY-1024x538.jpg.webp.webp)
 
 #### Willpower or Decision Fatigue 
 
 After bariatric surgery, food decisions carry more weight - literally and mentally. What used to be a quick, almost automatic \[...\]
-
-(https://journeylite.com/willpower-or-decision-fatigue/ "Read more")

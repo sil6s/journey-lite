@@ -131,8 +131,6 @@ A few BCBS policies will cover weight loss surgery if the person has a BMI of 30
 
 **BMI CALCULATOR**
 
-
-
 ### Age
 
 Most BCBS plans require the person to be at least 18, although some have provisions for adolescents.
@@ -211,26 +209,3 @@ Programs like Anthem Blue Distinction Plus, Aetna Institute of Quality, and Unit
 ## Find Effective, Affordable Weight Loss Surgery at JourneyLite
 
 Regardless of BCBS coverage for bariatric surgery, JourneyLite can help meet your weight loss goals. We offer various surgical and non-surgical options in tune with our patients’ needs. Plus, we have flexible payment options through partnerships with several lenders. You can rely on us for high-quality, personalized care. Contact JourneyLite today to learn what we can do for you.
-
-## Related Articles:
-
-[
-!](https://journeylite.com/weight-loss-surgery-vs-glp-1-receptor-agonists-which-is-better/)
-
-(https://journeylite.com/weight-loss-surgery-vs-glp-1-receptor-agonists-which-is-better/)
-03/04/2024 _by_ (#)
-(https://journeylite.com/weight-loss-surgery-vs-glp-1-receptor-agonists-which-is-better/)
-
-[
-!](https://journeylite.com/tirzepatide-pricing/)
-
-(https://journeylite.com/tirzepatide-pricing/)
-20/02/2024 _by_ (#)
-(https://journeylite.com/tirzepatide-pricing/)
-
-[
-!](https://journeylite.com/guide-to-gastric-sleeve-recovery/)
-
-(https://journeylite.com/guide-to-gastric-sleeve-recovery/)
-03/04/2024 _by_ (#)
-(https://journeylite.com/guide-to-gastric-sleeve-recovery/)

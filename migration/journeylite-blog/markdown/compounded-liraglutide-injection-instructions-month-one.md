@@ -94,18 +94,16 @@ Once the first vial is depleted at around 30 days, **you will need a new order o
 -   Do not inject more than the recommended amount of medication or you will run out and we will not be able to prescribe more!
 -   Please watch the video below to learn how to do your injections.
 -   You will be increasing your dose **each week** while on this vial
-    -   In week 1, you will inject **10 units daily:**
-        -   As one of the biggest side effects of GLP-1’s is nausea and vomiting, starting with a low dose will help minimize these issues and help your body get used to the medication.
-        -   On a 50 unit syringe, you will draw up your medication to the 10 unit mark.
-    -   In week 2, you will inject **20 units daily:**
-        -   As one of the biggest side effects of semaglutide is nausea and vomiting, starting with a low dose will help minimize these issues and help your body get used to the medication.
-        -   On a 50 unit syringe, you will draw up your medication to the 20 unit mark.
-    -   In week 3, you will inject **30 units daily:**
-        -   On a 50 unit syringe, you will draw up your medication to the 30 unit mark.
-    -   In week 4, you will inject **40 units daily:**
-        -   On a 50 unit syringe, you will draw up your medication to the 40 unit mark.
-
-(https://journeylite.com/product/liraglutide-month-one/)
+- In week 1, you will inject **10 units daily:**
+- As one of the biggest side effects of GLP-1’s is nausea and vomiting, starting with a low dose will help minimize these issues and help your body get used to the medication.
+- On a 50 unit syringe, you will draw up your medication to the 10 unit mark.
+- In week 2, you will inject **20 units daily:**
+- As one of the biggest side effects of semaglutide is nausea and vomiting, starting with a low dose will help minimize these issues and help your body get used to the medication.
+- On a 50 unit syringe, you will draw up your medication to the 20 unit mark.
+- In week 3, you will inject **30 units daily:**
+- On a 50 unit syringe, you will draw up your medication to the 30 unit mark.
+- In week 4, you will inject **40 units daily:**
+- On a 50 unit syringe, you will draw up your medication to the 40 unit mark.
 
 #### What's Next?
 

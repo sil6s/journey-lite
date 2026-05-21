@@ -119,17 +119,17 @@ Here are the foundational habits that will keep you on track, not just for weeks
 
 Benjamin Franklin was right when he said, _“Failing to plan is planning to fail.”_ If you don’t know what you’re eating today – or worse, if you don’t have the right foods available – you’re setting yourself up for a struggle.
 
--   -   **Make a weekly plan.** Write out meals and snacks that help you hit your protein goals.
-    -   **Keep your pantry and fridge stocked.** If your healthy options are still sitting on the grocery store shelves, you can’t eat them.
-    -   **Think ahead for challenges.** Have a plan for travel, work events, or busy days so you’re not left relying on convenience foods.
+-   **Make a weekly plan.** Write out meals and snacks that help you hit your protein goals.
+- **Keep your pantry and fridge stocked.** If your healthy options are still sitting on the grocery store shelves, you can’t eat them.
+- **Think ahead for challenges.** Have a plan for travel, work events, or busy days so you’re not left relying on convenience foods.
 
 ### **2\. Prepping**
 
 Planning is one thing, but prepping makes it real. This is about doing the small things that make healthy eating easy when life gets busy.
 
--   -   Wash and portion out fruit so it’s ready to grab.
-    -   Thaw protein the night before so dinner doesn’t become a fast-food emergency.
-    -   Puree and portion protein-rich foods like cottage cheese or Greek yogurt for dips during the week.
+-   Wash and portion out fruit so it’s ready to grab.
+- Thaw protein the night before so dinner doesn’t become a fast-food emergency.
+- Puree and portion protein-rich foods like cottage cheese or Greek yogurt for dips during the week.
 
 When healthy foods are convenient, you’re more likely to choose them.
 
@@ -139,10 +139,10 @@ One of the biggest mistakes bariatric patients make is skipping meals. But here�
 
 After surgery, your body works best with small, frequent meals—think 5–6 mini meals, or 3 meals with 2 protein-rich snacks. This pattern helps you:
 
--   -   Stay satisfied throughout the day.
-    -   Meet your protein goals.
-    -   Keep blood sugar steady.
-    -   Avoid late-night overeating caused by “catching up” on missed meals.
+-   Stay satisfied throughout the day.
+- Meet your protein goals.
+- Keep blood sugar steady.
+- Avoid late-night overeating caused by “catching up” on missed meals.
 
 Food is not the enemy. Eating consistently is actually one of the strongest tools you have for success.
 
@@ -152,9 +152,9 @@ Protein is the star of your bariatric plate. It’s what keeps you full, fuels y
 
 Some strategies to make protein a daily win:
 
--   -   **Aim for 60–100 grams per day**, depending on your provider’s recommendations.
-    -   **Prioritize protein first** at every meal. Think chicken, fish, eggs, Greek yogurt, tofu, beans, or protein shakes.
-    -   **Mix it up.** Don’t rely only on shakes or the same foods every day—variety helps prevent boredom.
+-   **Aim for 60–100 grams per day**, depending on your provider’s recommendations.
+- **Prioritize protein first** at every meal. Think chicken, fish, eggs, Greek yogurt, tofu, beans, or protein shakes.
+- **Mix it up.** Don’t rely only on shakes or the same foods every day—variety helps prevent boredom.
 
 When in doubt, ask yourself: _Where’s the protein?_
 
@@ -162,11 +162,11 @@ When in doubt, ask yourself: _Where’s the protein?_
 
 While food is central, it’s not the only piece of the puzzle. Here are some additional habits that can make a huge difference:
 
--   -   **Hydration:** Aim for 64 ounces of sugar-free, non-carbonated fluids daily. Sip slowly, and remember the 30-minute rule: no drinking right after meals.
-    -   **Movement:** You don’t need hours in the gym. Start with walking, light resistance bands, or yoga – anything that gets you moving consistently.
-    -   **Mindful Eating:** Slow down, chew thoroughly, and listen to your body’s signals of hunger and fullness.
-    -   **Sleep:** Poor sleep disrupts hormones that regulate appetite and can make weight loss harder. Aim for 7–9 hours of quality rest.
-    -   **Support:** Surround yourself with accountability – support groups, a dietitian, a coach, or even a close friend who understands your journey.
+-   **Hydration:** Aim for 64 ounces of sugar-free, non-carbonated fluids daily. Sip slowly, and remember the 30-minute rule: no drinking right after meals.
+- **Movement:** You don’t need hours in the gym. Start with walking, light resistance bands, or yoga – anything that gets you moving consistently.
+- **Mindful Eating:** Slow down, chew thoroughly, and listen to your body’s signals of hunger and fullness.
+- **Sleep:** Poor sleep disrupts hormones that regulate appetite and can make weight loss harder. Aim for 7–9 hours of quality rest.
+- **Support:** Surround yourself with accountability – support groups, a dietitian, a coach, or even a close friend who understands your journey.
 
 ## **Final Thoughts: Refresh, Don’t Reset**
 

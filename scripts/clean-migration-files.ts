@@ -111,6 +111,31 @@ function cleanMarkdown(body: string, imageMap: Map<string, string>): string {
   // 6. Escaped parentheses inside links (Turndown artifact for special chars)
   md = md.replace(/\\\(/g, "(").replace(/\\\)/g, ")");
 
+  // 6a. Fix multi-line bold split across lines (WordPress list item pattern):
+  //     "**Heading text\n    **Body text" → "**Heading text** Body text"
+  md = md.replace(/\*\*([^\n*]{1,120})\n[ \t]*\*\*/g, "**$1** ");
+
+  // 6b. Flatten nested/indented bullet items → single-level "- content"
+  //     "    -   content" or "      * content" → "- content"
+  md = md.replace(/^[ \t]{2,}[-*]\s+/gm, "- ");
+  //     "-   -   content" (outer - then inner -) → "- content"
+  md = md.replace(/^(-\s+)[-*]\s+/gm, "$1");
+
+  // 6c. Strip bolded URL placeholders in list items:
+  //     "**(https://url)** – description" → description only
+  md = md.replace(/\*\*\(https?:\/\/[^)]+\)\*\*\s*[-–]\s*/g, "");
+  //     "**(https://url)**" alone → strip
+  md = md.replace(/\*\*\(https?:\/\/[^)]+\)\*\*/g, "");
+
+  // 6d. Strip link title attributes from URLs: [text](url "title") → [text](url)
+  md = md.replace(/\]\(([^)"]+?)\s+"[^"]*"\)/g, "]($1)");
+
+  // 6c. Standalone parenthetical links with titles: (url "title") alone → strip
+  md = md.replace(/^\([^)]*"[^"]*"\)\s*$/gm, "");
+
+  // 6d. Inline (url "title") not on own line → strip just the title part
+  md = md.replace(/\((https?:\/\/[^)"]+)\s+"[^"]*"\)/g, "($1)");
+
   // 7. Empty links [](url) — remove entirely
   md = md.replace(/\[\]\([^)]*\)/g, "");
 
@@ -137,10 +162,37 @@ function cleanMarkdown(body: string, imageMap: Map<string, string>): string {
     return resolved !== match ? resolved : match;
   });
 
-  // 13. Multiple consecutive blank lines → max two
+  // 13. Strip "Related Articles/Posts" section and everything after it (always at end)
+  const relatedIdx = md.search(/\n#{1,3}\s*Related (Articles|Posts)/i);
+  if (relatedIdx !== -1) md = md.slice(0, relatedIdx);
+
+  // 14. Strip "Contact Us" section and everything after it
+  const contactIdx = md.search(/\n#{0,3}\s*Contact\s+Us\b/i);
+  if (contactIdx !== -1) md = md.slice(0, contactIdx);
+
+  // 15. Standalone orphaned parenthetical URL lines: (https://...) alone on a line
+  md = md.replace(/^\(https?:\/\/[^)]+\)\s*$/gm, "");
+
+  // 16. Standalone internal link artifacts: (/path/) alone on a line
+  md = md.replace(/^\(\/[^)]*\)\s*$/gm, "");
+
+  // 17. Date+byline attribution lines: "DD/MM/YYYY _by_ NAME"
+  md = md.replace(/^\d{2}\/\d{2}\/\d{4}\s+_by_.*$/gm, "");
+
+  // 17b. Author signature lines (WordPress post bylines/closings)
+  // Standalone "DrCurry" or "Dr. Trace Curry..." line
+  md = md.replace(/^DrCurry\s*$/gm, "");
+  // Trailing em-dash signatures: "– Dr. Trace Curry, Cincinnati Ohio"
+  md = md.replace(/\s*[-–]\s*Dr\.?\s*(?:Trace\s+)?Curry[^\n]*/g, "");
+  // "By Trace Curry MD" (sometimes doubled like "By Trace Curry MDBy Trace Curry MD")
+  md = md.replace(/(?:By\s+Trace\s+Curry\s+MD)+/gi, "");
+  // Standalone closing "Dr. Trace Curry" lines
+  md = md.replace(/^Dr\.?\s*Trace\s+Curry[^\n]*$/gm, "");
+
+  // 18. Multiple consecutive blank lines → max two
   md = md.replace(/\n{3,}/g, "\n\n");
 
-  // 14. Trailing whitespace on lines
+  // 19. Trailing whitespace on lines
   md = md.replace(/[ \t]+$/gm, "");
 
   return md.trim();
@@ -185,6 +237,18 @@ async function copyImages(manifest: ImageManifestEntry[]) {
   console.log(`Images: ${copied} copied, ${skipped} already present in public/legacy-blog/`);
 }
 
+// ── Clean plain-text fields (excerpt, metaDescription) ──────────────────────
+function cleanTextField(text: string): string {
+  return text
+    .replace(/\xa0/g, " ")                              // non-breaking space
+    .replace(/&nbsp;/g, " ")
+    .replace(/(?:By\s+Trace\s+Curry\s+MD)+\s*/gi, "")  // doubled/single byline prefix
+    .replace(/Dr\.?\s*Trace\s+Curry[^.]*\.\s*/gi, "")  // "Dr. Trace Curry, MD..." sentence
+    .replace(/\[…\]/g, "")                              // WordPress "[…]" excerpt truncation marker
+    .replace(/\s{2,}/g, " ")
+    .trim();
+}
+
 // ── Main ─────────────────────────────────────────────────────────────────────
 async function main() {
   console.log("Loading image manifest…");
@@ -222,13 +286,20 @@ async function main() {
   let jsonCleaned = 0;
   for (const file of jsonFiles) {
     const filePath = path.join(JSON_DIR, file);
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const post: Record<string, any> = await fs.readJson(filePath);
     let changed = false;
 
     if (post.bodyMarkdown) {
       const cleaned = cleanMarkdown(post.bodyMarkdown, imageMap);
       if (cleaned !== post.bodyMarkdown) { post.bodyMarkdown = cleaned; changed = true; }
+    }
+
+    // Clean excerpt and metaDescription text fields
+    for (const field of ["excerpt", "metaDescription"] as const) {
+      if (post[field]) {
+        const cleaned = cleanTextField(post[field]);
+        if (cleaned !== post[field]) { post[field] = cleaned; changed = true; }
+      }
     }
 
     if (post.featuredImageUrl && post.featuredImageUrl.startsWith("http")) {

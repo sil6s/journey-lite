@@ -86,8 +86,6 @@ false
 false
 
 ## Body
-Dr. Trace CurryMedical DirectorJourneyLite
-
 If you’re looking for a guide to gastric sleeve recovery, look no further! As a weight loss surgeon with over 20 years of experience and Medical Director of JourneyLite in Cincinnati, Ohio, I have performed thousands of gastric sleeves over my career. In this article, I’ll walk you through a gastric sleeve recovery timeline and answer FAQs.
 
 ## Gastric Sleeve Surgery Recovery Timeline

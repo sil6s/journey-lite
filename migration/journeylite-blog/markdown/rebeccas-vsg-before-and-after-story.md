@@ -84,8 +84,6 @@ true
 true
 
 ## Body
-(https://journeylite.com/testimonial/rebeccas-journey-from-exhaustion-to-empowered/)
-
 \\\\
 Before my gastric sleeve surgery in March 2023, I weighed nearly 300 pounds. I was constantly tired, battling daily knee and back pain after three knee surgeries, and I could barely keep up with my three kids. Even simple outings felt overwhelming. I avoided public places, feeling ashamed and stuck in a body that held me back from truly living.
 

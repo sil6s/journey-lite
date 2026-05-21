@@ -92,7 +92,6 @@ Limited-time New Year Special • Ends **January 31, 2026**
 Don’t wait for “later.” The best time to take control is now — and a quick consultation can help you map out
 the smartest path forward based on your goals, health history, and budget.
 
-(/free)
 (tel:+18774422263)
 
 ## One team. Every option.
@@ -113,13 +112,9 @@ Many online programs focus on just one approach. JourneyLite is different: we of
 -   A realistic timeline to start strong in 2026
 -   Next-step planning (insurance/self-pay/financing pathways if needed)
 
-(/free)
-
 Special ends **January 31, 2026**. Appointments fill fast in January.
 
 ### Don’t start the year behind.
 
 If you’ve been thinking about weight loss for months (or years), make this the moment you take the first step.
 Schedule now and let’s build your plan.
-
-(/free)

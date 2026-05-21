@@ -131,7 +131,7 @@ Consider **GLP-1s** if you:
 -   Have **metabolic comorbidities** where GLP-1 therapy provides additional benefits
 -   Have **coverage/savings** that reduce out-of-pocket cost
 -   Are willing to make a permanent financial commitment, as all studies show a very high rate of weight regain when stopping GLP-1’s.
-    -   Although you can regain all your weight after stopping phentermine also, it hurts a lot less if you spent $30/month on your prescription as opposed to $500-800/month.
+- Although you can regain all your weight after stopping phentermine also, it hurts a lot less if you spent $30/month on your prescription as opposed to $500-800/month.
 
 At JourneyLite, we also help patients compare **surgery vs. long-term medication costs**—because for some, a one-time surgical investment can be **more affordable** than years of monthly meds.
 
@@ -162,7 +162,5 @@ Whether you’re considering **phentermine**, **oral Wegovy®**, or even **sleev
 **Book a free consultation:**(https://journeylite.com/appointment-request/)free
 
 _Wegovy® is a registered trademark of Novo Nordisk. Zepbound® is a registered trademark of Eli Lilly. Medication eligibility, risks, and results vary by patient. This content is for information only and does not replace medical advice._
-
-(https://journeylite.com/free/ "Free Consultation")
 
 _Wegovy® is a registered trademark of Novo Nordisk. Zepbound® is a registered trademark of Eli Lilly. Medication eligibility, risks, and results vary by patient. This content is for information only and does not replace medical advice._

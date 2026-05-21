@@ -85,17 +85,17 @@ Fiber is the part of plant foods your body can’t digest, and it plays a big ro
 
 ## **Why Fiber Matters After Surgery**
 
--   -   **Satiety support:** Fiber slows digestion and helps you feel fuller, longer. That’s important when your meal sizes are small—you want every bite to work for you.
-    -   **Blood sugar balance:** High-fiber foods help stabilize blood sugar, reducing energy crashes and cravings that can make it harder to stick with your plan.
-    -   **Gut health:** Bariatric surgery can change your digestion. Fiber feeds the “good” bacteria in your gut, supporting smoother digestion and better overall health.
-    -   **Weight regain prevention:** By helping control appetite and cravings, fiber can be a quiet but powerful tool to protect your surgery results.
+-   **Satiety support:** Fiber slows digestion and helps you feel fuller, longer. That’s important when your meal sizes are small—you want every bite to work for you.
+- **Blood sugar balance:** High-fiber foods help stabilize blood sugar, reducing energy crashes and cravings that can make it harder to stick with your plan.
+- **Gut health:** Bariatric surgery can change your digestion. Fiber feeds the “good” bacteria in your gut, supporting smoother digestion and better overall health.
+- **Weight regain prevention:** By helping control appetite and cravings, fiber can be a quiet but powerful tool to protect your surgery results.
 
 ## **Fiber Food Ideas**
 
--   -   Edemame; contains fiber and protein
-    -   Acorn squash; it is fall and this fall flavor could be a great addition to roasted chicken or pot roast
-    -   Carrots, Cauliflower, and broccoli; Steam a bag of california medley veggies with dinner tonight
-    -   Raspberries, blackberries, strawberries, apples, or pears; top your favorite yogurt with some fruit
+-   Edemame; contains fiber and protein
+- Acorn squash; it is fall and this fall flavor could be a great addition to roasted chicken or pot roast
+- Carrots, Cauliflower, and broccoli; Steam a bag of california medley veggies with dinner tonight
+- Raspberries, blackberries, strawberries, apples, or pears; top your favorite yogurt with some fruit
 
 Want more ideas?  Check out this resource from (https://www.womenshealthmag.com/food/a19967218/foods-high-in-fiber/?utm_source=bing&utm_medium=cpc&utm_campaign=mgu_bg_whm_md_dsa_prog_org_us_a19967218&msclkid=44744da460041219fff0256057e9bc6c).
 

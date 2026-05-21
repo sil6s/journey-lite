@@ -104,8 +104,8 @@ Once the first vial is depleted at around 30 days, **you will need a new vial of
 -   Do not inject more than the recommended amount of medication or you will run out and we will not be able to prescribe more!
 -   Please watch the video below to learn how to do your injections.
 -   In weeks 1-4, you will inject **12.5 units once a week:**
-    -   As one of the biggest side effects of semaglutide is nausea and vomiting, starting with a low dose will help minimize these issues and help your body get used to the medication.
-    -   On a 50 unit syringe, you will draw up your medication to the 12.5 unit mark (pictured below).
+- As one of the biggest side effects of semaglutide is nausea and vomiting, starting with a low dose will help minimize these issues and help your body get used to the medication.
+- On a 50 unit syringe, you will draw up your medication to the 12.5 unit mark (pictured below).
 
 12.5 units on a 50 unit syringe
 
@@ -125,7 +125,7 @@ You will need a new vial of semaglutide for next month. You will receive injecti
 
 Passwords are required to access the injection instructions for each month below. These will be given to you at the corresponding office visits!
 
-[0.5mg](https://journeylite.com/compounded-semaglutide-injection-instructions-0-5mg/ "Compounded Semaglutide Injection Instructions-0.5mg")
+[0.5mg](https://journeylite.com/compounded-semaglutide-injection-instructions-0-5mg/)
 
 [1mg](https://journeylite.com/compounded-semaglutide-injection-instructions-1mg/)
 

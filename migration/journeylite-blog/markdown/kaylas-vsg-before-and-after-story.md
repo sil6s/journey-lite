@@ -81,8 +81,6 @@ true
 true
 
 ## Body
-(https://journeylite.com/testimonial/kaylas-vsg-before-and-after-testimonial/)
-
 \\\
 \[/vc\_column\_text\]\[/vc\_column\]\[/vc\_row\]\\\\[/vc\_column\]\[/vc\_row\]\\\
 I’m Kayla, and in January 2022, I made the life-changing decision to have gastric sleeve surgery. At my heaviest, I weighed 285 pounds. Today, I weigh 165—and the difference is more than just the number on the scale.

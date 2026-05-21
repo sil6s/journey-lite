@@ -91,17 +91,17 @@ true
 
 JourneyLite Physicians is in-network with almost every major private insurance company! This includes:
 
--   -   Aetna – JourneyLite is an (https://www.aetna.com/individuals-families/member-rights-resources/commitment-quality/institutes-of-quality.html)
-    -   Anthem
-        -   -   Blue Cross-Blue Shield
-            -   JourneyLite is a (https://www.bcbs.com/about-us/capabilities-initiatives/blue-distinction/blue-distinction-specialty-care)
-    -   Cigna
-    -   Humana
-    -   Medical Mutual
-    -   Surgery Plus
-    -   Transcarent
-    -   United Healthcare
-        -   -   JourneyLite is an (https://www.optum.com/business/health-plans/members/medical-benefits/bariatric.html)
+-   Aetna – JourneyLite is an (https://www.aetna.com/individuals-families/member-rights-resources/commitment-quality/institutes-of-quality.html)
+- Anthem
+- Blue Cross-Blue Shield
+- JourneyLite is a (https://www.bcbs.com/about-us/capabilities-initiatives/blue-distinction/blue-distinction-specialty-care)
+- Cigna
+- Humana
+- Medical Mutual
+- Surgery Plus
+- Transcarent
+- United Healthcare
+- JourneyLite is an (https://www.optum.com/business/health-plans/members/medical-benefits/bariatric.html)
 
 If you’re insurance company is not listed here, check with us, as this is not a comprehensive list!
 
@@ -109,11 +109,11 @@ Knowing if we are in-network is not the first step, however.  If you are going 
 
 Obtaining insurance authorization involves some (or all) of the following steps:
 
--   -   Confirming with your insurance that surgical weight loss is a covered benefit on your policy.
-    -   Determining which surgical weight loss procedures your policy will cover.
-    -   Determining what criteria will be needed for insurance approval (BMI, weight, if you need 3-18 months previous weight loss attempts, etc).
-    -   Obtaining documentation with 2-5 years of medical records from your primary care physician.
-    -   Clearance from a mental health professional (psych eval).
+-   Confirming with your insurance that surgical weight loss is a covered benefit on your policy.
+- Determining which surgical weight loss procedures your policy will cover.
+- Determining what criteria will be needed for insurance approval (BMI, weight, if you need 3-18 months previous weight loss attempts, etc).
+- Obtaining documentation with 2-5 years of medical records from your primary care physician.
+- Clearance from a mental health professional (psych eval).
 
 If you have the benefit and meet your plans criteria, our office will prepare a **letter of medical necessity** outlining your situation. We will submit it along with all the necessary information requesting approval for your weight loss surgery.
 
@@ -143,60 +143,42 @@ It is important to make contact with your insurance company to find out if surgi
 
 Please use the list below to help you ask all of the questions and to document the answers received from your insurance company.
 
--   -   Is surgery for morbid obesity a covered benefit?  
-    -   Write down the exact telephone number and extension called, and the exact name of the contact person you spoke with.
-    -   Call the customer service number on the back of your insurance card.
-    -   State “ I am inquiring about my benefits for surgical weight loss for morbid obesity (Diagnosis code or ICD 10 code E66.01).”
-    -   Are these CPT codes covered?
+-   Is surgery for morbid obesity a covered benefit?  
+- Write down the exact telephone number and extension called, and the exact name of the contact person you spoke with.
+- Call the customer service number on the back of your insurance card.
+- State “ I am inquiring about my benefits for surgical weight loss for morbid obesity (Diagnosis code or ICD 10 code E66.01).”
+- Are these CPT codes covered?
 
 -   43770 Gastric band
 -   43644 Gastric bypass
 -   43775 Gastric sleeve
 -   SIPS/SADI does not yet have a CPT code and will not be covered.
 
+-   Do I need 
 
+- Medical clearance from the Primary Care Physician?
 
--   -   Do I need 
+- Documentation of length of obesity?
 
-        -   -   Medical clearance from the Primary Care Physician?
+- Documentation of weight loss attempts?
 
+- Is Dr. Curry (NPI #1841281987 in network?
 
-
-            -   Documentation of length of obesity?
-
-
-
-            -   Documentation of weight loss attempts?
-
-
-
-
-    -    Is Dr. Curry (NPI #1841281987 in network?
-
-        -   -   If not, do I have out of network benefits?
-
+- If not, do I have out of network benefits?
 
 Remember to be sure and get the name and the extension of the person that you talked to!
 
-
-
 4.  5.  **START MAKING APPOINTMENTS**
 
-
-
--   -   **Initial Office Consultation**
+-   **Initial Office Consultation**
 
 (https://journeylite.com/appointment-request/) You will receive an email with a link to log in to your patient portal. Fill out the **MEDICAL HISTORY & DIET HISTORY ON OUR PATIENT PORTAL**. This MUST be completed prior to your initial consultation with the doctor.  You will receive further instructions on this after you schedule a consultation.
 
-
-
--   -   **Psychological Evaluation**
+-   **Psychological Evaluation**
 
 As we are a (https://www.facs.org/quality-programs/accreditation-and-verification/metabolic-and-bariatric-surgery-accreditation-and-quality-improvement-program/) _Bariatric Surgery Center of Excellence_, one of the mandates upon us is that **all** of our patients must undergo a preoperative psych evaluation.  Most of our patients see Dr. Charles Buhrman in our office, but it is not _required_ to use him for this evaluation.  (Please note that Dr. Buhrman does not work for our practice, he has his own practice and comes to our office for patient convenience.  Separate fees and charges will apply from his clinical evaluation.)  (https://journeylite.com/psych-eval/)
 
-
-
--   -   **Referral letter from Primary Care Physician**
+-   **Referral letter from Primary Care Physician**
 
 Ask your Primary Care Physician if he/she would be kind enough to detail your weight-related medical problems and to indicate that he feels the surgery is medically necessary.  If your doctor needs more information on the surgical weight loss procedure that you are interested in, let him know that he/she can call us, and we will be happy to send information regarding the surgery.  The more detailed this letter is, the better, and it is especially important for them to mention what diets you have done in the past!
 
@@ -214,17 +196,11 @@ If you do not have surgical weight loss benefits, we can help you with advice fo
 
 The advantages of self-pay include:  
 
+-   You can have surgery usually within 4-6 weeks, which is much sooner than if insurance is involved.
 
+- The money you pay out of pocket is potentially tax deductible, which can increase your tax return by as much as $2000-$4000.
 
--   -   You can have surgery usually within 4-6 weeks, which is much sooner than if insurance is involved.
-
-
-
-    -   The money you pay out of pocket is potentially tax deductible, which can increase your tax return by as much as $2000-$4000.
-
-
-
-    -   There are multiple ways to finance your procedure (home equity loan, credit cards, etc).  (https://journeylite.com/pricing-financing/)
+- There are multiple ways to finance your procedure (home equity loan, credit cards, etc).  (https://journeylite.com/pricing-financing/)
 
 ### Need Help Figuring It All out?
 
@@ -270,8 +246,8 @@ If you are unsure about your coverage for surgical weight loss, just complete an
 
 -   Do you have a secondary insurance?\*
 
-    -    Yes
-    -    No
+- Yes
+- No
 
 -   Secondary Insurance Company
 
@@ -296,7 +272,6 @@ If you are unsure about your coverage for surgical weight loss, just complete an
     Max. file size: 50 MB.
 
 -   ## Additional Info
-
 
 -   Consent to Transmit\*
 

@@ -310,8 +310,6 @@ It is often the smarter long-term investment in your health.
 
 If you are wondering whether gastric sleeve or GLP-1 medication is the better choice for you, the answer depends on your BMI, eating patterns, medical history, reflux status, and goals. But for many patients, especially those who want a durable solution rather than a temporary tool, gastric sleeve remains one of the very best GLP-1 alternatives available today.
 
-(https://journeylite.com/easy-appointment-request/)
-
 ## Frequently Asked Questions About VSG and GLP-1 Alternatives
 
 Navigating your path to the proper GLP-1 alternative for you may raise several questions. The team at JourneyLite is here with answers to your most pressing inquiries, covering everything from procedure details to recovery expectations.

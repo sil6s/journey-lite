@@ -87,8 +87,6 @@ true
 true
 
 ## Body
-(https://journeylite.com/testimonial/alonas-79-lb-weight-loss-with-journeylite-in-cincinnati/)
-
 **“Choosing JourneyLite was the best decision I’ve ever made, I even traveled from Pennsylvania to Cincinnati!”**
 
 **Procedure: Gastric Sleeve (VSG)**

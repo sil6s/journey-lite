@@ -81,8 +81,6 @@ true
 true
 
 ## Body
-(https://journeylite.com/testimonial/the-journeylite-team-is-there-for-whatever-you-may-need-dont-be-afraid-to-reach-out/)
-
 **Rebeca**
 
 **“I lost 160 pounds—and gained my life back.”**

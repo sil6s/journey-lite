@@ -90,10 +90,10 @@ The phrase _“we crave what we eat”_ isn’t just a saying – it’s backed 
 
 There are several key hormones that play vital roles in digestion and appetite regulation:
 
--   -   **Ghrelin** – the hunger hormone
-    -   **Leptin** – the fullness hormone
-    -   **Insulin** – the storage and blood sugar hormone
-    -   **CCK, GLP-1, PYY, and Amylin** – the satiety hormones
+-   **Ghrelin** – the hunger hormone
+- **Leptin** – the fullness hormone
+- **Insulin** – the storage and blood sugar hormone
+- **CCK, GLP-1, PYY, and Amylin** – the satiety hormones
 
 Let’s take a closer look at how each one works and how we can naturally keep them in balance.
 
@@ -105,10 +105,10 @@ Interestingly, bariatric procedures like **gastric bypass** and **gastric sleeve
 
 Even without surgery, ghrelin levels can be managed through lifestyle habits:
 
--   -   **Eat protein and fiber-rich meals.** These nutrients help stabilize blood sugar and suppress ghrelin longer than refined carbohydrates.
-    -   **Choose smaller, more frequent meals.** This helps prevent large fluctuations in hunger.
-    -   **Exercise regularly.** Physical activity helps regulate both ghrelin and insulin.
-    -   **Get quality sleep.** Sleep deprivation increases ghrelin, which can lead to overeating.
+-   **Eat protein and fiber-rich meals.** These nutrients help stabilize blood sugar and suppress ghrelin longer than refined carbohydrates.
+- **Choose smaller, more frequent meals.** This helps prevent large fluctuations in hunger.
+- **Exercise regularly.** Physical activity helps regulate both ghrelin and insulin.
+- **Get quality sleep.** Sleep deprivation increases ghrelin, which can lead to overeating.
 
 Because ghrelin is closely tied to **insulin**, maintaining stable blood sugar levels is essential for keeping hunger under control.
 
@@ -120,9 +120,9 @@ When insulin levels rise after eating, your body uses glucose for energy first a
 
 To support healthy insulin function:
 
--   -   Focus on **balanced meals** with lean proteins, healthy fats, and high-fiber carbohydrates.
-    -   Limit **added sugars** and refined carbs, which cause spikes in insulin.
-    -   Include **regular physical activity**, which improves insulin sensitivity.
+-   Focus on **balanced meals** with lean proteins, healthy fats, and high-fiber carbohydrates.
+- Limit **added sugars** and refined carbs, which cause spikes in insulin.
+- Include **regular physical activity**, which improves insulin sensitivity.
 
 Keeping insulin stable not only helps manage weight but also prevents the energy crashes and sugar cravings that often follow blood sugar highs and lows.
 
@@ -134,11 +134,11 @@ However, when fat mass increases significantly, **leptin levels rise chronically
 
 To increase leptin sensitivity:
 
--   -   **Eat more protein and fiber** to promote steady fullness.
-    -   **Exercise regularly** to improve cellular response to hormones.
-    -   **Prioritize sleep** – poor rest disrupts leptin and ghrelin balance.
-    -   **Reduce triglycerides** by cutting back on added sugars and refined carbs.
-    -   **Work toward gradual fat loss**, which helps reset leptin sensitivity.
+-   **Eat more protein and fiber** to promote steady fullness.
+- **Exercise regularly** to improve cellular response to hormones.
+- **Prioritize sleep** – poor rest disrupts leptin and ghrelin balance.
+- **Reduce triglycerides** by cutting back on added sugars and refined carbs.
+- **Work toward gradual fat loss**, which helps reset leptin sensitivity.
 
 ## **CCK, GLP-1, PYY, and Amylin: The Satiety Hormones**
 
@@ -146,9 +146,9 @@ These lesser-known digestive hormones are powerful allies in appetite control. T
 
 Together, they:
 
--   -   Slow down how quickly food leaves the stomach (delaying hunger)
-    -   Block glucagon release (helping stabilize blood sugar)
-    -   Promote satiety and satisfaction
+-   Slow down how quickly food leaves the stomach (delaying hunger)
+- Block glucagon release (helping stabilize blood sugar)
+- Promote satiety and satisfaction
 
 Lifestyle factors that boost these hormones include **exercise**, **stress management**, and **healthy sleep patterns**. Interestingly, medications that mimic GLP-1 (like semaglutide or liraglutide) are now used to treat obesity because they effectively enhance this natural satiety signaling.
 
@@ -174,9 +174,9 @@ This cycle can lead to increased **cravings**, **weight gain**, **dependence**, 
 
 Managing sugar cravings doesn’t mean eliminating sweetness altogether – it’s about finding balance and awareness. Here are a few practical ways to do that:
 
--   -   **Choose natural sugars** like fruit, honey, or pure maple syrup instead of refined sugars.
-    -   **Pair sweets with protein** (like fruit with Greek yogurt or a handful of nuts) to slow sugar absorption and prevent blood sugar spikes.
-    -   **Be intentional** with when and how often you indulge in sweets. If you plan for them, you can better anticipate and manage the cravings that may follow.
+-   **Choose natural sugars** like fruit, honey, or pure maple syrup instead of refined sugars.
+- **Pair sweets with protein** (like fruit with Greek yogurt or a handful of nuts) to slow sugar absorption and prevent blood sugar spikes.
+- **Be intentional** with when and how often you indulge in sweets. If you plan for them, you can better anticipate and manage the cravings that may follow.
 
 ## **In Summary**
 
@@ -186,10 +186,10 @@ By understanding these systems – and supporting them with balanced nutrition, 
 
 **References:**
 
--   -   (https://my.clevelandclinic.org/health/body/22601-insulin)
-    -   (https://pmc.ncbi.nlm.nih.gov/articles/PMC6615897/)
-    -   (https://www.healthline.com/health/dopamine-vs-serotonin#digestion)
-    -   (https://www.ncbi.nlm.nih.gov/books/NBK537284/)
+-   (https://my.clevelandclinic.org/health/body/22601-insulin)
+- (https://pmc.ncbi.nlm.nih.gov/articles/PMC6615897/)
+- (https://www.healthline.com/health/dopamine-vs-serotonin#digestion)
+- (https://www.ncbi.nlm.nih.gov/books/NBK537284/)
 
 Devon the Dietitian
 

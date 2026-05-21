@@ -83,11 +83,11 @@ true
 
 ## Body
 -   You will receive a 6mL bottle of sublingual tirzepatide containing a total of 150mg.
-    -   This is a smaller volume than the previous vial because it is a more concentrated solution (25mg/mL)!
+- This is a smaller volume than the previous vial because it is a more concentrated solution (25mg/mL)!
 -   This medication **does** need to be refrigerated.
 
 -   When ready to dose, use the dropper to draw up 0.2mL of medication.
-    -   Because this is more concentrated, you are getting more milligrams of medication with a smaller volume of liquid!
+- Because this is more concentrated, you are getting more milligrams of medication with a smaller volume of liquid!
 -   Squirt the medication under your tongue and hold it there for at least 2 minutes
 -   After 2 minutes, swish the medication around in your mouth for a few seconds and then swallow it
 -   Do not eat or drink anything for the next 30 minutes

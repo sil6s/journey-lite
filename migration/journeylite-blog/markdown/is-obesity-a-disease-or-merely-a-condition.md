@@ -79,4 +79,4 @@ true
 false
 
 ## Body
-Interesting article, (http://www.post-gazette.com/business/legal/2013/12/16/Obesity-a-disease-or-merely-a-condition/stories/201312160009 "Is Obesity a Disease, or Merely a Condition?") Dr. Curry
+Interesting article, (http://www.post-gazette.com/business/legal/2013/12/16/Obesity-a-disease-or-merely-a-condition/stories/201312160009) Dr. Curry

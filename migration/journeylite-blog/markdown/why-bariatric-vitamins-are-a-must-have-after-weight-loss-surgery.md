@@ -84,17 +84,11 @@ If you’ve had bariatric surgery—or are planning to—vitamins might feel lik
 
 Let’s dive deeper.
 
-
-
 ### **Which Vitamins Are a Must-Have After Bariatric Surgery?**
 
 Bariatric surgery (like gastric bypass or sleeve gastrectomy) helps with weight loss by reducing the size of your stomach—and in some cases, changing how food moves through your digestive system. These changes also affect how your body absorbs nutrients. This is why **lifelong vitamin supplementation is critical** after surgery—not just for your health, but for your energy, focus, and long-term success.  Here is a quick look at the most common nutritional deficiencies post surgery and how they impact you.
 
-
-
 <table class="has-fixed-layout"><tbody><tr><td>Nutrient</td><td>Importance</td><td>Common Deficiency Issues</td></tr><tr><td>Vitamin B12</td><td>Nerve health, red blood cells</td><td>Fatigue, nerve damage</td></tr><tr><td>Iron</td><td>Oxygen transport, energy</td><td>Anemia, fatigue</td></tr><tr><td>Calcium (Citrate)</td><td>Bone health, muscle function</td><td>Osteoporosis, muscle cramps</td></tr><tr><td>Vitamin D</td><td>Calcium absorption, immunity</td><td>Weak bones, fatigue</td></tr><tr><td>Folate (B9)</td><td>Cell production, fetal development</td><td>Anemia, neural tube defects</td></tr><tr><td>Thiamine (B1)</td><td>Carbohydrate metabolism, nervous system</td><td>Wernicke’s encephalopathy</td></tr><tr><td>Vitamin A, E, K</td><td>Vision, immunity, blood clotting (fat-soluble vitamins)</td><td>Various systemic issues</td></tr><tr><td>Zinc & Copper</td><td>Wound healing, immune function</td><td>Hair loss, skin problems, anemia</td></tr></tbody></table>
-
-
 
 ### **Why Choose a Bariatric-Specific Vitamin?**
 
@@ -102,23 +96,13 @@ Not all multivitamins are created equal. Regular over-the-counter vitamins often
 
 The physical changes to your digestive system impact the absorption of the vitamins you are both consuming through food and absorbing through supplements.  
 
+-   A smaller stomach pouch means less stomach acid and an impact on iron, calcium, and B12 absorption.
 
+-   Bypassed intestines means foods and supplements never enter portions of your intestines that are responsible for absorption of iron, calcium, folate, and fat soluble vitamins (A,D,E,K)
 
--   -   A smaller stomach pouch means less stomach acid and an impact on iron, calcium, and B12 absorption.
+-   Altered enzyme activity and bile exposure means less absorption of fat soluble vitamins (A,D,E,K)
 
-
-
--   -   Bypassed intestines means foods and supplements never enter portions of your intestines that are responsible for absorption of iron, calcium, folate, and fat soluble vitamins (A,D,E,K)
-
-
-
--   -   Altered enzyme activity and bile exposure means less absorption of fat soluble vitamins (A,D,E,K)
-
-
-
--   -   Reduced intrinsic factor impacts the absorption of B12 (so much so that we recommend a sublingual form of B12 supplementation)
-
-
+-   Reduced intrinsic factor impacts the absorption of B12 (so much so that we recommend a sublingual form of B12 supplementation)
 
 ### **Bariatric Formulated Vitamins**
 
@@ -128,55 +112,31 @@ There are several brands of bariatric vitamins, yet we carry and recommend Baria
 
 [**Bariatric Advantage**](https://journeylite.com/product-category/vitamins-2/) is one of the most trusted brands for post-surgery vitamins—and for good reason:
 
+-   **Formulated specifically for bariatric patients**
 
+-   **Easy-to-absorb forms** of nutrients (like calcium citrate and methylated B12/folate)
 
--   -   **Formulated specifically for bariatric patients**
+-   **Proper doses** based on current clinical guidelines
 
+-   Available in **chewables, capsules, and tablets** to suit different preferences and tolerances
 
-
--   -   **Easy-to-absorb forms** of nutrients (like calcium citrate and methylated B12/folate)
-
-
-
--   -   **Proper doses** based on current clinical guidelines
-
-
-
--   -   Available in **chewables, capsules, and tablets** to suit different preferences and tolerances
-
-
-
--   -   [**Triple GMP-Certified manufacturing**](https://ispe.org/initiatives/regulatory-resources/gmp/what-is-gmp)
+-   [**Triple GMP-Certified manufacturing**](https://ispe.org/initiatives/regulatory-resources/gmp/what-is-gmp)
 
 These products are designed to work with your new digestive system, so you actually get the nutrition you need.
-
-
 
 ### **What Should You Take?**
 
 We recommend all patients slowly integrate vitamins into their daily routine:
 
+-   **Vitamin B12** (sublingual) started at 1 week post-op
 
+-   A chewable **bariatric multivitamin** (with iron, if needed) started at 1 month post-op
 
--   -   **Vitamin B12** (sublingual) started at 1 week post-op
+-   **Calcium citrate** (separate from iron for better absorption) started at 2 months post-op
 
+-   May swap to a capsule form of the **bariatric multivitamin** at 2 months post-op
 
-
--   -   A chewable **bariatric multivitamin** (with iron, if needed) started at 1 month post-op
-
-
-
--   -   **Calcium citrate** (separate from iron for better absorption) started at 2 months post-op
-
-
-
--   -   May swap to a capsule form of the **bariatric multivitamin** at 2 months post-op
-
-
-
--   -   Possibly additional vitamins; **vitamin D, Iron, Copper, Zinc** to name a few
-
-
+-   Possibly additional vitamins; **vitamin D, Iron, Copper, Zinc** to name a few
 
 ## **Lab Results**
 
@@ -184,19 +144,11 @@ Routine lab work is also an important part of understanding how well your body i
 
 Labs can often be a bit difficult to interpret though, so let’s walk through some of them. 
 
+-   Serum calcium (calcium in your blood) may not accurately reflect total body calcium levels.  This is due to the fact that your body will leach calcium from your bones if you do not have enough calcium in your blood.  Leaching calcium from your bones increases the risk of “soft bones” and conditions like osteoporosis.
 
+-   Ferritin is a protein found in your blood that stores iron and is linked strongly to inflammation. Ferritin levels are often high after bariatric surgery for a number of reasons; healing process after surgery, chronic inflammation from obesity, and even fatty liver (which is also common in bariatric patients). If Ferritin is the only iron lab that is out of range, there are no recommended changes and the expectation is that this level will come down with continued weight loss and healthier lifestyle choices.
 
--   -   Serum calcium (calcium in your blood) may not accurately reflect total body calcium levels.  This is due to the fact that your body will leach calcium from your bones if you do not have enough calcium in your blood.  Leaching calcium from your bones increases the risk of “soft bones” and conditions like osteoporosis.
-
-
-
--   -   Ferritin is a protein found in your blood that stores iron and is linked strongly to inflammation. Ferritin levels are often high after bariatric surgery for a number of reasons; healing process after surgery, chronic inflammation from obesity, and even fatty liver (which is also common in bariatric patients). If Ferritin is the only iron lab that is out of range, there are no recommended changes and the expectation is that this level will come down with continued weight loss and healthier lifestyle choices.
-
-
-
--   -   B-vitamins (B1, B12, B6) can become elevated after bariatric surgery, usually due to over supplementation.  B vitamins are water soluble, which means that your body excretes them in your urine.  The exception to this is B6 and B12 which your body stores for a longer period of time. B12 rarely reaches toxic levels, yet B6 can become toxic if you ignore elevated levels for too long.
-
-
+-   B-vitamins (B1, B12, B6) can become elevated after bariatric surgery, usually due to over supplementation.  B vitamins are water soluble, which means that your body excretes them in your urine.  The exception to this is B6 and B12 which your body stores for a longer period of time. B12 rarely reaches toxic levels, yet B6 can become toxic if you ignore elevated levels for too long.
 
 ### **Final Thoughts**
 

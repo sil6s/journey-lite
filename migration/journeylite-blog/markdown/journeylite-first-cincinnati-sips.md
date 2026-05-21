@@ -90,8 +90,6 @@ The first SIPS procedure in Cincinnati was performed at (https://journeylite.com
 
 Standard Duodenal Switch
 
-
-
 SIPS Procedure or Loop Duodenal Switch
 
 The SIPS procedure is also known as the Loop Duodenal Switch (LDS) and you can see why in the above image.  The labels “A” and “C” in the image represent the connection between the duodenum, which is the first part of the small intestine, and a “loop” of the intestine much farther downstream.  This results in much fewer calories being absorbed than the patient actually consumes.  The term “pylorus sparing” refers to the fact that the pylorus remains intact, and the connection that is made (A to C) is between intestine and intestine rather than stomach and intestine as in a gastric bypass.  This reduces the risk of dumping syndrome and ulcers.
@@ -102,20 +100,14 @@ The SIPS procedure is done laparoscopically through 5 tiny incisions, takes abou
 
 As the SIPS procedure involves bypassing a significant amount of small intestine, patients must commit to life-long vitamin supplements and yearly lab work to check vitamin levels.
 
-(https://journeylite.com/appointment-request/)
-
 !(/legacy-blog/journeylite-first-cincinnati-sips__SIPS.jpg.webp.webp)
 
 #### SIPS/SADI/LDS Versus Sleeve–What’s the Difference
 
 Gastric Sleeve SIPS/SADI/LDS The field of bariatric surgery, or weight loss surgery, is always changing.  New options seem to come \[...\]
 
-(https://journeylite.com/sips-sadi-lds-versus-sleeve-whats-the-difference/ "Read more")
-
 !(/legacy-blog/new-study-finds-weight-loss-surgery-extends-lives__Vertical-Gastric-Sleeve-Anatomy-1024x724.jpg.webp.webp)
 
 #### New Study Finds Weight Loss Surgery Extends Lives
 
 by Dr. Trace Curry, Cincinnati, Ohio I remember when I did my first laparoscopic gastric bypass in 2003 at Wayne \[...\]
-
-(https://journeylite.com/new-study-finds-weight-loss-surgery-extends-lives/ "Read more")

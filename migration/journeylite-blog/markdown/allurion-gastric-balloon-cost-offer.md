@@ -164,8 +164,6 @@ If you’ve been waiting for a gastric balloon option that combines **new techno
 
 **(https://journeylite.com/easy-appointment-request/).**
 
-(https://journeylite.com/easy-appointment-request/)
-
 ## Frequently Asked Questions Allurion Gastric Balloon
 
 Navigating your path to a gastric balloon may raise several questions. The team at JourneyLite is here with answers to your most pressing inquiries, covering everything from procedure details to recovery expectations.

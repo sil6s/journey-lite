@@ -91,8 +91,7 @@ So what can you do to make sure you’re getting enough? Here are some practical
 
 ✅ **Get some sunshine:**Sunlight triggers your body to produce vitamin D. However, the darker your skin tone or the more consistently you wear sunscreen (which is still very important for skin protection!), the less vitamin D you’ll make from the same amount of sun.
 
-✅ **Consider supplements:
-**Vitamin D3 is the preferred form because it’s more potent and effective at raising your levels, though vitamin D2 also helps.
+✅ **Consider supplements:** Vitamin D3 is the preferred form because it’s more potent and effective at raising your levels, though vitamin D2 also helps.
 
 ✅ **Take it with food:**Vitamin D is a fat-soluble vitamin, meaning your body absorbs it better when it’s taken with a meal or snack that contains a little fat.
 

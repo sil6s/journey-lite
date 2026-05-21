@@ -81,8 +81,6 @@ true
 true
 
 ## Body
-(https://journeylite.com/testimonial/chrissys-gastric-sleeve-before-and-after-testimonial/)
-
 **Chrissy’s Journey: From 245 lbs to 130 lbs — and finally loving herself**
 
 Procedure: Gastric Sleeve

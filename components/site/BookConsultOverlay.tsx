@@ -76,12 +76,14 @@ export function BookConsultOverlay() {
 
   // Reset form when overlay opens
   useEffect(() => {
-    if (open) {
+    if (!open) return;
+    const resetTimer = window.setTimeout(() => {
       setStep("treatment");
       setErrors({});
       setForm((prev) => ({ ...prev, treatmentInterest: prefill.treatmentInterest ?? "", location: "" }));
       setTimeout(() => firstFocusableRef.current?.focus(), 80);
-    }
+    }, 0);
+    return () => window.clearTimeout(resetTimer);
   }, [open, prefill]);
 
   // ESC to close

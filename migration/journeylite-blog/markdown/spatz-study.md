@@ -200,9 +200,7 @@ Date of Birth\*
 
 Age\*
 
-
-
-At some point we may need to text you appointment reminders or other important information. By providing your phone number, you agree to receive text messages from JourneyLite. Message & data rates may apply. Message frequency varies, we try to keep it to a minimum. Reply STOP to any message to opt out, reply HELP for help. Click here for our (https://journeylite.com/terms-and-conditions/ "Terms & Conditions") or our (https://journeylite.com/privacy "Privacy Policy").
+At some point we may need to text you appointment reminders or other important information. By providing your phone number, you agree to receive text messages from JourneyLite. Message & data rates may apply. Message frequency varies, we try to keep it to a minimum. Reply STOP to any message to opt out, reply HELP for help. Click here for our (https://journeylite.com/terms-and-conditions/) or our (https://journeylite.com/privacy).
 
 Permission to Text/SMS\*
 
@@ -212,13 +210,9 @@ Permission to Text/SMS\*
 
 Phone\*
 
-
-
 Address:
 
  Street AddressCity AlabamaAlaskaAmerican SamoaArizonaArkansasCaliforniaColoradoConnecticutDelawareDistrict of ColumbiaFloridaGeorgiaGuamHawaiiIdahoIllinoisIndianaIowaKansasKentuckyLouisianaMaineMarylandMassachusettsMichiganMinnesotaMississippiMissouriMontanaNebraskaNevadaNew HampshireNew JerseyNew MexicoNew YorkNorth CarolinaNorth DakotaNorthern Mariana IslandsOhioOklahomaOregonPennsylvaniaPuerto RicoRhode IslandSouth CarolinaSouth DakotaTennesseeTexasUtahU.S. Virgin IslandsVermontVirginiaWashingtonWest VirginiaWisconsinWyomingArmed Forces AmericasArmed Forces EuropeArmed Forces Pacific State ZIP Code
-
-
 
 Height (ft)\*
 
@@ -244,8 +238,6 @@ Preferred Location:\*
 
 **Your BMI is too low for initiation of treatment with weight loss medications. Kentucky requires a BMI over 25. Ohio and Indiana require a BMI over 27.**
 
-
-
 Are you currently being treated for any of the following issues?\*
 
  I have none of these issues
@@ -268,8 +260,6 @@ Are you currently being treated for any of the following issues?\*
 
 **Your BMI is too low for initiation of treatment with weight loss medications. Kentucky requires a BMI over 27, or a BMI of 25-27 with weight-related medical conditions.**
 
-
-
 Have you had any of these issues in the past?\*
 
  I have had none of these issues
@@ -288,8 +278,6 @@ Have you had any of these issues in the past?\*
 
  Uncontrolled high blood pressure
 
-
-
 Do you currently take any of the listed medications below?\*
 
  I do not take any of these
@@ -306,8 +294,6 @@ Do you currently take any of the listed medications below?\*
 
  Vivitrol (naltrexone)
 
-
-
 Weight loss medication interest(s):\*
 
  Adipex (phentermine)
@@ -321,8 +307,6 @@ Weight loss medication interest(s):\*
  Wegovy/Mounjaro/Ozempic
 
  Unsure (or other)
-
-
 
 Do you currently take any INJECTABLE medications for diabetes?\*
 
@@ -373,8 +357,6 @@ According to the State Medical Boards of Ohio, Kentucky, and Indiana patients wi
 You may not be eligible for weight loss medications based on your medical history. Your information will be reviewed and a team member will be in contact with you.
 
 You may not be eligible for weight loss medications based on your current medications. Your information will be reviewed and a team member will be in contact with you.
-
-
 
 Select Procedures of Interest
 
@@ -438,8 +420,6 @@ If you are going through insurance, select your company from the list. If you ar
 
 **Currently we are not accepting this plan, please check back in the future! If you are a self-pay patient, please proceed.**
 
-
-
 Pulmonary History\*
 
  I have never had any of these problems.
@@ -499,8 +479,6 @@ Do you take any steroids by mouth on a regular basis? (e.g. prednisone, methylpr
 YesNo
 
 Please list your steroid regimen:
-
-
 
 Additional Message
 

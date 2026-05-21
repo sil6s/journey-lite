@@ -86,8 +86,6 @@ By Trace Curry, MD, FASMBS
 
 <a href="https://journeylite.com/about-dr-trace-curry" target="_blank" class="vc_single_image-wrapper vc_box_shadow_3d  vc_box_border_grey"></a>
 
-Dr. Trace Curry is the Medical Director and Founder of JourneyLite Physicians and JourneyLite Surgery Center
-
 For years, when patients came into my office asking for the breakthrough weight loss results of GLP-1s, the conversation sometimes hit a snag, otherwise known as “the needle.” While many have embraced weekly injections like Zepbound and Wegovy, a significant number of you have been waiting for the “Holy Grail”—a simple daily pill that actually works.
 
 Well, as of today, the wait may be over. With the FDA approval of Eli Lilly’s Foundayo (orforglipron), we are entering a brand-new era of metabolic medicine. Here is everything you need to know about how this medication works, how it stacks up against the “big names,” and what it will cost you.
@@ -106,23 +104,23 @@ The question everyone asks is: _“Will a pill lose me as much weight as the sho
 
 -   **Zepbound (weekly injection)**
 
--   -   Mechanism: GLP-1+GIP
-    -   Average Weight Loss: 21-22%
+-   Mechanism: GLP-1+GIP
+- Average Weight Loss: 21-22%
 
 -   **Wegovy (injection)**
 
--   -   Mechanism: GLP-1 only
-    -   Average Weight Loss: 15%
+-   Mechanism: GLP-1 only
+- Average Weight Loss: 15%
 
 -   **Wegovy (daily pill)**
 
--   -   Mechanism: GLP-1 only
-    -   Average Weight Loss: 21-22%
+-   Mechanism: GLP-1 only
+- Average Weight Loss: 21-22%
 
 -   **Foundayo (daily pill)**
 
--   -   Mechanism: GLP-1 only
-    -   Average Weight Loss: 12.5-15%
+-   Mechanism: GLP-1 only
+- Average Weight Loss: 12.5-15%
 
 **Doctor’s Note:** Don’t let the 15% vs 22% gap discourage you. For many patients, losing 15% of body weight is life-altering—reversing sleep apnea, lowering blood pressure, and getting off “maintenance” medications. Foundayo offers a “sweet spot” of high efficacy and zero needles.
 

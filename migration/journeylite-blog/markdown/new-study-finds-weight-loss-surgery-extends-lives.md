@@ -116,8 +116,6 @@ Regardless of the reason, considering modern techniques, the complication rate f
 
 **Trace Curry M.D.**
 
-Dr. Trace Curry is the medical director of JourneyLite Physicians and JourneyLite Surgery Center in Cincinnati, Ohio.  JourneyLite is a multi-specialty center that focuses on advanced outpatient laparoscopic weight loss surgery and incisionless weight loss procedures.  He has done over 7000 weight loss procedures in his career and is a key opinion leader in the field of surgical and incisionless weight loss.
-
 ## Gastric Sleeve
 
 <a href="https://journeylite.com/gastric-sleeve-vsg/" target="_self" class="vc_single_image-wrapper vc_box_border  vc_box_border_grey"></a>

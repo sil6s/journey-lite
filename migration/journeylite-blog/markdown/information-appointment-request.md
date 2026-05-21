@@ -119,8 +119,6 @@ Choose this option if you want to learn more about JourneyLite’s programs, com
 
 **This does not schedule an appointment.** It is a lower-commitment way to ask questions and learn more before deciding what to do next.
 
-(https://journeylite.com/information-request/)
-
 ## Request an Appointment
 
 Best if you are ready to take the next step with our team.
@@ -134,8 +132,6 @@ Choose this option if you are ready for JourneyLite to contact you about schedul
 -   You are ready for a JourneyLite team member to contact you directly.
 
 **This is the best choice if you are committed to moving forward.** Our team will use your information to help guide the appointment request process.
-
-(https://journeylite.com/easy-appointment-request/)
 
 ## What Can JourneyLite Help With?
 

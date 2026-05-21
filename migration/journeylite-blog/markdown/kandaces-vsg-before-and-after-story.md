@@ -81,8 +81,6 @@ true
 true
 
 ## Body
-(https://journeylite.com/testimonial/kandaces-vsg-before-and-after-testimonial/)
-
 \\\**“I Got My Life Back—And My Skates Too!”**
 By Kandace Pherson
 

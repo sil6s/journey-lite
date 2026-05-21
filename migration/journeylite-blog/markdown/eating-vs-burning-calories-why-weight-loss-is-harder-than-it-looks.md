@@ -92,11 +92,11 @@ Calories sneak into our diets faster than most people realize. Many everyday foo
 
 **Examples of common foods and their calorie counts:**
 
--   -   **Bagel with cream cheese** – ~450 calories
-    -   **Candy bar** – ~250 calories
-    -   **Slice of pepperoni pizza** – ~300 calories
-    -   **Frappuccino-style blended coffee drink** – ~400–500 calories
-    -   **Restaurant burger with fries** – ~1,200+ calories
+-   **Bagel with cream cheese** – ~450 calories
+- **Candy bar** – ~250 calories
+- **Slice of pepperoni pizza** – ~300 calories
+- **Frappuccino-style blended coffee drink** – ~400–500 calories
+- **Restaurant burger with fries** – ~1,200+ calories
 
 Notice how small these portions are? None of these require effort or time to consume. A bagel and coffee? Gone in five minutes. A slice of pizza? Two or three bites and it’s history.
 
@@ -104,11 +104,11 @@ Notice how small these portions are? None of these require effort or time to con
 
 Now, let’s compare those food choices to the amount of physical activity it takes to burn them off:
 
--   -   Bagel with cream cheese (~450 calories) = **90 minutes of brisk walking**
-    -   Candy bar (~250 calories) = **30 minutes of running**
-    -   Pizza slice (~300 calories) = **40 minutes of cycling**
-    -   Frappuccino (~450 calories) = **45 minutes of swimming laps**
-    -   Burger & fries (~1,200 calories) = **a full 2-hour high-intensity workout**
+-   Bagel with cream cheese (~450 calories) = **90 minutes of brisk walking**
+- Candy bar (~250 calories) = **30 minutes of running**
+- Pizza slice (~300 calories) = **40 minutes of cycling**
+- Frappuccino (~450 calories) = **45 minutes of swimming laps**
+- Burger & fries (~1,200 calories) = **a full 2-hour high-intensity workout**
 
 See the problem? The math doesn’t feel fair. Eating calories is quick, convenient, and often mindless. Burning them takes intention, effort, and a significant chunk of time.
 
@@ -118,8 +118,8 @@ Here’s another perspective: it takes about **3,500 calories** to equal **one p
 
 That means if you want to lose one pound, you need to create a deficit of 3,500 calories. You could get there by:
 
--   -   **Cutting 500 calories per day** for 7 days (through food choices), or
-    -   **Adding more exercise** – but as we’ve seen, it would take hours and hours of workouts to burn 500 calories daily.
+-   **Cutting 500 calories per day** for 7 days (through food choices), or
+- **Adding more exercise** – but as we’ve seen, it would take hours and hours of workouts to burn 500 calories daily.
 
 This doesn’t mean you have to be exact with the math – our bodies aren’t calculators – but it gives a powerful visual of how small daily choices add up over time.
 
@@ -129,16 +129,16 @@ Understanding the calorie equation helps set realistic expectations. Healthy, su
 
 ### **1\. Focus on Nutrition First**
 
--   -   Swap calorie-dense foods (fried snacks, sugary drinks) for nutrient-dense options (lean proteins, vegetables, whole grains).
-    -   Be mindful of hidden calories in sauces, dressings, and beverages. Check out (https://journeylite.com/sauces/) blog post for recipe ideas to lower the calories in sauces and dressings.
-    -   Practice portion control – sometimes the difference between losing and gaining weight is just a few hundred calories a day. Use the food label to determine an appropriate portion – yours can be smaller than that, but try to keep it no bigger.
+-   Swap calorie-dense foods (fried snacks, sugary drinks) for nutrient-dense options (lean proteins, vegetables, whole grains).
+- Be mindful of hidden calories in sauces, dressings, and beverages. Check out (https://journeylite.com/sauces/) blog post for recipe ideas to lower the calories in sauces and dressings.
+- Practice portion control – sometimes the difference between losing and gaining weight is just a few hundred calories a day. Use the food label to determine an appropriate portion – yours can be smaller than that, but try to keep it no bigger.
 
 ### **2\. Use Exercise Strategically**
 
--   -   Instead of trying to “work off” a meal, think of exercise as a way to [**support metabolism, preserve muscle, and boost energy**.
+-   Instead of trying to “work off” a meal, think of exercise as a way to [**support metabolism, preserve muscle, and boost energy**.
         ](https://journeylite.com/?s=balance&asl_active=1&p_asl_data=1&customset[]=page&customset[]=post&asl_gen[]=excerpt&asl_gen[]=content&asl_gen[]=title&qtranslate_lang=0&filters_initial=1&filters_changed=0)
-    -   Mix in resistance training and cardio for best results.
-    -   Aim for consistency, not perfection. A 20-minute walk daily adds up far more than a single intense workout once a week.
+- Mix in resistance training and cardio for best results.
+- Aim for consistency, not perfection. A 20-minute walk daily adds up far more than a single intense workout once a week.
 
 ### **3\. Create a Sustainable Calorie Deficit**
 
@@ -148,9 +148,9 @@ Extreme diets and marathon workouts might show short-term results, but they rare
 
 Instead of viewing food as something you have to “burn off,” try flipping the mindset:
 
--   -   **Food is fuel.** Choose meals that energize your body instead of weighing it down.
-    -   **Exercise is an investment.** You’re building muscle, strengthening your heart, and supporting mental health – not just torching calories.
-    -   **Balance is the goal.** Healthy weight loss isn’t about punishing workouts or starving yourself – it’s about creating a lifestyle that you can actually maintain.
+-   **Food is fuel.** Choose meals that energize your body instead of weighing it down.
+- **Exercise is an investment.** You’re building muscle, strengthening your heart, and supporting mental health – not just torching calories.
+- **Balance is the goal.** Healthy weight loss isn’t about punishing workouts or starving yourself – it’s about creating a lifestyle that you can actually maintain.
 
 ## **The Takeaway**
 

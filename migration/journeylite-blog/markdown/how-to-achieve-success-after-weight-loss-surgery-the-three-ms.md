@@ -129,34 +129,33 @@ It’s very difficult to be sedentary and maintain your weight loss in the long 
 
 -
 
-    ## (https://journeylite.com/surgery-post-op-diet-tips/ "Permalink to Surgery Post-op Diet Tips")
+    ## (https://journeylite.com/surgery-post-op-diet-tips/)
 
     JourneyLite post-op bariatric nutrition guide Post-op Diet Tips After Weight Loss Surgery Eating after bariatric surgery is not just about \[…\]
 
--   [!(/legacy-blog/atomic-habits-explained__carbonation-300x251.jpg.webp.webp "carbonation")](https://journeylite.com/carbonated-drinks-after-bariatric-surgery/ "Permalink to Avoiding Carbonation After Bariatric Surgery for Life")
+-   [!(/legacy-blog/atomic-habits-explained__carbonation-300x251.jpg.webp.webp "carbonation")](https://journeylite.com/carbonated-drinks-after-bariatric-surgery/)
 
-    ## (https://journeylite.com/carbonated-drinks-after-bariatric-surgery/ "Permalink to Avoiding Carbonation After Bariatric Surgery for Life")
+    ## (https://journeylite.com/carbonated-drinks-after-bariatric-surgery/)
 
     Bariatric Surgery Nutrition Tips Can You Drink Carbonated Beverages After Bariatric Surgery? After gastric sleeve, gastric bypass, SADI, or other \[...\]
 
--   [!(/legacy-blog/how-to-achieve-success-after-weight-loss-surgery-the-three-m__glp-1-pills-vs-weight-loss-surgery-comparisons-300x100.webp "glp-1-pills-vs-weight-loss-surgery-comparisons")](https://journeylite.com/glp-1-pills-vs-weight-loss-surgery/ "Permalink to GLP-1 Pills Are Here: Are They Better Than Weight Loss Surgery?")
+-   [!(/legacy-blog/how-to-achieve-success-after-weight-loss-surgery-the-three-m__glp-1-pills-vs-weight-loss-surgery-comparisons-300x100.webp "glp-1-pills-vs-weight-loss-surgery-comparisons")](https://journeylite.com/glp-1-pills-vs-weight-loss-surgery/)
 
-    ## (https://journeylite.com/glp-1-pills-vs-weight-loss-surgery/ "Permalink to GLP-1 Pills Are Here: Are They Better Than Weight Loss Surgery?")
+    ## (https://journeylite.com/glp-1-pills-vs-weight-loss-surgery/)
 
     2026 Weight Loss Treatment Update GLP-1 Pills vs. Weight Loss Surgery: What Patients Should Know in 2026 Oral GLP-1 medications \[...\]
 
--   [!(/legacy-blog/how-to-achieve-success-after-weight-loss-surgery-the-three-m__first-us-allurion-balloon-patient-results-journeylite-300x10.webp "first-us-allurion-balloon-patient-results-journeylite")](https://journeylite.com/first-allurion-balloon-patients-us-results/ "Permalink to First Commercial Allurion Balloon Patients in the U.S. Are Ahead of Schedule")
+-   [!(/legacy-blog/how-to-achieve-success-after-weight-loss-surgery-the-three-m__first-us-allurion-balloon-patient-results-journeylite-300x10.webp "first-us-allurion-balloon-patient-results-journeylite")](https://journeylite.com/first-allurion-balloon-patients-us-results/)
 
-    ## (https://journeylite.com/first-allurion-balloon-patients-us-results/ "Permalink to First Commercial Allurion Balloon Patients in the U.S. Are Ahead of Schedule")
+    ## (https://journeylite.com/first-allurion-balloon-patients-us-results/)
 
     JourneyLite Allurion Update First Commercial Allurion Balloon Patients in the U.S. Are Ahead of Schedule JourneyLite was honored to perform \[...\]
 
--   [!(/legacy-blog/how-to-achieve-success-after-weight-loss-surgery-the-three-m__journeylite-20-years-bariatric-surgery-trace-curry-james-aug.webp "journeylite-20-years-bariatric-surgery-trace-curry-james-augusta")](https://journeylite.com/a-legacy-of-weight-loss-success-journeylites-20-year-history-of-bariatric-excellence/ "Permalink to How To Achieve Success After Weight Loss Surgery-The Three “M’s”")
+-   [!(/legacy-blog/how-to-achieve-success-after-weight-loss-surgery-the-three-m__journeylite-20-years-bariatric-surgery-trace-curry-james-aug.webp "journeylite-20-years-bariatric-surgery-trace-curry-james-augusta")](https://journeylite.com/a-legacy-of-weight-loss-success-journeylites-20-year-history-of-bariatric-excellence/)
 
-    ## (https://journeylite.com/a-legacy-of-weight-loss-success-journeylites-20-year-history-of-bariatric-excellence/ "Permalink to How To Achieve Success After Weight Loss Surgery-The Three “M’s”")
+    ## (https://journeylite.com/a-legacy-of-weight-loss-success-journeylites-20-year-history-of-bariatric-excellence/)
 
     For nearly two decades, JourneyLite Physicians and JourneyLite Surgery Center have been at the forefront of surgical and medical weight(https://journeylite.com/how-to-achieve-success-after-weight-loss-surgery-the-three-ms/)
-
 
 ## Gastric Sleeve
 

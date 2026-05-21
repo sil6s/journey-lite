@@ -118,7 +118,6 @@ Meal planning is critical for any successful weight loss program. Here are some 
 -   When cooking, consider doubling the recipe to freeze some for later. This will give you a quick meal on a future day if you do not have time to cook. Be sure to label and date the food prior to placing it in the freezer to store.
 -   Keep your meal plan on the fridge or in a visible location to remind you of what your plan is each day, especially if you need to pack lunch or thaw meat out for a future dish!
 
-
 Download a PDF of this information and print it out if you like!
 
 !(/legacy-blog/getting-through-the-holidays__pdf.svg)

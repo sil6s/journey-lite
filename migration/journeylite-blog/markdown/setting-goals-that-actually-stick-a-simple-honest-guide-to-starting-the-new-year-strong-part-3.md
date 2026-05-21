@@ -128,17 +128,17 @@ This is not about judging yourself. It’s about creating a baseline. Your start
 
 Depending on your goal, your baseline might include:
 
--   -   Your current routine
-    -   Your energy levels
-    -   Your habits
-    -   Your schedule
-    -   Your sleep
-    -   Your hydration
-    -   Your eating patterns
-    -   Your stress levels
-    -   Your measurements
-    -   Your budget/spending
-    -   Your mental health or mood
+-   Your current routine
+- Your energy levels
+- Your habits
+- Your schedule
+- Your sleep
+- Your hydration
+- Your eating patterns
+- Your stress levels
+- Your measurements
+- Your budget/spending
+- Your mental health or mood
 
 Without a clear starting point, it’s easy to feel like nothing is changing – even when it is.
 
@@ -150,39 +150,39 @@ Here are examples for different goals:
 
 ### **If your goal is to improve energy:**
 
--   -   Hours of sleep
-    -   Bedtime/wake-up time
-    -   Afternoon slump patterns
-    -   Hydration
-    -   Movement
-    -   Screen time before bed
+-   Hours of sleep
+- Bedtime/wake-up time
+- Afternoon slump patterns
+- Hydration
+- Movement
+- Screen time before bed
 
 ### **If your goal is to reduce meal-time stress:**
 
--   -   Meal planning days
-    -   Grocery shopping habits
-    -   Days you cooked vs. ordered out
-    -   How long meal prep took
-    -   What meals felt easiest
+-   Meal planning days
+- Grocery shopping habits
+- Days you cooked vs. ordered out
+- How long meal prep took
+- What meals felt easiest
 
 ### **If your goal is physical change (like fitting into clothes better):**
 
--   -   Water intake
-    -   Protein intake
-    -   Movement
-    -   Measurements \*METHREESIXTY is a great app for this
-    -   Clothing fit
-    -   Energy and mood
-    -   Hunger and fullness cues
+-   Water intake
+- Protein intake
+- Movement
+- Measurements \*METHREESIXTY is a great app for this
+- Clothing fit
+- Energy and mood
+- Hunger and fullness cues
 
 ### **If your goal is financial organization:**
 
--   -   Spending habits
-    -   Monthly bills
-    -   Non-essential purchases
-    -   Savings
-    -   Debt payments
-    -   Subscription checks
+-   Spending habits
+- Monthly bills
+- Non-essential purchases
+- Savings
+- Debt payments
+- Subscription checks
 
 The key is choosing the right details – not _all_ the details.
 
@@ -215,10 +215,10 @@ If you prefer something automated, apps can track steps, calories, hydration, ha
 
 Once a week, review your progress:
 
--   -   What went well
-    -   What was challenging
-    -   What you want to adjust
-    -   What you’re proud of
+-   What went well
+- What was challenging
+- What you want to adjust
+- What you’re proud of
 
 ### **6\. Photos or Visuals**
 
@@ -241,13 +241,13 @@ Here’s the truth:
 
 Celebrate:
 
--   -   Drinking water before lunch
-    -   Going to bed 10 minutes earlier
-    -   Completing your grocery list
-    -   Saying “no” to something draining
-    -   Following your routine 80% of the time
-    -   Walking 8 minutes instead of 20
-    -   Doing something _imperfectly_ instead of not doing it at all
+-   Drinking water before lunch
+- Going to bed 10 minutes earlier
+- Completing your grocery list
+- Saying “no” to something draining
+- Following your routine 80% of the time
+- Walking 8 minutes instead of 20
+- Doing something _imperfectly_ instead of not doing it at all
 
 Tracking small wins creates emotional momentum.
 
@@ -257,12 +257,12 @@ Tracking isn’t just about recording – it’s about learning.
 
 When you track consistently, you start to see patterns:
 
--   -   Maybe your energy dips on certain days.
-    -   Maybe certain meals consistently feel too complicated.
-    -   Maybe you actually walk more than you realized.
-    -   Maybe your bedtime routine needs tweaking.
-    -   Maybe you’ve been more consistent than you thought.
-    -   Maybe your goal needs to shift based on new information.
+-   Maybe your energy dips on certain days.
+- Maybe certain meals consistently feel too complicated.
+- Maybe you actually walk more than you realized.
+- Maybe your bedtime routine needs tweaking.
+- Maybe you’ve been more consistent than you thought.
+- Maybe your goal needs to shift based on new information.
 
 This is where tracking becomes a powerful problem-solving tool.
 
@@ -270,12 +270,12 @@ Instead of abandoning your goal when something goes wrong, you **adjust your pla
 
 Questions to ask during your weekly review:
 
--   -   What worked well this week?
-    -   What didn’t work and why?
-    -   What felt easier than expected?
-    -   What felt harder?
-    -   Do I need to simplify anything?
-    -   What’s one small improvement I can make next week?
+-   What worked well this week?
+- What didn’t work and why?
+- What felt easier than expected?
+- What felt harder?
+- Do I need to simplify anything?
+- What’s one small improvement I can make next week?
 
 Tracking gives you the ability to course-correct before things spiral.
 

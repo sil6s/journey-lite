@@ -133,8 +133,6 @@ true
 true
 
 ## Body
-(https://journeylite.com/testimonial/katys-vsg-before-and-after/)
-
 \\\\\\[/vc\_column\_inner\]\[/vc\_row\_inner\]\
 **Katy**
 
@@ -1088,10 +1086,8 @@ I can enjoy life—fully, freely, and without limits. And for that, I am endless
 
 # Michael’s Story: “I finally changed my mind—and my life.”
 
-**Procedure:** Gastric Sleeve (VSG)
-**Surgeon:****Dr. James Augusta**
-**Facility:** JourneyLite
-**Surgery Date:****May 2025**
+**Procedure:** Gastric Sleeve (VSG)** Surgeon:****Dr. James Augusta**
+**Facility:** JourneyLite** Surgery Date:****May 2025**
 **Starting Weight:****299 lbs** → **Current:****192.6 lbs**
 **Total Lost:****~106 lbs**
 
@@ -1115,7 +1111,6 @@ Today I’m down from **299 to 193 lbs**. There isn’t much I can do now that I
 
 -   I’m wearing **clothing sizes I haven’t seen in 40 years**.
 
-
 I used to think weight loss surgery was only about the stomach. For me, it was about my **mind**—choosing to listen, learn, and follow a plan with people who know how to help. If you’re on the fence, I get it. But I can tell you this: saying “yes” to the gastric sleeve with **Dr. James Augusta at JourneyLite** gave me my health—and my confidence—back.
 
 !(/legacy-blog/jonathons-gastric-sleeve-vsg-before-and-after-story__Michael-before-and-after-featured-scaled.jpg.webp.webp)
@@ -1123,10 +1118,7 @@ I used to think weight loss surgery was only about the stomach. For me, it was a
 ### (https://journeylite.com/testimonial/heathers-story-i-finally-feel-aligned-with-myself/)
 
 \\\
-**Procedure:** Gastric sleeve
-**Surgeon:** Dr. James Augusta
-**Date:** September 2024
-**Highest weight:** 289 lbs → **Current:** 215 lbs (**74 lbs lost so far**)
+**Procedure:** Gastric sleeve** Surgeon:** Dr. James Augusta** Date:** September 2024** Highest weight:** 289 lbs → **Current:** 215 lbs (**74 lbs lost so far**)
 
 I’ve lived in a larger body for as long as I can remember. As a kid, I ran slower, shopped in different sections than my friends, and—at eight years old—I realized I could fit into my mom’s clothes. Little moments like that told me I wasn’t like everyone else, and over time my weight became part of my identity, whether I wanted it to or not.
 
@@ -1196,7 +1188,6 @@ Having gastric sleeve surgery completely changed the way I think about food. It 
 
 -   move my body in ways that are realistic and sustainable
 
-
 That has been the biggest difference for me. This journey hasn’t just been about weight loss — it has been about learning how to live a healthier life in a way I can actually maintain.
 
 ### Why JourneyLite made such a big difference
@@ -1216,7 +1207,6 @@ I had tried GLP-1 medications before surgery, but I ultimately chose surgery bec
 -   control my portions
 
 -   create a healthier, more sustainable lifestyle
-
 
 For me, surgery became the tool that helped me finally build those habits.
 

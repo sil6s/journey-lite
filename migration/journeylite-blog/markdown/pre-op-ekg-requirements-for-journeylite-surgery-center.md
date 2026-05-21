@@ -85,15 +85,15 @@ Prior to any surgery, all patients need some sort of pre-admission testing, or 
 Patients who meet certain criteria will also need an EKG.  If we also request for you to see your primary care physician or cardiologist for clearance, it is best to have them do your EKG so that they can compare it to previous tracings.  If we do not request clearance from any of your doctors, we will do your EKG at your pre-op/consent appointment according to the criteria below.
 
 -   The guidelines for EKG are:
-    -   Age >50
-    -   Chronic kidney disease
-    -   Obstructive sleep apnea
-        -   with an AHI of 15 or above and requiring a C-pap machine
-    -   Hypertension
-    -   Hyperlipidemia (high cholesterol)
-    -   Heart disease
-    -   Diabetes
-    -   Current smoker or past heavy smoker
+- Age >50
+- Chronic kidney disease
+- Obstructive sleep apnea
+- with an AHI of 15 or above and requiring a C-pap machine
+- Hypertension
+- Hyperlipidemia (high cholesterol)
+- Heart disease
+- Diabetes
+- Current smoker or past heavy smoker
 -   Any EKG done within the last 6 months is acceptable unless there are new symptoms, or there has been a change in the cardiac history. Then a new one would need be obtained.
 
 For Endoscopy and Balloon patients:

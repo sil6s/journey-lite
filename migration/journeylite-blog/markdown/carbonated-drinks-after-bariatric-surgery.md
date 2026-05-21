@@ -252,10 +252,6 @@ Yes. JourneyLite provides bariatric nutrition guidance and long-term follow-up t
 
 Devon Price is a licensed and registered dietitian who specializes in nutrition care for weight loss surgery and medical weight management patients. With years of experience guiding individuals through their pre- and post-operative journeys, Devon helps patients build sustainable, balanced eating habits that support long-term success after bariatric surgery.
 
-(https://journeylite.com/about-devon-price-rd-ld/)
-
 ## Need Help With Your Bariatric Nutrition Plan?
 
 JourneyLite helps patients throughout Ohio, Kentucky, and Indiana with surgical weight loss, medical weight management, gastric balloon options, and long-term nutrition support.
-
-(https://journeylite.com/easy-appointment-request/)

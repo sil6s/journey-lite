@@ -1,6 +1,5 @@
 const ENTERPRISE_SITE_KEY = "6LfmhvUsAAAAAI1x4uOucOQ7L4hy8c-LDwSmpntA";
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 export async function verifyRecaptchaToken(token: string | undefined, action: string, _remoteIp?: string) {
   const apiKey = process.env.RECAPTCHA_ENTERPRISE_API_KEY;
   const projectId = process.env.RECAPTCHA_ENTERPRISE_PROJECT_ID;

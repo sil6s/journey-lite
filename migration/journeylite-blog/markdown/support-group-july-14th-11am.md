@@ -81,4 +81,4 @@ false
 ## Body
 Support Group July 14, 11:00 AM – 12:00 PM Topic: Tips on Fast Food Eating Come Join Rebecca Erdman RD LD to discuss helpful tips on fast food eating. Learn how to eat out and still lose weight! 10475 Reading Road Cincinnati, OH 45241 Will be broadcast on join.me – stay tuned for info!
 
-[![20120709-211535.jpg](/legacy-blog/support-group-july-14th-11am__20120709-211535.jpg.webp)](/legacy-blog/support-group-july-14th-11am__20120709-211535.jpg.webp.webp)
+[![20120709-211535.jpg](/legacy-blog/support-group-july-14th-11am__20120709-211535.jpg)](/legacy-blog/support-group-july-14th-11am__20120709-211535.jpg.webp.webp)

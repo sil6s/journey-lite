@@ -83,8 +83,6 @@ true
 true
 
 ## Body
-(https://journeylite.com/testimonial/callies-journey-from-struggle-to-strength/)
-
 \\\\[/vc\_column\]\[/vc\_row\]\\\Callie’s Journey: From Struggle to Strength
 Total Weight Lost: 187 lbs
 Surgery: Gastric Sleeve, August 2025

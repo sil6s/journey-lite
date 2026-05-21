@@ -105,7 +105,7 @@ During the time of your treatment, we require monthly visits for the first 4 mon
 -   This order will be a 4-week supply of medication.
 -   You will be injecting **12.5 units injection per week**.
 -   This is the **Phase 1 Transition Dose.** You will remain on this dose for four weeks, and then you will increase to the **Phase 1 Maintenance Dose.**
-    -   You will receive injection instructions for the Phase 1 maintenance dose at your next appointment.
+- You will receive injection instructions for the Phase 1 maintenance dose at your next appointment.
 -   As one of the biggest side effects of tirzepatide is nausea and vomiting, starting with a low dose like this will help minimize these issues and help your body get used to the medication.
 
 12.5 units on a 50 unit syringe
@@ -128,26 +128,16 @@ You will be provided with the password for each phase at the appropriate office 
 
 #### Phase 1
 
-(https://journeylite.com/compounded-tirzepatide-injection-instructions-phase-1-month-2/)
-
 Password required.
 
 #### Phase 2
 
-(https://journeylite.com/compounded-tirzepatide-injection-instructions-phase-2-month-1/)
-
 Password required.
-
-(https://journeylite.com/compounded-tirzepatide-injection-instructions-phase-2-month-2/)
 
 Password required.
 
 #### Phase 3
 
-(https://journeylite.com/compounded-tirzepatide-injection-instructions-phase-3-month-1/)
-
 Password required.
-
-(https://journeylite.com/compounded-tirzepatide-injection-instructions-phase-3-month-2/)
 
 Password required.

@@ -158,8 +158,6 @@ Similarly, those with a history of bile reflux gastritis should also exercise ca
 
 Discussing your complete medical history and any existing gastrointestinal conditions with our team is crucial to determining the most appropriate surgical option for your health needs.
 
-(/interactive-seminar-calculate-bmi/)
-
 !(/legacy-blog/gastric-sleeve-requirements__how-to-qualify-for-gastric-sleeve.jpg.webp.webp)
 
 ## Pre-Surgery Requirements and Preparation
@@ -188,8 +186,6 @@ Specific to this procedure, patients may experience longer-term issues such as:
 -   **Relapse in weight gain** if you don’t comply with the dietary and lifestyle changes recommended post-surgery.
 
 Weigh the surgery’s risks against the anticipated benefits. The decision to proceed with a gastric sleeve should come after a thorough discussion with our team, taking into account your medical history, current health conditions, and the overall impact on your quality of life. For many, the potential to significantly lessen life-threatening issues related to obesity — such as hypertension, diabetes, and heart disease — can justify the risks involved. However, this assessment must be personalized based on your own circumstances and our expert advice.
-
-(https://journeylite.com/gastric-sleeve-cost-explained/)
 
 ## What to Expect From Gastric Sleeve Surgery
 
@@ -234,25 +230,3 @@ A gastric sleeve may not be the best procedure if you have GERD or bile reflux g
 ## Trust Your Gastric Sleeve Surgery to JourneyLite
 
 Now that you know the gastric sleeve requirements, you’re ready for the next step. Our team is prepared to help you decide the best option for your weight loss program. We have the expertise and knowledge to craft the right strategy to meet your goals. Contact us today to see how we can help you.
-
-(/easy-appointment-request/)
-
-## Related Articles:
-
-[!](https://journeylite.com/weight-loss-surgery-vs-glp-1-receptor-agonists-which-is-better/)
-
-(https://journeylite.com/weight-loss-surgery-vs-glp-1-receptor-agonists-which-is-better/)
-03/04/2024 _by_ (#)
-(https://journeylite.com/weight-loss-surgery-vs-glp-1-receptor-agonists-which-is-better/)
-
-[!](https://journeylite.com/tirzepatide-pricing/)
-
-(https://journeylite.com/tirzepatide-pricing/)
-20/02/2024 _by_ (#)
-(https://journeylite.com/tirzepatide-pricing/)
-
-[!](https://journeylite.com/gastric-sleeve-pros-and-cons-you-need-to-know/)
-
-(https://journeylite.com/gastric-sleeve-pros-and-cons-you-need-to-know/)
-07/02/2024 _by_ (#)
-(https://journeylite.com/gastric-sleeve-pros-and-cons-you-need-to-know/)

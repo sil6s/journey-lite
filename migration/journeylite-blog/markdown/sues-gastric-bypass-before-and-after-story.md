@@ -80,8 +80,6 @@ true
 true
 
 ## Body
-(https://journeylite.com/testimonial/sues-story-if-i-can-do-it-you-can-too/)
-
 **Procedure: Gastric Bypass, JourneyLite**
 **Surgery Date: May 2016**
 **Highest Weight: 350 lbs → Today: 149.6 lbs**

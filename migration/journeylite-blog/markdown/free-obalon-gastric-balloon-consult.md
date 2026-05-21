@@ -83,14 +83,8 @@ false
 ## Body
 !(/legacy-blog/obalon-pre-procedure-meds__obalon-1.jpg.webp.webp)**For a limited time you can get up to $1000 total off your procedure!**
 
-Dr. Trace Curry at JourneyLite Physicians was just approved to do the new (https://journeylite.com/gastric-balloon/obalon/).  We will be offering this unique new swallowable balloon technology at our main Cincinnati location, but will be seeing patients for consultations in our Cincinnati, Columbus, Dayton, and Northern Kentucky offices.  If you are an out of town patient and are interested in an Obalon gastric balloon consult, virtual consultations are also available.
-
 For a limited time you can get $500 off of your Obalon procedure from JourneyLite, then up to $500 in additional rebates from Obalon!  Terms & restrictions aply, click here for more info.
 
 The (http://www.obalon.com/) is new technology that allows patients to have a balloon placed by swallowing a small capsule in the office, rather than requiring anesthesia and endoscopy.  The procedure takes only 10 minutes, and patients can be on their feet and back to work almost immediately!  In contrast to saline filled balloons, Obalons are filled with inert nitrogen gas, and are smaller than traditional saline balloons such as ReShape and Orbera.  Patients return every 4 weeks and swallow another capsule for a total of 3 balloons and 750cc.  This difference in technique results in greater tolerance and less down-time than saline balloons.
 
-Dr. Trace Curry and JourneyLite Physicians are the most experienced gastric balloon doctors in the mid-west, and we are excited to offer this new minimally invasive, non-surgical treatment to our patients!
-
 Call now or click below to schedule your consultation!
-
-(https://journeylite.com/appointment-request/)

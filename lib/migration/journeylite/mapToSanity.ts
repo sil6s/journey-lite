@@ -41,6 +41,8 @@ export interface PTCallout {
 
 export type PTBlock_t = PTBlock | PTImage | PTCallout;
 
+const TRACE_CURRY_AUTHOR_REF = "e61f5279-c38b-4480-b691-2d727b2d78e0";
+
 export interface SanityBlogPostDraft {
   _type: "blogPost";
   _id?: string;
@@ -51,10 +53,13 @@ export interface SanityBlogPostDraft {
   updatedAt?: string;
   seoTitle?: string;
   seoDescription?: string;
+  featuredImageAlt?: string;
   tags?: string[];
+  isMigrated: true;
+  author: { _type: "reference"; _ref: string };
+  sources?: Array<{ _key: string; title?: string; url?: string }>;
+  showSources?: boolean;
   body: PTBlock_t[];
-  // Migration metadata stored as JSON string in a hidden field
-  // (extend Sanity schema with a "migration" object field to persist these)
   _migration?: {
     source: "journeylite-wordpress";
     sourceUrl: string;
@@ -201,9 +206,9 @@ function parseInline(text: string): ParsedInline {
     } else if (match[0].startsWith("*")) {
       children.push(span(match[3], ["em"]));
     } else {
-      // Link
+      // Link — strip optional title attribute: url "title" → url
       const linkKey = key();
-      const href = match[5];
+      const href = match[5].replace(/\s+"[^"]*"$/, "").trim();
       markDefs.push({ _type: "link", _key: linkKey, href });
       children.push(span(match[4], [linkKey]));
     }
@@ -225,8 +230,20 @@ function parseInline(text: string): ParsedInline {
 export function mapToSanityDraft(post: NormalizedPost): SanityBlogPostDraft {
   const body = markdownToPortableText(post.bodyMarkdown);
 
+  // Build sources from externalLinks (deduplicated by URL)
+  const seenUrls = new Set<string>();
+  const sources: SanityBlogPostDraft["sources"] = [];
+  let keyIdx = 0;
+  for (const link of post.externalLinks ?? []) {
+    if (!link.url || seenUrls.has(link.url)) continue;
+    seenUrls.add(link.url);
+    sources.push({ _key: `src${keyIdx++}`, title: link.text || undefined, url: link.url });
+  }
+
   return {
     _type: "blogPost",
+    isMigrated: true,
+    author: { _type: "reference", _ref: TRACE_CURRY_AUTHOR_REF },
     title: post.title,
     slug: { _type: "slug", current: post.slug },
     excerpt: post.excerpt.slice(0, 220),
@@ -234,7 +251,9 @@ export function mapToSanityDraft(post: NormalizedPost): SanityBlogPostDraft {
     ...(post.updatedAt ? { updatedAt: post.updatedAt } : {}),
     ...(post.seoTitle ? { seoTitle: post.seoTitle } : {}),
     ...(post.metaDescription ? { seoDescription: post.metaDescription } : {}),
+    ...(post.featuredImageAlt ? { featuredImageAlt: post.featuredImageAlt } : {}),
     ...(post.tags.length > 0 ? { tags: post.tags } : {}),
+    ...(sources.length > 0 ? { sources, showSources: true } : {}),
     body,
     _migration: {
       source: "journeylite-wordpress",

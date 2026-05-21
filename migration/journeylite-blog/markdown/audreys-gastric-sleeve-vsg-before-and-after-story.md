@@ -82,8 +82,6 @@ true
 true
 
 ## Body
-(https://journeylite.com/testimonial/audreys-gastric-sleeve-before-and-after-transformation/)
-
 \\\✨ Meet Audrey ✨
 Gastric Sleeve Surgery • June 2020
 Total Lost: 83 lbs 💪

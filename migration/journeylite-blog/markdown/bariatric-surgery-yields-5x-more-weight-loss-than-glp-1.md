@@ -99,7 +99,6 @@ For example:
 
 -   The same person undergoing gastric sleeve surgery could lose 90–120 lbs or more. The odds of them sustaining this weight loss is tremendously greater than with GLP-1s.
 
-
 ### Why Surgery Works Better
 
 **1\. Permanent Anatomical Change**
@@ -124,7 +123,6 @@ Bariatric surgery is more effective at resolving obesity-related conditions such
 
 -   PCOS and fertility issues
 
-
 ### Who Should Consider Bariatric Surgery?
 
 If you:
@@ -136,7 +134,6 @@ If you:
 -   Want to avoid the recurring **$6,000/year\* cost** of GLP-1 therapy vs [$10,000 one-time cost for a gastric sleeve at JourneyLite](https://journeylite.com/self-pay-gastric-sleeve-only-10000/)
 
 -   Are looking for a **permanent, life-changing solution**
-
 
 …then bariatric surgery may be the most effective option.
 
@@ -153,5 +150,3 @@ While (https://en.wikipedia.org/wiki/Glucagon-like_peptide-1) offer a helpful to
 Medical Director, JourneyLite Physicians
 
 Dr. Curry is a board-certified bariatric surgeon and the Medical Director of JourneyLite Physicians and JourneyLite Surgery Center in Cincinnati, Ohio. He has performed over 5,000 minimally invasive weight-loss procedures and is nationally recognized for his work in metabolic and bariatric medicine.
-
-(https://journeylite.com/about-dr-trace-curry/)

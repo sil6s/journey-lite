@@ -81,8 +81,6 @@ true
 true
 
 ## Body
-(https://journeylite.com/testimonial/i-couldnt-dance-in-public-lol-now-im-the-1st-and-sometimes-only-person-on-the-dance-floor/)
-
 \\\\[/vc\_column\]\\\[/vc\_column\]\[/vc\_row\]\\\
 **Tracy**
 

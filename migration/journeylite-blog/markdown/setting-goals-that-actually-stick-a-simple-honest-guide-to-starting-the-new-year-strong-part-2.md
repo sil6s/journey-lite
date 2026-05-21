@@ -118,7 +118,6 @@ Paint the big picture:
 
 -   You want to feel clear-minded instead of foggy.
 
-
 Or maybe your goal is to reduce meal-related stress.
 Your big picture might look like:
 
@@ -129,7 +128,6 @@ Your big picture might look like:
 -   Not scrambling at 5 p.m. wondering what to cook.
 
 -   Feeling confident that you’re eating in a way that supports your health.
-
 
 Understanding the big picture helps you create a plan that isn’t random. It helps you understand the destination so you can map out the route.
 
@@ -153,7 +151,6 @@ Some examples:
 
 -   You may need better hydration or more movement.
 
-
 #### **If you want meal-time to be easier…**
 
 -   You may need to create a simple meal plan template.
@@ -164,7 +161,6 @@ Some examples:
 
 -   You may need to prepare ingredients ahead of time.
 
-
 #### **If you want your clothes to fit better…**
 
 -   You may need to focus on protein, hydration, and balanced meals.
@@ -174,7 +170,6 @@ Some examples:
 -   You may need to reduce stress or emotional eating habits.
 
 -   You may need to give yourself time – realistic, sustainable time.
-
 
 This step is about identifying the “moving pieces” of your goal.
 
@@ -235,7 +230,6 @@ Ask yourself what tools, support, or knowledge will help you succeed:
 -   Do you need accountability?
     (A friend, coach, app, tracking sheet, community.)
 
-
 A plan without resources is a recipe for frustration. Gathering what you need in move forward removes barriers before they arise.
 
 * * *
@@ -261,7 +255,6 @@ Choose the 1 – 3 smallest actions that would make the _biggest_ impact. Exampl
 
 -   Go to bed 15 minutes earlier.
 
-
 Small steps done daily create more change than huge steps done rarely. A great resource for big impact from small actions is Atomic Habits by James Clear.
 
 * * *
@@ -277,7 +270,6 @@ Ask yourself:
 
 -   How will I stay consistent when I’m tired, traveling, stressed, or busy?
 
-
 Examples:
 
 -   If you can’t do a 30-minute workout, do 10 minutes.
@@ -285,7 +277,6 @@ Examples:
 -   If you can’t cook dinner, choose a healthy semi-prepped meal.
 
 -   If you can’t follow your exact plan, follow a simplified version.
-
 
 This is the difference between giving up and adjusting.
 
@@ -310,7 +301,6 @@ A solid plan includes:
 -   The timeframe
 
 -   The method of tracking
-
 
 Once you have all of these pieces, you officially have a roadmap – not just a goal.
 

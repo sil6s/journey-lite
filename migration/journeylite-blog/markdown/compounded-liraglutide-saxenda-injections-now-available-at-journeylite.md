@@ -95,7 +95,6 @@ One of the key advantages of compounded liraglutide is its **simple daily dosing
 
 -   **Ongoing monthly cost**: Only **$298** (for medication)
 
-
 There are **no insurance requirements**, **no hidden fees**, and **no long waits** to get started.
 
 ### Who Can Benefit from Compounded Liraglutide?
@@ -108,18 +107,13 @@ Liraglutide injections may be a great solution for patients who:
 
 -   Have **not had surgery** but continue to struggle with weight despite diet and exercise.
 
-
 ### Start Your Compounded Liraglutide Weight Loss Journey Today
 
 JourneyLite has more experience than any practice in the midwest for treating post-op surgery or gastric balloon patients with GLP-1 medications and even patients who have not had a surgical procedure. If you’re ready to explore how **liraglutide can help you lose weight and improve your health**, we’re here to support you every step of the way.
 
 👉 [**Click here to learn more and get started!**](#)
 
-Dr. Trace CurryMedical DirectorJourneyLite
-
 #### By Dr. Trace Curry
-
-Dr. Trace Curry is one of the most experienced bariatric surgeon and weight loss physicians in the midwest. He is the Medical Director of JourneyLite Surgery Center and JourneyLite Physicians. These two organizations have helped over 10,000 patients achieve their weight loss goals, changing their lives and improving their health.
 
 ## Easy Appointment
 
@@ -158,8 +152,6 @@ What's your phone number?\*
 If you want to, provide your mailing address.
 
  Street Address City  State / Province / Region ZIP / Postal Code AfghanistanAlbaniaAlgeriaAmerican SamoaAndorraAngolaAnguillaAntarcticaAntigua and BarbudaArgentinaArmeniaArubaAustraliaAustriaAzerbaijanBahamasBahrainBangladeshBarbadosBelarusBelgiumBelizeBeninBermudaBhutanBoliviaBonaire, Sint Eustatius and SabaBosnia and HerzegovinaBotswanaBouvet IslandBrazilBritish Indian Ocean TerritoryBrunei DarussalamBulgariaBurkina FasoBurundiCabo VerdeCambodiaCameroonCanadaCayman IslandsCentral African RepublicChadChileChinaChristmas IslandCocos IslandsColombiaComorosCongoCongo, Democratic Republic of theCook IslandsCosta RicaCroatiaCubaCuraçaoCyprusCzechiaCôte d'IvoireDenmarkDjiboutiDominicaDominican RepublicEcuadorEgyptEl SalvadorEquatorial GuineaEritreaEstoniaEswatiniEthiopiaFalkland IslandsFaroe IslandsFijiFinlandFranceFrench GuianaFrench PolynesiaFrench Southern TerritoriesGabonGambiaGeorgiaGermanyGhanaGibraltarGreeceGreenlandGrenadaGuadeloupeGuamGuatemalaGuernseyGuineaGuinea-BissauGuyanaHaitiHeard Island and McDonald IslandsHoly SeeHondurasHong KongHungaryIcelandIndiaIndonesiaIranIraqIrelandIsle of ManIsraelItalyJamaicaJapanJerseyJordanKazakhstanKenyaKiribatiKorea, Democratic People's Republic ofKorea, Republic ofKuwaitKyrgyzstanLao People's Democratic RepublicLatviaLebanonLesothoLiberiaLibyaLiechtensteinLithuaniaLuxembourgMacaoMadagascarMalawiMalaysiaMaldivesMaliMaltaMarshall IslandsMartiniqueMauritaniaMauritiusMayotteMexicoMicronesiaMoldovaMonacoMongoliaMontenegroMontserratMoroccoMozambiqueMyanmarNamibiaNauruNepalNetherlandsNew CaledoniaNew ZealandNicaraguaNigerNigeriaNiueNorfolk IslandNorth MacedoniaNorthern Mariana IslandsNorwayOmanPakistanPalauPalestine, State ofPanamaPapua New GuineaParaguayPeruPhilippinesPitcairnPolandPortugalPuerto RicoQatarRomaniaRussian FederationRwandaRéunionSaint BarthélemySaint Helena, Ascension and Tristan da CunhaSaint Kitts and NevisSaint LuciaSaint MartinSaint Pierre and MiquelonSaint Vincent and the GrenadinesSamoaSan MarinoSao Tome and PrincipeSaudi ArabiaSenegalSerbiaSeychellesSierra LeoneSingaporeSint MaartenSlovakiaSloveniaSolomon IslandsSomaliaSouth AfricaSouth Georgia and the South Sandwich IslandsSouth SudanSpainSri LankaSudanSurinameSvalbard and Jan MayenSwedenSwitzerlandSyria Arab RepublicTaiwanTajikistanTanzania, the United Republic ofThailandTimor-LesteTogoTokelauTongaTrinidad and TobagoTunisiaTurkmenistanTurks and Caicos IslandsTuvaluTürkiyeUS Minor Outlying IslandsUgandaUkraineUnited Arab EmiratesUnited KingdomUnited StatesUruguayUzbekistanVanuatuVenezuelaViet NamVirgin Islands, BritishVirgin Islands, U.S.Wallis and FutunaWestern SaharaYemenZambiaZimbabweÅland Islands Country
-
-
 
 I am interested in:\*
 
@@ -241,8 +233,6 @@ If you are going through insurance, select your company from the list. If you ar
 
 Currently we are not accepting this plan, please check back in the future! If you are a self-pay patient, please proceed.
 
-
-
 Height (ft)\*
 
 Please enter a number from **4** to **7**.
@@ -258,8 +248,6 @@ Please enter a number from **0** to **11.5**.
 What's your current weight in pounds?\*
 
 Your BMI is:
-
-
 
 Do you currently take any INJECTABLE medications for diabetes?\*
 
@@ -297,8 +285,6 @@ Please note that a controlled substance report will be reviewed prior to prescri
 
 According to the State Medical Boards of Ohio, Kentucky, and Indiana, patients with a current (or past) history of any type of substance abuse disorder are not eligible for weight loss medications.
 
-
-
 Tell us about your gastrointestinal history:\*
 
  I have never had any of these problems.
@@ -324,8 +310,6 @@ YesNo
 What steroid do you currently take, and how much?\*
 
 Surgical procedures can be very high risk in patients who are steroids, therefore they would need to be completely stopped for 4 weeks prior to surgery and held for 4 weeks after in order to proceed.
-
-
 
 If you have any additional comments, please enter them here!
 

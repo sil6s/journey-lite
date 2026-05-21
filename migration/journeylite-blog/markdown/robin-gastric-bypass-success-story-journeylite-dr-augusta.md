@@ -108,7 +108,6 @@ Today, it’s the little-big things that mean everything:
 
 -   “I have a lap,” she says with pride.
 
-
 Most importantly, Robin has discovered a confidence she’s never had before.
 
 “If you make up your mind and work hard, you can achieve anything you want.”

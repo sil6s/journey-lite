@@ -105,7 +105,7 @@ Vitamins & minerals start one month after surgery. The exception is sublingual v
  The following are required to be taken after your surgery:
 
 -   **1 week post surgery:**
-    -   **At 1 week out you will begin taking Sublingual B-12 (1,000 mcg) daily until your 1 month visit.** 
+- **At 1 week out you will begin taking Sublingual B-12 (1,000 mcg) daily until your 1 month visit.** 
 
 -   [!(/legacy-blog/vitamins__BA-b12-black-cherry-500x500.jpg.webp.webp)
 
@@ -114,11 +114,11 @@ Vitamins & minerals start one month after surgery. The exception is sublingual v
     ](https://journeylite.com/product-category/vitamins-2/b-vitamins/vitamin-b12/)
 
 -   **1 month post surgery**
-    -   Begin chewable multivitamin
-    -   Iron (ferrous fumarate-18mg/d),
-    -   Vitamin D3 (15,000 IU/weekly)
-    -   Calcium Citrate (1000 mg/d, _ONLY take 500 mg at one time to increase absorption_)
-    -   Decrease sublingual B12 to 1,000 mcg/week.
+- Begin chewable multivitamin
+- Iron (ferrous fumarate-18mg/d),
+- Vitamin D3 (15,000 IU/weekly)
+- Calcium Citrate (1000 mg/d, _ONLY take 500 mg at one time to increase absorption_)
+- Decrease sublingual B12 to 1,000 mcg/week.
 
 Our pharmaceutical-grade Ultra Solo chewable multivitamin in our vitamin kits also has all the iron and vitamin D3 you need built in!
 

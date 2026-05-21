@@ -88,17 +88,15 @@ false
 true
 
 ## Body
-Dr. Trace CurryMedical DirectorJourneyLite
-
 GlP-1 receptor agonists have quickly become one of the most popular categories of medications on planet earth. Used for both diabetes and weight loss, there are many patients who could potentially benefit from these drugs. In fact, they became so popular that the manufactures could not meet demand and some of them were placed on the FDA drug shortage list.
 
 When a drug is on this list, (https://www.webmd.com/drug-medication/what-is-compounding-pharmacy) are allowed to make a generic version of the medication, despite the fact that it is still covered by a patent.  Many patients were able to get less expensive forms of these medications due to this exception. Earlier in the month of October, however, the FDA removed tirzepatide from their (https://www.fda.gov/drugs/drug-safety-and-availability/drug-shortages) as the manufacturer had reportedly caught up with demand.
 
 What does this change mean? Well, basically it means that patients who have been using generic compounded tirzepatide will no longer be able to get it. They will have only 3 choices:
 
--   -   Stop the medication
-    -   Transition over to (https://journeylite.com/wegovy/), which is still on the list and can be compounded
-    -   Transition over to brand-name tirzepatide, which is Zepbound
+-   Stop the medication
+- Transition over to (https://journeylite.com/wegovy/), which is still on the list and can be compounded
+- Transition over to brand-name tirzepatide, which is Zepbound
 
 Zepbound is more expensive than compounded tirzepatide, but Eli Lilly the manufacturer does offer a (https://zepbound.lilly.com/coverage-savings) where patients can get it without insurance coverage for around $650/month. Still, this is nearly twice as much as the compounded version.
 
@@ -152,8 +150,6 @@ Date of Birth\*
 
 Your Email\*
 
-
-
 Permission to Text/SMS\*
 
  I agree to receive texts
@@ -162,15 +158,11 @@ Permission to Text/SMS\*
 
 Phone
 
-At some point we may need to text you appointment reminders or other important information. By providing your phone number, you agree to receive text messages from JourneyLite. Message & data rates may apply. Message frequency varies, we try to keep it to a minimum. Reply STOP to any message to opt out, reply HELP for help. Click here for our (https://journeylite.com/terms-and-conditions/ "Terms & Conditions") or our (https://journeylite.com/privacy "Privacy Policy").
-
-
+At some point we may need to text you appointment reminders or other important information. By providing your phone number, you agree to receive text messages from JourneyLite. Message & data rates may apply. Message frequency varies, we try to keep it to a minimum. Reply STOP to any message to opt out, reply HELP for help. Click here for our (https://journeylite.com/terms-and-conditions/) or our (https://journeylite.com/privacy).
 
 Address (optional):
 
  Street AddressCity AlabamaAlaskaAmerican SamoaArizonaArkansasCaliforniaColoradoConnecticutDelawareDistrict of ColumbiaFloridaGeorgiaGuamHawaiiIdahoIllinoisIndianaIowaKansasKentuckyLouisianaMaineMarylandMassachusettsMichiganMinnesotaMississippiMissouriMontanaNebraskaNevadaNew HampshireNew JerseyNew MexicoNew YorkNorth CarolinaNorth DakotaNorthern Mariana IslandsOhioOklahomaOregonPennsylvaniaPuerto RicoRhode IslandSouth CarolinaSouth DakotaTennesseeTexasUtahU.S. Virgin IslandsVermontVirginiaWashingtonWest VirginiaWisconsinWyomingArmed Forces AmericasArmed Forces EuropeArmed Forces Pacific State ZIP Code
-
-
 
 Height (ft - e.g. 5'0 enter a 5)\*
 
@@ -185,8 +177,6 @@ Preferred Location:\*
 \-SELECT LOCATION-CincinnatiColumbusDaytonIndianapolisNorthern KyVirtual
 
 Your location is far away! We do serve patients from all over the country, but we need to get some more information first. Please send us your information, including your location, by using our  (https://journeylite.com/contact-us) form to see if you are a candidate!
-
-
 
 Weight loss medication interest(s):\*
 
@@ -215,8 +205,6 @@ Are you interested in information on surgical options?
 YesNo thanks
 
 Your BMI is over 35, are you interested in a free video consultation with Dr. Curry to discuss the pro's and con's of surgery vs. meds?
-
-
 
 Select Procedures of Interest
 
@@ -281,8 +269,6 @@ Self-payUnsureAetna AmbetterAnthemAetnaBuckeyeCaresourceCignaHumanaHumana Medica
 If you're going through insurance, select your company from the list. If you're unsure about your coverage, select "Unsure." If you know your insurance doesn't cover surgery, select "Self-pay."
 
 **Currently we are not accepting this plan, please check back in the future! If you are a self-pay patient, please proceed.**
-
-
 
 Additional Message
 

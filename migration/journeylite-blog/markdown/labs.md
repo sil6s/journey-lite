@@ -90,13 +90,9 @@ false
 
 Gastric bypass is a malabsorptive operation, which can lead to vitamin and nutrient deficiencies, especially if not properly monitored.  Therefore, we recommend bloodwork every 6-12 months afterwards:
 
-(https://journeylite.com/bloodwork-gastric-bypass/)
-
 ## Duodenal Switch/SIPS Procedure
 
 The duodenal switch or SIPS Procedure is the most powerful of all weight loss surgeries!  However, SIPS/DS patients are also at the highest risk for vitamin and nutrient deficiences and MUST be compliant with the recommended post-op vitamins.  We recommend checking the following labs afterwards:
-
-(https://journeylite.com/bloodwork-duodenal-switchsips/)
 
 #### (#1441873920568-18a8a48a-7614)
 
@@ -107,5 +103,3 @@ For gastric band patients, no specific labs are needed.  We recommend regular h
 ## (https://journeylite.com/bloodwork-gastric-sleeve/)
 
 Even though the gastric sleeve is not technically a malabsorptive procedure, vitamin deficiencies can rarely arise.  For this reason we recommend the following following labs aftwards:
-
-(https://journeylite.com/bloodwork-gastric-sleeve/)

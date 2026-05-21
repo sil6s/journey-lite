@@ -96,8 +96,6 @@ As the evening approaches:
 
 In other words, your brain is slightly more wired for pleasure at night. That slice of cake literally feels more satisfying in the evening than it would at 10 a.m.
 
-(https://journeylite.com/digestion-hormones-and-hunger-understanding-the-science-behind-cravings-and-satiety/)
-
 ### **2\. You Didn’t Eat Enough During the Day**
 
 This is one of the biggest (and most overlooked) causes.

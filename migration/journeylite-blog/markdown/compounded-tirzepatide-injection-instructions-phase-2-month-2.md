@@ -86,11 +86,11 @@ true
 Congratulations on completing the Phase Two Transition Dose on your compounded tirzepatide program! In the second month of Phase Two, we will again be increasing the dosage of your medication.  Continue to watch out for side effects, most commonly:
 
 -   Nausea and/or vomiting
-    -   If you are having a lot of issues, we can send an anti-nausea prescription to your pharmacy. Just give us a call at (513) 559-1222 or text us during business hours at (513) 572-1718.
+- If you are having a lot of issues, we can send an anti-nausea prescription to your pharmacy. Just give us a call at (513) 559-1222 or text us during business hours at (513) 572-1718.
 -   Constipation
-    -   It’s a good idea to use over the counter stool softeners (colace, Senekot), fiber, or Miralax if you are having trouble with constipation.
+- It’s a good idea to use over the counter stool softeners (colace, Senekot), fiber, or Miralax if you are having trouble with constipation.
 -   GERD
-    -   Acid reflux/GERD symptoms can be treated with over the counter Pepcid (famotidine) or Prilosec (omeprazole).
+- Acid reflux/GERD symptoms can be treated with over the counter Pepcid (famotidine) or Prilosec (omeprazole).
 
 If you are having major trouble with side effects, it is recommended to go back to your previous dosage for a week or two and then try increasing again.
 
@@ -104,15 +104,13 @@ If you are having major trouble with side effects, it is recommended to go back 
 -   You will be injecting **50 units** **per week**.
 -   This is the **Phase 2** **Maintenance Dose**. You can stay at this dose as long as it is working well for you.
 -   You will need to order (1) 40mg vial of tirzepatide each month while on this dose.
-    -   If you feel the effects are fading, you can move up to **Phase 3.**
-    -   You will need 2 vials of medication each month while on Phase 3.
-    -   Escalating to phase 3 is uncommon, as most patients will have an adequate response from phase 2 dosing!
+- If you feel the effects are fading, you can move up to **Phase 3.**
+- You will need 2 vials of medication each month while on Phase 3.
+- Escalating to phase 3 is uncommon, as most patients will have an adequate response from phase 2 dosing!
 
 50 units on a 50 unit syringe
 
 Your cart is currently empty.
-
-(https://journeylite.com/shop/)
 
 #### What's Next?
 

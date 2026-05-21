@@ -161,6 +161,4 @@ JourneyLite is a MBSAQIP-accredited bariatric surgery center of excellence by th
 
 ## Dr. James Augusta
 
-Dr. Trace Curry and Dr. James Augusta both specialize in the disease of obesity. They have the most comprehensive practice in the mid-west and treat patients from all over the United States. Whether it be surgery, incisionless procedures, or weight loss medications, our doctors have the experience and the expertise to help you find an option that works for you. With our new location, they will be offering consultations for weight loss surgery in Indianapolis and their team will be providing pre and post-op care!
-
 <a href="https://journeylite.com/appointment-request/" target="_self" class="vc_single_image-wrapper   vc_box_border_grey"></a>

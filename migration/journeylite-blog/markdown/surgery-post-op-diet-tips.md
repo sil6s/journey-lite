@@ -118,7 +118,6 @@ Eating after bariatric surgery is not just about smaller portions. It is about h
     **Follow-up matters**
     Vitamins, labs, and dietitian guidance help prevent problems.
 
-
 ## The four habits that matter most after surgery
 
 Most post-op struggles come back to a few basics: fluids, protein, meal timing, and food texture. Master these first, then build variety as your tolerance improves.
@@ -178,8 +177,6 @@ Water, sugar-free drinks, broth, sugar-free gelatin, and other approved clear li
 
 Waiting too long to drink, then trying to drink too much too quickly.
 
-(https://journeylite.com/post-op-diet-clear-liquids/)
-
 Phase 2
 
 ### Pureed foods
@@ -197,8 +194,6 @@ Approved protein supplements, pureed lean proteins, thinned beans, lentil soup, 
 **Common mistake**
 
 Advancing texture too quickly or eating foods that are too dry, chunky, or hard to tolerate.
-
-(https://journeylite.com/post-op-diet-puree/)
 
 Phase 3
 
@@ -218,8 +213,6 @@ Tender protein foods, soft vegetables as allowed, and planned protein snacks.
 
 Grazing, skipping meals, drinking with meals, or eating too fast.
 
-(https://journeylite.com/post-op-diet-soft-diet/)
-
 Phase 4
 
 ### Regular bariatric eating
@@ -238,8 +231,6 @@ Lean protein, vegetables, high-fiber choices as tolerated, and low-sugar fluids.
 
 Letting convenience foods, grazing, carbonation, or skipped vitamins become daily habits.
 
-(https://journeylite.com/post-op-diet-regular-diet/)
-
 Simple daily framework
 
 ## Protein + fluids + vitamins + follow-up
@@ -250,8 +241,6 @@ Do not overcomplicate the early months. If you are overwhelmed, return to the ba
 -   Sugar-free, non-carbonated fluids between meals
 -   Bariatric vitamins as directed
 -   Dietitian and medical follow-up for long-term success
-
-(https://journeylite.com/why-bariatric-vitamins-are-a-must-have-after-weight-loss-surgery/)
 
 ## Make healthy choices easier, not harder
 
@@ -288,8 +277,6 @@ Carbonated beverages can increase discomfort, make it harder to read fullness cu
 -   Choose flat, low-calorie fluids
 -   Avoid drinking quickly
 -   Skip soda, sparkling water, and fizzy drinks unless cleared by your team
-
-(https://journeylite.com/carbonated-drinks-after-bariatric-surgery/)
 
 Meal timing
 
@@ -383,8 +370,6 @@ Simplify your system. Pick a few go-to high-protein meals, keep approved fluids 
 !(/legacy-blog/surgery-post-op-diet-tips__about-dr-Trace-Curry.jpg.webp)
 
 ### Written by Dr. Trace Curry
-
-Dr. Trace Curry is a board-certified general surgeon and Medical Director of JourneyLite Physicians. He has extensive experience in bariatric surgery, gastric sleeve, gastric bypass, revisional bariatric surgery, and comprehensive weight loss care.
 
 ## Need help with your post-op diet?
 

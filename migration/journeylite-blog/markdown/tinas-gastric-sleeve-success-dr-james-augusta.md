@@ -81,8 +81,6 @@ true
 true
 
 ## Body
-(https://journeylite.com/testimonial/from-283-to-189-my-gastric-bypass-success-story-with-journeylite/)
-
 I’m Heather, and I had gastric bypass surgery with Dr. James Augusta at JourneyLite in December 2024. At my highest, I weighed 283 pounds. Today, I’m down to 189—and more importantly, I finally feel like I have my life back.
 
 Heather
@@ -117,7 +115,6 @@ Since surgery, my relationship with food has completely changed. I don’t think
 
 -   I have to choose foods that will nourish me, not just fill me.
 
-
 As the numbers on the scale started going down, my confidence went up. I began trying new things physically—walking more, moving more, pushing myself a little bit at a time. For the first time in a long time, I started making _myself_ a priority instead of an afterthought.
 
 * * *
@@ -147,7 +144,6 @@ And there are little victories that mean just as much:
 -   I can shop in regular sections and actually enjoy buying clothes again.
 
 -   After about six years, I can finally wear my wedding rings again.
-
 
 These are the kinds of moments that remind me how far I’ve come.
 

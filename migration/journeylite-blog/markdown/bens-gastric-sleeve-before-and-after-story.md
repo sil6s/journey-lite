@@ -81,8 +81,6 @@ true
 true
 
 ## Body
-(https://journeylite.com/testimonial/bens-gastric-sleeve-before-and-after-testimonial/)
-
 **“From 472 lbs to 254—and a life I can fully participate in.”**
 
 I’m Ben, and in November 2020 I had a gastric sleeve with Dr. Trace Curry at JourneyLite. I’d struggled with my weight since young adulthood. It wasn’t just the physical strain—everyday tasks felt harder than they should, social situations chipped away at my confidence, and I worried constantly about my long-term health. It was exhausting.

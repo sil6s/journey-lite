@@ -83,8 +83,6 @@ true
 ## Body
 Due to FDA regulations, we are no longer able to offer compounded semaglutide. We do offer brand-name semaglutide, which is WeGovy however.
 
-(https://journeylite.com/?p=76819&preview=true)
-
 We are excited to announce updated pricing for our semaglutide/GLP-1 injectable program! We have changed over to practice-pay for the medication, which gives the patient a better discount from the pharmacy. This means that, at the end of your appointment, you will pay JourneyLite Physicians for your semaglutide, and then we will pay University Compounding Pharmacy directly. Since they don’t have to chase down the patient for payment anymore, it’s less work for them and therefore cheaper for you!
 
 In addition, they have changed the formulation of their medication vials to a more concentrated strength, so the initial vial will last 3 months and is just $230! This price even includes syringes, needles and shipping. After the 90 days, you will need a new vial each month going forward.
@@ -100,5 +98,3 @@ Many patients are not aware of this, but if you have an HSA or Flexible Healthca
 !(/legacy-blog/new-semaglutide-glp-1-pricing__dietitian-scaled.jpg.webp)Let’s face it, everyone is offering GLP-1 medications these days. Plastic surgeons, chiropractors, online companies you’ve never heard of–you name it! What distinguishes JourneyLite Physicians is that we are a local _weight loss practice_ that offers the most comprehensive suite of programs to help patients lose weight in the mid-west. You probably wouldn’t want your car mechanic to fill in for your jet mechanic and fix the airplane you are about to fly on, would you? Even though they are both mechanics, their skill sets are completely different. Also, at JourneyLite Physicians, every new patient consultation comes _with a visit with one of our licensed, registered dietitians_. Did you know that anyone can call themselves a nutritionist, and that there is no required training or licensing requirements?  You probably didn’t! Our registered dietitians have had rigorous training and are among the most experienced in the country. They have the knowledge and expertise to set you up for success!
 
 Request an appointment today with JourneyLite Physicians–your trusted team for weight loss in Ohio, Kentucky, and Indiana!
-
-(https://journeylite.com/appointment-request/ "Appointment Request")

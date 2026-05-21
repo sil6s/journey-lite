@@ -101,10 +101,6 @@ Written by Dr. Trace Curry
 
 ## Dr. Trace Curry, MD, FASMBS
 
-Dr. Trace Curry is the Medical Director and founder of JourneyLite. He is a board-certified general surgeon and Fellow of the American Society for Metabolic and Bariatric Surgery with more than 20 years of experience in bariatric surgery, gastric banding, gastric sleeve, gastric bypass, SADI, gastric balloons, and medical weight management.
-
-(https://journeylite.com/about-dr-trace-curry/)
-
 ## Why treating obesity earlier matters
 
 For many years, patients with obesity were told to simply “eat less and exercise more” until their BMI became high enough to qualify for treatment. That approach never made much sense. We do not wait for high blood pressure, diabetes, sleep apnea, or heart disease to become severe before treating them. Obesity deserves the same proactive approach.
@@ -161,19 +157,13 @@ JourneyLite is different because we offer a full range of treatment options. Tha
 
 A structured medical program may include GLP-1 medications, oral medications, nutrition guidance, behavioral support, and ongoing follow-up.
 
-(https://journeylite.com/weight-loss-medications/)
-
 ### Gastric balloon
 
 Gastric balloons can help with portion control without permanently changing the stomach or intestines. This may be attractive for patients who want a temporary, non-surgical tool.
 
-(https://journeylite.com/non-surgical-weight-loss/gastric-balloon/)
-
 ### Surgical options
 
 For selected patients, bariatric surgery may provide more powerful and durable results. Options may include sleeve, bypass, SADI, or revision surgery depending on candidacy.
-
-(https://journeylite.com/surgical-weight-loss/gastric-sleeve-vsg/)
 
 ## When should a low-BMI patient seek help?
 

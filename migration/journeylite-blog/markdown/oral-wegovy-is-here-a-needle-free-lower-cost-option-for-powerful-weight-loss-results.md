@@ -84,8 +84,6 @@ false
 true
 
 ## Body
-(https://journeylite.com/free)
-
 If you’ve been interested in Wegovy® but hate needles (or you’ve been discouraged by the price of weekly injections), there’s big news: the FDA has approved Wegovy in a daily tablet (“Wegovy pill”), and it’s now becoming broadly available in the U.S.
 
 At JourneyLite, we’re excited because this expands access to medically supervised weight loss—especially for patients who want a simpler way to use a GLP-1 medication, and even for people who’ve already had bariatric surgery and want a safe, effective “New Year jumpstart” to get momentum back.
@@ -236,8 +234,6 @@ How do I get started?
 
 Request an appointment and choose telehealth or in-person. We’ll review your history, labs, and goals, confirm eligibility, and map out your dosing, nutrition, and follow-up schedule.
 
-(https://journeylite.com/appointment-request/)
-
 \*Medical information here is general and may change as labeling and availability evolve. Your JourneyLite provider will review risks, benefits, and alternatives to determine the best option for you.
 
 #### Schedule your free consultation!
@@ -257,8 +253,6 @@ If you're not yet ready to make an appointment and just have questions, use our 
 After completing and submitting the form, you will receive a callback from one of our patient service representatives who can answer any questions you may have prior to your consultation. There are no financial (or any other) obligations from submitting the form! 
 
 We have 5 office locations throughout Ohio, Kentucky, and Indiana to serve you, and we can do virtual appointments for many visits.
-
-
 
 Please select the program(s) in which you are most interested!\*
 
@@ -280,8 +274,6 @@ Which procedure(s) have you had in the past?
 
 **We do not offer surgical revisions for this procedure due to increased risk and poor long-term results. Medication treatment options are available, however. Please change "Appointment Interest" above to "Medical Weight Loss" if you are interested in proceeding!**
 
-
-
 Your Name\*
 
  First Last
@@ -294,9 +286,7 @@ Date of Birth\*
 
  MM slash DD slash YYYY
 
-
-
-At some point we may need to text you appointment reminders or other important information. By providing your phone number, you agree to receive text messages from JourneyLite. Message & data rates may apply. Message frequency varies, we try to keep it to a minimum. Reply STOP to any message to opt out, reply HELP for help. Click here for our (https://journeylite.com/terms-and-conditions/ "Terms & Conditions") or our (https://journeylite.com/privacy "Privacy Policy").
+At some point we may need to text you appointment reminders or other important information. By providing your phone number, you agree to receive text messages from JourneyLite. Message & data rates may apply. Message frequency varies, we try to keep it to a minimum. Reply STOP to any message to opt out, reply HELP for help. Click here for our (https://journeylite.com/terms-and-conditions/) or our (https://journeylite.com/privacy).
 
 Permission to Text/SMS\*
 
@@ -306,15 +296,11 @@ Permission to Text/SMS\*
 
 Phone
 
-
-
 Your address isn't mandatory, but it is helpful to us.
 
 Address:
 
  Street AddressCity AlabamaAlaskaAmerican SamoaArizonaArkansasCaliforniaColoradoConnecticutDelawareDistrict of ColumbiaFloridaGeorgiaGuamHawaiiIdahoIllinoisIndianaIowaKansasKentuckyLouisianaMaineMarylandMassachusettsMichiganMinnesotaMississippiMissouriMontanaNebraskaNevadaNew HampshireNew JerseyNew MexicoNew YorkNorth CarolinaNorth DakotaNorthern Mariana IslandsOhioOklahomaOregonPennsylvaniaPuerto RicoRhode IslandSouth CarolinaSouth DakotaTennesseeTexasUtahU.S. Virgin IslandsVermontVirginiaWashingtonWest VirginiaWisconsinWyomingArmed Forces AmericasArmed Forces EuropeArmed Forces Pacific State ZIP Code
-
-
 
 Height (ft - e.g. 5'0 enter a 5)\*
 
@@ -332,8 +318,6 @@ Preferred Location:\*
 
 **State law requires a live, in-person initial consultation to start weight loss medications. You may be eligible for virtual visits for refills.**
 
-
-
 Weight loss medication interest(s):\*
 
  Adipex (phentermine)
@@ -347,8 +331,6 @@ Weight loss medication interest(s):\*
  GLP-1's (injectables)
 
  Unsure (or other)
-
-
 
 Select Procedures of Interest
 
@@ -411,8 +393,6 @@ Self-payUnsureAetna AmbetterAnthemAetnaBuckeyeCaresourceCignaHumanaHumana Medica
 If you are going through insurance, select your company from the list. If you are unsure about your coverage, select "Unsure." If you know you're insurance doesn't cover surgery, select "Self-pay."
 
 **Currently we are not accepting this plan, please check back in the future! If you are a self-pay patient, please proceed.**
-
-
 
 Additional Message
 

@@ -85,8 +85,6 @@ true
 ## Body
 Alexa had a gastric sleeve at JourneyLite in 2022 and maintains a 160 lb weight loss 3 years later.  Congratulations Alexa!
 
-(https://journeylite.com/testimonial/alexa-gastric-sleeve-before-and-after/)
-
 \\\
 **“Now, I get to be _me_—confident, healthy, and free.”**
 _– Alexa, Gastric Sleeve Patient, April 2022_

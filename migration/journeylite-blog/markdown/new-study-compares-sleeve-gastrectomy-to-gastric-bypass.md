@@ -80,6 +80,6 @@ true
 false
 
 ## Body
-A new study entitled "(http://www.ncbi.nlm.nih.gov/pubmed/23989054 "Click here to read the study abstract.")" shows equivalent weight loss and resolution of weight related medical problems at 1 year between the two procedures!
+A new study entitled "(http://www.ncbi.nlm.nih.gov/pubmed/23989054)" shows equivalent weight loss and resolution of weight related medical problems at 1 year between the two procedures!
 
 Dr. Curry

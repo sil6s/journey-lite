@@ -81,8 +81,6 @@ true
 true
 
 ## Body
-(https://journeylite.com/testimonial/kellys-gastric-sleeve-success-story/)
-
 I’m Kelly, and in November 2022 I had a gastric sleeve with Dr. James Augusta at JourneyLite.
 
 For as long as I can remember, my weight has been the lens through which I saw the world. As a child, I was always the heaviest one—at home, at school, even on my sports teams. No matter how hard I tried, I felt like the “big one” in every room, always aware of how much space I was taking up.

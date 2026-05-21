@@ -115,8 +115,6 @@ To learn more about the technology behind this breakthrough, (https://www.alluri
 
 **Curious about the cost?** View our transparent (https://journeylite.com/pricing-financing/).
 
-(https://journeylite.com/free)
-
 ## Dr. Trace Curry and Dr. Shantanu Gaur Discuss The Allurion Gastric Balloon
 
 ## Frequently Asked Questions About the Allurion Balloon

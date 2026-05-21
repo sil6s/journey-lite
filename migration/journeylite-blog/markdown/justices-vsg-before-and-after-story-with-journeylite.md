@@ -83,8 +83,6 @@ true
 ## Body
 Justice
 
-(https://journeylite.com/testimonial/justices-gastric-sleeve-success-story/)
-
 **“I finally learned how to build a healthier life—not just lose weight.”**
 
 My name is **Justice**, and I had **gastric sleeve surgery with Dr. James Augusta at JourneyLite in April 2025**.
@@ -107,7 +105,6 @@ Having gastric sleeve surgery completely changed the way I think about food. It 
 
 -   move my body in ways that are realistic and sustainable
 
-
 That has been the biggest difference for me. This journey hasn’t just been about weight loss — it has been about learning how to live a healthier life in a way I can actually maintain.
 
 ### Why JourneyLite made such a big difference
@@ -127,7 +124,6 @@ I had tried GLP-1 medications before surgery, but I ultimately chose surgery bec
 -   control my portions
 
 -   create a healthier, more sustainable lifestyle
-
 
 For me, surgery became the tool that helped me finally build those habits.
 

@@ -293,10 +293,6 @@ Your surgeon matters. JourneyLite’s surgical program is led by experienced bar
 
 Medical Director • Bariatric Surgeon
 
-Dr. Trace Curry is the founder and Medical Director of JourneyLite. He is a board-certified general surgeon with extensive experience in gastric sleeve, gastric bypass, SADI/SIPS, revisional bariatric surgery, gastric balloon therapy, and medical weight management.
-
-(https://journeylite.com/about-dr-trace-curry/)
-
 !(/legacy-blog/surgical-weight-loss__drAugustaHeadShotWeb-214x300.jpg.webp.webp)
 
 ### Dr. James Augusta, DO, FACOS
@@ -304,8 +300,6 @@ Dr. Trace Curry is the founder and Medical Director of JourneyLite. He is a boar
 Bariatric & Minimally Invasive Surgeon
 
 Dr. James Augusta is a board-certified general surgeon specializing in advanced laparoscopic and bariatric surgery. His focus includes gastric sleeve, gastric bypass, SADI-S, revisional bariatric surgery, and minimally invasive general surgery.
-
-(https://journeylite.com/about-dr-james-augusta/)
 
 ## Accreditation, Safety & Experience
 

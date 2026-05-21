@@ -100,6 +100,4 @@ Join the thousands who have transformed their lives with JourneyLite’s GLP-1 p
 
 **Schedule your consultation now and get started with healthier living!**
 
-(https://journeylite.com/easy-appointment-request/)
-
 Offer good until 12/31/2024 only.

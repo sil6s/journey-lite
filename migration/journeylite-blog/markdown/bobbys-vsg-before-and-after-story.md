@@ -81,8 +81,6 @@ true
 true
 
 ## Body
-(https://journeylite.com/testimonial/bobbys-vsg-before-and-after-testimonial/)
-
 **“From Struggling to Walk Half a Mile to Running an 8‑Minute Mile: Bobby’s Journey From 496 to 299 Pounds”**
 My struggle with weight began when I was just a kid—it was always a part of my life. In my younger years, athletics kept it in check, but as I got older and my activity level dropped, joint pain set in and the pounds piled on. Eventually I reached 496 pounds. I felt trapped, my energy and stamina were gone, and my confidence was at rock bottom. Things hit a crisis point when I was diagnosed with diabetes and sleep apnea; that’s when I knew something had to change.
 

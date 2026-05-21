@@ -375,8 +375,6 @@ true
 true
 
 ## Body
-Dr. Trace CurryMedical Director
-
 The gastric sleeve (also known as VSG) has become the most popular weight loss surgery in the world. If you are thinking about a VSG, you probably have one of two things on your mind:
 
 -   What are the insurance requirements for a gastric sleeve/VSG?
@@ -482,15 +480,11 @@ It’s essential for patients considering gastric sleeve surgery to contact thei
 
 In conclusion, gastric sleeve has been shown to be an effective tool for weight loss.  The long-term results are much better than even the newest weight loss meds.  It can change your life by not only helping you lose weight, but also resolving serious medical issues like diabetes and sleep apnea.  And, with recent advances, it can safely be done on an outpatient basis.  Most patients can be back to work in a week or two.  If you suffer from obesity, it could be a great option so give it a closer look.  You can also check out some of our patient testimonials!
 
-(https://journeylite.com/testimonial/justices-gastric-sleeve-success-story/)
-
 “I finally learned how to build a healthier life—not just lose weight.” My name is Justice, and I had gastric… (https://journeylite.com/testimonial/justices-gastric-sleeve-success-story/)
 
 [!(/legacy-blog/justices-vsg-before-and-after-story-with-journeylite__Justice-before-and-after-gastric-sleeve_2000x635-scaled.jpg.webp.webp)](/legacy-blog/justices-vsg-before-and-after-story-with-journeylite__Justice-before-and-after-gastric-sleeve_2000x635-scaled.jpg.webp.webp)
 
 Justice
-
-(https://journeylite.com/testimonial/robins-gastric-sleeve-success-story/)
 
 I didn’t always realize how much my weight was taking from me—until I started hiding my life behind closed doors.… (https://journeylite.com/testimonial/robins-gastric-sleeve-success-story/)
 
@@ -498,41 +492,27 @@ I didn’t always realize how much my weight was taking from me—until I starte
 
 Robin B.
 
-(https://journeylite.com/testimonial/alisas-gastric-sleeve-before-and-after-story/)
-
 Alisa’s Gastric Sleeve Success Story For as long as I can remember, my weight shaped how I moved through the… (https://journeylite.com/testimonial/alisas-gastric-sleeve-before-and-after-story/)
 
 [!(/legacy-blog/alisa-gastric-sleeve-success-story__Alisa-before-and-after-gastric-sleeve-hero-scaled.jpg.webp.webp)](/legacy-blog/alisa-gastric-sleeve-success-story__Alisa-before-and-after-gastric-sleeve-hero-scaled.jpg.webp.webp)
 
-(https://journeylite.com/testimonial/heathers-story-i-finally-feel-aligned-with-myself/)
-
 [!(/legacy-blog/74-pounds-down-and-a-lifetime-ahead-heathers-gastric-sleeve-success-story__heather_gastric_sleeve_before_and_after_hero-scaled.jpg.webp.webp)](/legacy-blog/74-pounds-down-and-a-lifetime-ahead-heathers-gastric-sleeve-success-story__heather_gastric_sleeve_before_and_after_hero-scaled.jpg.webp.webp)
-
-(https://journeylite.com/testimonial/hesitant-patient-turned-most-enthusiastic-supporter/)
 
 JJ
 
 JD
 
-(https://journeylite.com/testimonial/sues-story-if-i-can-do-it-you-can-too/)
-
 Procedure: Gastric Bypass, JourneyLite Surgery Date: May 2016 Highest Weight: 350 lbs → Today: 149.6 lbs Total Lost: ~200 lbs Hi… (https://journeylite.com/testimonial/sues-story-if-i-can-do-it-you-can-too/)
 
 [!(/legacy-blog/sues-gastric-bypass-before-and-after-story__Sue-before-and-after-gastric-bypass-featured-scaled.jpg.webp.webp)](/legacy-blog/sues-gastric-bypass-before-and-after-story__Sue-before-and-after-gastric-bypass-featured-scaled.jpg.webp.webp)
-
-(https://journeylite.com/testimonial/michaels-story-i-finally-changed-my-mind-and-my-life/)
 
 Michael’s Story: “I finally changed my mind—and my life.” Procedure: Gastric Sleeve (VSG)Surgeon: Dr. James AugustaFacility: JourneyLiteSurgery Date: May 2025Starting… (https://journeylite.com/testimonial/michaels-story-i-finally-changed-my-mind-and-my-life/)
 
 [!(/legacy-blog/jonathons-gastric-sleeve-vsg-before-and-after-story__Michael-before-and-after-featured-scaled.jpg.webp.webp)](/legacy-blog/jonathons-gastric-sleeve-vsg-before-and-after-story__Michael-before-and-after-featured-scaled.jpg.webp.webp)
 
-(https://journeylite.com/testimonial/kellys-gastric-sleeve-success-story/)
-
 I’m Kelly, and in November 2022 I had a gastric sleeve with Dr. James Augusta at JourneyLite. For as long… (https://journeylite.com/testimonial/kellys-gastric-sleeve-success-story/)
 
 [!(/legacy-blog/kellys-gastric-sleeve-success-story__kelly-featured-scaled.jpg.webp)](/legacy-blog/kellys-gastric-sleeve-success-story__kelly-featured-scaled.jpg.webp)
-
-(https://journeylite.com/testimonial/gastric-sleeve-before-after-leslies-112-pound-weight-loss-with-dr-james-augusta/)
 
 My name is Leslie, and I had a gastric sleeve with Dr. James Augusta at JourneyLite Surgery Center in January… (https://journeylite.com/testimonial/gastric-sleeve-before-after-leslies-112-pound-weight-loss-with-dr-james-augusta/)
 
@@ -540,37 +520,25 @@ My name is Leslie, and I had a gastric sleeve with Dr. James Augusta at JourneyL
 
 Leslie
 
-(https://journeylite.com/testimonial/at-52-i-chose-me-tinas-life-changing-gastric-sleeve-with-dr-james-augusta/)
-
 My name is Tina, and in February 2025 I had a gastric sleeve with Dr. James Augusta at JourneyLite. Today… (https://journeylite.com/testimonial/at-52-i-chose-me-tinas-life-changing-gastric-sleeve-with-dr-james-augusta/)
 
 [!(/legacy-blog/jonathons-gastric-sleeve-vsg-before-and-after-story__tina-journeylite-before-and-after-vsg-featured-scaled.jpg.webp.webp)](/legacy-blog/jonathons-gastric-sleeve-vsg-before-and-after-story__tina-journeylite-before-and-after-vsg-featured-scaled.jpg.webp.webp)
-
-(https://journeylite.com/testimonial/from-283-to-189-my-gastric-bypass-success-story-with-journeylite/)
 
 I’m Heather, and I had gastric bypass surgery with Dr. James Augusta at JourneyLite in December 2024. At my highest,… (https://journeylite.com/testimonial/from-283-to-189-my-gastric-bypass-success-story-with-journeylite/)
 
 [!(/legacy-blog/heathers-gastric-bypass-before-and-after-story__heather-before-after-featured-scaled.jpg.webp)](/legacy-blog/heathers-gastric-bypass-before-and-after-story__heather-before-after-featured-scaled.jpg.webp)
 
-(https://journeylite.com/testimonial/chrissys-gastric-sleeve-before-and-after-testimonial/)
-
 Chrissy’s Journey: From 245 lbs to 130 lbs — and finally loving herself Procedure: Gastric Sleeve Surgeon: Dr. Trace Curry… (https://journeylite.com/testimonial/chrissys-gastric-sleeve-before-and-after-testimonial/)
 
 [!(/legacy-blog/chrissys-gastric-sleeve-before-and-after-story__Chrissy-before-gastric-sleeve-featured-scaled.jpg.webp.webp)](/legacy-blog/chrissys-gastric-sleeve-before-and-after-story__Chrissy-before-gastric-sleeve-featured-scaled.jpg.webp.webp)
-
-(https://journeylite.com/testimonial/bens-gastric-sleeve-before-and-after-testimonial/)
 
 “From 472 lbs to 254—and a life I can fully participate in.” I’m Ben, and in November 2020 I had… (https://journeylite.com/testimonial/bens-gastric-sleeve-before-and-after-testimonial/)
 
 [!(/legacy-blog/bens-gastric-sleeve-before-and-after-story__Ben-before-and-after-gastric-sleeve-featured-scaled.jpg.webp.webp)](/legacy-blog/bens-gastric-sleeve-before-and-after-story__Ben-before-and-after-gastric-sleeve-featured-scaled.jpg.webp.webp)
 
-(https://journeylite.com/testimonial/robins-gastric-bypass-testimonial-at-journylite/)
-
 Robin’s JourneyLite Gastric Bypass Success StoryPatient of Dr. James Augusta – Gastric Bypass, December 2024 For as long as she… (https://journeylite.com/testimonial/robins-gastric-bypass-testimonial-at-journylite/)
 
 [!(/legacy-blog/gastric-sleeve-cost-explained__Robin-before-after-landscape-scaled.jpg.webp.webp)](/legacy-blog/gastric-sleeve-cost-explained__Robin-before-after-landscape-scaled.jpg.webp.webp)
-
-(https://journeylite.com/testimonial/amazing-every-aspect-of-this/)
 
 Amazing! Every aspect of this journey was made awesome, simple and concise by the team. Surgery went smoothly, up and… (https://journeylite.com/testimonial/amazing-every-aspect-of-this/)
 
@@ -578,21 +546,13 @@ MC
 
 Melody C
 
-(https://journeylite.com/testimonial/christophers-journeylite-gastric-bypass-before-and-after/)
-
 [!(/legacy-blog/gastric-sleeve-cost-explained__JourneyLite_featured_2000x635-scaled.jpg.webp.webp)](/legacy-blog/gastric-sleeve-cost-explained__JourneyLite_featured_2000x635-scaled.jpg.webp.webp)
 
-(https://journeylite.com/testimonial/kandaces-vsg-before-and-after-testimonial/)
-
 [!(/legacy-blog/kandaces-vsg-before-and-after-story__Kandace_Before_After_Featured-scaled.jpg.webp.webp)](/legacy-blog/kandaces-vsg-before-and-after-story__Kandace_Before_After_Featured-scaled.jpg.webp.webp)
-
-(https://journeylite.com/testimonial/bobbys-vsg-before-and-after-testimonial/)
 
 “From Struggling to Walk Half a Mile to Running an 8‑Minute Mile: Bobby’s Journey From 496 to 299 Pounds” My… (https://journeylite.com/testimonial/bobbys-vsg-before-and-after-testimonial/)
 
 [!(/legacy-blog/bobbys-vsg-before-and-after-story__Transformation_Collage-scaled.jpg.webp.webp)](/legacy-blog/bobbys-vsg-before-and-after-story__Transformation_Collage-scaled.jpg.webp.webp)
-
-(https://journeylite.com/testimonial/a-new-chance/)
 
 I came to journeylite when I felt I had run out of options. I’ve been contemplating weight loss surgery for… (https://journeylite.com/testimonial/a-new-chance/)
 
@@ -600,159 +560,83 @@ JS
 
 Jessica S
 
-(https://journeylite.com/testimonial/mindys-vsg-before-and-after-testimonial/)
-
 [!(/legacy-blog/mindys-vsg-before-and-after-story__Mindy-JourneyLite-VSG-before-and-after.jpg.webp.webp)](/legacy-blog/mindys-vsg-before-and-after-story__Mindy-JourneyLite-VSG-before-and-after.jpg.webp.webp)
-
-(https://journeylite.com/testimonial/alonas-79-lb-weight-loss-with-journeylite-in-cincinnati/)
 
 “Choosing JourneyLite was the best decision I’ve ever made, I even traveled from Pennsylvania to Cincinnati!” Procedure: Gastric Sleeve (VSG)… (https://journeylite.com/testimonial/alonas-79-lb-weight-loss-with-journeylite-in-cincinnati/)
 
 [!(/legacy-blog/alonas-vsg-before-and-after-story__Alona-before-and-after-VSG.jpg.webp.webp)](/legacy-blog/alonas-vsg-before-and-after-story__Alona-before-and-after-VSG.jpg.webp.webp)
 
-(https://journeylite.com/testimonial/my-journey-with-journeylite-a-life-changing-year/)
-
 My Journey with JourneyLite – A Life-Changing Year -Becky, Gastric Sleeve – 2024 For most of my life, I was… (https://journeylite.com/testimonial/my-journey-with-journeylite-a-life-changing-year/)
-
-(https://journeylite.com/testimonial/audreys-gastric-sleeve-before-and-after-transformation/)
 
 [!(/legacy-blog/audreys-gastric-sleeve-vsg-before-and-after-story__Audrey_before_and_after_vsg_at_journeylite-scaled.jpg.webp.webp)](/legacy-blog/audreys-gastric-sleeve-vsg-before-and-after-story__Audrey_before_and_after_vsg_at_journeylite-scaled.jpg.webp.webp)
 
-(https://journeylite.com/testimonial/down-125-lbs-jennifers-vsg-before-and-after-story/)
-
 [!(/legacy-blog/jonathons-gastric-sleeve-vsg-before-and-after-story__Jennifer_VSG_Transformation_Reordered-scaled.jpg.webp.webp)](/legacy-blog/jonathons-gastric-sleeve-vsg-before-and-after-story__Jennifer_VSG_Transformation_Reordered-scaled.jpg.webp.webp)
-
-(https://journeylite.com/testimonial/krystals-vsg-before-and-after-transformation/)
 
 ✨ Meet Krystal ✨ Gastric Sleeve Surgery – March 2023 Starting Weight: 204.7 lbs Current Weight: 130.2 lbs Total Lost:… (https://journeylite.com/testimonial/krystals-vsg-before-and-after-transformation/)
 
 [!(/legacy-blog/krystals-vsg-before-and-after-story__Krystal-featured-image-scaled.jpg.webp)](/legacy-blog/krystals-vsg-before-and-after-story__Krystal-featured-image-scaled.jpg.webp)
 
-(https://journeylite.com/testimonial/vsg-before-and-after-heidis-journey-from-self-doubt-to-self-confidence/)
-
 [!](/legacy-blog/jonathons-gastric-sleeve-vsg-before-and-after-story__Heidi_1400x800_bordered-scaled.jpg.webp.webp)
-
-(https://journeylite.com/testimonial/rebeccas-journey-from-exhaustion-to-empowered/)
 
 [!(/legacy-blog/rebeccas-vsg-before-and-after-story__Rebecca_transformation_combined-scaled.jpg.webp.webp)](/legacy-blog/rebeccas-vsg-before-and-after-story__Rebecca_transformation_combined-scaled.jpg.webp.webp)
 
-(https://journeylite.com/testimonial/bruces-journey-from-19-medications-to-a-new-life/)
-
 [!(/legacy-blog/jonathons-gastric-sleeve-vsg-before-and-after-story__Bruce_before_after_vsg_combined-scaled.jpg.webp.webp)](/legacy-blog/jonathons-gastric-sleeve-vsg-before-and-after-story__Bruce_before_after_vsg_combined-scaled.jpg.webp.webp)
-
-(https://journeylite.com/testimonial/callies-journey-from-struggle-to-strength/)
 
 [!(/legacy-blog/callies-vsg-before-and-after-story__Callie_combined_before_and_after_vsg.jpg.webp.webp)](/legacy-blog/callies-vsg-before-and-after-story__Callie_combined_before_and_after_vsg.jpg.webp.webp)
 
-(https://journeylite.com/testimonial/kaylas-vsg-before-and-after-testimonial/)
-
 [!(/legacy-blog/kaylas-vsg-before-and-after-story__Kayla_combined_side_by_side-scaled.jpg.webp.webp)](/legacy-blog/kaylas-vsg-before-and-after-story__Kayla_combined_side_by_side-scaled.jpg.webp.webp)
-
-(https://journeylite.com/testimonial/jeremiahs-journey-from-376-to-218-pounds/)
 
 [!(/legacy-blog/jeremiahs-vsg-before-and-after-story__Jeremiah_before_after_combined-scaled.jpg.webp.webp)](/legacy-blog/jeremiahs-vsg-before-and-after-story__Jeremiah_before_after_combined-scaled.jpg.webp.webp)
 
-(https://journeylite.com/testimonial/kristins-gastric-bypass-before-and-after-testimonial/)
-
 [!(/legacy-blog/kristins-gastric-bypass-before-and-after-story__kristin-before-after-side-by-side-scaled.jpg.webp.webp)](/legacy-blog/kristins-gastric-bypass-before-and-after-story__kristin-before-after-side-by-side-scaled.jpg.webp.webp)
-
-(https://journeylite.com/testimonial/jonathons-gastric-sleeve-vsg-before-and-after-testimonial/)
 
 [!(/legacy-blog/jonathons-gastric-sleeve-vsg-before-and-after-story__Before_and_After_VSG-scaled.jpg.webp.webp)](/legacy-blog/jonathons-gastric-sleeve-vsg-before-and-after-story__Before_and_After_VSG-scaled.jpg.webp.webp)
 
-(https://journeylite.com/testimonial/jamies-gastric-sleeve-vsg-before-and-after-testimonial/)
-
 [!(/legacy-blog/jonathons-gastric-sleeve-vsg-before-and-after-story__resized_Jamie_beforeaftertext.jpg.webp.webp)](/legacy-blog/jonathons-gastric-sleeve-vsg-before-and-after-story__resized_Jamie_beforeaftertext.jpg.webp.webp)
-
-(https://journeylite.com/testimonial/heathers-vsg-before-and-after/)
 
 [!(/legacy-blog/jonathons-gastric-sleeve-vsg-before-and-after-story__Heather-VSG-before-and-after-combined.jpg.webp.webp)](/legacy-blog/jonathons-gastric-sleeve-vsg-before-and-after-story__Heather-VSG-before-and-after-combined.jpg.webp.webp)
 
-(https://journeylite.com/testimonial/katys-vsg-before-and-after/)
-
 [!(/legacy-blog/jonathons-gastric-sleeve-vsg-before-and-after-story__katy-vsg-before-and-after-scaled.jpg.webp.webp)](/legacy-blog/jonathons-gastric-sleeve-vsg-before-and-after-story__katy-vsg-before-and-after-scaled.jpg.webp.webp)
-
-(https://journeylite.com/testimonial/alicias-vsg-before-and-after-testimonial-with-journeylite/)
 
 [!(/legacy-blog/jonathons-gastric-sleeve-vsg-before-and-after-story__Alicia-before-and-after-VSG-scaled.jpg.webp.webp)](/legacy-blog/jonathons-gastric-sleeve-vsg-before-and-after-story__Alicia-before-and-after-VSG-scaled.jpg.webp.webp)
 
-(https://journeylite.com/testimonial/christies-gastric-sleeve-before-and-after-testimonial/)
-
 [!(/legacy-blog/jonathons-gastric-sleeve-vsg-before-and-after-story__Before-and-After-scaled.jpg.webp.webp)](/legacy-blog/jonathons-gastric-sleeve-vsg-before-and-after-story__Before-and-After-scaled.jpg.webp.webp)
 
-(https://journeylite.com/testimonial/alexa-gastric-sleeve-before-and-after/)
-
 [!(/legacy-blog/jonathons-gastric-sleeve-vsg-before-and-after-story__Alexa-featured-scaled.jpg.webp.webp)](/legacy-blog/jonathons-gastric-sleeve-vsg-before-and-after-story__Alexa-featured-scaled.jpg.webp.webp)
-
-(https://journeylite.com/testimonial/the-journeylite-team-is-there-for-whatever-you-may-need-dont-be-afraid-to-reach-out/)
 
 Rebeca “I lost 160 pounds—and gained my life back.”– Rebeca, Gastric Sleeve Patient, May 2024 I’ve struggled with my weight… (https://journeylite.com/testimonial/the-journeylite-team-is-there-for-whatever-you-may-need-dont-be-afraid-to-reach-out/)
 
 [!(/legacy-blog/jonathons-gastric-sleeve-vsg-before-and-after-story__Rebeca-before-and-after-gastric-sleeve-scaled.jpg.webp.webp)](/legacy-blog/jonathons-gastric-sleeve-vsg-before-and-after-story__Rebeca-before-and-after-gastric-sleeve-scaled.jpg.webp.webp)
 
-(https://journeylite.com/testimonial/my-gastric-sleeve-surgery-was-the-best-thing-ive-ever-done/)
-
-(https://journeylite.com/testimonial/i-can-buy-clothes-anywhere/)
-
 [!(/legacy-blog/jonathons-gastric-sleeve-vsg-before-and-after-story__Heather_Featured-scaled.jpg.webp.webp)](/legacy-blog/jonathons-gastric-sleeve-vsg-before-and-after-story__Heather_Featured-scaled.jpg.webp.webp)
-
-(https://journeylite.com/testimonial/my-life-has-changed-for-the-better-in-countless-ways-since-having-weight-loss-surgery/)
 
 [!](/legacy-blog/gastric-sleeve-cost-explained__HeatherAfterGastricBypass.jpg.webp.webp)
 
-(https://journeylite.com/testimonial/the-dieticians-nurse-practioners-and-my-doctor-dr-curry-have-been-amazing/)
-
 [!(/legacy-blog/jonathons-gastric-sleeve-vsg-before-and-after-story__MeaganAfterGastricSleeve-cropped-e1722866709462.jpg.webp.webp)](/legacy-blog/jonathons-gastric-sleeve-vsg-before-and-after-story__MeaganAfterGastricSleeve-cropped-e1722866709462.jpg.webp.webp)
-
-(https://journeylite.com/testimonial/so-in-december-2021-at-nearly-205lbs-i-had-a-gastric-sleeve-best-decision-ever/)
 
 [!(/legacy-blog/jonathons-gastric-sleeve-vsg-before-and-after-story__tracy-after-gastric-sleeve-cropped.jpg.webp.webp)](/legacy-blog/jonathons-gastric-sleeve-vsg-before-and-after-story__tracy-after-gastric-sleeve-cropped.jpg.webp.webp)
 
-(https://journeylite.com/testimonial/having-a-smaller-stomach-capacity-has-allowed-me-to-gain-greater-control-over-my-emotional-eating/)
-
 [!(/legacy-blog/jonathons-gastric-sleeve-vsg-before-and-after-story__gastric-sleeve-before-and-after-Lori-after-cropped-e1722867008415.jpg.webp.webp)](/legacy-blog/jonathons-gastric-sleeve-vsg-before-and-after-story__gastric-sleeve-before-and-after-Lori-after-cropped-e1722867008415.jpg.webp.webp)
-
-(https://journeylite.com/testimonial/i-started-gaining-weight-after-having-my-children-life-was-very-stressful/)
 
 [!(/legacy-blog/jonathons-gastric-sleeve-vsg-before-and-after-story__gastric-sleeve-before-and-after-Kristy-after-cropped.jpg.webp.webp)](/legacy-blog/jonathons-gastric-sleeve-vsg-before-and-after-story__gastric-sleeve-before-and-after-Kristy-after-cropped.jpg.webp.webp)
 
-(https://journeylite.com/testimonial/i-had-tried-every-diet-imaginable-nothing-worked/)
-
 [!(/legacy-blog/jonathons-gastric-sleeve-vsg-before-and-after-story__gastric-sleeve-before-and-after-Christi-after-cropped-e1722867243361.jpg.webp.webp)](/legacy-blog/jonathons-gastric-sleeve-vsg-before-and-after-story__gastric-sleeve-before-and-after-Christi-after-cropped-e1722867243361.jpg.webp.webp)
-
-(https://journeylite.com/testimonial/for-me-it-was-the-best-decision-i-ever-made-i-should-have-done-it-years-ago/)
 
 [!(/legacy-blog/jonathons-gastric-sleeve-vsg-before-and-after-story__gastric-sleeve-before-and-after-Jenny-after-cropped-e1722866640766.jpg.webp.webp)](/legacy-blog/jonathons-gastric-sleeve-vsg-before-and-after-story__gastric-sleeve-before-and-after-Jenny-after-cropped-e1722866640766.jpg.webp.webp)
 
-(https://journeylite.com/testimonial/being-morbidly-obsessed-affected-me-negatively-as-a-child-teenager-adult/)
-
 [!](/legacy-blog/jonathons-gastric-sleeve-vsg-before-and-after-story__gastric-sleeve-before-and-after-Kathy-after.jpg.webp.webp)
-
-(https://journeylite.com/testimonial/when-i-came-to-journeylite-i-was-desperate-for-help-i-have-struggled-with-my-weight-my-entire-life-i-felt-like-if-i-did-not-take-control-i-was-literally-going-to-die/)
 
 [!(/legacy-blog/jonathons-gastric-sleeve-vsg-before-and-after-story__gastric-sleeve-before-and-after-Amanda-after-cropped-e1722867404806.jpg.webp.webp)](/legacy-blog/jonathons-gastric-sleeve-vsg-before-and-after-story__gastric-sleeve-before-and-after-Amanda-after-cropped-e1722867404806.jpg.webp.webp)
 
-(https://journeylite.com/testimonial/i-couldnt-dance-in-public-lol-now-im-the-1st-and-sometimes-only-person-on-the-dance-floor/)
-
 [!(/legacy-blog/jonathons-gastric-sleeve-vsg-before-and-after-story__gastric-sleeve-before-and-after-tracy-after-cropped-e1722867468478.jpg.webp.webp)](/legacy-blog/jonathons-gastric-sleeve-vsg-before-and-after-story__gastric-sleeve-before-and-after-tracy-after-cropped-e1722867468478.jpg.webp.webp)
-
-(https://journeylite.com/testimonial/the-surgery-has-literally-been-life-changing/)
 
 [!(/legacy-blog/jonathons-gastric-sleeve-vsg-before-and-after-story__gastric-sleeve-before-and-after-kinde-after-cropped.jpg.webp.webp)](/legacy-blog/jonathons-gastric-sleeve-vsg-before-and-after-story__gastric-sleeve-before-and-after-kinde-after-cropped.jpg.webp.webp)
 
-(https://journeylite.com/testimonial/everyone-on-the-team-at-journeylite-is-amazing-from-the-front-desk-nurses-dietician-and-dr-curry/)
-
 [!(/legacy-blog/jonathons-gastric-sleeve-vsg-before-and-after-story__gastric-sleeve-before-and-after-Jacki-after-cropped-e1722867523655.jpg.webp.webp)](/legacy-blog/jonathons-gastric-sleeve-vsg-before-and-after-story__gastric-sleeve-before-and-after-Jacki-after-cropped-e1722867523655.jpg.webp.webp)
-
-(https://journeylite.com/testimonial/i-have-been-the-fat-kid-my-entire-life-and-really-thought-it-was-just-the-life-i-had-to-live/)
 
 [!(/legacy-blog/jonathons-gastric-sleeve-vsg-before-and-after-story__Gastric-Sleeve-Before-and-After-Julie-After-150x150-1.jpg.webp.webp)](/legacy-blog/jonathons-gastric-sleeve-vsg-before-and-after-story__Gastric-Sleeve-Before-and-After-Julie-After-150x150-1.jpg.webp.webp)
 
-(https://journeylite.com/testimonial/i-feel-like-this-surgery-gave-me-life-back-confidence-i-never-had-before/)
-
 [!(/legacy-blog/jonathons-gastric-sleeve-vsg-before-and-after-story__kimberly-after-gastric-sleeve-surgery-cropped.jpg.webp.webp)](/legacy-blog/jonathons-gastric-sleeve-vsg-before-and-after-story__kimberly-after-gastric-sleeve-surgery-cropped.jpg.webp.webp)
-
-(https://journeylite.com/testimonial/i-looked-up-journey-lite-and-made-the-appointment-i-will-never-regret-that-decision/)
 
 [!(/legacy-blog/gastric-sleeve-cost-explained__Kathy-After-cropped.jpg.webp.webp)](/legacy-blog/gastric-sleeve-cost-explained__Kathy-After-cropped.jpg.webp.webp)
 
@@ -760,15 +644,11 @@ Rebeca “I lost 160 pounds—and gained my life back.”– Rebeca, Gastric Sle
 
 [!](/legacy-blog/jonathons-gastric-sleeve-vsg-before-and-after-story__JH7-cropped.jpg.webp.webp)
 
-(https://journeylite.com/testimonial/hi-im-jackie-k/)
-
 Hi I’m Jackie K. I started my journey April 17 2024. Thing went very quickly. My first appointment with Dr… (https://journeylite.com/testimonial/hi-im-jackie-k/)
 
 JK
 
 Jackie Kjackie
-
-(https://journeylite.com/testimonial/my-wife-had-vsg-with/)
 
 My wife had VSG with Dr. Curry about 6 months ago and it gave me the confidence to pursue my… (https://journeylite.com/testimonial/my-wife-had-vsg-with/)
 
@@ -776,15 +656,11 @@ LP
 
 Libbyann P.
 
-(https://journeylite.com/testimonial/i-cant-thank-this-team/)
-
 I can’t thank this team enough for helping me change my life! I had gastric sleeve in April 2023 and… (https://journeylite.com/testimonial/i-cant-thank-this-team/)
 
 DD
 
 Dawn
-
-(https://journeylite.com/testimonial/gastric-sleeve/)
 
 I had the gastric sleeve done by Dr Augusta on 3/28/2024. He was precise, quick, knowledgeable & had great bedside… (https://journeylite.com/testimonial/gastric-sleeve/)
 
@@ -792,15 +668,11 @@ MO
 
 Morgan O
 
-(https://journeylite.com/testimonial/you-are-worth-it/)
-
 I had a gastric sleeve in November 2023. I am down 50 pounds so far. I have never felt better!… (https://journeylite.com/testimonial/you-are-worth-it/)
 
 HG
 
 Hope G
-
-(https://journeylite.com/testimonial/dr-curry-and-his-whole/)
 
 Dr. Curry and his whole team were amazing. From start to finish I felt informed and very comfortable. I followed… (https://journeylite.com/testimonial/dr-curry-and-his-whole/)
 
@@ -808,15 +680,11 @@ LG
 
 Lynn G
 
-(https://journeylite.com/testimonial/feeling-great/)
-
 I had this sleeve done by Dr. Curry. So far I’ve lost 110 pounds and I feel great. Dr. Curry… (https://journeylite.com/testimonial/feeling-great/)
 
 JR
 
 Joyce R
-
-(https://journeylite.com/testimonial/new-year-new-me/)
 
 Today marks my 1 year VSG anniversary. At my highest weight I was over 300 lbs, but the time I… (https://journeylite.com/testimonial/new-year-new-me/)
 
@@ -824,15 +692,11 @@ LL
 
 Lauren L
 
-(https://journeylite.com/testimonial/i-can-not-believe-how-much-better-i-feel/)
-
 I want to share my incredible journey after undergoing weight loss surgery with Dr. Trace Curry. In just the first… (https://journeylite.com/testimonial/i-can-not-believe-how-much-better-i-feel/)
 
 [!](/legacy-blog/gastric-sleeve-cost-explained__Col.jpg.webp.webp)
 
 Carl W
-
-(https://journeylite.com/testimonial/journeylite-is-wonderful/)
 
 I just want to say from day 1 of starting my Gastric Sleeve journey it’s been a very smooth process.… (https://journeylite.com/testimonial/journeylite-is-wonderful/)
 
@@ -840,15 +704,11 @@ TS
 
 Tricia S
 
-(https://journeylite.com/testimonial/outstanding-service/)
-
 Everyone was extremely nice and helpful with all my questions. I had many virtual appointments which made things much easier… (https://journeylite.com/testimonial/outstanding-service/)
 
 EK
 
 Ellen K
-
-(https://journeylite.com/testimonial/quality-care/)
 
 Hands down the best care! All the nurses, staff and doctors were so caring and thorough. Preparing for a surgery… (https://journeylite.com/testimonial/quality-care/)
 
@@ -856,15 +716,11 @@ AH
 
 Adrienne H
 
-(https://journeylite.com/testimonial/my-journey-with-journey-light/)
-
 Even though I live in the deep part South of Kentucky journey light was there for every question was there… (https://journeylite.com/testimonial/my-journey-with-journey-light/)
 
 JN
 
 Judy N
-
-(https://journeylite.com/testimonial/wonderful-experience-with-a-wonderful-team/)
 
 When I first embarked on this journey, I was a little apprehensive. The struggle between finding a dedicated team of… (https://journeylite.com/testimonial/wonderful-experience-with-a-wonderful-team/)
 
@@ -872,15 +728,11 @@ When I first embarked on this journey, I was a little apprehensive. The struggle
 
 Markeida B
 
-(https://journeylite.com/testimonial/all-i-wanted-and-needed/)
-
 The team at Journeylite has been amazing. I have never had to wait for an appointment. The process was efficient,… (https://journeylite.com/testimonial/all-i-wanted-and-needed/)
 
 HK
 
 Heather K.
-
-(https://journeylite.com/testimonial/excellent/)
 
 This team of staff members from clerical to physician are excellent in giving personal, clinical and professional care. They introduced… (https://journeylite.com/testimonial/excellent/)
 
@@ -888,15 +740,11 @@ ES
 
 Elizabeth S
 
-(https://journeylite.com/testimonial/great-experience-with-my-gastric-sleeve/)
-
 The team at journeylite is fantastic. Everyone is super friendly. My nurse Beth was great I couldn’t even feel my… (https://journeylite.com/testimonial/great-experience-with-my-gastric-sleeve/)
 
 AG
 
 Adam G
-
-(https://journeylite.com/testimonial/wonderful-experience-2/)
 
 I found myself having difficulty drinking water after my Gastric Bypass. I have painful reactions to artificial sweeteners, Stevia, Monk… (https://journeylite.com/testimonial/wonderful-experience-2/)
 
@@ -904,15 +752,11 @@ PB
 
 Peggy B
 
-(https://journeylite.com/testimonial/emily-em-is-the-best/)
-
 You all have a gem in Em. Not only is she very personable but she’s so easy to talk to.… (https://journeylite.com/testimonial/emily-em-is-the-best/)
 
 PB
 
 Peggy B
-
-(https://journeylite.com/testimonial/a-dream-come-true/)
 
 I have started my journey for weight loss with JourneyLite in October 2022. I was uncertain as to whether I’d… (https://journeylite.com/testimonial/a-dream-come-true/)
 
@@ -920,15 +764,11 @@ FB
 
 Fran B.
 
-(https://journeylite.com/testimonial/my-journey-2/)
-
 I was referred by a friend back is April and the staff at Journey Lite was all so nice and… (https://journeylite.com/testimonial/my-journey-2/)
 
 AK
 
 Alissa K
-
-(https://journeylite.com/testimonial/beyond-grateful/)
 
 I’ve had the best experience with Journeylite. I’ve been through the process to have surgery 3x before and always talked… (https://journeylite.com/testimonial/beyond-grateful/)
 
@@ -936,15 +776,11 @@ AA
 
 AngieF
 
-(https://journeylite.com/testimonial/i-had-the-best-experience/)
-
 I had the best experience with JourneyLite. All of the nurses and Dr. Curry were so kind and explained everything.… (https://journeylite.com/testimonial/i-had-the-best-experience/)
 
 AE
 
 Ashlee E
-
-(https://journeylite.com/testimonial/a-journey-to-wls-success/)
 
 I started my journey with JourneyLite in April 2023. My starting weight, 254 lbs, was the heaviest I’d ever been.… (https://journeylite.com/testimonial/a-journey-to-wls-success/)
 
@@ -952,15 +788,9 @@ AH
 
 Alicia H
 
-(https://journeylite.com/testimonial/journeylite-featured-patient-of-the-month-june-2023-ann-g/)
-
 [!(/legacy-blog/gastric-sleeve-cost-explained__Ann1.jpg.webp.webp)](/legacy-blog/gastric-sleeve-cost-explained__Ann1.jpg.webp.webp)
 
-(https://journeylite.com/testimonial/journeylite-featured-patient-of-the-month-july-2023/)
-
 [!](/legacy-blog/journeylite-featured-patient-of-the-month-july-2023-teresa-t__T_Before.jpg.webp)
-
-(https://journeylite.com/testimonial/exceptional-care/)
 
 Dr. Curry and Dr. Augusta ame amazing!!! All the staff are caring and knowledgeable in this field. I highly recommend… (https://journeylite.com/testimonial/exceptional-care/)
 
@@ -968,15 +798,11 @@ SB
 
 Shannon B
 
-(https://journeylite.com/testimonial/my-dietician-is-the-best/)
-
 So I had my 2nd Televisit with Jaclyn (dietician) and I was really nervous about how to properly eat to… (https://journeylite.com/testimonial/my-dietician-is-the-best/)
 
 TL
 
 Ty L.
-
-(https://journeylite.com/testimonial/gastric-sleeve-surgery/)
 
 Journey Lite has made my entire experience a breeze! My surgery went smooth and recovery had been great. I will… (https://journeylite.com/testimonial/gastric-sleeve-surgery/)
 
@@ -984,15 +810,11 @@ KY
 
 Kristin Y
 
-(https://journeylite.com/testimonial/life-changing-3/)
-
 I had the best experience having VSG with Dr. Curry! I was walked through every step of preparation, I was… (https://journeylite.com/testimonial/life-changing-3/)
 
 [!](/legacy-blog/gastric-sleeve-cost-explained__IMG_1393.jpg)
 
 Beth M.
-
-(https://journeylite.com/testimonial/one-year-after/)
 
 I had the sleeve surgery one year ago. I have lost 109 pounds. I went from 290 pounds to 181… (https://journeylite.com/testimonial/one-year-after/)
 
@@ -1000,15 +822,11 @@ I had the sleeve surgery one year ago. I have lost 109 pounds. I went from 290 p
 
 Dorene H
 
-(https://journeylite.com/testimonial/great-decision/)
-
 I just got the bariatric sleeve three weeks ago. I was really unsure of my decision initially. Since I started… (https://journeylite.com/testimonial/great-decision/)
 
 LP
 
 Linda P
-
-(https://journeylite.com/testimonial/ive-had-a-wonderful-experience/)
 
 I’ve had a wonderful experience with Dr Curry and all of his staff. Today makes 1 year since my surgery… (https://journeylite.com/testimonial/ive-had-a-wonderful-experience/)
 
@@ -1016,15 +834,11 @@ I’ve had a wonderful experience with Dr Curry and all of his staff. Today make
 
 Ashley H
 
-(https://journeylite.com/testimonial/best-thing-i-could-have-done-for-myself/)
-
 I was 46 years old and weighed 372 lbs. diabetic hypertension high cholesterol anxiety and had not felt myself for… (https://journeylite.com/testimonial/best-thing-i-could-have-done-for-myself/)
 
 [!](/legacy-blog/gastric-sleeve-cost-explained__95620ABA-37C9-4B18-A259-091C05958B98-scaled.jpeg.webp.webp)
 
 Stephanie k
-
-(https://journeylite.com/testimonial/very-pleased-with-journeylite/)
 
 I had put off addressing my weight for years and finally had the courage to schedule an appointment with JourneyLite.… (https://journeylite.com/testimonial/very-pleased-with-journeylite/)
 
@@ -1032,15 +846,11 @@ MV
 
 Michael V
 
-(https://journeylite.com/testimonial/the-biggest-thank-you/)
-
 I want to take a minute out of my day, to thank JourneyLite and Dr. Augusta for working with me… (https://journeylite.com/testimonial/the-biggest-thank-you/)
 
 SV
 
 Sharon V
-
-(https://journeylite.com/testimonial/the-extra-services-are-my-key-to-success/)
 
 My experience has been wonderful! The nurse practitioners are very helpful and the included services make all the difference in… (https://journeylite.com/testimonial/the-extra-services-are-my-key-to-success/)
 
@@ -1048,15 +858,11 @@ MM
 
 Maggie M.
 
-(https://journeylite.com/testimonial/best-decision-of-my-life-2/)
-
 I started this journey on March 18 2022 when I had my sleeve. A starting weight of 272.8 pounds and… (https://journeylite.com/testimonial/best-decision-of-my-life-2/)
 
 [!](/legacy-blog/gastric-sleeve-cost-explained__PhotoCollage_20230311_095835553.jpg.webp.webp)
 
 Becky W
-
-(https://journeylite.com/testimonial/my-journey/)
 
 Let me start by saying that weight lost surgery is more about being mentally ready for the changes you are… (https://journeylite.com/testimonial/my-journey/)
 
@@ -1064,15 +870,11 @@ Let me start by saying that weight lost surgery is more about being mentally rea
 
 Bruce T.
 
-(https://journeylite.com/testimonial/i-couldnt-be-happier/)
-
 I had been considering bariatric surgery for years. Looking into different hospitals in my area (Columbus). I kept going back… (https://journeylite.com/testimonial/i-couldnt-be-happier/)
 
 [!](/legacy-blog/gastric-sleeve-cost-explained__56E9D139-2ABE-49B9-B437-E17F255B58BB.jpeg.webp.webp)
 
 Laura A.
-
-(https://journeylite.com/testimonial/amazingly-friendly-staff/)
 
 All of the staff are super friendly and make you feel as they have known you your entire life. Dr… (https://journeylite.com/testimonial/amazingly-friendly-staff/)
 
@@ -1080,15 +882,11 @@ EC
 
 Emily C
 
-(https://journeylite.com/testimonial/life-changing-2/)
-
 Dr. Curry and staff are nothing short of amazing! From the front desk(s) all the way back to the surgical… (https://journeylite.com/testimonial/life-changing-2/)
 
 [!](/legacy-blog/gastric-sleeve-cost-explained__B59F1346-17D7-435B-BDE4-5E72E2CDC3AA-scaled.jpeg.webp.webp)
 
 Heather B
-
-(https://journeylite.com/testimonial/such-an-amazing-experience/)
 
 My experience with Journey Lite was so wonderful . The team of Dr Curry and his staff were excellent, they… (https://journeylite.com/testimonial/such-an-amazing-experience/)
 
@@ -1096,15 +894,11 @@ EK
 
 Ester k
 
-(https://journeylite.com/testimonial/best-decision-ive-ever-made-2/)
-
 I had the gastric sleeve done in 2014, I had nothing but pain, heartburn and chronic constipation and pain after… (https://journeylite.com/testimonial/best-decision-ive-ever-made-2/)
 
 JS
 
 Jodi S.
-
-(https://journeylite.com/testimonial/great-care/)
 
 My entire process thru journey lite was amazing. The care I received from the team at the doctors office and… (https://journeylite.com/testimonial/great-care/)
 
@@ -1112,15 +906,11 @@ LC
 
 Landia C
 
-(https://journeylite.com/testimonial/reaching-weight-loss-goals/)
-
 JourneyLite has continued to provide me with the tools and support I need on my weight loss journey. I had… (https://journeylite.com/testimonial/reaching-weight-loss-goals/)
 
 TD
 
 Tiffany D
-
-(https://journeylite.com/testimonial/best-decision-ive-ever-made/)
 
 I could not have picked a better doctor/facility to have my VSG surgery at. Everyone that works at JourneyLite is… (https://journeylite.com/testimonial/best-decision-ive-ever-made/)
 
@@ -1128,15 +918,11 @@ I could not have picked a better doctor/facility to have my VSG surgery at. Ever
 
 Jacki H
 
-(https://journeylite.com/testimonial/i-wish-i-did-it-sooner/)
-
 Having battled weight issues most of my life. Playing the game of yo yo dieting really does take its toll… (https://journeylite.com/testimonial/i-wish-i-did-it-sooner/)
 
 AB
 
 Angie B
-
-(https://journeylite.com/testimonial/amazing-start-to-ongoing-finish/)
 
 JLP has been amazing from my first visit all the way through post surgery. They made sure I understood every… (https://journeylite.com/testimonial/amazing-start-to-ongoing-finish/)
 
@@ -1144,15 +930,11 @@ JH
 
 Jennifer H.
 
-(https://journeylite.com/testimonial/weight-loss/)
-
 I had lots of aches and pains along with lack of confidence before surgery. I can say I feel so… (https://journeylite.com/testimonial/weight-loss/)
 
 JR
 
 Joyce R
-
-(https://journeylite.com/testimonial/wonderful-experience/)
 
 I contacted Journeylite mid-October. I was scheduled an appointment right away. I wasn’t expecting to be seen so quickly. The… (https://journeylite.com/testimonial/wonderful-experience/)
 
@@ -1160,15 +942,11 @@ HH
 
 Heidi H
 
-(https://journeylite.com/testimonial/fantastic-experience/)
-
 I have had a fantastic experience with the Journeylite team. From my first meeting with Dr. Curry, through pre-op, surgery… (https://journeylite.com/testimonial/fantastic-experience/)
 
 AK
 
 Alicia K.
-
-(https://journeylite.com/testimonial/new-lease-on-life/)
 
 Starting my journey was extremely intimidating for me. I wasn’t sure if surgery was right for me but I knew… (https://journeylite.com/testimonial/new-lease-on-life/)
 
@@ -1176,15 +954,11 @@ Starting my journey was extremely intimidating for me. I wasn’t sure if surger
 
 Terri T
 
-(https://journeylite.com/testimonial/a-new-outlook-on-life/)
-
 Hi! My name is Katlyn and I had gastric sleeve surgery a year ago by Dr Curry. I am currently… (https://journeylite.com/testimonial/a-new-outlook-on-life/)
 
 [!](/legacy-blog/gastric-sleeve-cost-explained__1F3F70DB-5E73-45B5-81A9-4AE7244812B6.jpeg.webp.webp)
 
 Katlyn F
-
-(https://journeylite.com/testimonial/i-had-surgery-about-6/)
 
 I had surgery about 6 months ago and I was scared & nervous. Everyone exceeded my expectations from day 1… (https://journeylite.com/testimonial/i-had-surgery-about-6/)
 
@@ -1192,15 +966,11 @@ BS
 
 Brianna S
 
-(https://journeylite.com/testimonial/losing-weight-gaining-confidence/)
-
 I have had a great experience with JourneyLite! From the first appointment to my monthly follow up appointments, I have… (https://journeylite.com/testimonial/losing-weight-gaining-confidence/)
 
 AI
 
 Ashley I.
-
-(https://journeylite.com/testimonial/exceeded-my-expectations/)
 
 9 months ago today I got the gastric sleeve. I found JourneyLite on google because my insurance wouldn’t cover the… (https://journeylite.com/testimonial/exceeded-my-expectations/)
 
@@ -1208,15 +978,11 @@ LJ
 
 Lisa J
 
-(https://journeylite.com/testimonial/im-shocked-everyday/)
-
 Hello my name is penny I’m 61 years old I decided to do the journey light program back in December… (https://journeylite.com/testimonial/im-shocked-everyday/)
 
 PR
 
 Penny R
-
-(https://journeylite.com/testimonial/healthier-happier/)
 
 My lap and surgery was. 6 months ago, I’ve lost 35 lbs. and have another 30 to go. I am… (https://journeylite.com/testimonial/healthier-happier/)
 
@@ -1232,23 +998,17 @@ HW
 
 Holly W
 
-(https://journeylite.com/testimonial/new-beginnings/)
-
 I found JourneyLite after a 20 year struggle of losing some and gaining more for over 20 years. The process… (https://journeylite.com/testimonial/new-beginnings/)
 
 MS
 
 Michele S
 
-(https://journeylite.com/testimonial/finally-living-again/)
-
 My journey began in July of 2021. I had the sleeve done Dec 2021. I had thought about having the… (https://journeylite.com/testimonial/finally-living-again/)
 
 [!](/legacy-blog/gastric-sleeve-cost-explained__B57A3395-A9F1-4D39-8053-A9CBD9E19C57.jpeg.webp.webp)
 
 Marsha H
-
-(https://journeylite.com/testimonial/free-at-last/)
 
 Had sleeve gastrectomy 2 months ago and I feel on top of the world! I have lost 24 lbs so… (https://journeylite.com/testimonial/free-at-last/)
 
@@ -1264,15 +1024,11 @@ DM
 
 Dedra M
 
-(https://journeylite.com/testimonial/great-results/)
-
 At 40 years old I had tried multiple diets and exercise programs I was 407lbs. I had the gastric sleeve… (https://journeylite.com/testimonial/great-results/)
 
 DW
 
 Dan W
-
-(https://journeylite.com/testimonial/my-next-chapter/)
 
 I was sleeved on 3/24/22 I’m down a total of 93.8 pounds from my highest weight which was 248.8 Starting… (https://journeylite.com/testimonial/my-next-chapter/)
 
@@ -1280,24 +1036,16 @@ I was sleeved on 3/24/22 I’m down a total of 93.8 pounds from my highest weigh
 
 Traci M
 
-(https://journeylite.com/testimonial/surgery/)
-
 I had surgery on June 7, 2022 and I have lost 92 pounds so far. I am now walking over… (https://journeylite.com/testimonial/surgery/)
 
 DH
 
 Dorene H
 
-(https://journeylite.com/testimonial/life-changing/)
-
 I was completely unhealthy. Headed towards heart disease and diabetes. My entire body hurt due to the excess weight. I… (https://journeylite.com/testimonial/life-changing/)
 
 AX
 
 Anonymous X.
-
-Dr. Trace CurryMedical Director
-
-Dr. Trace Curry is the Medical Director of JourneyLite Surgery Center and JourneyLite Physicians. With (https://journeylite.com/map-schedule-and-info/) in Ohio, Kentucky, and Indiana, he has a comprehensive obesity treatment team offering weight loss surgery, gastric balloon, and weight loss medications.  If you would like to make a virtual or in-person appointment with Dr. Curry to discuss your weight loss options, just call us at (513) 259-2555 or click on the "Appointment" button!
 
 <a href="https://journeylite.com/appointment-request/" target="_self" class="vc_single_image-wrapper vc_box_shadow_3d  vc_box_border_grey"></a>

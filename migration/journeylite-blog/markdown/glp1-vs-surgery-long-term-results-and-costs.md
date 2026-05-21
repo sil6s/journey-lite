@@ -91,9 +91,9 @@ Over the past two years, (https://journeylite.com/injectable-medications-for-wei
 
 ## **What the BMJ study found (and why it matters)**
 
--   -   The meta-analysis pooled **37 studies (~9,300 adults)** and showed that after stopping anti-obesity meds, people regained **~0.4 kg (≈1 lb) per month** on average, returning to baseline weight in **under two years**. Cardiometabolic gains reverted in roughly **18 months**.
+-   The meta-analysis pooled **37 studies (~9,300 adults)** and showed that after stopping anti-obesity meds, people regained **~0.4 kg (≈1 lb) per month** on average, returning to baseline weight in **under two years**. Cardiometabolic gains reverted in roughly **18 months**.
 
-    -   For **GLP-1–class drugs** specifically (semaglutide, tirzepatide), regain was **faster—~0.8 kg (≈1.8 lb) per month**—with modeling projecting a return to starting weight in about **1.5 years** off therapy.
+- For **GLP-1–class drugs** specifically (semaglutide, tirzepatide), regain was **faster—~0.8 kg (≈1.8 lb) per month**—with modeling projecting a return to starting weight in about **1.5 years** off therapy.
 
 **Takeaway:** GLP-1s work very well _while you’re on them_, but obesity is a **chronic, relapsing disease**. Stopping the drug commonly leads to **rapid regain**—faster than what’s seen after ending structured diet/exercise programs.
 
@@ -103,9 +103,9 @@ Over the past two years, (https://journeylite.com/injectable-medications-for-wei
 
 If the average patient needs **ongoing** GLP-1 therapy to maintain results, the economics start to look different:
 
--   -   Even at “discounted” prices, a GLP-1 plan often nets **hundreds of dollars per month** (pharmacy pricing varies widely by drug/coverage). Two years of therapy can easily total **several thousand dollars**; **five years** can exceed the typical **self-pay price of a sleeve gastrectomy**.
+-   Even at “discounted” prices, a GLP-1 plan often nets **hundreds of dollars per month** (pharmacy pricing varies widely by drug/coverage). Two years of therapy can easily total **several thousand dollars**; **five years** can exceed the typical **self-pay price of a sleeve gastrectomy**.
 
-    -   By contrast, **gastric sleeve** is a **one-time procedure**. At JourneyLite, our (https://journeylite.com/pricing-financing/) are designed to be **all-in** and predictable. (Insurance benefits, if available, may reduce costs further.)
+- By contrast, **gastric sleeve** is a **one-time procedure**. At JourneyLite, our (https://journeylite.com/pricing-financing/) are designed to be **all-in** and predictable. (Insurance benefits, if available, may reduce costs further.)
 
 This isn’t to say medications are “bad.” In fact, we use GLP-1s **a lot**—as a bridge to surgery, as an adjunct after surgery, or as a primary tool when surgery isn’t appropriate. But if you’re weighing **years of monthly pharmacy costs** against a **single, definitive intervention**, surgery often becomes the **more cost-effective** path to long-term control.
 
@@ -115,9 +115,9 @@ The BMJ data strengthens this point: if stopping meds commonly leads to **rapid 
 
 ## **Health durability: what tends to “stick”**
 
--   -   **Surgery (e.g., sleeve, bypass, SADI)** changes GI anatomy/hormones in a way that generally produces **durable weight loss** and **metabolic improvements** across many years when paired with follow-up and lifestyle care.
+-   **Surgery (e.g., sleeve, bypass, SADI)** changes GI anatomy/hormones in a way that generally produces **durable weight loss** and **metabolic improvements** across many years when paired with follow-up and lifestyle care.
 
-    -   **Medications** can be highly effective, but the **benefits are tightly linked to continued use**. When therapy stops, **regain is common** and cardiometabolic benefits **fade**—that’s exactly what the BMJ meta-analysis documents.
+- **Medications** can be highly effective, but the **benefits are tightly linked to continued use**. When therapy stops, **regain is common** and cardiometabolic benefits **fade**—that’s exactly what the BMJ meta-analysis documents.
 
 * * *
 
@@ -127,19 +127,19 @@ The right tool depends on your **medical profile, goals, and resources**:
 
 Choose a **surgical path** if you want:
 
--   -   A **one-time** intervention with the strongest long-term weight and diabetes remission data across populations.
+-   A **one-time** intervention with the strongest long-term weight and diabetes remission data across populations.
 
-    -   A solution that’s typically **more economical over years** compared with continuous GLP-1 therapy.
+- A solution that’s typically **more economical over years** compared with continuous GLP-1 therapy.
 
-    -   Structured follow-up with our surgical bariatric team (nutrition, labs, support groups).
+- Structured follow-up with our surgical bariatric team (nutrition, labs, support groups).
 
 Choose a **medication path** if you want:
 
--   -   A **non-surgical** start, or if your risk profile makes surgery inappropriate right now.
+-   A **non-surgical** start, or if your risk profile makes surgery inappropriate right now.
 
-    -   A **bridge** to surgery (pre-op weight loss, NASH improvement), or a **maintenance** tool after surgery.
+- A **bridge** to surgery (pre-op weight loss, NASH improvement), or a **maintenance** tool after surgery.
 
-    -   Flexibility to trial response—but budget for **ongoing** therapy if you want to **keep** the results.
+- Flexibility to trial response—but budget for **ongoing** therapy if you want to **keep** the results.
 
 Often, the best plan is **combined and staged**: use GLP-1s to stabilize, then proceed to a sleeve when you’re ready—_or_ have surgery first and keep GLP-1s in your back pocket for future tune-ups.
 

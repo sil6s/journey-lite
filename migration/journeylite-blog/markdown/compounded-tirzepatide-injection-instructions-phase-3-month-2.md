@@ -86,11 +86,11 @@ true
 Congratulations on completing the Phase Three Transition Dose on your compounded tirzepatide program! We will now be increasing your dosage of the medication.  Continue to watch out for side effects, most commonly:
 
 -   Nausea and/or vomiting
-    -   If you are having a lot of issues, we can send an anti-nausea prescription to your pharmacy. Just give us a call at (513) 559-1222 or text us during business hours at (513) 572-1718.
+- If you are having a lot of issues, we can send an anti-nausea prescription to your pharmacy. Just give us a call at (513) 559-1222 or text us during business hours at (513) 572-1718.
 -   Constipation
-    -   It’s a good idea to use over the counter stool softeners (colace, Senekot), fiber, or Miralax if you are having trouble with constipation.
+- It’s a good idea to use over the counter stool softeners (colace, Senekot), fiber, or Miralax if you are having trouble with constipation.
 -   GERD
-    -   Acid reflux/GERD symptoms can be treated with over the counter Pepcid (famotidine) or Prilosec (omeprazole).
+- Acid reflux/GERD symptoms can be treated with over the counter Pepcid (famotidine) or Prilosec (omeprazole).
 
 If you are having major trouble with side effects, it is recommended to go back to your previous dosage for a week or two and then try increasing again.
 
@@ -108,8 +108,6 @@ If you are having major trouble with side effects, it is recommended to go back 
 75 units on a 100 unit syringe
 
 Your cart is currently empty.
-
-(https://journeylite.com/shop/)
 
 ## How to do subcutaneous injections:
 

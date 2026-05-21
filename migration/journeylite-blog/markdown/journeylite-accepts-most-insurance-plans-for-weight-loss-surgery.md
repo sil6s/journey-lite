@@ -89,22 +89,21 @@ Some patients aren’t even aware that weight loss surgery is often a covered be
 
 If you’re thinking about having weight loss surgery in Ohio, Kentucky, or Indiana you can rest assured that JourneyLite is your trusted team, even if you’re going through your insurance. JourneyLite Physicians and JourneyLite Surgery Center are both in-network with almost every major private insurance company! This includes:
 
--   -   -   -   -   Aetna – JourneyLite is an (https://www.aetna.com/individuals-families/member-rights-resources/commitment-quality/institutes-of-quality.html)
+-   -   -   -   Aetna – JourneyLite is an (https://www.aetna.com/individuals-families/member-rights-resources/commitment-quality/institutes-of-quality.html)
 
-                -   Anthem/Blue Cross-Blue Shield – JourneyLite is a (https://www.bcbs.com/about-us/capabilities-initiatives/blue-distinction/blue-distinction-specialty-care)
+- Anthem/Blue Cross-Blue Shield – JourneyLite is a (https://www.bcbs.com/about-us/capabilities-initiatives/blue-distinction/blue-distinction-specialty-care)
 
-                -   Cigna
+- Cigna
 
-                -   Humana
+- Humana
 
-                -   Medical Mutual
+- Medical Mutual
 
-                -   Surgery Plus
+- Surgery Plus
 
-                -   Transcarent
+- Transcarent
 
-                -   United Healthcare – JourneyLite is an (https://www.optum.com/business/health-plans/members/medical-benefits/bariatric.html)
-
+- United Healthcare – JourneyLite is an (https://www.optum.com/business/health-plans/members/medical-benefits/bariatric.html)
 
 In addition, we are also on most Medicaid and Medicare plans as well.
 

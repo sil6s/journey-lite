@@ -88,6 +88,4 @@ Exactly why this happens is still unknown, but further research is being done on
 
 Happy Losing!
 
-Dr. Trace Curry
-
 \

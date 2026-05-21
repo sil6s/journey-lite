@@ -90,6 +90,4 @@ A new study study from Sweden shows that patients who had weight loss surgery re
 
 See ABC news story here.
 
-(https://journeylite.com/info/ "Learn about what you can do to prevent or cure diabetes!")
-
 Trace Curry MD

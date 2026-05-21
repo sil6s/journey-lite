@@ -88,10 +88,8 @@ Try this willpower-free hack: **make it invisible.**
 
 -   Keep fruit/protein snacks **front & center**
 
-
 When treats aren’t staring you down, you’re way less likely to grab them on autopilot. **Out of sight = out of mind… and in control.** 🙌
 
-**Mini-challenge:** Tonight, relocate your candy stash. Tomorrow, notice the difference.
-**Bonus swap:** Keep a small “mindful portion” ready for when you _do_ want a treat—no guilt, no binge.
+**Mini-challenge:** Tonight, relocate your candy stash. Tomorrow, notice the difference.** Bonus swap:** Keep a small “mindful portion” ready for when you _do_ want a treat—no guilt, no binge.
 
 #PortionPower #MindfulEating #SmallHabitsBigResults #WeightLossTips #JourneyLite #BariatricSupport #GLP1Support #HealthyHabits

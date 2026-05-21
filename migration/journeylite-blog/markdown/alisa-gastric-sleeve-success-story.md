@@ -81,8 +81,6 @@ true
 true
 
 ## Body
-(https://journeylite.com/testimonial/alisas-gastric-sleeve-before-and-after-story/)
-
 Alisa’s Gastric Sleeve Success Story
 
 For as long as I can remember, my weight shaped how I moved through the world.

@@ -90,8 +90,6 @@ _By Dr. Trace Curry, MD, FASMBS – Medical Director, JourneyLite Physicians_
 
 ## **A Conversation About Phentermine vs. GLP-1’s With Dr. Trace Curry**
 
-Dr. Trace CurryMedical Director
-
 Hi, I’m Dr. Trace Curry with JourneyLite Physicians.
 
 If you’ve looked into weight-loss medications lately, you’ve probably heard a lot about **GLP-1 medications** — drugs like Wegovy®, Zepbound®, and Ozempic®. They’ve helped many people lose significant weight.
@@ -188,9 +186,7 @@ GLP-1 drugs like Wegovy® or Zepbound® have their place, but phentermine remain
 
 If you’re curious whether phentermine or a GLP-1 would fit you best, we can help you decide with a **free, no-obligation consultation**.
 
-**➡️ Learn more:** JourneyLite Medical Weight Loss Program »
-**📍 Locations:** Cincinnati • Columbus • Dayton • Northern Kentucky • Indianapolis
-**💬 Ready to get started?** Call **(513) 559-1222** or schedule a free consultation online at (https://journeylite.com/free)
+**➡️ Learn more:** JourneyLite Medical Weight Loss Program »** 📍 Locations:** Cincinnati • Columbus • Dayton • Northern Kentucky • Indianapolis** 💬 Ready to get started?** Call **(513) 559-1222** or schedule a free consultation online at (https://journeylite.com/free)
 
 !(/legacy-blog/phentermine-vs-glp-1-weight-loss__TraceCurry.png.webp.webp)
 
@@ -199,5 +195,3 @@ If you’re curious whether phentermine or a GLP-1 would fit you best, we can he
 Medical Director, JourneyLite Physicians
 
 Dr. Curry is a board-certified bariatric surgeon and the Medical Director of JourneyLite Physicians and JourneyLite Surgery Center in Cincinnati, Ohio. He has performed over 5,000 minimally invasive weight-loss procedures and is nationally recognized for his work in metabolic and bariatric medicine.
-
-(https://journeylite.com/about-dr-trace-curry/)

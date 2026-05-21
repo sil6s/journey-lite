@@ -100,8 +100,6 @@ Not all patients are prescribed blood thinners after surgery, but if you were pl
 
 Blood clots after surgery are a risk for any patient, and being overweight can increase the risk significantly. Lovenox (generic: \[...\]
 
-(https://journeylite.com/lovenox/ "Read more")
-
 #### (#1472668596945-531513fe-93bd)
 
 Download pre-op and post-op discharge instructions booklet:

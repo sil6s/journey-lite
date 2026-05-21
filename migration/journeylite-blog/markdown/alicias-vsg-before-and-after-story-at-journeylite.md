@@ -81,8 +81,6 @@ true
 true
 
 ## Body
-(https://journeylite.com/testimonial/alicias-vsg-before-and-after-testimonial-with-journeylite/)
-
 \\\\[/vc\_column\]\[/vc\_row\]\\\
 **Alicia**
 

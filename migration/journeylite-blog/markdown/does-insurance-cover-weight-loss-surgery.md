@@ -202,8 +202,6 @@ If your appeal is denied, don’t lose hope. **We offer several financing option
 
 Ready to transform your life and health with weight loss surgery? (https://journeylite.com/map-schedule-and-info/)! Our team of dedicated professionals is here to guide you through every step of the process, from understanding your insurance coverage options to preparing for surgery. We believe in personalized care tailored to your specific needs and goals. Schedule a consultation today to learn what JourneyLite can do for you.
 
-(https://journeylite.com/appointment-request/ "Appointment Request")
-
 * * *
 
 ## Frequently Asked Questions About Weight Loss Surgery
@@ -221,32 +219,3 @@ Many insurance companies cover weight loss surgery under specific circumstances.
 ### How Do I Know if My Insurance Covers Weight Loss Surgery?
 
 **To determine if your plan covers weight loss surgery, review your insurance policy’s benefits booklet or contact your insurance provider directly.** You can also speak with one of our knowledgeable representatives, who can help clarify coverage details.
-
-## Related Articles
-
-[
-!(/legacy-blog/gastric-sleeve-requirements__gastric-sleeve-requirements.jpg.webp)
-](https://journeylite.com/gastric-sleeve-requirements/)
-
-[
-Gastric Sleeve Requirements Guide](https://journeylite.com/gastric-sleeve-requirements/)
-23/10/2023 _by_ DRCURRY
-(https://journeylite.com/gastric-sleeve-requirements/)
-
-[
-!(/legacy-blog/does-insurance-cover-weight-loss-surgery__shutterstock_2376852115-1200x385.jpg.webp.webp)
-](https://journeylite.com/weight-loss-surgery-vs-glp-1-receptor-agonists-which-is-better/)
-
-[
-Weight Loss Surgery vs GLP-1 Receptor Agonists – Which is Better?](https://journeylite.com/weight-loss-surgery-vs-glp-1-receptor-agonists-which-is-better/)
-03/04/2024 _by_ DRCURRY
-(https://journeylite.com/weight-loss-surgery-vs-glp-1-receptor-agonists-which-is-better/)
-
-[
-!
-](https://journeylite.com/gastric-sleeve-pros-and-cons-you-need-to-know/)
-
-[
-Gastric Sleeve Pros and Cons](https://journeylite.com/gastric-sleeve-pros-and-cons-you-need-to-know/)
-07/02/2024 _by_ DRCURRY
-(https://journeylite.com/gastric-sleeve-pros-and-cons-you-need-to-know/)

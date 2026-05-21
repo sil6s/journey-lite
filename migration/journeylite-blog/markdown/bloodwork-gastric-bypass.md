@@ -82,19 +82,19 @@ false
 Gastric bypass patients can be at risk for vitamin and nutrient deficiencies after surgery.  Especially those that are not taking their vitamins!
 
 -   We recommend the following labs starting at 6 months post-op, then every 6-12 months
-    -   CMP, SERUM OR PLASMA
-    -   CBC
-    -   HBA1C (HEMOGLOBIN A1C), BLOOD
-    -   LIPID PANEL, SERUM
-    -   TSH, SERUM OR PLASMA
-    -   VITAMIN B6 (PYRIDOXINE), PLASMA
-    -   VITAMIN D, 25-HYDROXY, TOTAL, SERUM
-    -   VITAMIN E, SERUM
-    -   ZINC, SERUM OR PLASMA
-    -   IRON + TIBC + FERRITIN, SERUM
-    -   VITAMIN B12, SERUM
-    -   FOLATE, SERUM
-    -   COPPER, SERUM OR PLASMA
-    -   VITAMIN B1 (THIAMINE), BLOOD
+- CMP, SERUM OR PLASMA
+- CBC
+- HBA1C (HEMOGLOBIN A1C), BLOOD
+- LIPID PANEL, SERUM
+- TSH, SERUM OR PLASMA
+- VITAMIN B6 (PYRIDOXINE), PLASMA
+- VITAMIN D, 25-HYDROXY, TOTAL, SERUM
+- VITAMIN E, SERUM
+- ZINC, SERUM OR PLASMA
+- IRON + TIBC + FERRITIN, SERUM
+- VITAMIN B12, SERUM
+- FOLATE, SERUM
+- COPPER, SERUM OR PLASMA
+- VITAMIN B1 (THIAMINE), BLOOD
 
 -   If you are having your PCP or another doctor order your post-op labs, please have them faxed to us at (513) 559-1235!

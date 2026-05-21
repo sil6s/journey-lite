@@ -87,5 +87,3 @@ Building upon the success of the motivational video It Starts Today, the ASMBS s
 Patients can submit their own videos and relate their personal journeys towards better health!
 
 You can share your weight loss surgery success stories after Lap Band, sleeve gastrectomy, or gastric bypass.  Just go to www.ThisTimeItCounts.com and use your own story to inspire other patients to treat the disease of obesity and change their lives now!  Let’s see Ohio take the lead on this site and get some good stories posted ASAP!
-
-Dr. Trace Curry, Medical Director – Metabolic Weight Loss Centers, LLC

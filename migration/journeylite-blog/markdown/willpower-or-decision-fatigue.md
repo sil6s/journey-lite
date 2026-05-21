@@ -89,10 +89,10 @@ Decision fatigue happens when the **quality** of your decisions declines after m
 
 For bariatric patients, this is amplified because:
 
--   -   Food choices feel higher stakes (nutrition impacts recovery, weight loss, and health outcomes)
-    -   Eating routines have completely changed
-    -   Old habits no longer apply, but new ones aren’t automatic yet
-    -   There are more “rules” to remember (protein first, chew thoroughly, avoid fluids during meals, etc.)
+-   Food choices feel higher stakes (nutrition impacts recovery, weight loss, and health outcomes)
+- Eating routines have completely changed
+- Old habits no longer apply, but new ones aren’t automatic yet
+- There are more “rules” to remember (protein first, chew thoroughly, avoid fluids during meals, etc.)
 
 The result? Mental overload—especially around meals.
 
@@ -110,18 +110,18 @@ Instead of trying to be creative every day, narrow your options.
 
 Create a list of 5–7 meals that:
 
--   -   Meet your protein needs
-    -   Sit well with your body
-    -   Are easy to prepare
-    -   Use simple, repeatable ingredients
+-   Meet your protein needs
+- Sit well with your body
+- Are easy to prepare
+- Use simple, repeatable ingredients
 
 Examples might include:
 
--   -   Scrambled eggs with cottage cheese
-    -   Greek yogurt with protein powder
-    -   Rotisserie chicken with veggies
-    -   Tuna salad or chicken salad
-    -   Protein shakes or bars
+-   Scrambled eggs with cottage cheese
+- Greek yogurt with protein powder
+- Rotisserie chicken with veggies
+- Tuna salad or chicken salad
+- Protein shakes or bars
 
 You’re not limiting yourself – you’re reducing friction.
 
@@ -131,10 +131,10 @@ When mealtime comes, you’re choosing from a small, familiar list instead of st
 
 Detailed meal plans can feel overwhelming to maintain. Instead, try a flexible template:
 
--   -   Breakfast: Always high-protein, quick (e.g., yogurt or eggs)
-    -   Lunch: Leftovers or pre-prepped protein
-    -   Dinner: Simple protein + vegetable
-    -   Snacks: Pre-planned, portioned options
+-   Breakfast: Always high-protein, quick (e.g., yogurt or eggs)
+- Lunch: Leftovers or pre-prepped protein
+- Dinner: Simple protein + vegetable
+- Snacks: Pre-planned, portioned options
 
 This gives you structure without requiring constant planning.
 
@@ -142,18 +142,18 @@ This gives you structure without requiring constant planning.
 
 Instead of cooking full meals, prep basic building blocks:
 
--   -   A batch of shredded chicken (even easier… rotisserie chicken)
-    -   Hard-boiled eggs
-    -   Cooked ground meat
-    -   Pre-cut or steamed vegetables (even easier… steamable frozen veggies)
+-   A batch of shredded chicken (even easier… rotisserie chicken)
+- Hard-boiled eggs
+- Cooked ground meat
+- Pre-cut or steamed vegetables (even easier… steamable frozen veggies)
 
 Then mix and match throughout the week.
 
 This approach:
 
--   -   Reduces cooking time
-    -   Gives flexibility without new decisions
-    -   Prevents boredom without extra effort
+-   Reduces cooking time
+- Gives flexibility without new decisions
+- Prevents boredom without extra effort
 
 ### 4\. Create a “Standard Grocery List”
 
@@ -163,23 +163,23 @@ Instead of reinventing your list every week, build a master list of staples you 
 
 **Proteins**
 
--   -   Eggs
-    -   Greek yogurt
-    -   Cottage cheese
-    -   Chicken (rotisserie or raw)
-    -   Tuna packets
-    -   Protein shakes/powder
+-   Eggs
+- Greek yogurt
+- Cottage cheese
+- Chicken (rotisserie or raw)
+- Tuna packets
+- Protein shakes/powder
 
 **Produce**
 
--   -   A few go-to vegetables (zucchini, spinach, green beans)
-    -   Easy fruits (berries, kiwi, grapes)
+-   A few go-to vegetables (zucchini, spinach, green beans)
+- Easy fruits (berries, kiwi, grapes)
 
 **Extras**
 
--   -   Low-fat cheese
-    -   Broth or soup bases
-    -   Simple seasonings
+-   Low-fat cheese
+- Broth or soup bases
+- Simple seasonings
 
 Each week, you’re mostly repeating – not deciding.
 
@@ -189,9 +189,9 @@ The hardest choices happen when you’re already hungry.
 
 Set yourself up so decisions are already made:
 
--   -   Pre-portion meals and snacks
-    -   Keep ready-to-eat protein options visible
-    -   Keep “off plan” foods out of sight (or out of the house)
+-   Pre-portion meals and snacks
+- Keep ready-to-eat protein options visible
+- Keep “off plan” foods out of sight (or out of the house)
 
 Make the best choice, the easiest one.
 
@@ -201,9 +201,9 @@ Many people feel like they “should” have more variety.
 
 But repetition:
 
--   -   Builds habits faster
-    -   Reduces stress
-    -   Supports consistency
+-   Builds habits faster
+- Reduces stress
+- Supports consistency
 
 You can always expand your options later. Early on, simplicity is a strength.
 
@@ -211,9 +211,9 @@ You can always expand your options later. Early on, simplicity is a strength.
 
 You might be experiencing decision fatigue if you:
 
--   -   Skip meals because choosing feels exhausting
-    -   Grab whatever is easiest (even if it doesn’t align with your goals… this is (https://journeylite.com/reactive-eating/))
-    -   Feel frustrated or overwhelmed around food
+-   Skip meals because choosing feels exhausting
+- Grab whatever is easiest (even if it doesn’t align with your goals… this is (https://journeylite.com/reactive-eating/))
+- Feel frustrated or overwhelmed around food
 
 When that happens, it’s not a discipline issue – it’s a systems issue.
 
@@ -227,9 +227,9 @@ You don’t need more options. You need better defaults.
 
 Start small:
 
--   -   Pick 3 go-to meals
-    -   Repeat your grocery list
-    -   Prep just one protein ahead of time
+-   Pick 3 go-to meals
+- Repeat your grocery list
+- Prep just one protein ahead of time
 
 Simple systems beat perfect plans – every time.
 

@@ -89,5 +89,3 @@ Although we are experts in surgical weight loss at JourneyLite, we have 15 years
 After your initial consultation, monthly visits with a medical provider and a registered dietitian will continue through the duration of the program.  Depending on the regulations of your particular state, some of these visits may be virtual!
 
 Call or request an appointment today, and start getting your health and quality of life back on track!
-
-(https://journeylite.com/appointment-request/)

@@ -80,10 +80,6 @@ false
 ## Body
 Dr. James Augusta
 
-(https://journeylite.com/appointment-request/)
-
-(https://www.google.com/search?sca_esv=abeb4f522ce11e62&sxsrf=AE3TifMqH2J607XIB8_kZM8WGDcbPBk6FA:1765824868708&si=AMgyJEtREmoPL4P1I5IDCfuA8gybfVI2d5Uj7QMwYCZHKDZ-EzyjLpiOAuzB7VdcG5skjGO0n9jsCrHho3BOydjifP1D51U_rpXrNvlr5zSV7bOjSNeTC5Xpqx1-PGl2qgS_T8yU-azpoFai3tZQoHcwfFpAfwHkf5dxdtgTEG4EccMWTH4s_2lyx7ymz7kIsRnJjhMBVNgS&q=JourneyLite+Physicians/Dr.+James+Augusta+Weight+loss+Center+Reviews&sa=X&ved=2ahUKEwjXsqOgosCRAxWXk2oFHSvHIEcQ0bkNegQIRhAE&biw=1270&bih=1307&dpr=1.5)
-
 ## Dr. James Augusta
 
 ### Bariatric & Weight Loss Surgeon at JourneyLite
@@ -103,7 +99,6 @@ Dr. Augusta specializes in modern, evidence-based weight loss procedures designe
 -   **Revisional Bariatric Surgery**
 
 -   **Minimally Invasive & Laparoscopic Techniques**
-
 
 He works closely with each patient to determine the most appropriate surgical option based on their medical history, goals, and lifestyle.
 

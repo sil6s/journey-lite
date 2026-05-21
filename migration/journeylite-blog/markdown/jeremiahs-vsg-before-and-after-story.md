@@ -83,8 +83,6 @@ true
 true
 
 ## Body
-(https://journeylite.com/testimonial/jeremiahs-journey-from-376-to-218-pounds/)
-
 \\\\[/vc\_column\]\[/vc\_row\]\\\**Jeremiah’s Journey: From 376 to 218 Pounds**
 
 Before turning 30, I never really saw my weight as a problem. There were tough days when I wasn’t proud of my reflection, but I never seriously tried to make a change. I went back and forth with different weight loss medications over the years, but nothing really worked. Then, a health scare shook me to my core—it was the wake-up call I desperately needed.

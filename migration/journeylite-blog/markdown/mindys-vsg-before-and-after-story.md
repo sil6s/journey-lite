@@ -81,8 +81,6 @@ true
 true
 
 ## Body
-(https://journeylite.com/testimonial/mindys-vsg-before-and-after-testimonial/)
-
 \\\🌟 Mindy’s Transformation with JourneyLite 🌟
 
 For as long as I can remember, I’ve struggled with my weight. Even as a child, I knew it was holding me back—but I didn’t fully understand how much it was affecting my life until adulthood.

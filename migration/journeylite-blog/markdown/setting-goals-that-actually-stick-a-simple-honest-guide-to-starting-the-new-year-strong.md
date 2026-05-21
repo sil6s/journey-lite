@@ -160,17 +160,11 @@ Once you’ve identified what’s been weighing on your mind, you can begin shap
 
 For example:
 
-**Recurring thought:** “I am tired all the time.”
-**Underlying issue:** Lack of sleep, inconsistent routine, over-scheduling.
-**Potential goal:** Build a sustainable nighttime routine and prioritize sleep.
+**Recurring thought:** “I am tired all the time.”** Underlying issue:** Lack of sleep, inconsistent routine, over-scheduling.** Potential goal:** Build a sustainable nighttime routine and prioritize sleep.
 
-**Recurring thought:** “I hate figuring out what to eat every day.”
-**Underlying issue:** Decision fatigue, no structure, too many choices.
-**Potential goal:** Create a simple weekly meal system that removes daily decision-making.
+**Recurring thought:** “I hate figuring out what to eat every day.”** Underlying issue:** Decision fatigue, no structure, too many choices.** Potential goal:** Create a simple weekly meal system that removes daily decision-making.
 
-**Recurring thought:** “My clothes don’t fit anymore.”
-**Underlying issue:** Lifestyle habits, nutrition patterns, stress, or physical changes.
-**Potential goal:** Rebuild a consistent routine of nourishing meals and movement.
+**Recurring thought:** “My clothes don’t fit anymore.”** Underlying issue:** Lifestyle habits, nutrition patterns, stress, or physical changes.** Potential goal:** Rebuild a consistent routine of nourishing meals and movement.
 
 ## **Why This Step Matters So Much**
 

@@ -88,12 +88,11 @@ Meal prep is a total game changer for weight loss and healthy eating, especially
 
 💡 **How to get started with meal prep:**
 
--   -   Use single-portion containers
-    -   Make sure every meal has protein + fiber
-    -   Batch cook easy-to-reheat meals, or prep ingredients instead of full meals
+-   Use single-portion containers
+- Make sure every meal has protein + fiber
+- Batch cook easy-to-reheat meals, or prep ingredients instead of full meals
 
-🔥 **Reheating leftovers? Don’t settle for dry, tough, or blah!
-**👉 Use low heat (microwave or stove)
+🔥 **Reheating leftovers? Don’t settle for dry, tough, or blah!** 👉 Use low heat (microwave or stove)
 👉 Add moisture: sprinkle water, use a lid, or a damp paper towel
 👉 Stir throughout to reheat evenly
 👉 Remember: Reheat to 165°F for (https://www.fsis.usda.gov/food-safety/safe-food-handling-and-preparation/food-safety-basics/leftovers-and-food-safety)!

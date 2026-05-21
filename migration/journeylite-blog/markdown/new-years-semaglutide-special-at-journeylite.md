@@ -85,8 +85,6 @@ true
 ## Body
 NOTE: The FDA has removed both Zepbound and Wegovy from their shortage list, therefore pharmacies are no longer able to sell compounded tirzepatide or semaglutide. Compounded liraglutide is available, however, as the patent has expired on it!
 
-(https://journeylite.com/compounded-liraglutide-saxenda-injections-now-available-at-journeylite/ "Compounded Liraglutide (Saxenda) Injections Now Available at JourneyLite!")
-
 Did winter hibernation lead to a bump up in the scale? Spring is a great time to get focused on healthier eating and exercise to shed those extra winter pounds! Sometimes, though, this isn’t enough to get the scale moving in the right direction. At JourneyLite Physicians, we have a strong GLP-1 program with experienced medical providers and licensed/registered dietitians. We also use a trusted, vetted compounding pharmacy partner ((https://mediverarx.com/)) to provide compounded semaglutide injections shipped directly to your home.
 
 To help you with achieving your weight loss goals, for a limited time we are offering a 3-month complete semaglutide program for $900! This includes all of your provider+dietitian visits, medication, and shipping costs.  Take advantage of this New Year savings to get the scale moving in the right direction now before the spring gets here! This can also be a great option for post-op patients who just need a jump-start to get back on track.
@@ -139,8 +137,6 @@ Date of Birth\*
 
 Your Email\*
 
-
-
 Permission to Text/SMS\*
 
  I agree to receive texts
@@ -149,15 +145,11 @@ Permission to Text/SMS\*
 
 Phone
 
-At some point we may need to text you appointment reminders or other important information. By providing your phone number, you agree to receive text messages from JourneyLite. Message & data rates may apply. Message frequency varies, we try to keep it to a minimum. Reply STOP to any message to opt out, reply HELP for help. Click here for our (https://journeylite.com/terms-and-conditions/ "Terms & Conditions") or our (https://journeylite.com/privacy "Privacy Policy").
-
-
+At some point we may need to text you appointment reminders or other important information. By providing your phone number, you agree to receive text messages from JourneyLite. Message & data rates may apply. Message frequency varies, we try to keep it to a minimum. Reply STOP to any message to opt out, reply HELP for help. Click here for our (https://journeylite.com/terms-and-conditions/) or our (https://journeylite.com/privacy).
 
 Address (optional):
 
  Street AddressCity AlabamaAlaskaAmerican SamoaArizonaArkansasCaliforniaColoradoConnecticutDelawareDistrict of ColumbiaFloridaGeorgiaGuamHawaiiIdahoIllinoisIndianaIowaKansasKentuckyLouisianaMaineMarylandMassachusettsMichiganMinnesotaMississippiMissouriMontanaNebraskaNevadaNew HampshireNew JerseyNew MexicoNew YorkNorth CarolinaNorth DakotaNorthern Mariana IslandsOhioOklahomaOregonPennsylvaniaPuerto RicoRhode IslandSouth CarolinaSouth DakotaTennesseeTexasUtahU.S. Virgin IslandsVermontVirginiaWashingtonWest VirginiaWisconsinWyomingArmed Forces AmericasArmed Forces EuropeArmed Forces Pacific State ZIP Code
-
-
 
 Height (ft - e.g. 5'0 enter a 5)\*
 
@@ -172,8 +164,6 @@ Preferred Location:\*
 \-SELECT LOCATION-CincinnatiColumbusDaytonIndianapolisNorthern KyVirtual
 
 Your location is far away! We do serve patients from all over the country, but we need to get some more information first. Please send us your information, including your location, by using our  (https://journeylite.com/contact-us) form to see if you are a candidate!
-
-
 
 Weight loss medication interest(s):\*
 
@@ -202,8 +192,6 @@ Are you interested in information on surgical options?
 YesNo thanks
 
 Your BMI is over 35, are you interested in a free video consultation with Dr. Curry to discuss the pro's and con's of surgery vs. meds?
-
-
 
 Select Procedures of Interest
 
@@ -268,8 +256,6 @@ Self-payUnsureAetna AmbetterAnthemAetnaBuckeyeCaresourceCignaHumanaHumana Medica
 If you're going through insurance, select your company from the list. If you're unsure about your coverage, select "Unsure." If you know your insurance doesn't cover surgery, select "Self-pay."
 
 **Currently we are not accepting this plan, please check back in the future! If you are a self-pay patient, please proceed.**
-
-
 
 Additional Message
 

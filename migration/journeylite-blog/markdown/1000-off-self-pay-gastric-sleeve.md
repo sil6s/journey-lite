@@ -84,17 +84,11 @@ false
 ## Body
 For a limited time, we have increased the discount on self-pay gastric sleeve to $5000!  **Total package price is now $10,000.**  Certain restrictions apply.
 
-(https://journeylite.com/self-pay-gastric-sleeve-only-10000/)
-
-(http://journeylite.com/financing-options/ "Pricing & Self Pay Options")
-
 # Save $1000 on self-pay gastric sleeve procedures!
 
 \*Limited time offer, price subject to change without notice.
 
 JourneyLite Surgery Center is a leading facility for surgical weight loss in the midwest.  Our surgeons have done thousands of gastric sleeve procedures and are proud of our ability to combine excellent care with affordable pricing for self-pay patients.  We are happy to announce that, for a limited time, we will be offering $1000 off of our already-low procedure price of $14,900.  That’s right, for just $13,900 your surgeon’s fee, anesthesia fee, and facility fee is covered, along with one year of post-op office care.  This price can’t be beat and will be for a limited time, so call us now or request a consultation!
-
-(http://journeylite.com/appointment-request/ "Weight Loss Appointment Request")
 
 Cincinnati: (513) 559-1222
 Dayton: (937) 280-LOSE

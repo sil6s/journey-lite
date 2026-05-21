@@ -96,11 +96,7 @@ Welcome to JourneyLite, your trusted partner for lasting weight loss and better 
 
 JourneyLite serves Indiana patients through our convenient Indianapolis-area clinic in Greenwood, with surgical procedures performed at our nationally-accredited JourneyLite Surgery Center in Cincinnati. This approach allows Indiana patients to receive expert evaluation, planning, and follow-up care close to home while still benefiting from JourneyLite’s highly experienced bariatric surgery team.
 
-
-
 Expert Weight Loss Solutions from an Experienced Team
-
-
 
 At JourneyLite, you receive care from a team with extensive experience in bariatric surgery and medical weight loss. Dr. Trace Curry leads our bariatric surgery program and has more than 20 years of experience performing advanced laparoscopic procedures. JourneyLite’s team has helped patients throughout Ohio, Kentucky, and Indiana with both surgical and non-surgical weight loss solutions designed around long-term success.
 
@@ -114,13 +110,13 @@ If you are looking for weight loss care in Indiana, (https://journeylite.com/map
 
 ### Weight Loss Clinic in Greenwood / Indianapolis
 
--   -   **Address:** 33 E. County Line Road, Suite E, Greenwood, IN 46143
+-   **Address:** 33 E. County Line Road, Suite E, Greenwood, IN 46143
 
-    -   **Phone:** (463) 237-5999
+- **Phone:** (463) 237-5999
 
-    -   **Fax:** (513) 559-1235
+- **Fax:** (513) 559-1235
 
-    -   **Hours:** Call for current hours
+- **Hours:** Call for current hours
 
 ## Weight Loss Surgery for Indiana Patients
 
@@ -205,5 +201,3 @@ Yes. Indiana patients can pursue medical weight loss with prescription medicatio
 If you are looking for a trusted option for weight loss surgery in Indiana, JourneyLite is here to help. Our team offers expert guidance, proven treatment options, and convenient access for patients throughout the Indianapolis area and beyond.
 
 **Indianapolis / Greenwood:** (463) 237-5999
-
-(https://journeylite.com/easy-appointment-request/)

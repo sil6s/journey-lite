@@ -105,16 +105,14 @@ Please review the information on this page according to how you received the med
 1.  **Remove the vial from the refrigerator.**
 2.  **Check the vial label to make sure you have the right medicine and dose, and that it has not expired.**
 3.  **Make sure the medicine:**
-    -   **is not frozen**
-    -   **is not cloudy**
-    -   **is colorless to slightly yellow**
-    -   **does not have particles**
+- **is not frozen**
+- **is not cloudy**
+- **is colorless to slightly yellow**
+- **does not have particles**
 
 **Always use a new syringe and needle for each injection to prevent infections and blocked needles. Do not reuse or share your syringes or needles with other people. You may give other people a serious infection or get a serious infection from them.
 
 Wash your hands with soap and water.**
-
-(https://zepbound.lilly.com/weight/how-to-use)
 
 #### (#1759329272228-6dbaeee0-977f)
 
@@ -132,9 +130,9 @@ The most common side effects of Zepbound (tirzepatide) include nausea, diarrhea,
 
 -   **If you take birth control pills by mouth, talk to your healthcare provider before you use Zepbound. Birth control pills may not work as well while using Zepbound.** Your healthcare provider may recommend another type of birth control for 4 weeks after you start Zepbound and for 4 weeks after each increase in your dose of Zepbound.
 -   **Use Zepbound 1 once a week. Stick to the same day of the week, and you can inject at any time of the day.**
-    -   If you miss a dose of Zepbound and the next scheduled dose is more than 2 days away, take the missed dose as soon as possible.
-    -   If you miss a dose of Zepbound and the next scheduled dose is less than 2 days away, do not administer the dose. Take your next dose on the regularly scheduled day.
-    -   If you miss doses of Zepbound for more than 2 weeks, take the next dose on the regularly scheduled day or call your health care provider to talk about how to restart your treatment.
+- If you miss a dose of Zepbound and the next scheduled dose is more than 2 days away, take the missed dose as soon as possible.
+- If you miss a dose of Zepbound and the next scheduled dose is less than 2 days away, do not administer the dose. Take your next dose on the regularly scheduled day.
+- If you miss doses of Zepbound for more than 2 weeks, take the next dose on the regularly scheduled day or call your health care provider to talk about how to restart your treatment.
 -   Change (rotate) your injection area with each weekly injection. **Do not** use the same site for each injection.
 
 <table><tbody><tr><td colspan="3"></td></tr><tr><td colspan="3"></td></tr></tbody></table>

@@ -123,13 +123,13 @@ Unlike in a (https://journeylite.com/surgical-weight-loss/gastric-bypass-surgery
 
 -   Gastric sleeve surgery is much simpler and less-invasive than gastric bypass. **So short-term risks are lower**. In surgical procedures, we define short-term as the first 30 days after surgery.
 -   Since no intestine is bypassed, the **long-term risk of a VSG is also much lower than for gastric bypass**. The lack of bypassed intestine reduces the risk of:
-    -   vitamin and nutrient deficiencies
-    -   anemia
-    -   hypoglycemia (low blood sugar)
-    -   (https://www.hopkinsmedicine.org/health/wellness-and-prevention/dumping-syndrome-after-gastric-bypass-surgery)
-    -   small bowel obstructions
-    -   marginal ulcers
-    -   internal hernias
+- vitamin and nutrient deficiencies
+- anemia
+- hypoglycemia (low blood sugar)
+- (https://www.hopkinsmedicine.org/health/wellness-and-prevention/dumping-syndrome-after-gastric-bypass-surgery)
+- small bowel obstructions
+- marginal ulcers
+- internal hernias
 -   Weight loss is more rapid with a gastric sleeve than for a Lap Band.  In my experience the rate is fairly similar to what we see with gastric bypass. This can help the patient remain motivated and stay on track.
 -   **Minimal long-term maintenance is required with a VSG** as compared to both gastric bypass and Lap Band. When I see a sleeve patient in the office, I don’t have to worry about sticking a needle into a patient to adjust their Lap Band, and I typically don’t see bypass-related issues like iron deficiency that need to be addressed.
 -   **Quality of life after a gastric sleeve improves rapidly**. As the weight is usually coming off fast, I see patients who are finding an almost immediate _reduction_ in joint pain, blood pressure and sleep apnea symptoms. Likewise, there is an immediate _increase_ in mobility and improved social interactions.

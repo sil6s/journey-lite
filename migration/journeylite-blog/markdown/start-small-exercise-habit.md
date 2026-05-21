@@ -95,9 +95,9 @@ So if you’re stuck on where to begin, start small. Show up. Let repetition bui
 
 Here are a few beginner-friendly exercise programs to help you get moving:
 
--   -   **(https://www.runnersworld.com/beginner/a40267826/couch-to-5k-runners-program/)** – A great running program for total beginners
-    -   [**At-Home Workouts**](https://greatist.com/fitness/at-home-workouts-for-beginners#at-home-workout) – No gym needed, just your body and a little space
-    -   **(https://www.muscleandfitness.com/workout-plan/workouts/workout-routines/complete-mf-beginners-training-guide-plan/)** – A gentle introduction to the gym environment
+-   A great running program for total beginners
+- [**At-Home Workouts**](https://greatist.com/fitness/at-home-workouts-for-beginners#at-home-workout) – No gym needed, just your body and a little space
+- A gentle introduction to the gym environment
 
 Whatever you choose, make a commitment to _start today_. Your only goal? Just begin.
 

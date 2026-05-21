@@ -103,11 +103,11 @@ Hair follicles are incredibly sensitive to changes in nutrition – when your bo
 
 The nutrients most often linked to post-surgery hair loss include:
 
--   -   **Protein:** Hair is made of keratin, a type of protein. Low protein intake can weaken strands and increase shedding. Learn about your post-op protein needs (https://journeylite.com/protein-during-weight-loss/).
-    -   **Iron:** Low ferritin (iron stores) is one of the most common nutrient-related causes of hair loss.
-    -   **Zinc and Copper:** Both play key roles in cell repair and hair follicle function.
-    -   **Biotin, B12, and Folate:** These support cell turnover and keratin production.
-    -   **Vitamin D:** Helps regulate the hair growth cycle.
+-   **Protein:** Hair is made of keratin, a type of protein. Low protein intake can weaken strands and increase shedding. Learn about your post-op protein needs (https://journeylite.com/protein-during-weight-loss/).
+- **Iron:** Low ferritin (iron stores) is one of the most common nutrient-related causes of hair loss.
+- **Zinc and Copper:** Both play key roles in cell repair and hair follicle function.
+- **Biotin, B12, and Folate:** These support cell turnover and keratin production.
+- **Vitamin D:** Helps regulate the hair growth cycle.
 
 ### **When to Expect It and How Long It Lasts**
 
@@ -123,17 +123,17 @@ While you can’t always prevent the initial shedding, you _can_ reduce its seve
 
 Protein is the cornerstone of recovery and hair health.
 
--   -   Aim for **60–100 grams of protein per day**.
-    -   Choose high-quality sources: eggs, lean meats, Greek yogurt, cottage cheese, tofu/tempeh, beans, or protein shakes.
-    -   Spread your protein intake throughout the day for better absorption.  Talk to your dietitian about what your eating pattern should look like at your stage of post op.
+-   Aim for **60–100 grams of protein per day**.
+- Choose high-quality sources: eggs, lean meats, Greek yogurt, cottage cheese, tofu/tempeh, beans, or protein shakes.
+- Spread your protein intake throughout the day for better absorption.  Talk to your dietitian about what your eating pattern should look like at your stage of post op.
 
 #### **2\. Take Your Bariatric Vitamins Faithfully**
 
 This is one of the most important habits after surgery.
 
--   -   Use a [**bariatric-specific multivitamin**](https://journeylite.com/why-bariatric-vitamins-are-a-must-have-after-weight-loss-surgery/), not an over-the-counter brand, to ensure proper dosing and absorption.
-    -   It should include iron, zinc, copper, B12, folate, and vitamin D.
-    -   If you take calcium, make sure to space it out from iron supplements so they don’t interfere with each other. \*at least 2 hours apart.
+-   Use a [**bariatric-specific multivitamin**](https://journeylite.com/why-bariatric-vitamins-are-a-must-have-after-weight-loss-surgery/), not an over-the-counter brand, to ensure proper dosing and absorption.
+- It should include iron, zinc, copper, B12, folate, and vitamin D.
+- If you take calcium, make sure to space it out from iron supplements so they don’t interfere with each other. \*at least 2 hours apart.
 
 #### **3\. Keep Up With Routine Lab Work**
 
@@ -144,9 +144,9 @@ F**erritin, zinc, copper, vitamin D, and B12** are all essential for healthy hai
 
 Avoid tight ponytails, harsh brushing, or heat styling while your hair is shedding.
 
--   -   Use a **wide-tooth comb** and a mild, sulfate-free shampoo.
-    -   Focus on scalp health — regular gentle massage can help stimulate blood flow to the follicles.  Ingredients such as biotin, rosemary oil, and caffeine are known to be great for scalp health.
-    -   If you color your hair, consider taking a break from harsh chemical treatments until regrowth is stronger.
+-   Use a **wide-tooth comb** and a mild, sulfate-free shampoo.
+- Focus on scalp health — regular gentle massage can help stimulate blood flow to the follicles.  Ingredients such as biotin, rosemary oil, and caffeine are known to be great for scalp health.
+- If you color your hair, consider taking a break from harsh chemical treatments until regrowth is stronger.
 
 #### **5\. Be Patient and Kind to Yours**
 
@@ -156,9 +156,9 @@ Hair loss can be frustrating, especially after all the positive changes you’re
 
 There’s no magic pill for preventing hair loss, but certain supplements _may_ help once your basics are covered:
 
--   -   **Collagen peptides:** Support the structural proteins that make up hair. We love Vital Proteins Collagen Peptides.
-    -   **Biotin:** Only if your levels are low — extra biotin won’t help if you’re not deficient.
-    -   **Zinc:** Can help, but too much can cause copper deficiency, so dosing matters.
+-   **Collagen peptides:** Support the structural proteins that make up hair. We love Vital Proteins Collagen Peptides.
+- **Biotin:** Only if your levels are low — extra biotin won’t help if you’re not deficient.
+- **Zinc:** Can help, but too much can cause copper deficiency, so dosing matters.
 
 Always talk to your bariatric team before starting anything new. More is not always better when it comes to supplements.
 

@@ -97,9 +97,9 @@ Still think I’m exaggerating? **One container of Chick-fil-A sauce contains 14
 
 Getting familiar with sauces and dressings can be a game-changer for your calorie deficit. Sauces can:
 
--   -   Turn a boring meal into something delicious.
-    -   Help you enjoy the same ingredients in new ways.
-    -   Keep you from getting food boredom while sticking to your goals.
+-   Turn a boring meal into something delicious.
+- Help you enjoy the same ingredients in new ways.
+- Keep you from getting food boredom while sticking to your goals.
 
 The trick is swapping high-calorie bases for lighter ones and measuring your portions.
 
@@ -111,9 +111,9 @@ Creamy sauces usually start with mayo or sour cream, but you can dramatically re
 
 **Here’s why it works:**
 
--   -   1 cup cottage cheese: ~200 calories, ~30g protein
-    -   1 cup sour cream: ~480 calories, ~8g protein
-    -   1 cup mayo: ~1,440 calories, 0g protein
+-   1 cup cottage cheese: ~200 calories, ~30g protein
+- 1 cup sour cream: ~480 calories, ~8g protein
+- 1 cup mayo: ~1,440 calories, 0g protein
 
 To make:
 
@@ -123,35 +123,34 @@ To make:
 
 #### **Recipes to Try**
 
--   -   **Cottage Cheese Ranch**
+-   **Cottage Cheese Ranch**
 
-        -   -   16oz pureed cottage cheese
-            -   1 packet ranch seasoning
-            -   1–2 tbsp red wine vinegar
+- 16oz pureed cottage cheese
+- 1 packet ranch seasoning
+- 1–2 tbsp red wine vinegar
 
-    -   **Cottage Cheese Honey Mustard**
+- **Cottage Cheese Honey Mustard**
 
-        -   -   1 cup pureed cottage cheese
-            -   ¼ cup mustard
-            -   Sprinkle paprika, dill, and salt
+- 1 cup pureed cottage cheese
+- ¼ cup mustard
+- Sprinkle paprika, dill, and salt
 
-    -   **Cottage Cheese Southwest Dressing**
+- **Cottage Cheese Southwest Dressing**
 
-        -   -   16oz pureed cottage cheese
-            -   1 cup salsa
+- 16oz pureed cottage cheese
+- 1 cup salsa
 
-    -   **Lower-Calorie Peanut Sauce (Pad Thai)**
+- **Lower-Calorie Peanut Sauce (Pad Thai)**
 
-        -   -   2 tbsp lime juice
-            -   1 garlic clove, minced
-            -   ½ tsp crushed red pepper flakes
-            -   1 tbsp soy sauce or coconut aminos
-            -   ¼ tsp powdered ginger
-            -   ½ tsp rice vinegar
-            -   ¼ cup peanut butter _(or ¼ cup PB2 + ½ cup water for lower fat)_
-            -   Dash cayenne (optional)
-            -   ⅛ cup pureed cottage cheese + ⅛ cup water
-
+- 2 tbsp lime juice
+- 1 garlic clove, minced
+- ½ tsp crushed red pepper flakes
+- 1 tbsp soy sauce or coconut aminos
+- ¼ tsp powdered ginger
+- ½ tsp rice vinegar
+- ¼ cup peanut butter _(or ¼ cup PB2 + ½ cup water for lower fat)_
+- Dash cayenne (optional)
+- ⅛ cup pureed cottage cheese + ⅛ cup water
 
 ### **Oil-Based Sauces**
 
@@ -159,44 +158,43 @@ Oil-based sauces are trickier to lighten since oils have 100–130 calories per 
 
 **Tips:**
 
--   -   Measure your oil with a spoon, then toss to coat greens evenly.
-    -   Choose lower-calorie vinaigrettes and measure before adding.
-    -   Learn to recognize true serving sizes so you can eyeball more accurately over time.
+-   Measure your oil with a spoon, then toss to coat greens evenly.
+- Choose lower-calorie vinaigrettes and measure before adding.
+- Learn to recognize true serving sizes so you can eyeball more accurately over time.
 
 #### **Recipes to Try**
 
--   -   **Moroccan Dipping Sauce**
+-   **Moroccan Dipping Sauce**
 
-        -   -   ¼ cup lemon juice
-            -   1 garlic clove, crushed
-            -   ½ tsp ground cumin
-            -   ¼ tsp paprika
-            -   Pinch cayenne
-            -   ¼ tsp salt
-            -   ⅓ cup extra-virgin olive oil
-            -   2 tbsp minced cilantro or parsley
-            -   Salt & pepper to taste
+- ¼ cup lemon juice
+- 1 garlic clove, crushed
+- ½ tsp ground cumin
+- ¼ tsp paprika
+- Pinch cayenne
+- ¼ tsp salt
+- ⅓ cup extra-virgin olive oil
+- 2 tbsp minced cilantro or parsley
+- Salt & pepper to taste
 
-    -   **BBQ Wet Rub**
+- **BBQ Wet Rub**
 
-        -   -   2 tsp paprika
-            -   2 tsp garlic powder
-            -   1 tsp onion powder
-            -   1 tsp chili powder
-            -   ½ tsp cumin
-            -   ½ tsp chipotle powder (or smoked paprika)
-            -   1 tsp sea salt
-            -   ½ tsp pepper
-            -   1 tbsp brown sugar
-            -   2 tbsp olive oil
-            -   2 tbsp lime juice
-
+- 2 tsp paprika
+- 2 tsp garlic powder
+- 1 tsp onion powder
+- 1 tsp chili powder
+- ½ tsp cumin
+- ½ tsp chipotle powder (or smoked paprika)
+- 1 tsp sea salt
+- ½ tsp pepper
+- 1 tbsp brown sugar
+- 2 tbsp olive oil
+- 2 tbsp lime juice
 
 ## **Final Tips for Sauce Lovers**
 
--   -   Ask for sauces on the side when eating out.
-    -   Dip, don’t pour.
-    -   Use salsa, mustard, hot sauce, or yogurt-based dressings for a lighter punch.
-    -   Always measure creamy or oil-based sauces so you can enjoy them without sabotaging your goals.
+-   Ask for sauces on the side when eating out.
+- Dip, don’t pour.
+- Use salsa, mustard, hot sauce, or yogurt-based dressings for a lighter punch.
+- Always measure creamy or oil-based sauces so you can enjoy them without sabotaging your goals.
 
 Small changes—like being mindful with sauces—can make a big difference over time, especially if you’re aiming for weight loss or maintenance.

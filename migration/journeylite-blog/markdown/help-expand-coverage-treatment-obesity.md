@@ -84,7 +84,3 @@ On July 21, 2014, Representatives Johnson (D-TX) and Blumenauer (D-OR) circulate
 I encourage you to visit the Obesity Action Coalition’s (OAC) Legislative Action Center where you will be able to send a form message to your legislator in the House of Representatives. ACT NOW as the deadline for getting your member of Congress to sign the letter is **Thursday, August 7th**.
 
 Take action by clicking on the link below, which will take you to the OAC’s Legislative Action Center.
-
-Dr. Trace Curry
-
-(http://www.obesityaction.org/advocacy/legislative-action-center "Help expand coverage for obesity treatment!")

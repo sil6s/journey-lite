@@ -91,7 +91,6 @@ Before starting Adipex, you must have a **medical evaluation** with a licensed p
 
 -   Screening for conditions that may prevent safe use
 
-
 Not everyone is a candidate for phentermine, and patient safety always comes first.
 
 * * *
@@ -105,7 +104,6 @@ You may qualify for Adipex if you:
 -   Do not have contraindications such as uncontrolled hypertension or certain heart conditions
 
 -   Are able to participate in regular follow-up visits
-
 
 Eligibility is determined on an individual basis.
 
@@ -123,7 +121,6 @@ If approved, your provider will:
 
 -   Schedule follow-up visits to monitor progress and safety
 
-
 Regular follow-up is required to continue treatment.
 
 * * *
@@ -140,7 +137,6 @@ Phentermine works best when paired with:
 
 -   Ongoing accountability and support
 
-
 Medication alone is not a long-term solution — sustainable habits are essential.
 
 * * *
@@ -156,7 +152,6 @@ JourneyLite offers a medically responsible approach to weight loss medication, i
 -   ✔ Access to alternative medications if Adipex isn’t appropriate
 
 -   ✔ Seamless transition to other options, including GLP-1s or surgery
-
 
 Our goal is to help you choose the **right tool**, not just the fastest one.
 

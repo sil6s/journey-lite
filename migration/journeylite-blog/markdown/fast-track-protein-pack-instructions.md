@@ -117,13 +117,13 @@ Choose 1 protein serving per day from any of the 3 categories per day.  Make su
 
 **One serving** = 1 cup raw salad greens or ½ cup of vegetables (cooked or raw) other than salad greens.  **So serving size is ½ cup unless specified.**
 
-<table border="1" cellspacing="0" cellpadding="0"><tbody><tr><td valign="top" width="160"><p align="center">Lowest Carb Choices</p><p align="center"> </p></td><td valign="top" width="160"><p align="center">Medium Carb Choices</p></td><td valign="top" width="160"><p align="center">Highest Carb Choices</p></td></tr><tr><td valign="top" width="160">-Mustard greens (1 cup)</td></tr></tbody></table>
+<table border="1" cellspacing="0" cellpadding="0"><tbody><tr><td valign="top" width="160"><p align="center">Lowest Carb Choices</p></td><td valign="top" width="160"><p align="center">Medium Carb Choices</p></td><td valign="top" width="160"><p align="center">Highest Carb Choices</p></td></tr><tr><td valign="top" width="160">-Mustard greens (1 cup)</td></tr></tbody></table>
 
 \-Collards, fresh/raw **(1 cup)** -Romaine Lettuce **(1 cup)** -Endive **(1 cup)** -Lettuce, Butterhead **(1 cup)** -Spinach, fresh/raw **(1 cup)** -Turnip greens -Celery -Cucumber -Mushrooms, white -Radishes -Sprouts:  Alfalfa or Mung Bean-Asparagus -Cabbage -Cauliflower -Eggplant -Fennel Bulb -Kale -Mushroom, portabella -Spinach, cooked -Summer squash:  Zucchini and Scallop-Broccoli -Cabbage, red -Collard or Mustard Greens, cooked -Green or Wax beans -Kohlrabi -Okra -Peppers:  Green, Red, Yellow -Scallions -Summer Squash:  Crookneck/Straightneck -Tomato, red ripe or canned -Turnips -Winter Squash:  Spaghetti Squash
 
 **Free Foods**
 
-<table border="1" cellspacing="0" cellpadding="0"><tbody><tr><td valign="top" width="479"><p align="center">You can have the following in unlimited amounts:</p><p align="center"> </p></td></tr><tr><td valign="top" width="479">-Sugar-Free/Calorie Free beverages</td></tr></tbody></table>
+<table border="1" cellspacing="0" cellpadding="0"><tbody><tr><td valign="top" width="479"><p align="center">You can have the following in unlimited amounts:</p></td></tr><tr><td valign="top" width="479">-Sugar-Free/Calorie Free beverages</td></tr></tbody></table>
 
 \-Sugar-Free gelatin -Sugar-Free popsicles -Sugar-Free gum or mints -Broth or strained broth soups
 
@@ -135,7 +135,7 @@ Choose 1 protein serving per day from any of the 3 categories per day.  Make su
 
 **Seasoning Options**
 
-<table border="1" cellspacing="0" cellpadding="0"><tbody><tr><td valign="top" width="515"><p align="center">You have the option to add any of the following ingredients to your Protein Supplements to add some variety to the flavors or spice them up!!!</p><p align="center"> </p></td></tr><tr><td valign="top" width="515">Shakes/Puddings:</td></tr></tbody></table>
+<table border="1" cellspacing="0" cellpadding="0"><tbody><tr><td valign="top" width="515"><p align="center">You have the option to add any of the following ingredients to your Protein Supplements to add some variety to the flavors or spice them up!!!</p></td></tr><tr><td valign="top" width="515">Shakes/Puddings:</td></tr></tbody></table>
 
 Sugar-Free syrups (coffee aisle), 1/8 tsp sugar-free powered gelatin, almond/baking extract **Soups:** Add broth instead of water to add flavor, use seasonings like garlic powder, onion, powder, cumin, curry, Mrs. Dash…etc.   **Oatmeal**: Add any sugar substitutes, Splenda brown sugar, SF maple syrup.   **Scrambled Eggs:** Molly McButter cheese powder, Bacon Salt, Chili powder, Hot Sauce
 

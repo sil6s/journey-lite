@@ -87,8 +87,6 @@ false
 true
 
 ## Body
-Dr. Trace CurryMedical Director
-
 # Zepbound versus Wegovy: Which one is better?
 
 -   GLP-1 receptor agonists (GLP-1 RA’s) are newer medications that were initially released as treatment for diabetes
@@ -96,8 +94,6 @@ Dr. Trace CurryMedical Director
 -   Wegovy (semaglutide) was the first GLP-1 RA approved for weight loss by the FDA
 -   Zepbound (tirzepatide) was just recently approved by the FDA
 -   Early data shows better weight loss with Zepbound/tirzepatide than Wegovy/semaglutide
-
-
 
 ## **What are GLP-1 receptor agonists and why do they work?**
 
@@ -127,9 +123,5 @@ Many other side effects have been reported as well. One of the most severe is a 
 Although early results for these medications seem promising, the verdict on long-term effectiveness and side effects is still out. In addition, the tremendous cost of these drugs in combination with the number of people who could benefit from them would probably cripple the entire healthcare system. For these reasons, insurance typically does not cover these drugs for weight loss purposes alone. For many patients, a surgical option like a gastric sleeve would likely provide much better long-term weight loss results at a much lower cost and side-effect profile. Cautious optimism is advised, and future large, long-term studies will bring new data to light that will ultimately solve the puzzle.
 
 #### About Dr. Trace Curry
-
-Dr. Trace CurryMedical Director
-
-Dr. Trace Curry is the Medical Director of JourneyLite Surgery Center and JourneyLite Physicians. With (https://journeylite.com/map-schedule-and-info/) in Ohio, Kentucky, and Indiana, he has a comprehensive obesity treatment team offering weight loss surgery, gastric balloon, and weight loss medications like Zepbound and Wegovy.  If you would like to make a virtual or in-person appointment with Dr. Curry to discuss your weight loss options, just call us at (513) 259-2555 or click on the “Appointment” button!
 
 <a href="https://journeylite.com/appointment-request/" target="_self" class="vc_single_image-wrapper   vc_box_border_grey"></a>

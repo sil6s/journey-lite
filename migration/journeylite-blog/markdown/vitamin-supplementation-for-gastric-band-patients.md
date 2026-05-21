@@ -83,15 +83,15 @@ With the exception of sublingual vitamin B12, which starts one week after surger
 
 -   **1 month post surgery:** Begin **chewable** 
 
--   -   **Multivitamin**
+-   **Multivitamin**
 
--   -   **Iron (26mg/d),** 
+-   **Iron (26mg/d),** 
 
--   -   **Vitamin D3 (15,000 IU/weekly)** 
+-   **Vitamin D3 (15,000 IU/weekly)** 
 
--   -   **Calcium Citrate (1000 mg/d,** **_ONLY take 500 mg at one time to increase absorption_****)**  
+-   **Calcium Citrate (1000 mg/d,** **_ONLY take 500 mg at one time to increase absorption_****)**  
 
--   -   **Decrease** **sublingual B12 to 1,000 mcg/week.**
+-   **Decrease** **sublingual B12 to 1,000 mcg/week.**
 
 JourneyLite Physicians highly recommends Bariatric Advantage vitamins.  They are high-quality, pharmaceutical-grade products that are designed specifically for surgical weight loss patients! 
 

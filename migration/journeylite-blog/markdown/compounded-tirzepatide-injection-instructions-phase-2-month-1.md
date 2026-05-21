@@ -86,11 +86,11 @@ true
 Congratulations on completing Phase One of your compounded tirzepatide program! In Phase Two, we will be increasing the dosage of your medication.  Continue to watch out for side effects, most commonly:
 
 -   Nausea and/or vomiting
-    -   If you are having a lot of issues, we can send an anti-nausea prescription to your pharmacy. Just give us a call at (513) 559-1222 or text us during business hours at (513) 572-1718.
+- If you are having a lot of issues, we can send an anti-nausea prescription to your pharmacy. Just give us a call at (513) 559-1222 or text us during business hours at (513) 572-1718.
 -   Constipation
-    -   It’s a good idea to use over the counter stool softeners (colace, Senekot), fiber, or Miralax if you are having trouble with constipation.
+- It’s a good idea to use over the counter stool softeners (colace, Senekot), fiber, or Miralax if you are having trouble with constipation.
 -   GERD
-    -   Acid reflux/GERD symptoms can be treated with over the counter Pepcid (famotidine) or Prilosec (omeprazole).
+- Acid reflux/GERD symptoms can be treated with over the counter Pepcid (famotidine) or Prilosec (omeprazole).
 
 If you are having major trouble with side effects, it is recommended to go back to your previous dosage for a week or two and then try increasing again.
 
@@ -103,14 +103,12 @@ If you are having major trouble with side effects, it is recommended to go back 
 -   This will be a 4-week supply of medication.
 -   You will be injecting **37.5 units** **per week**.
 -   This is the **Phase 2 Transition Dose**. You will stay at this dose for 4 weeks, and then you will increase to the **Phase 2 Maintenance Dose**.
-    -   Phase 2 maintenance dose instructions will be provided at your next visit.
+- Phase 2 maintenance dose instructions will be provided at your next visit.
 -   You will need to order 1 vial of tirzepatide each month while in Phase 2.
 
 37.5 units on a 50 unit syringe
 
 Your cart is currently empty.
-
-(https://journeylite.com/shop/)
 
 #### What's Next?
 

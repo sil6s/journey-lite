@@ -82,8 +82,6 @@ true
 true
 
 ## Body
-(https://journeylite.com/testimonial/krystals-vsg-before-and-after-transformation/)
-
 ✨ Meet Krystal ✨
 Gastric Sleeve Surgery – March 2023
 Starting Weight: 204.7 lbs

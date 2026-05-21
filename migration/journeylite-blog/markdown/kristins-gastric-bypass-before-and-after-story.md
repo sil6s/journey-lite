@@ -84,8 +84,6 @@ true
 true
 
 ## Body
-(https://journeylite.com/testimonial/kristins-gastric-bypass-before-and-after-testimonial/)
-
 \\\\**Kristin’s Journey: From Surviving to Thriving**
 
 For as long as she can remember, Kristin struggled with her weight. Even in childhood, it cast a shadow over her life, and as the years went on, that shadow grew heavier. At her highest adult weight of 355 pounds, daily life became a series of limitations—she couldn’t stand for more than a few minutes without pain in her legs and back, walking left her winded, and simple tasks like shopping or showering felt like insurmountable challenges.
@@ -125,8 +123,6 @@ After completing and submitting the form, you will receive a callback from one o
 
 We have 5 office locations throughout Ohio, Kentucky, and Indiana to serve you, and we can do virtual appointments for many visits.
 
-
-
 Please select the program(s) in which you are most interested!\*
 
 Surgical Weight LossRevision of Prior Weight Loss SurgeryGastric BalloonMedical Weight Loss (Adipex, WeGovy, etc)Combination Surgical & MedicalUnsure
@@ -147,8 +143,6 @@ Which procedure(s) have you had in the past?
 
 **We do not offer surgical revisions for this procedure due to increased risk and poor long-term results. Medication treatment options are available, however. Please change "Appointment Interest" above to "Medical Weight Loss" if you are interested in proceeding!**
 
-
-
 Your Name\*
 
  First Last
@@ -161,9 +155,7 @@ Date of Birth\*
 
  MM slash DD slash YYYY
 
-
-
-At some point we may need to text you appointment reminders or other important information. By providing your phone number, you agree to receive text messages from JourneyLite. Message & data rates may apply. Message frequency varies, we try to keep it to a minimum. Reply STOP to any message to opt out, reply HELP for help. Click here for our (https://journeylite.com/terms-and-conditions/ "Terms & Conditions") or our (https://journeylite.com/privacy "Privacy Policy").
+At some point we may need to text you appointment reminders or other important information. By providing your phone number, you agree to receive text messages from JourneyLite. Message & data rates may apply. Message frequency varies, we try to keep it to a minimum. Reply STOP to any message to opt out, reply HELP for help. Click here for our (https://journeylite.com/terms-and-conditions/) or our (https://journeylite.com/privacy).
 
 Permission to Text/SMS\*
 
@@ -173,15 +165,11 @@ Permission to Text/SMS\*
 
 Phone
 
-
-
 Your address isn't mandatory, but it is helpful to us.
 
 Address:
 
  Street AddressCity AlabamaAlaskaAmerican SamoaArizonaArkansasCaliforniaColoradoConnecticutDelawareDistrict of ColumbiaFloridaGeorgiaGuamHawaiiIdahoIllinoisIndianaIowaKansasKentuckyLouisianaMaineMarylandMassachusettsMichiganMinnesotaMississippiMissouriMontanaNebraskaNevadaNew HampshireNew JerseyNew MexicoNew YorkNorth CarolinaNorth DakotaNorthern Mariana IslandsOhioOklahomaOregonPennsylvaniaPuerto RicoRhode IslandSouth CarolinaSouth DakotaTennesseeTexasUtahU.S. Virgin IslandsVermontVirginiaWashingtonWest VirginiaWisconsinWyomingArmed Forces AmericasArmed Forces EuropeArmed Forces Pacific State ZIP Code
-
-
 
 Height (ft - e.g. 5'0 enter a 5)\*
 
@@ -199,8 +187,6 @@ Preferred Location:\*
 
 **State law requires a live, in-person initial consultation to start weight loss medications. You may be eligible for virtual visits for refills.**
 
-
-
 Weight loss medication interest(s):\*
 
  Adipex (phentermine)
@@ -214,8 +200,6 @@ Weight loss medication interest(s):\*
  GLP-1's (injectables)
 
  Unsure (or other)
-
-
 
 Select Procedures of Interest
 
@@ -279,8 +263,6 @@ If you are going through insurance, select your company from the list. If you ar
 
 **Currently we are not accepting this plan, please check back in the future! If you are a self-pay patient, please proceed.**
 
-
-
 Additional Message
 
 How did you first hear about us?
@@ -310,7 +292,5 @@ How did you first hear about us?
  TV
 
 By clicking the "Submit Your Appointment Request" button, you give permission for this information to be transmitted via internet to JourneyLite Surgery Center and JourneyLite Physicians.
-
-
 
 #### Read More JourneyLite Before and After Stories!

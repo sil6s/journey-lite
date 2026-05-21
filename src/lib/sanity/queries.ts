@@ -70,12 +70,23 @@ export const postBySlugQuery = groq`
   }
 `;
 
+export const newPostsQuery = groq`
+  *[
+    ${blogDocumentFilter} &&
+    isMigrated != true
+    && ($category == null || category->slug.current == $category)
+  ] | order(coalesce(publishedAt, _createdAt) desc) {
+    ${postFields}
+  }
+`;
+
 export const migratedPostsQuery = groq`
   *[
     _type == "blogPost" &&
     isMigrated == true &&
     defined(slug.current) &&
     (!defined(publishedAt) || publishedAt <= now())
+    && ($category == null || category->slug.current == $category)
   ] | order(coalesce(publishedAt, _createdAt) desc) {
     ${postFields}
   }

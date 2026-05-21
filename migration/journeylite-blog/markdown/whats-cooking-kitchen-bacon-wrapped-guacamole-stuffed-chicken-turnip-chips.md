@@ -82,25 +82,25 @@ Low carb bacon-wrapped, guacamole stuffed chicken
 Found this great low carb recipe and tried it last night, so simple it’s ridiculous, and delicious!  (Yes, this is an actual picture of my food lol!) **Bacon-wrapped guacamole stuffed chicken with turnip chips**
 
 -   Ingredients
-    -   1 chicken breast per person
-    -   Your favorite guacamole (store-bought is fine)
-    -   1 tomato
-    -   1 package bacon
-    -   1 medium-sized turnip per 2 people
+- 1 chicken breast per person
+- Your favorite guacamole (store-bought is fine)
+- 1 tomato
+- 1 package bacon
+- 1 medium-sized turnip per 2 people
 -   Directions
-    -   Preheat oven to 350 degrees
-    -   Turnip preparation
-        -   Slice turnips into 1/4-inch chips (you’ll see some in pic that look like they are cut into fries, we tried both and the chips are much better!)
-        -   Place turnips on a non-stick baking sheet sprayed with pam, drizzle with olive oil, salt and pepper to taste
-    -   Guacamole preparation
-        -   Small-dice tomato and mix with guacamole (we got spicy guacamole, which I would recommend)
-    -   Chicken preparation
-        -   Pound chicken breast flat, salt and pepper to taste
-        -   Spread 1/4-inch of guacamole over chicken
-        -   Roll chicken up
-        -   Place 3 pieces of bacon on a baking sheet sprayed with pam
-        -   Roll chicken in bacon
-        -   Sprinkle some cayenne pepper over the top if you like spicy
+- Preheat oven to 350 degrees
+- Turnip preparation
+- Slice turnips into 1/4-inch chips (you’ll see some in pic that look like they are cut into fries, we tried both and the chips are much better!)
+- Place turnips on a non-stick baking sheet sprayed with pam, drizzle with olive oil, salt and pepper to taste
+- Guacamole preparation
+- Small-dice tomato and mix with guacamole (we got spicy guacamole, which I would recommend)
+- Chicken preparation
+- Pound chicken breast flat, salt and pepper to taste
+- Spread 1/4-inch of guacamole over chicken
+- Roll chicken up
+- Place 3 pieces of bacon on a baking sheet sprayed with pam
+- Roll chicken in bacon
+- Sprinkle some cayenne pepper over the top if you like spicy
 -   Bake chicken and turnips at 350 degrees for 30 minutes
-    -   After 30 minutes carefully move chicken to top rack closest to broiler and broil for 5-7 minutes to crsip bacon
-    -   Remove chicken from oven and move turnips to top rack and broil for 5 minutes
+- After 30 minutes carefully move chicken to top rack closest to broiler and broil for 5-7 minutes to crsip bacon
+- Remove chicken from oven and move turnips to top rack and broil for 5 minutes

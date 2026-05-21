@@ -125,12 +125,12 @@ Think of pureed meals in three parts:
 
 By keeping meals simple – just two or three ingredients – you’ll make it easier to meet your protein goals and improve your tolerance. Here are some examples:
 
--   -   **Pureed canned chicken** + cream of chicken soup + broth or milk
-    -   **Pureed Cottage cheese** + sugar-free pudding packet + milk
-    -   **Pureed Tuna** + light mayo or mustard + a splash of pickle juice
-    -   **Pureed Ground beef** + pureed beans + taco seasoning + broth
-    -   **Collagen peptide powder** + herbs/seasonings + flavored broth
-    -   **Pureed canned chicken** + pureed white beans + Italian seasoning + broth
+-   **Pureed canned chicken** + cream of chicken soup + broth or milk
+- **Pureed Cottage cheese** + sugar-free pudding packet + milk
+- **Pureed Tuna** + light mayo or mustard + a splash of pickle juice
+- **Pureed Ground beef** + pureed beans + taco seasoning + broth
+- **Collagen peptide powder** + herbs/seasonings + flavored broth
+- **Pureed canned chicken** + pureed white beans + Italian seasoning + broth
 
 In addition, high-protein yogurts (brands like _Ratio_ or _Oikos Triple Zero_) and ready-to-drink protein shakes (such as _Premier Protein_ or _Fairlife_) make excellent options for quick, nutrient-rich meals.
 
@@ -138,11 +138,11 @@ In addition, high-protein yogurts (brands like _Ratio_ or _Oikos Triple Zero_) a
 
 To make this stage smoother, consider these practical tips:
 
--   -   **Blend longer than you think:** For the smoothest texture, run the blender an extra 1–2 minutes beyond what looks “done.” This ensures your food is truly gentle on your stomach.
-    -   **Add liquid for creaminess:** Broths, milk, or unsweetened nut milks can help achieve a creamier, more palatable consistency.
-    -   **Batch prep for convenience:** Pureeing a large portion at once and freezing it in silicone molds or ice cube trays can save time and make portioning easier. Simply thaw small servings as needed.
-    -   **Experiment with seasonings:** Herbs, spices, and sugar-free flavorings can make a big difference. Just keep it simple and avoid anything too spicy or acidic if it causes discomfort.
-    -   **Listen to your body:** Even in puree form, some foods may not sit well early on. If you feel discomfort, wait a week or two before trying again.
+-   **Blend longer than you think:** For the smoothest texture, run the blender an extra 1–2 minutes beyond what looks “done.” This ensures your food is truly gentle on your stomach.
+- **Add liquid for creaminess:** Broths, milk, or unsweetened nut milks can help achieve a creamier, more palatable consistency.
+- **Batch prep for convenience:** Pureeing a large portion at once and freezing it in silicone molds or ice cube trays can save time and make portioning easier. Simply thaw small servings as needed.
+- **Experiment with seasonings:** Herbs, spices, and sugar-free flavorings can make a big difference. Just keep it simple and avoid anything too spicy or acidic if it causes discomfort.
+- **Listen to your body:** Even in puree form, some foods may not sit well early on. If you feel discomfort, wait a week or two before trying again.
 
 ## **The Mental Side of the Pureed Stage**
 
@@ -165,5 +165,3 @@ Yes, the pureed stage is restrictive. But it’s also purposeful, temporary, and
 Registered Dietitian, JourneyLite Physicians
 
 Devon Price is a licensed and registered dietitian who specializes in nutrition care for weight loss surgery and medical weight management patients. With years of experience guiding individuals through their pre- and post-operative journeys, Devon helps patients build sustainable, balanced eating habits that support long-term success after bariatric surgery.
-
-(https://journeylite.com/about-devon-price/)

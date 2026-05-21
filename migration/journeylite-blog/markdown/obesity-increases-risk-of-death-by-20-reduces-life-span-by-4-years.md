@@ -79,4 +79,4 @@ true
 false
 
 ## Body
-We all know that being overweight isn’t good for your health.  This article cites a study that really puts it into perspective! (http://www.counselheal.com/articles/8321/20140117/obesity-cuts-lives-by-four-years.htm "Obesity increases risk of death"). Dr. Curry
+We all know that being overweight isn’t good for your health.  This article cites a study that really puts it into perspective! (http://www.counselheal.com/articles/8321/20140117/obesity-cuts-lives-by-four-years.htm). Dr. Curry

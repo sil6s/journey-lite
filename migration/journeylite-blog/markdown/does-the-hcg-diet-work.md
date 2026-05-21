@@ -82,13 +82,11 @@ false
 ## Body
 <a href="/legacy-blog/pre-op-weight-loss__scale.jpeg.webp"></a>Lose Weight with HCG
 
-by Trace Curry MD
-
 The short answer is yes!
 
 The HCG diet is in the category of VLCD, which means “very low calorie diet”.
 
-VLCD’s have been around for decades, and have been shown to be safe and effective.  According to Wikipedia, a (http://en.wikipedia.org/wiki/Very_low_calorie_diet "Wikipedia VLCD page") is defined as a diet that is comprised of less than 800 calories per day.
+VLCD’s have been around for decades, and have been shown to be safe and effective.  According to Wikipedia, a (http://en.wikipedia.org/wiki/Very_low_calorie_diet) is defined as a diet that is comprised of less than 800 calories per day.
 
 The specifically-formulated HCG diet helps achieve relatively rapid weight loss, and the addition of HCG (human chorionic gonadotropin) injections helps to target abdominal, or “metabolically-active” fat.
 

@@ -145,8 +145,6 @@ Medical Director, JourneyLite Physicians
 
 Dr. Curry is a board-certified bariatric surgeon and the Medical Director of JourneyLite Physicians and JourneyLite Surgery Center in Cincinnati, Ohio. He has performed over 5,000 minimally invasive weight-loss procedures and is nationally recognized for his work in metabolic and bariatric medicine.
 
-(https://journeylite.com/our-team/)
-
 #### M6 FAQ's
 
 **What exactly did the M6 study find?**

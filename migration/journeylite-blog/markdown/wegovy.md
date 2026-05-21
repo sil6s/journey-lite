@@ -199,33 +199,3 @@ JourneyLite prescribes Wegovy for patients in Cincinnati, Columbus, and Dayton, 
 JourneyLite can help if you’re looking for semaglutide in Ohio. We can provide the Wegovy/Semaglutide prescription you want. Our skilled staff will perform an in-depth assessment of your needs and help determine whether medication or surgery is the right choice for you. If surgery is the best option, you can rely on our team for the professional, personalized care you need. Contact JourneyLite now for the weight loss assistance you’ve been looking for.
 
 Call us toll-free [(877) 442-2263](tel:8774422263).
-(/appointment-request/)
-
-## Related Articles
-
-[
-!(/legacy-blog/does-insurance-cover-weight-loss-surgery__shutterstock_2376852115-1200x385.jpg.webp.webp)
-](https://journeylite.com/weight-loss-surgery-vs-glp-1-receptor-agonists-which-is-better/)
-
-[
-Weight Loss Surgery vs. GLP-1 Receptor Agonists-Which is Better?
-](https://journeylite.com/weight-loss-surgery-vs-glp-1-receptor-agonists-which-is-better/)
-04/03/2024 _by_ DRCURRY
-(https://journeylite.com/weight-loss-surgery-vs-glp-1-receptor-agonists-which-is-better/)
-
-[
-!(/legacy-blog/gastric-sleeve-requirements__tirzeptide-image-1200x385.jpg.webp.webp)
-](https://journeylite.com/tirzepatide-pricing/)
-
-[
-Tirzepatide Pricing](https://journeylite.com/tirzepatide-pricing/)
-20/02/2024 _by_ DRCURRY
-(https://journeylite.com/tirzepatide-pricing/)
-
-[
-!(/legacy-blog/zepbound-tirzepatide-a-new-injectable-fda-approved-weight-lo__dietitian-1200x385.jpg.webp.webp)](https://journeylite.com/new-semaglutide-glp-1-pricing/)
-
-[
-New Semaglutide/GLP-1 Pricing!](https://journeylite.com/new-semaglutide-glp-1-pricing/)
-16/02/2023 _by_ DRCURRY
-(https://journeylite.com/new-semaglutide-glp-1-pricing/)

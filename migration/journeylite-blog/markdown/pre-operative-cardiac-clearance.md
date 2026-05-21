@@ -95,5 +95,3 @@ If we ask you to obtain cardiac clearance, giving this form to your cardiology t
 ...
 
 (#)
-
-(https://journeylite.com/wp-content/uploads/2020/12/Cardiac-Clearance-Request-12.2020.pdf)

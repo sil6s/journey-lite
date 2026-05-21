@@ -93,4 +93,4 @@ A bland diet can be used to treat ulcers, heartburn, nausea and vomiting. This d
 -   Salad dressing
 -   Processed meats
 
-If you have any additional questions or concerns please call us.  (https://journeylite.com/index.php/map-schedule-and-info/ "Maps and Contacts")
+If you have any additional questions or concerns please call us.  (https://journeylite.com/index.php/map-schedule-and-info/)

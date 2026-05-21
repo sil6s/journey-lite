@@ -112,7 +112,7 @@ You JP should be emptied three times a day and the volume and color recorded on 
 -   Stand by a sink, preferably in your bathroom.
 -   Pop the hinged plug off on the top of the drain and let it expand.
 -   There are numbers on the drain bulb – these are cc’s – note how many cc’s of fluid are in the drain and what the color of the fluid is.
-    -   The fluid should start out looking kind of like cherry juice or strawberry lemonade.  It should transition with time to more a more regular lemonade color.  If it is any other color, you need to talk to your surgical team.
+- The fluid should start out looking kind of like cherry juice or strawberry lemonade.  It should transition with time to more a more regular lemonade color.  If it is any other color, you need to talk to your surgical team.
 -   Record the information on the JP Drain Output Log.
 -   Empty the fluid out into the sink by turning the bulb upside down and squeezing it.
 -   Once it is empty, keep it squeezed, return it to the upright position, and re-insert the hinged plug while it is squeezed down.
@@ -120,5 +120,3 @@ You JP should be emptied three times a day and the volume and color recorded on 
 This needs to be done when you first wake up in the morning, right before you go to bed, and about halfway in between.  It also needs to be done any time the bulb is completely full.
 
 Below is a good video that shows how to take care of a JP drain.  This is from a plastic surgereon, but it nicely illustrates everything discussed in this article.
-
-(https://journeylite.com/post-op-navigator/post-op-activity/)

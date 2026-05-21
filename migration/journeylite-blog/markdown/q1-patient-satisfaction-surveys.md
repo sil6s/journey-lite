@@ -82,5 +82,3 @@ false
 
 ## Body
 We love old-school hand written reviews from our patients!  Here are the Q3 2020 patient satisfaction surveys.
-
-(https://journeylite.com/wp-content/uploads/2020/09/patient-satisfaction-surveys.pdf)

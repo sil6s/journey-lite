@@ -86,11 +86,11 @@ true
 Congratulations on completing the first month of your compounded tirzepatide program! In month two, we will be doubling your dosage of the medication.  Continue to watch out for side effects, most commonly:
 
 -   Nausea and/or vomiting
-    -   If you are having a lot of issues, we can send an anti-nausea prescription to your pharmacy. Just give us a call at (513) 559-1222 or text us during business hours at (513) 572-1718.
+- If you are having a lot of issues, we can send an anti-nausea prescription to your pharmacy. Just give us a call at (513) 559-1222 or text us during business hours at (513) 572-1718.
 -   Constipation
-    -   It’s a good idea to use over the counter stool softeners (colace, Senekot), fiber, or Miralax if you are having trouble with constipation.
+- It’s a good idea to use over the counter stool softeners (colace, Senekot), fiber, or Miralax if you are having trouble with constipation.
 -   GERD
-    -   Acid reflux/GERD symptoms can be treated with over the counter Pepcid (famotidine) or Prilosec (omeprazole).
+- Acid reflux/GERD symptoms can be treated with over the counter Pepcid (famotidine) or Prilosec (omeprazole).
 
 If you are having major trouble with side effects, it is recommended to go back to your previous dosage for a week or two and then try increasing again.
 
@@ -104,14 +104,12 @@ If you are having major trouble with side effects, it is recommended to go back 
 -   You will be injecting **25 units** **per week**.
 -   This is the **Phase 1 Maintenance Dose**. You can stay at this dose as long as it is working well for you.
 -   You will need to order 1 vial of tirzepatide each month while on this dose.
-    -   If you feel the effects are fading, you can move up to **Phase 2.**
-    -   You will need 1 vial of a stronger dose of medication each month while on Phase 2.
+- If you feel the effects are fading, you can move up to **Phase 2.**
+- You will need 1 vial of a stronger dose of medication each month while on Phase 2.
 
 25 units on a 50 unit syringe
 
 Your cart is currently empty.
-
-(https://journeylite.com/shop/)
 
 #### What's Next?
 

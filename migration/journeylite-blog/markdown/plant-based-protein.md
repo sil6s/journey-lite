@@ -92,33 +92,33 @@ Traditionally, this has meant a heavy focus on animal protein. But what if you w
 
 ## **Challenges to Be Aware Of**
 
--   -   **Protein density**: Plant foods usually provide less protein per bite than animal foods. Since your stomach capacity is limited, you’ll need to choose concentrated sources.
-    -   **Digestibility**: Some plant proteins (like beans) can cause gas or bloating. Introduce slowly and test your tolerance.
-    -   **Amino acid profile**: Not all plant proteins are “complete.” Using blends (pea + rice, for example) or soy-based products helps cover all essential amino acids. ((https://pmc.ncbi.nlm.nih.gov/articles/PMC7760812/?utm_source=chatgpt.com))
+-   **Protein density**: Plant foods usually provide less protein per bite than animal foods. Since your stomach capacity is limited, you’ll need to choose concentrated sources.
+- **Digestibility**: Some plant proteins (like beans) can cause gas or bloating. Introduce slowly and test your tolerance.
+- **Amino acid profile**: Not all plant proteins are “complete.” Using blends (pea + rice, for example) or soy-based products helps cover all essential amino acids. ((https://pmc.ncbi.nlm.nih.gov/articles/PMC7760812/?utm_source=chatgpt.com))
 
 ## **Bariatric-Friendly Plant Protein Foods**
 
 Here are some well-tolerated options to try, starting with softer, higher-yield sources:
 
--   -   **Tofu**: Soft texture, easy to season, ~10 g protein per half cup.
-    -   **Tempeh**: Fermented soy, denser texture, ~15 g per half cup.
-    -   **Edamame**: Complete protein, easy to snack on, ~9 g per half cup.
-    -   **Lentils**: Versatile in soups/purees, ~9 g per ½ cup cooked.
-    -   **Chickpeas**: Blend into hummus for easier tolerance, ~7 g per ½ cup.
-    -   **Quinoa**: A complete grain, ~8 g per cup cooked.
-    -   **Hemp seeds**: Soft, sprinkle on yogurt/oatmeal, ~10 g per 3 Tbsp.
-    -   **Nut/seed butters**: Peanut, almond, sunflower seed – small portions add ~4-7 g protein, but watch fat and calories.
+-   **Tofu**: Soft texture, easy to season, ~10 g protein per half cup.
+- **Tempeh**: Fermented soy, denser texture, ~15 g per half cup.
+- **Edamame**: Complete protein, easy to snack on, ~9 g per half cup.
+- **Lentils**: Versatile in soups/purees, ~9 g per ½ cup cooked.
+- **Chickpeas**: Blend into hummus for easier tolerance, ~7 g per ½ cup.
+- **Quinoa**: A complete grain, ~8 g per cup cooked.
+- **Hemp seeds**: Soft, sprinkle on yogurt/oatmeal, ~10 g per 3 Tbsp.
+- **Nut/seed butters**: Peanut, almond, sunflower seed – small portions add ~4-7 g protein, but watch fat and calories.
 
 ## **Bariatric-Friendly Protein Powder Brands**
 
 Protein powders are often the most practical way for bariatric patients to consistently meet daily protein goals, especially in the early months. Here are **plant-based brands that fit well**:
 
--   -   **Orgain Organic Protein** (pea, brown rice, chia blend) – smooth texture, widely available, ~21 g per scoop.
-    -   **Optimum Nutrition Gold Standard Plant** (pea, rice, fava bean) – ~24 g protein, low sugar.
-    -   **PEScience Select Vegan** – pea + brown rice, good flavor, ~20 g protein, soy-free.
-    -   **OWYN Plant Protein** – free of top allergens, good for sensitive stomachs, ~20 g per scoop.
-    -   **Garden of Life Organic Plant Protein** – sprouted blend with probiotics, ~20 g per scoop.
-    -   **Ora Organic Vegan Protein** – pea + superfoods, organic, ~21 g per scoop.
+-   **Orgain Organic Protein** (pea, brown rice, chia blend) – smooth texture, widely available, ~21 g per scoop.
+- **Optimum Nutrition Gold Standard Plant** (pea, rice, fava bean) – ~24 g protein, low sugar.
+- **PEScience Select Vegan** – pea + brown rice, good flavor, ~20 g protein, soy-free.
+- **OWYN Plant Protein** – free of top allergens, good for sensitive stomachs, ~20 g per scoop.
+- **Garden of Life Organic Plant Protein** – sprouted blend with probiotics, ~20 g per scoop.
+- **Ora Organic Vegan Protein** – pea + superfoods, organic, ~21 g per scoop.
 
 **Tip:** Choose a powder with **at least 20 grams of protein per scoop**.
 
@@ -126,18 +126,18 @@ Protein powders are often the most practical way for bariatric patients to consi
 
 ### **Early Stages (liquid/pureed)**
 
--   -   Use unsweetened, smooth plant protein powders in yogurts, pureed soups, and even pureed oatmeal.
+-   Use unsweetened, smooth plant protein powders in yogurts, pureed soups, and even pureed oatmeal.
 
 ### **Soft Stage**
 
--   -   Add silken tofu to soups.
-    -   Puree lentil or chickpea to add a creamy texture to foods.
+-   Add silken tofu to soups.
+- Puree lentil or chickpea to add a creamy texture to foods.
 
 ### **Regular Texture Stage**
 
--   -   Use tempeh or tofu in stir-fries, scramble tofu with eggs or veggies.
-    -   Add hemp seeds, ground flax, or nut butter to yogurt, oatmeal, or shakes.
-    -   Keep roasted edamame or chickpea snacks on hand.
+-   Use tempeh or tofu in stir-fries, scramble tofu with eggs or veggies.
+- Add hemp seeds, ground flax, or nut butter to yogurt, oatmeal, or shakes.
+- Keep roasted edamame or chickpea snacks on hand.
 
 ## **Sample “Protein-Focused Bariatric Day – Regular Stage”**
 
@@ -145,11 +145,11 @@ Protein powders are often the most practical way for bariatric patients to consi
 
 ## **Key Takeaways**
 
--   -   **Protein first** still applies with plant-based sources.
-    -   Use **protein powders** for efficiency and consistency, especially in the first year.
-    -   Choose **complete or blended proteins** to cover amino acid needs.
-    -   Start with **softer, more digestible options** and introduce beans/seeds gradually.
-    -   Watch for **added sugars, fillers, or high fat** in powders or plant-based “meat” alternatives.
+-   **Protein first** still applies with plant-based sources.
+- Use **protein powders** for efficiency and consistency, especially in the first year.
+- Choose **complete or blended proteins** to cover amino acid needs.
+- Start with **softer, more digestible options** and introduce beans/seeds gradually.
+- Watch for **added sugars, fillers, or high fat** in powders or plant-based “meat” alternatives.
 
 Plant-based protein can absolutely meet your bariatric nutrition needs – and it can add variety, improve digestion, and support long-term heart and metabolic health. With smart product choices and a little planning, you don’t have to rely solely on animal protein to hit your goals. Learn more about why protein is so crucial after bariatric surgery (https://journeylite.com/protein-during-weight-loss/).
 
@@ -160,5 +160,3 @@ Plant-based protein can absolutely meet your bariatric nutrition needs – and i
 Registered Dietitian, JourneyLite Physicians
 
 Devon Price is a licensed and registered dietitian who specializes in nutrition care for weight loss surgery and medical weight management patients. With years of experience guiding individuals through their pre- and post-operative journeys, Devon helps patients build sustainable, balanced eating habits that support long-term success after bariatric surgery.
-
-(https://journeylite.com/about-devon-price/)

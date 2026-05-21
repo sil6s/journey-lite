@@ -108,8 +108,8 @@ In our experience following a gastric sleeve procedure:
 
 -   Roughly 1/3 of patients will develop GERD or their GERD symptoms will worsen.
 -   Roughly 1/3 get better because: 
-    -   weight loss in general can improve GERD or 
-    -   the patient had a hiatal hernia that we fixed during the sleeve (see below).
+- weight loss in general can improve GERD or 
+- the patient had a hiatal hernia that we fixed during the sleeve (see below).
 -   1/3 have no change in their symptoms 
 
 In contrast, the gastric bypass is actually an increasingly-common surgical treatment for severe GERD. This is because we divert 80-90% of the acid production away from the esophagus with the creation of a small gastric pouch at the top of the stomach. If you do happen to develop severe GERD symptoms after a sleeve gastrectomy (and we are unable to control it with medications), we can convert this to a gastric bypass.  In almost all cases this will resolve GERD symptoms, however this would require another surgical procedure and workup (including insurance approval if applicable). 
