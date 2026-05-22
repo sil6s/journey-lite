@@ -9,6 +9,7 @@ const geist = Geist({subsets:['latin'],variable:'--font-sans'});
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 const playfair = Playfair_Display({ subsets: ["latin"], variable: "--font-playfair" });
+const recaptchaSiteKey = process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY;
 
 export const metadata: Metadata = {
   title: "JourneyLite Physicians",
@@ -22,10 +23,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en" className={cn("font-sans", geist.variable)}>
       <head>
-        <Script
-          src="https://www.google.com/recaptcha/enterprise.js?render=6LfmhvUsAAAAAI1x4uOucOQ7L4hy8c-LDwSmpntA"
-          strategy="afterInteractive"
-        />
+        {recaptchaSiteKey ? <Script src={`https://www.google.com/recaptcha/enterprise.js?render=${recaptchaSiteKey}`} strategy="afterInteractive" /> : null}
       </head>
       <body className={`${inter.variable} ${playfair.variable}`}>
         <Providers>{children}</Providers>

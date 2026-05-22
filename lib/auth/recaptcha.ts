@@ -1,15 +1,14 @@
-const ENTERPRISE_SITE_KEY = "6LfmhvUsAAAAAI1x4uOucOQ7L4hy8c-LDwSmpntA";
-
 export async function verifyRecaptchaToken(token: string | undefined, action: string, _remoteIp?: string) {
+  const siteKey = process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY;
   const apiKey = process.env.RECAPTCHA_ENTERPRISE_API_KEY;
   const projectId = process.env.RECAPTCHA_ENTERPRISE_PROJECT_ID;
 
   // Dev bypass: allow when env vars are not set
-  if (!apiKey || !projectId) {
+  if (!siteKey || !apiKey || !projectId) {
     if (process.env.NODE_ENV === "production") {
       return { ok: false, bypassed: false, score: 0, reason: "reCAPTCHA Enterprise is not configured." };
     }
-    return { ok: true, bypassed: true, score: 1, reason: "Dev bypass — RECAPTCHA_ENTERPRISE_API_KEY not set." };
+    return { ok: true, bypassed: true, score: 1, reason: "Dev bypass — reCAPTCHA Enterprise server credentials are not set." };
   }
 
   if (!token) return { ok: false, bypassed: false, score: 0, reason: "Missing reCAPTCHA token." };
@@ -22,7 +21,7 @@ export async function verifyRecaptchaToken(token: string | undefined, action: st
     body: JSON.stringify({
       event: {
         token,
-        siteKey: ENTERPRISE_SITE_KEY,
+        siteKey,
         expectedAction: action,
       },
     }),

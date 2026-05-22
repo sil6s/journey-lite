@@ -1,8 +1,7 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 560 160" role="img" aria-labelledby="title desc">
   <title id="title">JourneyLite Bariatric Physicians logo</title>
   <desc id="desc">JourneyLite wordmark with Bariatric Physicians tagline.</desc>
-  <rect width="560" height="160" fill="#ffffff"/>
-  <text x="12" y="82" fill="#050505" font-family="Inter, Arial, Helvetica, sans-serif" font-size="74" font-weight="800" letter-spacing="-3" textLength="268" lengthAdjust="spacingAndGlyphs">Journey</text>
+<text x="12" y="82" fill="#050505" font-family="Inter, Arial, Helvetica, sans-serif" font-size="74" font-weight="800" letter-spacing="-3" textLength="268" lengthAdjust="spacingAndGlyphs">Journey</text>
   <text x="292" y="82" fill="#050505" font-family="Inter, Arial, Helvetica, sans-serif" font-size="74" font-weight="100" letter-spacing="-2.4" textLength="114" lengthAdjust="spacingAndGlyphs">Lite</text>
   <text x="14" y="132" fill="#737373" font-family="Inter, Arial, Helvetica, sans-serif" font-size="29" font-weight="400" letter-spacing="2.4" textLength="390" lengthAdjust="spacingAndGlyphs">BARIATRIC PHYSICIANS</text>
 </svg>

@@ -82,7 +82,7 @@ export default function AdminLoginPage() {
 
   return (
     <main className="min-h-screen overflow-hidden bg-[#f7faf7] text-[#173c2b]">
-      {recaptchaSiteKey ? <Script src={`https://www.google.com/recaptcha/api.js?render=${recaptchaSiteKey}`} strategy="afterInteractive" /> : null}
+      {recaptchaSiteKey ? <Script src={`https://www.google.com/recaptcha/enterprise.js?render=${recaptchaSiteKey}`} strategy="afterInteractive" /> : null}
       <div
         className="absolute inset-0 opacity-60"
         style={{

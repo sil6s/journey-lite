@@ -4,15 +4,27 @@ import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import { useConsult } from "./consult-context";
 
-const SITE_KEY = "6LfmhvUsAAAAAI1x4uOucOQ7L4hy8c-LDwSmpntA";
+const SITE_KEY = process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY;
 
-const treatmentOptions = [
-  { value: "Gastric Sleeve (VSG)", label: "Gastric Sleeve", icon: "◆", desc: "Most performed surgical option" },
-  { value: "Gastric Bypass", label: "Gastric Bypass", icon: "◆", desc: "Advanced surgical option" },
-  { value: "Gastric Balloon", label: "Gastric Balloon", icon: "●", desc: "Non-surgical, incisionless" },
-  { value: "Weight Loss Medication", label: "Medication / GLP-1", icon: "✦", desc: "Oral or injectable medication" },
-  { value: "SADI Surgery", label: "SADI Surgery", icon: "◆", desc: "Advanced metabolic surgery" },
-  { value: "Not sure — help me compare", label: "Not sure yet", icon: "?", desc: "Compare all options" },
+const treatmentCategories = [
+  {
+    value: "Surgical procedure",
+    label: "Surgical",
+    icon: "◆",
+    examples: ["Gastric Sleeve (VSG)", "Gastric Bypass", "SADI Surgery", "Lap Band", "Band Revision", "Sleeve Revision"],
+  },
+  {
+    value: "Non-surgical procedure",
+    label: "Non-Surgical",
+    icon: "●",
+    examples: ["Gastric Balloon", "Spatz Adjustable Balloon", "Endoscopic Sleeve"],
+  },
+  {
+    value: "Prescription medication",
+    label: "Prescription",
+    icon: "✦",
+    examples: ["Wegovy / Semaglutide", "Zepbound / Tirzepatide", "Phentermine", "Qsymia", "Contrave"],
+  },
 ];
 
 const locations = [
@@ -26,7 +38,7 @@ const locations = [
 // window.grecaptcha type is declared in types/recaptcha-enterprise.d.ts
 
 async function getRecaptchaToken(action: string): Promise<string> {
-  if (typeof window === "undefined" || !window.grecaptcha?.enterprise) return "";
+  if (!SITE_KEY || typeof window === "undefined" || !window.grecaptcha?.enterprise) return "";
   return new Promise((resolve) => {
     window.grecaptcha.enterprise.ready(async () => {
       try {
@@ -270,28 +282,36 @@ export function BookConsultOverlay() {
                   <legend className="text-sm font-semibold text-[#1f2c25]">
                     What treatment are you interested in?
                   </legend>
-                  <div className="mt-3 grid grid-cols-2 gap-2 sm:grid-cols-3">
-                    {treatmentOptions.map((opt) => (
-                      <button
-                        aria-pressed={form.treatmentInterest === opt.value}
-                        className={`flex flex-col rounded-xl border p-3.5 text-left transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#145c42] ${
-                          form.treatmentInterest === opt.value
-                            ? "border-[#145c42] bg-[#edf4ef] shadow-sm"
-                            : "border-[#dce4df] bg-white hover:border-[#145c42]"
-                        }`}
-                        key={opt.value}
-                        onClick={() => update("treatmentInterest", opt.value)}
-                        type="button"
-                      >
-                        <span
-                          className={`text-lg ${form.treatmentInterest === opt.value ? "text-[#145c42]" : "text-[#8aaa95]"}`}
+                  <div className="mt-3 grid grid-cols-1 gap-3 sm:grid-cols-3">
+                    {treatmentCategories.map((cat) => {
+                      const selected = form.treatmentInterest === cat.value;
+                      return (
+                        <button
+                          aria-pressed={selected}
+                          className={`flex flex-col rounded-xl border p-4 text-left transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#145c42] ${
+                            selected
+                              ? "border-[#145c42] bg-[#edf4ef] shadow-sm"
+                              : "border-[#dce4df] bg-white hover:border-[#145c42]"
+                          }`}
+                          key={cat.value}
+                          onClick={() => update("treatmentInterest", cat.value)}
+                          type="button"
                         >
-                          {opt.icon}
-                        </span>
-                        <span className="mt-2 text-sm font-semibold text-[#1f2c25]">{opt.label}</span>
-                        <span className="mt-0.5 text-xs leading-4 text-[#66756d]">{opt.desc}</span>
-                      </button>
-                    ))}
+                          <span className={`text-xl ${selected ? "text-[#145c42]" : "text-[#8aaa95]"}`}>
+                            {cat.icon}
+                          </span>
+                          <span className="mt-2 text-base font-bold text-[#1f2c25]">{cat.label}</span>
+                          <ul className="mt-3 space-y-1.5">
+                            {cat.examples.map((ex) => (
+                              <li key={ex} className="flex items-start gap-1.5 text-xs leading-4 text-[#53635b]">
+                                <span className="mt-px flex-shrink-0 text-[#a0b8aa]">–</span>
+                                {ex}
+                              </li>
+                            ))}
+                          </ul>
+                        </button>
+                      );
+                    })}
                   </div>
                   {errors.treatmentInterest && (
                     <p className="mt-2 text-sm font-semibold text-[#8a3b22]">{errors.treatmentInterest}</p>
