@@ -2,11 +2,19 @@ import { NextRequest, NextResponse } from "next/server";
 import { adminSessionCookieName, createAdminSession, isAllowedAdminEmail } from "@/lib/auth/session";
 
 const oauthStateCookieName = "jl_oauth_state";
+const googleCallbackPath = "/api/auth/callback/google";
 
 type GoogleTokenInfo = {
   aud?: string;
   email?: string;
   email_verified?: "true" | "false" | boolean;
+  name?: string;
+  picture?: string;
+};
+
+type GoogleUserInfo = {
+  email?: string;
+  email_verified?: boolean;
   name?: string;
   picture?: string;
 };
@@ -33,14 +41,14 @@ export async function GET(request: NextRequest) {
       code,
       client_id: clientId,
       client_secret: clientSecret,
-      redirect_uri: `${origin}/api/auth/google/callback`,
+      redirect_uri: `${origin}${googleCallbackPath}`,
       grant_type: "authorization_code",
     }),
   });
 
   if (!tokenResponse.ok) return redirectWithError(request, "Google token exchange failed. Check the OAuth redirect URI.");
 
-  const tokenPayload = (await tokenResponse.json()) as { id_token?: string };
+  const tokenPayload = (await tokenResponse.json()) as { id_token?: string; access_token?: string };
   if (!tokenPayload.id_token) return redirectWithError(request, "Google did not return an ID token.");
 
   const tokenInfoResponse = await fetch(`https://oauth2.googleapis.com/tokeninfo?id_token=${encodeURIComponent(tokenPayload.id_token)}`);
@@ -50,14 +58,16 @@ export async function GET(request: NextRequest) {
   if (tokenInfo.aud !== clientId || !tokenInfo.email || tokenInfo.email_verified === false || tokenInfo.email_verified === "false") {
     return redirectWithError(request, "Google account could not be verified.");
   }
-  if (!isAllowedAdminEmail(tokenInfo.email)) return redirectWithError(request, "This Google account is not allowed for admin access.");
+  const profile = await getGoogleProfile(tokenPayload.access_token);
+  const email = profile?.email || tokenInfo.email;
+  if (!isAllowedAdminEmail(email)) return redirectAccessDenied(request, email);
 
   const response = NextResponse.redirect(new URL(safeNextPath(nextPath), request.url));
   response.cookies.delete(oauthStateCookieName);
   response.cookies.set(adminSessionCookieName, await createAdminSession({
-    email: tokenInfo.email,
-    name: tokenInfo.name,
-    picture: tokenInfo.picture,
+    email,
+    name: profile?.name || tokenInfo.name,
+    picture: profile?.picture || tokenInfo.picture,
   }), {
     httpOnly: true,
     sameSite: "lax",
@@ -68,10 +78,28 @@ export async function GET(request: NextRequest) {
   return response;
 }
 
+async function getGoogleProfile(accessToken?: string): Promise<GoogleUserInfo | null> {
+  if (!accessToken) return null;
+  const response = await fetch("https://openidconnect.googleapis.com/v1/userinfo", {
+    headers: { Authorization: `Bearer ${accessToken}` },
+  });
+  if (!response.ok) return null;
+  return (await response.json()) as GoogleUserInfo;
+}
+
 function redirectWithError(request: NextRequest, message: string) {
   const loginUrl = new URL("/admin/login", request.url);
   loginUrl.searchParams.set("error", message);
   return NextResponse.redirect(loginUrl);
+}
+
+function redirectAccessDenied(request: NextRequest, email: string) {
+  const deniedUrl = new URL("/admin/access-denied", request.url);
+  deniedUrl.searchParams.set("email", email);
+  const response = NextResponse.redirect(deniedUrl);
+  response.cookies.delete(oauthStateCookieName);
+  response.cookies.delete(adminSessionCookieName);
+  return response;
 }
 
 function safeNextPath(path: string) {

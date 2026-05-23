@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { verifyRecaptchaToken } from "@/lib/auth/recaptcha";
+import { sendLeadEmail } from "@/lib/email";
 
 interface ContactPayload {
   // Treatment step
@@ -8,6 +9,11 @@ interface ContactPayload {
   // Contact fields (full form)
   contactReason?: string;
   contactSubreason?: string;
+  appointmentInterest?: string;
+  revisionProcedures?: string[];
+  informationTopics?: string[];
+  researchStage?: string;
+  otherDetails?: string;
   // Shared
   firstName: string;
   lastName: string;
@@ -56,37 +62,54 @@ export async function POST(req: NextRequest) {
   }
 
   // Format the submission for logging / email / CRM
+  const leadDetails = [
+    body.contactReason ? `Request type: ${body.contactReason}` : null,
+    body.appointmentInterest ? `Appointment interest: ${body.appointmentInterest}` : null,
+    body.revisionProcedures?.length ? `Prior procedure(s): ${body.revisionProcedures.join(", ")}` : null,
+    body.informationTopics?.length ? `Information topics: ${body.informationTopics.join(", ")}` : null,
+    body.researchStage ? `Research stage: ${body.researchStage}` : null,
+    body.otherDetails ? `Other details: ${body.otherDetails}` : null,
+    body.message ? `Message: ${body.message}` : null,
+    typeof body.textConsent === "boolean" ? `SMS consent: ${body.textConsent ? "Yes" : "No"}` : null,
+  ]
+    .filter(Boolean)
+    .join("\n");
+
   const submission = {
     name: `${body.firstName} ${body.lastName}`.trim(),
     email: body.email ?? "",
     phone: body.phone ?? "",
-    treatmentInterest: body.treatmentInterest ?? body.contactReason ?? "",
+    treatmentInterest: body.treatmentInterest ?? body.appointmentInterest ?? body.contactReason ?? "",
     location: body.location ?? "",
     bestTime: body.bestTime ?? body.preferredContactMethod ?? "",
-    message: body.message ?? "",
+    message: leadDetails,
     sourcePage: body.sourcePage ?? "unknown",
     submittedAt: body.submittedAt ?? new Date().toISOString(),
     recaptchaScore: captcha.score ?? null,
   };
 
-  // --- Email notification ---
-  // To activate email, set CONTACT_NOTIFY_EMAIL + SMTP env vars and uncomment:
-  //
-  // const { sendLeadEmail } = await import("@/lib/email");
-  // await sendLeadEmail(submission);
-  //
-  // Required env vars:
-  //   CONTACT_NOTIFY_EMAIL=your@email.com
-  //   SMTP_HOST, SMTP_PORT, SMTP_USER, SMTP_PASS
-  //   (or use Resend: RESEND_API_KEY)
-
-  // Log in dev / server stdout
-  if (process.env.NODE_ENV !== "production" || process.env.LOG_LEADS === "true") {
-    console.log("[contact] New lead submission:", JSON.stringify(submission, null, 2));
+  // Send email notification
+  try {
+    await sendLeadEmail({
+      ...submission,
+      contactReason: body.contactReason,
+      appointmentInterest: body.appointmentInterest,
+      revisionProcedures: body.revisionProcedures,
+      informationTopics: body.informationTopics,
+      researchStage: body.researchStage,
+      otherDetails: body.otherDetails,
+      message: body.message,
+      preferredContactMethod: body.preferredContactMethod,
+      textConsent: body.textConsent,
+    });
+  } catch (err) {
+    console.error("[contact] Email send failed:", err);
+    // Don't fail the request — submission still succeeded
   }
 
-  // --- CRM / webhook integration point ---
-  // await fetch(process.env.CRM_WEBHOOK_URL!, { method: "POST", body: JSON.stringify(submission) });
+  if (process.env.NODE_ENV !== "production" || process.env.LOG_LEADS === "true") {
+    console.log("[contact] Lead submission:", JSON.stringify(submission, null, 2));
+  }
 
   return NextResponse.json({ ok: true });
 }

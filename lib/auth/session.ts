@@ -8,6 +8,7 @@ export const adminSessionCookieName = "jl_admin_session";
 
 type AdminSessionPayload = AdminSessionUser & {
   exp: number;
+  version: 2;
 };
 
 const encoder = new TextEncoder();
@@ -16,6 +17,7 @@ export async function createAdminSession(user: AdminSessionUser, maxAgeSeconds =
   const payload: AdminSessionPayload = {
     ...user,
     exp: Math.floor(Date.now() / 1000) + maxAgeSeconds,
+    version: 2,
   };
   const encodedPayload = base64UrlEncode(encoder.encode(JSON.stringify(payload)));
   const signature = await signValue(encodedPayload);
@@ -31,7 +33,7 @@ export async function verifyAdminSession(value?: string | null): Promise<AdminSe
 
   try {
     const payload = JSON.parse(new TextDecoder().decode(base64UrlDecode(encodedPayload))) as AdminSessionPayload;
-    if (!payload.email || !payload.exp || payload.exp < Math.floor(Date.now() / 1000)) return null;
+    if (!payload.email || !payload.exp || payload.version !== 2 || payload.exp < Math.floor(Date.now() / 1000)) return null;
     return payload;
   } catch {
     return null;

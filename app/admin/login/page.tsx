@@ -3,7 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import Script from "next/script";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { FormEvent, useState } from "react";
 import { ArrowLeft, Loader2, LogIn } from "lucide-react";
 import { toast } from "sonner";
@@ -19,14 +19,13 @@ const recaptchaSiteKey = process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY;
 
 export default function AdminLoginPage() {
   const router = useRouter();
+  const searchParams = useSearchParams();
   const [email, setEmail] = useState("admin@journeylite.com");
   const [password, setPassword] = useState("");
   const [isGoogleLoading, setIsGoogleLoading] = useState(false);
   const [isEmailLoading, setIsEmailLoading] = useState(false);
-  const [error, setError] = useState<string | null>(() => {
-    if (typeof window === "undefined") return null;
-    return new URLSearchParams(window.location.search).get("error");
-  });
+  const [error, setError] = useState<string | null>(null);
+  const displayedError = error ?? searchParams.get("error");
 
   async function getRecaptchaToken() {
     if (!recaptchaSiteKey) return "development-bypass";
@@ -94,7 +93,9 @@ export default function AdminLoginPage() {
         <section className="hidden bg-[#153f2b] p-12 text-white lg:flex lg:flex-col lg:justify-between">
           <div>
             <div className="flex items-center gap-5">
-              <Image alt="JourneyLite favicon" className="size-16 rounded-2xl ring-2 ring-white/20" height={64} priority src="/JLAppIcon.png" width={64} />
+              <div className="flex size-16 items-center justify-center rounded-2xl border border-white/20 bg-[#0f3322] text-2xl font-bold text-white shadow-inner">
+                JL
+              </div>
               <div>
                 <p className="text-2xl font-semibold">JourneyLite</p>
                 <p className="mt-1 text-sm font-semibold uppercase tracking-[0.24em] text-[#8fd09d]">Admin Portal</p>
@@ -116,7 +117,9 @@ export default function AdminLoginPage() {
         <section className="flex items-center justify-center px-6 py-12 sm:px-10 lg:px-24">
           <div className="w-full max-w-xl">
             <div className="mb-8 flex items-center gap-4 lg:hidden">
-              <Image alt="JourneyLite favicon" className="size-12 rounded-xl" height={64} priority src="/JLAppIcon.png" width={64} />
+              <div className="flex size-12 items-center justify-center rounded-xl bg-[#153f2b] text-base font-bold text-white">
+                JL
+              </div>
               <div>
                 <p className="text-lg font-semibold">JourneyLite</p>
                 <p className="text-xs font-semibold uppercase tracking-[0.22em] text-primary">Admin Portal</p>
@@ -125,9 +128,9 @@ export default function AdminLoginPage() {
             <h2 className="text-4xl font-semibold tracking-tight md:text-5xl">Sign in</h2>
             <p className="mt-5 text-xl text-[#728178]">Access the JourneyLite admin dashboard</p>
 
-            {error ? (
+            {displayedError ? (
               <Alert className="mt-8" variant="destructive">
-                <AlertDescription>{error}</AlertDescription>
+                <AlertDescription>{displayedError}</AlertDescription>
               </Alert>
             ) : null}
 

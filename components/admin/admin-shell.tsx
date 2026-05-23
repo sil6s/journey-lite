@@ -1,7 +1,6 @@
 "use client";
 
 import Link from "next/link";
-import Image from "next/image";
 import { usePathname } from "next/navigation";
 import {
   BarChart3,
@@ -12,7 +11,6 @@ import {
   LogOut,
   FileText,
   Images,
-  LayoutDashboard,
   MapPin,
   Menu,
   MessageSquareQuote,
@@ -23,7 +21,7 @@ import {
   Users,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Avatar, AvatarFallback } from "@/components/ui/avatar";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -53,8 +51,7 @@ import { cn } from "@/lib/utils";
 import { useMemo, useState } from "react";
 
 const navigation = [
-  { title: "Dashboard", href: "/admin", icon: LayoutDashboard },
-  { title: "Analytics", href: "/admin/analytics", icon: BarChart3 },
+  { title: "Web Analytics", href: "/admin", icon: BarChart3 },
   { title: "Blog / Resources", href: "/admin/blog", icon: BookOpen },
   { title: "AI Blog Builder", href: "/admin/ai-blog-builder", icon: Bot },
   { title: "Services", href: "/admin/services", icon: BriefcaseMedical },
@@ -68,13 +65,19 @@ const navigation = [
 ];
 
 const navSections = [
-  { label: "", items: navigation.slice(0, 2) },
-  { label: "Content", items: navigation.slice(2, 6) },
-  { label: "People & Places", items: navigation.slice(6, 9) },
-  { label: "System", items: navigation.slice(9) },
+  { label: "", items: navigation.slice(0, 1) },
+  { label: "Content", items: navigation.slice(1, 5) },
+  { label: "People & Places", items: navigation.slice(5, 8) },
+  { label: "System", items: navigation.slice(8) },
 ];
 
-export function AdminShell({ children }: { children: React.ReactNode }) {
+type AdminShellUser = {
+  email: string;
+  name?: string;
+  picture?: string;
+} | null;
+
+export function AdminShell({ children, user }: { children: React.ReactNode; user?: AdminShellUser }) {
   const pathname = usePathname();
   const [commandOpen, setCommandOpen] = useState(false);
   const [navOpen, setNavOpen] = useState(false);
@@ -89,14 +92,14 @@ export function AdminShell({ children }: { children: React.ReactNode }) {
     window.localStorage.removeItem("journeylite-admin-mock-auth");
   }
 
-  if (pathname === "/admin/login") {
+  if (pathname === "/admin/login" || pathname === "/admin/access-denied") {
     return <>{children}</>;
   }
 
   return (
     <div className="min-h-screen bg-[#f7faf7] text-[#193f2c]">
       <aside className="fixed inset-y-0 left-0 z-30 hidden w-[300px] bg-[#153f2b] text-white lg:block">
-        <SidebarContent pathname={pathname} />
+        <SidebarContent pathname={pathname} user={user} />
       </aside>
       <div className="lg:pl-[300px]">
         <header className="sticky top-0 z-20 border-b border-[#dfe8e2] bg-white/95 backdrop-blur">
@@ -109,7 +112,7 @@ export function AdminShell({ children }: { children: React.ReactNode }) {
               </SheetTrigger>
               <SheetContent className="w-80 p-0" side="left">
                 <SheetTitle className="sr-only">Admin navigation</SheetTitle>
-                <SidebarContent pathname={pathname} onNavigate={() => setNavOpen(false)} />
+                <SidebarContent pathname={pathname} user={user} onNavigate={() => setNavOpen(false)} />
               </SheetContent>
             </Sheet>
             <div className="min-w-0 flex-1">
@@ -148,15 +151,15 @@ export function AdminShell({ children }: { children: React.ReactNode }) {
               <DropdownMenuTrigger asChild>
                 <Button className="gap-2" variant="ghost">
                   <Avatar className="size-7">
-                    <AvatarFallback>
-                      <UserRound className="size-4" />
-                    </AvatarFallback>
+                    {user?.picture ? <AvatarImage alt={user.name || user.email} src={user.picture} /> : null}
+                    <AvatarFallback>{user ? getInitials(user.name || user.email) : <UserRound className="size-4" />}</AvatarFallback>
                   </Avatar>
-                  <span className="hidden sm:inline">Mock admin</span>
+                  <span className="hidden max-w-36 truncate sm:inline">{user?.name || user?.email || "Admin"}</span>
                 </Button>
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end" className="w-56">
                 <DropdownMenuLabel>Admin account</DropdownMenuLabel>
+                {user?.email ? <div className="px-2 pb-2 text-xs text-muted-foreground">{user.email}</div> : null}
                 <DropdownMenuSeparator />
                 <DropdownMenuItem asChild>
                   <Link href="/admin/settings">Settings</Link>
@@ -196,7 +199,7 @@ export function AdminShell({ children }: { children: React.ReactNode }) {
   );
 }
 
-function SidebarContent({ pathname, onNavigate }: { pathname: string; onNavigate?: () => void }) {
+function SidebarContent({ pathname, user, onNavigate }: { pathname: string; user?: AdminShellUser; onNavigate?: () => void }) {
   function mockLogout() {
     window.localStorage.removeItem("journeylite-admin-mock-auth");
     onNavigate?.();
@@ -205,7 +208,9 @@ function SidebarContent({ pathname, onNavigate }: { pathname: string; onNavigate
   return (
     <div className="flex h-full flex-col">
       <Link className="flex h-[92px] items-center gap-4 border-b border-white/10 px-5" href="/admin" onClick={onNavigate}>
-        <Image alt="JourneyLite favicon" className="size-12 rounded-xl" height={64} src="/JLAppIcon.png" width={64} />
+        <span className="flex size-12 items-center justify-center rounded-xl border border-white/15 bg-[#0f3322] text-base font-bold tracking-tight text-white shadow-inner">
+          JL
+        </span>
         <span>
           <span className="block text-lg font-semibold leading-tight text-white">JourneyLite</span>
           <span className="block text-xs font-semibold uppercase tracking-[0.22em] text-[#8fd09d]">Admin</span>
@@ -242,13 +247,14 @@ function SidebarContent({ pathname, onNavigate }: { pathname: string; onNavigate
           <DropdownMenuTrigger asChild>
             <Button className="h-auto w-full justify-start gap-3 rounded-xl px-2 py-3 text-white hover:bg-white/10 hover:text-white" variant="ghost">
               <Avatar className="size-11">
+                {user?.picture ? <AvatarImage alt={user.name || user.email} src={user.picture} /> : null}
                 <AvatarFallback className="bg-[#2e7445] text-white">
-                  MA
+                  {user ? getInitials(user.name || user.email) : "A"}
                 </AvatarFallback>
               </Avatar>
               <span className="grid text-left">
-                <span className="text-sm font-semibold">Mock admin</span>
-                <span className="text-xs text-[#8fb69b]">OAuth later</span>
+                <span className="max-w-48 truncate text-sm font-semibold">{user?.name || "Admin"}</span>
+                <span className="max-w-48 truncate text-xs text-[#8fb69b]">{user?.email || "Signed in"}</span>
               </span>
             </Button>
           </DropdownMenuTrigger>
@@ -268,4 +274,12 @@ function SidebarContent({ pathname, onNavigate }: { pathname: string; onNavigate
       </div>
     </div>
   );
+}
+
+function getInitials(value: string) {
+  const parts = value
+    .replace(/@.*/, "")
+    .split(/[\s._-]+/)
+    .filter(Boolean);
+  return (parts[0]?.[0] || "A").concat(parts[1]?.[0] || "").toUpperCase();
 }

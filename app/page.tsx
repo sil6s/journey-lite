@@ -79,19 +79,34 @@ const whyCards = [
 
 const outcomeStats = [
   {
-    value: "6,000+",
-    label: "Gastric sleeve procedures",
-    context: "High procedure volume helps patients choose a team familiar with common questions, timelines, and follow-up needs.",
-  },
-  {
-    value: "10,000+",
-    label: "Total procedures",
-    context: "JourneyLite's experience spans bariatric and related procedures across multiple care pathways.",
-  },
-  {
     value: "20+",
-    label: "Years of experience",
-    context: "Long-standing regional care gives patients a consistent place to compare options and plan next steps.",
+    label: "Years of Bariatric Experience",
+    context: "Long-standing regional care helps patients compare options with an experienced bariatric team.",
+  },
+  {
+    value: "8,000+",
+    label: "Bariatric Procedures",
+    context: "Procedure volume across bariatric care paths supports practical, procedure-specific guidance.",
+  },
+  {
+    value: "5",
+    label: "Regional Locations",
+    context: "Ohio, Kentucky, and Indiana offices make it easier to find a care location that fits.",
+  },
+  {
+    value: "MBSAQIP",
+    label: "Accredited Bariatric Program",
+    context: "Accreditation reflects a structured bariatric quality and safety program.",
+  },
+  {
+    value: "AAAHC",
+    label: "Accredited Surgery Center",
+    context: "JourneyLite Surgery Center operates with accredited ambulatory care standards.",
+  },
+  {
+    value: "For Life",
+    label: "Long-Term Support",
+    context: "Patients can access ongoing education and support beyond the first appointment.",
   },
 ];
 
@@ -370,7 +385,7 @@ export default function HomePage() {
           title="Real outcomes. Real numbers. Real people."
           tone="white"
         >
-          <div className="mt-8 grid gap-4 md:grid-cols-3">
+          <div className="mt-8 grid gap-4 md:grid-cols-2 xl:grid-cols-3">
             {outcomeStats.map((stat) => (
               <article className="rounded-lg border border-[#dce4df] bg-white p-6 shadow-sm" key={stat.label}>
                 <p className="font-serif text-4xl text-[#145c42]">{stat.value}</p>

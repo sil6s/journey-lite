@@ -1,7 +1,7 @@
 "use client";
 
 import { Area, AreaChart, Bar, BarChart, CartesianGrid, XAxis, YAxis } from "recharts";
-import { CalendarDays, MousePointerClick, TrendingUp, Users } from "lucide-react";
+import { Activity, CalendarDays, MousePointerClick, TrendingUp, Users } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { ChartContainer, ChartTooltip, ChartTooltipContent, type ChartConfig } from "@/components/ui/chart";
@@ -16,12 +16,53 @@ const chartConfig = {
 } satisfies ChartConfig;
 
 export function AnalyticsDashboard({ data }: { data: AnalyticsSummary }) {
+  if (!data.liveConnected) {
+    return (
+      <div className="space-y-6">
+        <div>
+          <div className="flex items-center gap-3">
+            <h1 className="text-3xl font-semibold tracking-tight">Web Analytics</h1>
+            <Badge variant="secondary">Umami tracking installed</Badge>
+          </div>
+          <p className="mt-2 text-muted-foreground">
+            Umami is collecting visits through the site script. Live dashboard charts will appear here after an Umami API key or share URL is configured.
+          </p>
+        </div>
+        <Card className="border-[#dfe8e2]">
+          <CardHeader>
+            <CardTitle>Waiting for live analytics connection</CardTitle>
+            <CardDescription>No mock traffic charts are shown in the admin portal.</CardDescription>
+          </CardHeader>
+          <CardContent className="grid gap-4 md:grid-cols-3">
+            <div className="rounded-xl border bg-[#f7faf7] p-4">
+              <p className="text-sm text-muted-foreground">Tracking script</p>
+              <p className="mt-1 font-semibold text-[#153f2b]">cloud.umami.is</p>
+            </div>
+            <div className="rounded-xl border bg-[#f7faf7] p-4">
+              <p className="text-sm text-muted-foreground">Website ID</p>
+              <p className="mt-1 break-all font-mono text-xs text-[#153f2b]">da46081a-defc-433f-94d1-173ae1d844bf</p>
+            </div>
+            <div className="rounded-xl border bg-[#f7faf7] p-4">
+              <p className="text-sm text-muted-foreground">Next step</p>
+              <p className="mt-1 font-semibold text-[#153f2b]">Add Umami API credentials</p>
+            </div>
+          </CardContent>
+        </Card>
+      </div>
+    );
+  }
+
   return (
     <div className="space-y-6">
       <div className="flex flex-col justify-between gap-4 md:flex-row md:items-end">
         <div>
-          <h1 className="text-3xl font-semibold tracking-tight">Website Analytics</h1>
-          <p className="mt-2 text-muted-foreground">Performance summary with a mock fallback until analytics are connected.</p>
+          <div className="flex items-center gap-3">
+            <h1 className="text-3xl font-semibold tracking-tight">Web Analytics</h1>
+            <Badge variant={data.liveConnected ? "default" : "secondary"}>{data.liveConnected ? "Live Umami" : "Umami tracking installed"}</Badge>
+          </div>
+          <p className="mt-2 text-muted-foreground">
+            Primary website performance view. Umami tracking is installed; dashboard API values use fallback data until API credentials are added.
+          </p>
         </div>
         <Select defaultValue="30">
           <SelectTrigger className="w-full md:w-44" aria-label="Date range">
@@ -37,10 +78,10 @@ export function AnalyticsDashboard({ data }: { data: AnalyticsSummary }) {
       </div>
 
       <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
-        <StatCard title="Page views" value={data.pageViews.toLocaleString()} detail="Mock data until provider is connected" icon={TrendingUp} />
+        <StatCard title="Page views" value={data.pageViews.toLocaleString()} detail="Umami website traffic" icon={TrendingUp} />
         <StatCard title="Visitors" value={data.visitors.toLocaleString()} detail="Unique visitor estimate" icon={Users} />
         <StatCard title="CTA clicks" value={data.ctaClicks.toLocaleString()} detail="Appointment and contact clicks" icon={MousePointerClick} />
-        <StatCard title="Conversions" value={data.conversions.toLocaleString()} detail="Request placeholder metric" icon={MousePointerClick} />
+        <StatCard title="Umami status" value={data.liveConnected ? "Live" : "Tracking"} detail="cloud.umami.is script active" icon={Activity} />
       </div>
 
       <div className="grid gap-6 xl:grid-cols-[1.4fr_0.6fr]">

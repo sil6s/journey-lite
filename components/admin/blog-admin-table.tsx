@@ -39,6 +39,8 @@ export function BlogAdminTable({
   const [author, setAuthor] = useState("all");
   const [sort, setSort] = useState<SortKey>("publishedAt");
   const [selected, setSelected] = useState<string[]>([]);
+  const [page, setPage] = useState(1);
+  const pageSize = 50;
 
   const filtered = useMemo(() => {
     const needle = query.trim().toLowerCase();
@@ -68,6 +70,14 @@ export function BlogAdminTable({
       });
   }, [author, category, posts, query, sort, status]);
 
+  const pageCount = Math.max(1, Math.ceil(filtered.length / pageSize));
+  const pageRows = filtered.slice((page - 1) * pageSize, page * pageSize);
+
+  function resetPaging() {
+    setPage(1);
+    setSelected([]);
+  }
+
   return (
     <Card>
       <CardHeader>
@@ -90,9 +100,15 @@ export function BlogAdminTable({
         <div className="grid gap-3 lg:grid-cols-[1.4fr_repeat(4,minmax(0,1fr))]">
           <div className="relative">
             <Search className="absolute left-3 top-1/2 size-4 -translate-y-1/2 text-muted-foreground" />
-            <Input className="pl-9" placeholder="Search title, slug, category, tag, author..." value={query} onChange={(event) => setQuery(event.target.value)} />
+            <Input className="pl-9" placeholder="Search title, slug, category, tag, author..." value={query} onChange={(event) => {
+              setQuery(event.target.value);
+              resetPaging();
+            }} />
           </div>
-          <Select value={status} onValueChange={setStatus}>
+          <Select value={status} onValueChange={(value) => {
+            setStatus(value);
+            resetPaging();
+          }}>
             <SelectTrigger aria-label="Filter by status">
               <SelectValue placeholder="Status" />
             </SelectTrigger>
@@ -104,7 +120,10 @@ export function BlogAdminTable({
               <SelectItem value="archived">Archived</SelectItem>
             </SelectContent>
           </Select>
-          <Select value={category} onValueChange={setCategory}>
+          <Select value={category} onValueChange={(value) => {
+            setCategory(value);
+            resetPaging();
+          }}>
             <SelectTrigger aria-label="Filter by category">
               <SelectValue placeholder="Category" />
             </SelectTrigger>
@@ -119,7 +138,10 @@ export function BlogAdminTable({
               )}
             </SelectContent>
           </Select>
-          <Select value={author} onValueChange={setAuthor}>
+          <Select value={author} onValueChange={(value) => {
+            setAuthor(value);
+            resetPaging();
+          }}>
             <SelectTrigger aria-label="Filter by author">
               <SelectValue placeholder="Author" />
             </SelectTrigger>
@@ -134,7 +156,10 @@ export function BlogAdminTable({
               )}
             </SelectContent>
           </Select>
-          <Select value={sort} onValueChange={(value) => setSort(value as SortKey)}>
+          <Select value={sort} onValueChange={(value) => {
+            setSort(value as SortKey);
+            resetPaging();
+          }}>
             <SelectTrigger aria-label="Sort posts">
               <SelectValue placeholder="Sort" />
             </SelectTrigger>
@@ -161,15 +186,30 @@ export function BlogAdminTable({
           </div>
         ) : null}
 
-        <div className="overflow-hidden rounded-lg border">
+        <div className="flex items-center justify-between gap-3 text-sm text-muted-foreground">
+          <span>
+            Showing {filtered.length ? (page - 1) * pageSize + 1 : 0}-{Math.min(page * pageSize, filtered.length)} of {filtered.length} posts
+          </span>
+          <div className="flex items-center gap-2">
+            <Button size="sm" variant="outline" disabled={page === 1} onClick={() => setPage((current) => Math.max(1, current - 1))}>
+              Previous
+            </Button>
+            <span className="min-w-24 text-center">Page {page} of {pageCount}</span>
+            <Button size="sm" variant="outline" disabled={page === pageCount} onClick={() => setPage((current) => Math.min(pageCount, current + 1))}>
+              Next
+            </Button>
+          </div>
+        </div>
+
+        <div className="overflow-x-auto rounded-lg border">
           <Table>
             <TableHeader>
               <TableRow>
                 <TableHead className="w-10">
                   <Checkbox
                     aria-label="Select all posts"
-                    checked={filtered.length > 0 && selected.length === filtered.length}
-                    onCheckedChange={(checked) => setSelected(checked ? filtered.map((post) => post._id) : [])}
+                    checked={pageRows.length > 0 && selected.length === pageRows.length}
+                    onCheckedChange={(checked) => setSelected(checked ? pageRows.map((post) => post._id) : [])}
                   />
                 </TableHead>
                 <TableHead>Title</TableHead>
@@ -196,7 +236,7 @@ export function BlogAdminTable({
                   </TableCell>
                 </TableRow>
               ) : filtered.length ? (
-                filtered.map((post) => (
+                pageRows.map((post) => (
                   <TableRow key={post._id}>
                     <TableCell>
                       <Checkbox
@@ -207,7 +247,7 @@ export function BlogAdminTable({
                         }
                       />
                     </TableCell>
-                    <TableCell className="min-w-64 font-medium">{post.title}</TableCell>
+                    <TableCell className="min-w-72 font-medium">{post.title}</TableCell>
                     <TableCell className="text-muted-foreground">{post.slug}</TableCell>
                     <TableCell>{post.category?.name ?? "None"}</TableCell>
                     <TableCell>{post.author?.name ?? "JourneyLite"}</TableCell>
@@ -258,6 +298,14 @@ export function BlogAdminTable({
               )}
             </TableBody>
           </Table>
+        </div>
+        <div className="flex items-center justify-end gap-2">
+          <Button size="sm" variant="outline" disabled={page === 1} onClick={() => setPage((current) => Math.max(1, current - 1))}>
+            Previous
+          </Button>
+          <Button size="sm" variant="outline" disabled={page === pageCount} onClick={() => setPage((current) => Math.min(pageCount, current + 1))}>
+            Next
+          </Button>
         </div>
       </CardContent>
     </Card>

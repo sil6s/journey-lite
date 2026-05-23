@@ -150,10 +150,12 @@ export const navGroups = [
 ];
 
 export const statItems = [
-  { value: "6,000+", label: "Gastric sleeves" },
-  { value: "10,000+", label: "Procedures" },
-  { value: "20+", label: "Years experience" },
-  { value: "5", label: "Regional locations" },
+  { value: "20+", label: "Years of Bariatric Experience" },
+  { value: "8,000+", label: "Bariatric Procedures" },
+  { value: "5", label: "Regional Locations" },
+  { value: "MBSAQIP", label: "Accredited Bariatric Program" },
+  { value: "AAAHC", label: "Accredited Surgery Center" },
+  { value: "For Life", label: "Long-Term Support" },
 ];
 
 export const surgicalOptions = [

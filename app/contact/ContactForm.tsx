@@ -349,9 +349,12 @@ function ContactFields({
   update: <K extends keyof FormData>(key: K, value: FormData[K]) => void;
 }) {
   return (
-    <div>
-      <h3 className="text-2xl font-semibold text-[#1f2c25]">Contact information</h3>
-      <div className="mt-5 grid gap-4 md:grid-cols-2">
+    <div className="grid gap-6">
+      <div className="rounded-xl border border-[#dce4df] bg-[#fafbf9] p-5">
+        <h3 className="text-xl font-semibold text-[#1f2c25]">Contact information</h3>
+        <p className="mt-1 text-sm leading-6 text-[#53635b]">Share your details so the JourneyLite team can reach you.</p>
+      </div>
+      <div className="grid gap-4 md:grid-cols-2">
         <TextField error={errors.firstName} label="First name" onChange={(value) => update("firstName", value)} value={data.firstName} />
         <TextField error={errors.lastName} label="Last name" onChange={(value) => update("lastName", value)} value={data.lastName} />
         <TextField error={errors.email} label="Email" onChange={(value) => update("email", value)} type="email" value={data.email} />
@@ -383,9 +386,12 @@ function DetailsFields({
   const showTimeframe = needsTimeframe(data.contactReason);
 
   return (
-    <div>
-      <h3 className="text-2xl font-semibold text-[#1f2c25]">Details</h3>
-      <div className="mt-5 grid gap-4">
+    <div className="grid gap-6">
+      <div className="rounded-xl border border-[#dce4df] bg-[#fafbf9] p-5">
+        <h3 className="text-xl font-semibold text-[#1f2c25]">A few more details</h3>
+        <p className="mt-1 text-sm leading-6 text-[#53635b]">Help us route your request to the right team member.</p>
+      </div>
+      <div className="grid gap-4">
         {showLocation ? (
           <SelectField
             error={errors.preferredLocation}
@@ -426,7 +432,7 @@ function DetailsFields({
           />
         </div>
       </div>
-      <label className="mt-5 block">
+      <label className="block">
         <span className="text-sm font-semibold text-[#1f2c25]">Message</span>
         <textarea
           className="mt-2 min-h-32 w-full rounded-lg border border-[#cbd7d0] bg-white px-4 py-3 text-sm leading-6 text-[#1f2c25] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#145c42]"

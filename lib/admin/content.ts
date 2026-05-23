@@ -27,6 +27,43 @@ export type AdminAuthor = {
   bio?: string;
 };
 
+export type ManagedStaffProfile = {
+  _id?: string;
+  name: string;
+  displayName?: string;
+  slug?: string;
+  primaryTitle?: string;
+  email?: string;
+  bio?: string;
+  credentials?: string[];
+  education?: string[];
+  clinicalFocus?: string[];
+  imageAlt?: string;
+  status?: string;
+  seoTitle?: string;
+  seoDescription?: string;
+  source?: "sanity" | "website";
+};
+
+export type ManagedLocation = {
+  _id?: string;
+  name: string;
+  slug?: string;
+  city?: string;
+  state?: string;
+  address1?: string;
+  address2?: string;
+  phone?: string;
+  hours?: string;
+  mapLink?: string;
+  appointmentLink?: string;
+  serviceArea?: string;
+  status?: string;
+  seoTitle?: string;
+  seoDescription?: string;
+  source?: "sanity" | "website";
+};
+
 export type AdminStats = {
   publishedPosts: number;
   draftPosts: number;
@@ -102,4 +139,76 @@ export function getLocationRows() {
       })),
     ),
   ];
+}
+
+export async function getManagedStaffProfiles(): Promise<ManagedStaffProfile[]> {
+  const fallback = physicianCards.map((person) => ({
+    name: person.name,
+    displayName: person.displayName,
+    slug: person.slug,
+    primaryTitle: person.primaryTitle,
+    email: person.email,
+    bio: person.bio,
+    credentials: person.certificationLicensure,
+    education: person.education,
+    clinicalFocus: person.clinicalFocus,
+    imageAlt: person.avatarAlt,
+    status: "published",
+    source: "website" as const,
+  }));
+
+  try {
+    const docs = await client.fetch<ManagedStaffProfile[]>(
+      `*[_type == "staffProfile"] | order(name asc) {
+        _id, name, displayName, "slug": slug.current, primaryTitle, email, bio, credentials,
+        education, clinicalFocus, imageAlt, status, seoTitle, seoDescription
+      }`,
+      {},
+      { next: { revalidate: 30 } },
+    );
+    return [...docs.map((doc) => ({ ...doc, source: "sanity" as const })), ...fallback.filter((item) => !docs.some((doc) => doc.slug === item.slug))];
+  } catch {
+    return fallback;
+  }
+}
+
+export async function getManagedLocations(): Promise<ManagedLocation[]> {
+  const fallback = getLocationRows().map((location) => ({
+    name: `${location.city}, ${location.state}`,
+    slug: slugify(`${location.city}-${location.state}`),
+    city: location.city,
+    state: location.state,
+    address1: location.address1,
+    address2: location.address2,
+    phone: location.phone,
+    hours: "hours" in location ? String(location.hours ?? "") : "",
+    mapLink: "directions" in location ? String(location.directions ?? "") : location.href,
+    appointmentLink: "/contact",
+    serviceArea: location.group,
+    status: "published",
+    source: "website" as const,
+  }));
+
+  try {
+    const docs = await client.fetch<ManagedLocation[]>(
+      `*[_type == "location"] | order(name asc) {
+        _id, name, "slug": slug.current, city, state, address1, address2, phone, hours,
+        mapLink, appointmentLink, serviceArea, status, seoTitle, seoDescription
+      }`,
+      {},
+      { next: { revalidate: 30 } },
+    );
+    return [...docs.map((doc) => ({ ...doc, source: "sanity" as const })), ...fallback.filter((item) => !docs.some((doc) => doc.slug === item.slug))];
+  } catch {
+    return fallback;
+  }
+}
+
+function slugify(value: string) {
+  return value
+    .toLowerCase()
+    .trim()
+    .replace(/['"]/g, "")
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/(^-|-$)/g, "");
 }

@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { verifyRecaptchaToken } from "@/lib/auth/recaptcha";
 
 const oauthStateCookieName = "jl_oauth_state";
+const googleCallbackPath = "/api/auth/callback/google";
 
 export async function POST(request: Request) {
   const { recaptchaToken, next } = (await request.json()) as { recaptchaToken?: string; next?: string };
@@ -13,7 +14,7 @@ export async function POST(request: Request) {
 
   const origin = new URL(request.url).origin;
   const state = crypto.randomUUID();
-  const redirectUri = `${origin}/api/auth/google/callback`;
+  const redirectUri = `${origin}${googleCallbackPath}`;
   const url = new URL("https://accounts.google.com/o/oauth2/v2/auth");
   url.searchParams.set("client_id", clientId);
   url.searchParams.set("redirect_uri", redirectUri);

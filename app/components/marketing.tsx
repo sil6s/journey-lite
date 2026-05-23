@@ -599,16 +599,18 @@ export function ComparisonCard({
 export function StatBand() {
   return (
     <section aria-label="JourneyLite experience statistics" className="bg-[#0f3e2e] text-white">
-      <div className="mx-auto grid max-w-7xl gap-3 px-5 py-10 sm:grid-cols-2 lg:grid-cols-4 lg:px-8">
+      <div className="mx-auto grid max-w-7xl gap-3 px-5 py-10 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 lg:px-8">
         {[
-          ["6,000+", "Gastric sleeves"],
-          ["10,000+", "Procedures"],
-          ["20+", "Years experience"],
-          ["5", "Regional locations"],
+          ["20+", "Years of Bariatric Experience"],
+          ["8,000+", "Bariatric Procedures"],
+          ["5", "Regional Locations"],
+          ["MBSAQIP", "Accredited Bariatric Program"],
+          ["AAAHC", "Accredited Surgery Center"],
+          ["For Life", "Long-Term Support"],
         ].map(([value, label]) => (
-          <div className="rounded-xl border border-white/15 bg-white/10 p-6 shadow-sm" key={label}>
-            <p className="font-serif text-5xl leading-none md:text-6xl">{value}</p>
-            <p className="mt-3 text-base font-semibold text-[#d8e6de]">{label}</p>
+          <div className="rounded-xl border border-white/15 bg-white/10 p-5 shadow-sm" key={label}>
+            <p className="text-3xl font-semibold leading-none tracking-tight md:text-4xl xl:text-3xl">{value}</p>
+            <p className="mt-3 text-sm font-semibold leading-5 text-[#d8e6de]">{label}</p>
           </div>
         ))}
       </div>
