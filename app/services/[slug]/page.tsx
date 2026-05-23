@@ -903,47 +903,102 @@ function PricingFinancingPage({
           </div>
         </Section>
 
+        {/* Insurance coverage */}
         <section className="bg-white py-12 lg:py-16">
-          <div className="mx-auto grid max-w-7xl gap-6 px-5 lg:grid-cols-2 lg:px-8">
-            <article className="rounded-xl border border-[#dce4df] bg-white p-6 shadow-sm">
-              <p className="eyebrow">Insurance</p>
-              <h2 className="mt-3 text-2xl font-semibold text-[#1f2c25]">Does insurance cover weight loss surgery?</h2>
-              <div className="mt-4 space-y-4 text-sm leading-7 text-[#53635b]">
-                <p>
-                  Coverage depends on the insurance plan, employer benefits, medical necessity rules, BMI criteria,
-                  comorbidity documentation, supervised weight-loss history, and prior authorization.
-                </p>
-                <p>
-                  The <a className="font-semibold text-[#145c42] underline-offset-4 hover:underline" href="https://www.cdc.gov/obesity/adult-obesity-facts/index.html" rel="noopener noreferrer" target="_blank">CDC describes obesity as a chronic disease</a>, and
-                  the <a className="font-semibold text-[#145c42] underline-offset-4 hover:underline" href="https://www.niddk.nih.gov/health-information/weight-management/bariatric-surgery/types" rel="noopener noreferrer" target="_blank"> NIDDK explains bariatric surgery types</a>. Your plan documents still determine coverage.
-                </p>
-              </div>
-              <Link className="mt-5 inline-flex text-sm font-semibold text-[#145c42] underline-offset-4 hover:underline" href="/contact">
-                Check Insurance Steps
-              </Link>
-            </article>
-
-            <article id="financing" className="rounded-xl border border-[#dce4df] bg-white p-6 shadow-sm">
-              <p className="eyebrow">Financing</p>
-              <h2 className="mt-3 text-2xl font-semibold text-[#1f2c25]">Financing weight loss surgery or medication</h2>
-              <p className="mt-4 text-sm leading-7 text-[#53635b]">
-                Financing may help qualified patients spread eligible treatment costs over time. JourneyLite pricing
-                information includes lender options such as Kemba Credit Union, CareCredit, and Prosper Healthcare
-                Lending. Approval, terms, payment amount, interest, and promotional eligibility are determined by the
-                lender.
+          <div className="mx-auto max-w-7xl px-5 lg:px-8">
+            <div className="max-w-3xl">
+              <p className="eyebrow">Insurance coverage</p>
+              <h2 className="mt-3 font-serif text-3xl font-semibold leading-tight text-[#1f2c25]">Does insurance cover weight loss surgery?</h2>
+              <p className="mt-4 text-base leading-7 text-[#53635b]">
+                JourneyLite is in-network with nearly every major insurance provider serving Ohio, Kentucky, and Indiana.
+                Coverage depends on your plan, BMI, medical necessity documentation, and prior authorization requirements.
               </p>
-              <div className="mt-5 flex flex-col gap-3 sm:flex-row">
-                <a className="text-sm font-semibold text-[#145c42] underline-offset-4 hover:underline" href="https://www.carecredit.com/apply/" rel="noopener noreferrer" target="_blank">
-                  CareCredit
-                </a>
-                <a className="text-sm font-semibold text-[#145c42] underline-offset-4 hover:underline" href="https://www.prosper.com/personal-loans/healthcare-financing/" rel="noopener noreferrer" target="_blank">
-                  Prosper Healthcare Lending
-                </a>
-                <Link className="text-sm font-semibold text-[#145c42] underline-offset-4 hover:underline" href="/contact">
-                  Explore Financing
-                </Link>
-              </div>
-            </article>
+            </div>
+            <div className="mt-8 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+              {[
+                { name: "Aetna", note: "An Aetna Institute of Quality for bariatric care.", logo: "/insurance-financing-logos/aetna.png" },
+                { name: "Anthem / Blue Cross-Blue Shield", note: "A Blue Distinction Plus Center for bariatric surgery.", logo: "/insurance-financing-logos/Anthem-BCBS.svg" },
+                { name: "Cigna", note: null, logo: "/insurance-financing-logos/cigna.png" },
+                { name: "Humana", note: null, logo: "/insurance-financing-logos/Humana.png" },
+                { name: "Medical Mutual", note: null, logo: "/insurance-financing-logos/MedicalMutual.png" },
+                { name: "Surgery Plus", note: null, logo: "/insurance-financing-logos/LanternCare-SurgeryPlus.png" },
+                { name: "Transcarent", note: null, logo: "/insurance-financing-logos/transcarent.png" },
+                { name: "United Healthcare", note: "An Optum Center of Excellence for weight loss surgery.", logo: "/insurance-financing-logos/UnitedHealthcare.png" },
+              ].map((carrier) => (
+                <div className="flex flex-col rounded-xl border border-[#dce4df] bg-white p-4 shadow-sm" key={carrier.name}>
+                  <div className="flex h-10 items-center">
+                    <Image alt={carrier.name} className="max-h-10 w-auto object-contain" height={40} src={carrier.logo} unoptimized width={140} />
+                  </div>
+                  <p className="mt-3 text-sm font-semibold text-[#1f2c25]">{carrier.name}</p>
+                  {carrier.note && <p className="mt-1 text-xs leading-5 text-[#66756d]">{carrier.note}</p>}
+                </div>
+              ))}
+            </div>
+            <p className="mt-5 text-sm leading-6 text-[#53635b]">
+              If you don&apos;t see your carrier listed, please check with us — we may still be in network.
+            </p>
+            <div className="mt-5">
+              <CTAButton href="/contact">Check Your Insurance Coverage</CTAButton>
+            </div>
+          </div>
+        </section>
+
+        {/* Financing */}
+        <section id="financing" className="bg-[#f7f8f6] py-12 lg:py-16">
+          <div className="mx-auto max-w-7xl px-5 lg:px-8">
+            <div className="max-w-3xl">
+              <p className="eyebrow">Financing options</p>
+              <h2 className="mt-3 font-serif text-3xl font-semibold leading-tight text-[#1f2c25]">Financing weight loss surgery or medication</h2>
+              <p className="mt-4 text-base leading-7 text-[#53635b]">
+                Financing may help qualified patients spread eligible treatment costs over time. JourneyLite partners with
+                three lenders — approval, terms, interest rates, and monthly payments are determined by the lender.
+              </p>
+            </div>
+            <div className="mt-8 grid gap-5 md:grid-cols-3">
+              {[
+                {
+                  name: "Kemba Credit Union",
+                  logo: "/insurance-financing-logos/KembaCreditUnion.png",
+                  description: "Offers 0% APR promotional financing for residents of Hamilton County, Ohio. On the Kemba site, select the option for \"Medical/Dental.\"",
+                  href: "https://www.kemba.com/loans/personal-loans",
+                  cta: "Apply at Kemba",
+                },
+                {
+                  name: "CareCredit",
+                  logo: "/insurance-financing-logos/CareCredit.png",
+                  description: "A health credit card that can be used for bariatric surgery and wellness expenses. Flexible financing options with various promotional plans.",
+                  href: "https://www.carecredit.com/apply/",
+                  cta: "Apply at CareCredit",
+                },
+                {
+                  name: "Prosper Healthcare Lending",
+                  logo: "/insurance-financing-logos/Prosper.svg",
+                  description: "A reputable healthcare lending option with a simple loan inquiry process for securing funds for your surgery.",
+                  href: "https://www.prosper.com/personal-loans/healthcare-financing/",
+                  cta: "Apply at Prosper",
+                },
+              ].map((lender) => (
+                <article className="flex flex-col rounded-xl border border-[#dce4df] bg-white p-6 shadow-sm" key={lender.name}>
+                  <div className="flex h-12 items-center">
+                    <Image alt={lender.name} className="max-h-12 w-auto object-contain" height={48} src={lender.logo} unoptimized width={180} />
+                  </div>
+                  <h3 className="mt-4 text-lg font-semibold text-[#1f2c25]">{lender.name}</h3>
+                  <p className="mt-2 flex-1 text-sm leading-6 text-[#53635b]">{lender.description}</p>
+                  <a
+                    className="mt-5 inline-flex min-h-10 items-center justify-center rounded-md bg-[#145c42] px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-[#0f4d37]"
+                    href={lender.href}
+                    rel="noopener noreferrer"
+                    target="_blank"
+                  >
+                    {lender.cta}
+                  </a>
+                </article>
+              ))}
+            </div>
+            <p className="mt-6 text-sm leading-6 text-[#53635b]">
+              For assistance or personalized advice, contact our patient service representatives. HSA and FSA funds may
+              also be used for a portion of eligible treatment costs.
+            </p>
           </div>
         </section>
 

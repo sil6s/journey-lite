@@ -53,6 +53,7 @@ import { useMemo, useState } from "react";
 const navigation = [
   { title: "Web Analytics", href: "/admin", icon: BarChart3 },
   { title: "Blog / Resources", href: "/admin/blog", icon: BookOpen },
+  { title: "Education Portal", href: "/courses", icon: BookOpen },
   { title: "AI Blog Builder", href: "/admin/ai-blog-builder", icon: Bot },
   { title: "Services", href: "/admin/services", icon: BriefcaseMedical },
   { title: "Pages / Sections", href: "/admin/pages", icon: FileText },
@@ -66,9 +67,9 @@ const navigation = [
 
 const navSections = [
   { label: "", items: navigation.slice(0, 1) },
-  { label: "Content", items: navigation.slice(1, 5) },
-  { label: "People & Places", items: navigation.slice(5, 8) },
-  { label: "System", items: navigation.slice(8) },
+  { label: "Content", items: navigation.slice(1, 6) },
+  { label: "People & Places", items: navigation.slice(6, 9) },
+  { label: "System", items: navigation.slice(9) },
 ];
 
 type AdminShellUser = {

@@ -1,22 +1,27 @@
 "use client";
 
+import Image from "next/image";
 import { useRef, useState } from "react";
 import { CTAButton } from "../components/marketing";
+import { useConsult } from "@/components/site/consult-context";
+
+const GEOAPIFY_KEY = "931a024ec98f486ba9cf392518f88d4c";
 
 type FormData = {
-  contactReason: string;
-  contactSubreason: string;
-  patientStatus: string;
-  treatmentInterest: string;
+  serviceInterest: string;
   preferredLocation: string;
   firstName: string;
   lastName: string;
+  dob: string;
+  heightFt: string;
+  heightIn: string;
+  weight: string;
+  address: string;
   email: string;
   phone: string;
   preferredContactMethod: string;
   bestContactTime: string;
   insuranceProvider: string;
-  preferredAppointmentTimeframe: string;
   referralSource: string;
   message: string;
   emergencyAcknowledgement: boolean;
@@ -28,19 +33,20 @@ type FormData = {
 };
 
 const initialData: FormData = {
-  contactReason: "",
-  contactSubreason: "",
-  patientStatus: "",
-  treatmentInterest: "",
+  serviceInterest: "",
   preferredLocation: "",
   firstName: "",
   lastName: "",
+  dob: "",
+  heightFt: "",
+  heightIn: "",
+  weight: "",
+  address: "",
   email: "",
   phone: "",
   preferredContactMethod: "",
   bestContactTime: "",
   insuranceProvider: "",
-  preferredAppointmentTimeframe: "",
   referralSource: "",
   message: "",
   emergencyAcknowledgement: false,
@@ -51,116 +57,165 @@ const initialData: FormData = {
   website: "",
 };
 
-const reasonOptions = [
-  ["consultation", "Request a consultation"],
-  ["pricing", "Pricing or financing"],
-  ["insurance", "Insurance question"],
-  ["surgical", "Surgical weight loss"],
-  ["non-surgical", "Non-surgical procedure"],
-  ["medication", "Prescription weight loss medication"],
-  ["existing", "Existing patient question"],
-  ["general", "General question"],
+const serviceOptions = [
+  {
+    value: "Surgical Weight Loss",
+    label: "Surgical Weight Loss",
+    desc: "Sleeve, bypass, SADI, or Lap Band",
+    icon: (
+      <svg className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="1.8" viewBox="0 0 24 24">
+        <path d="M14.5 4.5l5 5m-5-5L5 14l-1.5 5.5L8 18l9-9.5m-2.5-4l2.5 2.5" strokeLinecap="round" strokeLinejoin="round" />
+      </svg>
+    ),
+  },
+  {
+    value: "Gastric Balloon",
+    label: "Gastric Balloon",
+    desc: "Orbera, Spatz, or Allurion",
+    icon: (
+      <svg className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="1.8" viewBox="0 0 24 24">
+        <circle cx="12" cy="10" r="7" />
+        <path d="M12 17v4m-2 0h4" strokeLinecap="round" strokeLinejoin="round" />
+      </svg>
+    ),
+  },
+  {
+    value: "Medical Weight Loss",
+    label: "Medical Weight Loss",
+    desc: "GLP-1s, Wegovy, Zepbound, oral meds",
+    icon: (
+      <svg className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="1.8" viewBox="0 0 24 24">
+        <path d="M9 3H5a2 2 0 00-2 2v4m6-6h10a2 2 0 012 2v4M9 3v18m0 0h10a2 2 0 002-2V9M9 21H5a2 2 0 01-2-2V9m0 0h18" strokeLinecap="round" strokeLinejoin="round" />
+      </svg>
+    ),
+  },
+  {
+    value: "Combination Surgical & Medical",
+    label: "Surgical + Medical",
+    desc: "Surgery and medication together",
+    icon: (
+      <svg className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="1.8" viewBox="0 0 24 24">
+        <path d="M4 6h16M4 12h16M4 18h7" strokeLinecap="round" strokeLinejoin="round" />
+      </svg>
+    ),
+  },
+  {
+    value: "Revision of Prior Weight Loss Surgery",
+    label: "Revision Surgery",
+    desc: "Revising a previous bariatric procedure",
+    icon: (
+      <svg className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="1.8" viewBox="0 0 24 24">
+        <path d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" strokeLinecap="round" strokeLinejoin="round" />
+      </svg>
+    ),
+  },
+  {
+    value: "General Surgery",
+    label: "General Surgery",
+    desc: "Other surgical procedures",
+    icon: (
+      <svg className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="1.8" viewBox="0 0 24 24">
+        <path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" strokeLinecap="round" strokeLinejoin="round" />
+      </svg>
+    ),
+  },
+  {
+    value: "Pricing or Financing",
+    label: "Pricing / Financing",
+    desc: "Self-pay, insurance, or financing options",
+    icon: (
+      <svg className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="1.8" viewBox="0 0 24 24">
+        <path d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" strokeLinecap="round" strokeLinejoin="round" />
+      </svg>
+    ),
+  },
+  {
+    value: "Insurance Question",
+    label: "Insurance",
+    desc: "Coverage, requirements, or authorization",
+    icon: (
+      <svg className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="1.8" viewBox="0 0 24 24">
+        <path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" strokeLinecap="round" strokeLinejoin="round" />
+      </svg>
+    ),
+  },
+  {
+    value: "Existing Patient Question",
+    label: "Existing Patient",
+    desc: "Appointment, billing, or follow-up",
+    icon: (
+      <svg className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="1.8" viewBox="0 0 24 24">
+        <path d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" strokeLinecap="round" strokeLinejoin="round" />
+      </svg>
+    ),
+  },
+  {
+    value: "General Question",
+    label: "General Question",
+    desc: "Location, records, or other",
+    icon: (
+      <svg className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="1.8" viewBox="0 0 24 24">
+        <path d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" strokeLinecap="round" strokeLinejoin="round" />
+      </svg>
+    ),
+  },
 ];
 
-const subreasonOptions: Record<string, string[]> = {
-  consultation: ["Compare options", "Surgery consultation", "Medication consultation", "Balloon consultation", "Not sure yet"],
-  pricing: ["Self-pay pricing", "Financing", "Surgery cost", "Medication cost", "Balloon cost"],
-  insurance: ["Surgery coverage", "Medication coverage", "Benefit requirements", "Prior authorization", "Not sure"],
-  surgical: ["Gastric sleeve", "Gastric bypass", "SADI surgery", "Lap Band", "Revision surgery"],
-  "non-surgical": ["Gastric balloon", "Spatz balloon", "Allurion balloon", "Compare non-surgical options"],
-  medication: ["Injectable medication", "Oral medication", "GLP-1 questions", "Medication pricing", "Eligibility"],
-  existing: ["Appointment question", "Billing question", "Follow-up question", "Non-urgent clinical question"],
-  general: ["Location question", "Provider question", "Records question", "Other"],
-};
-
-const treatmentOptions = [
-  "Gastric Sleeve",
-  "Gastric Bypass",
-  "SADI Surgery",
-  "Lap Band / Band Revision",
-  "Gastric Sleeve Revision",
-  "Gastric Balloon",
-  "Prescription Weight Loss Medication",
-  "Injectable Medication",
-  "Oral Medication",
-  "Not sure, I want help comparing options",
+const insuranceOptions = [
+  { value: "Aetna", label: "Aetna", note: "An Aetna Institute of Quality for bariatric care.", logo: "/insurance-financing-logos/aetna.png" },
+  { value: "Anthem/Blue Cross-Blue Shield", label: "Anthem / Blue Cross-Blue Shield", note: "A Blue Distinction Plus Center for bariatric surgery.", logo: "/insurance-financing-logos/Anthem-BCBS.svg" },
+  { value: "Cigna", label: "Cigna", note: null, logo: "/insurance-financing-logos/cigna.png" },
+  { value: "Humana", label: "Humana", note: null, logo: "/insurance-financing-logos/Humana.png" },
+  { value: "Medical Mutual", label: "Medical Mutual", note: null, logo: "/insurance-financing-logos/MedicalMutual.png" },
+  { value: "Surgery Plus", label: "Surgery Plus", note: null, logo: "/insurance-financing-logos/LanternCare-SurgeryPlus.png" },
+  { value: "Transcarent", label: "Transcarent", note: null, logo: "/insurance-financing-logos/transcarent.png" },
+  { value: "United Healthcare", label: "United Healthcare", note: "An Optum Center of Excellence for weight loss surgery.", logo: "/insurance-financing-logos/UnitedHealthcare.png" },
+  { value: "Self Pay / No Insurance", label: "Self Pay / No Insurance", note: null, logo: null },
+  { value: "Other", label: "Other / Not Listed", note: "If you don't see your carrier, check with us — we may still be in network.", logo: null },
 ];
 
 const locations = [
-  {
-    label: "Cincinnati Main Office & Surgery Center",
-    address: "10475 Reading Road, Cincinnati, OH 45241",
-    phone: "Office: 513-559-1222; Surgery Center: 513-259-2488",
-  },
-  {
-    label: "Columbus / Grove City",
-    address: "2041 Stringtown Rd, Grove City, OH 43123",
-    phone: "614-526-4463",
-  },
-  {
-    label: "Dayton / Moraine",
-    address: "2621 Dryden Rd Suite 301, Moraine, OH 45439",
-    phone: "937-280-5673",
-  },
-  {
-    label: "Indianapolis / Greenwood",
-    address: "33 E. County Line Road, Suite E, Greenwood, IN",
-    phone: "463-237-5999",
-  },
-  {
-    label: "Northern Kentucky / Crestview Hills",
-    address: "320 Thomas More Parkway, Crestview Hills, KY",
-    phone: "859-331-1035",
-  },
-  {
-    label: "Not sure / phone discussion preferred",
-    address: "JourneyLite can help route your request.",
-    phone: "877-442-2263",
-  },
+  "Cincinnati Main Office & Surgery Center",
+  "Columbus / Grove City",
+  "Dayton / Moraine",
+  "Indianapolis / Greenwood",
+  "Northern Kentucky / Crestview Hills",
+  "Not sure yet",
 ];
 
 const contactMethods = ["Phone", "Email", "Text if legally approved"];
 const contactTimes = ["Morning", "Afternoon", "Evening", "No preference"];
 
-function needsTreatment(reason: string) {
-  return ["consultation", "medication", "surgical", "non-surgical", "pricing", "insurance"].includes(reason);
+function computeBMI(heightFt: string, heightIn: string, weight: string): string {
+  const ft = parseFloat(heightFt);
+  const inches = parseFloat(heightIn) || 0;
+  const lbs = parseFloat(weight);
+  if (!ft || !lbs) return "";
+  const totalIn = ft * 12 + inches;
+  return ((lbs / (totalIn * totalIn)) * 703).toFixed(1);
 }
 
-function needsLocation(reason: string) {
-  return ["consultation", "pricing", "insurance", "medication", "surgical", "non-surgical", "existing"].includes(reason);
-}
+const steps = ["service", "contact", "measurements", "insurance", "message"] as const;
+type Step = (typeof steps)[number];
 
-function needsInsurance(reason: string) {
-  return ["insurance", "pricing", "consultation"].includes(reason);
-}
-
-function needsTimeframe(reason: string) {
-  return ["consultation", "medication", "surgical", "non-surgical"].includes(reason);
-}
-
-function placeholder(reason: string) {
-  const map: Record<string, string> = {
-    consultation: "Tell us a little about your goals, timeline, and any procedures or programs you are considering.",
-    pricing: "Let us know which treatment you are comparing and whether you are interested in self-pay, financing, or insurance options.",
-    insurance: "Share your insurance provider and the treatment you are interested in, if known.",
-    existing: "Please include a brief description of your question. Do not include urgent medical concerns here.",
-    medication: "Tell us whether you are interested in oral medications, injectable medications, pricing, or eligibility.",
-    surgical: "Tell us which surgical option you are considering and any timing or insurance questions.",
-    "non-surgical": "Tell us whether you are interested in gastric balloon treatment or comparing non-surgical options.",
-  };
-  return map[reason] ?? "Share a brief, non-urgent message so the JourneyLite team can route your request.";
-}
+const stepLabels: Record<Step, string> = {
+  service: "Service of interest",
+  contact: "Contact information",
+  measurements: "Health information",
+  insurance: "Insurance",
+  message: "Message & consent",
+};
 
 export function ContactExperience() {
+  const { openOverlay } = useConsult();
   const [data, setData] = useState<FormData>(initialData);
   const [step, setStep] = useState(0);
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [submitted, setSubmitted] = useState(false);
   const formRef = useRef<HTMLDivElement>(null);
 
-  const steps = ["reason", "subreason", "contact", "details", "review"];
   const safeStep = Math.min(step, steps.length - 1);
-  const current = steps[safeStep] ?? steps[0];
+  const current = steps[safeStep] as Step;
   const progress = Math.round(((safeStep + 1) / steps.length) * 100);
 
   function update<K extends keyof FormData>(key: K, value: FormData[K]) {
@@ -168,48 +223,72 @@ export function ContactExperience() {
     setErrors((prev) => ({ ...prev, [key]: "" }));
   }
 
-  function chooseReason(reason: string) {
-    setData((prev) => ({ ...prev, contactReason: reason, contactSubreason: "" }));
-    setErrors((prev) => ({ ...prev, contactReason: "", contactSubreason: "" }));
-  }
-
   function validateCurrent() {
-    const nextErrors: Record<string, string> = {};
-    if (current === "reason" && !data.contactReason) nextErrors.contactReason = "Choose a reason for contact.";
-    if (current === "subreason" && !data.contactSubreason) nextErrors.contactSubreason = "Choose the closest match.";
+    const e: Record<string, string> = {};
+    if (current === "service" && !data.serviceInterest) e.serviceInterest = "Choose a service or topic.";
     if (current === "contact") {
-      if (!data.firstName.trim()) nextErrors.firstName = "First name is required.";
-      if (!data.lastName.trim()) nextErrors.lastName = "Last name is required.";
-      if (!data.email.trim() && !data.phone.trim()) nextErrors.email = "Provide an email or phone number.";
-      if (data.email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(data.email)) nextErrors.email = "Enter a valid email address.";
-      if (data.phone && data.phone.replace(/\D/g, "").length < 10) nextErrors.phone = "Enter a valid phone number.";
-      if (!data.preferredContactMethod) nextErrors.preferredContactMethod = "Choose a preferred contact method.";
+      if (!data.firstName.trim()) e.firstName = "First name is required.";
+      if (!data.lastName.trim()) e.lastName = "Last name is required.";
+      if (!data.email.trim() && !data.phone.trim()) e.email = "Provide an email or phone number.";
+      if (data.email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(data.email)) e.email = "Enter a valid email address.";
+      if (data.phone && data.phone.replace(/\D/g, "").length < 10) e.phone = "Enter a valid phone number.";
+      if (!data.preferredContactMethod) e.preferredContactMethod = "Choose a preferred contact method.";
     }
-    if (current === "details") {
-      if (needsTreatment(data.contactReason) && !data.treatmentInterest) nextErrors.treatmentInterest = "Choose a service interest.";
-      if (needsLocation(data.contactReason) && !data.preferredLocation) nextErrors.preferredLocation = "Choose a preferred location.";
+    if (current === "message") {
+      if (!data.emergencyAcknowledgement) e.emergencyAcknowledgement = "Confirm this is not for emergencies.";
+      if (!data.contactConsent) e.contactConsent = "Confirm JourneyLite may contact you.";
     }
-    if (current === "review") {
-      if (!data.emergencyAcknowledgement) nextErrors.emergencyAcknowledgement = "Confirm this is not for emergencies.";
-      if (!data.contactConsent) nextErrors.contactConsent = "Confirm JourneyLite may contact you.";
-    }
-    setErrors(nextErrors);
-    return Object.keys(nextErrors).length === 0;
+    setErrors(e);
+    return Object.keys(e).length === 0;
   }
 
   function goNext() {
     if (!validateCurrent()) return;
     setStep((prev) => Math.min(prev + 1, steps.length - 1));
+    formRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
   }
 
   function goBack() {
     setStep((prev) => Math.max(prev - 1, 0));
+    formRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
   }
 
-  function submit() {
+  async function submit() {
     if (!validateCurrent()) return;
     if (data.website) return;
-    setData((prev) => ({ ...prev, submittedAt: new Date().toISOString() }));
+    const submittedAt = new Date().toISOString();
+    try {
+      await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          firstName: data.firstName,
+          lastName: data.lastName,
+          email: data.email,
+          phone: data.phone,
+          dob: data.dob,
+          heightFt: data.heightFt,
+          heightIn: data.heightIn,
+          weight: data.weight,
+          bmi: computeBMI(data.heightFt, data.heightIn, data.weight),
+          address: data.address,
+          insuranceProvider: data.insuranceProvider,
+          referralSource: data.referralSource,
+          treatmentInterest: data.serviceInterest,
+          appointmentInterest: data.serviceInterest,
+          location: data.preferredLocation,
+          bestTime: data.bestContactTime,
+          preferredContactMethod: data.preferredContactMethod,
+          message: data.message,
+          textConsent: data.textConsent,
+          sourcePage: data.sourcePage,
+          website: data.website,
+          submittedAt,
+        }),
+      });
+    } catch {
+      // non-fatal
+    }
     setSubmitted(true);
   }
 
@@ -219,127 +298,540 @@ export function ContactExperience() {
         <p className="eyebrow">Request received</p>
         <h2 className="mt-3 font-serif text-4xl leading-tight text-[#1f2c25]">Thank you for contacting JourneyLite.</h2>
         <p className="mt-4 max-w-3xl text-sm leading-6 text-[#53635b]">
-          The team can use your request details to route the next step. If this becomes urgent or you are experiencing a
-          medical emergency, call 911 immediately. For urgent post-operative concerns, call the office directly.
+          A member of our team will reach out using the contact information you provided. For urgent concerns, call us
+          directly. For emergencies, call 911.
         </p>
         <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
           <CTAButton href="tel:+18774422263">Call 877-442-2263</CTAButton>
-          <CTAButton href="/services/compare-weight-loss-options" variant="secondary">
-            Compare Options
-          </CTAButton>
-          <CTAButton href="/services/pricing-financing" variant="secondary">
-            Pricing & Financing
-          </CTAButton>
-          <CTAButton href="/#locations" variant="secondary">
-            Locations
-          </CTAButton>
+          <CTAButton href="/services/compare-weight-loss-options" variant="secondary">Compare Options</CTAButton>
+          <CTAButton href="/services/pricing-financing" variant="secondary">Pricing &amp; Financing</CTAButton>
         </div>
       </section>
     );
   }
 
   return (
-    <div className="mx-auto max-w-4xl">
-      <section className="scroll-mt-28 rounded-xl border border-[#dce4df] bg-white p-5 shadow-xl shadow-[#20372b]/8 lg:p-8" id="contact-form" ref={formRef}>
-        <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
-          <div>
-            <p className="eyebrow">Contact JourneyLite</p>
-            <h2 className="mt-3 text-3xl font-semibold text-[#1f2c25]">Tell us what you need.</h2>
-            <p className="mt-3 max-w-2xl text-sm leading-6 text-[#53635b]">
-              Choose the reason for your message and we&apos;ll route it to the right JourneyLite team member.
-            </p>
-            <p className="mt-2 text-xs font-semibold leading-5 text-[#8a3b22]">
-              For urgent medical concerns, call the office directly or seek emergency care.
-            </p>
-          </div>
-          <p className="text-sm font-semibold text-[#53635b]">
-            Step {safeStep + 1} of {steps.length}: {labelForStep(current)}
-          </p>
+    <section
+      className="scroll-mt-28 rounded-xl border border-[#dce4df] bg-white p-5 shadow-xl shadow-[#20372b]/8 lg:p-8"
+      id="contact-form"
+      ref={formRef}
+    >
+      {/* Header */}
+      <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
+        <div>
+          <p className="eyebrow">Contact JourneyLite</p>
+          <h2 className="mt-2 text-2xl font-semibold text-[#1f2c25]">
+            {step === 0 ? "What can we help you with?" : stepLabels[current]}
+          </h2>
         </div>
-        <div className="mt-6 h-2 overflow-hidden rounded-full bg-[#edf4ef]" aria-hidden="true">
-          <div className="h-full rounded-full bg-[#145c42] transition-all" style={{ width: `${progress}%` }} />
-        </div>
+        <p className="shrink-0 text-sm font-semibold text-[#66756d]">
+          Step {safeStep + 1} of {steps.length}
+        </p>
+      </div>
 
-        <div className="mt-8">
-          {current === "reason" ? (
+      {/* Progress bar */}
+      <div className="mt-5 h-1.5 overflow-hidden rounded-full bg-[#edf4ef]" aria-hidden="true">
+        <div className="h-full rounded-full bg-[#145c42] transition-all duration-300" style={{ width: `${progress}%` }} />
+      </div>
+
+      {/* Step pills */}
+      <div className="mt-3 flex gap-1.5 overflow-x-auto pb-1">
+        {steps.map((s, i) => (
+          <span
+            className={`shrink-0 rounded-full px-2.5 py-1 text-xs font-semibold ${
+              i < safeStep
+                ? "bg-[#145c42] text-white"
+                : i === safeStep
+                  ? "bg-[#edf4ef] text-[#145c42] ring-1 ring-[#145c42]"
+                  : "bg-[#f3f5f4] text-[#8fa09a]"
+            }`}
+            key={s}
+          >
+            {i < safeStep ? "✓ " : ""}{stepLabels[s]}
+          </span>
+        ))}
+      </div>
+
+      {/* Step content */}
+      <div className="mt-7">
+        {current === "service" && (
+          <ServiceStep
+            data={data}
+            error={errors.serviceInterest}
+            onOpenOverlay={() => openOverlay()}
+            update={update}
+          />
+        )}
+        {current === "contact" && <ContactStep data={data} errors={errors} update={update} />}
+        {current === "measurements" && <MeasurementsStep data={data} update={update} />}
+        {current === "insurance" && <InsuranceStep data={data} update={update} />}
+        {current === "message" && <MessageStep data={data} errors={errors} update={update} />}
+      </div>
+
+      {/* Honeypot */}
+      <input
+        aria-hidden="true"
+        autoComplete="off"
+        className="hidden"
+        name="website"
+        onChange={(e) => update("website", e.target.value)}
+        tabIndex={-1}
+        value={data.website}
+      />
+
+      {/* Navigation */}
+      <div className="mt-8 flex flex-col-reverse gap-3 sm:flex-row sm:justify-between">
+        <button
+          className="inline-flex min-h-11 items-center justify-center rounded-md border border-[#cbd7d0] bg-white px-5 py-3 text-sm font-semibold text-[#17362a] transition hover:border-[#145c42] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#145c42] disabled:cursor-not-allowed disabled:opacity-40"
+          disabled={safeStep === 0}
+          onClick={goBack}
+          type="button"
+        >
+          Back
+        </button>
+        <button
+          className="inline-flex min-h-11 items-center justify-center rounded-md bg-[#145c42] px-6 py-3 text-sm font-semibold text-white shadow-sm transition hover:bg-[#0f4d37] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#145c42] focus-visible:ring-offset-2"
+          onClick={current === "message" ? submit : goNext}
+          type="button"
+        >
+          {current === "message" ? "Send Request" : "Continue"}
+        </button>
+      </div>
+    </section>
+  );
+}
+
+/* ─── Step 1: Service of interest ───────────────────────── */
+
+function ServiceStep({
+  data,
+  error,
+  onOpenOverlay,
+  update,
+}: {
+  data: FormData;
+  error?: string;
+  onOpenOverlay: () => void;
+  update: <K extends keyof FormData>(key: K, value: FormData[K]) => void;
+}) {
+  return (
+    <div className="grid gap-6">
+      {/* Quick-book strip */}
+      <div className="flex flex-col gap-3 rounded-xl border border-[#c8ddd4] bg-[#f0f8f4] p-4 sm:flex-row sm:items-center sm:justify-between">
+        <p className="text-sm font-semibold text-[#355346]">
+          Want to book a consultation or info request directly?
+        </p>
+        <button
+          className="shrink-0 inline-flex items-center gap-1.5 rounded-md bg-[#145c42] px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-[#0f4d37]"
+          onClick={onOpenOverlay}
+          type="button"
+        >
+          <svg className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+            <path d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" strokeLinecap="round" strokeLinejoin="round" />
+          </svg>
+          Quick Book
+        </button>
+      </div>
+
+      {/* Service grid */}
+      <div>
+        <p className="text-sm font-semibold text-[#1f2c25]">Or tell us what you&apos;re interested in:</p>
+        <div className="mt-3 grid gap-2.5 sm:grid-cols-2 lg:grid-cols-3">
+          {serviceOptions.map((opt) => {
+            const selected = data.serviceInterest === opt.value;
+            return (
+              <button
+                aria-pressed={selected}
+                className={`flex items-start gap-3 rounded-xl border p-4 text-left transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#145c42] ${
+                  selected
+                    ? "border-[#145c42] bg-[#edf4ef] shadow-sm"
+                    : "border-[#dce4df] bg-white hover:border-[#9bbfb0] hover:bg-[#fafcfb]"
+                }`}
+                key={opt.value}
+                onClick={() => update("serviceInterest", opt.value)}
+                type="button"
+              >
+                <span className={`mt-0.5 shrink-0 ${selected ? "text-[#145c42]" : "text-[#66756d]"}`}>
+                  {opt.icon}
+                </span>
+                <span>
+                  <span className={`block text-sm font-semibold leading-5 ${selected ? "text-[#145c42]" : "text-[#1f2c25]"}`}>
+                    {opt.label}
+                  </span>
+                  <span className="mt-0.5 block text-xs leading-5 text-[#66756d]">{opt.desc}</span>
+                </span>
+                {selected && (
+                  <svg className="ml-auto mt-0.5 h-4 w-4 shrink-0 text-[#145c42]" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
+                    <path d="M5 13l4 4L19 7" strokeLinecap="round" strokeLinejoin="round" />
+                  </svg>
+                )}
+              </button>
+            );
+          })}
+        </div>
+        {error && <p className="mt-3 text-sm font-semibold text-[#8a3b22]">{error}</p>}
+      </div>
+    </div>
+  );
+}
+
+/* ─── Step 2: Contact information ────────────────────────── */
+
+interface GeoapifySuggestion {
+  formatted: string;
+  line1: string;
+  city: string;
+  state: string;
+}
+
+function AddressAutocomplete({ value, onChange }: { value: string; onChange: (val: string) => void }) {
+  const [suggestions, setSuggestions] = useState<GeoapifySuggestion[]>([]);
+  const [open, setOpen] = useState(false);
+  const debounceRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  function handleInput(text: string) {
+    onChange(text);
+    if (debounceRef.current) clearTimeout(debounceRef.current);
+    if (text.trim().length < 3) { setSuggestions([]); setOpen(false); return; }
+    debounceRef.current = setTimeout(async () => {
+      try {
+        const res = await fetch(
+          `https://api.geoapify.com/v1/geocode/autocomplete?text=${encodeURIComponent(text)}&filter=countrycode:us&limit=5&apiKey=${GEOAPIFY_KEY}`
+        );
+        const json = (await res.json()) as {
+          features: { properties: { formatted: string; address_line1: string; city: string; state: string } }[];
+        };
+        setSuggestions(json.features.map((f) => ({
+          formatted: f.properties.formatted,
+          line1: f.properties.address_line1 ?? f.properties.formatted,
+          city: f.properties.city ?? "",
+          state: f.properties.state ?? "",
+        })));
+        setOpen(true);
+      } catch { setSuggestions([]); }
+    }, 300);
+  }
+
+  return (
+    <div className="relative">
+      <input
+        autoComplete="off"
+        className="mt-2 w-full rounded-lg border border-[#cbd7d0] bg-white px-4 py-3 text-sm text-[#1f2c25] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#145c42]"
+        onChange={(e) => handleInput(e.target.value)}
+        onBlur={() => setTimeout(() => setOpen(false), 180)}
+        placeholder="Start typing your street address…"
+        value={value}
+      />
+      {open && suggestions.length > 0 && (
+        <ul className="absolute z-50 mt-1 w-full overflow-hidden rounded-lg border border-[#dce4df] bg-white shadow-xl">
+          {suggestions.map((s, i) => (
+            <li
+              className="cursor-pointer border-b border-[#f0f3f1] px-4 py-3 text-sm last:border-0 hover:bg-[#f0f7f3]"
+              key={i}
+              onMouseDown={() => { onChange(s.formatted); setSuggestions([]); setOpen(false); }}
+            >
+              <span className="font-medium text-[#1f2c25]">{s.line1}</span>
+              {s.city && <span className="ml-1.5 text-[#66756d]">{s.city}{s.state ? `, ${s.state}` : ""}</span>}
+            </li>
+          ))}
+        </ul>
+      )}
+    </div>
+  );
+}
+
+function ContactStep({
+  data,
+  errors,
+  update,
+}: {
+  data: FormData;
+  errors: Record<string, string>;
+  update: <K extends keyof FormData>(key: K, value: FormData[K]) => void;
+}) {
+  return (
+    <div className="grid gap-6">
+      <div className="grid gap-4 md:grid-cols-2">
+        <TextField error={errors.firstName} label="First name" onChange={(v) => update("firstName", v)} value={data.firstName} />
+        <TextField error={errors.lastName} label="Last name" onChange={(v) => update("lastName", v)} value={data.lastName} />
+        <TextField error={errors.email} label="Email" onChange={(v) => update("email", v)} type="email" value={data.email} />
+        <TextField error={errors.phone} label="Phone" onChange={(v) => update("phone", v)} type="tel" value={data.phone} />
+        <div className="md:col-span-2">
+          <label className="block">
+            <span className="text-sm font-semibold text-[#1f2c25]">
+              Address <span className="font-normal text-[#66756d]">(optional)</span>
+            </span>
+            <AddressAutocomplete value={data.address} onChange={(v) => update("address", v)} />
+          </label>
+        </div>
+      </div>
+      <div className="grid gap-6 md:grid-cols-2">
+        <RadioGroup
+          error={errors.preferredContactMethod}
+          label="Preferred contact method"
+          onChange={(v) => update("preferredContactMethod", v)}
+          options={contactMethods}
+          value={data.preferredContactMethod}
+        />
+        <RadioGroup
+          label="Best time to reach you"
+          onChange={(v) => update("bestContactTime", v)}
+          options={contactTimes}
+          value={data.bestContactTime}
+        />
+      </div>
+    </div>
+  );
+}
+
+/* ─── Step 3: Measurements + BMI ─────────────────────────── */
+
+const GAUGE_MIN = 15;
+const GAUGE_MAX = 55;
+
+function bmiPercent(n: number) {
+  return Math.min(100, Math.max(0, ((n - GAUGE_MIN) / (GAUGE_MAX - GAUGE_MIN)) * 100));
+}
+
+function bmiMeta(n: number) {
+  if (n < 18.5) return { category: "Underweight", color: "#3b82f6" };
+  if (n < 25) return { category: "Normal weight", color: "#22c55e" };
+  if (n < 30) return { category: "Overweight", color: "#f59e0b" };
+  if (n < 35) return { category: "Obese — Class I", color: "#f97316" };
+  if (n < 40) return { category: "Obese — Class II", color: "#ef4444" };
+  return { category: "Obese — Class III", color: "#b91c1c" };
+}
+
+function MeasurementsStep({
+  data,
+  update,
+}: {
+  data: FormData;
+  update: <K extends keyof FormData>(key: K, value: FormData[K]) => void;
+}) {
+  const bmi = computeBMI(data.heightFt, data.heightIn, data.weight);
+  const bmiNum = parseFloat(bmi);
+  const bmiPct = bmiNum ? bmiPercent(bmiNum) : null;
+  const { category, color } = bmiNum ? bmiMeta(bmiNum) : { category: "", color: "#145c42" };
+
+  return (
+    <div className="grid gap-7">
+      <p className="text-sm leading-6 text-[#53635b]">
+        All optional — helps us prepare for your consultation and verify insurance eligibility.
+      </p>
+
+      {/* DOB */}
+      <TextField label="Date of birth (optional)" onChange={(v) => update("dob", v)} type="date" value={data.dob} />
+
+      {/* Height */}
+      <div>
+        <span className="text-sm font-semibold text-[#1f2c25]">
+          Height <span className="font-normal text-[#66756d]">(optional)</span>
+        </span>
+        <div className="mt-2 flex gap-3">
+          <div className="relative flex-1">
+            <input
+              className="w-full rounded-lg border border-[#cbd7d0] bg-white px-4 py-3 pr-10 text-sm text-[#1f2c25] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#145c42]"
+              max="8" min="3" onChange={(e) => update("heightFt", e.target.value)}
+              placeholder="5" type="number" value={data.heightFt}
+            />
+            <span className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-sm text-[#66756d]">ft</span>
+          </div>
+          <div className="relative flex-1">
+            <input
+              className="w-full rounded-lg border border-[#cbd7d0] bg-white px-4 py-3 pr-10 text-sm text-[#1f2c25] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#145c42]"
+              max="11" min="0" onChange={(e) => update("heightIn", e.target.value)}
+              placeholder="8" type="number" value={data.heightIn}
+            />
+            <span className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-sm text-[#66756d]">in</span>
+          </div>
+        </div>
+      </div>
+
+      {/* Weight */}
+      <div>
+        <div className="flex items-baseline justify-between">
+          <span className="text-sm font-semibold text-[#1f2c25]">
+            Weight <span className="font-normal text-[#66756d]">(optional)</span>
+          </span>
+          {data.weight && (
+            <span className="text-2xl font-bold text-[#145c42]">
+              {data.weight} <span className="text-sm font-semibold text-[#66756d]">lbs</span>
+            </span>
+          )}
+        </div>
+        <input
+          className="mt-3 w-full cursor-pointer accent-[#145c42]"
+          max="600" min="80"
+          onChange={(e) => update("weight", e.target.value)}
+          step="1" type="range" value={data.weight || "200"}
+        />
+        <div className="mt-1 flex justify-between text-xs text-[#66756d]">
+          <span>80 lbs</span>
+          <span>600 lbs</span>
+        </div>
+        <div className="relative mt-3">
+          <input
+            className="w-full rounded-lg border border-[#cbd7d0] bg-white px-4 py-3 pr-14 text-sm text-[#1f2c25] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#145c42]"
+            onChange={(e) => update("weight", e.target.value)}
+            placeholder="Or type exact weight…"
+            type="number" value={data.weight}
+          />
+          <span className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-sm font-medium text-[#66756d]">lbs</span>
+        </div>
+      </div>
+
+      {/* BMI result */}
+      {bmi && bmiPct !== null && (
+        <div className="overflow-hidden rounded-2xl border border-[#dce4df] bg-white shadow-sm">
+          <div className="flex flex-wrap items-end gap-4 px-6 pt-6 pb-4">
             <div>
-              <CardChoiceGroup
-                error={errors.contactReason}
-                label="What can we help you with?"
-                onChange={chooseReason}
-                options={reasonOptions.map(([value, label]) => ({ value, label }))}
-                value={data.contactReason}
+              <p className="text-xs font-semibold uppercase tracking-widest text-[#66756d]">Your BMI</p>
+              <p className="mt-1 text-6xl font-bold leading-none tabular-nums" style={{ color }}>{bmi}</p>
+            </div>
+            <span
+              className="mb-1.5 inline-block rounded-full px-4 py-1.5 text-sm font-bold text-white shadow-sm"
+              style={{ background: color }}
+            >
+              {category}
+            </span>
+          </div>
+
+          {/* Gauge */}
+          <div className="px-6 pb-6">
+            <div
+              className="relative h-4 overflow-visible rounded-full"
+              style={{
+                background: `linear-gradient(to right,
+                  #3b82f6 0%,    #3b82f6 8.75%,
+                  #22c55e 8.75%, #22c55e 25%,
+                  #f59e0b 25%,   #f59e0b 37.5%,
+                  #f97316 37.5%, #f97316 50%,
+                  #ef4444 50%,   #ef4444 62.5%,
+                  #b91c1c 62.5%, #b91c1c 100%)`,
+              }}
+            >
+              {/* Marker */}
+              <div
+                className="absolute top-1/2 h-6 w-6 -translate-x-1/2 -translate-y-1/2 rounded-full border-2 border-white shadow-lg ring-2 transition-all duration-300"
+                style={{ left: `${bmiPct}%`, background: color }}
               />
             </div>
-          ) : null}
-
-          {current === "subreason" ? (
-            <CardChoiceGroup
-              error={errors.contactSubreason}
-              label="Which best matches your request?"
-              onChange={(value) => update("contactSubreason", value)}
-              options={(subreasonOptions[data.contactReason] ?? []).map((item) => ({ value: item, label: item }))}
-              value={data.contactSubreason}
-            />
-          ) : null}
-
-          {current === "contact" ? (
-            <ContactFields data={data} errors={errors} update={update} />
-          ) : null}
-
-          {current === "details" ? (
-            <DetailsFields data={data} errors={errors} update={update} />
-          ) : null}
-
-          {current === "review" ? (
-            <ReviewStep data={data} errors={errors} update={update} />
-          ) : null}
+            <div className="mt-3 flex justify-between text-xs font-medium text-[#66756d]">
+              <span>Underweight</span>
+              <span>Normal</span>
+              <span>Overweight</span>
+              <span>Obese</span>
+            </div>
+            <p className="mt-4 text-xs leading-5 text-[#8fa09a]">
+              BMI is used as an initial screening tool. Your care team will evaluate your complete health history.
+            </p>
+          </div>
         </div>
-
-        <input
-          aria-hidden="true"
-          autoComplete="off"
-          className="hidden"
-          name="website"
-          onChange={(event) => update("website", event.target.value)}
-          tabIndex={-1}
-          value={data.website}
-        />
-
-        <div className="mt-8 flex flex-col-reverse gap-3 sm:flex-row sm:justify-between">
-          <button
-            className="inline-flex min-h-11 items-center justify-center rounded-md border border-[#cbd7d0] bg-white px-5 py-3 text-sm font-semibold text-[#17362a] transition hover:border-[#145c42] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#145c42] disabled:cursor-not-allowed disabled:opacity-40"
-            disabled={safeStep === 0}
-            onClick={goBack}
-            type="button"
-          >
-            Back
-          </button>
-          <button
-            className="inline-flex min-h-11 items-center justify-center rounded-md bg-[#145c42] px-5 py-3 text-sm font-semibold text-white shadow-sm transition hover:bg-[#0f4d37] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#145c42] focus-visible:ring-offset-2"
-            onClick={current === "review" ? submit : goNext}
-            type="button"
-          >
-            {current === "review" ? "Send Request" : "Continue"}
-          </button>
-        </div>
-      </section>
+      )}
     </div>
   );
 }
 
-function labelForStep(step: string) {
-  const labels: Record<string, string> = {
-    reason: "Reason for contact",
-    subreason: "Request type",
-    contact: "Contact information",
-    details: "Details",
-    review: "Review and submit",
-  };
-  return labels[step] ?? step;
+/* ─── Step 4: Insurance ───────────────────────────────────── */
+
+function InsuranceStep({
+  data,
+  update,
+}: {
+  data: FormData;
+  update: <K extends keyof FormData>(key: K, value: FormData[K]) => void;
+}) {
+  const predefinedValues = insuranceOptions.slice(0, -1).map((o) => o.value);
+  const isOtherSelected = !!data.insuranceProvider && !predefinedValues.includes(data.insuranceProvider);
+  const [otherText, setOtherText] = useState(isOtherSelected ? data.insuranceProvider : "");
+  const activeCard = isOtherSelected ? "Other" : data.insuranceProvider;
+
+  function handleCardClick(value: string) {
+    if (value === "Other") {
+      update("insuranceProvider", otherText || "Other");
+    } else {
+      update("insuranceProvider", value);
+      setOtherText("");
+    }
+  }
+
+  return (
+    <div className="grid gap-6">
+      <p className="text-sm leading-6 text-[#53635b]">
+        Optional — select your insurance carrier so we can check coverage before your first visit. You can skip this and discuss at your consultation.
+      </p>
+
+      <div className="grid gap-3 sm:grid-cols-2">
+        {insuranceOptions.map((option) => {
+          const selected = activeCard === option.value;
+          return (
+            <button
+              aria-pressed={selected}
+              className={`rounded-xl border p-4 text-left transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#145c42] ${
+                selected
+                  ? "border-[#145c42] bg-[#edf4ef] shadow-sm"
+                  : "border-[#dce4df] bg-white hover:border-[#9bbfb0]"
+              }`}
+              key={option.value}
+              onClick={() => handleCardClick(option.value)}
+              type="button"
+            >
+              <div className="flex items-start justify-between gap-3">
+                <div className="flex-1">
+                  {option.logo && (
+                    <div className="mb-2 flex h-7 items-center">
+                      <Image
+                        alt={option.label}
+                        className="max-h-7 w-auto object-contain"
+                        height={28}
+                        src={option.logo}
+                        style={{ maxWidth: 110 }}
+                        unoptimized
+                        width={110}
+                      />
+                    </div>
+                  )}
+                  <span className={`text-sm font-semibold leading-5 ${selected ? "text-[#145c42]" : "text-[#1f2c25]"}`}>
+                    {option.label}
+                  </span>
+                  {option.note && (
+                    <p className="mt-1 text-xs leading-5 text-[#66756d]">{option.note}</p>
+                  )}
+                </div>
+                {selected && (
+                  <svg className="mt-0.5 h-4 w-4 shrink-0 text-[#145c42]" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
+                    <path d="M5 13l4 4L19 7" strokeLinecap="round" strokeLinejoin="round" />
+                  </svg>
+                )}
+              </div>
+            </button>
+          );
+        })}
+      </div>
+
+      {activeCard === "Other" && (
+        <label className="block">
+          <span className="text-sm font-semibold text-[#1f2c25]">Name your insurance carrier</span>
+          <input
+            autoFocus
+            className="mt-2 w-full rounded-lg border border-[#cbd7d0] bg-white px-4 py-3 text-sm text-[#1f2c25] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#145c42]"
+            onChange={(e) => {
+              setOtherText(e.target.value);
+              update("insuranceProvider", e.target.value || "Other");
+            }}
+            placeholder="Your insurance carrier"
+            value={otherText}
+          />
+        </label>
+      )}
+    </div>
+  );
 }
 
-function ContactFields({
+/* ─── Step 5: Message + consent ──────────────────────────── */
+
+function MessageStep({
   data,
   errors,
   update,
@@ -350,204 +842,61 @@ function ContactFields({
 }) {
   return (
     <div className="grid gap-6">
-      <div className="rounded-xl border border-[#dce4df] bg-[#fafbf9] p-5">
-        <h3 className="text-xl font-semibold text-[#1f2c25]">Contact information</h3>
-        <p className="mt-1 text-sm leading-6 text-[#53635b]">Share your details so the JourneyLite team can reach you.</p>
-      </div>
-      <div className="grid gap-4 md:grid-cols-2">
-        <TextField error={errors.firstName} label="First name" onChange={(value) => update("firstName", value)} value={data.firstName} />
-        <TextField error={errors.lastName} label="Last name" onChange={(value) => update("lastName", value)} value={data.lastName} />
-        <TextField error={errors.email} label="Email" onChange={(value) => update("email", value)} type="email" value={data.email} />
-        <TextField error={errors.phone} label="Phone" onChange={(value) => update("phone", value)} type="tel" value={data.phone} />
-      </div>
-      <RadioGroup
-        error={errors.preferredContactMethod}
-        label="Preferred contact method"
-        onChange={(value) => update("preferredContactMethod", value)}
-        options={contactMethods}
-        value={data.preferredContactMethod}
+      {/* Location */}
+      <SelectField
+        label="Preferred location (optional)"
+        onChange={(v) => update("preferredLocation", v)}
+        options={locations.map((l) => ({ value: l, label: l }))}
+        placeholder="No preference"
+        value={data.preferredLocation}
       />
-    </div>
-  );
-}
 
-function DetailsFields({
-  data,
-  errors,
-  update,
-}: {
-  data: FormData;
-  errors: Record<string, string>;
-  update: <K extends keyof FormData>(key: K, value: FormData[K]) => void;
-}) {
-  const showLocation = needsLocation(data.contactReason);
-  const showTreatment = needsTreatment(data.contactReason);
-  const showInsurance = needsInsurance(data.contactReason);
-  const showTimeframe = needsTimeframe(data.contactReason);
-
-  return (
-    <div className="grid gap-6">
-      <div className="rounded-xl border border-[#dce4df] bg-[#fafbf9] p-5">
-        <h3 className="text-xl font-semibold text-[#1f2c25]">A few more details</h3>
-        <p className="mt-1 text-sm leading-6 text-[#53635b]">Help us route your request to the right team member.</p>
-      </div>
-      <div className="grid gap-4">
-        {showLocation ? (
-          <SelectField
-            error={errors.preferredLocation}
-            label="Location preference"
-            onChange={(value) => update("preferredLocation", value)}
-            options={locations.map((loc) => ({ value: loc.label, label: loc.label }))}
-            placeholder="Choose a location"
-            value={data.preferredLocation}
-          />
-        ) : null}
-        {showTreatment ? (
-          <SelectField
-            error={errors.treatmentInterest}
-            label="Service interest"
-            onChange={(value) => update("treatmentInterest", value)}
-            options={treatmentOptions.map((item) => ({ value: item, label: item }))}
-            placeholder="Choose a service"
-            value={data.treatmentInterest}
-          />
-        ) : null}
-        <div className="grid gap-4 md:grid-cols-2">
-          {showInsurance ? (
-            <TextField label="Insurance provider (optional)" onChange={(value) => update("insuranceProvider", value)} value={data.insuranceProvider} />
-          ) : null}
-          {showTimeframe ? (
-            <TextField
-              label="Preferred appointment timeframe (optional)"
-              onChange={(value) => update("preferredAppointmentTimeframe", value)}
-              value={data.preferredAppointmentTimeframe}
-            />
-          ) : null}
-          <SelectField
-            label="Best time to contact (optional)"
-            onChange={(value) => update("bestContactTime", value)}
-            options={contactTimes.map((item) => ({ value: item, label: item }))}
-            placeholder="No preference"
-            value={data.bestContactTime}
-          />
-        </div>
-      </div>
+      {/* Message */}
       <label className="block">
-        <span className="text-sm font-semibold text-[#1f2c25]">Message</span>
+        <span className="text-sm font-semibold text-[#1f2c25]">
+          Comments or questions <span className="font-normal text-[#66756d]">(optional)</span>
+        </span>
         <textarea
-          className="mt-2 min-h-32 w-full rounded-lg border border-[#cbd7d0] bg-white px-4 py-3 text-sm leading-6 text-[#1f2c25] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#145c42]"
-          onChange={(event) => update("message", event.target.value)}
-          placeholder={placeholder(data.contactReason)}
+          className="mt-2 min-h-36 w-full rounded-lg border border-[#cbd7d0] bg-white px-4 py-3 text-sm leading-6 text-[#1f2c25] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#145c42]"
+          onChange={(e) => update("message", e.target.value)}
+          placeholder="Share any questions, goals, or context that would help us prepare for your consultation or route your request to the right team member…"
           value={data.message}
         />
       </label>
+
+      {/* Referral */}
       <TextField
         label="How did you hear about us? (optional)"
-        onChange={(value) => update("referralSource", value)}
+        onChange={(v) => update("referralSource", v)}
         value={data.referralSource}
       />
-    </div>
-  );
-}
 
-function ReviewStep({
-  data,
-  errors,
-  update,
-}: {
-  data: FormData;
-  errors: Record<string, string>;
-  update: <K extends keyof FormData>(key: K, value: FormData[K]) => void;
-}) {
-  const rows = [
-    ["Reason for contact", labelForReason(data.contactReason)],
-    ["Request type", data.contactSubreason],
-    ["Service interest", data.treatmentInterest],
-    ["Preferred location", data.preferredLocation],
-    ["Name", `${data.firstName} ${data.lastName}`],
-    ["Email", data.email],
-    ["Phone", data.phone],
-    ["Preferred contact method", data.preferredContactMethod],
-    ["Best contact time", data.bestContactTime],
-    ["Insurance provider", data.insuranceProvider],
-    ["Message", data.message],
-  ].filter(([, value]) => value && value !== " ");
-
-  return (
-    <div>
-      <h3 className="text-2xl font-semibold text-[#1f2c25]">Review and submit</h3>
-      <dl className="mt-5 grid gap-3">
-        {rows.map(([label, value]) => (
-          <div className="rounded-lg border border-[#dce4df] bg-[#fafbf9] p-4" key={label}>
-            <dt className="text-xs font-semibold uppercase tracking-[0.08em] text-[#66756d]">{label}</dt>
-            <dd className="mt-1 text-sm leading-6 text-[#1f2c25]">{value}</dd>
-          </div>
-        ))}
-      </dl>
-      <div className="mt-6 grid gap-3">
+      {/* Consent */}
+      <div className="grid gap-3 border-t border-[#e8eeea] pt-5">
+        <p className="text-sm font-semibold text-[#1f2c25]">Before you submit</p>
         <Checkbox
           checked={data.emergencyAcknowledgement}
           error={errors.emergencyAcknowledgement}
-          label="I understand this form is not for emergencies."
-          onChange={(value) => update("emergencyAcknowledgement", value)}
+          label="I understand this form is not for medical emergencies. For emergencies I will call 911."
+          onChange={(v) => update("emergencyAcknowledgement", v)}
         />
         <Checkbox
           checked={data.contactConsent}
           error={errors.contactConsent}
           label="I understand JourneyLite will contact me using the information I provided."
-          onChange={(value) => update("contactConsent", value)}
+          onChange={(v) => update("contactConsent", v)}
         />
         <Checkbox
           checked={data.textConsent}
-          label="Optional: I agree to receive text messages if legally approved and appropriate for my request."
-          onChange={(value) => update("textConsent", value)}
+          label="Optional: I agree to receive text messages from JourneyLite if legally approved."
+          onChange={(v) => update("textConsent", v)}
         />
       </div>
     </div>
   );
 }
 
-function labelForReason(reason: string) {
-  return reasonOptions.find(([value]) => value === reason)?.[1] ?? reason;
-}
-
-function CardChoiceGroup({
-  label,
-  options,
-  value,
-  onChange,
-  error,
-}: {
-  label: string;
-  options: { value: string; label: string }[];
-  value: string;
-  onChange: (value: string) => void;
-  error?: string;
-}) {
-  return (
-    <fieldset>
-      <legend className="text-lg font-semibold text-[#1f2c25]">{label}</legend>
-      <div className="mt-4 grid gap-2 sm:grid-cols-2 lg:grid-cols-4">
-        {options.map((option) => (
-          <button
-            aria-pressed={value === option.value}
-            className={`min-h-12 rounded-lg border px-3 py-2.5 text-left text-sm font-semibold transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#145c42] ${
-              value === option.value
-                ? "border-[#145c42] bg-[#edf4ef] text-[#145c42] shadow-sm"
-                : "border-[#dce4df] bg-white text-[#1f2c25] hover:border-[#145c42]"
-            }`}
-            key={option.value}
-            onClick={() => onChange(option.value)}
-            type="button"
-          >
-            {option.label}
-          </button>
-        ))}
-      </div>
-      {error ? <p className="mt-3 text-sm font-semibold text-[#8a3b22]">{error}</p> : null}
-    </fieldset>
-  );
-}
+/* ─── UI primitives ──────────────────────────────────────── */
 
 function SelectField({
   label,
@@ -569,17 +918,15 @@ function SelectField({
       <span className="text-sm font-semibold text-[#1f2c25]">{label}</span>
       <select
         className="mt-2 w-full rounded-lg border border-[#cbd7d0] bg-white px-4 py-3 text-sm text-[#1f2c25] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#145c42]"
-        onChange={(event) => onChange(event.target.value)}
+        onChange={(e) => onChange(e.target.value)}
         value={value}
       >
         <option value="">{placeholder}</option>
         {options.map((option) => (
-          <option key={option.value} value={option.value}>
-            {option.label}
-          </option>
+          <option key={option.value} value={option.value}>{option.label}</option>
         ))}
       </select>
-      {error ? <span className="mt-2 block text-sm font-semibold text-[#8a3b22]">{error}</span> : null}
+      {error && <span className="mt-2 block text-sm font-semibold text-[#8a3b22]">{error}</span>}
     </label>
   );
 }
@@ -598,27 +945,22 @@ function RadioGroup({
   error?: string;
 }) {
   return (
-    <fieldset className="mt-6">
+    <fieldset>
       <legend className="text-sm font-semibold text-[#1f2c25]">{label}</legend>
-      <div className="mt-3 flex flex-col gap-2 sm:flex-row sm:flex-wrap">
+      <div className="mt-3 flex flex-col gap-2">
         {options.map((option) => (
           <label
-            className={`inline-flex min-h-10 items-center rounded-md border px-3 py-2 text-sm font-semibold ${
+            className={`inline-flex min-h-10 cursor-pointer items-center rounded-md border px-3 py-2 text-sm font-semibold ${
               value === option ? "border-[#145c42] bg-[#edf4ef] text-[#145c42]" : "border-[#dce4df] bg-white text-[#53635b]"
             }`}
             key={option}
           >
-            <input
-              checked={value === option}
-              className="mr-2 accent-[#145c42]"
-              onChange={() => onChange(option)}
-              type="radio"
-            />
+            <input checked={value === option} className="mr-2 accent-[#145c42]" onChange={() => onChange(option)} type="radio" />
             {option}
           </label>
         ))}
       </div>
-      {error ? <p className="mt-2 text-sm font-semibold text-[#8a3b22]">{error}</p> : null}
+      {error && <p className="mt-2 text-sm font-semibold text-[#8a3b22]">{error}</p>}
     </fieldset>
   );
 }
@@ -641,11 +983,11 @@ function TextField({
       <span className="text-sm font-semibold text-[#1f2c25]">{label}</span>
       <input
         className="mt-2 w-full rounded-lg border border-[#cbd7d0] bg-white px-4 py-3 text-sm text-[#1f2c25] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#145c42]"
-        onChange={(event) => onChange(event.target.value)}
+        onChange={(e) => onChange(e.target.value)}
         type={type}
         value={value}
       />
-      {error ? <span className="mt-2 block text-sm font-semibold text-[#8a3b22]">{error}</span> : null}
+      {error && <span className="mt-2 block text-sm font-semibold text-[#8a3b22]">{error}</span>}
     </label>
   );
 }
@@ -662,17 +1004,12 @@ function Checkbox({
   error?: string;
 }) {
   return (
-    <label className="rounded-lg border border-[#dce4df] bg-white p-4 text-sm leading-6 text-[#53635b]">
+    <label className="cursor-pointer rounded-lg border border-[#dce4df] bg-white p-4 text-sm leading-6 text-[#53635b]">
       <span className="flex gap-3">
-        <input
-          checked={checked}
-          className="mt-1 h-4 w-4 accent-[#145c42]"
-          onChange={(event) => onChange(event.target.checked)}
-          type="checkbox"
-        />
+        <input checked={checked} className="mt-1 h-4 w-4 shrink-0 accent-[#145c42]" onChange={(e) => onChange(e.target.checked)} type="checkbox" />
         <span>{label}</span>
       </span>
-      {error ? <span className="mt-2 block font-semibold text-[#8a3b22]">{error}</span> : null}
+      {error && <span className="mt-2 block font-semibold text-[#8a3b22]">{error}</span>}
     </label>
   );
 }

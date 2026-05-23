@@ -14,13 +14,21 @@ export interface LeadSubmission {
   name: string;
   email: string;
   phone: string;
+  dob: string;
+  heightFt: string;
+  heightIn: string;
+  weight: string;
+  bmi: string;
+  address: string;
+  insuranceProvider: string;
+  referralSource: string;
+  proceduresOfInterest: string[];
   treatmentInterest: string;
   location: string;
   bestTime: string;
   sourcePage: string;
   submittedAt: string;
   recaptchaScore: number | null;
-  // structured fields
   contactReason?: string;
   appointmentInterest?: string;
   revisionProcedures?: string[];
@@ -32,200 +40,417 @@ export interface LeadSubmission {
   textConsent?: boolean;
 }
 
-const BASE_URL = "https://journeylite.com";
+const BASE = "https://journeylite.com";
 
-const serviceLinks: Record<string, { label: string; href: string }> = {
-  "Surgical Weight Loss": { label: "Surgical Weight Loss Info", href: `${BASE_URL}/services` },
-  "Revision of Prior Weight Loss Surgery": { label: "Revision Surgery Info", href: `${BASE_URL}/services` },
-  "Gastric Balloon": { label: "Gastric Balloon Info", href: `${BASE_URL}/gastric-balloon` },
-  "Medical Weight Loss (Adipex, WeGovy, etc)": { label: "Medications Info", href: `${BASE_URL}/medications` },
-  "Combination Surgical & Medical": { label: "Compare Options", href: `${BASE_URL}/services` },
-  "General Surgery": { label: "Our Team", href: `${BASE_URL}/our-team` },
-  "Gastric Sleeve": { label: "Gastric Sleeve Info", href: `${BASE_URL}/services` },
-  "Gastric Bypass": { label: "Gastric Bypass Info", href: `${BASE_URL}/services` },
-  "SADI Surgery": { label: "SADI Surgery Info", href: `${BASE_URL}/services` },
-  "Injectable GLP-1's": { label: "Medications Info", href: `${BASE_URL}/medications` },
-  "Oral GLP-1's": { label: "Medications Info", href: `${BASE_URL}/medications` },
-  "Pricing/Self-Pay Options": { label: "Pricing & Financing", href: `${BASE_URL}/services/pricing-financing` },
-  "Insurance Coverage": { label: "Insurance Info", href: `${BASE_URL}/contact` },
-};
+/* ── Shared HTML helpers ────────────────────────────────── */
 
-function colors(type: "appointment" | "information" | "cancel" | "general") {
-  if (type === "appointment") return { header: "#0f3e2e", accent: "#145c42", badge: "#edf6f0", badgeText: "#143d2c", label: "Appointment Request" };
-  if (type === "information") return { header: "#1e3a5f", accent: "#1d4ed8", badge: "#eff6ff", badgeText: "#1e3a5f", label: "Information Request" };
-  if (type === "cancel") return { header: "#7f1d1d", accent: "#dc2626", badge: "#fff5f5", badgeText: "#7f1d1d", label: "Cancel Appointment" };
-  return { header: "#374151", accent: "#4b5563", badge: "#f9fafb", badgeText: "#374151", label: "General Inquiry" };
-}
-
-function row(label: string, value: string | undefined | null) {
-  if (!value) return "";
-  return `
-    <tr>
-      <td style="padding:8px 12px;font-size:12px;font-weight:600;color:#6b7280;text-transform:uppercase;letter-spacing:0.06em;white-space:nowrap;vertical-align:top;width:160px;">${label}</td>
-      <td style="padding:8px 12px;font-size:14px;color:#111827;vertical-align:top;">${value.replace(/\n/g, "<br>")}</td>
-    </tr>`;
-}
-
-function button(label: string, href: string, bg = "#145c42") {
-  return `<a href="${href}" style="display:inline-block;background:${bg};color:#ffffff;font-size:13px;font-weight:600;text-decoration:none;padding:10px 20px;border-radius:8px;margin:4px 6px 4px 0;">${label}</a>`;
-}
-
-function buildEmail(data: LeadSubmission): { subject: string; html: string } {
-  const isAppointment = data.contactReason === "Appointment Request";
-  const isInformation = data.contactReason === "Information Request";
-  const isCancel = data.appointmentInterest === "Cancel Appointment";
-
-  const type = isCancel ? "cancel" : isAppointment ? "appointment" : isInformation ? "information" : "general";
-  const c = colors(type);
-
-  const submittedAt = data.submittedAt
-    ? new Date(data.submittedAt).toLocaleString("en-US", { dateStyle: "full", timeStyle: "short", timeZone: "America/New_York" })
-    : "Unknown";
-
-  // Subject line
-  const interestLabel = data.appointmentInterest || data.informationTopics?.join(", ") || data.treatmentInterest || "General";
-  const locationLabel = data.location ? ` — ${data.location}` : "";
-  const subject = `[${c.label}] ${data.name}${locationLabel} — ${interestLabel}`;
-
-  // Relevant page links
-  const linkEntries: string[] = [];
-  if (data.appointmentInterest && serviceLinks[data.appointmentInterest]) {
-    const sl = serviceLinks[data.appointmentInterest];
-    linkEntries.push(button(sl.label, sl.href, c.accent));
-  }
-  if (data.informationTopics?.length) {
-    for (const topic of data.informationTopics.slice(0, 3)) {
-      const sl = serviceLinks[topic];
-      if (sl) linkEntries.push(button(sl.label, sl.href, c.accent));
-    }
-  }
-  linkEntries.push(button("View Contact Page", `${BASE_URL}/contact`, "#374151"));
-  linkEntries.push(button("Our Team", `${BASE_URL}/our-team`, "#374151"));
-
-  const html = `<!DOCTYPE html>
+function wrapper(inner: string) {
+  return `<!DOCTYPE html>
 <html lang="en">
-<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>${c.label}</title></head>
-<body style="margin:0;padding:0;background:#f3f4f6;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;">
-<table width="100%" cellpadding="0" cellspacing="0" style="background:#f3f4f6;padding:32px 16px;">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+<body style="margin:0;padding:0;background:#f3f6f1;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;">
+<table width="100%" cellpadding="0" cellspacing="0" style="background:#f3f6f1;padding:32px 16px;">
 <tr><td align="center">
 <table width="600" cellpadding="0" cellspacing="0" style="max-width:600px;width:100%;">
-
-  <!-- Header -->
-  <tr>
-    <td style="background:${c.header};border-radius:12px 12px 0 0;padding:28px 32px;">
-      <table width="100%" cellpadding="0" cellspacing="0">
-        <tr>
-          <td>
-            <p style="margin:0;font-size:11px;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:rgba(255,255,255,0.6);">JourneyLite Physicians</p>
-            <h1 style="margin:6px 0 0;font-size:22px;font-weight:700;color:#ffffff;">${c.label}</h1>
-          </td>
-          <td align="right" valign="top">
-            <span style="display:inline-block;background:rgba(255,255,255,0.15);border-radius:20px;padding:4px 14px;font-size:11px;font-weight:700;color:#ffffff;white-space:nowrap;">${data.sourcePage === "consult-overlay" ? "Overlay Form" : "Contact Page"}</span>
-          </td>
-        </tr>
-      </table>
-      <p style="margin:14px 0 0;font-size:13px;color:rgba(255,255,255,0.75);">Received ${submittedAt}</p>
-    </td>
-  </tr>
-
-  <!-- Patient contact card -->
-  <tr>
-    <td style="background:#ffffff;padding:0 32px;">
-      <table width="100%" cellpadding="0" cellspacing="0" style="margin-top:24px;background:#f8fbf9;border:1px solid #dce7e0;border-radius:10px;overflow:hidden;">
-        <tr>
-          <td style="background:${c.accent};padding:10px 16px;">
-            <p style="margin:0;font-size:11px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:rgba(255,255,255,0.85);">Patient Contact</p>
-          </td>
-        </tr>
-        <tr>
-          <td style="padding:16px;">
-            <table width="100%" cellpadding="0" cellspacing="0">
-              <tr>
-                <td style="padding-bottom:8px;">
-                  <p style="margin:0;font-size:20px;font-weight:700;color:#111827;">${data.name}</p>
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <table cellpadding="0" cellspacing="0">
-                    ${data.email ? `<tr><td style="padding:3px 0;"><a href="mailto:${data.email}" style="font-size:14px;color:${c.accent};text-decoration:none;font-weight:600;">✉ ${data.email}</a></td></tr>` : ""}
-                    ${data.phone ? `<tr><td style="padding:3px 0;"><a href="tel:${data.phone.replace(/\D/g, "")}" style="font-size:14px;color:${c.accent};text-decoration:none;font-weight:600;">📞 ${data.phone}</a></td></tr>` : ""}
-                    ${data.bestTime ? `<tr><td style="padding:3px 0;font-size:13px;color:#6b7280;">Best time: ${data.bestTime}</td></tr>` : ""}
-                    ${data.preferredContactMethod ? `<tr><td style="padding:3px 0;font-size:13px;color:#6b7280;">Prefers: ${data.preferredContactMethod}</td></tr>` : ""}
-                  </table>
-                </td>
-              </tr>
-            </table>
-          </td>
-        </tr>
-      </table>
-    </td>
-  </tr>
-
-  <!-- Request details -->
-  <tr>
-    <td style="background:#ffffff;padding:20px 32px 0;">
-      <p style="margin:0 0 10px;font-size:11px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:#9ca3af;">Request Details</p>
-      <table width="100%" cellpadding="0" cellspacing="0" style="border:1px solid #e5e7eb;border-radius:8px;overflow:hidden;">
-        <tbody>
-          ${row("Request type", c.label)}
-          ${row("Appointment interest", data.appointmentInterest)}
-          ${row("Prior procedures", data.revisionProcedures?.join(", "))}
-          ${row("Info topics", data.informationTopics?.join(", "))}
-          ${row("Research stage", data.researchStage)}
-          ${row("Location", data.location)}
-          ${row("Treatment interest", data.treatmentInterest && !data.appointmentInterest && !data.informationTopics?.length ? data.treatmentInterest : null)}
-          ${row("Additional details", data.otherDetails)}
-          ${row("Message", data.message)}
-          ${row("SMS consent", typeof data.textConsent === "boolean" ? (data.textConsent ? "Yes — may text" : "No") : null)}
-          ${row("reCAPTCHA score", data.recaptchaScore !== null ? String(data.recaptchaScore) : null)}
-        </tbody>
-      </table>
-    </td>
-  </tr>
-
-  <!-- Quick links -->
-  <tr>
-    <td style="background:#ffffff;padding:20px 32px 28px;">
-      <p style="margin:0 0 10px;font-size:11px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:#9ca3af;">Relevant Pages</p>
-      <div>${linkEntries.join("")}</div>
-    </td>
-  </tr>
-
-  <!-- Footer -->
-  <tr>
-    <td style="background:#f9fafb;border-top:1px solid #e5e7eb;border-radius:0 0 12px 12px;padding:20px 32px;">
-      <p style="margin:0;font-size:12px;color:#9ca3af;">This email was generated automatically by the JourneyLite website. Do not reply to this email — contact the patient directly using the details above.</p>
-      <p style="margin:8px 0 0;font-size:12px;color:#d1d5db;">JourneyLite Physicians &bull; 10475 Reading Road, Cincinnati, OH 45241 &bull; 877-442-2263</p>
-    </td>
-  </tr>
-
+${inner}
 </table>
 </td></tr>
 </table>
 </body>
 </html>`;
+}
+
+function header(title: string, subtitle: string, tag: string) {
+  return `
+  <tr>
+    <td style="background:#0f3e2e;border-radius:12px 12px 0 0;padding:32px;">
+      <p style="margin:0;font-size:11px;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:#9ed4b0;">${tag}</p>
+      <h1 style="margin:8px 0 0;font-size:24px;font-weight:700;color:#ffffff;line-height:1.3;">${title}</h1>
+      <p style="margin:10px 0 0;font-size:13px;color:#b9d2c5;">${subtitle}</p>
+    </td>
+  </tr>`;
+}
+
+function footer() {
+  return `
+  <tr>
+    <td style="background:#1a3d2b;border-radius:0 0 12px 12px;padding:20px 32px;">
+      <p style="margin:0;font-size:12px;color:#9ed4b0;">JourneyLite Physicians</p>
+      <p style="margin:4px 0 0;font-size:12px;color:#6b9e7e;">10475 Reading Road, Cincinnati, OH 45241 &middot; 877-442-2263</p>
+    </td>
+  </tr>`;
+}
+
+function greenButton(label: string, href: string) {
+  return `<a href="${href}" style="display:inline-block;background:#145c42;color:#ffffff;font-size:13px;font-weight:600;text-decoration:none;padding:11px 22px;border-radius:8px;margin:4px 6px 4px 0;">${label}</a>`;
+}
+
+function outlineButton(label: string, href: string) {
+  return `<a href="${href}" style="display:inline-block;background:#ffffff;color:#145c42;font-size:13px;font-weight:600;text-decoration:none;padding:10px 22px;border-radius:8px;border:1.5px solid #145c42;margin:4px 6px 4px 0;">${label}</a>`;
+}
+
+function infoRow(label: string, value: string | undefined | null) {
+  if (!value) return "";
+  return `
+  <tr style="border-bottom:1px solid #dce4df;">
+    <td style="padding:10px 14px;font-size:11px;font-weight:700;color:#66756d;text-transform:uppercase;letter-spacing:0.07em;white-space:nowrap;vertical-align:top;width:150px;background:#f8fbf9;">${label}</td>
+    <td style="padding:10px 14px;font-size:14px;color:#1f2c25;vertical-align:top;background:#ffffff;">${value.replace(/\n/g, "<br>")}</td>
+  </tr>`;
+}
+
+function sectionLabel(text: string) {
+  return `
+  <tr>
+    <td style="background:#ffffff;padding:24px 32px 8px;">
+      <p style="margin:0;font-size:11px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:#66756d;">${text}</p>
+    </td>
+  </tr>`;
+}
+
+function tableBlock(rows: string) {
+  return `
+  <tr>
+    <td style="background:#ffffff;padding:0 32px;">
+      <table width="100%" cellpadding="0" cellspacing="0" style="border:1px solid #dce4df;border-radius:10px;overflow:hidden;">
+        <tbody>${rows}</tbody>
+      </table>
+    </td>
+  </tr>`;
+}
+
+function spacer(h = 24) {
+  return `<tr><td style="background:#ffffff;height:${h}px;"></td></tr>`;
+}
+
+/* ── Staff notification email ───────────────────────────── */
+
+function buildStaffEmail(data: LeadSubmission): { subject: string; html: string } {
+  const isCancel = data.appointmentInterest === "Cancel Appointment";
+  const isInfo = data.contactReason === "Information Request";
+
+  const typeLabel = isCancel ? "Cancel Request"
+    : isInfo ? "Information Request"
+    : "Appointment Request";
+
+  const interestLabel = data.appointmentInterest || data.informationTopics?.join(", ") || data.treatmentInterest || "General";
+  const locationPart = data.location ? ` — ${data.location}` : "";
+  const subject = `[${typeLabel}] ${data.name}${locationPart} — ${interestLabel}`;
+
+  const submittedAt = data.submittedAt
+    ? new Date(data.submittedAt).toLocaleString("en-US", { dateStyle: "full", timeStyle: "short", timeZone: "America/New_York" })
+    : "";
+
+  const links: string[] = [];
+  if (data.appointmentInterest === "Gastric Balloon") links.push(greenButton("Gastric Balloon Info", `${BASE}/gastric-balloon`));
+  else if (data.appointmentInterest?.includes("Medical Weight Loss") || data.appointmentInterest?.includes("GLP")) links.push(greenButton("Medications Info", `${BASE}/medications`));
+  else if (data.appointmentInterest) links.push(greenButton("Services", `${BASE}/services`));
+  if (data.informationTopics?.some((t) => t.includes("GLP") || t.includes("oral"))) links.push(greenButton("Medications Info", `${BASE}/medications`));
+  if (data.informationTopics?.some((t) => t.includes("Balloon"))) links.push(greenButton("Gastric Balloon Info", `${BASE}/gastric-balloon`));
+  if (data.informationTopics?.some((t) => t.includes("Pricing"))) links.push(greenButton("Pricing Info", `${BASE}/services/pricing-financing`));
+  links.push(outlineButton("Our Team", `${BASE}/our-team`));
+  links.push(outlineButton("Contact Page", `${BASE}/contact`));
+
+  const html = wrapper(`
+  ${header(typeLabel, `Received ${submittedAt}`, "JourneyLite — New Lead")}
+
+  ${sectionLabel("Submission")}
+  ${tableBlock(`
+    ${infoRow("Program", interestLabel)}
+    ${infoRow("Name", data.name)}
+    ${infoRow("DOB", data.dob)}
+    ${infoRow("Email", data.email ? `<a href="mailto:${data.email}" style="color:#145c42;font-weight:600;text-decoration:none;">${data.email}</a>` : null)}
+    ${infoRow("SMS consent", typeof data.textConsent === "boolean" ? (data.textConsent ? "Yes" : "No") : null)}
+    ${infoRow("Phone", data.phone ? `<a href="tel:${data.phone.replace(/\D/g, "")}" style="color:#145c42;font-weight:600;text-decoration:none;">${data.phone}</a>` : null)}
+    ${infoRow("Address", data.address)}
+    ${infoRow("Height (ft)", data.heightFt)}
+    ${infoRow("Inches", data.heightIn)}
+    ${infoRow("Weight (lbs)", data.weight)}
+    ${infoRow("BMI", data.bmi)}
+    ${infoRow("Preferred location", data.location)}
+    ${infoRow("Procedures of interest", data.proceduresOfInterest?.length ? data.proceduresOfInterest.join(", ") : null)}
+    ${infoRow("Prior procedures", data.revisionProcedures?.join(", "))}
+    ${infoRow("Info topics", data.informationTopics?.join(", "))}
+    ${infoRow("Insurance / Self Pay", data.insuranceProvider)}
+    ${infoRow("How did you hear about us", data.referralSource)}
+    ${infoRow("Best time to reach", data.bestTime)}
+    ${infoRow("Preferred contact method", data.preferredContactMethod)}
+    ${infoRow("Research stage", data.researchStage)}
+    ${infoRow("Other details", data.otherDetails)}
+    ${infoRow("Message", data.message)}
+    ${infoRow("Source page", data.sourcePage)}
+    ${infoRow("reCAPTCHA score", data.recaptchaScore !== null ? String(data.recaptchaScore) : null)}
+  `)}
+
+  ${sectionLabel("Quick links")}
+  <tr>
+    <td style="background:#ffffff;padding:8px 32px 32px;">
+      ${links.join("")}
+    </td>
+  </tr>
+
+  <tr>
+    <td style="background:#ffffff;padding:0 32px 24px;">
+      <p style="margin:0;font-size:12px;color:#66756d;border-top:1px solid #dce4df;padding-top:16px;">
+        Do not reply to this email. Contact the patient directly using the details above.
+      </p>
+    </td>
+  </tr>
+
+  ${footer()}
+  `);
 
   return { subject, html };
 }
 
+/* ── Patient confirmation email ─────────────────────────── */
+
+interface ProgramContent {
+  heading: string;
+  intro: string;
+  nextSteps: string[];
+  link: { label: string; href: string };
+  closingNote?: string;
+}
+
+function getProgramContent(data: LeadSubmission): ProgramContent {
+  const interest = data.appointmentInterest || "";
+  const isInfo = data.contactReason === "Information Request";
+  const topics = data.informationTopics ?? [];
+
+  if (interest === "Cancel Appointment") {
+    return {
+      heading: "Appointment Change Request Received",
+      intro: "We received your request to cancel or change your appointment. A member of the JourneyLite team will be in touch shortly to assist you.",
+      nextSteps: [
+        "A patient service representative will review your request.",
+        "We will contact you to confirm the change or cancellation.",
+        "If your matter is time-sensitive, please call us directly at 877-442-2263.",
+      ],
+      link: { label: "Contact JourneyLite", href: `${BASE}/contact` },
+    };
+  }
+
+  if (interest === "Surgical Weight Loss") {
+    return {
+      heading: "Surgical Weight Loss Consultation Request",
+      intro: "Thank you for requesting a surgical weight loss consultation with JourneyLite. Our team performs thousands of weight loss procedures and will work with you to find the right path forward.",
+      nextSteps: [
+        "A patient service representative will contact you to discuss your goals and timeline.",
+        "We will review your insurance coverage or self-pay options before scheduling.",
+        "Your initial visit will include a consultation with Dr. Curry or Dr. Augusta and a dietitian evaluation.",
+      ],
+      link: { label: "Learn About Surgical Options", href: `${BASE}/services` },
+      closingNote: "Surgical weight loss options at JourneyLite include gastric sleeve, gastric bypass, SADI surgery, and more. We will help you understand which procedure fits your health history and goals.",
+    };
+  }
+
+  if (interest === "Revision of Prior Weight Loss Surgery") {
+    return {
+      heading: "Revision Surgery Consultation Request",
+      intro: "Thank you for reaching out about revision of your prior weight loss surgery. JourneyLite has extensive experience evaluating patients who need a new approach after a previous procedure.",
+      nextSteps: [
+        "A patient service representative will contact you to gather more information about your prior procedure and current goals.",
+        "Dr. Curry or Dr. Augusta will review your history and discuss available options.",
+        "We will review insurance or self-pay options before scheduling your consultation.",
+      ],
+      link: { label: "Our Team", href: `${BASE}/our-team` },
+      closingNote: "Revision cases require careful evaluation. Not all revisions are the same — your team will review your specific situation before making any recommendations.",
+    };
+  }
+
+  if (interest === "Gastric Balloon") {
+    return {
+      heading: "Gastric Balloon Consultation Request",
+      intro: "Thank you for your interest in the gastric balloon program at JourneyLite. The gastric balloon is a non-surgical, temporary weight loss option that is placed and removed without incisions.",
+      nextSteps: [
+        "A patient service representative will contact you to discuss balloon options and next steps.",
+        "Your evaluation will include a consultation with Dr. Curry or Dr. Augusta and a dietitian visit.",
+        "We will review self-pay options and any applicable insurance coverage.",
+      ],
+      link: { label: "Learn About Gastric Balloon", href: `${BASE}/gastric-balloon` },
+    };
+  }
+
+  if (interest === "Medical Weight Loss (Adipex, WeGovy, etc)") {
+    return {
+      heading: "Medical Weight Loss Request",
+      intro: "Thank you for your interest in medication-supported weight loss at JourneyLite. Our physicians prescribe both injectable GLP-1 medications and oral options, with ongoing monitoring and dietitian support.",
+      nextSteps: [
+        "A patient service representative will contact you to discuss medication options and eligibility.",
+        "Your evaluation will include a consultation with a JourneyLite physician or nurse practitioner.",
+        "We will review insurance coverage and self-pay pricing for your medication of interest.",
+      ],
+      link: { label: "Learn About Medications", href: `${BASE}/medications` },
+      closingNote: "Medication programs at JourneyLite include injectable GLP-1s such as Wegovy and Zepbound, as well as oral options like Contrave and Qsymia. Your provider will help identify the right fit.",
+    };
+  }
+
+  if (interest === "Combination Surgical & Medical") {
+    return {
+      heading: "Combination Surgical and Medical Request",
+      intro: "Thank you for reaching out about a combined surgical and medical weight loss approach. JourneyLite physicians can discuss both surgical and medication-supported options at the same visit.",
+      nextSteps: [
+        "A patient service representative will contact you to review your goals and preferred approach.",
+        "Your evaluation will include a consultation with Dr. Curry or Dr. Augusta and a dietitian visit.",
+        "We will review your insurance coverage and self-pay options before scheduling.",
+      ],
+      link: { label: "Compare Options", href: `${BASE}/services` },
+    };
+  }
+
+  if (interest === "General Surgery") {
+    return {
+      heading: "General Surgery Request",
+      intro: "Thank you for reaching out about general surgery at JourneyLite. A member of our team will contact you to discuss your needs and route your request appropriately.",
+      nextSteps: [
+        "A JourneyLite team member will review your request and reach out to discuss next steps.",
+        "If you have specific concerns or a referral from another provider, please have that information ready.",
+      ],
+      link: { label: "Our Team", href: `${BASE}/our-team` },
+    };
+  }
+
+  if (isInfo) {
+    const topicLabel = topics.length > 0
+      ? topics.slice(0, 3).join(", ") + (topics.length > 3 ? ", and more" : "")
+      : "your topics of interest";
+
+    const primaryLink = topics.includes("Gastric Balloon")
+      ? { label: "Gastric Balloon Info", href: `${BASE}/gastric-balloon` }
+      : topics.some((t) => t.includes("GLP") || t.includes("oral") || t.includes("Adipex"))
+        ? { label: "Medications Info", href: `${BASE}/medications` }
+        : topics.includes("Pricing/Self-Pay Options")
+          ? { label: "Pricing and Financing", href: `${BASE}/services/pricing-financing` }
+          : { label: "Compare Weight Loss Options", href: `${BASE}/services` };
+
+    return {
+      heading: "Information Request Received",
+      intro: `Thank you for reaching out to JourneyLite. We received your request for information about ${topicLabel}. A member of our team will follow up with you directly.`,
+      nextSteps: [
+        "A JourneyLite team member will review your request and reach out with relevant information.",
+        "If you are ready to schedule a consultation at any time, you can call us directly at 877-442-2263.",
+        "There is no obligation — this is just information to help you decide on your next step.",
+      ],
+      link: primaryLink,
+      closingNote: "JourneyLite offers surgical weight loss, gastric balloon, and medication-supported programs. We are happy to help you compare options at whatever pace feels right for you.",
+    };
+  }
+
+  return {
+    heading: "Request Received",
+    intro: "Thank you for contacting JourneyLite. A member of our team will review your request and reach out shortly.",
+    nextSteps: [
+      "A patient service representative will contact you using the information you provided.",
+      "For urgent concerns, please call us directly at 877-442-2263.",
+    ],
+    link: { label: "Contact JourneyLite", href: `${BASE}/contact` },
+  };
+}
+
+function buildPatientEmail(data: LeadSubmission): { subject: string; html: string } {
+  const firstName = data.name.split(" ")[0] ?? data.name;
+  const content = getProgramContent(data);
+  const subject = `JourneyLite — ${content.heading}`;
+
+  const html = wrapper(`
+  ${header(content.heading, "JourneyLite Physicians", "JourneyLite")}
+
+  <tr>
+    <td style="background:#ffffff;padding:28px 32px 0;">
+      <p style="margin:0;font-size:16px;color:#1f2c25;line-height:1.6;">Hi ${firstName},</p>
+      <p style="margin:14px 0 0;font-size:15px;color:#53635b;line-height:1.7;">${content.intro}</p>
+    </td>
+  </tr>
+
+  ${sectionLabel("What happens next")}
+  <tr>
+    <td style="background:#ffffff;padding:0 32px;">
+      <table width="100%" cellpadding="0" cellspacing="0" style="background:#f8fbf9;border:1px solid #dce4df;border-radius:10px;overflow:hidden;padding:4px 0;">
+        ${content.nextSteps.map((step, i) => `
+        <tr>
+          <td style="padding:12px 16px;vertical-align:top;width:36px;">
+            <span style="display:inline-flex;width:24px;height:24px;border-radius:50%;background:#145c42;color:#ffffff;font-size:12px;font-weight:700;text-align:center;line-height:24px;justify-content:center;align-items:center;">${i + 1}</span>
+          </td>
+          <td style="padding:12px 16px 12px 0;font-size:14px;color:#1f2c25;line-height:1.6;">${step}</td>
+        </tr>`).join("")}
+      </table>
+    </td>
+  </tr>
+
+  ${content.closingNote ? `
+  <tr>
+    <td style="background:#ffffff;padding:20px 32px 0;">
+      <p style="margin:0;font-size:13px;color:#66756d;line-height:1.7;border-left:3px solid #145c42;padding-left:14px;">${content.closingNote}</p>
+    </td>
+  </tr>` : ""}
+
+  ${spacer(20)}
+  ${sectionLabel("Your information on file")}
+  ${tableBlock(`
+    ${infoRow("Name", data.name)}
+    ${infoRow("Email", data.email)}
+    ${infoRow("Phone", data.phone)}
+    ${infoRow("Preferred location", data.location)}
+    ${infoRow("Best time to reach you", data.bestTime)}
+    ${infoRow("Preferred contact method", data.preferredContactMethod)}
+  `)}
+
+  <tr>
+    <td style="background:#ffffff;padding:24px 32px;">
+      <p style="margin:0 0 12px;font-size:14px;color:#53635b;">Ready to learn more or speak with someone sooner?</p>
+      ${greenButton(content.link.label, content.link.href)}
+      ${outlineButton("Call 877-442-2263", "tel:+18774422263")}
+    </td>
+  </tr>
+
+  <tr>
+    <td style="background:#ffffff;padding:0 32px 28px;">
+      <p style="margin:0;font-size:13px;color:#66756d;line-height:1.7;">
+        This is a confirmation of your request. Do not use this email for urgent medical concerns.
+        If you are experiencing a medical emergency, call 911. For urgent post-operative questions,
+        call your JourneyLite office directly.
+      </p>
+    </td>
+  </tr>
+
+  ${footer()}
+  `);
+
+  return { subject, html };
+}
+
+/* ── Public send function ───────────────────────────────── */
+
 export async function sendLeadEmail(data: LeadSubmission): Promise<void> {
   const to = process.env.CONTACT_NOTIFY_EMAIL;
   const from = process.env.CONTACT_FROM_EMAIL ?? `JourneyLite <${process.env.SMTP_USER}>`;
+
   if (!to) {
     console.warn("[email] CONTACT_NOTIFY_EMAIL not set — skipping send.");
     return;
   }
 
-  const { subject, html } = buildEmail(data);
+  const { subject: staffSubject, html: staffHtml } = buildStaffEmail(data);
+  const { subject: patientSubject, html: patientHtml } = buildPatientEmail(data);
 
+  // Staff notification
   await transporter.sendMail({
     from,
     to,
     replyTo: data.email || undefined,
-    subject,
-    html,
+    subject: staffSubject,
+    html: staffHtml,
   });
 
-  console.log(`[email] Lead email sent to ${to} — "${subject}"`);
+  // Patient confirmation (only if they gave an email)
+  if (data.email) {
+    await transporter.sendMail({
+      from,
+      to: data.email,
+      subject: patientSubject,
+      html: patientHtml,
+    });
+  }
+
+  console.log(`[email] Sent staff notification to ${to} and patient confirmation to ${data.email || "none"}`);
 }

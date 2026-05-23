@@ -54,7 +54,6 @@ async function main() {
       const publishedId = draftId.replace(/^drafts\./, "");
 
       // Strip Sanity-internal fields before publishing
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
       const { _id, _rev, ...content } = draft;
 
       tx.createOrReplace({ ...content, _id: publishedId } as Parameters<typeof tx.createOrReplace>[0]);
@@ -71,7 +70,6 @@ async function main() {
       for (const draft of batch) {
         const draftId = draft._id as string;
         const publishedId = draftId.replace(/^drafts\./, "");
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
         const { _id, _rev, ...content } = draft;
         try {
           const singleTx = client.transaction();

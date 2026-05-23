@@ -13,11 +13,15 @@
     "patch:migrated": "tsx scripts/patch-migrated-sanity-posts.ts",
     "upload:images": "tsx scripts/upload-images-to-sanity.ts",
     "patch:featured-images": "tsx scripts/patch-featured-images.ts",
-    "publish:migrated": "tsx scripts/publish-migrated-posts.ts"
+    "publish:migrated": "tsx scripts/publish-migrated-posts.ts",
+    "import:enhanced-lms": "tsx scripts/import-enhanced-lms-courses.ts",
+    "seed:lms-test": "tsx scripts/seed-lms-test-account.ts"
   },
   "dependencies": {
     "@portabletext/react": "^6.1.0",
     "@sanity/image-url": "^2.1.1",
+    "@supabase/ssr": "^0.10.3",
+    "@supabase/supabase-js": "^2.106.1",
     "@types/nodemailer": "^8.0.0",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",

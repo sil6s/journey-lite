@@ -13,7 +13,6 @@
 
 import fs from "fs-extra";
 import path from "path";
-// eslint-disable-next-line @typescript-eslint/no-require-imports
 const mime = require("mime-types") as { lookup: (path: string) => string | false };
 import { createClient } from "@sanity/client";
 import type { NormalizedPost } from "../lib/migration/journeylite/normalizePost";

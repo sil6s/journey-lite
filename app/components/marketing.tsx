@@ -259,6 +259,7 @@ export function SiteFooter() {
             ["Compare Options", "/services/compare-weight-loss-options"],
             ["Pricing & Financing", "/services/pricing-financing"],
             ["Bariatric Metrics", "/bariatric-metrics"],
+            ["Education Portal", "/courses"],
             ["Physicians", "/our-team"],
             ["Locations", "/#locations"],
             ["Testimonials", "/#reviews"],
@@ -274,6 +275,9 @@ export function SiteFooter() {
             </CTAButton>
             <CTAButton href="/admin/login" variant="outline">
               Admin Portal
+            </CTAButton>
+            <CTAButton href="/courses" variant="outline">
+              Education Portal
             </CTAButton>
             <CTAButton href="/studio" variant="outline">
               Studio Portal

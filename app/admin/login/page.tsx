@@ -4,7 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import Script from "next/script";
 import { useRouter, useSearchParams } from "next/navigation";
-import { FormEvent, useState } from "react";
+import { FormEvent, Suspense, useState } from "react";
 import { ArrowLeft, Loader2, LogIn } from "lucide-react";
 import { toast } from "sonner";
 import { Alert, AlertDescription } from "@/components/ui/alert";
@@ -18,6 +18,14 @@ import { cn } from "@/lib/utils";
 const recaptchaSiteKey = process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY;
 
 export default function AdminLoginPage() {
+  return (
+    <Suspense fallback={<AdminLoginFallback />}>
+      <AdminLoginForm />
+    </Suspense>
+  );
+}
+
+function AdminLoginForm() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const [email, setEmail] = useState("admin@journeylite.com");
@@ -204,6 +212,21 @@ export default function AdminLoginPage() {
             </p>
           </div>
         </section>
+      </div>
+    </main>
+  );
+}
+
+function AdminLoginFallback() {
+  return (
+    <main className="min-h-screen bg-[#f7faf7]">
+      <div className="flex min-h-screen items-center justify-center px-6">
+        <div className="w-full max-w-xl rounded-2xl bg-white p-10 shadow-sm">
+          <div className="h-10 w-40 rounded bg-[#edf4ef]" />
+          <div className="mt-6 h-14 rounded-xl bg-[#edf4ef]" />
+          <div className="mt-4 h-14 rounded-xl bg-[#edf4ef]" />
+          <div className="mt-8 h-16 rounded-xl bg-[#d7e7df]" />
+        </div>
       </div>
     </main>
   );

@@ -126,6 +126,11 @@ export const navGroups = [
         description: "Understand BMI, %TWL, goal progress, and regain metrics.",
       },
       {
+        label: "Education Portal",
+        href: "/courses",
+        description: "Browse bariatric learning courses and patient education lessons.",
+      },
+      {
         label: "Physicians",
         href: "/our-team",
         description: "Meet the JourneyLite bariatric physicians.",

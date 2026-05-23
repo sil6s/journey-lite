@@ -142,6 +142,7 @@ type RequestType = "information" | "appointment";
 interface FormState {
   requestType: RequestType | "";
   appointmentInterest: string;
+  proceduresOfInterest: string[];
   revisionProcedures: string[];
   informationTopics: string[];
   researchStage: string;
@@ -149,6 +150,13 @@ interface FormState {
   location: string;
   firstName: string;
   lastName: string;
+  dob: string;
+  heightFt: string;
+  heightIn: string;
+  weight: string;
+  address: string;
+  insuranceProvider: string;
+  referralSource: string;
   email: string;
   confirmEmail: string;
   phone: string;
@@ -173,9 +181,27 @@ async function getRecaptchaToken(action: string): Promise<string> {
   });
 }
 
+const surgicalProcedureOptions = [
+  "Gastric Sleeve",
+  "Gastric Bypass",
+  "SADI Surgery",
+  "Lap Band / Band Revision",
+  "Not Sure Yet",
+];
+
+function computeBMI(heightFt: string, heightIn: string, weight: string): string {
+  const ft = parseFloat(heightFt);
+  const inches = parseFloat(heightIn) || 0;
+  const lbs = parseFloat(weight);
+  if (!ft || !lbs) return "";
+  const totalIn = ft * 12 + inches;
+  return ((lbs / (totalIn * totalIn)) * 703).toFixed(1);
+}
+
 const initialForm: FormState = {
   requestType: "",
   appointmentInterest: "",
+  proceduresOfInterest: [],
   revisionProcedures: [],
   informationTopics: [],
   researchStage: "",
@@ -183,6 +209,13 @@ const initialForm: FormState = {
   location: "",
   firstName: "",
   lastName: "",
+  dob: "",
+  heightFt: "",
+  heightIn: "",
+  weight: "",
+  address: "",
+  insuranceProvider: "",
+  referralSource: "",
   email: "",
   confirmEmail: "",
   phone: "",
@@ -230,7 +263,7 @@ export function BookConsultOverlay() {
     setErrors((prev) => ({ ...prev, [key]: "" }));
   }
 
-  function toggleList(key: "revisionProcedures" | "informationTopics", value: string) {
+  function toggleList(key: "revisionProcedures" | "informationTopics" | "proceduresOfInterest", value: string) {
     setForm((prev) => {
       const exists = prev[key].includes(value);
       return { ...prev, [key]: exists ? prev[key].filter((i) => i !== value) : [...prev[key], value] };
@@ -249,6 +282,7 @@ export function BookConsultOverlay() {
       ...prev,
       appointmentInterest: "Medical Weight Loss (Adipex, WeGovy, etc)",
       revisionProcedures: [],
+      proceduresOfInterest: [],
     }));
     setErrors({});
   }
@@ -328,6 +362,7 @@ export function BookConsultOverlay() {
           treatmentInterest:
             form.requestType === "appointment" ? form.appointmentInterest : form.informationTopics.join(", "),
           contactReason: form.requestType === "information" ? "Information Request" : "Appointment Request",
+          bmi: computeBMI(form.heightFt, form.heightIn, form.weight),
           sourcePage: "consult-overlay",
           submittedAt: new Date().toISOString(),
           recaptchaToken,
@@ -653,7 +688,7 @@ function InformationForm({
   form: FormState;
   errors: Record<string, string>;
   update: <K extends keyof FormState>(key: K, value: FormState[K]) => void;
-  toggleList: (key: "revisionProcedures" | "informationTopics", value: string) => void;
+  toggleList: (key: "revisionProcedures" | "informationTopics" | "proceduresOfInterest", value: string) => void;
 }) {
   return (
     <div className="grid gap-6">
@@ -698,9 +733,13 @@ function AppointmentForm({
   errors: Record<string, string>;
   revisionBlocked: boolean;
   update: <K extends keyof FormState>(key: K, value: FormState[K]) => void;
-  toggleList: (key: "revisionProcedures" | "informationTopics", value: string) => void;
+  toggleList: (key: "revisionProcedures" | "informationTopics" | "proceduresOfInterest", value: string) => void;
   onSwitchToMedical: () => void;
 }) {
+  const showProcedures =
+    form.appointmentInterest === "Surgical Weight Loss" ||
+    form.appointmentInterest === "Combination Surgical & Medical";
+
   return (
     <div className="grid gap-6">
       <StepCard icon={<CalendarCheck className="size-5 text-[#145c42]" />} title="Your appointment interest" description="A patient service representative will contact you to discuss next steps." />
@@ -743,6 +782,15 @@ function AppointmentForm({
 
       {form.appointmentInterest ? <AppointmentDetails interest={form.appointmentInterest} /> : null}
 
+      {showProcedures ? (
+        <CheckboxGroup
+          items={surgicalProcedureOptions}
+          label="Which procedure(s) are you interested in? (optional)"
+          selected={form.proceduresOfInterest}
+          onToggle={(value) => toggleList("proceduresOfInterest", value)}
+        />
+      ) : null}
+
       {form.appointmentInterest === "Revision of Prior Weight Loss Surgery" ? (
         <CheckboxGroup
           error={errors.revisionProcedures}
@@ -763,7 +811,7 @@ function RevisionBlockedCard({ onSwitchToMedical }: { onSwitchToMedical: () => v
     <div className="overflow-hidden rounded-xl border-2 border-[#d97706] bg-[#fffbeb]">
       <div className="flex items-center gap-3 border-b border-[#fde68a] bg-[#fef3c7] px-5 py-4">
         <AlertTriangle className="size-6 shrink-0 text-[#b45309]" />
-        <p className="text-base font-bold text-[#92400e]">We don't offer this surgical revision</p>
+        <p className="text-base font-bold text-[#92400e]">We don&apos;t offer this surgical revision</p>
       </div>
       <div className="px-5 py-5">
         <p className="text-sm leading-6 text-[#78350f]">
@@ -939,20 +987,96 @@ function ContactFields({
   return (
     <div className="grid gap-6">
       <StepCard icon={<User className="size-5 text-[#145c42]" />} title="Almost there" description="Share your contact details so the JourneyLite team can reach you." />
+      {/* Name + DOB */}
       <div className="grid gap-4 sm:grid-cols-2">
         <TextField error={errors.firstName} label="First name" onChange={(v) => update("firstName", v)} value={form.firstName} />
         <TextField error={errors.lastName} label="Last name" onChange={(v) => update("lastName", v)} value={form.lastName} />
+        <TextField label="Date of birth" onChange={(v) => update("dob", v)} type="date" value={form.dob} />
+      </div>
+
+      {/* Height / Weight / BMI */}
+      {(() => {
+        const bmi = computeBMI(form.heightFt, form.heightIn, form.weight);
+        return (
+          <div className="grid gap-3 rounded-xl border border-[#dce7e0] bg-[#f8fbf9] p-4">
+            <p className="text-sm font-semibold text-[#1f2c25]">Height, Weight &amp; BMI</p>
+            <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
+              <div className="grid gap-1.5">
+                <Label htmlFor="heightFt">Height (ft)</Label>
+                <Input
+                  className="border-[#cbd7d0] focus-visible:ring-[#145c42]"
+                  id="heightFt"
+                  max="8"
+                  min="1"
+                  onChange={(e) => update("heightFt", e.target.value)}
+                  placeholder="5"
+                  type="number"
+                  value={form.heightFt}
+                />
+              </div>
+              <div className="grid gap-1.5">
+                <Label htmlFor="heightIn">Inches</Label>
+                <Input
+                  className="border-[#cbd7d0] focus-visible:ring-[#145c42]"
+                  id="heightIn"
+                  max="11"
+                  min="0"
+                  onChange={(e) => update("heightIn", e.target.value)}
+                  placeholder="4"
+                  type="number"
+                  value={form.heightIn}
+                />
+              </div>
+              <div className="grid gap-1.5">
+                <Label htmlFor="weight">Weight (lbs)</Label>
+                <Input
+                  className="border-[#cbd7d0] focus-visible:ring-[#145c42]"
+                  id="weight"
+                  min="0"
+                  onChange={(e) => update("weight", e.target.value)}
+                  placeholder="240"
+                  type="number"
+                  value={form.weight}
+                />
+              </div>
+              <div className="grid gap-1.5">
+                <Label>BMI</Label>
+                <div className={cn(
+                  "flex h-10 items-center rounded-lg border px-3 text-sm font-bold",
+                  bmi ? "border-[#145c42] bg-[#edf6f0] text-[#145c42]" : "border-[#dce7e0] bg-white text-[#9ca3af]",
+                )}>
+                  {bmi || "—"}
+                </div>
+              </div>
+            </div>
+          </div>
+        );
+      })()}
+
+      {/* Address */}
+      <TextField label="Address (optional)" onChange={(v) => update("address", v)} value={form.address} />
+
+      {/* Email */}
+      <div className="grid gap-4 sm:grid-cols-2">
         <TextField error={errors.email} label="Email" onChange={(v) => update("email", v)} type="email" value={form.email} />
         <TextField error={errors.confirmEmail} label="Confirm email" onChange={(v) => update("confirmEmail", v)} type="email" value={form.confirmEmail} />
-        <div className="grid gap-2 sm:col-span-2 sm:max-w-xs">
-          <Label htmlFor="consult-phone">Phone (optional)</Label>
-          <PhoneInput
-            id="consult-phone"
-            value={form.phone as PhoneValue}
-            onChange={(v) => update("phone", v ?? "")}
-            placeholder="Enter a phone number"
-          />
-        </div>
+      </div>
+
+      {/* Phone */}
+      <div className="grid gap-2 sm:max-w-xs">
+        <Label htmlFor="consult-phone">Phone (optional)</Label>
+        <PhoneInput
+          id="consult-phone"
+          value={form.phone as PhoneValue}
+          onChange={(v) => update("phone", v ?? "")}
+          placeholder="Enter a phone number"
+        />
+      </div>
+
+      {/* Insurance + Referral */}
+      <div className="grid gap-4 sm:grid-cols-2">
+        <TextField label="Insurance / Self-pay" onChange={(v) => update("insuranceProvider", v)} value={form.insuranceProvider} />
+        <TextField label="How did you hear about us? (optional)" onChange={(v) => update("referralSource", v)} value={form.referralSource} />
       </div>
       <RadioField
         compact
