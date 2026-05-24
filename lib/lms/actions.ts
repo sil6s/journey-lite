@@ -8,6 +8,65 @@ import type { Json } from "@/lib/supabase/database.types";
 
 export type CompletionRequirement = "view_content" | "complete_interaction" | "pass_knowledge_check";
 
+export async function enrollInCourse(courseSlug: string): Promise<{ error?: string }> {
+  try {
+    const supabase = await createClient();
+    const { data: { user } } = await supabase.auth.getUser();
+    if (!user) return { error: "You must be signed in to enroll." };
+
+    const { data: existing, error: lookupError } = await supabase
+      .from("enrollments")
+      .select("status")
+      .eq("user_id", user.id)
+      .eq("course_slug", courseSlug)
+      .maybeSingle();
+
+    if (lookupError) {
+      console.error("[lms/actions] enrollInCourse lookup:", lookupError.code, lookupError.message);
+      return { error: "Could not enroll. Please try again." };
+    }
+
+    if (existing?.status === "revoked") {
+      return { error: "Access to this course is not available. Please contact the JourneyLite team." };
+    }
+
+    if (existing) {
+      if (existing.status !== "active") {
+        const { error } = await supabase
+          .from("enrollments")
+          .update({ status: "active", completed_at: null })
+          .eq("user_id", user.id)
+          .eq("course_slug", courseSlug);
+
+        if (error) {
+          console.error("[lms/actions] enrollInCourse update:", error.code, error.message);
+          return { error: "Could not enroll. Please try again." };
+        }
+      }
+
+      revalidatePath(`/courses/${courseSlug}`);
+      revalidatePath("/dashboard");
+      return {};
+    }
+
+    const { error } = await supabase
+      .from("enrollments")
+      .insert({ user_id: user.id, course_slug: courseSlug, status: "active" });
+
+    if (error && error.code !== "23505") {
+      console.error("[lms/actions] enrollInCourse:", error.code, error.message);
+      return { error: "Could not enroll. Please try again." };
+    }
+
+    revalidatePath(`/courses/${courseSlug}`);
+    revalidatePath("/dashboard");
+    return {};
+  } catch (e) {
+    console.error("[lms/actions] enrollInCourse unexpected:", e);
+    return { error: "Unexpected error. Please try again." };
+  }
+}
+
 export async function updateLastViewed(
   courseSlug: string,
   sectionTitle: string | null,
@@ -167,6 +226,13 @@ export async function completeCourseEnrollment(
     .update({ status: "completed" })
     .eq("user_id", user.id)
     .eq("course_slug", courseSlug);
+
+  await supabase
+    .from("enrollments")
+    .update({ status: "completed", completed_at: new Date().toISOString() })
+    .eq("user_id", user.id)
+    .eq("course_slug", courseSlug)
+    .neq("status", "revoked");
 }
 
 export async function submitCompletionAttestation(courseSlug: string, metadata: Json = {}): Promise<void> {

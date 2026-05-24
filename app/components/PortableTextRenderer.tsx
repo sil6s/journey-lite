@@ -41,34 +41,40 @@ type SectionBreakValue = {
 const components: PortableTextComponents = {
   block: {
     h2: ({ children }) => (
-      <h2 className="mt-12 scroll-mt-28 font-serif text-3xl leading-tight text-[#1f2c25] md:text-4xl" id={slugifyNode(children)}>
+      <h2 className="mt-10 mb-3 text-2xl font-semibold leading-tight text-[#1f2c25]" id={slugifyNode(children)}>
         {children}
       </h2>
     ),
-    h3: ({ children }) => <h3 className="mt-8 text-2xl font-semibold leading-tight text-[#1f2c25]">{children}</h3>,
-    normal: ({ children }) => <p className="mt-5 text-base leading-8 text-[#53635b]">{children}</p>,
+    h3: ({ children }) => <h3 className="mt-7 mb-2 text-xl font-semibold leading-tight text-[#1f2c25]">{children}</h3>,
+    h4: ({ children }) => <h4 className="mt-5 mb-1.5 text-base font-semibold text-[#1f2c25]">{children}</h4>,
+    normal: ({ children }) => <p className="mt-4 text-base leading-7 text-[#53635b]">{children}</p>,
     blockquote: ({ children }) => (
-      <blockquote className="mt-8 border-l-4 border-[#145c42] bg-[#edf4ef] px-5 py-4 text-base leading-8 text-[#355346]">
+      <blockquote className="mt-6 border-l-4 border-[#145c42] bg-[#edf4ef] px-5 py-4 text-base leading-7 text-[#355346]">
         {children}
       </blockquote>
     ),
   },
   list: {
-    bullet: ({ children }) => <ul className="mt-5 list-disc space-y-2 pl-6 text-base leading-8 text-[#53635b]">{children}</ul>,
-    number: ({ children }) => <ol className="mt-5 list-decimal space-y-2 pl-6 text-base leading-8 text-[#53635b]">{children}</ol>,
+    bullet: ({ children }) => <ul className="mt-4 list-disc space-y-1.5 pl-6 text-base leading-7 text-[#53635b]">{children}</ul>,
+    number: ({ children }) => <ol className="mt-4 list-decimal space-y-1.5 pl-6 text-base leading-7 text-[#53635b]">{children}</ol>,
   },
   listItem: {
-    bullet: ({ children }) => <li>{children}</li>,
-    number: ({ children }) => <li>{children}</li>,
+    bullet: ({ children }) => <li className="leading-7">{children}</li>,
+    number: ({ children }) => <li className="leading-7">{children}</li>,
   },
   marks: {
+    strong: ({ children }) => <strong className="font-semibold text-[#1f2c25]">{children}</strong>,
+    em: ({ children }) => <em className="italic">{children}</em>,
+    code: ({ children }) => (
+      <code className="rounded bg-[#f1f5f9] px-1.5 py-0.5 font-mono text-sm text-[#1e293b]">{children}</code>
+    ),
     link: ({ children, value }) => {
       const href = typeof value?.href === "string" ? value.href : "#";
       const isExternal = href.startsWith("http");
 
       if (!isExternal) {
         return (
-          <Link className="font-semibold text-[#145c42] underline-offset-4 hover:underline" href={href}>
+          <Link className="font-medium text-[#145c42] underline underline-offset-2 hover:text-[#0f4d37]" href={href}>
             {children}
           </Link>
         );
@@ -76,7 +82,7 @@ const components: PortableTextComponents = {
 
       return (
         <a
-          className="font-semibold text-[#145c42] underline-offset-4 hover:underline"
+          className="font-medium text-[#145c42] underline underline-offset-2 hover:text-[#0f4d37]"
           href={href}
           rel="noopener noreferrer"
           target="_blank"
@@ -89,6 +95,8 @@ const components: PortableTextComponents = {
   types: {
     image: ({ value }) => {
       if (!value?.asset) return null;
+      const src = urlFor(value).width(1100).height(680).fit("crop").url();
+      if (!src) return null;
       const alt = value.alt || "JourneyLite blog article image";
       return (
         <figure className="my-10 overflow-hidden rounded-xl border border-[#dce4df] bg-white shadow-sm">
@@ -96,7 +104,7 @@ const components: PortableTextComponents = {
             alt={alt}
             className="h-auto w-full object-cover"
             height={720}
-            src={urlFor(value).width(1100).height(680).fit("crop").url()}
+            src={src}
             width={1100}
           />
           {value.alt ? <figcaption className="px-4 py-3 text-sm text-[#64736b]">{value.alt}</figcaption> : null}

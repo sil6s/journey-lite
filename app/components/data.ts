@@ -131,6 +131,11 @@ export const navGroups = [
         description: "Browse bariatric learning courses and patient education lessons.",
       },
       {
+        label: "JourneyLite Shop",
+        href: "/shop",
+        description: "Vitamins, pre-op diet kits, and bariatric products from your care team.",
+      },
+      {
         label: "Physicians",
         href: "/our-team",
         description: "Meet the JourneyLite bariatric physicians.",

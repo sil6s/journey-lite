@@ -14,6 +14,7 @@ import {
   MedicationComparisonGuide,
   MedicationCtaBand,
   MedicationSupportCard,
+  PatientResourcesStrip,
   PhysicianProfileCard,
   ProcedureCard,
   ReviewBadge,
@@ -516,6 +517,7 @@ export default function HomePage() {
           </div>
         </Section>
 
+        <PatientResourcesStrip />
         <FinalCTA />
       </main>
       <SiteFooter />

@@ -1,5 +1,6 @@
+import Image from "next/image";
 import Link from "next/link";
-import { BookOpen, GraduationCap } from "lucide-react";
+import { ArrowLeft, BookOpen, ShoppingBag } from "lucide-react";
 import { createClient } from "@/lib/supabase/server";
 import { UserMenu } from "./UserMenu";
 
@@ -26,7 +27,15 @@ export async function PortalNav() {
         {/* Logo + portal label */}
         <div className="flex items-center gap-3">
           <Link href="/" className="shrink-0" aria-label="JourneyLite home">
-            <GraduationCap className="h-7 w-7 text-[#145c42]" />
+            <Image
+              src="/journeylite-logo.svg"
+              alt="JourneyLite"
+              width={140}
+              height={40}
+              priority
+              unoptimized
+              className="h-8 w-auto"
+            />
           </Link>
           <div className="hidden sm:block h-5 w-px bg-[#dce4df]" />
           <Link
@@ -46,6 +55,13 @@ export async function PortalNav() {
           >
             Browse Courses
           </Link>
+          <Link
+            href="/shop"
+            className="rounded-md px-3 py-2 text-sm font-medium text-[#53635b] hover:bg-[#f5f8f6] hover:text-[#1f2c25] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#145c42] inline-flex items-center gap-1.5"
+          >
+            <ShoppingBag className="h-4 w-4" />
+            Shop
+          </Link>
           {user && (
             <Link
               href="/dashboard"
@@ -55,6 +71,15 @@ export async function PortalNav() {
             </Link>
           )}
         </div>
+
+        {/* Return to main site */}
+        <a
+          href="https://www.journeylite.com"
+          className="hidden lg:inline-flex items-center gap-1 text-xs font-medium text-[#66756d] hover:text-[#145c42]"
+        >
+          <ArrowLeft className="h-3 w-3" />
+          Main site
+        </a>
 
         {/* Auth */}
         <div className="flex items-center gap-2">

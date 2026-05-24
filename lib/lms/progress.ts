@@ -1,22 +1,31 @@
 import { createClient } from "@/lib/supabase/server";
-import type { Database } from "@/lib/supabase/database.types";
 import type { SanityCourse, CourseProgressSummary, LessonProgressRecord } from "@/src/lib/sanity/lms-types";
 
-type CourseAssignment = Database["public"]["Tables"]["course_assignments"]["Row"];
-
-export async function getUserEnrollments(userId: string): Promise<CourseAssignment[]> {
+export async function getUserEnrollments(userId: string): Promise<{ course_slug: string }[]> {
   const supabase = await createClient();
-  const { data, error } = await supabase
-    .from("course_assignments")
-    .select("*")
-    .eq("user_id", userId)
-    .in("status", ["assigned", "in_progress", "completed"]);
 
-  if (error) {
-    console.error("[lms/progress] getUserEnrollments:", error.message);
-    return [];
+  const [{ data: selfEnrolled }, { data: assigned }] = await Promise.all([
+    supabase
+      .from("enrollments")
+      .select("course_slug")
+      .eq("user_id", userId)
+      .in("status", ["active", "completed"]),
+    supabase
+      .from("course_assignments")
+      .select("course_slug")
+      .eq("user_id", userId)
+      .in("status", ["assigned", "in_progress", "completed"]),
+  ]);
+
+  const seen = new Set<string>();
+  const result: { course_slug: string }[] = [];
+  for (const row of [...(selfEnrolled ?? []), ...(assigned ?? [])]) {
+    if (!seen.has(row.course_slug)) {
+      seen.add(row.course_slug);
+      result.push({ course_slug: row.course_slug });
+    }
   }
-  return data ?? [];
+  return result;
 }
 
 export async function getCourseProgress(
@@ -49,7 +58,7 @@ export function calculateCourseProgress(
   course: SanityCourse,
   progressRows: LessonProgressRecord[]
 ): CourseProgressSummary {
-  const allLessonSlugs = course.modules.flatMap((m) => m.lessons.map((l) => l.slug));
+  const allLessonSlugs = (course.modules ?? []).flatMap((m) => (m.lessons ?? []).map((l) => l.slug));
   const totalLessons = allLessonSlugs.length;
   const completedSlugs = new Set(progressRows.filter((p) => p.completed).map((p) => p.lesson_slug));
   const completedLessons = allLessonSlugs.filter((slug) => completedSlugs.has(slug)).length;
@@ -71,8 +80,8 @@ export function getNextLesson(
   progressRows: LessonProgressRecord[]
 ): { moduleSlug: string; lessonSlug: string } | null {
   const completed = new Set(progressRows.filter((p) => p.completed).map((p) => p.lesson_slug));
-  for (const mod of course.modules) {
-    for (const lesson of mod.lessons) {
+  for (const mod of (course.modules ?? [])) {
+    for (const lesson of (mod.lessons ?? [])) {
       if (!completed.has(lesson.slug)) return { moduleSlug: mod.slug, lessonSlug: lesson.slug };
     }
   }

@@ -1,5 +1,7 @@
 import Link from "next/link";
-import { Lock, Phone, Calendar } from "lucide-react";
+import { Lock, Phone } from "lucide-react";
+import { EnrollButton } from "@/components/lms/EnrollButton";
+
 interface LockedContentNoticeProps {
   courseTitle: string;
   courseSlug: string;
@@ -13,8 +15,8 @@ export function LockedContentNotice({
 }: LockedContentNoticeProps) {
   const messages: Record<typeof reason, { title: string; body: string }> = {
     "not-enrolled": {
-      title: "This course isn't on your account yet.",
-      body: "To access this content, please contact the JourneyLite team. They can add you to the course based on your care plan.",
+      title: "Enroll to continue.",
+      body: "Enrollment is open to all patients. Enroll for free to access this lesson and track your progress.",
     },
     expired: {
       title: "Your access to this course has expired.",
@@ -51,12 +53,16 @@ export function LockedContentNotice({
               Sign in to continue
             </Link>
             <Link
-              href="/signup"
+              href={`/signup?redirectTo=/courses/${courseSlug}`}
               className="inline-flex items-center gap-2 rounded-md border border-[#cbd7d0] bg-white px-5 py-2.5 text-sm font-semibold text-[#1f2c25] transition hover:border-[#145c42] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#145c42]"
             >
               Create an account
             </Link>
           </>
+        ) : reason === "not-enrolled" ? (
+          <div className="w-full sm:min-w-64">
+            <EnrollButton courseSlug={courseSlug} />
+          </div>
         ) : (
           <>
             <a

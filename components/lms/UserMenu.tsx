@@ -2,7 +2,7 @@
 
 import { useState, useRef, useEffect } from "react";
 import Link from "next/link";
-import { User, LayoutDashboard, LogOut, ChevronDown } from "lucide-react";
+import { User, LayoutDashboard, LogOut, ChevronDown, ShoppingBag } from "lucide-react";
 import { createClient } from "@/lib/supabase/client";
 import { useRouter } from "next/navigation";
 
@@ -81,6 +81,15 @@ export function UserMenu({ email, fullName }: UserMenuProps) {
             >
               <User className="h-4 w-4 text-[#66756d]" />
               Browse Courses
+            </Link>
+            <Link
+              href="/shop"
+              className="flex items-center gap-2.5 rounded-md px-3 py-2 text-sm text-[#1f2c25] hover:bg-[#f5f8f6] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-[#145c42]"
+              onClick={() => setOpen(false)}
+              role="menuitem"
+            >
+              <ShoppingBag className="h-4 w-4 text-[#66756d]" />
+              Shop
             </Link>
           </div>
 

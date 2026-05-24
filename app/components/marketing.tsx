@@ -144,6 +144,23 @@ export function SiteHeader() {
                 ))}
               </div>
             ))}
+            <div className="border-b border-[#edf1ee] py-2">
+              <p className="px-2 py-2 text-xs font-semibold uppercase tracking-[0.14em] text-[#66756d]">
+                Patient Resources
+              </p>
+              <Link
+                className="block rounded-md px-2 py-2 text-sm font-medium text-[#145c42] hover:bg-[#edf4ef] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#145c42]"
+                href="/courses"
+              >
+                📚 Patient Education Portal
+              </Link>
+              <Link
+                className="block rounded-md px-2 py-2 text-sm font-medium text-[#145c42] hover:bg-[#edf4ef] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#145c42]"
+                href="/shop"
+              >
+                🛍️ JourneyLite Shop
+              </Link>
+            </div>
             <div className="grid gap-2 pt-3">
               <BookConsultButton />
               <CallMenu inline />
@@ -1069,6 +1086,57 @@ export function ReviewGrid() {
         <ReviewCard key={review.name} review={review} />
       ))}
     </div>
+  );
+}
+
+export function PatientResourcesStrip() {
+  return (
+    <section className="border-y border-[#dce4df] bg-[#f8fbf9] py-12">
+      <div className="mx-auto max-w-7xl px-5 lg:px-8">
+        <p className="text-xs font-semibold uppercase tracking-[0.14em] text-[#66756d]">For JourneyLite Patients</p>
+        <h2 className="mt-2 font-serif text-3xl leading-tight text-[#1e2b24] md:text-4xl">
+          Resources to support your journey
+        </h2>
+        <p className="mt-3 max-w-2xl text-base leading-7 text-[#516059]">
+          Access your personalized education courses and shop for bariatric-friendly products recommended by your care team.
+        </p>
+        <div className="mt-8 grid gap-5 sm:grid-cols-2 lg:max-w-3xl">
+          {/* Education */}
+          <Link
+            href="/courses"
+            className="group flex items-start gap-4 rounded-2xl border border-[#c8ddd4] bg-white p-6 shadow-sm transition hover:border-[#145c42] hover:shadow-md"
+          >
+            <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-[#edf4ef] text-2xl">
+              📚
+            </span>
+            <div>
+              <p className="font-semibold text-[#1f2c25] group-hover:text-[#145c42]">Patient Education Portal</p>
+              <p className="mt-1 text-sm leading-5 text-[#66756d]">
+                Evidence-based courses on surgery prep, post-op recovery, vitamins, and long-term habits.
+              </p>
+              <p className="mt-3 text-sm font-semibold text-[#145c42]">Browse courses →</p>
+            </div>
+          </Link>
+
+          {/* Shop */}
+          <Link
+            href="/shop"
+            className="group flex items-start gap-4 rounded-2xl border border-[#c8ddd4] bg-white p-6 shadow-sm transition hover:border-[#145c42] hover:shadow-md"
+          >
+            <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-[#edf4ef] text-2xl">
+              🛍️
+            </span>
+            <div>
+              <p className="font-semibold text-[#1f2c25] group-hover:text-[#145c42]">JourneyLite Shop</p>
+              <p className="mt-1 text-sm leading-5 text-[#66756d]">
+                Vitamins, pre-op diet kits, protein supplements, and nutritional products curated by your care team.
+              </p>
+              <p className="mt-3 text-sm font-semibold text-[#145c42]">Shop now →</p>
+            </div>
+          </Link>
+        </div>
+      </div>
+    </section>
   );
 }
 

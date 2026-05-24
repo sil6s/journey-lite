@@ -1,11 +1,38 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
+import { Suspense, useState } from "react";
+import { useSearchParams } from "next/navigation";
 import { Eye, EyeOff, AlertCircle, CheckCircle } from "lucide-react";
 import { createClient } from "@/lib/supabase/client";
 
 export default function SignUpPage() {
+  return (
+    <Suspense fallback={<SignUpFallback />}>
+      <SignUpForm />
+    </Suspense>
+  );
+}
+
+function SignUpFallback() {
+  return (
+    <div className="rounded-2xl border border-[#dce4df] bg-white p-7 shadow-sm">
+      <div className="h-7 w-48 rounded bg-[#edf4ef]" />
+      <div className="mt-3 h-4 w-64 rounded bg-[#edf4ef]" />
+      <div className="mt-7 space-y-5">
+        <div className="h-12 rounded-lg bg-[#f5f8f6]" />
+        <div className="h-12 rounded-lg bg-[#f5f8f6]" />
+        <div className="h-12 rounded-lg bg-[#f5f8f6]" />
+        <div className="h-11 rounded-md bg-[#145c42]/20" />
+      </div>
+    </div>
+  );
+}
+
+function SignUpForm() {
+  const searchParams = useSearchParams();
+  const redirectTo = searchParams.get("redirectTo") ?? "/dashboard";
+
   const [fullName, setFullName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -30,7 +57,7 @@ export default function SignUpPage() {
         password,
         options: {
           data: { full_name: fullName },
-          emailRedirectTo: `${window.location.origin}/dashboard`,
+          emailRedirectTo: `${window.location.origin}${redirectTo}`,
         },
       });
       if (authError) {
@@ -162,7 +189,10 @@ export default function SignUpPage() {
 
       <p className="mt-4 text-center text-sm text-[#66756d]">
         Already have an account?{" "}
-        <Link href="/login" className="font-semibold text-[#145c42] hover:underline">
+        <Link
+          href={`/login${redirectTo !== "/dashboard" ? `?redirectTo=${encodeURIComponent(redirectTo)}` : ""}`}
+          className="font-semibold text-[#145c42] hover:underline"
+        >
           Sign in
         </Link>
       </p>

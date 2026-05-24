@@ -14,6 +14,22 @@ export async function checkCourseAccess(
   if (accessType === "free") return { allowed: true };
 
   const supabase = await createClient();
+
+  // Check self-enrollment first
+  const { data: enrollment } = await supabase
+    .from("enrollments")
+    .select("status")
+    .eq("user_id", userId)
+    .eq("course_slug", courseSlug)
+    .maybeSingle();
+
+  if (enrollment) {
+    if (enrollment.status === "revoked") return { allowed: false, reason: "revoked" };
+    if (enrollment.status === "expired") return { allowed: false, reason: "expired" };
+    return { allowed: true };
+  }
+
+  // Fall back to admin-assigned courses
   const { data: assignment } = await supabase
     .from("course_assignments")
     .select("status, due_at")
