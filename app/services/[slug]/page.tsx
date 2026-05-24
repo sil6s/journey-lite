@@ -613,7 +613,7 @@ export default async function ServicePage({ params }: PageProps) {
                   </div>
                 </div>
                 <p className="mt-4 text-sm leading-6 text-[#53635b]">{physician.credibility}</p>
-                <Link className="mt-4 inline-flex text-sm font-semibold text-[#145c42] underline-offset-4 hover:underline" href={`/our-team/${physician.slug}`}>
+                <Link className="mt-4 inline-flex text-sm font-semibold text-[#145c42] underline-offset-4 hover:underline" href={`/about/physicians#${physician.slug}`}>
                   {physician.cta}
                 </Link>
               </article>

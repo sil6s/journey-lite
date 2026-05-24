@@ -1,6 +1,7 @@
 import type { ReactNode } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { ArrowRight, BookOpen, ShoppingBag } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { BookConsultButton } from "@/components/site/BookConsultButton";
@@ -12,12 +13,15 @@ import {
   comparisonRows,
   locationGroups,
   medicationComparisonRows,
-  navGroups,
   phoneHref,
   phoneNumber,
   reviewBadge,
   reviewCards,
+  siteSearchItems,
+  sortedNavGroups,
 } from "./data";
+import { MobileNav } from "./MobileNav";
+import { SiteSearch } from "./SiteSearch";
 
 type ButtonVariant = "primary" | "secondary" | "light" | "outline";
 
@@ -71,7 +75,7 @@ export function SiteHeader() {
         </Link>
 
         <nav aria-label="Primary navigation" className="hidden items-center gap-1 lg:flex">
-          {navGroups.map((group) => (
+          {sortedNavGroups.map((group) => (
             <div className="group relative" key={group.label}>
               <button
                 aria-haspopup="true"
@@ -99,18 +103,6 @@ export function SiteHeader() {
           ))}
           <Link
             className="rounded-md px-2.5 py-2 text-[13px] font-medium text-[#314139] transition hover:bg-[#f0f5f2] hover:text-[#145c42] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#145c42]"
-            href="/#locations"
-          >
-            Locations
-          </Link>
-          <Link
-            className="rounded-md px-2.5 py-2 text-[13px] font-medium text-[#314139] transition hover:bg-[#f0f5f2] hover:text-[#145c42] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#145c42]"
-            href="/blog"
-          >
-            Blog
-          </Link>
-          <Link
-            className="rounded-md px-2.5 py-2 text-[13px] font-medium text-[#314139] transition hover:bg-[#f0f5f2] hover:text-[#145c42] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#145c42]"
             href="/contact"
           >
             Contact
@@ -118,55 +110,12 @@ export function SiteHeader() {
         </nav>
 
         <div className="hidden items-center gap-2 lg:flex">
+          <SiteSearch items={siteSearchItems} />
           <CallMenu />
           <BookConsultButton />
         </div>
 
-        <details className="group relative lg:hidden">
-          <summary className="list-none rounded-md border border-[#cbd7d0] bg-white px-3 py-2 text-sm font-semibold text-[#17362a] marker:hidden focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#145c42]">
-            <span aria-hidden="true">☰</span>
-            <span className="sr-only">Open menu</span>
-          </summary>
-          <div className="absolute right-0 top-12 max-h-[80vh] w-[min(92vw,360px)] overflow-y-auto rounded-lg border border-[#dce4df] bg-white p-3 shadow-xl">
-            {navGroups.map((group) => (
-              <div className="border-b border-[#edf1ee] py-2 last:border-0" key={group.label}>
-                <p className="px-2 py-2 text-xs font-semibold uppercase tracking-[0.14em] text-[#66756d]">
-                  {group.label}
-                </p>
-                {group.items.map((item) => (
-                  <Link
-                    className="block rounded-md px-2 py-2 text-sm font-medium text-[#26372e] hover:bg-[#f2f7f4] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#145c42]"
-                    href={item.href}
-                    key={item.label}
-                  >
-                    {item.label}
-                  </Link>
-                ))}
-              </div>
-            ))}
-            <div className="border-b border-[#edf1ee] py-2">
-              <p className="px-2 py-2 text-xs font-semibold uppercase tracking-[0.14em] text-[#66756d]">
-                Patient Resources
-              </p>
-              <Link
-                className="block rounded-md px-2 py-2 text-sm font-medium text-[#145c42] hover:bg-[#edf4ef] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#145c42]"
-                href="/courses"
-              >
-                📚 Patient Education Portal
-              </Link>
-              <Link
-                className="block rounded-md px-2 py-2 text-sm font-medium text-[#145c42] hover:bg-[#edf4ef] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#145c42]"
-                href="/shop"
-              >
-                🛍️ JourneyLite Shop
-              </Link>
-            </div>
-            <div className="grid gap-2 pt-3">
-              <BookConsultButton />
-              <CallMenu inline />
-            </div>
-          </div>
-        </details>
+        <MobileNav navGroups={sortedNavGroups} phoneHref={phoneHref} phoneNumber={phoneNumber} searchItems={siteSearchItems} />
       </div>
     </header>
   );
@@ -223,8 +172,10 @@ export function CallMenu({ inline = false }: { inline?: boolean }) {
 
 export function SiteFooter() {
   return (
-    <footer className="bg-[#0b2c21] text-[#d1dfd7]">
-      <div className="mx-auto grid max-w-7xl gap-8 px-5 py-12 md:grid-cols-2 lg:grid-cols-6 lg:px-8">
+    <>
+      <PatientResourcesStrip />
+      <footer className="bg-[#0b2c21] text-[#d1dfd7]">
+        <div className="mx-auto grid max-w-7xl gap-8 px-5 py-12 md:grid-cols-2 lg:grid-cols-6 lg:px-8">
         <div>
           <div className="inline-flex rounded-md bg-white p-2">
             <Image
@@ -273,12 +224,17 @@ export function SiteFooter() {
         <FooterLinks
           title="Resources"
           links={[
+            ["About JourneyLite", "/about"],
+            ["Our Team", "/about/our-team"],
+            ["Physicians", "/about/physicians"],
+            ["Dietitians", "/about/dietitians"],
+            ["Surgery Center", "/about/surgery-center"],
+            ["History", "/about/history"],
             ["Compare Options", "/services/compare-weight-loss-options"],
             ["Pricing & Financing", "/services/pricing-financing"],
             ["Bariatric Metrics", "/bariatric-metrics"],
             ["Education Portal", "/courses"],
-            ["Physicians", "/our-team"],
-            ["Locations", "/#locations"],
+            ["Locations", "/about/locations"],
             ["Testimonials", "/#reviews"],
             ["Blog", "/blog"],
           ]}
@@ -301,8 +257,9 @@ export function SiteFooter() {
             </CTAButton>
           </div>
         </div>
-      </div>
-    </footer>
+        </div>
+      </footer>
+    </>
   );
 }
 
@@ -789,7 +746,7 @@ export function FeaturedLocationCard({ includeMap = true }: { includeMap?: boole
           </div>
           <div className="mt-6 grid gap-3 sm:grid-cols-3">
             <div className="sm:col-span-3 [&_a]:w-full">
-              <CTAButton href="/#locations" variant="secondary">
+              <CTAButton href="/about/locations" variant="secondary">
                 View Cincinnati Location
               </CTAButton>
             </div>
@@ -880,7 +837,7 @@ export function LocationCard({
         </a>
       </p>
       <div className="mt-auto flex flex-col gap-2 pt-5">
-        <CTAButton href="/#locations" variant="secondary">
+        <CTAButton href="/about/locations" variant="secondary">
           View Location
         </CTAButton>
         <CTAButton ariaLabel={`Get directions to ${location.city}`} href={location.directions}>
@@ -983,7 +940,7 @@ export function PhysicianProfileCard({ physician, expanded = false }: { physicia
               {physician.email}
             </a>
             <div className="mt-5 flex">
-              <CTAButton href={expanded ? "/contact" : `/our-team#${physician.slug}`}>{expanded ? "Book Consultation" : physician.cta}</CTAButton>
+              <CTAButton href={expanded ? "/contact" : `/about/physicians#${physician.slug}`}>{expanded ? "Book Consultation" : physician.cta}</CTAButton>
             </div>
           </div>
         </aside>
@@ -992,6 +949,7 @@ export function PhysicianProfileCard({ physician, expanded = false }: { physicia
           <p className="eyebrow">Bariatric physician</p>
           <h3 className="mt-3 font-serif text-4xl leading-tight text-[#1f2c25]">{physician.displayName}</h3>
           <p className="mt-2 text-xl font-semibold leading-7 text-[#1f2c25]">{physician.name}</p>
+          <p className="mt-1 text-sm font-semibold text-[#145c42]">{physician.primaryTitle}</p>
           <p className="mt-4 text-sm leading-7 text-[#53635b]">{physician.bio}</p>
           <p className="mt-4 text-sm leading-7 text-[#53635b]">{physician.credibility}</p>
           {expanded && physician.insuranceNote ? (
@@ -1019,7 +977,7 @@ export function PhysicianProfileCard({ physician, expanded = false }: { physicia
               <CTAButton href="/services/compare-weight-loss-options" variant="secondary">
                 Compare Options
               </CTAButton>
-              <CTAButton href="/#locations" variant="secondary">
+              <CTAButton href="/about/locations" variant="secondary">
                 View Locations
               </CTAButton>
             </div>
@@ -1090,6 +1048,23 @@ export function ReviewGrid() {
 }
 
 export function PatientResourcesStrip() {
+  const resourceCards = [
+    {
+      title: "JourneyLite Education Portal",
+      copy: "Evidence-based courses on surgery prep, post-op recovery, vitamins, and long-term habits.",
+      href: "/courses",
+      cta: "Browse courses",
+      icon: BookOpen,
+    },
+    {
+      title: "JourneyLite Shop",
+      copy: "Vitamins, pre-op diet kits, protein supplements, and nutritional products curated by your care team.",
+      href: "/shop",
+      cta: "Shop now",
+      icon: ShoppingBag,
+    },
+  ];
+
   return (
     <section className="border-y border-[#dce4df] bg-[#f8fbf9] py-12">
       <div className="mx-auto max-w-7xl px-5 lg:px-8">
@@ -1101,39 +1076,29 @@ export function PatientResourcesStrip() {
           Access your personalized education courses and shop for bariatric-friendly products recommended by your care team.
         </p>
         <div className="mt-8 grid gap-5 sm:grid-cols-2 lg:max-w-3xl">
-          {/* Education */}
-          <Link
-            href="/courses"
-            className="group flex items-start gap-4 rounded-2xl border border-[#c8ddd4] bg-white p-6 shadow-sm transition hover:border-[#145c42] hover:shadow-md"
-          >
-            <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-[#edf4ef] text-2xl">
-              📚
-            </span>
-            <div>
-              <p className="font-semibold text-[#1f2c25] group-hover:text-[#145c42]">Patient Education Portal</p>
-              <p className="mt-1 text-sm leading-5 text-[#66756d]">
-                Evidence-based courses on surgery prep, post-op recovery, vitamins, and long-term habits.
-              </p>
-              <p className="mt-3 text-sm font-semibold text-[#145c42]">Browse courses →</p>
-            </div>
-          </Link>
+          {resourceCards.map((card) => {
+            const Icon = card.icon;
 
-          {/* Shop */}
-          <Link
-            href="/shop"
-            className="group flex items-start gap-4 rounded-2xl border border-[#c8ddd4] bg-white p-6 shadow-sm transition hover:border-[#145c42] hover:shadow-md"
-          >
-            <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-[#edf4ef] text-2xl">
-              🛍️
-            </span>
-            <div>
-              <p className="font-semibold text-[#1f2c25] group-hover:text-[#145c42]">JourneyLite Shop</p>
-              <p className="mt-1 text-sm leading-5 text-[#66756d]">
-                Vitamins, pre-op diet kits, protein supplements, and nutritional products curated by your care team.
-              </p>
-              <p className="mt-3 text-sm font-semibold text-[#145c42]">Shop now →</p>
-            </div>
-          </Link>
+            return (
+              <Link
+                href={card.href}
+                className="group flex items-start gap-4 rounded-2xl border border-[#c8ddd4] bg-white p-6 shadow-sm transition hover:border-[#145c42] hover:shadow-md"
+                key={card.title}
+              >
+                <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-[#edf4ef] text-[#145c42]">
+                  <Icon aria-hidden="true" className="size-6" />
+                </span>
+                <div>
+                  <p className="font-semibold text-[#1f2c25] group-hover:text-[#145c42]">{card.title}</p>
+                  <p className="mt-1 text-sm leading-5 text-[#66756d]">{card.copy}</p>
+                  <p className="mt-3 inline-flex items-center gap-1 text-sm font-semibold text-[#145c42]">
+                    {card.cta}
+                    <ArrowRight aria-hidden="true" className="size-4 transition group-hover:translate-x-0.5" />
+                  </p>
+                </div>
+              </Link>
+            );
+          })}
         </div>
       </div>
     </section>

@@ -116,7 +116,7 @@ const metricCards = [
     meaning: "A pattern view of weight, symptoms, habits, labs, and follow-up needs.",
     why: "Long-term support helps turn one-time numbers into a plan that can be adjusted.",
     cta: "Meet the team",
-    href: "/our-team",
+    href: "/about/our-team",
   },
 ];
 

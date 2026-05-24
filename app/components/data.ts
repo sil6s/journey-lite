@@ -108,6 +108,46 @@ export const navGroups = [
     ],
   },
   {
+    label: "About",
+    items: [
+      {
+        label: "About JourneyLite",
+        href: "/about",
+        description: "Learn about the care team, surgery center, history, and quality recognitions.",
+      },
+      {
+        label: "Our Team",
+        href: "/about/our-team",
+        description: "Meet physicians, dietitians, medical providers, and support staff.",
+      },
+      {
+        label: "Physicians",
+        href: "/about/physicians",
+        description: "Meet the JourneyLite bariatric physicians and clinical leadership.",
+      },
+      {
+        label: "Registered Dietitians",
+        href: "/about/dietitians",
+        description: "Meet the RD/LD team supporting bariatric and medical weight loss nutrition.",
+      },
+      {
+        label: "Surgery Center",
+        href: "/about/surgery-center",
+        description: "Learn about the Cincinnati outpatient bariatric surgery center.",
+      },
+      {
+        label: "History",
+        href: "/about/history",
+        description: "Review JourneyLite's bariatric excellence and innovation timeline.",
+      },
+      {
+        label: "Locations",
+        href: "/about/locations",
+        description: "Find Cincinnati and regional office details.",
+      },
+    ],
+  },
+  {
     label: "Resources",
     items: [
       {
@@ -136,16 +176,6 @@ export const navGroups = [
         description: "Vitamins, pre-op diet kits, and bariatric products from your care team.",
       },
       {
-        label: "Physicians",
-        href: "/our-team",
-        description: "Meet the JourneyLite bariatric physicians.",
-      },
-      {
-        label: "Locations",
-        href: "/#locations",
-        description: "Find Cincinnati and regional office details.",
-      },
-      {
         label: "Testimonials",
         href: "/#reviews",
         description: "Read Google review excerpts and trust signals.",
@@ -157,6 +187,24 @@ export const navGroups = [
       },
     ],
   },
+];
+
+export const sortedNavGroups = [...navGroups]
+  .sort((a, b) => a.label.localeCompare(b.label))
+  .map((group) => ({
+    ...group,
+    items: [...group.items].sort((a, b) => a.label.localeCompare(b.label)),
+  }));
+
+export const siteSearchItems = [
+  { label: "Home", href: "/", description: "JourneyLite weight loss surgery and medical weight loss overview." },
+  { label: "Contact", href: "/contact", description: "Request an appointment or contact JourneyLite." },
+  ...sortedNavGroups.flatMap((group) =>
+    group.items.map((item) => ({
+      ...item,
+      group: group.label,
+    })),
+  ),
 ];
 
 export const statItems = [
@@ -503,12 +551,12 @@ export const locationGroups = [
 export const physicianCards = [
   {
     displayName: "Dr. Trace Curry",
-    name: "Trace W. Curry, MD",
+    name: "Trace W. Curry, MD, FASMBS",
     slug: "dr-trace-curry",
     initials: "TC",
     imageSrc: "/trace-curry.jpg",
-    avatarAlt: "Dr. Trace Curry, JourneyLite weight loss surgeon",
-    primaryTitle: "Minimally Invasive Weight Loss Surgeon",
+    avatarAlt: "Dr. Trace Curry, Medical Director and Bariatric Surgeon at JourneyLite",
+    primaryTitle: "Medical Director / Bariatric Surgeon",
     email: "dr.c@curryweightloss.com",
     bio:
       "Dr. Trace Curry is a board-certified general surgeon who specializes in minimally invasive weight loss surgery, non-surgical weight loss procedures, and medical weight loss. He is a Cincinnati native and trained at Good Samaritan Hospital. He is the founder of JourneyLite Physicians and JourneyLite Surgery Center and has performed thousands of advanced laparoscopic weight loss surgeries over his 20-year career.",
@@ -540,8 +588,8 @@ export const physicianCards = [
     slug: "dr-james-augusta",
     initials: "JA",
     imageSrc: "/james-augusta.jpg",
-    avatarAlt: "Dr. James Augusta, JourneyLite bariatric surgeon",
-    primaryTitle: "Minimally Invasive Weight Loss Surgeon",
+    avatarAlt: "Dr. James Augusta, Bariatric and Minimally Invasive Surgeon at JourneyLite",
+    primaryTitle: "Bariatric / Minimally Invasive Surgeon",
     email: "dr.augusta@curryweightloss.com",
     bio:
       "Dr. James Augusta is a board-certified general surgeon focused on gastric sleeve, gastric bypass, revisional weight loss surgery, and general surgery. He grew up in Utah and moved to the Midwest to attend the Kentucky College of Osteopathic Medicine. He completed general surgery residency at Grandview Hospital in Dayton, where he served as Chief Surgical Resident.",

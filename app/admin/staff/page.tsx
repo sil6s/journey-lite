@@ -17,7 +17,7 @@ export default async function AdminStaffPage() {
         title: person.name,
         description: person.primaryTitle,
         group: person.primaryTitle,
-        href: "/our-team",
+        href: "/about/our-team",
         status: person.status ?? "published",
         meta: person.email || person.clinicalFocus?.slice(0, 3).join(", "),
         fields: {

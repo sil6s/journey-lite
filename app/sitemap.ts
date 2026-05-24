@@ -7,9 +7,15 @@ const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://journeylite.com";
 
 const staticRoutes = [
   "",
+  "/about",
+  "/about/our-team",
+  "/about/physicians",
+  "/about/dietitians",
+  "/about/surgery-center",
+  "/about/history",
+  "/about/locations",
   "/blog",
   "/contact",
-  "/our-team",
   "/gastric-balloon",
   "/bariatric-metrics",
   "/medications",

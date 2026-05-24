@@ -147,7 +147,7 @@ function buildStaffEmail(data: LeadSubmission): { subject: string; html: string 
   if (data.informationTopics?.some((t) => t.includes("GLP") || t.includes("oral"))) links.push(greenButton("Medications Info", `${BASE}/medications`));
   if (data.informationTopics?.some((t) => t.includes("Balloon"))) links.push(greenButton("Gastric Balloon Info", `${BASE}/gastric-balloon`));
   if (data.informationTopics?.some((t) => t.includes("Pricing"))) links.push(greenButton("Pricing Info", `${BASE}/services/pricing-financing`));
-  links.push(outlineButton("Our Team", `${BASE}/our-team`));
+  links.push(outlineButton("Our Team", `${BASE}/about/our-team`));
   links.push(outlineButton("Contact Page", `${BASE}/contact`));
 
   const html = wrapper(`
@@ -253,7 +253,7 @@ function getProgramContent(data: LeadSubmission): ProgramContent {
         "Dr. Curry or Dr. Augusta will review your history and discuss available options.",
         "We will review insurance or self-pay options before scheduling your consultation.",
       ],
-      link: { label: "Our Team", href: `${BASE}/our-team` },
+      link: { label: "Our Team", href: `${BASE}/about/our-team` },
       closingNote: "Revision cases require careful evaluation. Not all revisions are the same — your team will review your specific situation before making any recommendations.",
     };
   }
@@ -306,7 +306,7 @@ function getProgramContent(data: LeadSubmission): ProgramContent {
         "A JourneyLite team member will review your request and reach out to discuss next steps.",
         "If you have specific concerns or a referral from another provider, please have that information ready.",
       ],
-      link: { label: "Our Team", href: `${BASE}/our-team` },
+      link: { label: "Our Team", href: `${BASE}/about/our-team` },
     };
   }
 

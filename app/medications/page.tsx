@@ -1192,7 +1192,7 @@ function PhysicianSection() {
                   </span>
                 ))}
               </div>
-              <Link className="mt-4 inline-flex text-sm font-semibold text-[#145c42] underline-offset-4 hover:underline" href="/our-team">
+              <Link className="mt-4 inline-flex text-sm font-semibold text-[#145c42] underline-offset-4 hover:underline" href="/about/physicians">
                 {physician.cta}
               </Link>
             </div>
@@ -1200,7 +1200,7 @@ function PhysicianSection() {
         ))}
       </div>
       <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-        <CTAButton href="/our-team" variant="secondary">Meet the Physicians</CTAButton>
+        <CTAButton href="/about/physicians" variant="secondary">Meet the Physicians</CTAButton>
         <CTAButton href="/contact">Book Consultation</CTAButton>
       </div>
     </PageSection>
