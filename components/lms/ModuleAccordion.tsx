@@ -11,6 +11,7 @@ interface ModuleAccordionProps {
   progressRows: LessonProgressRecord[];
   activeLessonSlug?: string;
   isEnrolled: boolean;
+  unlockedLessonSlugs?: Set<string>;
   defaultOpen?: boolean;
 }
 
@@ -20,6 +21,7 @@ export function ModuleAccordion({
   progressRows,
   activeLessonSlug,
   isEnrolled,
+  unlockedLessonSlugs,
   defaultOpen = false,
 }: ModuleAccordionProps) {
   const completedSlugs = new Set(
@@ -78,7 +80,7 @@ export function ModuleAccordion({
                 courseSlug={courseSlug}
                 isCompleted={completedSlugs.has(lesson.slug)}
                 isActive={lesson.slug === activeLessonSlug}
-                isLocked={!isEnrolled && !lesson.isPreview}
+                isLocked={(!isEnrolled && !lesson.isPreview) || (isEnrolled && unlockedLessonSlugs ? !unlockedLessonSlugs.has(lesson.slug) : false)}
               />
             ))
           )}

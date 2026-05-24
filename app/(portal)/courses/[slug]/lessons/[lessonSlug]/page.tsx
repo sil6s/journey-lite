@@ -4,7 +4,7 @@ import { Clock, ArrowLeft, ArrowRight } from "lucide-react";
 import { adminClient } from "@/src/lib/sanity/client";
 import { createClient } from "@/lib/supabase/server";
 import { courseBySlugQuery, lessonBySlugQuery } from "@/src/lib/sanity/lms-queries";
-import { getCourseProgress } from "@/lib/lms/progress";
+import { getCourseProgress, getUnlockedLessonSlugs } from "@/lib/lms/progress";
 import { checkLessonAccess } from "@/lib/lms/access";
 import { LessonViewer } from "@/components/lms/LessonViewer";
 import { LockedContentNotice } from "@/components/lms/LockedContentNotice";
@@ -65,6 +65,9 @@ export default async function LessonPage({
   const currentIndex = allLessons.findIndex((l) => l.slug === lessonSlug);
   const prevLesson = currentIndex > 0 ? allLessons[currentIndex - 1] : null;
   const nextLesson = currentIndex < allLessons.length - 1 ? allLessons[currentIndex + 1] : null;
+  const unlockedLessonSlugs = getUnlockedLessonSlugs(course, progressRows);
+  const currentLessonUnlocked = lesson.isPreview || !isEnrolled || unlockedLessonSlugs.has(lesson.slug);
+  const nextLessonUnlocked = nextLesson ? unlockedLessonSlugs.has(nextLesson.slug) : false;
 
   // Find which module this lesson belongs to
   const parentModule = course.modules?.find((m) =>
@@ -107,6 +110,7 @@ export default async function LessonPage({
               progressRows={progressRows}
               activeLessonSlug={lessonSlug}
               isEnrolled={isEnrolled || lesson.isPreview}
+              unlockedLessonSlugs={unlockedLessonSlugs}
               defaultOpen={mod.lessons.some((l) => l.slug === lessonSlug) || i === 0}
             />
           ))}
@@ -161,6 +165,20 @@ export default async function LessonPage({
             courseSlug={course.slug}
             reason={accessResult.reason}
           />
+        ) : !currentLessonUnlocked ? (
+          <section className="rounded-2xl border border-[#dce4df] bg-white p-6">
+            <h2 className="text-base font-semibold text-[#1f2c25]">Complete the previous lesson first</h2>
+            <p className="mt-2 text-sm leading-6 text-[#66756d]">
+              Lessons open in order so your education is completed step by step. Return to the course outline and complete the next available lesson before continuing.
+            </p>
+            <Link
+              href={`/courses/${course.slug}`}
+              className="mt-4 inline-flex items-center gap-1.5 rounded-md bg-[#145c42] px-4 py-2.5 text-sm font-semibold text-white shadow-sm transition hover:bg-[#0f4d37]"
+            >
+              Back to course
+              <ArrowRight className="h-4 w-4" />
+            </Link>
+          </section>
         ) : (
           <LessonViewer
             lesson={lesson}
@@ -172,7 +190,7 @@ export default async function LessonPage({
         )}
 
         {/* Related lessons */}
-        {accessResult.allowed && lesson.relatedLessons && lesson.relatedLessons.length > 0 && (
+        {accessResult.allowed && currentLessonUnlocked && lesson.relatedLessons && lesson.relatedLessons.length > 0 && (
           <div className="rounded-2xl border border-[#dce4df] bg-white p-5">
             <p className="text-sm font-semibold text-[#1f2c25]">Related Lessons</p>
             <ul className="mt-3 space-y-2">
@@ -210,7 +228,7 @@ export default async function LessonPage({
             </Link>
           ) : <div />}
 
-          {nextLesson ? (
+          {accessResult.allowed && nextLesson && nextLessonUnlocked ? (
             <Link
               href={`/courses/${course.slug}/lessons/${nextLesson.slug}`}
               className="group flex max-w-xs flex-col items-end gap-0.5"
@@ -223,6 +241,16 @@ export default async function LessonPage({
                 {nextLesson.title}
               </span>
             </Link>
+          ) : accessResult.allowed && nextLesson ? (
+            <div className="flex max-w-xs flex-col items-end gap-0.5 text-right">
+              <span className="flex items-center gap-1 text-xs font-semibold text-[#8fa09a]">
+                Next locked
+                <ArrowRight className="h-3.5 w-3.5" />
+              </span>
+              <span className="line-clamp-1 text-sm font-medium text-[#66756d]">
+                Mark this lesson complete to continue
+              </span>
+            </div>
           ) : (
             <Link
               href={`/courses/${course.slug}`}

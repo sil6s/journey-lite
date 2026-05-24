@@ -5,7 +5,7 @@ import { adminClient } from "@/src/lib/sanity/client";
 import { urlFor } from "@/src/lib/sanity/image";
 import { createClient } from "@/lib/supabase/server";
 import { courseBySlugQuery } from "@/src/lib/sanity/lms-queries";
-import { getCourseProgress, calculateCourseProgress, getNextLesson } from "@/lib/lms/progress";
+import { getCourseProgress, calculateCourseProgress, getNextLesson, getUnlockedLessonSlugs } from "@/lib/lms/progress";
 import { checkCourseAccess } from "@/lib/lms/access";
 import { ModuleAccordion } from "@/components/lms/ModuleAccordion";
 import { EmptyState } from "@/components/lms/EmptyState";
@@ -58,6 +58,7 @@ export default async function CourseDetailPage({ params }: { params: Promise<{ s
 
   const summary = calculateCourseProgress(course, progressRows);
   const nextLesson = isEnrolled ? getNextLesson(course, progressRows) : null;
+  const unlockedLessonSlugs = getUnlockedLessonSlugs(course, progressRows);
   const firstLesson = course.modules?.[0]?.lessons?.[0] ?? null;
 
   const imageUrl = course.featuredImage?.asset
@@ -222,6 +223,7 @@ export default async function CourseDetailPage({ params }: { params: Promise<{ s
                 courseSlug={course.slug}
                 progressRows={progressRows}
                 isEnrolled={isEnrolled}
+                unlockedLessonSlugs={unlockedLessonSlugs}
                 defaultOpen={i === 0}
               />
             ))}

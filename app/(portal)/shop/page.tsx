@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ArrowLeft, ShoppingBag } from "lucide-react";
+import { BookOpen, ExternalLink, ShoppingBag } from "lucide-react";
 import { storefrontFetch } from "@/lib/shopify/client";
 import { PRODUCTS_QUERY } from "@/lib/shopify/queries";
 import { ProductCard } from "@/components/shop/ProductCard";
@@ -43,23 +43,22 @@ export default async function ShopPage() {
 
   return (
     <div className="space-y-10">
-      {/* Top bar */}
       <div className="flex flex-wrap items-center justify-between gap-3">
-        <div className="flex items-center gap-4">
-          <a
-            href="https://www.journeylite.com"
-            className="inline-flex items-center gap-1.5 text-sm font-medium text-[#66756d] hover:text-[#145c42]"
-          >
-            <ArrowLeft className="h-3.5 w-3.5" />
-            Return to main site
-          </a>
-          <span className="text-[#dce4df]">|</span>
+        <div className="flex flex-wrap items-center gap-3">
           <Link
             href="/courses"
-            className="text-sm font-medium text-[#66756d] hover:text-[#145c42]"
+            className="inline-flex items-center gap-1.5 rounded-md border border-[#dce4df] px-3 py-2 text-sm font-medium text-[#53635b] hover:border-[#145c42] hover:text-[#145c42]"
           >
-            Patient Education
+            <BookOpen className="h-4 w-4" />
+            Education
           </Link>
+          <a
+            href="https://www.journeylite.com"
+            className="inline-flex items-center gap-1.5 rounded-md px-3 py-2 text-sm font-medium text-[#66756d] hover:bg-[#f5f8f6] hover:text-[#145c42]"
+          >
+            Main JourneyLite site
+            <ExternalLink className="h-3.5 w-3.5" />
+          </a>
         </div>
       </div>
 

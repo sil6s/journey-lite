@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowLeft, BookOpen, ShoppingBag } from "lucide-react";
+import { ArrowLeft, BookOpen, LayoutDashboard, ShoppingBag } from "lucide-react";
 import { createClient } from "@/lib/supabase/server";
 import { UserMenu } from "./UserMenu";
 
@@ -24,9 +24,8 @@ export async function PortalNav() {
       className="sticky top-0 z-40 border-b border-[#dce4df] bg-white/95 backdrop-blur-sm"
     >
       <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-3 sm:px-6 lg:px-8">
-        {/* Logo + portal label */}
         <div className="flex items-center gap-3">
-          <Link href="/" className="shrink-0" aria-label="JourneyLite home">
+          <Link href="/courses" className="shrink-0" aria-label="JourneyLite patient portal home">
             <Image
               src="/journeylite-logo.svg"
               alt="JourneyLite"
@@ -43,17 +42,26 @@ export async function PortalNav() {
             className="hidden sm:flex items-center gap-1.5 text-sm font-semibold text-[#1f2c25] hover:text-[#145c42]"
           >
             <BookOpen className="h-4 w-4 text-[#145c42]" />
-            Patient Education
+            Patient Portal
           </Link>
         </div>
 
-        {/* Nav links (desktop) */}
         <div className="hidden md:flex items-center gap-1">
+          {user && (
+            <Link
+              href="/dashboard"
+              className="inline-flex items-center gap-1.5 rounded-md px-3 py-2 text-sm font-medium text-[#53635b] hover:bg-[#f5f8f6] hover:text-[#1f2c25] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#145c42]"
+            >
+              <LayoutDashboard className="h-4 w-4" />
+              Dashboard
+            </Link>
+          )}
           <Link
             href="/courses"
-            className="rounded-md px-3 py-2 text-sm font-medium text-[#53635b] hover:bg-[#f5f8f6] hover:text-[#1f2c25] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#145c42]"
+            className="inline-flex items-center gap-1.5 rounded-md px-3 py-2 text-sm font-medium text-[#53635b] hover:bg-[#f5f8f6] hover:text-[#1f2c25] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#145c42]"
           >
-            Browse Courses
+            <BookOpen className="h-4 w-4" />
+            Education
           </Link>
           <Link
             href="/shop"
@@ -62,17 +70,8 @@ export async function PortalNav() {
             <ShoppingBag className="h-4 w-4" />
             Shop
           </Link>
-          {user && (
-            <Link
-              href="/dashboard"
-              className="rounded-md px-3 py-2 text-sm font-medium text-[#53635b] hover:bg-[#f5f8f6] hover:text-[#1f2c25] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#145c42]"
-            >
-              My Dashboard
-            </Link>
-          )}
         </div>
 
-        {/* Return to main site */}
         <a
           href="https://www.journeylite.com"
           className="hidden lg:inline-flex items-center gap-1 text-xs font-medium text-[#66756d] hover:text-[#145c42]"

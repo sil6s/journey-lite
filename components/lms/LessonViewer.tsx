@@ -41,16 +41,38 @@ function InlineMarkdown({ text }: { text: string }) {
     if (m[2]) parts.push(<strong key={m.index} className="font-semibold text-[#1f2c25]">{m[2]}</strong>);
     else if (m[3]) parts.push(<em key={m.index}>{m[3]}</em>);
     else if (m[4]) parts.push(<code key={m.index} className="rounded bg-[#f1f5f9] px-1 py-0.5 font-mono text-sm">{m[4]}</code>);
-    else if (m[5] && m[6]) parts.push(
+    else if (m[6]) parts.push(
       <a key={m.index} href={m[6]} className="font-medium text-[#145c42] underline underline-offset-2 hover:text-[#0f4d37]"
         {...(m[6].startsWith("http") ? { target: "_blank", rel: "noopener noreferrer" } : {})}>
-        {m[5]}
+        {m[5] || readableLinkLabel(m[6])}
       </a>
     );
     last = m.index + m[0].length;
   }
   if (last < text.length) parts.push(text.slice(last));
   return <>{parts}</>;
+}
+
+function readableLinkLabel(url: string) {
+  try {
+    const parsed = new URL(url);
+    if (parsed.hostname.includes("journeylite.com")) return "JourneyLite resource";
+    if (parsed.hostname.includes("thechristhospital.com")) return "The Christ Hospital information";
+    if (parsed.hostname.includes("mercy.com")) return "Jewish Hospital information";
+    if (parsed.hostname.includes("mckesson.com")) return "Eliquis coupon";
+    return parsed.hostname.replace(/^www\./, "");
+  } catch {
+    return "Open resource";
+  }
+}
+
+function normalizeImportedLine(raw: string) {
+  return raw
+    .trim()
+    .replace(/^([*-]\s+){2,}/, "- ")
+    .replace(/^\d+\.\s+\d+\.\s+/, "1. ")
+    .replace(/^\*\s{2,}/, "- ")
+    .replace(/^\*\s+/, "- ");
 }
 
 /**
@@ -85,7 +107,7 @@ function ContentBody({ lines }: { lines: string[] }) {
   }
 
   for (const raw of lines) {
-    const line = raw.trim();
+    const line = normalizeImportedLine(raw);
     if (!line) { flushBullets(); flushOrdered(); continue; }
 
     const h3 = line.match(/^###\s+(.*)/);

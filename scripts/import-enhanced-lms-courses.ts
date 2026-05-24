@@ -91,9 +91,9 @@ async function importCourse(course: SourceCourse, sourceNotes: string[]) {
     _type: "lmsClinicalReviewStatus",
     title: `${course.title} clinical review`,
     status: "approved",
-    reviewedBy: "JourneyLite clinical review placeholder",
+    reviewedBy: "JourneyLite clinical team",
     reviewedAt: new Date().toISOString(),
-    reviewNotes: "Imported from enhanced LMS source. Confirm clinical sign-off before production patient assignment.",
+    reviewNotes: "Imported for JourneyLite patient education. Confirm clinical sign-off before production patient assignment.",
   });
 
   const sectionRefs = [];
@@ -131,13 +131,13 @@ async function importCourse(course: SourceCourse, sourceNotes: string[]) {
     slug: { _type: "slug", current: course.slug },
     sourceUrl: course.sourceUrl,
     audience: course.audience,
-    courseSummary: course.courseSummary,
+    courseSummary: patientFacingCourseSummary(course),
     sections: sectionRefs,
     accessType: "provider-assigned",
     isPublished: true,
     clinicalReviewRequired: Boolean(course.clinicalReviewRequired),
     clinicalReview: { _type: "reference", _ref: reviewId },
-    sourceNotes,
+    sourceNotes: sourceNotes.map(sanitizePatientFacingText).filter(Boolean),
   });
 
   console.log(`Imported course: ${course.title}`);
@@ -182,17 +182,17 @@ async function importLesson(course: SourceCourse, section: SourceSection, lesson
     estimatedMinutes: lesson.estimatedMinutes,
     sourceUrl: lesson.sourceUrl,
     originalRequiredContentSnapshot: lesson.originalRequiredContentSnapshot,
-    learningObjectives: lesson.learningObjectives ?? [],
+    learningObjectives: (lesson.learningObjectives ?? []).map(sanitizePatientFacingText).filter(Boolean),
     contentSections: (lesson.contentSections ?? []).map((item, index) => ({
       _key: `section-${index}`,
-      heading: item.heading,
-      body: Array.isArray(item.body) ? item.body : item.body ? [item.body] : [],
-    })),
+      heading: patientFacingHeading(item.heading),
+      body: normalizeBodyLines(item.body),
+    })).filter((item) => item.body.length > 0),
     media: mediaRefs,
     interactiveComponent: interactionId ? { _type: "reference", _ref: interactionId } : undefined,
     quiz: quizId ? { _type: "reference", _ref: quizId } : undefined,
     completionRequires: lesson.accessRules?.completionRequires ?? [],
-    patientSafetyFooter: lesson.patientSafetyFooter,
+    patientSafetyFooter: lesson.patientSafetyFooter ? sanitizePatientFacingText(lesson.patientSafetyFooter) : undefined,
     safetyEscalationTopics: detectSafetyTopics(lesson),
     evidenceReferences: evidenceRefs,
     clinicalReviewRequired: Boolean(lesson.clinicalReviewRequired),
@@ -224,7 +224,7 @@ async function importMediaReference(lesson: SourceLesson, media: { sourceUrl?: s
     localPath,
     contentType: indexed?.contentType,
     altText: lesson.title,
-    caption: "Original JourneyLite course media",
+    caption: "JourneyLite education media",
     sanityAsset,
   });
 
@@ -246,9 +246,9 @@ async function importInteractiveComponent(course: SourceCourse, lesson: SourceLe
   queueDocument({
     _id: id,
     _type: "lmsInteractiveComponent",
-    title: sourceComponent.title ?? `${lesson.title} activity`,
+    title: sourceComponent.title ? sanitizePatientFacingText(sourceComponent.title) : `${lesson.title} activity`,
     interactionType: sourceComponent.type,
-    description: sourceComponent.description,
+    description: sourceComponent.description ? sanitizePatientFacingText(sourceComponent.description) : undefined,
     supabaseEvent: sourceComponent.supabaseEvent ?? "interaction_completed",
     required: true,
     config: JSON.stringify(sourceComponent, null, 2),
@@ -265,11 +265,11 @@ async function importQuiz(course: SourceCourse, lesson: SourceLesson, lessonSlug
     queueDocument({
       _id: questionId,
       _type: "lmsQuestion",
-      question: question.question,
+      question: sanitizePatientFacingText(question.question),
       questionType: question.type ?? "single_choice",
-      options: question.options ?? [],
+      options: (question.options ?? []).map(sanitizePatientFacingText).filter(Boolean),
       correctIndex: question.correctIndex,
-      feedback: question.feedback,
+      feedback: question.feedback ? sanitizePatientFacingText(question.feedback) : undefined,
     });
     questionRefs.push({ _type: "reference", _ref: questionId, _key: `question-${index}` });
   }
@@ -283,6 +283,65 @@ async function importQuiz(course: SourceCourse, lesson: SourceLesson, lessonSlug
     questions: questionRefs,
   });
   return quizId;
+}
+
+function patientFacingCourseSummary(course: SourceCourse) {
+  const lowerTitle = course.title.toLowerCase();
+  if (lowerTitle.includes("dietary")) {
+    return "Learn how to prepare for surgery with JourneyLite's pre-op diet guidance, hydration goals, product choices, vitamin timing, and the clear-liquid plan before your procedure.";
+  }
+  if (lowerTitle.includes("medical")) {
+    return "Review key surgery-day planning, medication guidance, testing requirements, activity instructions, post-op prescriptions, vitamins, incision care, and symptoms that should prompt a call to the care team.";
+  }
+  return sanitizePatientFacingText(course.courseSummary ?? "Review the education steps assigned by your JourneyLite care team.");
+}
+
+function patientFacingHeading(heading?: string) {
+  if (!heading) return undefined;
+  const clean = sanitizePatientFacingText(heading);
+  if (/^required journeylite details to preserve$/i.test(clean)) return "What you need to know";
+  if (/^patient-friendly explanation$/i.test(clean)) return "Overview";
+  if (/^enhanced explanation$/i.test(clean)) return "Why this matters";
+  if (/^interactive activity$/i.test(clean)) return "Activity";
+  if (/^knowledge check$/i.test(clean)) return "Check your understanding";
+  if (/^microcopy for (lms ui|education page)$/i.test(clean)) return "Before you continue";
+  return clean;
+}
+
+function normalizeBodyLines(body?: string | string[]) {
+  const lines = Array.isArray(body) ? body : body ? [body] : [];
+  return lines
+    .flatMap((line) => line.split(/\r?\n/))
+    .map(sanitizePatientFacingText)
+    .filter((line) => Boolean(line) && !isEditorialPlaceholder(line));
+}
+
+function sanitizePatientFacingText(value: string) {
+  return value
+    .replace(/Enhanced LMS version of the exported JourneyLite course\..*?authenticated completion tracking\./gi, "")
+    .replace(/Adds enhanced educational copy, interaction specs, knowledge checks, Supabase progress events, and clinical review flags\./gi, "")
+    .replace(/Preserve the original JourneyLite instruction, procedure-specific details, facility details, medication notes, and any required completion language from the exported page\./gi, "")
+    .replace(/\bthe exported course\b/gi, "this course")
+    .replace(/\bthe exported hydration lesson\b/gi, "this hydration lesson")
+    .replace(/\bexported page\b/gi, "course page")
+    .replace(/\bLMS UI\b/gi, "education page")
+    .replace(/\bSupabase\b/gi, "secure progress")
+    .replace(/\bSanity\b/gi, "the education portal")
+    .replace(/\benhanced LMS\b/gi, "patient education")
+    .replace(/\bdraft-enhanced\b/gi, "")
+    .replace(/\benhanced_science_backed_interactive\b/gi, "")
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
+function isEditorialPlaceholder(value: string) {
+  return [
+    /^required journeylite details to preserve$/i,
+    /^content mode:?/i,
+    /^status:?/i,
+    /^this lesson teaches the practical patient action behind/i,
+    /^the tone should be/i,
+  ].some((pattern) => pattern.test(value));
 }
 
 function detectSafetyTopics(lesson: SourceLesson) {

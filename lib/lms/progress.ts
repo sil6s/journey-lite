@@ -88,6 +88,21 @@ export function getNextLesson(
   return null;
 }
 
+export function getUnlockedLessonSlugs(
+  course: SanityCourse,
+  progressRows: LessonProgressRecord[]
+): Set<string> {
+  const completed = new Set(progressRows.filter((p) => p.completed).map((p) => p.lesson_slug));
+  const lessons = (course.modules ?? []).flatMap((mod) => mod.lessons ?? []);
+  const firstIncompleteIndex = lessons.findIndex((lesson) => !completed.has(lesson.slug));
+
+  if (firstIncompleteIndex === -1) {
+    return new Set(lessons.map((lesson) => lesson.slug));
+  }
+
+  return new Set(lessons.slice(0, firstIncompleteIndex + 1).map((lesson) => lesson.slug));
+}
+
 export async function getCurrentUser() {
   const supabase = await createClient();
   const { data: { user } } = await supabase.auth.getUser();

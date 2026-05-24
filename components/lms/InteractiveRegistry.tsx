@@ -173,7 +173,7 @@ function renderInteractionCopy(type: string) {
     case "drag_drop":
       return "Sort the examples mentally into the correct groups, then confirm when you can explain the safer choice.";
     case "guided_form":
-      return "Work through the prompts on your own or with your care team. Store patient-specific details only in your clinical workflow, not in Sanity.";
+      return "Work through the prompts on your own or with your care team. Keep personal health details in your secure patient record or with your clinical team.";
     case "scenario_picker":
       return "Review each scenario and choose the response that matches your JourneyLite instructions.";
     case "medication_checklist":
@@ -185,7 +185,7 @@ function renderInteractionCopy(type: string) {
     case "calendar_builder":
       return "Build a personal reminder plan outside this page using the dates provided by your care team.";
     case "upload_or_confirm":
-      return "Confirm you completed the requested step. Uploads are not collected in this prototype to avoid unnecessary PHI.";
+      return "Confirm you completed the requested step. This page records completion only and does not collect personal health documents.";
     case "completion_attestation":
       return "Confirm that you reviewed the course content and understand this education does not replace individualized medical advice.";
     default:
