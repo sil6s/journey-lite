@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { BookOpen, Menu, Phone, ShoppingBag } from "lucide-react";
@@ -14,7 +15,7 @@ import {
 } from "@/components/ui/sheet";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import type { SiteSearchItem } from "./SiteSearch";
-import { SiteSearch } from "./SiteSearch";
+import { InlineSiteSearch } from "./SiteSearch";
 
 type NavGroup = {
   label: string;
@@ -36,8 +37,10 @@ export function MobileNav({
   phoneHref: string;
   phoneNumber: string;
 }) {
+  const [open, setOpen] = useState(false);
+
   return (
-    <Sheet>
+    <Sheet open={open} onOpenChange={setOpen}>
       <SheetTrigger asChild>
         <Button
           className="border-[#cbd7d0] bg-white text-[#17362a] hover:border-[#145c42] hover:text-[#145c42] lg:hidden"
@@ -48,7 +51,11 @@ export function MobileNav({
           <span className="sr-only">Open menu</span>
         </Button>
       </SheetTrigger>
-      <SheetContent className="inset-0 h-dvh w-screen max-w-none overflow-y-auto border-0 bg-white p-0 sm:max-w-none" side="right">
+      {/* !inset-0 !w-screen !max-w-none !h-dvh ensure true full-screen on all breakpoints */}
+      <SheetContent
+        className="!inset-0 !h-dvh !w-screen !max-w-none overflow-y-auto border-0 bg-white p-0"
+        side="right"
+      >
         <SheetHeader className="border-b border-[#dce4df] p-5 pr-14">
           <SheetTitle>
             <Image
@@ -61,7 +68,11 @@ export function MobileNav({
           </SheetTitle>
         </SheetHeader>
         <div className="grid gap-5 p-5">
-          <SiteSearch items={searchItems} />
+          {/* Inline search bar replaces the icon-button variant */}
+          <InlineSiteSearch
+            items={searchItems}
+            onSelect={() => setOpen(false)}
+          />
           <div className="grid gap-3 sm:grid-cols-2">
             <SheetClose asChild>
               <Link

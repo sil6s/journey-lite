@@ -21,6 +21,52 @@ export type SiteSearchItem = {
   group?: string;
 };
 
+/** Inline search bar — used inside the mobile nav sheet */
+export function InlineSiteSearch({
+  items,
+  onSelect,
+}: {
+  items: SiteSearchItem[];
+  onSelect?: () => void;
+}) {
+  const router = useRouter();
+  const [query, setQuery] = useState("");
+
+  return (
+    <Command className="rounded-xl border border-[#dce4df] bg-white" filter={fuzzyFilter}>
+      <CommandInput
+        placeholder="Search procedures, pricing, locations..."
+        value={query}
+        onValueChange={setQuery}
+      />
+      {query.trim().length > 0 && (
+        <CommandList className="max-h-[260px] border-t border-[#dce4df]">
+          <CommandEmpty>No matching JourneyLite pages found.</CommandEmpty>
+          <CommandGroup heading="JourneyLite pages">
+            {items.map((item) => (
+              <CommandItem
+                className="grid items-start gap-0.5 px-4 py-2.5 [&>svg:last-child]:hidden"
+                key={`${item.href}-${item.label}`}
+                onSelect={() => {
+                  router.push(item.href);
+                  setQuery("");
+                  onSelect?.();
+                }}
+                value={`${item.label} ${item.description} ${item.group ?? ""}`}
+                keywords={[item.label, item.description, item.group ?? "", item.href]}
+              >
+                <p className="text-sm font-semibold text-[#1f2c25]">{item.label}</p>
+                <p className="line-clamp-1 text-xs leading-5 text-[#64736b]">{item.description}</p>
+              </CommandItem>
+            ))}
+          </CommandGroup>
+        </CommandList>
+      )}
+    </Command>
+  );
+}
+
+/** Icon-button search — used in the desktop header */
 export function SiteSearch({ items }: { items: SiteSearchItem[] }) {
   const router = useRouter();
   const [open, setOpen] = useState(false);
@@ -40,7 +86,9 @@ export function SiteSearch({ items }: { items: SiteSearchItem[] }) {
       <CommandDialog
         title="Search JourneyLite"
         description="Search JourneyLite pages, procedures, resources, and team information."
-        className="w-[min(92vw,860px)] max-w-[860px]"
+        // top-4 on mobile (snaps near top edge); sm:top-[12vh] centers nicely on desktop
+        // max-w-[calc(100%-2rem)] keeps mobile width; sm:max-w-[min(96vw,1100px)] gives a wide desktop dialog
+        className="top-4 translate-y-0 sm:top-[12vh] sm:max-w-[min(96vw,1100px)]"
         open={open}
         onOpenChange={setOpen}
       >
