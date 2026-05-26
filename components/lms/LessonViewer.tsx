@@ -376,21 +376,6 @@ export function LessonViewer({ lesson, courseSlug, moduleSlug, progress, isAuthe
         />
       ) : null}
 
-      {/* Key takeaways */}
-      {lesson.keyTakeaways && lesson.keyTakeaways.length > 0 && (
-        <div className="rounded-2xl border border-[#c8ddd4] bg-[#f0f8f4] p-5">
-          <p className="text-xs font-semibold uppercase tracking-widest text-[#145c42]">Key Takeaways</p>
-          <ul className="mt-3 space-y-2">
-            {lesson.keyTakeaways.map((item, i) => (
-              <li key={i} className="flex items-start gap-2.5 text-sm leading-6 text-[#355346]">
-                <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-[#145c42]" />
-                {item}
-              </li>
-            ))}
-          </ul>
-        </div>
-      )}
-
       {/* Callout boxes */}
       {lesson.calloutBoxes?.map((callout) => {
         const style = calloutStyles[callout.type] ?? calloutStyles.note;
@@ -405,14 +390,11 @@ export function LessonViewer({ lesson, courseSlug, moduleSlug, progress, isAuthe
         );
       })}
 
-      {/* contentSections — flowing prose, no per-section cards */}
+      {/* contentSections — rendered as clean flowing prose; headings only shown if explicitly set in Sanity */}
       {!hasContentBlocks && lesson.contentSections && lesson.contentSections.length > 0 && (
-        <div className="space-y-1">
+        <div className="space-y-4">
           {lesson.contentSections.map((section) => (
             <div key={section._key}>
-              {section.heading && (
-                <h2 className="mt-8 mb-3 text-xl font-semibold text-[#1f2c25]">{section.heading}</h2>
-              )}
               {section.body && section.body.length > 0 && (
                 <ContentBody lines={section.body} />
               )}

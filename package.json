@@ -15,6 +15,8 @@
     "patch:featured-images": "tsx scripts/patch-featured-images.ts",
     "publish:migrated": "tsx scripts/publish-migrated-posts.ts",
     "import:enhanced-lms": "tsx scripts/import-enhanced-lms-courses.ts",
+    "migrate:lms": "tsx scripts/migrate-lms-content.ts",
+    "flush:user": "tsx scripts/flush-user-progress.ts",
     "seed:lms-test": "tsx scripts/seed-lms-test-account.ts"
   },
   "dependencies": {

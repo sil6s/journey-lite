@@ -23,18 +23,14 @@ export default defineConfig({
                 S.list()
                   .title("Patient Education")
                   .items([
-                    S.documentTypeListItem("course").title("Courses"),
-                    S.documentTypeListItem("courseModule").title("Modules"),
-                    S.documentTypeListItem("lesson").title("Lessons"),
-                    S.documentTypeListItem("courseResource").title("Downloads & Resources"),
-                    S.documentTypeListItem("recipe").title("Recipes"),
+                    S.documentTypeListItem("lmsCourse").title("Courses"),
+                    S.documentTypeListItem("lmsSection").title("Sections"),
+                    S.documentTypeListItem("lmsLesson").title("Lessons"),
                     S.divider(),
-                    S.documentTypeListItem("lmsCourse").title("Enhanced Courses"),
-                    S.documentTypeListItem("lmsSection").title("Enhanced Sections"),
-                    S.documentTypeListItem("lmsLesson").title("Enhanced Lessons"),
                     S.documentTypeListItem("lmsQuiz").title("Quizzes"),
                     S.documentTypeListItem("lmsQuestion").title("Questions"),
                     S.documentTypeListItem("lmsInteractiveComponent").title("Interactive Components"),
+                    S.divider(),
                     S.documentTypeListItem("lmsMediaReference").title("Media References"),
                     S.documentTypeListItem("lmsEvidenceReference").title("Evidence References"),
                     S.documentTypeListItem("lmsClinicalReviewStatus").title("Clinical Review Statuses"),

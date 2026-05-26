@@ -4,6 +4,8 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Separator } from "@/components/ui/separator";
 
 export default function AdminSettingsPage() {
+  const recaptchaServerConfigured = Boolean(process.env.RECAPTCHA_ENTERPRISE_API_KEY && process.env.RECAPTCHA_ENTERPRISE_PROJECT_ID);
+  const recaptchaRequired = process.env.RECAPTCHA_ENFORCEMENT === "required";
   const checks = [
     { label: "Sanity project", ok: Boolean(process.env.NEXT_PUBLIC_SANITY_PROJECT_ID), detail: process.env.NEXT_PUBLIC_SANITY_PROJECT_ID || "Missing" },
     { label: "Sanity dataset", ok: Boolean(process.env.NEXT_PUBLIC_SANITY_DATASET), detail: process.env.NEXT_PUBLIC_SANITY_DATASET || "Missing" },
@@ -12,7 +14,15 @@ export default function AdminSettingsPage() {
     { label: "Admin allow-list", ok: Boolean(process.env.ADMIN_ALLOWED_EMAILS), detail: "Exact Google emails" },
     { label: "Umami tracking", ok: Boolean(process.env.NEXT_PUBLIC_UMAMI_WEBSITE_ID), detail: process.env.NEXT_PUBLIC_UMAMI_WEBSITE_ID || "Missing" },
     { label: "reCAPTCHA public key", ok: Boolean(process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY), detail: "Enterprise script" },
-    { label: "reCAPTCHA server verification", ok: Boolean(process.env.RECAPTCHA_ENTERPRISE_API_KEY && process.env.RECAPTCHA_ENTERPRISE_PROJECT_ID), detail: "Required for production verification" },
+    {
+      label: "reCAPTCHA server verification",
+      ok: recaptchaServerConfigured || !recaptchaRequired,
+      detail: recaptchaServerConfigured
+        ? "Enterprise verification enabled"
+        : recaptchaRequired
+          ? "Required but missing"
+          : "Optional bypass until Enterprise API key and project ID are added",
+    },
   ];
 
   return (

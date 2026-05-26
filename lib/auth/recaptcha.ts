@@ -2,13 +2,14 @@ export async function verifyRecaptchaToken(token: string | undefined, action: st
   const siteKey = process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY;
   const apiKey = process.env.RECAPTCHA_ENTERPRISE_API_KEY;
   const projectId = process.env.RECAPTCHA_ENTERPRISE_PROJECT_ID;
+  const enforcement = process.env.RECAPTCHA_ENFORCEMENT ?? "optional";
 
-  // Dev bypass: allow when env vars are not set
+  // If Enterprise server verification is incomplete, keep admin OAuth usable but report bypass mode.
   if (!siteKey || !apiKey || !projectId) {
-    if (process.env.NODE_ENV === "production") {
+    if (enforcement === "required") {
       return { ok: false, bypassed: false, score: 0, reason: "reCAPTCHA Enterprise is not configured." };
     }
-    return { ok: true, bypassed: true, score: 1, reason: "Dev bypass — reCAPTCHA Enterprise server credentials are not set." };
+    return { ok: true, bypassed: true, score: 1, reason: "reCAPTCHA Enterprise server verification is not configured." };
   }
 
   if (!token) return { ok: false, bypassed: false, score: 0, reason: "Missing reCAPTCHA token." };

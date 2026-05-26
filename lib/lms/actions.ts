@@ -235,6 +235,27 @@ export async function completeCourseEnrollment(
     .neq("status", "revoked");
 }
 
+export async function resetMyProgress(): Promise<{ error?: string }> {
+  try {
+    const supabase = await createClient();
+    const { data: { user } } = await supabase.auth.getUser();
+    if (!user) return { error: "You must be signed in to reset your progress." };
+
+    const { error } = await supabase.rpc("reset_user_progress", { p_user_id: user.id });
+    if (error) {
+      console.error("[lms/actions] resetMyProgress:", error.code, error.message);
+      return { error: "Could not reset progress. Please try again or contact support." };
+    }
+
+    revalidatePath("/courses");
+    revalidatePath("/dashboard");
+    return {};
+  } catch (e) {
+    console.error("[lms/actions] resetMyProgress unexpected:", e);
+    return { error: "Unexpected error. Please try again." };
+  }
+}
+
 export async function submitCompletionAttestation(courseSlug: string, metadata: Json = {}): Promise<void> {
   const supabase = await createClient();
   const { data: { user } } = await supabase.auth.getUser();
