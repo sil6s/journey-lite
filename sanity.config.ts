@@ -3,6 +3,10 @@ import { structureTool } from "sanity/structure";
 import { dataset, projectId } from "./src/lib/sanity/env";
 import { schemaTypes } from "./sanity/schemaTypes";
 
+// Patient Education (LMS) has been removed from Sanity Studio.
+// Course content is now managed in Open edX (Tutor).
+// See lib/openedx/ for the API integration.
+
 export default defineConfig({
   name: "journeylite-blog",
   title: "JourneyLite CMS",
@@ -17,26 +21,6 @@ export default defineConfig({
         S.list()
           .title("Content")
           .items([
-            S.listItem()
-              .title("🎓 Patient Education")
-              .child(
-                S.list()
-                  .title("Patient Education")
-                  .items([
-                    S.documentTypeListItem("lmsCourse").title("Courses"),
-                    S.documentTypeListItem("lmsSection").title("Sections"),
-                    S.documentTypeListItem("lmsLesson").title("Lessons"),
-                    S.divider(),
-                    S.documentTypeListItem("lmsQuiz").title("Quizzes"),
-                    S.documentTypeListItem("lmsQuestion").title("Questions"),
-                    S.documentTypeListItem("lmsInteractiveComponent").title("Interactive Components"),
-                    S.divider(),
-                    S.documentTypeListItem("lmsMediaReference").title("Media References"),
-                    S.documentTypeListItem("lmsEvidenceReference").title("Evidence References"),
-                    S.documentTypeListItem("lmsClinicalReviewStatus").title("Clinical Review Statuses"),
-                  ])
-              ),
-            S.divider(),
             S.listItem()
               .title("📝 Blog & Resources")
               .child(

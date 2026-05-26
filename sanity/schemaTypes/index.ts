@@ -4,18 +4,10 @@ import { category } from "./category";
 import { location } from "./location";
 import { post } from "./post";
 import { staffProfile } from "./staffProfile";
-// Patient Education (LMS)
-import {
-  lmsClinicalReviewStatus,
-  lmsCourse,
-  lmsEvidenceReference,
-  lmsInteractiveComponent,
-  lmsLesson,
-  lmsMediaReference,
-  lmsQuestion,
-  lmsQuiz,
-  lmsSection,
-} from "./lms/enhanced";
+
+// Patient Education (LMS) schemas have been removed.
+// Course content is now managed in Open edX (Tutor).
+// See lib/openedx/ for the new API integration.
 
 export const schemaTypes = [
   // Blog & Resources
@@ -25,14 +17,4 @@ export const schemaTypes = [
   author,
   staffProfile,
   location,
-  // Patient Education
-  lmsCourse,
-  lmsSection,
-  lmsLesson,
-  lmsQuiz,
-  lmsQuestion,
-  lmsInteractiveComponent,
-  lmsMediaReference,
-  lmsEvidenceReference,
-  lmsClinicalReviewStatus,
 ];
