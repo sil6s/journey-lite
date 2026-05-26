@@ -87,6 +87,69 @@ export interface EvidenceReference {
   use: string | null;
 }
 
+export type SanityLessonContentBlock =
+  | {
+      _key?: string;
+      type: "paragraph" | "richText";
+      html?: string | null;
+    }
+  | {
+      _key?: string;
+      type: "bulletList" | "numberedList";
+      title?: string | null;
+      items?: { _key?: string; html?: string | null }[] | null;
+    }
+  | {
+      _key?: string;
+      type: "callout";
+      tone?: "info" | "tip" | "warning" | "success" | null;
+      title?: string | null;
+      html?: string | null;
+    }
+  | {
+      _key?: string;
+      type: "image";
+      imageSlot?: string | null;
+      title?: string | null;
+      placement?: string | null;
+      aspectRatio?: string | null;
+      altText?: string | null;
+      caption?: string | null;
+      newPhotoPrompt?: string | null;
+      assetStatus?: string | null;
+      imageUrl?: string | null;
+    }
+  | {
+      _key?: string;
+      type: "linkCard";
+      title?: string | null;
+      url?: string | null;
+      description?: string | null;
+    }
+  | {
+      _key?: string;
+      type: "comparisonTable";
+      title?: string | null;
+      columns?: string[] | null;
+      rows?: (string[] | { _key?: string; cells?: string[] | null })[] | null;
+    }
+  | {
+      _key?: string;
+      type: "interactiveActivity";
+      interactionType?: SanityInteractiveComponent["interactionType"] | null;
+      title?: string | null;
+      description?: string | null;
+      required?: boolean | null;
+      config?: unknown;
+    }
+  | {
+      _key?: string;
+      type: "knowledgeCheck";
+      title?: string | null;
+      passingScore?: number | null;
+      questions?: unknown[] | null;
+    };
+
 export interface SanityLessonRef {
   _id: string;
   title: string;
@@ -111,6 +174,7 @@ export interface SanityLesson extends SanityLessonRef {
   originalRequiredContentSnapshot: string | null;
   learningObjectives: string[] | null;
   contentSections: { _key: string; heading: string | null; body: string[] | null }[] | null;
+  contentBlocks: SanityLessonContentBlock[] | null;
   media: SanityMediaReference[];
   interactiveComponent: SanityInteractiveComponent | null;
   quiz: SanityQuiz | null;
@@ -160,6 +224,24 @@ export interface SanityCourse extends SanityCourseCard {
   relatedResources: SanityBlogRef[];
   seoTitle: string | null;
   seoDescription: string | null;
+  versionNumber?: string | null;
+  certificate?: {
+    enabled?: boolean | null;
+    title?: string | null;
+    subtitle?: string | null;
+    bodyText?: string | null;
+    signatureName?: string | null;
+    signatureTitle?: string | null;
+    showJourneyLiteLogo?: boolean | null;
+    showCompletionDate?: boolean | null;
+    showPatientName?: boolean | null;
+    showCourseName?: boolean | null;
+    showCertificateId?: boolean | null;
+    qrVerificationEnabled?: boolean | null;
+    printEnabled?: boolean | null;
+    downloadPdfEnabled?: boolean | null;
+    emailEnabled?: boolean | null;
+  } | null;
 }
 
 export interface SanityRecipe {

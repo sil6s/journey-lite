@@ -6,25 +6,37 @@ import { createClient } from "@sanity/client";
 
 type SourceCourse = {
   title: string;
-  slug: string;
+  slug: string | { current: string };
   sourceUrl?: string;
   clinicalReviewRequired?: boolean;
   audience?: string;
   courseSummary?: string;
+  accessType?: string;
+  isPublished?: boolean;
+  certificate?: Record<string, unknown>;
+  versionNumber?: string;
+  courseCategory?: string;
+  estimatedTotalMinutes?: number;
   notes?: string[];
   sections: SourceSection[];
 };
 
 type SourceSection = {
   title: string;
+  slug?: string | { current: string };
   description?: string;
   order?: number;
-  items: SourceLesson[];
+  items?: SourceLesson[];
+  lessons?: SourceLesson[];
+  estimatedModuleMinutes?: number;
+  moduleIntro?: string;
+  moduleSummary?: string;
+  moduleQuizEnabled?: boolean;
 };
 
 type SourceLesson = {
   title: string;
-  slug: string;
+  slug: string | { current: string };
   sourceUrl?: string;
   sectionTitle?: string;
   order?: number;
@@ -33,12 +45,52 @@ type SourceLesson = {
   originalMedia?: { sourceUrl?: string; path: string }[];
   learningObjectives?: string[];
   contentSections?: { heading?: string; body?: string | string[] }[];
-  interactiveComponent?: Record<string, unknown> & { type?: string; title?: string; description?: string; supabaseEvent?: string };
-  knowledgeChecks?: { question: string; type?: string; options?: string[]; correctIndex?: number; feedback?: string }[];
+  contentBlocks?: SourceContentBlock[];
+  interactiveComponent?: Record<string, unknown> & { type?: string; interactionType?: string; title?: string; description?: string; supabaseEvent?: string; required?: boolean };
+  knowledgeChecks?: SourceQuestion[];
+  quiz?: { title?: string; required?: boolean; passingScore?: number; questions?: SourceQuestion[] };
   accessRules?: { completionRequires?: string[] };
+  completionRequires?: string[];
   patientSafetyFooter?: string;
   evidenceReferences?: { label: string; url?: string; use?: string }[];
   originalRequiredContentSnapshot?: string;
+  safety?: { level?: string; html?: string };
+  clinicalReview?: { status?: string; reviewReason?: string };
+};
+
+type SourceQuestion = {
+  question: string;
+  questionType?: string;
+  type?: string;
+  options?: (string | { html?: string })[];
+  correctIndex?: number;
+  feedback?: string;
+};
+
+type SourceContentBlock = Record<string, unknown> & {
+  type?: string;
+  html?: string;
+  title?: string;
+  items?: { html?: string }[];
+  columns?: string[];
+  rows?: string[][];
+  url?: string;
+  description?: string;
+  tone?: string;
+  imageSlot?: string;
+  placement?: string;
+  aspectRatio?: string;
+  altText?: string;
+  caption?: string;
+  newPhotoPrompt?: string;
+  assetStatus?: string;
+  imageUrl?: string;
+  interactionType?: string;
+  supabaseEvent?: string;
+  required?: boolean;
+  config?: unknown;
+  passingScore?: number;
+  questions?: SourceQuestion[];
 };
 
 const repoRoot = process.cwd();
@@ -48,17 +100,18 @@ const sourcePath = process.argv[2] ?? "/Users/silascurry/Downloads/journeylite-e
 const mediaRoot = path.join(repoRoot, "public", "lms-media");
 const mediaIndexPath = path.join(mediaRoot, "media-index.json");
 const uploadSanityAssets = process.env.LMS_UPLOAD_SANITY_ASSETS === "1";
+const dryRun = process.env.LMS_DRY_RUN === "1";
 const projectId = process.env.NEXT_PUBLIC_SANITY_PROJECT_ID ?? "44pkofuy";
 const dataset = process.env.NEXT_PUBLIC_SANITY_DATASET ?? "production";
 const token = process.env.SANITY_API_WRITE_TOKEN;
 
-if (!token) throw new Error("SANITY_API_WRITE_TOKEN is required in .env.local");
+if (!token && !dryRun) throw new Error("SANITY_API_WRITE_TOKEN is required in .env.local");
 
 const client = createClient({
   projectId,
   dataset,
   apiVersion: process.env.NEXT_PUBLIC_SANITY_API_VERSION ?? "2025-05-05",
-  token,
+  token: token ?? "dry-run-token",
   useCdn: false,
 });
 
@@ -72,7 +125,7 @@ type QueuedDocument = Record<string, unknown> & { _id: string; _type: string };
 const documents: QueuedDocument[] = [];
 
 async function main() {
-  console.log(`Importing ${source.courses.length} enhanced LMS courses into Sanity ${projectId}/${dataset}`);
+  console.log(`${dryRun ? "Validating" : "Importing"} ${source.courses.length} enhanced LMS courses ${dryRun ? "for" : "into"} Sanity ${projectId}/${dataset}`);
 
   for (const course of source.courses) {
     await importCourse(course, source.notes ?? []);
@@ -83,31 +136,36 @@ async function main() {
 }
 
 async function importCourse(course: SourceCourse, sourceNotes: string[]) {
-  const courseId = docId("lmsCourse", course.slug);
-  const reviewId = docId("lmsClinicalReviewStatus", `${course.slug}-clinical-review`);
+  const courseSlug = getSlug(course.slug);
+  const courseId = docId("lmsCourse", courseSlug);
+  const reviewId = docId("lmsClinicalReviewStatus", `${courseSlug}-clinical-review`);
+  const courseRequiresReview = Boolean(course.clinicalReviewRequired);
 
   queueDocument({
     _id: reviewId,
     _type: "lmsClinicalReviewStatus",
     title: `${course.title} clinical review`,
-    status: "approved",
-    reviewedBy: "JourneyLite clinical team",
-    reviewedAt: new Date().toISOString(),
-    reviewNotes: "Imported for JourneyLite patient education. Confirm clinical sign-off before production patient assignment.",
+    status: courseRequiresReview ? "pending_review" : "approved",
+    reviewedBy: courseRequiresReview ? undefined : "JourneyLite clinical team",
+    reviewedAt: courseRequiresReview ? undefined : new Date().toISOString(),
+    reviewNotes: courseRequiresReview
+      ? "Imported from the rich content rebuild. Requires JourneyLite clinical sign-off before publishing or assigning to patients."
+      : "Imported for JourneyLite patient education.",
   });
 
   const sectionRefs = [];
   const duplicateSlugs = getDuplicateLessonSlugs(course);
   for (const section of course.sections) {
-    const sectionSlug = slugify(`${course.slug}-${section.order ?? 0}-${section.title}`);
+    const sectionSlug = getSlug(section.slug) || slugify(`${courseSlug}-${section.order ?? 0}-${section.title}`);
     const sectionId = docId("lmsSection", sectionSlug);
     const lessonRefs = [];
 
-    for (const lesson of section.items) {
-      const lessonSlug = duplicateSlugs.has(lesson.slug)
-        ? slugify(`${lesson.slug}-${section.order ?? 0}-${lesson.order ?? 0}`)
-        : lesson.slug;
-      const lessonId = await importLesson(course, section, lesson, reviewId, lessonSlug);
+    for (const lesson of getSectionLessons(section)) {
+      const rawLessonSlug = getSlug(lesson.slug);
+      const lessonSlug = duplicateSlugs.has(rawLessonSlug)
+        ? slugify(`${rawLessonSlug}-${section.order ?? 0}-${lesson.order ?? 0}`)
+        : rawLessonSlug;
+      const lessonId = await importLesson(course, section, lesson, reviewId, lessonSlug, courseSlug);
       lessonRefs.push({ _type: "reference", _ref: lessonId, _key: lessonSlug });
     }
 
@@ -118,6 +176,10 @@ async function importCourse(course: SourceCourse, sourceNotes: string[]) {
       slug: { _type: "slug", current: sectionSlug },
       description: section.description,
       order: section.order,
+      estimatedModuleMinutes: section.estimatedModuleMinutes,
+      moduleIntro: section.moduleIntro,
+      moduleSummary: section.moduleSummary,
+      moduleQuizEnabled: section.moduleQuizEnabled,
       lessons: lessonRefs,
     });
 
@@ -128,23 +190,27 @@ async function importCourse(course: SourceCourse, sourceNotes: string[]) {
     _id: courseId,
     _type: "lmsCourse",
     title: course.title,
-    slug: { _type: "slug", current: course.slug },
+    slug: { _type: "slug", current: courseSlug },
     sourceUrl: course.sourceUrl,
     audience: course.audience,
     courseSummary: patientFacingCourseSummary(course),
+    estimatedTotalMinutes: course.estimatedTotalMinutes,
+    courseCategory: course.courseCategory,
+    versionNumber: course.versionNumber ?? "1.0",
     sections: sectionRefs,
-    accessType: "provider-assigned",
-    isPublished: true,
-    clinicalReviewRequired: Boolean(course.clinicalReviewRequired),
+    accessType: course.accessType ?? "provider-assigned",
+    isPublished: courseRequiresReview ? false : course.isPublished ?? true,
+    clinicalReviewRequired: courseRequiresReview,
     clinicalReview: { _type: "reference", _ref: reviewId },
+    certificate: normalizeCertificate(course.certificate),
     sourceNotes: sourceNotes.map(sanitizePatientFacingText).filter(Boolean),
   });
 
   console.log(`Imported course: ${course.title}`);
 }
 
-async function importLesson(course: SourceCourse, section: SourceSection, lesson: SourceLesson, reviewId: string, lessonSlug: string) {
-  const lessonId = docId("lmsLesson", `${course.slug}-${lessonSlug}`);
+async function importLesson(course: SourceCourse, section: SourceSection, lesson: SourceLesson, reviewId: string, lessonSlug: string, courseSlug: string) {
+  const lessonId = docId("lmsLesson", `${courseSlug}-${lessonSlug}`);
   const mediaRefs = [];
   const evidenceRefs = [];
 
@@ -159,17 +225,19 @@ async function importLesson(course: SourceCourse, section: SourceSection, lesson
       _id: evidenceId,
       _type: "lmsEvidenceReference",
       label: evidence.label,
-      url: evidence.url,
+      url: isPublicUrl(evidence.url) ? evidence.url : undefined,
       use: evidence.use,
     });
     evidenceRefs.push({ _type: "reference", _ref: evidenceId, _key: stableKey(evidence.label) });
   }
 
-  const interactionId = lesson.interactiveComponent
-    ? await importInteractiveComponent(course, lesson, lessonSlug)
+  const interactionBlock = getInteractionBlock(lesson);
+  const quizBlock = getKnowledgeCheckBlock(lesson);
+  const interactionId = interactionBlock
+    ? await importInteractiveComponent(course, lesson, lessonSlug, interactionBlock)
     : null;
-  const quizId = lesson.knowledgeChecks?.length
-    ? await importQuiz(course, lesson, lessonSlug)
+  const quizId = getQuizQuestions(lesson).length
+    ? await importQuiz(course, lesson, lessonSlug, courseSlug)
     : null;
 
   queueDocument({
@@ -180,6 +248,7 @@ async function importLesson(course: SourceCourse, section: SourceSection, lesson
     sectionTitle: section.title,
     order: lesson.order,
     estimatedMinutes: lesson.estimatedMinutes,
+    lessonStatus: lesson.clinicalReview?.status === "required" || requiresClinicalReview(lesson) ? "ready_for_review" : "draft",
     sourceUrl: lesson.sourceUrl,
     originalRequiredContentSnapshot: lesson.originalRequiredContentSnapshot,
     learningObjectives: (lesson.learningObjectives ?? []).map(sanitizePatientFacingText).filter(Boolean),
@@ -188,14 +257,15 @@ async function importLesson(course: SourceCourse, section: SourceSection, lesson
       heading: patientFacingHeading(item.heading),
       body: normalizeBodyLines(item.body),
     })).filter((item) => item.body.length > 0),
+    contentBlocks: normalizeContentBlocks(lesson.contentBlocks),
     media: mediaRefs,
     interactiveComponent: interactionId ? { _type: "reference", _ref: interactionId } : undefined,
     quiz: quizId ? { _type: "reference", _ref: quizId } : undefined,
-    completionRequires: lesson.accessRules?.completionRequires ?? [],
-    patientSafetyFooter: lesson.patientSafetyFooter ? sanitizePatientFacingText(lesson.patientSafetyFooter) : undefined,
+    completionRequires: lesson.completionRequires ?? lesson.accessRules?.completionRequires ?? inferCompletionRequirements(interactionBlock, quizBlock),
+    patientSafetyFooter: normalizeHtmlToText(lesson.safety?.html ?? lesson.patientSafetyFooter),
     safetyEscalationTopics: detectSafetyTopics(lesson),
     evidenceReferences: evidenceRefs,
-    clinicalReviewRequired: Boolean(lesson.clinicalReviewRequired),
+    clinicalReviewRequired: Boolean(lesson.clinicalReviewRequired || lesson.clinicalReview?.status === "required" || requiresClinicalReview(lesson)),
     clinicalReview: { _type: "reference", _ref: reviewId },
   });
 
@@ -240,34 +310,37 @@ async function uploadFileAsset(diskPath: string) {
   return asset._id;
 }
 
-async function importInteractiveComponent(course: SourceCourse, lesson: SourceLesson, lessonSlug: string) {
-  const sourceComponent = lesson.interactiveComponent!;
-  const id = docId("lmsInteractiveComponent", `${course.slug}-${lessonSlug}-${sourceComponent.type}`);
+async function importInteractiveComponent(course: SourceCourse, lesson: SourceLesson, lessonSlug: string, block?: SourceContentBlock) {
+  const sourceComponent = block ?? lesson.interactiveComponent!;
+  const courseSlug = getSlug(course.slug);
+  const interactionType = sourceComponent.interactionType ?? sourceComponent.type ?? "knowledge_card";
+  const id = docId("lmsInteractiveComponent", `${courseSlug}-${lessonSlug}-${interactionType}`);
   queueDocument({
     _id: id,
     _type: "lmsInteractiveComponent",
     title: sourceComponent.title ? sanitizePatientFacingText(sourceComponent.title) : `${lesson.title} activity`,
-    interactionType: sourceComponent.type,
+    interactionType,
     description: sourceComponent.description ? sanitizePatientFacingText(sourceComponent.description) : undefined,
     supabaseEvent: sourceComponent.supabaseEvent ?? "interaction_completed",
-    required: true,
+    required: sourceComponent.required ?? true,
     config: JSON.stringify(sourceComponent, null, 2),
   });
   return id;
 }
 
-async function importQuiz(course: SourceCourse, lesson: SourceLesson, lessonSlug: string) {
-  const quizId = docId("lmsQuiz", `${course.slug}-${lessonSlug}-knowledge-check`);
+async function importQuiz(course: SourceCourse, lesson: SourceLesson, lessonSlug: string, courseSlug: string) {
+  const quizId = docId("lmsQuiz", `${courseSlug}-${lessonSlug}-knowledge-check`);
   const questionRefs = [];
-  for (let index = 0; index < (lesson.knowledgeChecks ?? []).length; index += 1) {
-    const question = lesson.knowledgeChecks![index];
+  const questions = getQuizQuestions(lesson);
+  for (let index = 0; index < questions.length; index += 1) {
+    const question = questions[index];
     const questionId = docId("lmsQuestion", `${quizId}-${index}`);
     queueDocument({
       _id: questionId,
       _type: "lmsQuestion",
       question: sanitizePatientFacingText(question.question),
-      questionType: question.type ?? "single_choice",
-      options: (question.options ?? []).map(sanitizePatientFacingText).filter(Boolean),
+      questionType: question.questionType ?? question.type ?? "single_choice",
+      options: (question.options ?? []).map(normalizeOption).filter(Boolean),
       correctIndex: question.correctIndex,
       feedback: question.feedback ? sanitizePatientFacingText(question.feedback) : undefined,
     });
@@ -276,10 +349,10 @@ async function importQuiz(course: SourceCourse, lesson: SourceLesson, lessonSlug
   queueDocument({
     _id: quizId,
     _type: "lmsQuiz",
-    title: `${lesson.title} knowledge check`,
+    title: lesson.quiz?.title ?? getKnowledgeCheckBlock(lesson)?.title ?? `${lesson.title} knowledge check`,
     slug: { _type: "slug", current: `${lessonSlug}-knowledge-check` },
-    passingScore: 100,
-    required: true,
+    passingScore: lesson.quiz?.passingScore ?? getKnowledgeCheckBlock(lesson)?.passingScore ?? 100,
+    required: lesson.quiz?.required ?? true,
     questions: questionRefs,
   });
   return quizId;
@@ -346,16 +419,147 @@ function isEditorialPlaceholder(value: string) {
 
 function detectSafetyTopics(lesson: SourceLesson) {
   const text = JSON.stringify(lesson).toLowerCase();
-  return ["medication", "symptoms", "bleeding", "infection", "vomiting", "pregnancy"]
+  return ["medication", "symptoms", "bleeding", "infection", "vomiting", "pregnancy", "diet", "testing", "surgery", "vitamin", "urgent"]
     .filter((topic) => text.includes(topic));
+}
+
+function requiresClinicalReview(lesson: SourceLesson) {
+  const text = JSON.stringify(lesson).toLowerCase();
+  return ["medication", "symptom", "diet", "testing", "surgery-day", "surgery day", "clear-liquid", "clear liquid", "vitamin", "urgent care", "urgent-care"]
+    .some((term) => text.includes(term));
+}
+
+function normalizeContentBlocks(blocks?: SourceContentBlock[]) {
+  return (blocks ?? []).map((block, index) => {
+    const type = block.type ?? "paragraph";
+    const base = {
+      _key: `block-${index}`,
+      type,
+      title: block.title ? sanitizePatientFacingText(block.title) : undefined,
+      html: block.html ? sanitizePatientFacingHtml(block.html) : undefined,
+      tone: block.tone,
+      url: isPublicUrl(block.url) ? block.url : undefined,
+      description: block.description ? sanitizePatientFacingText(block.description) : undefined,
+      imageSlot: block.imageSlot,
+      imageUrl: isPublicUrl(block.imageUrl as string | undefined) ? block.imageUrl : undefined,
+      placement: block.placement,
+      aspectRatio: block.aspectRatio,
+      altText: block.altText ? sanitizePatientFacingText(block.altText) : undefined,
+      caption: block.caption ? sanitizePatientFacingText(block.caption) : undefined,
+      newPhotoPrompt: block.newPhotoPrompt ? sanitizePatientFacingText(block.newPhotoPrompt) : undefined,
+      assetStatus: block.assetStatus,
+      interactionType: block.interactionType,
+      required: block.required,
+      config: block.config ? JSON.stringify(block.config, null, 2) : undefined,
+      passingScore: block.passingScore,
+      questionsJson: block.questions ? JSON.stringify(block.questions, null, 2) : undefined,
+    };
+
+    if (type === "bulletList" || type === "numberedList") {
+      return {
+        ...base,
+        items: (block.items ?? []).map((item, itemIndex) => ({
+          _key: `item-${itemIndex}`,
+          html: sanitizePatientFacingHtml(item.html ?? ""),
+        })).filter((item) => item.html),
+      };
+    }
+
+    if (type === "comparisonTable") {
+      return {
+        ...base,
+        columns: (block.columns ?? []).map(sanitizePatientFacingText).filter(Boolean),
+        rows: (block.rows ?? []).map((row, rowIndex) => ({
+          _key: `row-${rowIndex}`,
+          cells: row.map(sanitizePatientFacingText).filter(Boolean),
+        })),
+      };
+    }
+
+    return base;
+  });
+}
+
+function sanitizePatientFacingHtml(value: string) {
+  return value
+    .replace(/<script[\s\S]*?<\/script>/gi, "")
+    .replace(/\son[a-z]+="[^"]*"/gi, "")
+    .replace(/\son[a-z]+='[^']*'/gi, "")
+    .replace(/href=["'](?!https?:\/\/|\/|mailto:|tel:)[^"']*["']/gi, "")
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
+function normalizeHtmlToText(value?: string) {
+  if (!value) return undefined;
+  return sanitizePatientFacingText(value.replace(/<[^>]+>/g, ""));
+}
+
+function normalizeOption(option: string | { html?: string }) {
+  const value = typeof option === "string" ? option : option.html ?? "";
+  return normalizeHtmlToText(value) ?? "";
+}
+
+function isPublicUrl(url?: string) {
+  return Boolean(url && /^(https?:\/\/|\/|mailto:|tel:)/i.test(url));
+}
+
+function getInteractionBlock(lesson: SourceLesson) {
+  return lesson.contentBlocks?.find((block) => block.type === "interactiveActivity") ?? lesson.interactiveComponent;
+}
+
+function getKnowledgeCheckBlock(lesson: SourceLesson) {
+  return lesson.contentBlocks?.find((block) => block.type === "knowledgeCheck");
+}
+
+function inferCompletionRequirements(interactionBlock?: SourceContentBlock | (Record<string, unknown> & { required?: boolean }) | null, quizBlock?: SourceContentBlock) {
+  const requirements = ["view_content"];
+  if (interactionBlock?.required !== false) requirements.push("complete_interaction");
+  if (quizBlock) requirements.push("pass_knowledge_check");
+  return requirements;
 }
 
 function getDuplicateLessonSlugs(course: SourceCourse) {
   const counts = new Map<string, number>();
   for (const section of course.sections) {
-    for (const lesson of section.items) counts.set(lesson.slug, (counts.get(lesson.slug) ?? 0) + 1);
+    for (const lesson of getSectionLessons(section)) {
+      const slug = getSlug(lesson.slug);
+      counts.set(slug, (counts.get(slug) ?? 0) + 1);
+    }
   }
   return new Set([...counts].filter(([, count]) => count > 1).map(([slug]) => slug));
+}
+
+function getSlug(slug?: string | { current?: string }) {
+  return typeof slug === "string" ? slug : slug?.current ?? "";
+}
+
+function getSectionLessons(section: SourceSection) {
+  return section.lessons ?? section.items ?? [];
+}
+
+function getQuizQuestions(lesson: SourceLesson) {
+  return lesson.quiz?.questions ?? getKnowledgeCheckBlock(lesson)?.questions ?? lesson.knowledgeChecks ?? [];
+}
+
+function normalizeCertificate(certificate?: Record<string, unknown>) {
+  return {
+    enabled: certificate?.enabled ?? true,
+    title: certificate?.title ?? "Certificate of Completion",
+    subtitle: certificate?.subtitle,
+    bodyText: certificate?.bodyText ?? "has completed the assigned JourneyLite patient education course:",
+    signatureName: certificate?.signatureName ?? "JourneyLite",
+    signatureTitle: certificate?.signatureTitle,
+    showJourneyLiteLogo: certificate?.showJourneyLiteLogo ?? true,
+    showCompletionDate: certificate?.showCompletionDate ?? true,
+    showPatientName: certificate?.showPatientName ?? true,
+    showCourseName: certificate?.showCourseName ?? true,
+    showCertificateId: certificate?.showCertificateId ?? true,
+    qrVerificationEnabled: certificate?.qrVerificationEnabled ?? false,
+    printEnabled: certificate?.printEnabled ?? true,
+    downloadPdfEnabled: certificate?.downloadPdfEnabled ?? true,
+    emailEnabled: certificate?.emailEnabled ?? false,
+  };
 }
 
 function queueDocument(document: QueuedDocument) {
@@ -363,6 +567,16 @@ function queueDocument(document: QueuedDocument) {
 }
 
 async function commitDocuments() {
+  if (dryRun) {
+    const counts = documents.reduce<Record<string, number>>((acc, document) => {
+      acc[document._type] = (acc[document._type] ?? 0) + 1;
+      return acc;
+    }, {});
+    console.log(`Dry run complete. Built ${documents.length} Sanity documents without writing.`);
+    console.log(counts);
+    return;
+  }
+
   const batchSize = 100;
   for (let index = 0; index < documents.length; index += batchSize) {
     const batch = documents.slice(index, index + batchSize);

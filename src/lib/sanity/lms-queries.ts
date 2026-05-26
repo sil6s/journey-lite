@@ -53,6 +53,8 @@ export const courseBySlugQuery = groq`
     "isFeatured": true,
     "seoTitle": title,
     "seoDescription": courseSummary,
+    versionNumber,
+    certificate,
     "moduleCount": count(sections),
     "lessonCount": count(sections[]->lessons[]),
     "modules": sections[]-> | order(order asc) {
@@ -81,6 +83,7 @@ export const lessonBySlugQuery = groq`
       heading,
       body
     },
+    contentBlocks,
     "media": media[]-> {
       _id,
       title,
@@ -147,6 +150,8 @@ export const coursesForSlugsQuery = groq`
     "estimatedDuration": string(count(sections[]->lessons[]->)) + " lessons",
     "accessType": select(accessType == "free" => "free", "provider-assigned"),
     "isFeatured": true,
+    versionNumber,
+    certificate,
     "moduleCount": count(sections),
     "lessonCount": count(sections[]->lessons[]),
     "modules": sections[]-> | order(order asc) {

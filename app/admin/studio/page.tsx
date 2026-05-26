@@ -4,9 +4,10 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 
 const links = [
-  { label: "Patient education courses", href: "/studio/desk/lmsCourse", icon: BookOpen },
-  { label: "Patient education lessons", href: "/studio/desk/lmsLesson", icon: BookOpen },
-  { label: "Blog posts/resources", href: "/studio/desk/blogPost", icon: BookOpen },
+  { label: "Guided education builder", href: "/admin/education", icon: BookOpen },
+  { label: "Patient education courses", href: "/studio", icon: BookOpen },
+  { label: "Patient education lessons", href: "/studio", icon: BookOpen },
+  { label: "Blog posts/resources", href: "/studio", icon: BookOpen },
   { label: "Staff profiles", href: "/admin/staff", icon: Users },
   { label: "Services", href: "/admin/services", icon: BriefcaseMedical },
   { label: "Locations", href: "/admin/locations", icon: MapPin },

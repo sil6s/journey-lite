@@ -10,6 +10,7 @@ import { checkCourseAccess } from "@/lib/lms/access";
 import { ModuleAccordion } from "@/components/lms/ModuleAccordion";
 import { EmptyState } from "@/components/lms/EmptyState";
 import { EnrollButton } from "@/components/lms/EnrollButton";
+import { CourseCertificate } from "@/components/lms/CourseCertificate";
 import type { SanityCourse, LessonProgressRecord } from "@/src/lib/sanity/lms-types";
 
 export const dynamic = "force-dynamic";
@@ -43,6 +44,9 @@ export default async function CourseDetailPage({ params }: { params: Promise<{ s
   if (!course) notFound();
 
   const { data: { user } } = await supabase.auth.getUser();
+  const profileResult = user
+    ? await supabase.from("profiles").select("full_name, email").eq("id", user.id).maybeSingle()
+    : null;
 
   let progressRows: LessonProgressRecord[] = [];
   let isEnrolled = false;
@@ -66,6 +70,9 @@ export default async function CourseDetailPage({ params }: { params: Promise<{ s
     : null;
 
   const totalLessons = course.modules?.reduce((sum, m) => sum + (m.lessons?.length ?? 0), 0) ?? 0;
+  const completedAt = progressRows
+    .filter((row) => row.completed_at)
+    .sort((a, b) => (b.completed_at ?? "").localeCompare(a.completed_at ?? ""))[0]?.completed_at;
 
   return (
     <div className="mx-auto max-w-3xl space-y-8">
@@ -144,9 +151,9 @@ export default async function CourseDetailPage({ params }: { params: Promise<{ s
             />
           </div>
           {summary.isCompleted ? (
-            <p className="mt-4 rounded-lg bg-[#dcfce7] px-3 py-2.5 text-sm font-semibold text-[#15803d]">
-              🎉 Course complete!
-            </p>
+            <div className="mt-4 rounded-lg bg-[#dcfce7] px-3 py-2.5 text-sm font-semibold text-[#15803d]">
+              Course complete. Your certificate is available below.
+            </div>
           ) : nextLesson ? (
             <Link
               href={`/courses/${course.slug}/lessons/${nextLesson.lessonSlug}`}
@@ -205,6 +212,17 @@ export default async function CourseDetailPage({ params }: { params: Promise<{ s
           )}
         </div>
       )}
+
+      {isEnrolled && summary.isCompleted && completedAt && course.certificate?.enabled !== false ? (
+        <CourseCertificate
+          completedAt={completedAt}
+          course={course}
+          patient={{
+            fullName: profileResult?.data?.full_name ?? user?.email ?? null,
+            email: profileResult?.data?.email ?? user?.email ?? null,
+          }}
+        />
+      ) : null}
 
       {/* Course content */}
       <div>

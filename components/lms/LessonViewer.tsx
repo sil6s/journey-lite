@@ -1,13 +1,13 @@
 "use client";
 
 import { useEffect } from "react";
-import { Lightbulb, AlertTriangle, Info, Calendar, Download, ExternalLink } from "lucide-react";
+import { Lightbulb, AlertTriangle, Info, Calendar, Download, ExternalLink, Link as LinkIcon, CheckCircle2 } from "lucide-react";
 import { PortableTextRenderer } from "@/app/components/PortableTextRenderer";
 import { VideoEmbed } from "./VideoEmbed";
 import { MarkCompleteButton } from "./MarkCompleteButton";
 import { updateLastViewed } from "@/lib/lms/actions";
 import { InteractiveComponentRenderer, KnowledgeCheck } from "./InteractiveRegistry";
-import type { SanityLesson } from "@/src/lib/sanity/lms-types";
+import type { SanityLesson, SanityLessonContentBlock } from "@/src/lib/sanity/lms-types";
 import type { LessonProgressRecord } from "@/src/lib/sanity/lms-types";
 import type { CompletionRequirement } from "@/lib/lms/actions";
 
@@ -24,6 +24,13 @@ const calloutStyles = {
   tip: { bg: "bg-[#f0fdf4] border-[#bbf7d0]", icon: <Lightbulb className="h-5 w-5 text-[#16a34a]" />, titleColor: "text-[#15803d]" },
   warning: { bg: "bg-[#fffbeb] border-[#fde68a]", icon: <AlertTriangle className="h-5 w-5 text-[#d97706]" />, titleColor: "text-[#b45309]" },
   "appointment-reminder": { bg: "bg-[#faf5ff] border-[#e9d5ff]", icon: <Calendar className="h-5 w-5 text-[#9333ea]" />, titleColor: "text-[#7c3aed]" },
+} as const;
+
+const blockCalloutStyles = {
+  info: calloutStyles.note,
+  tip: calloutStyles.tip,
+  warning: calloutStyles.warning,
+  success: { bg: "bg-[#ecfdf3] border-[#bbf7d0]", icon: <CheckCircle2 className="h-5 w-5 text-[#15803d]" />, titleColor: "text-[#166534]" },
 } as const;
 
 /**
@@ -137,6 +144,187 @@ function ContentBody({ lines }: { lines: string[] }) {
   return <>{nodes}</>;
 }
 
+function LessonContentBlocks({
+  blocks,
+  courseSlug,
+  lesson,
+}: {
+  blocks: SanityLessonContentBlock[];
+  courseSlug: string;
+  lesson: SanityLesson;
+}) {
+  return (
+    <div className="space-y-6">
+      {blocks.map((block, index) => (
+        <LessonContentBlock
+          block={block}
+          courseSlug={courseSlug}
+          key={block._key ?? `${block.type}-${index}`}
+          lesson={lesson}
+        />
+      ))}
+    </div>
+  );
+}
+
+function LessonContentBlock({
+  block,
+  courseSlug,
+  lesson,
+}: {
+  block: SanityLessonContentBlock;
+  courseSlug: string;
+  lesson: SanityLesson;
+}) {
+  switch (block.type) {
+    case "paragraph":
+    case "richText":
+      return <HtmlParagraph html={block.html} />;
+    case "bulletList":
+      return <HtmlList block={block} ordered={false} />;
+    case "numberedList":
+      return <HtmlList block={block} ordered />;
+    case "callout": {
+      const style = blockCalloutStyles[block.tone ?? "info"] ?? blockCalloutStyles.info;
+      return (
+        <aside className={`flex gap-3 rounded-xl border p-4 ${style.bg}`} role="note">
+          <span className="mt-0.5 shrink-0">{style.icon}</span>
+          <div>
+            {block.title ? <p className={`text-sm font-semibold ${style.titleColor}`}>{block.title}</p> : null}
+            {block.html ? <HtmlText className="mt-1 text-sm leading-6 text-[#53635b]" html={block.html} /> : null}
+          </div>
+        </aside>
+      );
+    }
+    case "image":
+      return <ImageBlock block={block} />;
+    case "linkCard":
+      return <LinkCardBlock block={block} />;
+    case "comparisonTable":
+      return <ComparisonTableBlock block={block} />;
+    case "interactiveActivity":
+      return lesson.interactiveComponent ? (
+        <InteractiveComponentRenderer
+          component={lesson.interactiveComponent}
+          courseSlug={courseSlug}
+          lessonSlug={lesson.slug}
+        />
+      ) : null;
+    case "knowledgeCheck":
+      return lesson.quiz ? <KnowledgeCheck quiz={lesson.quiz} courseSlug={courseSlug} lessonSlug={lesson.slug} /> : null;
+    default:
+      return null;
+  }
+}
+
+function HtmlParagraph({ html }: { html?: string | null }) {
+  if (!html) return null;
+  return <HtmlText className="text-base leading-7 text-[#53635b]" html={html} />;
+}
+
+function HtmlText({ html, className }: { html: string; className?: string }) {
+  return <p className={className} dangerouslySetInnerHTML={{ __html: sanitizeBlockHtml(html) }} />;
+}
+
+function HtmlList({
+  block,
+  ordered,
+}: {
+  block: Extract<SanityLessonContentBlock, { type: "bulletList" | "numberedList" }>;
+  ordered: boolean;
+}) {
+  const items = block.items?.filter((item) => item.html) ?? [];
+  if (!items.length) return null;
+  const ListTag = ordered ? "ol" : "ul";
+  return (
+    <section>
+      {block.title ? <h2 className="mb-3 text-xl font-semibold text-[#1f2c25]">{block.title}</h2> : null}
+      <ListTag className={`${ordered ? "list-decimal" : "list-disc"} space-y-2 pl-6 text-base leading-7 text-[#53635b]`}>
+        {items.map((item, index) => (
+          <li dangerouslySetInnerHTML={{ __html: sanitizeBlockHtml(item.html ?? "") }} key={item._key ?? index} />
+        ))}
+      </ListTag>
+    </section>
+  );
+}
+
+function ImageBlock({ block }: { block: Extract<SanityLessonContentBlock, { type: "image" }> }) {
+  if (!block.imageUrl) return null;
+  return (
+    <figure className="overflow-hidden rounded-xl border border-[#dce4df] bg-white">
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img alt={block.altText ?? block.title ?? "JourneyLite education image"} className="h-auto w-full object-contain" src={block.imageUrl} />
+      {block.caption ? (
+        <figcaption className="border-t border-[#edf1ee] px-4 py-2 text-xs text-[#66756d]">{block.caption}</figcaption>
+      ) : null}
+    </figure>
+  );
+}
+
+function LinkCardBlock({ block }: { block: Extract<SanityLessonContentBlock, { type: "linkCard" }> }) {
+  if (!block.url || !block.title) return null;
+  const external = block.url.startsWith("http");
+  return (
+    <a
+      className="flex items-start gap-3 rounded-xl border border-[#c8ddd4] bg-white p-4 text-[#1f2c25] transition hover:border-[#145c42] hover:bg-[#f7faf8]"
+      href={block.url}
+      {...(external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+    >
+      <span className="mt-0.5 flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-[#edf8f2] text-[#145c42]">
+        <LinkIcon className="h-4 w-4" />
+      </span>
+      <span>
+        <span className="block text-sm font-semibold">{block.title}</span>
+        {block.description ? <span className="mt-1 block text-sm leading-6 text-[#53635b]">{block.description}</span> : null}
+      </span>
+      {external ? <ExternalLink className="ml-auto mt-1 h-4 w-4 shrink-0 text-[#8fa09a]" /> : null}
+    </a>
+  );
+}
+
+function ComparisonTableBlock({ block }: { block: Extract<SanityLessonContentBlock, { type: "comparisonTable" }> }) {
+  const rows = normalizeTableRows(block.rows);
+  if (!block.columns?.length || !rows.length) return null;
+  return (
+    <section>
+      {block.title ? <h2 className="mb-3 text-xl font-semibold text-[#1f2c25]">{block.title}</h2> : null}
+      <div className="overflow-x-auto rounded-xl border border-[#dce4df] bg-white">
+        <table className="min-w-full divide-y divide-[#edf1ee] text-left text-sm">
+          <thead className="bg-[#f7faf8] text-[#1f2c25]">
+            <tr>
+              {block.columns.map((column) => (
+                <th className="px-4 py-3 font-semibold" key={column}>{column}</th>
+              ))}
+            </tr>
+          </thead>
+          <tbody className="divide-y divide-[#edf1ee] text-[#53635b]">
+            {rows.map((row, rowIndex) => (
+              <tr key={rowIndex}>
+                {row.map((cell, cellIndex) => (
+                  <td className="px-4 py-3 align-top leading-6" key={`${rowIndex}-${cellIndex}`}>{cell}</td>
+                ))}
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </section>
+  );
+}
+
+function normalizeTableRows(rows: Extract<SanityLessonContentBlock, { type: "comparisonTable" }>["rows"]) {
+  return (rows ?? []).map((row) => Array.isArray(row) ? row : row.cells ?? []);
+}
+
+function sanitizeBlockHtml(html: string) {
+  return html
+    .replace(/<script[\s\S]*?<\/script>/gi, "")
+    .replace(/\son[a-z]+="[^"]*"/gi, "")
+    .replace(/\son[a-z]+='[^']*'/gi, "")
+    .replace(/<(?!\/?(strong|b|em|i|u|a)(\s|>|\/))/gi, "&lt;")
+    .replace(/href=["'](?!https?:\/\/|\/|mailto:|tel:)[^"']*["']/gi, "");
+}
+
 export function LessonViewer({ lesson, courseSlug, moduleSlug, progress, isAuthenticated }: LessonViewerProps) {
   useEffect(() => {
     if (isAuthenticated) {
@@ -153,6 +341,7 @@ export function LessonViewer({ lesson, courseSlug, moduleSlug, progress, isAuthe
     seenUrls.add(src);
     return true;
   });
+  const hasContentBlocks = Boolean(lesson.contentBlocks?.length);
 
   return (
     <div className="space-y-8">
@@ -160,7 +349,7 @@ export function LessonViewer({ lesson, courseSlug, moduleSlug, progress, isAuthe
       {lesson.videoUrl && <VideoEmbed url={lesson.videoUrl} />}
 
       {/* Media images */}
-      {media.length > 0 && (
+      {!hasContentBlocks && media.length > 0 && (
         <div className={`grid gap-4 ${media.length === 1 ? "" : "sm:grid-cols-2"}`}>
           {media.map((m) => {
             const src = m.assetUrl ?? m.localPath!;
@@ -178,6 +367,14 @@ export function LessonViewer({ lesson, courseSlug, moduleSlug, progress, isAuthe
           })}
         </div>
       )}
+
+      {hasContentBlocks ? (
+        <LessonContentBlocks
+          blocks={lesson.contentBlocks ?? []}
+          courseSlug={courseSlug}
+          lesson={lesson}
+        />
+      ) : null}
 
       {/* Key takeaways */}
       {lesson.keyTakeaways && lesson.keyTakeaways.length > 0 && (
@@ -209,7 +406,7 @@ export function LessonViewer({ lesson, courseSlug, moduleSlug, progress, isAuthe
       })}
 
       {/* contentSections — flowing prose, no per-section cards */}
-      {lesson.contentSections && lesson.contentSections.length > 0 && (
+      {!hasContentBlocks && lesson.contentSections && lesson.contentSections.length > 0 && (
         <div className="space-y-1">
           {lesson.contentSections.map((section) => (
             <div key={section._key}>
@@ -225,14 +422,14 @@ export function LessonViewer({ lesson, courseSlug, moduleSlug, progress, isAuthe
       )}
 
       {/* Sanity Portable Text body */}
-      {lesson.body && lesson.body.length > 0 && (
+      {!hasContentBlocks && lesson.body && lesson.body.length > 0 && (
         <article className="max-w-none">
           <PortableTextRenderer value={lesson.body as never} />
         </article>
       )}
 
       {/* Interactive component */}
-      {lesson.interactiveComponent && (
+      {!hasContentBlocks && lesson.interactiveComponent && (
         <InteractiveComponentRenderer
           component={lesson.interactiveComponent}
           courseSlug={courseSlug}
@@ -241,7 +438,7 @@ export function LessonViewer({ lesson, courseSlug, moduleSlug, progress, isAuthe
       )}
 
       {/* Quiz */}
-      {lesson.quiz && (
+      {!hasContentBlocks && lesson.quiz && (
         <KnowledgeCheck quiz={lesson.quiz} courseSlug={courseSlug} lessonSlug={lesson.slug} />
       )}
 

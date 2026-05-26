@@ -87,8 +87,8 @@ export function SiteSearch({ items }: { items: SiteSearchItem[] }) {
         title="Search JourneyLite"
         description="Search JourneyLite pages, procedures, resources, and team information."
         // top-4 on mobile (snaps near top edge); sm:top-[12vh] centers nicely on desktop
-        // max-w-[calc(100%-2rem)] keeps mobile width; sm:max-w-[min(96vw,1100px)] gives a wide desktop dialog
-        className="top-4 translate-y-0 sm:top-[12vh] sm:max-w-[min(96vw,1100px)]"
+        // max-w-[calc(100%-2rem)] keeps mobile width; sm:max-w-[min(96vw,1280px)] gives a wide desktop dialog
+        className="top-4 w-[calc(100vw-2rem)] translate-y-0 sm:top-[12vh] sm:w-[min(96vw,1280px)] sm:max-w-[1280px]"
         open={open}
         onOpenChange={setOpen}
       >
@@ -113,7 +113,7 @@ export function SiteSearch({ items }: { items: SiteSearchItem[] }) {
                     <p className="line-clamp-2 text-xs leading-5 text-[#64736b]">{item.description}</p>
                   </div>
                   {item.group ? (
-                    <span className="hidden min-w-[132px] shrink-0 justify-center rounded-full bg-[#edf4ef] px-2 py-1 text-center text-[11px] font-semibold text-[#355346] sm:inline-flex">
+                    <span className="hidden min-w-[190px] shrink-0 justify-center rounded-full bg-[#edf4ef] px-2 py-1 text-center text-[11px] font-semibold text-[#355346] md:inline-flex">
                       {item.group}
                     </span>
                   ) : null}

@@ -110,6 +110,7 @@ export function KnowledgeCheck({
     startTransition(async () => {
       const next = await submitQuizAttempt(courseSlug, lessonSlug, answers, answerKey, quiz.passingScore ?? 100);
       setResult(next);
+      playQuizTone(next.passed);
     });
   }
 
@@ -162,6 +163,30 @@ export function KnowledgeCheck({
       </button>
     </section>
   );
+}
+
+function playQuizTone(passed: boolean) {
+  try {
+    const AudioContextClass = window.AudioContext || (window as unknown as { webkitAudioContext?: typeof AudioContext }).webkitAudioContext;
+    if (!AudioContextClass) return;
+    const context = new AudioContextClass();
+    const gain = context.createGain();
+    gain.gain.value = 0.05;
+    gain.connect(context.destination);
+
+    const notes = passed ? [523.25, 659.25, 783.99] : [220, 174.61];
+    notes.forEach((frequency, index) => {
+      const oscillator = context.createOscillator();
+      oscillator.type = "sine";
+      oscillator.frequency.value = frequency;
+      oscillator.connect(gain);
+      const start = context.currentTime + index * 0.12;
+      oscillator.start(start);
+      oscillator.stop(start + 0.1);
+    });
+  } catch {
+    // Audio feedback is optional; never block quiz submission.
+  }
 }
 
 function renderInteractionCopy(type: string) {
