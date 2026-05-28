@@ -2,7 +2,6 @@ import Image from "next/image";
 import Link from "next/link";
 import { ArrowLeft, BookOpen, LayoutDashboard, ShoppingBag } from "lucide-react";
 import { createClient } from "@/lib/supabase/server";
-import { edxCourseCatalogUrl } from "@/lib/openedx/config";
 import { UserMenu } from "./UserMenu";
 
 export async function PortalNav() {
@@ -20,8 +19,6 @@ export async function PortalNav() {
       .maybeSingle();
     profile = data;
   }
-
-  const edxCatalog = edxCourseCatalogUrl();
 
   return (
     <nav
@@ -46,15 +43,13 @@ export async function PortalNav() {
             />
           </Link>
           <div className="hidden sm:block h-5 w-px bg-[#dce4df]" />
-          <a
-            href={edxCatalog}
-            target="_blank"
-            rel="noopener noreferrer"
+          <Link
+            href="/courses"
             className="hidden sm:flex items-center gap-1.5 text-sm font-semibold text-[#1f2c25] hover:text-[#145c42]"
           >
             <BookOpen className="h-4 w-4 text-[#145c42]" />
             Learning Portal
-          </a>
+          </Link>
         </div>
 
         <div className="hidden md:flex items-center gap-1">
@@ -67,15 +62,13 @@ export async function PortalNav() {
               Dashboard
             </Link>
           )}
-          <a
-            href={edxCatalog}
-            target="_blank"
-            rel="noopener noreferrer"
+          <Link
+            href="/courses"
             className="inline-flex items-center gap-1.5 rounded-md px-3 py-2 text-sm font-medium text-[#53635b] hover:bg-[#f5f8f6] hover:text-[#1f2c25] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#145c42]"
           >
             <BookOpen className="h-4 w-4" />
             Courses
-          </a>
+          </Link>
           <Link
             href="/shop"
             className="rounded-md px-3 py-2 text-sm font-medium text-[#53635b] hover:bg-[#f5f8f6] hover:text-[#1f2c25] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#145c42] inline-flex items-center gap-1.5"

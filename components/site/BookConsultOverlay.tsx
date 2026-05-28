@@ -67,7 +67,6 @@ const revisionProcedures = [
   "Gastric band",
   "Gastric sleeve",
   "Duodenal switch",
-  "ESG (endoscopic sleeve gastroplasty)",
   "SIPS, SADI, or LDS procedure",
 ];
 

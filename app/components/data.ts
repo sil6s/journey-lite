@@ -313,26 +313,6 @@ export const nonSurgicalOptions = [
     cta: "Compare Options",
     status: "Educational comparison",
   },
-  {
-    id: "endoscopic-sleeve-gastroplasty",
-    title: "Endoscopic Sleeve Gastroplasty",
-    description:
-      "An incisionless endoscopic procedure that reduces stomach volume in some weight-loss programs.",
-    bestFor: "Educational comparison only. JourneyLite currently emphasizes gastric balloon treatment among these procedures.",
-    href: "/services/endoscopic-sleeve-gastroplasty",
-    cta: "Compare Non-Surgical Procedures",
-    status: "Educational comparison",
-  },
-  {
-    id: "aspireassist",
-    title: "AspireAssist",
-    description:
-      "A non-surgical weight-loss device historically used in some programs to support portion and calorie reduction.",
-    bestFor: "Educational comparison only. Availability depends on current programs and provider evaluation.",
-    href: "/services/aspireassist",
-    cta: "Compare Non-Surgical Procedures",
-    status: "Educational comparison",
-  },
 ];
 
 export const oralMedicationOptions = [

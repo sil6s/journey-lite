@@ -73,7 +73,7 @@ const processSteps = [
   ],
   [
     "Medication path discussion",
-    "You may discuss oral medications, injectable medications, medication support after bariatric surgery, or another JourneyLite option such as gastric sleeve, gastric bypass, gastric balloon, endoscopic sleeve gastroplasty, or revision surgery.",
+    "You may discuss oral medications, injectable medications, medication support after bariatric surgery, or another JourneyLite option such as gastric sleeve, gastric bypass, gastric balloon, or revision surgery.",
   ],
   [
     "Cost, insurance, and access review",
@@ -155,7 +155,7 @@ const optionTabs: MedicationOptionTab[] = [
     image: "/weight-loss-med-featured.jpg",
     alt: "Medication weight loss consultation with JourneyLite provider in Ohio",
     summary:
-      "Medication-supported care is one path. Some patients compare it with gastric sleeve, bypass, balloon, ESG, or revision surgery.",
+      "Medication-supported care is one path. Some patients compare it with gastric sleeve, bypass, balloon, or revision surgery.",
     how:
       "A consultation can help compare anatomy, BMI, goals, risk tolerance, recovery, cost, coverage, and follow-up expectations.",
     ask:
@@ -424,7 +424,6 @@ const comparisonRows = [
   ["Injectable medications", "Medication-supported care", "Patients asking about GLP-1 or GIP/GLP-1 medication paths.", "Coverage, supply, dose planning, tolerance, side effects, and follow-up can affect the plan.", "#injectable-medications", "Ask About Injectables"],
   ["Medication support after surgery", "Post-op support", "Patients with regain, plateaus, or maintenance concerns after bariatric surgery.", "Nutrition, labs, symptoms, anatomy, prior procedure, and revision questions may need review.", "#post-op-support", "Review Post-op Support"],
   ["Gastric balloon", "Non-surgical procedure", "Patients comparing temporary, incisionless procedural support.", "Placement, removal, tolerance, aftercare, and self-pay details should be confirmed.", "/services/gastric-balloon", "View Balloon"],
-  ["Endoscopic sleeve gastroplasty", "Endoscopic procedure", "Patients researching incisionless or less invasive procedure concepts.", "Availability, anatomy, follow-up, and long-term expectations should be discussed.", "/services/endoscopic-sleeve-gastroplasty", "Compare ESG"],
   ["Gastric sleeve", "Bariatric surgery", "Patients considering a durable surgical option.", "Surgical evaluation, preparation, recovery planning, and long-term follow-up are required.", "/services/gastric-sleeve", "View Sleeve"],
   ["Gastric bypass", "Bariatric surgery", "Patients comparing established metabolic surgery options.", "Anatomy, reflux, metabolic needs, coverage, and follow-up all matter.", "/services/gastric-bypass", "View Bypass"],
   ["Revision surgery", "Revision evaluation", "Patients with prior surgery, anatomy concerns, reflux, regain, or device issues.", "Complexity varies by prior procedure, imaging, scar tissue, symptoms, and surgical plan.", "/services/gastric-band-revision", "Review Revision"],

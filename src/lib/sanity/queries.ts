@@ -3,7 +3,17 @@ import { groq } from "next-sanity";
 const blogDocumentFilter = groq`
   _type in ["blogPost", "post"] &&
   defined(slug.current) &&
-  (!defined(publishedAt) || publishedAt <= now())
+  (!defined(publishedAt) || publishedAt <= now()) &&
+  !(
+    slug.current in ["esg", "endoscopic-sleeve-gastroplasty-a-new-tool"] ||
+    title match "Endoscopic Sleeve Gastroplasty" ||
+    title match "AspireAssist" ||
+    title match "Aspire Assist" ||
+    pt::text(body) match "endoscopic sleeve gastroplasty" ||
+    pt::text(body) match "ESG" ||
+    pt::text(body) match "AspireAssist" ||
+    pt::text(body) match "Aspire Assist"
+  )
 `;
 
 const postFields = groq`

@@ -124,14 +124,13 @@ const pathwayCards = [
   ["I am exploring weight-loss treatment for the first time", "Start with options that match your goals, health history, and comfort level.", "/services/compare-weight-loss-options"],
   ["I have tried medications or dieting without lasting results", "Compare medical weight loss, GLP-1 options, and surgical paths with structured follow-up.", "/medications"],
   ["I had bariatric surgery and want to understand regain", "Review post-op support, nutrition, medication, anatomy, or revision questions.", "/medications#post-op-support"],
-  ["I want a less invasive option", "Compare gastric balloon and endoscopic options that may fit some patients.", "/services/gastric-balloon"],
+  ["I want a less invasive option", "Compare gastric balloon options that may fit some patients.", "/services/gastric-balloon"],
   ["I want to know if I qualify", "Use your starting point to guide a consultation rather than guessing alone.", "/contact"],
 ];
 
 const optionCards = [
   ["Gastric sleeve", "Eligible patients considering a durable surgical option.", "May support portion control and metabolic progress with follow-up.", "/services/gastric-sleeve"],
   ["Gastric bypass", "Patients comparing more established metabolic surgery options.", "May support weight loss and selected metabolic goals after evaluation.", "/services/gastric-bypass"],
-  ["Endoscopic sleeve gastroplasty", "Patients looking for an incisionless procedural discussion.", "May reduce stomach volume for selected patients in a structured plan.", "/services/endoscopic-sleeve-gastroplasty"],
   ["Gastric balloon", "Patients considering temporary, non-surgical support.", "Helps support portion awareness and habit-building during treatment.", "/services/gastric-balloon"],
   ["Revision surgery", "Patients with prior bariatric surgery or band concerns.", "Helps evaluate regain, reflux, anatomy, or prior procedure problems.", "/services/gastric-band-revision"],
   ["Medical weight loss", "Patients seeking provider-led non-surgical care.", "Combines monitoring, nutrition guidance, and medication review when appropriate.", "/medications"],

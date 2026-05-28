@@ -518,40 +518,6 @@ const nonSurgicalSeeds: Seed[] = [
     related: ["gastric-balloon", "orbera-gastric-balloon", "spatz-adjustable-gastric-balloon", "compare-weight-loss-options"],
     compare: ["Gastric Balloon", "Orbera Gastric Balloon", "Prescription Medications"],
   },
-  {
-    title: "Endoscopic Sleeve Gastroplasty",
-    slug: "endoscopic-sleeve-gastroplasty",
-    category: "Non-Surgical Weight Loss",
-    keyword: "endoscopic sleeve gastroplasty Ohio",
-    summary:
-      "Endoscopic sleeve gastroplasty is included as an educational comparison topic for patients researching incisionless weight-loss procedures.",
-    type: "Educational comparison",
-    useCase: "Patients who want to compare incisionless procedures with gastric balloon, sleeve surgery, and medications.",
-    followUp: "Follow-up depends on program availability, nutrition planning, and provider evaluation.",
-    recovery: "Adjustment and recovery vary by endoscopic approach and patient factors.",
-    coverage: "Coverage and availability vary; do not assume this procedure is currently offered.",
-    bestFit: "Educational comparison only unless current program availability is confirmed.",
-    status: "Educational comparison",
-    related: ["gastric-balloon", "gastric-sleeve", "compare-weight-loss-options", "pricing-financing"],
-    compare: ["Gastric Balloon", "Gastric Sleeve", "Prescription Medications"],
-  },
-  {
-    title: "AspireAssist",
-    slug: "aspireassist",
-    category: "Non-Surgical Weight Loss",
-    keyword: "AspireAssist weight loss",
-    summary:
-      "AspireAssist information is included for education and comparison for patients researching historical non-surgical weight-loss devices.",
-    type: "Educational comparison",
-    useCase: "Patients comparing device-based weight-loss options can use this page to understand how it differs from active programs.",
-    followUp: "Follow-up requirements depend on device availability, provider evaluation, and patient needs.",
-    recovery: "Risks, adjustment, and maintenance vary by device and patient history.",
-    coverage: "Availability should be confirmed; this page should not be read as an active treatment offer.",
-    bestFit: "Educational comparison only unless JourneyLite confirms current program availability.",
-    status: "Educational comparison",
-    related: ["gastric-balloon", "endoscopic-sleeve-gastroplasty", "compare-weight-loss-options", "pricing-financing"],
-    compare: ["Gastric Balloon", "Endoscopic Sleeve Gastroplasty", "Prescription Medications"],
-  },
 ];
 
 const medicationSeeds: Seed[] = [
@@ -917,18 +883,6 @@ function visualBase(seed: Seed): {
       image: "/gastric-balloon.jpg",
       alt: "Allurion gastric balloon educational comparison visual",
       caption: "A representative balloon visual used for education and comparison only.",
-    },
-    "endoscopic-sleeve-gastroplasty": {
-      diagramType: "endoscopic-sleeve",
-      image: "/Endoscopic-Sleeve.png",
-      alt: "Endoscopic sleeve gastroplasty educational illustration",
-      caption: "A non-graphic visual for comparing incisionless stomach-volume procedures.",
-    },
-    aspireassist: {
-      diagramType: "device-education",
-      image: "/aspire-assist.webp",
-      alt: "AspireAssist educational comparison device visual",
-      caption: "A device visual included for education and comparison, not as a promise of availability.",
     },
     "prescription-weight-loss-medications": {
       diagramType: "medication-pathway",
@@ -1635,8 +1589,6 @@ function slugFromTitle(title: string) {
     "Orbera Gastric Balloon": "orbera-gastric-balloon",
     "Spatz Adjustable Gastric Balloon": "spatz-adjustable-gastric-balloon",
     "Allurion Gastric Balloon": "allurion-gastric-balloon",
-    "Endoscopic Sleeve Gastroplasty": "endoscopic-sleeve-gastroplasty",
-    "AspireAssist": "aspireassist",
     "Prescription Weight Loss Medications": "prescription-weight-loss-medications",
     "Prescription Medications": "prescription-weight-loss-medications",
     "Injectable Medications": "injectable-weight-loss-medications",

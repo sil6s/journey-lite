@@ -54,7 +54,36 @@ docker exec tutor_local-lms-1 python3 -c "
 import subprocess
 result = subprocess.run(['find', '/openedx/staticfiles/', '-name', '*.css'], capture_output=True, text=True)
 files = [f.strip() for f in result.stdout.strip().split('\n') if f.strip()]
-replacements = [('#15376D','#145c42'),('#15376d','#145c42'),('#AEC7F6','#7cc9a8'),('#aec7f6','#7cc9a8'),('#112F6B','#0d3d2b'),('#112f6b','#0d3d2b')]
+replacements = [
+    # Original Indigo blue → JourneyLite green
+    ('#15376D','#145c42'),('#15376d','#145c42'),
+    ('#AEC7F6','#7cc9a8'),('#aec7f6','#7cc9a8'),
+    ('#112F6B','#0d3d2b'),('#112f6b','#0d3d2b'),
+    # Link colors (medium blue → medium green)
+    ('#1b6d99','#1a7d52'),('#1B6D99','#1a7d52'),
+    # Link hover / --blue variable (bright blue → primary green)
+    ('#0075b4','#145c42'),('#0075B4','#145c42'),
+    ('#0079bc','#145c42'),('#0079BC','#145c42'),
+    # Visited links (dark blue → dark green)
+    ('#003655','#0d3d2b'),('#003355','#0d3d2b'),
+    # CSS blue shade variables
+    ('#005e90','#0d4a35'),('#00466c','#0a3528'),('#001724','#071f17'),
+    # Button hover/active states (dark navy → dark green)
+    ('#0f274d','#0f4432'),('#0d2142','#0d3a2b'),
+    ('#0b1c38','#0b3024'),('#0a3055','#0a3d29'),
+    # Button focus/active
+    ('#1790c7','#1a7d52'),('#065683','#0a4532'),('#075683','#0a4532'),
+    ('#126f9a','#157a50'),('#0d72a2','#0d6644'),
+    ('#006daa','#0d6644'),('#207ab7','#1a7d52'),
+    # Discussion/forum link blues
+    ('#337ab7','#1a7d52'),('#286090','#156a43'),
+    ('#2e6da4','#1a6a45'),('#1b468b','#145c42'),
+    ('#2b6dd6','#1a7d52'),('#1d9dd9','#1a9d68'),
+    # Info/bright blues → light greens
+    ('#00bbf9','#2ecc87'),('#00BBF9','#2ecc87'),
+    # Focus ring rgba
+    ('rgba(21,55,109','rgba(20,92,66'),('rgba(21, 55, 109','rgba(20, 92, 66'),
+]
 total_files = 0; total_replacements = 0
 for fpath in files:
     try:
@@ -74,7 +103,26 @@ docker exec tutor_local-cms-1 python3 -c "
 import subprocess
 result = subprocess.run(['find', '/openedx/staticfiles/', '-name', '*.css'], capture_output=True, text=True)
 files = [f.strip() for f in result.stdout.strip().split('\n') if f.strip()]
-replacements = [('#15376D','#145c42'),('#15376d','#145c42'),('#AEC7F6','#7cc9a8'),('#aec7f6','#7cc9a8'),('#112F6B','#0d3d2b'),('#112f6b','#0d3d2b')]
+replacements = [
+    ('#15376D','#145c42'),('#15376d','#145c42'),
+    ('#AEC7F6','#7cc9a8'),('#aec7f6','#7cc9a8'),
+    ('#112F6B','#0d3d2b'),('#112f6b','#0d3d2b'),
+    ('#1b6d99','#1a7d52'),('#1B6D99','#1a7d52'),
+    ('#0075b4','#145c42'),('#0075B4','#145c42'),
+    ('#0079bc','#145c42'),('#0079BC','#145c42'),
+    ('#003655','#0d3d2b'),('#003355','#0d3d2b'),
+    ('#005e90','#0d4a35'),('#00466c','#0a3528'),('#001724','#071f17'),
+    ('#0f274d','#0f4432'),('#0d2142','#0d3a2b'),
+    ('#0b1c38','#0b3024'),('#0a3055','#0a3d29'),
+    ('#1790c7','#1a7d52'),('#065683','#0a4532'),('#075683','#0a4532'),
+    ('#126f9a','#157a50'),('#0d72a2','#0d6644'),
+    ('#006daa','#0d6644'),('#207ab7','#1a7d52'),
+    ('#337ab7','#1a7d52'),('#286090','#156a43'),
+    ('#2e6da4','#1a6a45'),('#1b468b','#145c42'),
+    ('#2b6dd6','#1a7d52'),('#1d9dd9','#1a9d68'),
+    ('#00bbf9','#2ecc87'),('#00BBF9','#2ecc87'),
+    ('rgba(21,55,109','rgba(20,92,66'),('rgba(21, 55, 109','rgba(20, 92, 66'),
+]
 total_files = 0; total_replacements = 0
 for fpath in files:
     try:

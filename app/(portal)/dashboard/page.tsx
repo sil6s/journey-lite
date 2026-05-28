@@ -1,12 +1,7 @@
 import { redirect } from "next/navigation";
 import Link from "next/link";
-import { BookOpen, ExternalLink, Phone } from "lucide-react";
+import { BookOpen, Phone } from "lucide-react";
 import { createClient } from "@/lib/supabase/server";
-import {
-  edxDashboardUrl,
-  edxCourseCatalogUrl,
-  OPENEDX_LMS_URL,
-} from "@/lib/openedx/config";
 
 export const dynamic = "force-dynamic";
 
@@ -37,11 +32,10 @@ export default async function DashboardPage() {
           {greeting}
         </h1>
         <p className="mt-2 text-base text-[#66756d]">
-          Your bariatric learning portal is powered by Open edX.
+          Your bariatric learning portal includes the exported JourneyLite course modules, quizzes, and media.
         </p>
       </div>
 
-      {/* Open edX learning portal CTA */}
       <section
         aria-labelledby="portal-heading"
         className="rounded-2xl border border-[#c8ddd4] bg-gradient-to-br from-[#0f3e2e] to-[#145c42] px-6 py-10 text-white sm:px-10"
@@ -56,53 +50,36 @@ export default async function DashboardPage() {
           id="portal-heading"
           className="mt-3 text-2xl font-semibold sm:text-3xl"
         >
-          Bariatric Learning Portal
+          JourneyLite course library
         </h2>
         <p className="mt-3 max-w-2xl text-sm leading-7 text-[#c5ddd4]">
-          Evidence-based courses designed to support you at every stage of your
-          bariatric journey — from preparing for surgery to building long-term
-          healthy habits.
+          Review the same exported pre-op dietary and medical course material here in the patient portal, including
+          lesson media, checkpoints, quizzes, and safety notes.
         </p>
         <div className="mt-6 flex flex-wrap gap-3">
-          <a
-            href={edxDashboardUrl()}
-            target="_blank"
-            rel="noopener noreferrer"
+          <Link
+            href="/courses"
             className="inline-flex items-center gap-2 rounded-md bg-white px-5 py-2.5 text-sm font-semibold text-[#0f3e2e] shadow-sm transition hover:bg-[#edf4ef]"
           >
-            My Courses
-            <ExternalLink className="h-3.5 w-3.5" />
-          </a>
-          <a
-            href={edxCourseCatalogUrl()}
-            target="_blank"
-            rel="noopener noreferrer"
+            Browse Courses
+          </Link>
+          <Link
+            href="/courses/surgical-pre-op-course-dietary-module"
             className="inline-flex items-center gap-2 rounded-md border border-white/30 px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-white/10"
           >
-            Browse Courses
-            <ExternalLink className="h-3.5 w-3.5" />
-          </a>
+            Dietary Module
+          </Link>
         </div>
       </section>
 
-      {/* Info card: portal URL */}
       <section className="rounded-2xl border border-[#dce4df] bg-white p-6">
         <h2 className="text-sm font-semibold text-[#1f2c25]">
-          Your learning portal
+          What is included
         </h2>
         <p className="mt-1 text-sm text-[#66756d]">
-          All course content, progress tracking, quizzes, and certificates are
-          managed in your JourneyLite Open edX portal.
+          The local course pages are generated from the JourneyLite course export in this repo. They include 2 courses,
+          23 sections, 90 lessons, 90 activity checkpoints, 90 quizzes, and 165 media references.
         </p>
-        <a
-          href={OPENEDX_LMS_URL}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="mt-3 inline-flex items-center gap-1.5 text-sm font-medium text-[#145c42] hover:underline"
-        >
-          {OPENEDX_LMS_URL}
-          <ExternalLink className="h-3.5 w-3.5" />
-        </a>
       </section>
 
       {/* Support CTA */}

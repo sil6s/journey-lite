@@ -8,11 +8,9 @@ import {
   ChevronDown,
   ShoppingBag,
   BookOpen,
-  ExternalLink,
 } from "lucide-react";
 import { createClient } from "@/lib/supabase/client";
 import { useRouter } from "next/navigation";
-import { edxDashboardUrl, edxCourseCatalogUrl } from "@/lib/openedx/config";
 
 interface UserMenuProps {
   email: string;
@@ -92,30 +90,24 @@ export function UserMenu({ email, fullName }: UserMenuProps) {
               <LayoutDashboard className="h-4 w-4 text-[#66756d]" />
               My Dashboard
             </Link>
-            <a
-              href={edxDashboardUrl()}
-              target="_blank"
-              rel="noopener noreferrer"
+            <Link
+              href="/courses"
               className="flex items-center gap-2.5 rounded-md px-3 py-2 text-sm text-[#1f2c25] hover:bg-[#f5f8f6] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-[#145c42]"
               onClick={() => setOpen(false)}
               role="menuitem"
             >
               <BookOpen className="h-4 w-4 text-[#66756d]" />
               My Courses
-              <ExternalLink className="ml-auto h-3.5 w-3.5 text-[#9aab9f]" />
-            </a>
-            <a
-              href={edxCourseCatalogUrl()}
-              target="_blank"
-              rel="noopener noreferrer"
+            </Link>
+            <Link
+              href="/courses"
               className="flex items-center gap-2.5 rounded-md px-3 py-2 text-sm text-[#1f2c25] hover:bg-[#f5f8f6] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-[#145c42]"
               onClick={() => setOpen(false)}
               role="menuitem"
             >
               <BookOpen className="h-4 w-4 text-[#66756d]" />
               Browse Courses
-              <ExternalLink className="ml-auto h-3.5 w-3.5 text-[#9aab9f]" />
-            </a>
+            </Link>
             <Link
               href="/shop"
               className="flex items-center gap-2.5 rounded-md px-3 py-2 text-sm text-[#1f2c25] hover:bg-[#f5f8f6] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-[#145c42]"
