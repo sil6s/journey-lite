@@ -2,9 +2,12 @@ export type AdminSessionUser = {
   email: string;
   name?: string;
   picture?: string;
+  role?: AdminRole;
 };
 
 export const adminSessionCookieName = "jl_admin_session";
+
+export type AdminRole = "admin" | "superadmin";
 
 type AdminSessionPayload = AdminSessionUser & {
   exp: number;

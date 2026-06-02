@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
-import { adminSessionCookieName, createAdminSession, isAllowedAdminEmail } from "@/lib/auth/session";
+import { getAdminAccessForEmail } from "@/lib/admin/users";
+import { adminSessionCookieName, createAdminSession } from "@/lib/auth/session";
 
 const oauthStateCookieName = "jl_oauth_state";
 const googleCallbackPath = "/api/auth/callback/google";
@@ -60,14 +61,16 @@ export async function GET(request: NextRequest) {
   }
   const profile = await getGoogleProfile(tokenPayload.access_token);
   const email = profile?.email || tokenInfo.email;
-  if (!isAllowedAdminEmail(email)) return redirectAccessDenied(request, email);
+  const access = await getAdminAccessForEmail(email);
+  if (!access) return redirectAccessDenied(request, email);
 
   const response = NextResponse.redirect(new URL(safeNextPath(nextPath), request.url));
   response.cookies.delete(oauthStateCookieName);
   response.cookies.set(adminSessionCookieName, await createAdminSession({
-    email,
+    email: access.email,
     name: profile?.name || tokenInfo.name,
     picture: profile?.picture || tokenInfo.picture,
+    role: access.role,
   }), {
     httpOnly: true,
     sameSite: "lax",

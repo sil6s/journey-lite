@@ -454,3 +454,39 @@ export async function sendLeadEmail(data: LeadSubmission): Promise<void> {
 
   console.log(`[email] Sent staff notification to ${to} and patient confirmation to ${data.email || "none"}`);
 }
+
+export async function sendFormSubmissionEmail({
+  formName,
+  pageSlug,
+  data,
+  to,
+  replyTo,
+}: {
+  formName: string;
+  pageSlug?: string;
+  data: Record<string, unknown>;
+  to: string[];
+  replyTo?: string;
+}) {
+  const recipients = to.filter(Boolean);
+  if (!recipients.length) return;
+
+  const from = process.env.CONTACT_FROM_EMAIL ?? `JourneyLite <${process.env.SMTP_USER}>`;
+  const rows = Object.entries(data)
+    .filter(([key]) => key !== "website")
+    .map(([key, value]) => infoRow(key, Array.isArray(value) ? value.join(", ") : typeof value === "boolean" ? (value ? "Yes" : "No") : String(value ?? "")))
+    .join("");
+
+  await transporter.sendMail({
+    from,
+    to: recipients.join(","),
+    replyTo,
+    subject: `[JourneyLite Form] ${formName}`,
+    html: wrapper(`
+      ${header("New Website Form Submission", `Form: ${formName}${pageSlug ? ` · Page: /${pageSlug}` : ""}`, "JourneyLite")}
+      ${sectionLabel("Submitted fields")}
+      ${tableBlock(rows)}
+      ${footer()}
+    `),
+  });
+}

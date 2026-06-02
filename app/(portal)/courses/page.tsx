@@ -1,137 +1,114 @@
-import { BookOpen, GraduationCap } from "lucide-react";
-import { adminClient } from "@/src/lib/sanity/client";
-import { createClient } from "@/lib/supabase/server";
-import { allCoursesQuery } from "@/src/lib/sanity/lms-queries";
-import { getUserEnrollments, getCourseProgress, calculateCourseProgress } from "@/lib/lms/progress";
-import { CourseCard } from "@/components/lms/CourseCard";
-import { EmptyState } from "@/components/lms/EmptyState";
-import type { SanityCourseCard, SanityCourse, BariatricStage } from "@/src/lib/sanity/lms-types";
+import Image from "next/image";
+import Link from "next/link";
+import { Activity, BookOpen, CheckCircle2, Clock, Film, Layers } from "lucide-react";
+import { getCoursePreviewMedia, getCourses, getCourseStats, getFirstLesson } from "@/lib/courses/catalog";
 
-export const dynamic = "force-dynamic";
-
-const stageGroups: { slug: BariatricStage; label: string }[] = [
-  { slug: "pre-op", label: "Pre-Op Preparation" },
-  { slug: "immediate-post-op", label: "Immediate Post-Op" },
-  { slug: "soft-food", label: "Soft Food Phase" },
-  { slug: "long-term-maintenance", label: "Long-Term Maintenance" },
-  { slug: "vitamins", label: "Vitamins & Supplements" },
-  { slug: "general-education", label: "General Education" },
-];
-
-export default async function CoursesPage() {
-  const [courses, supabase] = await Promise.all([
-    adminClient.fetch<SanityCourseCard[]>(allCoursesQuery),
-    createClient(),
-  ]);
-
-  const { data: { user } } = await supabase.auth.getUser();
-
-  let enrolledSlugs = new Set<string>();
-  let progressMap = new Map<string, number>();
-
-  if (user) {
-    const enrollments = await getUserEnrollments(user.id);
-    enrolledSlugs = new Set(enrollments.map((e) => e.course_slug));
-
-    await Promise.all(
-      Array.from(enrolledSlugs).map(async (slug) => {
-        const course = courses.find((c) => c.slug === slug);
-        if (!course) return;
-        const rows = await getCourseProgress(user.id, slug);
-        const summary = calculateCourseProgress(course as unknown as SanityCourse, rows);
-        progressMap.set(slug, summary.percentComplete);
-      })
-    );
-  }
-
-  const coursesByStage = stageGroups
-    .map((stage) => ({
-      ...stage,
-      courses: courses.filter((c) => c.bariatricStage === stage.slug),
-    }))
-    .filter((g) => g.courses.length > 0);
-
-  const uncategorized = courses.filter((c) => !c.bariatricStage);
+export default function CoursesPage() {
+  const courses = getCourses();
 
   return (
-    <div className="space-y-12">
-      {/* Hero */}
-      <div className="rounded-2xl border border-[#c8ddd4] bg-gradient-to-br from-[#0f3e2e] to-[#145c42] px-6 py-10 text-white sm:px-10">
-        <div className="flex items-center gap-2">
-          <GraduationCap className="h-6 w-6 text-[#7cc9a8]" />
-          <span className="text-xs font-semibold uppercase tracking-widest text-[#7cc9a8]">
-            Patient Education Center
-          </span>
-        </div>
-        <h1 className="mt-3 text-3xl font-semibold sm:text-4xl">Bariatric Learning Portal</h1>
-        <p className="mt-3 max-w-2xl text-sm leading-7 text-[#c5ddd4]">
-          Evidence-based courses designed to support you at every stage of your bariatric journey —
-          from preparing for surgery to building long-term healthy habits.
-        </p>
-        {!user && (
-          <div className="mt-6 flex flex-wrap gap-3">
-            <a
-              href="/signup"
-              className="inline-flex rounded-md bg-white px-5 py-2.5 text-sm font-semibold text-[#0f3e2e] shadow-sm transition hover:bg-[#edf4ef]"
-            >
-              Create a free account
-            </a>
-            <a
-              href="/login"
-              className="inline-flex rounded-md border border-white/30 px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-white/10"
-            >
-              Sign in
-            </a>
+    <div className="space-y-8">
+      <header className="rounded-2xl border border-[#c8ddd4] bg-white p-6 shadow-sm shadow-[#20372b]/5 sm:p-8">
+        <p className="text-xs font-semibold uppercase tracking-widest text-[#145c42]">JourneyLite courses</p>
+        <div className="mt-3 grid gap-4 lg:grid-cols-[1fr_auto] lg:items-end">
+          <div>
+            <h1 className="text-3xl font-semibold tracking-tight text-[#1f2c25] sm:text-4xl">Patient education courses</h1>
+            <p className="mt-3 max-w-3xl text-base leading-7 text-[#66756d]">
+              These courses mirror the exported JourneyLite Open edX course modules, including lesson structure, media,
+              activities, quizzes, safety notes, and source references.
+            </p>
           </div>
-        )}
+          <div className="grid grid-cols-2 gap-3 text-sm sm:grid-cols-4 lg:min-w-[460px]">
+            <Metric icon={<BookOpen className="h-4 w-4" />} label="Courses" value={courses.length} />
+            <Metric icon={<Layers className="h-4 w-4" />} label="Sections" value={courses.reduce((sum, course) => sum + getCourseStats(course).sections, 0)} />
+            <Metric icon={<Activity className="h-4 w-4" />} label="Lessons" value={courses.reduce((sum, course) => sum + getCourseStats(course).lessons, 0)} />
+            <Metric icon={<Film className="h-4 w-4" />} label="Media" value={courses.reduce((sum, course) => sum + getCourseStats(course).media, 0)} />
+          </div>
+        </div>
+      </header>
+
+      <section className="grid gap-5 lg:grid-cols-2">
+        {courses.map((course) => {
+          const stats = getCourseStats(course);
+          const firstLesson = getFirstLesson(course);
+          const media = getCoursePreviewMedia(course);
+
+          return (
+            <article className="overflow-hidden rounded-2xl border border-[#dce4df] bg-white shadow-sm shadow-[#20372b]/5" key={course._id}>
+              {media?.localPath ? (
+                <div className="relative h-56 border-b border-[#dce4df] bg-[#edf4ef]">
+                  <Image
+                    alt={media.altText || course.title}
+                    className="object-contain p-4"
+                    fill
+                    sizes="(min-width: 1024px) 50vw, 100vw"
+                    src={media.localPath}
+                    unoptimized={media.contentType === "image/gif"}
+                  />
+                </div>
+              ) : null}
+              <div className="p-6">
+                <div className="flex flex-wrap gap-2">
+                  <span className="rounded-full bg-[#edf7f1] px-3 py-1 text-xs font-semibold text-[#145c42]">
+                    {course.clinicalReview?.status ?? "Course"}
+                  </span>
+                  <span className="rounded-full bg-[#f5f8f6] px-3 py-1 text-xs font-semibold text-[#66756d]">
+                    {course.accessType ?? "Patient education"}
+                  </span>
+                </div>
+                <h2 className="mt-4 text-2xl font-semibold leading-tight text-[#1f2c25]">{course.title}</h2>
+                {course.courseSummary ? <p className="mt-3 text-sm leading-6 text-[#66756d]">{course.courseSummary}</p> : null}
+                <dl className="mt-5 grid grid-cols-2 gap-3 text-sm sm:grid-cols-4">
+                  <CourseStat label="Sections" value={stats.sections} />
+                  <CourseStat label="Lessons" value={stats.lessons} />
+                  <CourseStat label="Quizzes" value={stats.quizzes} />
+                  <CourseStat label="Minutes" value={stats.estimatedMinutes} />
+                </dl>
+                <div className="mt-6 flex flex-wrap gap-3">
+                  <Link
+                    className="inline-flex items-center gap-2 rounded-md bg-[#145c42] px-4 py-2.5 text-sm font-semibold text-white shadow-sm transition hover:bg-[#0f4d37] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#145c42] focus-visible:ring-offset-2"
+                    href={`/courses/${course.slug}`}
+                  >
+                    View course
+                  </Link>
+                  {firstLesson ? (
+                    <Link
+                      className="inline-flex items-center gap-2 rounded-md border border-[#cbd7d0] bg-white px-4 py-2.5 text-sm font-semibold text-[#1f2c25] transition hover:border-[#145c42] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#145c42] focus-visible:ring-offset-2"
+                      href={`/courses/${course.slug}/lessons/${firstLesson.slug}`}
+                    >
+                      Start first lesson
+                    </Link>
+                  ) : null}
+                </div>
+              </div>
+            </article>
+          );
+        })}
+      </section>
+    </div>
+  );
+}
+
+function Metric({ icon, label, value }: { icon: React.ReactNode; label: string; value: number }) {
+  return (
+    <div className="rounded-xl border border-[#dce4df] bg-[#f8fbf9] p-3">
+      <div className="flex items-center gap-2 text-[#145c42]">
+        {icon}
+        <span className="text-xs font-semibold uppercase tracking-[0.12em]">{label}</span>
       </div>
+      <p className="mt-2 text-2xl font-semibold text-[#1f2c25]">{value}</p>
+    </div>
+  );
+}
 
-      {/* Course groups */}
-      {courses.length === 0 ? (
-        <EmptyState
-          icon={<BookOpen className="h-8 w-8" />}
-          title="Courses coming soon"
-          description="Our team is building out the patient education library. Check back soon."
-        />
-      ) : (
-        <>
-          {coursesByStage.map((group) => (
-            <section key={group.slug} aria-labelledby={`stage-${group.slug}`}>
-              <h2 id={`stage-${group.slug}`} className="mb-5 text-xl font-semibold text-[#1f2c25]">
-                {group.label}
-              </h2>
-              <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-                {group.courses.map((course) => (
-                  <CourseCard
-                    key={course._id}
-                    course={course}
-                    isEnrolled={enrolledSlugs.has(course.slug)}
-                    progress={progressMap.get(course.slug)}
-                  />
-                ))}
-              </div>
-            </section>
-          ))}
-
-          {uncategorized.length > 0 && (
-            <section aria-labelledby="uncategorized">
-              <h2 id="uncategorized" className="mb-5 text-xl font-semibold text-[#1f2c25]">
-                More Courses
-              </h2>
-              <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-                {uncategorized.map((course) => (
-                  <CourseCard
-                    key={course._id}
-                    course={course}
-                    isEnrolled={enrolledSlugs.has(course.slug)}
-                    progress={progressMap.get(course.slug)}
-                  />
-                ))}
-              </div>
-            </section>
-          )}
-        </>
-      )}
+function CourseStat({ label, value }: { label: string; value: number }) {
+  return (
+    <div className="rounded-lg bg-[#f5f8f6] p-3">
+      <dt className="text-xs font-semibold uppercase tracking-[0.1em] text-[#66756d]">{label}</dt>
+      <dd className="mt-1 flex items-center gap-1.5 text-lg font-semibold text-[#1f2c25]">
+        {label === "Minutes" ? <Clock className="h-4 w-4 text-[#145c42]" /> : <CheckCircle2 className="h-4 w-4 text-[#145c42]" />}
+        {value}
+      </dd>
     </div>
   );
 }
