@@ -7,6 +7,7 @@ import {
   BookOpen,
   Bot,
   BriefcaseMedical,
+  ClipboardList,
   ExternalLink,
   LogOut,
   FileText,
@@ -17,6 +18,7 @@ import {
   Search,
   Settings,
   Sparkles,
+  ShieldCheck,
   UserRound,
   Users,
 } from "lucide-react";
@@ -58,6 +60,8 @@ const navigation = [
   { title: "AI Blog Builder", href: "/admin/ai-blog-builder", icon: Bot },
   { title: "Services", href: "/admin/services", icon: BriefcaseMedical },
   { title: "Pages / Sections", href: "/admin/pages", icon: FileText },
+  { title: "Forms / Submissions", href: "/admin/forms", icon: ClipboardList },
+  { title: "Admin Management", href: "/admin/admins", icon: ShieldCheck },
   { title: "Staff / Providers", href: "/admin/staff", icon: Users },
   { title: "Locations", href: "/admin/locations", icon: MapPin },
   { title: "Testimonials", href: "/admin/testimonials", icon: MessageSquareQuote },
@@ -68,15 +72,17 @@ const navigation = [
 
 const navSections = [
   { label: "", items: navigation.slice(0, 1) },
-  { label: "Content", items: navigation.slice(1, 7) },
-  { label: "People & Places", items: navigation.slice(7, 10) },
-  { label: "System", items: navigation.slice(10) },
+  { label: "Content", items: navigation.slice(1, 8) },
+  { label: "Access", items: navigation.slice(8, 9) },
+  { label: "People & Places", items: navigation.slice(9, 12) },
+  { label: "System", items: navigation.slice(12) },
 ];
 
 type AdminShellUser = {
   email: string;
   name?: string;
   picture?: string;
+  role?: string;
 } | null;
 
 export function AdminShell({ children, user }: { children: React.ReactNode; user?: AdminShellUser }) {
@@ -162,9 +168,10 @@ export function AdminShell({ children, user }: { children: React.ReactNode; user
               <DropdownMenuContent align="end" className="w-56">
                 <DropdownMenuLabel>Admin account</DropdownMenuLabel>
                 {user?.email ? <div className="px-2 pb-2 text-xs text-muted-foreground">{user.email}</div> : null}
+                {user?.role ? <div className="px-2 pb-2 text-xs font-medium capitalize text-muted-foreground">{user.role}</div> : null}
                 <DropdownMenuSeparator />
                 <DropdownMenuItem asChild>
-                  <Link href="/admin/settings">Settings</Link>
+                  <Link href="/admin/settings" prefetch={false}>Settings</Link>
                 </DropdownMenuItem>
                 <DropdownMenuItem asChild>
                   <Link href="/studio">Open Studio</Link>
@@ -188,7 +195,7 @@ export function AdminShell({ children, user }: { children: React.ReactNode; user
           <CommandGroup heading="Admin navigation">
             {navigation.map((item) => (
               <CommandItem key={item.href} onSelect={() => setCommandOpen(false)} asChild>
-                <Link href={item.href}>
+                <Link href={item.href} prefetch={false}>
                   <item.icon />
                   {item.title}
                 </Link>
@@ -209,7 +216,7 @@ function SidebarContent({ pathname, user, onNavigate }: { pathname: string; user
 
   return (
     <div className="flex h-full flex-col">
-      <Link className="flex h-[92px] items-center gap-4 border-b border-white/10 px-5" href="/admin" onClick={onNavigate}>
+      <Link className="flex h-[92px] items-center gap-4 border-b border-white/10 px-5" href="/admin" onClick={onNavigate} prefetch={false}>
         <span className="flex size-12 items-center justify-center rounded-xl border border-white/15 bg-[#0f3322] text-base font-bold tracking-tight text-white shadow-inner">
           JL
         </span>
@@ -233,6 +240,7 @@ function SidebarContent({ pathname, user, onNavigate }: { pathname: string; user
                     active && "bg-[#2e7445] text-white shadow-sm",
                   )}
                   href={item.href}
+                  prefetch={false}
                   key={item.href}
                   onClick={onNavigate}
                 >

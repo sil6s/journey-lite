@@ -9,6 +9,7 @@
     "lint": "eslint .",
     "crawl:journeylite-blog": "tsx scripts/crawl-journeylite-blog.ts",
     "import:journeylite-blog": "tsx scripts/import-journeylite-blog-to-sanity.ts",
+    "seed:testimonials": "tsx scripts/seed-testimonials.ts",
     "clean:migration": "tsx scripts/clean-migration-files.ts",
     "patch:migrated": "tsx scripts/patch-migrated-sanity-posts.ts",
     "upload:images": "tsx scripts/upload-images-to-sanity.ts",

@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { HomeQuiz } from "./components/HomeQuiz";
+import { TestimonialsSection } from "./components/TestimonialsSection";
 import { BookConsultButton } from "@/components/site/BookConsultButton";
 import {
   ComparisonTable,
@@ -10,10 +11,10 @@ import {
   FeatureCard,
   FinalCTA,
   LocationCards,
+  MedicationCard,
   MedicationCategoryPanel,
   MedicationComparisonGuide,
   MedicationCtaBand,
-  MedicationSupportCard,
   PhysicianProfileCard,
   ProcedureCard,
   ReviewBadge,
@@ -25,8 +26,6 @@ import {
 } from "./components/marketing";
 import {
   injectableMedicationOptions,
-  medicationSupportOptions,
-  nonSurgicalOptions,
   oralMedicationOptions,
   physicianCards,
   surgicalOptions,
@@ -146,6 +145,44 @@ const homepageBlogPosts = [
   },
 ];
 
+const balloonOptions = [
+  {
+    title: "Allurion Balloon",
+    points: [
+      "Swallowable balloon capsule",
+      "No endoscopy or anesthesia",
+      "No removal appointment",
+      "Naturally deflates after about 4 months",
+      "Best for patients wanting the least procedural option",
+    ],
+    href: "/services/allurion-gastric-balloon",
+    cta: "Learn about Allurion",
+  },
+  {
+    title: "Spatz3 Adjustable Balloon",
+    points: [
+      "Adjustable balloon volume",
+      "Can be increased or decreased after placement",
+      "Helps with comfort or weight-loss plateaus",
+      "Stays in place up to 12 months",
+      "Best for patients wanting a more customizable option",
+    ],
+    href: "/services/spatz-adjustable-gastric-balloon",
+    cta: "Learn about Spatz3",
+  },
+  {
+    title: "Orbera Balloon",
+    points: [
+      "Endoscopically placed silicone balloon",
+      "Placed in about 20–30 minutes",
+      "One of the most studied balloon options",
+      "Includes coaching and nutrition support",
+    ],
+    href: "/services/orbera-gastric-balloon",
+    cta: "Learn about Orbera",
+  },
+];
+
 export default function HomePage() {
   return (
     <>
@@ -180,7 +217,7 @@ export default function HomePage() {
                 className="h-[520px] w-full object-cover"
                 height={700}
                 priority
-                src="/hero-image.jpg"
+                src="/bariatric-weight-loss-progress-waist-measurement.webp"
                 width={760}
               />
             </aside>
@@ -197,32 +234,49 @@ export default function HomePage() {
           tone="white"
         >
           <article
-            className="mt-8 grid gap-6 rounded-2xl border border-[#145c42] bg-[#0f3e2e] p-6 text-white shadow-xl shadow-[#0f3e2e]/15 lg:grid-cols-[1.25fr_0.75fr] lg:p-8"
+            className="mt-8 overflow-hidden rounded-2xl border border-[#145c42] bg-[#0f3e2e] text-white shadow-xl shadow-[#0f3e2e]/15 lg:grid lg:grid-cols-[1.1fr_0.9fr]"
             id="gastric-sleeve"
           >
-            <div>
-              <p className="eyebrow text-[#b9d2c5]">Featured surgical option</p>
-              <h3 className="mt-3 font-serif text-4xl leading-tight">Gastric Sleeve (VSG)</h3>
-              <p className="mt-4 max-w-3xl text-base leading-7 text-[#dbe8e1]">
-                Our most performed procedure with a clinically proven pathway for durable weight loss and metabolic
-                improvement.
+            <div className="p-6 lg:p-8">
+              <p className="text-xs font-bold uppercase tracking-[0.18em] text-[#9fd4aa]">Featured Surgical Option</p>
+              <h3 className="mt-4 font-serif text-3xl leading-tight md:text-4xl">Gastric Sleeve</h3>
+              <p className="mt-5 text-sm leading-7 text-[#d8e6de]">
+                Our most performed procedure — clinically proven for durable weight loss and metabolic improvement, with
+                a straightforward long-term follow-up plan for patients seeking structured support.
               </p>
-              <div className="mt-6 flex flex-wrap gap-2">
-                {["Commonly considered for patients seeking long-term weight loss support with structured follow-up."].map((chip) => (
-                  <span className="rounded-full bg-white/10 px-3 py-2 text-xs font-semibold text-[#edf7f1]" key={chip}>
-                    {chip}
-                  </span>
+              <p className="mt-8 text-xs font-bold uppercase tracking-[0.18em] text-[#9fd4aa]">How it works</p>
+              <ol className="mt-4 grid gap-3 text-sm leading-6 text-[#eaf4ee]">
+                {[
+                  "About 80% of the stomach is removed, leaving a narrow sleeve",
+                  "Smaller stomach limits intake and reduces hunger hormones",
+                  "Minimally invasive laparoscopic procedure, typically 1–2 hours",
+                  "Structured nutrition and follow-up care throughout recovery",
+                ].map((step, index) => (
+                  <li className="grid grid-cols-[28px_1fr] gap-3" key={step}>
+                    <span className="flex size-6 items-center justify-center rounded-full bg-white/15 text-xs font-bold text-white">
+                      {index + 1}
+                    </span>
+                    <span>{step}</span>
+                  </li>
                 ))}
+              </ol>
+              <div className="mt-8">
+                <Link
+                  className="inline-flex items-center rounded-lg bg-white px-5 py-2.5 text-sm font-semibold text-[#0f3e2e] shadow-sm transition hover:bg-[#f0f7f3] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white"
+                  href="/services/gastric-sleeve"
+                >
+                  Explore Gastric Sleeve →
+                </Link>
               </div>
             </div>
-            <div className="flex flex-col justify-between rounded-xl bg-white p-5 text-[#1f2c25]">
-              <p className="text-sm leading-6 text-[#53635b]">
-                Gastric sleeve surgery is a leading option for bariatric surgery in Ohio because it can support durable
-                weight loss while preserving a straightforward long-term follow-up plan for eligible patients.
-              </p>
-              <div className="mt-6">
-                <CTAButton href="/services/gastric-sleeve">Explore Gastric Sleeve</CTAButton>
-              </div>
+            <div className="relative min-h-[320px] overflow-hidden lg:min-h-0">
+              <Image
+                alt="Gastric sleeve surgery at JourneyLite"
+                className="h-full w-full object-cover"
+                fill
+                sizes="(max-width: 1024px) 100vw, 45vw"
+                src="/main-offering-photos/gastric-sleeve-main.jpg"
+              />
             </div>
           </article>
 
@@ -230,9 +284,7 @@ export default function HomePage() {
             {surgicalGridOptions.map((option) => (
               <ProcedureCard
                 className={
-                  option.id === "lap-band-surgery"
-                    ? "border-[#b7cec2] bg-[#f8fbf9] ring-1 ring-[#dcebe3]"
-                    : undefined
+                  undefined
                 }
                 key={option.title}
                 {...option}
@@ -249,32 +301,93 @@ export default function HomePage() {
           </div>
         </Section>
 
-        <Section
-          eyebrow="Incisionless and less invasive procedures"
-          id="non-surgical"
-          intro="Not every patient is ready for or needs surgery. JourneyLite offers incisionless and less invasive weight-loss procedures designed to help eligible patients reduce portions, build healthier habits, and receive structured medical support."
-          title="Non-Surgical Weight Loss Procedures"
-          tone="soft"
-        >
-          <div className="mt-8 grid gap-4 md:grid-cols-2 xl:grid-cols-3">
-            {nonSurgicalOptions.map((option) => (
-              <ProcedureCard key={option.title} {...option} />
-            ))}
+        <section className="bg-[#edf4ef] py-12 lg:py-16" id="non-surgical">
+          <div className="mx-auto max-w-7xl px-5 lg:px-8">
+            <div className="max-w-3xl">
+              <p className="eyebrow">Incisionless and less invasive procedures</p>
+              <h2 className="section-title">Non-Surgical Weight Loss Procedures</h2>
+              <p className="section-intro">
+                Not every patient needs surgery. JourneyLite offers gastric balloon therapy - a temporary, incisionless
+                procedure to help eligible patients reduce portions, build healthier habits, and receive structured
+                medical support.
+              </p>
+            </div>
+
+            <article className="mt-8 overflow-hidden rounded-xl bg-[#0d3f2b] text-white shadow-xl shadow-[#0d3f2b]/10 lg:grid lg:grid-cols-[1.1fr_0.9fr]">
+              <div className="relative min-h-[320px] overflow-hidden lg:min-h-[470px]">
+                <Image
+                  alt="Gastric balloon visual for JourneyLite non-surgical weight loss"
+                  className="h-full w-full object-cover"
+                  fill
+                  sizes="(max-width: 1024px) 100vw, 55vw"
+                  src="/main-offering-photos/gastric-balloon-main.jpg"
+                />
+              </div>
+              <div className="bg-[#0a3a27] p-6 md:p-8 lg:p-10">
+                <p className="text-xs font-bold uppercase tracking-[0.18em] text-[#9fd4aa]">What is a gastric balloon?</p>
+                <h3 className="mt-4 font-serif text-3xl leading-tight md:text-4xl">
+                  A soft balloon placed in your stomach - no surgery required
+                </h3>
+                <p className="mt-5 text-sm leading-7 text-[#d8e6de]">
+                  A gastric balloon is a temporary device placed inside the stomach and inflated with saline. It occupies
+                  space, helping you feel full sooner and build lasting habits - with ongoing medical supervision.
+                </p>
+                <ol className="mt-6 grid gap-3 text-sm leading-6 text-[#eaf4ee]">
+                  {[
+                    "Balloon placed in stomach - no incisions needed",
+                    "Inflated with saline to reduce usable stomach volume",
+                    "Structured diet and lifestyle program throughout treatment",
+                    "Balloon removed after treatment period, depending on balloon type",
+                  ].map((step, index) => (
+                    <li className="grid grid-cols-[28px_1fr] gap-3" key={step}>
+                      <span className="flex size-6 items-center justify-center rounded-full bg-white/15 text-xs font-bold text-white">
+                        {index + 1}
+                      </span>
+                      <span>{step}</span>
+                    </li>
+                  ))}
+                </ol>
+              </div>
+            </article>
+
+            <div className="mt-10">
+              <p className="eyebrow">Balloon options at JourneyLite</p>
+              <div className="mt-5 grid gap-4 sm:grid-cols-3">
+                {balloonOptions.map((option) => (
+                  <article
+                    className="flex flex-col rounded-xl border border-[#b9d2c5] bg-white p-6 shadow-sm"
+                    key={option.title}
+                  >
+                    <h3 className="font-serif text-2xl leading-tight text-[#1f2c25]">{option.title}</h3>
+                    <ul className="mt-4 grid gap-2">
+                      {option.points.map((point) => (
+                        <li className="flex items-start gap-2 text-sm leading-6 text-[#53635b]" key={point}>
+                          <span aria-hidden="true" className="mt-1 flex size-4 shrink-0 items-center justify-center rounded-full bg-[#edf4ef] text-[10px] font-bold text-[#145c42]">✓</span>
+                          {point}
+                        </li>
+                      ))}
+                    </ul>
+                    <div className="mt-auto pt-6 border-t border-[#dce4df]">
+                      <Link
+                        className="inline-flex items-center text-sm font-bold text-[#0f3e2e] underline-offset-4 hover:underline"
+                        href={option.href}
+                      >
+                        {option.cta} <span aria-hidden="true" className="ml-1">→</span>
+                      </Link>
+                    </div>
+                  </article>
+                ))}
+              </div>
+            </div>
+
+            <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
+              <CTAButton href="/contact">Book a Consultation</CTAButton>
+              <CTAButton href="/services/gastric-balloon" variant="secondary">
+                Compare Balloon Options
+              </CTAButton>
+            </div>
           </div>
-          <p className="mt-5 rounded-lg border border-[#d4ddd7] bg-white p-4 text-sm leading-6 text-[#53635b]">
-            Some non-surgical procedures may be shown for education and comparison. Availability depends on JourneyLite&apos;s
-            current programs and provider evaluation. JourneyLite currently emphasizes gastric balloon treatment as its
-            active non-surgical procedure among the listed procedures.
-          </p>
-          <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
-            <CTAButton href="/services/gastric-balloon" variant="secondary">
-              Learn About Gastric Balloon
-            </CTAButton>
-            <CTAButton href="/services/compare-weight-loss-options" variant="secondary">
-              Explore Non-Surgical Options
-            </CTAButton>
-          </div>
-        </Section>
+        </section>
 
         <Section
           eyebrow="Medical weight loss"
@@ -285,23 +398,47 @@ export default function HomePage() {
         >
           <div className="mt-8 grid items-stretch gap-6 lg:grid-cols-2">
             <MedicationCategoryPanel
+              cta="View Oral Medications"
+              eyebrow="Oral Medications"
+              href="/medications#oral"
               id="oral-medications"
+              image="/prescription-weight-loss-medication-pill-bottle.webp"
+              imageAlt="Oral weight loss medication options at JourneyLite"
               intro="Oral medications may help appropriate patients manage appetite, cravings, or short-term weight-loss momentum with provider screening and monitoring."
-              options={oralMedicationOptions}
-              title="Oral Medications"
+              note="Taken daily. Requires provider screening. Monitored for side effects and progress."
+              title="Appetite Support Pills"
             />
             <MedicationCategoryPanel
+              cta="View Injectable Medications"
+              eyebrow="Injectable Medications"
+              href="/medications#injectable"
               id="injectable-medications"
+              image="/weekly-injectable-weight-loss-medication-pen.webp"
+              imageAlt="Injectable GLP-1 weight loss medications at JourneyLite"
               intro="Weekly injectable medications may support appetite regulation and metabolic weight-loss goals for eligible patients with structured follow-up."
-              options={injectableMedicationOptions}
-              title="Injectable Medications"
+              note="Weekly dosing with titration. Requires medical screening. Coverage and eligibility vary."
+              title="Weekly GLP-1 Injectables"
             />
           </div>
-          <div className="mt-6 grid gap-4 md:grid-cols-2">
-            {medicationSupportOptions.map((option) => (
-              <MedicationSupportCard key={option.title} option={option} />
-            ))}
+
+          <div className="mt-10">
+            <p className="eyebrow">Oral medication options</p>
+            <div className="mt-4 grid gap-4 sm:grid-cols-3">
+              {oralMedicationOptions.map((option) => (
+                <MedicationCard key={option.title} option={option} />
+              ))}
+            </div>
           </div>
+
+          <div className="mt-10">
+            <p className="eyebrow">Injectable medication options</p>
+            <div className="mt-4 grid gap-4 sm:grid-cols-2">
+              {injectableMedicationOptions.map((option) => (
+                <MedicationCard key={option.title} option={option} />
+              ))}
+            </div>
+          </div>
+
           <MedicationComparisonGuide />
           <MedicationCtaBand />
         </Section>
@@ -377,6 +514,8 @@ export default function HomePage() {
           </div>
           <ReviewGrid />
         </Section>
+
+        <TestimonialsSection />
 
         <Section
           eyebrow="Outcomes"

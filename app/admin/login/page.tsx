@@ -3,7 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import Script from "next/script";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 import { FormEvent, Suspense, useState } from "react";
 import { ArrowLeft, Loader2, LogIn } from "lucide-react";
 import { toast } from "sonner";
@@ -26,7 +26,6 @@ export default function AdminLoginPage() {
 }
 
 function AdminLoginForm() {
-  const router = useRouter();
   const searchParams = useSearchParams();
   const [email, setEmail] = useState("admin@journeylite.com");
   const [password, setPassword] = useState("");
@@ -53,7 +52,7 @@ function AdminLoginForm() {
       const response = await fetch("/api/auth/google/start", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ recaptchaToken, next: "/admin" }),
+        body: JSON.stringify({ recaptchaToken, next: safeAdminNext(searchParams.get("next")) }),
       });
       const payload = (await response.json()) as { url?: string; error?: string; recaptchaBypassed?: boolean };
       if (!response.ok || !payload.url) throw new Error(payload.error || "Google sign-in could not start.");
@@ -80,7 +79,7 @@ function AdminLoginForm() {
       if (!response.ok || !payload.ok) throw new Error(payload.error || "Email login failed.");
       if (payload.recaptchaBypassed) toast.message("reCAPTCHA is in development bypass mode.");
       toast.success("Admin login complete.");
-      router.push("/admin");
+      window.location.assign(safeAdminNext(searchParams.get("next")));
     } catch (loginError) {
       setError(loginError instanceof Error ? loginError.message : "Email login failed.");
       setIsEmailLoading(false);
@@ -215,6 +214,10 @@ function AdminLoginForm() {
       </div>
     </main>
   );
+}
+
+function safeAdminNext(path: string | null) {
+  return path?.startsWith("/admin") ? path : "/admin";
 }
 
 function AdminLoginFallback() {

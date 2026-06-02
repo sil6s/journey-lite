@@ -3,6 +3,36 @@ export type Json = string | number | boolean | null | { [key: string]: Json | un
 export type Database = {
   public: {
     Tables: {
+      admin_users: {
+        Row: {
+          email: string;
+          role: "admin" | "superadmin";
+          status: "active" | "disabled";
+          invited_at: string | null;
+          invited_by: string | null;
+          created_at: string;
+          updated_at: string;
+        };
+        Insert: {
+          email: string;
+          role?: "admin" | "superadmin";
+          status?: "active" | "disabled";
+          invited_at?: string | null;
+          invited_by?: string | null;
+          created_at?: string;
+          updated_at?: string;
+        };
+        Update: {
+          email?: string;
+          role?: "admin" | "superadmin";
+          status?: "active" | "disabled";
+          invited_at?: string | null;
+          invited_by?: string | null;
+          created_at?: string;
+          updated_at?: string;
+        };
+        Relationships: [];
+      };
       profiles: {
         Row: {
           id: string;
@@ -276,6 +306,45 @@ export type Database = {
           ip_hash?: string | null;
           user_agent?: string | null;
           metadata?: Json;
+        };
+        Relationships: [];
+      };
+      form_submissions: {
+        Row: {
+          id: string;
+          form_key: string;
+          form_name: string | null;
+          page_slug: string | null;
+          status: "new" | "reviewed" | "contacted" | "closed" | "spam";
+          submitted_at: string;
+          data: Json;
+          metadata: Json;
+          admin_notes: string | null;
+          updated_at: string;
+        };
+        Insert: {
+          id?: string;
+          form_key: string;
+          form_name?: string | null;
+          page_slug?: string | null;
+          status?: "new" | "reviewed" | "contacted" | "closed" | "spam";
+          submitted_at?: string;
+          data?: Json;
+          metadata?: Json;
+          admin_notes?: string | null;
+          updated_at?: string;
+        };
+        Update: {
+          id?: string;
+          form_key?: string;
+          form_name?: string | null;
+          page_slug?: string | null;
+          status?: "new" | "reviewed" | "contacted" | "closed" | "spam";
+          submitted_at?: string;
+          data?: Json;
+          metadata?: Json;
+          admin_notes?: string | null;
+          updated_at?: string;
         };
         Relationships: [];
       };

@@ -11,5 +11,5 @@ export const metadata: Metadata = {
 export default async function AdminLayout({ children }: { children: React.ReactNode }) {
   const cookieStore = await cookies();
   const session = await verifyAdminSession(cookieStore.get(adminSessionCookieName)?.value);
-  return <AdminShell user={session ? { email: session.email, name: session.name, picture: session.picture } : null}>{children}</AdminShell>;
+  return <AdminShell user={session ? { email: session.email, name: session.name, picture: session.picture, role: session.role } : null}>{children}</AdminShell>;
 }

@@ -8,7 +8,9 @@ export async function proxy(request: NextRequest) {
     if (pathname === "/admin/login" || pathname === "/admin/access-denied") return NextResponse.next();
 
     const session = await verifyAdminSession(request.cookies.get(adminSessionCookieName)?.value);
-    if (session && isAllowedAdminEmail(session.email)) return NextResponse.next();
+    if (session && (session.role === "admin" || session.role === "superadmin" || isAllowedAdminEmail(session.email))) {
+      return NextResponse.next();
+    }
     if (session) {
       const deniedUrl = request.nextUrl.clone();
       deniedUrl.pathname = "/admin/access-denied";

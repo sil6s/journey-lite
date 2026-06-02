@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { CheckCircle2, CircleAlert, KeyRound, ShieldCheck } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -11,7 +12,7 @@ export default function AdminSettingsPage() {
     { label: "Sanity dataset", ok: Boolean(process.env.NEXT_PUBLIC_SANITY_DATASET), detail: process.env.NEXT_PUBLIC_SANITY_DATASET || "Missing" },
     { label: "Sanity write token", ok: Boolean(process.env.SANITY_API_WRITE_TOKEN || process.env.SANITY_WRITE_TOKEN), detail: "Server-side only" },
     { label: "Google OAuth", ok: Boolean(process.env.GOOGLE_OAUTH_CLIENT_ID && process.env.GOOGLE_OAUTH_CLIENT_SECRET), detail: "Admin sign-in" },
-    { label: "Admin allow-list", ok: Boolean(process.env.ADMIN_ALLOWED_EMAILS), detail: "Exact Google emails" },
+    { label: "Admin access table", ok: Boolean(process.env.NEXT_PUBLIC_SUPABASE_URL && process.env.SUPABASE_SERVICE_ROLE_KEY), detail: "Managed in Supabase" },
     { label: "Umami tracking", ok: Boolean(process.env.NEXT_PUBLIC_UMAMI_WEBSITE_ID), detail: process.env.NEXT_PUBLIC_UMAMI_WEBSITE_ID || "Missing" },
     { label: "reCAPTCHA public key", ok: Boolean(process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY), detail: "Enterprise script" },
     {
@@ -64,11 +65,11 @@ export default function AdminSettingsPage() {
             </CardHeader>
             <CardContent className="space-y-4 text-sm">
               <StatusLine ok={Boolean(process.env.ADMIN_AUTH_SECRET)} label="Signed admin session cookies" />
-              <StatusLine ok={Boolean(process.env.ADMIN_ALLOWED_EMAILS)} label="Google email allow-list" />
+              <StatusLine ok={Boolean(process.env.NEXT_PUBLIC_SUPABASE_URL && process.env.SUPABASE_SERVICE_ROLE_KEY)} label="Supabase admin role table" />
               <StatusLine ok={Boolean(process.env.GOOGLE_OAUTH_CLIENT_ID)} label="Google OAuth client" />
               <Separator />
               <p className="text-muted-foreground">
-                Add or remove admins by updating <code className="rounded bg-muted px-1 py-0.5">ADMIN_ALLOWED_EMAILS</code>.
+                Superadmins can add, downgrade, or disable admins in <Link className="font-medium text-primary underline underline-offset-4" href="/admin/admins">Admin Management</Link>.
               </p>
             </CardContent>
           </Card>

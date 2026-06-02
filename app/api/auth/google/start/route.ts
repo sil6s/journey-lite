@@ -20,7 +20,7 @@ export async function POST(request: Request) {
   url.searchParams.set("redirect_uri", redirectUri);
   url.searchParams.set("response_type", "code");
   url.searchParams.set("scope", "openid email profile");
-  url.searchParams.set("state", `${state}:${next || "/admin"}`);
+  url.searchParams.set("state", `${state}:${safeNextPath(next)}`);
   url.searchParams.set("prompt", "select_account");
 
   const response = NextResponse.json({ url: url.toString(), recaptchaBypassed: recaptcha.bypassed });
@@ -32,4 +32,8 @@ export async function POST(request: Request) {
     maxAge: 10 * 60,
   });
   return response;
+}
+
+function safeNextPath(path?: string) {
+  return path?.startsWith("/admin") ? path : "/admin";
 }

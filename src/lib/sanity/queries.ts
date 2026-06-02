@@ -157,3 +157,186 @@ export const adminStatsQuery = groq`
     }
   }
 `;
+
+const formDefinitionFields = groq`
+  _id,
+  name,
+  "key": key.current,
+  status,
+  title,
+  introText,
+  successMessage,
+  errorMessage,
+  submitButtonLabel,
+  notificationEmails,
+  brevoListId,
+  brevoTags,
+  redirectUrl,
+  spamProtection,
+  fields[] {
+    _key,
+    label,
+    "key": key.current,
+    type,
+    placeholder,
+    helpText,
+    required,
+    options[] { label, value },
+    validation,
+    defaultValue,
+    width,
+    adminNote
+  }
+`;
+
+const sitePageSectionFields = groq`
+  ...,
+  _type == "embeddedForm" => {
+    ...,
+    "form": form->{
+      ${formDefinitionFields}
+    }
+  },
+  _type == "relatedResources" => {
+    ...,
+    "resources": resources[]->{
+      ${postFields}
+    }
+  },
+  _type == "richTextSection" => {
+    ...,
+    content[] {
+      ...,
+      _type == "image" => {
+        ...,
+        asset->
+      }
+    }
+  }
+`;
+
+const sitePageFields = groq`
+  _id,
+  title,
+  "slug": slug.current,
+  status,
+  pageType,
+  internalDescription,
+  heroHeadline,
+  heroSubheadline,
+  heroImage,
+  heroImageAlt,
+  primaryCta,
+  secondaryCta,
+  sections[] {
+    ${sitePageSectionFields}
+  },
+  seoTitle,
+  seoDescription,
+  focusKeyword,
+  ogImage,
+  publishDate,
+  lastReviewedDate,
+  featured,
+  visibility,
+  "reviewer": reviewer->{name, title, bio, credentials, image{..., asset->}}
+`;
+
+export const sitePageSlugsQuery = groq`
+  *[
+    _type == "sitePage" &&
+    status == "published" &&
+    defined(slug.current) &&
+    (!defined(publishDate) || publishDate <= now())
+  ] {
+    "slug": slug.current
+  }
+`;
+
+export const sitePageBySlugQuery = groq`
+  *[
+    _type == "sitePage" &&
+    status == "published" &&
+    defined(slug.current) &&
+    slug.current == $slug &&
+    (!defined(publishDate) || publishDate <= now())
+  ][0] {
+    ${sitePageFields}
+  }
+`;
+
+export const formDefinitionByKeyQuery = groq`
+  *[
+    _type == "formDefinition" &&
+    status == "active" &&
+    key.current == $key
+  ][0] {
+    ${formDefinitionFields}
+  }
+`;
+
+export const adminSitePagesQuery = groq`
+  *[_type == "sitePage"] | order(coalesce(publishDate, _updatedAt) desc) {
+    _id,
+    title,
+    "slug": slug.current,
+    status,
+    pageType,
+    visibility,
+    featured,
+    publishDate,
+    _updatedAt
+  }
+`;
+
+export const adminFormDefinitionsQuery = groq`
+  *[_type == "formDefinition"] | order(name asc) {
+    _id,
+    name,
+    "key": key.current,
+    status,
+    title
+  }
+`;
+
+// Testimonial fields reused across queries
+const testimonialCardFields = groq`
+  _id,
+  name,
+  procedure,
+  weightLost,
+  shortQuote,
+  "slug": slug.current,
+  beforePhoto { asset->, alt },
+  afterPhoto { asset->, alt }
+`;
+
+export const featuredTestimonialsQuery = groq`
+  *[_type == "testimonial" && featured == true] | order(weightLost desc) {
+    ${testimonialCardFields}
+  }
+`;
+
+export const allTestimonialsQuery = groq`
+  *[_type == "testimonial"] | order(weightLost desc) {
+    ${testimonialCardFields}
+  }
+`;
+
+export const testimonialSlugsQuery = groq`
+  *[_type == "testimonial" && defined(slug.current)] {
+    "slug": slug.current
+  }
+`;
+
+export const testimonialBySlugQuery = groq`
+  *[_type == "testimonial" && slug.current == $slug][0] {
+    _id,
+    name,
+    procedure,
+    weightLost,
+    fullStory,
+    beforePhoto { asset->, alt },
+    afterPhoto { asset->, alt }
+  }
+`;

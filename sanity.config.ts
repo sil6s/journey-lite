@@ -44,6 +44,24 @@ export default defineConfig({
                     S.documentTypeListItem("location").title("Locations"),
                   ])
               ),
+            S.divider(),
+            S.listItem()
+              .title("⭐ Patient Stories")
+              .child(
+                S.list()
+                  .title("Patient Stories")
+                  .items([
+                    S.documentTypeListItem("testimonial").title("All Testimonials"),
+                    S.listItem()
+                      .title("Featured (Homepage)")
+                      .child(
+                        S.documentList()
+                          .title("Featured Testimonials")
+                          .filter('_type == "testimonial" && featured == true')
+                          .defaultOrdering([{ field: "weightLost", direction: "desc" }])
+                      ),
+                  ])
+              ),
           ]),
     }),
   ],

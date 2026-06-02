@@ -3,7 +3,7 @@ import { adminSessionCookieName, isAllowedAdminEmail, verifyAdminSession } from 
 
 export async function requireAdmin(request: NextRequest) {
   const session = await verifyAdminSession(request.cookies.get(adminSessionCookieName)?.value);
-  if (!session || !isAllowedAdminEmail(session.email)) {
+  if (!session || !(session.role === "admin" || session.role === "superadmin" || isAllowedAdminEmail(session.email))) {
     return NextResponse.json({ error: "Admin authentication is required." }, { status: 401 });
   }
   return null;
