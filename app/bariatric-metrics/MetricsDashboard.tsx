@@ -2,7 +2,17 @@
 
 import { useMemo, useState } from "react";
 import Link from "next/link";
-import { CTAButton } from "../components/marketing";
+import {
+  BarChart,
+  Bar,
+  XAxis,
+  YAxis,
+  Tooltip,
+  Cell,
+  ResponsiveContainer,
+} from "recharts";
+
+// ─── Types ─────────────────────────────────────────────────────────────────
 
 type Inputs = {
   gender: string;
@@ -12,10 +22,6 @@ type Inputs = {
   currentWeight: string;
   goalWeight: string;
   lowestWeight: string;
-  priorTreatment: string;
-  procedureType: string;
-  treatmentDate: string;
-  followUpDate: string;
 };
 
 type Result = {
@@ -37,15 +43,10 @@ type Result = {
   goalProgress?: number;
   regain?: number;
   percentRegained?: number;
-  daysSinceTreatment?: number;
-  monthsSinceTreatment?: number;
-  averageWeightChangePerMonth?: number;
 };
 
-type FieldFeedback = {
-  type: "error" | "warning";
-  message: string;
-};
+type FieldFeedback = { type: "error" | "warning"; message: string };
+type Tone = "green" | "yellow" | "red" | "blue";
 
 const initialInputs: Inputs = {
   gender: "",
@@ -55,147 +56,14 @@ const initialInputs: Inputs = {
   currentWeight: "",
   goalWeight: "",
   lowestWeight: "",
-  priorTreatment: "",
-  procedureType: "",
-  treatmentDate: "",
-  followUpDate: "",
 };
 
-const metricCards = [
-  {
-    title: "BMI",
-    meaning: "A height-and-weight measure often used as one screening point in weight-loss care.",
-    why: "BMI can help frame eligibility conversations, but it does not tell the whole story.",
-    cta: "See if you qualify",
-    href: "/contact",
-  },
-  {
-    title: "Total Weight Loss",
-    meaning: "The number of pounds lost from your starting weight.",
-    why: "It gives a simple view of progress over time.",
-    cta: "Explore options",
-    href: "/services/compare-weight-loss-options",
-  },
-  {
-    title: "Percent Total Weight Loss, %TWL",
-    meaning: "Shows what percentage of your starting body weight you have lost.",
-    why: "This is one of the easiest ways to compare progress across medical and surgical paths.",
-    cta: "Compare treatment options",
-    href: "/services/compare-weight-loss-options",
-  },
-  {
-    title: "Excess Weight Loss, %EWL",
-    meaning: "Compares weight lost with the amount above a BMI 25 reference weight.",
-    why: "Bariatric programs often use this to describe progress after procedures.",
-    cta: "Learn about surgery",
-    href: "/services/gastric-sleeve",
-  },
-  {
-    title: "Excess BMI Loss, %EBMIL",
-    meaning: "Looks at how much BMI has changed compared with the amount above BMI 25.",
-    why: "It helps translate weight change into a BMI-based progress measure.",
-    cta: "Discuss your numbers",
-    href: "/contact",
-  },
-  {
-    title: "Goal Weight",
-    meaning: "A personal reference point you may discuss with your care team.",
-    why: "A realistic goal can guide nutrition, follow-up, medication, and procedure conversations.",
-    cta: "Schedule a consultation",
-    href: "/contact",
-  },
-  {
-    title: "Weight Regain From Lowest Weight",
-    meaning: "If you previously reached a lower weight, this shows how much has returned since then.",
-    why: "Regain can be a reason to review nutrition support, medications, anatomy, or revision options.",
-    cta: "Review regain support",
-    href: "/medications#post-op-support",
-  },
-  {
-    title: "Follow-Up Progress Over Time",
-    meaning: "A pattern view of weight, symptoms, habits, labs, and follow-up needs.",
-    why: "Long-term support helps turn one-time numbers into a plan that can be adjusted.",
-    cta: "Meet the team",
-    href: "/about/our-team",
-  },
-];
-
-const pathwayCards = [
-  ["I am exploring weight-loss treatment for the first time", "Start with options that match your goals, health history, and comfort level.", "/services/compare-weight-loss-options"],
-  ["I have tried medications or dieting without lasting results", "Compare medical weight loss, GLP-1 options, and surgical paths with structured follow-up.", "/medications"],
-  ["I had bariatric surgery and want to understand regain", "Review post-op support, nutrition, medication, anatomy, or revision questions.", "/medications#post-op-support"],
-  ["I want a less invasive option", "Compare gastric balloon options that may fit some patients.", "/services/gastric-balloon"],
-  ["I want to know if I qualify", "Use your starting point to guide a consultation rather than guessing alone.", "/contact"],
-];
-
-const optionCards = [
-  ["Gastric sleeve", "Eligible patients considering a durable surgical option.", "May support portion control and metabolic progress with follow-up.", "/services/gastric-sleeve"],
-  ["Gastric bypass", "Patients comparing more established metabolic surgery options.", "May support weight loss and selected metabolic goals after evaluation.", "/services/gastric-bypass"],
-  ["Gastric balloon", "Patients considering temporary, non-surgical support.", "Helps support portion awareness and habit-building during treatment.", "/services/gastric-balloon"],
-  ["Revision surgery", "Patients with prior bariatric surgery or band concerns.", "Helps evaluate regain, reflux, anatomy, or prior procedure problems.", "/services/gastric-band-revision"],
-  ["Medical weight loss", "Patients seeking provider-led non-surgical care.", "Combines monitoring, nutrition guidance, and medication review when appropriate.", "/medications"],
-  ["GLP-1 medication support", "Eligible patients considering injectable medication options.", "May support appetite regulation with medical screening and follow-up.", "/medications#injectable-medications"],
-  ["Nutrition and follow-up support", "Patients working on long-term progress or maintenance.", "Keeps care connected after treatment decisions are made.", "/contact"],
-];
-
-const faqItems = [
-  {
-    question: "What is BMI?",
-    answer:
-      "BMI is a height-and-weight screening number. It can help frame eligibility and risk conversations, but it is not the only number that matters.",
-  },
-  {
-    question: "What is percent total weight loss?",
-    answer:
-      "%TWL shows what share of your starting body weight you have lost. It is simple to understand and useful across surgery, medication, and follow-up care.",
-  },
-  {
-    question: "What is excess weight loss?",
-    answer:
-      "%EWL compares weight lost with the amount above a BMI 25 reference weight. Bariatric programs may use it when discussing procedure outcomes.",
-  },
-  {
-    question: "Why do bariatric programs track these numbers?",
-    answer:
-      "Metrics can help teams understand your starting point, progress, eligibility, regain risk, and whether the current plan needs to change.",
-  },
-  {
-    question: "Is BMI the only number that matters?",
-    answer:
-      "No. Health history, symptoms, labs, prior treatments, goals, medication tolerance, and follow-up needs all matter.",
-  },
-  {
-    question: "Can these numbers tell me which procedure I need?",
-    answer:
-      "No. These results are educational only. A consultation is needed to compare options based on your medical history and goals.",
-  },
-  {
-    question: "What if I already had bariatric surgery and regained weight?",
-    answer:
-      "Regain can be discussed without judgment. The next step may involve nutrition support, medications, anatomy review, or revision evaluation.",
-  },
-  {
-    question: "When should I schedule a consultation?",
-    answer:
-      "Schedule when you want help interpreting your numbers, comparing options, or understanding whether surgery, medication, or non-surgical care may fit.",
-  },
-];
-
-const sourceLinks = [
-  ["NIH/NHLBI BMI information", "https://www.nhlbi.nih.gov/health/educational/lose_wt/BMI/bmicalc.htm"],
-  ["CDC adult BMI categories", "https://www.cdc.gov/bmi/adult-calculator/bmi-categories.html"],
-  ["ASMBS bariatric surgery procedures", "https://asmbs.org/patients/bariatric-surgery-procedures/"],
-  ["ACS MBSAQIP quality program", "https://www.facs.org/quality-programs/mbsaqip/"],
-  ["Peer-reviewed %TWL and %EWL outcomes study", "https://www.nature.com/articles/s41366-023-01349-7"],
-  ["NIDDK types of weight-loss surgery", "https://www.niddk.nih.gov/health-information/weight-management/bariatric-surgery/types"],
-];
+// ─── Main component ─────────────────────────────────────────────────────────
 
 export function MetricsDashboard() {
   const [inputs, setInputs] = useState<Inputs>(initialInputs);
-  const [openMetric, setOpenMetric] = useState(metricCards[0].title);
-  const [pdfState, setPdfState] = useState<"idle" | "loading" | "error">("idle");
   const [showResults, setShowResults] = useState(false);
-
+  const [pdfState, setPdfState] = useState<"idle" | "loading" | "error">("idle");
   const result = useMemo(() => calculateResults(inputs), [inputs]);
 
   function update(key: keyof Inputs, value: string) {
@@ -204,50 +72,27 @@ export function MetricsDashboard() {
   }
 
   return (
-    <>
-      <section className="bg-white">
-        <div className="mx-auto grid max-w-7xl gap-8 px-5 py-12 lg:grid-cols-[0.95fr_1.05fr] lg:items-start lg:px-8 lg:py-16">
-          <div>
-            <p className="eyebrow">Bariatric metrics dashboard</p>
-            <h1 className="mt-4 max-w-4xl font-serif text-4xl leading-[1.08] text-[#1e2b24] md:text-5xl">
-              Start With Your Numbers, Then Explore Your Options
-            </h1>
-            <p className="mt-5 max-w-3xl text-base leading-7 text-[#516059]">
-              Enter your height and weight details first. The dashboard will estimate common bariatric metrics in plain
-              English, then help you compare weight-loss options that may be worth discussing with JourneyLite.
-            </p>
-            <p className="mt-4 rounded-lg border border-[#dce4df] bg-[#f7f8f6] p-4 text-sm leading-6 text-[#53635b]">
-              No name is collected. Your entries are calculated in your browser and are not sent anywhere. If you choose
-              to contact JourneyLite later, you decide what to share.
-            </p>
-            <div className="mt-5 grid gap-3 sm:grid-cols-3">
-              {[
-                ["Private", "No name or contact info"],
-                ["Simple", "Four guided steps"],
-                ["Useful", "Plain-English summary"],
-              ].map(([label, copy]) => (
-                <div className="rounded-lg border border-[#cbd7d0] bg-white p-4 shadow-sm" key={label}>
-                  <p className="text-sm font-semibold text-[#145c42]">{label}</p>
-                  <p className="mt-1 text-xs leading-5 text-[#53635b]">{copy}</p>
-                </div>
-              ))}
-            </div>
-            <div className="mt-7 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
-              <CTAButton href="/services/compare-weight-loss-options">Explore Weight Loss Options</CTAButton>
-              <CTAButton href="/contact" variant="secondary">
-                Schedule a Consultation
-              </CTAButton>
-            </div>
-          </div>
-          <CalculatorInputCard inputs={inputs} onComplete={() => setShowResults(true)} update={update} />
+    <div className="min-h-screen bg-[#f7f8f6]">
+      <div className="mx-auto max-w-5xl px-5 py-12 lg:px-8 lg:py-16">
+        <div className="mb-8">
+          <p className="eyebrow">Bariatric metrics calculator</p>
+          <h1 className="mt-3 font-serif text-4xl leading-tight text-[#1e2b24] md:text-5xl">
+            Know Your Numbers
+          </h1>
+          <p className="mt-4 max-w-2xl text-base leading-7 text-[#516059]">
+            Enter your height and weight to instantly calculate BMI, percent total weight loss, and progress toward your
+            goal. All calculations happen in your browser — nothing is sent anywhere.
+          </p>
         </div>
-      </section>
 
-      {showResults ? (
-        <section className="bg-[#edf4ef] py-10 lg:py-12" id="results">
-          <div className="mx-auto max-w-7xl px-5 lg:px-8">
-            <ResultsPanel
+        <div className="grid gap-6 lg:grid-cols-[1fr_1.6fr] lg:items-start">
+          <CalculatorCard inputs={inputs} update={update} onCalculate={() => setShowResults(true)} />
+
+          {showResults && result ? (
+            <ResultsDashboard
+              result={result}
               inputs={inputs}
+              pdfState={pdfState}
               onDownloadPdf={async () => {
                 setPdfState("loading");
                 try {
@@ -257,521 +102,502 @@ export function MetricsDashboard() {
                   setPdfState("error");
                 }
               }}
-              pdfState={pdfState}
-              result={result}
             />
-          </div>
-        </section>
-      ) : null}
-
-      <section className="bg-[#f7f8f6] py-12 lg:py-16">
-        <div className="mx-auto max-w-7xl px-5 lg:px-8">
-          <div className="grid gap-8 lg:grid-cols-[0.85fr_1.15fr] lg:items-start">
-            <div>
-              <p className="eyebrow">Why these numbers matter</p>
-              <h2 className="mt-3 font-serif text-4xl leading-tight text-[#1f2c25]">
-                Weight-loss care is more than one number on a scale.
-              </h2>
-              <p className="mt-4 text-base leading-7 text-[#53635b]">
-                Your weight, BMI, health history, goals, and previous treatments all help shape the right plan. These
-                metrics are not here to define you. They help our care team understand your starting point and recommend
-                options that may be safe, realistic, and effective for eligible patients after evaluation.
-              </p>
-              <Link className="mt-5 inline-flex text-sm font-semibold text-[#145c42] underline-offset-4 hover:underline" href="/services/compare-weight-loss-options">
-                View available treatment options
-              </Link>
-            </div>
-            <div className="grid gap-4 md:grid-cols-3">
-              {[
-                ["Starting point", "Height, weight, BMI, prior treatment, and health history."],
-                ["Progress", "Weight change, %TWL, goal progress, and follow-up patterns."],
-                ["Options", "Surgery, medication, non-surgical procedures, or renewed support."],
-              ].map(([title, copy]) => (
-                <article className="rounded-lg border border-[#dce4df] bg-white p-5 shadow-sm" key={title}>
-                  <h3 className="text-lg font-semibold text-[#1f2c25]">{title}</h3>
-                  <p className="mt-2 text-sm leading-6 text-[#53635b]">{copy}</p>
-                </article>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section className="bg-white py-12 lg:py-16">
-        <div className="mx-auto max-w-7xl px-5 lg:px-8">
-          <div className="max-w-3xl">
-            <p className="eyebrow">Metric guide</p>
-            <h2 className="mt-3 font-serif text-4xl leading-tight text-[#1f2c25]">
-              Common bariatric metrics, explained simply.
-            </h2>
-            <p className="mt-4 text-base leading-7 text-[#53635b]">
-              Open each card for a plain-English explanation of what the result can help patients and providers discuss.
-            </p>
-          </div>
-          <div className="mt-8 grid gap-4 lg:grid-cols-2">
-            {metricCards.map((metric) => (
-              <article className="overflow-hidden rounded-lg border border-[#dce4df] bg-white shadow-sm" key={metric.title}>
-                <button
-                  aria-expanded={openMetric === metric.title}
-                  className="flex w-full items-center justify-between gap-4 px-5 py-4 text-left"
-                  onClick={() => setOpenMetric(openMetric === metric.title ? "" : metric.title)}
-                  type="button"
-                >
-                  <span className="text-lg font-semibold text-[#1f2c25]">{metric.title}</span>
-                  <span className="text-xl text-[#145c42]" aria-hidden="true">
-                    +
-                  </span>
-                </button>
-                {openMetric === metric.title ? (
-                  <div className="border-t border-[#edf1ee] px-5 py-5">
-                    <p className="text-sm leading-6 text-[#53635b]">{metric.meaning}</p>
-                    <p className="mt-4 text-sm leading-6 text-[#53635b]">
-                      <span className="font-semibold text-[#1f2c25]">Why it matters: </span>
-                      {metric.why}
-                    </p>
-                    <Link className="mt-4 inline-flex text-sm font-semibold text-[#145c42] underline-offset-4 hover:underline" href={metric.href}>
-                      {metric.cta}
-                    </Link>
-                  </div>
-                ) : null}
-              </article>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section className="bg-white py-12 lg:py-16">
-        <div className="mx-auto max-w-7xl px-5 lg:px-8">
-          <div className="max-w-3xl">
-            <p className="eyebrow">Care pathways</p>
-            <h2 className="mt-3 font-serif text-4xl leading-tight text-[#1f2c25]">
-              What your results can help us understand.
-            </h2>
-          </div>
-          <div className="mt-8 grid gap-4 md:grid-cols-2 lg:grid-cols-5">
-            {pathwayCards.map(([title, copy, href]) => (
-              <article className="flex h-full flex-col rounded-lg border border-[#dce4df] bg-[#fafbf9] p-5" key={title}>
-                <h3 className="text-lg font-semibold text-[#1f2c25]">{title}</h3>
-                <p className="mt-3 flex-1 text-sm leading-6 text-[#53635b]">{copy}</p>
-                <Link className="mt-5 text-sm font-semibold text-[#145c42] underline-offset-4 hover:underline" href={href}>
-                  See related options
-                </Link>
-              </article>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section className="bg-[#f7f8f6] py-12 lg:py-16">
-        <div className="mx-auto max-w-7xl px-5 lg:px-8">
-          <div className="flex flex-col gap-5 lg:flex-row lg:items-end lg:justify-between">
-            <div className="max-w-3xl">
-              <p className="eyebrow">Treatment options</p>
-              <h2 className="mt-3 font-serif text-4xl leading-tight text-[#1f2c25]">
-                Use your starting point to compare available paths.
-              </h2>
-              <p className="mt-4 text-base leading-7 text-[#53635b]">
-                These options are not ranked by the calculator. A consultation can help match your numbers, health
-                history, goals, and preferences to a responsible plan.
-              </p>
-            </div>
-            <CTAButton href="/services/compare-weight-loss-options">Explore Weight Loss Options</CTAButton>
-          </div>
-          <div className="mt-8 grid gap-4 md:grid-cols-2 xl:grid-cols-4">
-            {optionCards.map(([title, who, helps, href]) => (
-              <article className="flex h-full flex-col rounded-lg border border-[#dce4df] bg-white p-5 shadow-sm" key={title}>
-                <h3 className="text-lg font-semibold text-[#1f2c25]">{title}</h3>
-                <p className="mt-3 text-sm leading-6 text-[#53635b]">
-                  <span className="font-semibold text-[#355346]">May be for: </span>
-                  {who}
-                </p>
-                <p className="mt-3 flex-1 text-sm leading-6 text-[#53635b]">
-                  <span className="font-semibold text-[#355346]">Helps with: </span>
-                  {helps}
-                </p>
-                <Link className="mt-5 text-sm font-semibold text-[#145c42] underline-offset-4 hover:underline" href={href}>
-                  Learn More
-                </Link>
-              </article>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section className="bg-white py-12 lg:py-16">
-        <div className="mx-auto max-w-7xl px-5 lg:px-8">
-          <div className="grid gap-8 lg:grid-cols-[0.9fr_1.1fr]">
-            <div>
-              <p className="eyebrow">Trust and credibility</p>
-              <h2 className="mt-3 font-serif text-4xl leading-tight text-[#1f2c25]">
-                Bariatric outcomes are commonly tracked over time.
-              </h2>
-              <p className="mt-4 text-base leading-7 text-[#53635b]">
-                Programs may review BMI, percent total weight loss, excess weight loss, follow-up progress, symptoms,
-                labs, and health improvements. The goal is to make care more informed, not to reduce your story to a
-                spreadsheet.
-              </p>
-            </div>
-            <div className="rounded-xl border border-[#dce4df] bg-[#fafbf9] p-5">
-              <h3 className="text-xl font-semibold text-[#1f2c25]">Sources and references</h3>
-              <div className="mt-4 divide-y divide-[#dce4df]">
-                {sourceLinks.map(([label, href]) => (
-                  <details className="py-3" key={label}>
-                    <summary className="cursor-pointer list-none text-sm font-semibold text-[#1f2c25] marker:hidden">
-                      {label}
-                    </summary>
-                    <a className="mt-2 inline-flex text-sm text-[#145c42] underline-offset-4 hover:underline" href={href} rel="noreferrer" target="_blank">
-                      Open reference
-                    </a>
-                  </details>
-                ))}
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section className="bg-[#f7f8f6] py-12 lg:py-16">
-        <div className="mx-auto max-w-7xl px-5 lg:px-8">
-          <div className="max-w-3xl">
-            <p className="eyebrow">FAQs</p>
-            <h2 className="mt-3 font-serif text-4xl leading-tight text-[#1f2c25]">
-              Questions patients often ask about weight-loss metrics.
-            </h2>
-          </div>
-          <div className="mt-8 divide-y divide-[#dce4df] overflow-hidden rounded-lg border border-[#dce4df] bg-white">
-            {faqItems.map((item) => (
-              <details className="group p-5 open:bg-[#fbfdfb]" key={item.question}>
-                <summary className="flex cursor-pointer list-none items-center justify-between gap-4 text-left font-semibold text-[#1f2c25] marker:hidden focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#145c42]">
-                  {item.question}
-                  <span className="text-lg text-[#145c42]" aria-hidden="true">
-                    +
-                  </span>
-                </summary>
-                <p className="mt-3 max-w-3xl text-sm leading-6 text-[#53635b]">{item.answer}</p>
-              </details>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section className="bg-[#0f3e2e] py-14 text-white lg:py-16">
-        <div className="mx-auto max-w-7xl px-5 lg:px-8">
-          <p className="eyebrow text-[#b9d2c5]">Next step</p>
-          <h2 className="mt-3 max-w-3xl font-serif text-4xl leading-tight md:text-5xl">
-            Ready to understand your options?
-          </h2>
-          <p className="mt-4 max-w-2xl text-base leading-7 text-[#d8e6de]">
-            Your numbers are only one part of your story. Our team can help you understand what they mean and which
-            weight-loss options may fit your goals, health history, and lifestyle.
-          </p>
-          <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
-            <CTAButton href="/services/compare-weight-loss-options" variant="light">
-              Explore Weight Loss Options
-            </CTAButton>
-            <CTAButton href="/contact" variant="outline">
-              Schedule a Consultation
-            </CTAButton>
-            <CTAButton href="/contact" variant="outline">
-              See If You Qualify
-            </CTAButton>
-          </div>
-        </div>
-      </section>
-
-      <div className="fixed inset-x-0 bottom-0 z-40 border-t border-[#cbd7d0] bg-white/95 p-3 shadow-2xl backdrop-blur md:hidden">
-        <div className="grid grid-cols-2 gap-2">
-          <Link className="inline-flex min-h-10 items-center justify-center rounded-md bg-[#145c42] px-3 py-2 text-sm font-semibold text-white" href="/services/compare-weight-loss-options">
-            Explore Options
-          </Link>
-          <Link className="inline-flex min-h-10 items-center justify-center rounded-md border border-[#cbd7d0] bg-white px-3 py-2 text-sm font-semibold text-[#17362a]" href="/contact">
-            Consultation
-          </Link>
+          ) : (
+            <PlaceholderDashboard />
+          )}
         </div>
       </div>
-    </>
+    </div>
   );
 }
 
-function CalculatorInputCard({
+// ─── Calculator card ────────────────────────────────────────────────────────
+
+function CalculatorCard({
   inputs,
-  onComplete,
   update,
+  onCalculate,
 }: {
   inputs: Inputs;
-  onComplete: () => void;
   update: (key: keyof Inputs, value: string) => void;
+  onCalculate: () => void;
 }) {
-  const [step, setStep] = useState(0);
   const [touched, setTouched] = useState<Partial<Record<keyof Inputs, boolean>>>({});
-  const [submitAttempted, setSubmitAttempted] = useState(false);
-  const steps = ["Measurements", "Goal", "History", "Calculate"];
-  const progress = ((step + 1) / steps.length) * 100;
+  const [submitted, setSubmitted] = useState(false);
   const feedback = getInputFeedback(inputs);
 
-  function markTouched(key: keyof Inputs) {
-    setTouched((prev) => ({ ...prev, [key]: true }));
+  function mark(key: keyof Inputs) {
+    setTouched((p) => ({ ...p, [key]: true }));
   }
 
-  function shownFeedback(key: keyof Inputs) {
-    return touched[key] || submitAttempted || inputs[key] ? feedback[key] : undefined;
+  function shown(key: keyof Inputs) {
+    return touched[key] || submitted ? feedback[key] : undefined;
   }
 
-  function hasErrors(keys: Array<keyof Inputs>) {
-    return keys.some((key) => feedback[key]?.type === "error");
+  function hasErrors() {
+    return (["feet", "startingWeight", "currentWeight"] as Array<keyof Inputs>).some(
+      (k) => feedback[k]?.type === "error",
+    );
   }
 
-  function goNext() {
-    setSubmitAttempted(true);
-    if (step === 0 && hasErrors(["feet", "inches", "startingWeight", "currentWeight"])) return;
-    if (step === 1 && hasErrors(["goalWeight"])) return;
-    if (step === 2 && hasErrors(["lowestWeight", "treatmentDate", "followUpDate"])) return;
-    if (
-      step === 3 &&
-      (hasErrors(["feet", "inches", "startingWeight", "currentWeight", "goalWeight", "lowestWeight", "treatmentDate", "followUpDate"]) ||
-        !calculateResults(inputs))
-    ) {
-      return;
-    }
-
-    if (step < steps.length - 1) {
-      setStep((prev) => prev + 1);
-      setSubmitAttempted(false);
-      return;
-    }
-
-    onComplete();
-    window.setTimeout(() => document.getElementById("results")?.scrollIntoView({ behavior: "smooth", block: "start" }), 0);
+  function handleCalculate() {
+    setSubmitted(true);
+    if (hasErrors()) return;
+    onCalculate();
+    setTimeout(
+      () => document.getElementById("results-dashboard")?.scrollIntoView({ behavior: "smooth", block: "start" }),
+      50,
+    );
   }
 
   return (
-    <aside className="rounded-2xl border border-[#d6e1da] bg-[#fafbf9] p-5 shadow-xl shadow-[#20372b]/8" id="calculator">
-      <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
+    <aside className="sticky top-6 rounded-2xl border border-[#d6e1da] bg-white p-6 shadow-xl shadow-[#20372b]/8">
+      <h2 className="text-xl font-semibold text-[#1f2c25]">Enter your details</h2>
+      <p className="mt-1 text-xs leading-5 text-[#66756d]">Only height + starting + current weight are required.</p>
+
+      <div className="mt-5 grid gap-4">
+        {/* Height */}
         <div>
-          <p className="eyebrow">Start here</p>
-          <h2 className="mt-2 text-2xl font-semibold text-[#1f2c25]">Enter your details</h2>
+          <p className="text-sm font-semibold text-[#1f2c25]">Height</p>
+          <div className="mt-2 grid grid-cols-2 gap-3">
+            <NumberField id="feet" label="Feet" value={inputs.feet} onBlur={() => mark("feet")} onChange={(v) => update("feet", v)} feedback={shown("feet")} />
+            <NumberField id="inches" label="Inches" value={inputs.inches} onBlur={() => mark("inches")} onChange={(v) => update("inches", v)} feedback={shown("inches")} />
+          </div>
         </div>
-        <p className="text-sm font-semibold text-[#53635b]">
-          Step {step + 1} of {steps.length}
-        </p>
-      </div>
-      <div className="mt-5 h-2 overflow-hidden rounded-full bg-white">
-        <div className="h-full rounded-full bg-[#145c42]" style={{ width: `${progress}%` }} />
-      </div>
 
-      <div className="mt-6">
-        {step === 0 ? (
-          <div className="grid gap-4">
-            <h3 className="text-lg font-semibold text-[#1f2c25]">Your starting numbers</h3>
-            <p className="rounded-lg border border-[#bfccd8] bg-white p-3 text-sm leading-6 text-[#53635b]">
-              Height, starting weight, and current weight are the only required fields. Optional fields will only appear
-              in your results if you enter them.
-            </p>
+        {/* Weights */}
+        <NumberField id="startingWeight" label="Starting weight" suffix="lb" helper="Your weight before treatment or when you began your plan." value={inputs.startingWeight} onBlur={() => mark("startingWeight")} onChange={(v) => update("startingWeight", v)} feedback={shown("startingWeight")} />
+        <NumberField id="currentWeight" label="Current weight" suffix="lb" helper="Your most recent weight." value={inputs.currentWeight} onBlur={() => mark("currentWeight")} onChange={(v) => update("currentWeight", v)} feedback={shown("currentWeight")} />
+
+        {/* Optional */}
+        <details className="group">
+          <summary className="cursor-pointer list-none text-sm font-semibold text-[#145c42] hover:underline">
+            + Optional fields
+          </summary>
+          <div className="mt-3 grid gap-3">
+            <NumberField id="goalWeight" label="Goal weight (optional)" suffix="lb" value={inputs.goalWeight} onBlur={() => mark("goalWeight")} onChange={(v) => update("goalWeight", v)} feedback={shown("goalWeight")} />
+            <NumberField id="lowestWeight" label="Lowest weight ever (optional)" suffix="lb" helper="Add this to see regain from your lowest point." value={inputs.lowestWeight} onBlur={() => mark("lowestWeight")} onChange={(v) => update("lowestWeight", v)} feedback={shown("lowestWeight")} />
             <div>
-              <p className="text-sm font-semibold text-[#1f2c25]">Height</p>
-              <p className="mt-1 text-xs leading-5 text-[#66756d]">Use feet and inches. Adult range: 4 ft 0 in to 7 ft 6 in.</p>
-              <div className="mt-2 grid grid-cols-2 gap-3">
-                <NumberField
-                  feedback={shownFeedback("feet")}
-                  id="feet"
-                  label="Feet"
-                  onBlur={() => markTouched("feet")}
-                  onChange={(value) => update("feet", value)}
-                  value={inputs.feet}
-                />
-                <NumberField
-                  feedback={shownFeedback("inches")}
-                  id="inches"
-                  label="Inches"
-                  onBlur={() => markTouched("inches")}
-                  onChange={(value) => update("inches", value)}
-                  value={inputs.inches}
-                />
-              </div>
-            </div>
-            <div className="grid gap-3 sm:grid-cols-2">
-              <NumberField
-                feedback={shownFeedback("startingWeight")}
-                helper="Use the weight you were at before treatment or when you began your weight-loss plan."
-                id="startingWeight"
-                label="Starting weight"
-                onBlur={() => markTouched("startingWeight")}
-                onChange={(value) => update("startingWeight", value)}
-                suffix="lb"
-                value={inputs.startingWeight}
-              />
-              <NumberField
-                feedback={shownFeedback("currentWeight")}
-                helper="Use your most recent weight."
-                id="currentWeight"
-                label="Current weight"
-                onBlur={() => markTouched("currentWeight")}
-                onChange={(value) => update("currentWeight", value)}
-                suffix="lb"
-                value={inputs.currentWeight}
-              />
-            </div>
-            <div>
-              <p className="text-sm font-semibold text-[#1f2c25]">Gender context optional</p>
-              <p className="mt-1 text-xs leading-5 text-[#66756d]">
-                BMI uses height and weight. Gender is not required to calculate these dashboard estimates.
-              </p>
-              <div className="mt-3 grid gap-2 sm:grid-cols-2">
-                {["Female", "Male", "Another gender", "Prefer not to say"].map((option) => (
+              <p className="text-sm font-semibold text-[#1f2c25]">Gender (optional)</p>
+              <div className="mt-2 grid grid-cols-2 gap-2">
+                {["Female", "Male", "Another gender", "Prefer not to say"].map((opt) => (
                   <button
-                    aria-pressed={inputs.gender === option}
-                    className={`min-h-11 rounded-lg border px-3 py-2 text-left text-sm font-semibold ${genderOptionClass(option, inputs.gender === option)}`}
-                    key={option}
-                    onClick={() => update("gender", option)}
+                    aria-pressed={inputs.gender === opt}
+                    className={`min-h-9 rounded-lg border px-3 py-1.5 text-left text-xs font-semibold transition ${inputs.gender === opt ? "border-[#145c42] bg-[#edf4ef] text-[#145c42]" : "border-[#dce4df] bg-white text-[#1f2c25] hover:border-[#145c42]"}`}
+                    key={opt}
+                    onClick={() => update("gender", opt)}
                     type="button"
                   >
-                    {option}
+                    {opt}
                   </button>
                 ))}
               </div>
             </div>
           </div>
-        ) : null}
-
-        {step === 1 ? (
-          <div className="grid gap-4">
-            <h3 className="text-lg font-semibold text-[#1f2c25]">Optional goal</h3>
-            <p className="text-sm leading-6 text-[#53635b]">
-              Add a goal only if you want to see progress toward it. Leave it blank and the goal section will stay hidden.
-            </p>
-            <NumberField
-              feedback={shownFeedback("goalWeight")}
-              helper="Optional: add a goal if you want to see progress toward it."
-              id="goalWeight"
-              label="Goal weight optional"
-              onBlur={() => markTouched("goalWeight")}
-              onChange={(value) => update("goalWeight", value)}
-              suffix="lb"
-              value={inputs.goalWeight}
-            />
-            <GoalWeightNote inputs={inputs} />
-          </div>
-        ) : null}
-
-        {step === 2 ? (
-          <div className="grid gap-4">
-            <h3 className="text-lg font-semibold text-[#1f2c25]">Treatment history optional</h3>
-            <p className="text-sm leading-6 text-[#53635b]">
-              If you have had weight-loss treatment before, these details can estimate follow-up timing and regain from
-              your lowest weight. Skip anything you do not know.
-            </p>
-            <div>
-              <p className="text-sm font-semibold text-[#1f2c25]">Have you had weight-loss treatment before?</p>
-              <div className="mt-3 grid gap-2 sm:grid-cols-3">
-                {["Yes", "No", "Not sure"].map((option) => (
-                  <button
-                    aria-pressed={inputs.priorTreatment === option}
-                    className={`min-h-11 rounded-lg border px-3 py-2 text-left text-sm font-semibold ${
-                      inputs.priorTreatment === option ? "border-[#145c42] bg-[#edf4ef] text-[#145c42]" : "border-[#dce4df] bg-white text-[#1f2c25] hover:border-[#145c42]"
-                    }`}
-                    key={option}
-                    onClick={() => update("priorTreatment", option)}
-                    type="button"
-                  >
-                    {option}
-                  </button>
-                ))}
-              </div>
-            </div>
-            {inputs.priorTreatment === "Yes" ? (
-              <div className="grid gap-4 rounded-lg border border-[#dce4df] bg-white p-4">
-                <label className="block" htmlFor="procedureType">
-                  <span className="text-sm font-semibold text-[#1f2c25]">Procedure or treatment type optional</span>
-                  <select
-                    className="mt-2 min-h-11 w-full rounded-lg border border-[#cbd7d0] bg-white px-3 py-2 text-sm text-[#1f2c25] focus:outline-none focus:ring-2 focus:ring-[#145c42]"
-                    id="procedureType"
-                    onBlur={() => markTouched("procedureType")}
-                    onChange={(event) => update("procedureType", event.target.value)}
-                    value={inputs.procedureType}
-                  >
-                    <option value="">Select if known</option>
-                    <option value="Gastric sleeve">Gastric sleeve</option>
-                    <option value="Gastric bypass">Gastric bypass</option>
-                    <option value="Gastric band">Gastric band</option>
-                    <option value="Gastric balloon">Gastric balloon</option>
-                    <option value="Medication-supported weight loss">Medication-supported weight loss</option>
-                    <option value="Other or not sure">Other or not sure</option>
-                  </select>
-                </label>
-                <NumberField
-                  feedback={shownFeedback("lowestWeight")}
-                  helper="Optional: add your lowest weight after treatment to estimate weight regain."
-                  id="lowestWeight"
-                  label="Lowest weight after treatment optional"
-                  onBlur={() => markTouched("lowestWeight")}
-                  onChange={(value) => update("lowestWeight", value)}
-                  suffix="lb"
-                  value={inputs.lowestWeight}
-                />
-                <div className="grid gap-3 sm:grid-cols-2">
-                  <DateField
-                    feedback={shownFeedback("treatmentDate")}
-                    helper="Optional: used only for time-based progress estimates."
-                    id="treatmentDate"
-                    label="Surgery or treatment date optional"
-                    onBlur={() => markTouched("treatmentDate")}
-                    onChange={(value) => update("treatmentDate", value)}
-                    value={inputs.treatmentDate}
-                  />
-                  <DateField
-                    feedback={shownFeedback("followUpDate")}
-                    helper="Optional: add a follow-up date if you want average change per month."
-                    id="followUpDate"
-                    label="Follow-up date optional"
-                    onBlur={() => markTouched("followUpDate")}
-                    onChange={(value) => update("followUpDate", value)}
-                    value={inputs.followUpDate}
-                  />
-                </div>
-              </div>
-            ) : (
-              <div className="rounded-lg border border-[#dce4df] bg-white p-4 text-sm leading-6 text-[#53635b]">
-                No problem. Regain and time-based outputs will stay hidden unless you add treatment history details.
-              </div>
-            )}
-          </div>
-        ) : null}
-
-        {step === 3 ? (
-          <div>
-            <h3 className="text-lg font-semibold text-[#1f2c25]">Ready to calculate</h3>
-            <p className="mt-2 text-sm leading-6 text-[#53635b]">
-              We will show only the sections supported by your entries: BMI, weight change, % total weight loss, and any
-              optional goal, regain, or timing estimates.
-            </p>
-            <div className="mt-4 rounded-lg border border-[#d8c88b] bg-[#fffdf4] p-4 text-sm leading-6 text-[#5e5235]">
-              No name is collected. Your entries stay on this page and are not sent anywhere.
-            </div>
-          </div>
-        ) : null}
+        </details>
       </div>
 
-      <div className="mt-6 flex flex-col-reverse gap-3 sm:flex-row sm:justify-between">
-        <button
-          className="inline-flex min-h-10 items-center justify-center rounded-md border border-[#cbd7d0] bg-white px-4 py-2.5 text-sm font-semibold text-[#17362a] disabled:cursor-not-allowed disabled:opacity-40"
-          disabled={step === 0}
-          onClick={() => {
-            setStep((prev) => Math.max(prev - 1, 0));
-            setSubmitAttempted(false);
-          }}
-          type="button"
-        >
-          Back
-        </button>
-        <button
-          className="inline-flex min-h-10 items-center justify-center rounded-md bg-[#145c42] px-4 py-2.5 text-sm font-semibold text-white hover:bg-[#0f4d37]"
-          onClick={goNext}
-          type="button"
-        >
-          {step === steps.length - 1 ? "Calculate Results" : "Continue"}
-        </button>
-      </div>
+      <button
+        className="mt-6 w-full rounded-xl bg-[#0f3e2e] px-5 py-3 text-sm font-semibold text-white shadow-sm transition hover:bg-[#145c42] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0f3e2e]"
+        onClick={handleCalculate}
+        type="button"
+      >
+        Calculate My Results
+      </button>
+
+      <p className="mt-3 text-center text-[11px] leading-5 text-[#66756d]">
+        🔒 Private — nothing leaves your browser
+      </p>
     </aside>
+  );
+}
+
+// ─── Placeholder ─────────────────────────────────────────────────────────────
+
+function PlaceholderDashboard() {
+  return (
+    <div className="flex min-h-[400px] flex-col items-center justify-center rounded-2xl border-2 border-dashed border-[#d6e1da] bg-white p-10 text-center" id="results-dashboard">
+      <div className="flex size-16 items-center justify-center rounded-full bg-[#edf4ef]">
+        <svg className="size-8 text-[#145c42]" fill="none" stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24">
+          <path d="M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 013 19.875v-6.75zM9.75 8.625c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v11.25c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V8.625zM16.5 4.125c0-.621.504-1.125 1.125-1.125h2.25C20.496 3 21 3.504 21 4.125v15.75c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V4.125z" strokeLinecap="round" strokeLinejoin="round" />
+        </svg>
+      </div>
+      <h3 className="mt-4 text-xl font-semibold text-[#1f2c25]">Your dashboard will appear here</h3>
+      <p className="mt-2 max-w-sm text-sm leading-6 text-[#53635b]">
+        Enter your height and weights on the left, then click Calculate to see your personalized metrics and charts.
+      </p>
+    </div>
+  );
+}
+
+// ─── Results dashboard ────────────────────────────────────────────────────────
+
+function ResultsDashboard({
+  result,
+  inputs,
+  pdfState,
+  onDownloadPdf,
+}: {
+  result: Result;
+  inputs: Inputs;
+  pdfState: "idle" | "loading" | "error";
+  onDownloadPdf: () => void;
+}) {
+  const bmiCtx = getBmiContext(result.currentBmi);
+  const twlGood = result.twl >= 10;
+  const hasGoal = result.goalWeight !== undefined && result.poundsToGoal !== undefined;
+  const goalReached = hasGoal && (result.poundsToGoal ?? 1) <= 0;
+  const hasRegain = result.regain !== undefined && result.percentRegained !== undefined;
+
+  return (
+    <div className="grid gap-5" id="results-dashboard">
+      {/* Status header */}
+      <div className={`flex items-center gap-3 rounded-2xl p-5 ${toneClasses(bmiCtx.tone)}`}>
+        <StatusIcon tone={bmiCtx.tone} />
+        <div>
+          <p className="text-xs font-bold uppercase tracking-widest">{bmiCtx.kicker}</p>
+          <p className="mt-0.5 text-lg font-semibold">{bmiCtx.label}</p>
+          <p className="mt-1 text-sm leading-6">{bmiCtx.copy}</p>
+        </div>
+      </div>
+
+      {/* Key metric cards */}
+      <div className="grid grid-cols-2 gap-4 sm:grid-cols-3">
+        <BigMetricCard
+          label="Current BMI"
+          value={formatN(result.currentBmi, 1)}
+          sub={bmiCtx.kicker}
+          tone={bmiCtx.tone}
+        />
+        <BigMetricCard
+          label="Weight Lost"
+          value={`${formatN(Math.abs(result.weightLost), 0)} lb`}
+          sub={result.weightLost >= 0 ? "from starting weight" : "gained"}
+          tone={result.weightLost > 0 ? "green" : "yellow"}
+        />
+        <BigMetricCard
+          label="% Total Weight Loss"
+          value={`${formatN(result.twl, 1)}%`}
+          sub={twlGood ? "Strong progress" : "Early progress"}
+          tone={twlGood ? "green" : "yellow"}
+          className="col-span-2 sm:col-span-1"
+        />
+      </div>
+
+      {/* BMI gauge + TWL chart */}
+      <div className="grid gap-4 sm:grid-cols-2">
+        <ChartCard title="BMI Gauge" sub={`${formatN(result.currentBmi, 1)} — ${bmiCtx.label}`}>
+          <BmiGauge bmi={result.currentBmi} />
+        </ChartCard>
+
+        <ChartCard title="% Total Weight Loss" sub={getTwlInterpretation(result.twl)}>
+          <TwlRing twl={result.twl} />
+        </ChartCard>
+      </div>
+
+      {/* Goal progress (if entered) */}
+      {hasGoal ? (
+        <ChartCard
+          title="Goal Progress"
+          sub={goalReached ? "You have reached or passed your goal! 🎉" : `${formatN(Math.abs(result.poundsToGoal ?? 0), 0)} lb remaining`}
+        >
+          <GoalBar result={result} />
+        </ChartCard>
+      ) : null}
+
+      {/* Regain tracker (if entered) */}
+      {hasRegain ? (
+        <div className={`rounded-2xl border p-5 ${toneClasses(getRegainTone(result.percentRegained ?? 0))}`}>
+          <p className="text-xs font-bold uppercase tracking-widest">Weight Regain Tracker</p>
+          <div className="mt-3 flex items-end gap-6">
+            <div>
+              <p className="text-3xl font-semibold">{formatN(result.regain ?? 0, 0)} lb</p>
+              <p className="mt-1 text-sm">regained from lowest weight</p>
+            </div>
+            <div>
+              <p className="text-3xl font-semibold">{formatN(result.percentRegained ?? 0, 0)}%</p>
+              <p className="mt-1 text-sm">of prior loss regained</p>
+            </div>
+          </div>
+          <p className="mt-3 text-sm leading-6">{getRegainInterpretation(result.percentRegained ?? 0)}</p>
+          {(result.percentRegained ?? 0) >= 20 ? (
+            <Link className="mt-3 inline-flex text-sm font-semibold underline-offset-4 hover:underline" href="/medications#post-op-support">
+              Review regain support options →
+            </Link>
+          ) : null}
+        </div>
+      ) : null}
+
+      {/* EWL if available */}
+      {result.ewl !== undefined ? (
+        <div className="rounded-2xl border border-[#dce4df] bg-white p-5">
+          <p className="text-xs font-bold uppercase tracking-widest text-[#66756d]">Excess Weight Loss (%EWL)</p>
+          <p className="mt-2 text-3xl font-semibold text-[#1f2c25]">{formatN(result.ewl, 1)}%</p>
+          <p className="mt-2 text-sm leading-6 text-[#53635b]">{getEwlInterpretation(result.ewl)}</p>
+          <div className="mt-3 h-2.5 overflow-hidden rounded-full bg-[#edf4ef]">
+            <div
+              className={`h-full rounded-full transition-all ${result.ewl >= 50 ? "bg-[#145c42]" : result.ewl >= 25 ? "bg-[#f0a500]" : "bg-[#d66b4f]"}`}
+              style={{ width: `${clamp(result.ewl, 0, 100)}%` }}
+            />
+          </div>
+          <div className="mt-1.5 flex justify-between text-[10px] text-[#66756d]">
+            <span>0%</span><span>25%</span><span>50%+</span>
+          </div>
+        </div>
+      ) : null}
+
+      {/* Suggested next steps */}
+      <NextStepCards result={result} />
+
+      {/* PDF download */}
+      <div className="rounded-2xl border border-[#d6e1da] bg-[#0f3e2e] p-6 text-white">
+        <p className="text-xs font-bold uppercase tracking-widest text-[#9fd4aa]">Save Your Results</p>
+        <h3 className="mt-2 font-serif text-2xl leading-tight">Download a styled PDF summary</h3>
+        <p className="mt-2 text-sm leading-6 text-[#d8e6de]">
+          Print or save your metrics to bring to your consultation. No name is collected.
+        </p>
+        <button
+          className="mt-4 inline-flex items-center gap-2 rounded-lg bg-white px-5 py-2.5 text-sm font-semibold text-[#0f3e2e] transition hover:bg-[#f0f7f3] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white disabled:opacity-60"
+          disabled={pdfState === "loading"}
+          onClick={onDownloadPdf}
+          type="button"
+        >
+          <svg className="size-4" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
+            <path d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3" strokeLinecap="round" strokeLinejoin="round" />
+          </svg>
+          {pdfState === "loading" ? "Preparing PDF…" : "Download PDF Summary"}
+        </button>
+        {pdfState === "error" ? <p className="mt-2 text-sm text-[#ffb3a0]">PDF generation failed. Please try again.</p> : null}
+      </div>
+
+      <p className="text-xs leading-6 text-[#64736b]">
+        These results are for educational purposes only and do not diagnose, treat, or replace a consultation with a qualified medical provider.
+      </p>
+    </div>
+  );
+}
+
+// ─── Chart components ─────────────────────────────────────────────────────────
+
+function BmiGauge({ bmi }: { bmi: number }) {
+  // Semi-circle gauge: arc from 180° to 0° (left to right)
+  const zones = [
+    { name: "Under", color: "#e8a87c", min: 15, max: 18.5 },
+    { name: "Healthy", color: "#52b788", min: 18.5, max: 25 },
+    { name: "Overweight", color: "#f0a500", min: 25, max: 30 },
+    { name: "Obese", color: "#4895cb", min: 30, max: 40 },
+    { name: "Obese III", color: "#8b5cf6", min: 40, max: 50 },
+  ];
+  const MIN = 15, MAX = 50, R = 70, cx = 90, cy = 90, SW = 16;
+  const toAngle = (v: number) => 180 - ((clamp(v, MIN, MAX) - MIN) / (MAX - MIN)) * 180;
+  const arcPath = (startDeg: number, endDeg: number) => {
+    const s = (startDeg * Math.PI) / 180;
+    const e = (endDeg * Math.PI) / 180;
+    const x1 = cx + R * Math.cos(s), y1 = cy - R * Math.sin(s);
+    const x2 = cx + R * Math.cos(e), y2 = cy - R * Math.sin(e);
+    const large = endDeg - startDeg > 180 ? 1 : 0;
+    return `M ${x1} ${y1} A ${R} ${R} 0 ${large} 0 ${x2} ${y2}`;
+  };
+  const needleAngle = toAngle(bmi);
+  const nx = cx + (R - 2) * Math.cos((needleAngle * Math.PI) / 180);
+  const ny = cy - (R - 2) * Math.sin((needleAngle * Math.PI) / 180);
+
+  return (
+    <div>
+      <svg className="w-full" viewBox="0 0 180 100">
+        {zones.map((z) => {
+          const startA = toAngle(z.max);
+          const endA = toAngle(z.min);
+          return (
+            <path
+              d={arcPath(startA, endA)}
+              fill="none"
+              key={z.name}
+              stroke={z.color}
+              strokeLinecap="round"
+              strokeWidth={SW}
+            />
+          );
+        })}
+        {/* Needle */}
+        <line stroke="#1f2c25" strokeLinecap="round" strokeWidth={2.5} x1={cx} x2={nx} y1={cy} y2={ny} />
+        <circle cx={cx} cy={cy} fill="#1f2c25" r={4} />
+        {/* Value */}
+        <text dominantBaseline="middle" fill="#1f2c25" fontFamily="serif" fontSize="18" fontWeight="bold" textAnchor="middle" x={cx} y={cy + 18}>
+          {formatN(bmi, 1)}
+        </text>
+      </svg>
+      <div className="mt-1 flex flex-wrap justify-center gap-x-3 gap-y-1">
+        {zones.map((z) => (
+          <span className="flex items-center gap-1 text-[10px] text-[#53635b]" key={z.name}>
+            <span className="inline-block size-2 rounded-full" style={{ background: z.color }} />
+            {z.name}
+          </span>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+function TwlRing({ twl }: { twl: number }) {
+  const pct = clamp(twl / 50, 0, 1);
+  const R = 54, cx = 70, cy = 70, SW = 14;
+  const circ = 2 * Math.PI * R;
+  const dash = pct * circ;
+  const color = twl >= 20 ? "#52b788" : twl >= 10 ? "#f0a500" : "#4895cb";
+
+  return (
+    <div>
+      <div className="relative flex justify-center">
+        <svg height="140" viewBox="0 0 140 140" width="140">
+          <circle cx={cx} cy={cy} fill="none" r={R} stroke="#edf4ef" strokeWidth={SW} />
+          <circle
+            cx={cx}
+            cy={cy}
+            fill="none"
+            r={R}
+            stroke={color}
+            strokeDasharray={`${dash} ${circ}`}
+            strokeLinecap="round"
+            strokeWidth={SW}
+            transform={`rotate(-90 ${cx} ${cy})`}
+          />
+          <text dominantBaseline="middle" fill="#1f2c25" fontFamily="sans-serif" fontSize="20" fontWeight="bold" textAnchor="middle" x={cx} y={cy - 6}>
+            {formatN(twl, 1)}%
+          </text>
+          <text dominantBaseline="middle" fill="#66756d" fontSize="10" textAnchor="middle" x={cx} y={cy + 13}>
+            %TWL
+          </text>
+        </svg>
+      </div>
+      <div className="flex justify-between text-[10px] text-[#66756d]">
+        <span>0%</span><span className="font-semibold text-[#145c42]">10%+ meaningful</span><span>50%</span>
+      </div>
+    </div>
+  );
+}
+
+function GoalBar({ result }: { result: Result }) {
+  const start = result.startingWeight;
+  const goal = result.goalWeight ?? result.currentWeight;
+  const current = result.currentWeight;
+  const progress = clamp(result.goalProgress ?? 0, 0, 110);
+
+  const data = [
+    { label: "Starting", weight: start },
+    { label: "Current", weight: current },
+    { label: "Goal", weight: goal },
+  ];
+
+  return (
+    <div>
+      <div className="h-36">
+        <ResponsiveContainer height="100%" width="100%">
+          <BarChart barSize={40} data={data} margin={{ top: 5, right: 10, bottom: 5, left: 0 }}>
+            <XAxis dataKey="label" tick={{ fontSize: 11, fill: "#53635b" }} />
+            <YAxis
+              domain={[Math.max(0, goal - 20), start + 10]}
+              tick={{ fontSize: 10, fill: "#66756d" }}
+              width={40}
+            />
+            <Tooltip />
+            <Bar dataKey="weight" radius={[4, 4, 0, 0]}>
+              <Cell fill="#d6e1da" />
+              <Cell fill={progress >= 100 ? "#52b788" : "#0f3e2e"} />
+              <Cell fill="#b9d2c5" />
+            </Bar>
+          </BarChart>
+        </ResponsiveContainer>
+      </div>
+      <div className="mt-2 h-2.5 overflow-hidden rounded-full bg-[#edf4ef]">
+        <div
+          className={`h-full rounded-full transition-all duration-700 ${progress >= 100 ? "bg-[#52b788]" : "bg-[#0f3e2e]"}`}
+          style={{ width: `${clamp(progress, 0, 100)}%` }}
+        />
+      </div>
+      <div className="mt-1.5 flex justify-between text-[11px] font-semibold text-[#53635b]">
+        <span>Start ({start} lb)</span>
+        <span className={progress >= 100 ? "text-[#145c42]" : "text-[#0f3e2e]"}>{formatN(progress, 0)}% to goal</span>
+        <span>Goal ({goal} lb)</span>
+      </div>
+    </div>
+  );
+}
+
+// ─── UI helpers ──────────────────────────────────────────────────────────────
+
+function ChartCard({ title, sub, children }: { title: string; sub: string; children: React.ReactNode }) {
+  return (
+    <div className="rounded-2xl border border-[#dce4df] bg-white p-5">
+      <p className="text-sm font-semibold text-[#1f2c25]">{title}</p>
+      <p className="mt-0.5 text-xs leading-5 text-[#53635b]">{sub}</p>
+      <div className="mt-3">{children}</div>
+    </div>
+  );
+}
+
+function BigMetricCard({
+  label,
+  value,
+  sub,
+  tone,
+  className = "",
+}: {
+  label: string;
+  value: string;
+  sub: string;
+  tone: Tone;
+  className?: string;
+}) {
+  return (
+    <div className={`rounded-2xl border p-4 ${toneClasses(tone)} ${className}`}>
+      <p className="text-[11px] font-bold uppercase tracking-wider">{label}</p>
+      <p className="mt-2 text-3xl font-bold">{value}</p>
+      <p className="mt-1 text-xs">{sub}</p>
+    </div>
+  );
+}
+
+function StatusIcon({ tone }: { tone: Tone }) {
+  const colors: Record<Tone, string> = {
+    green: "bg-[#52b788]/20 text-[#1a7046]",
+    yellow: "bg-[#f0a500]/20 text-[#7a5300]",
+    red: "bg-[#d66b4f]/20 text-[#8a3b22]",
+    blue: "bg-[#4895cb]/20 text-[#194f70]",
+  };
+  return (
+    <div className={`flex size-10 shrink-0 items-center justify-center rounded-full ${colors[tone]}`}>
+      {tone === "green" ? (
+        <svg className="size-5" fill="none" stroke="currentColor" strokeWidth={2.5} viewBox="0 0 24 24">
+          <path d="M4.5 12.75l6 6 9-13.5" strokeLinecap="round" strokeLinejoin="round" />
+        </svg>
+      ) : (
+        <svg className="size-5" fill="none" stroke="currentColor" strokeWidth={2.5} viewBox="0 0 24 24">
+          <path d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z" strokeLinecap="round" strokeLinejoin="round" />
+        </svg>
+      )}
+    </div>
+  );
+}
+
+function NextStepCards({ result }: { result: Result }) {
+  const cards = getNextStepCards(result);
+  return (
+    <div>
+      <p className="text-sm font-bold uppercase tracking-widest text-[#1f2c25]">Suggested Next Steps</p>
+      <div className="mt-3 grid gap-3 sm:grid-cols-3">
+        {cards.map((c) => (
+          <article className="flex flex-col rounded-xl border border-[#dce4df] bg-white p-4 shadow-sm" key={c.title}>
+            <h5 className="text-sm font-semibold text-[#1f2c25]">{c.title}</h5>
+            <p className="mt-2 flex-1 text-xs leading-5 text-[#53635b]">{c.copy}</p>
+            <Link className="mt-4 text-xs font-bold text-[#145c42] underline-offset-4 hover:underline" href={c.href}>
+              {c.cta} →
+            </Link>
+          </article>
+        ))}
+      </div>
+    </div>
   );
 }
 
@@ -791,44 +617,33 @@ function NumberField({
   label: string;
   onBlur: () => void;
   value: string;
-  onChange: (value: string) => void;
+  onChange: (v: string) => void;
   suffix?: string;
 }) {
-  const helperId = `${id}-helper`;
-  const feedbackId = `${id}-feedback`;
-  const describedBy = [helper ? helperId : "", feedback ? feedbackId : ""].filter(Boolean).join(" ") || undefined;
-
   return (
-    <div className="block">
+    <div>
       <label className="text-sm font-semibold text-[#1f2c25]" htmlFor={id}>
         {label}
       </label>
-      {helper ? (
-        <p className="mt-1 text-xs leading-5 text-[#66756d]" id={helperId}>
-          {helper}
-        </p>
-      ) : null}
+      {helper ? <p className="mt-0.5 text-xs leading-5 text-[#66756d]">{helper}</p> : null}
       <div
-        className={`mt-2 flex rounded-lg border bg-white focus-within:ring-2 ${
-          feedback?.type === "error" ? "border-[#d66b4f] focus-within:ring-[#d66b4f]" : "border-[#cbd7d0] focus-within:ring-[#145c42]"
-        }`}
+        className={`mt-1.5 flex rounded-lg border bg-white focus-within:ring-2 ${feedback?.type === "error" ? "border-[#d66b4f] focus-within:ring-[#d66b4f]" : "border-[#cbd7d0] focus-within:ring-[#145c42]"}`}
       >
         <input
-          aria-describedby={describedBy}
           aria-invalid={feedback?.type === "error" ? true : undefined}
-          className="min-w-0 flex-1 rounded-lg bg-transparent px-4 py-3 text-sm text-[#1f2c25] focus:outline-none"
+          className="min-w-0 flex-1 rounded-lg bg-transparent px-3 py-2.5 text-sm text-[#1f2c25] focus:outline-none"
           id={id}
           inputMode="decimal"
           min="0"
           onBlur={onBlur}
-          onChange={(event) => onChange(event.target.value)}
+          onChange={(e) => onChange(e.target.value)}
           type="number"
           value={value}
         />
         {suffix ? <span className="flex items-center px-3 text-xs font-semibold text-[#66756d]">{suffix}</span> : null}
       </div>
       {feedback ? (
-        <p className={`mt-2 text-xs leading-5 ${feedback.type === "error" ? "font-semibold text-[#9d341c]" : "text-[#6b5a23]"}`} id={feedbackId}>
+        <p className={`mt-1 text-xs ${feedback.type === "error" ? "font-semibold text-[#9d341c]" : "text-[#6b5a23]"}`}>
           {feedback.message}
         </p>
       ) : null}
@@ -836,855 +651,272 @@ function NumberField({
   );
 }
 
-function DateField({
-  feedback,
-  helper,
-  id,
-  label,
-  onBlur,
-  onChange,
-  value,
-}: {
-  feedback?: FieldFeedback;
-  helper?: string;
-  id: string;
-  label: string;
-  onBlur: () => void;
-  onChange: (value: string) => void;
-  value: string;
-}) {
-  const helperId = `${id}-helper`;
-  const feedbackId = `${id}-feedback`;
-  const describedBy = [helper ? helperId : "", feedback ? feedbackId : ""].filter(Boolean).join(" ") || undefined;
+// ─── Styled PDF ───────────────────────────────────────────────────────────────
 
-  return (
-    <div className="block">
-      <label className="text-sm font-semibold text-[#1f2c25]" htmlFor={id}>
-        {label}
-      </label>
-      {helper ? (
-        <p className="mt-1 text-xs leading-5 text-[#66756d]" id={helperId}>
-          {helper}
-        </p>
-      ) : null}
-      <input
-        aria-describedby={describedBy}
-        aria-invalid={feedback?.type === "error" ? true : undefined}
-        className={`mt-2 min-h-11 w-full rounded-lg border bg-white px-3 py-2 text-sm text-[#1f2c25] focus:outline-none focus:ring-2 ${
-          feedback?.type === "error" ? "border-[#d66b4f] focus:ring-[#d66b4f]" : "border-[#cbd7d0] focus:ring-[#145c42]"
-        }`}
-        id={id}
-        onBlur={onBlur}
-        onChange={(event) => onChange(event.target.value)}
-        type="date"
-        value={value}
-      />
-      {feedback ? (
-        <p className={`mt-2 text-xs leading-5 ${feedback.type === "error" ? "font-semibold text-[#9d341c]" : "text-[#6b5a23]"}`} id={feedbackId}>
-          {feedback.message}
-        </p>
-      ) : null}
-    </div>
-  );
-}
+async function downloadResultsPdf(inputs: Inputs, result: Result) {
+  const { jsPDF } = await import("jspdf");
+  const doc = new jsPDF({ unit: "pt", format: "letter" });
+  const W = doc.internal.pageSize.getWidth();
+  const M = 48;
+  let y = 0;
 
-function genderOptionClass(option: string, selected: boolean) {
-  if (!selected) return "border-[#dce4df] bg-white text-[#1f2c25] hover:border-[#145c42]";
-  if (option === "Male") return "border-[#2c6fa3] bg-[#eaf4ff] text-[#195176]";
-  if (option === "Female") return "border-[#c95b5b] bg-[#fff0f0] text-[#963333]";
-  return "border-[#145c42] bg-[#edf4ef] text-[#145c42]";
-}
+  const bmiCtx = getBmiContext(result.currentBmi);
 
-function GoalWeightNote({ inputs }: { inputs: Inputs }) {
-  const feet = toNumber(inputs.feet);
-  const inches = toNumber(inputs.inches);
-  const goalWeight = toNumber(inputs.goalWeight);
-  const heightIn = feet * 12 + inches;
+  // ── Header band ──
+  doc.setFillColor("#0f3e2e");
+  doc.rect(0, 0, W, 90, "F");
+  doc.setFont("helvetica", "bold");
+  doc.setFontSize(11);
+  doc.setTextColor("#9fd4aa");
+  doc.text("JOURNEYLITE BARIATRIC PHYSICIANS", M, 32);
+  doc.setFontSize(22);
+  doc.setTextColor("#ffffff");
+  doc.text("Weight-Loss Metrics Summary", M, 62);
+  doc.setFont("helvetica", "normal");
+  doc.setFontSize(10);
+  doc.setTextColor("#b9d2c5");
+  doc.text(`Generated ${new Date().toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric" })}`, M, 80);
+  y = 110;
 
-  if (!heightIn || !goalWeight) return null;
+  // ── BMI status band ──
+  const toneBg: Record<string, string> = { green: "#edf8f1", yellow: "#fffdf4", red: "#fff5f2", blue: "#f3f8fc" };
+  const toneBorder: Record<string, string> = { green: "#52b788", yellow: "#f0a500", red: "#d66b4f", blue: "#4895cb" };
+  const toneText: Record<string, string> = { green: "#1a7046", yellow: "#7a5300", red: "#8a3b22", blue: "#194f70" };
+  const bg = toneBg[bmiCtx.tone] ?? "#f7f8f6";
+  const border = toneBorder[bmiCtx.tone] ?? "#dce4df";
+  const textCol = toneText[bmiCtx.tone] ?? "#1f2c25";
 
-  const goalBmi = bmiFromWeight(goalWeight, heightIn);
-  const context = getGoalBmiContext(goalBmi);
+  doc.setFillColor(bg);
+  doc.setDrawColor(border);
+  doc.roundedRect(M, y, W - M * 2, 52, 6, 6, "FD");
+  doc.setFont("helvetica", "bold");
+  doc.setFontSize(8);
+  doc.setTextColor(textCol);
+  doc.text(bmiCtx.kicker.toUpperCase(), M + 12, y + 16);
+  doc.setFontSize(13);
+  doc.text(`BMI ${formatN(result.currentBmi, 1)} — ${bmiCtx.label}`, M + 12, y + 32);
+  doc.setFont("helvetica", "normal");
+  doc.setFontSize(9);
+  const copyLines = doc.splitTextToSize(bmiCtx.copy, W - M * 2 - 24);
+  doc.text(copyLines, M + 12, y + 46);
+  y += 66;
 
-  return (
-    <div className={`rounded-lg border p-3 text-sm leading-6 ${toneClasses(context.tone)}`}>
-      {context.message}
-    </div>
-  );
-}
-
-function ResultsPanel({
-  inputs,
-  result,
-  pdfState,
-  onDownloadPdf,
-}: {
-  inputs: Inputs;
-  result?: Result;
-  pdfState: "idle" | "loading" | "error";
-  onDownloadPdf: () => Promise<void>;
-}) {
-  if (!result) {
-    return (
-      <div className="rounded-xl border border-[#dce4df] bg-white p-6 shadow-sm">
-        <h3 className="text-2xl font-semibold text-[#1f2c25]">Your results will appear here.</h3>
-        <p className="mt-3 text-sm leading-6 text-[#53635b]">
-          Enter height, starting weight, and current weight to estimate your bariatric metrics.
-        </p>
-      </div>
-    );
+  // ── Section helper ──
+  function section(title: string) {
+    y += 14;
+    doc.setFillColor("#edf4ef");
+    doc.rect(M, y, W - M * 2, 22, "F");
+    doc.setFont("helvetica", "bold");
+    doc.setFontSize(9);
+    doc.setTextColor("#145c42");
+    doc.text(title.toUpperCase(), M + 8, y + 14);
+    y += 30;
   }
 
-  const bmiContext = getBmiContext(result.currentBmi);
-  const startingBmiContext = getBmiContext(result.startingBmi);
-  const goalBmi = result.goalWeight ? bmiFromWeight(result.goalWeight, result.heightIn) : undefined;
-  const goalBmiContext = goalBmi ? getBmiContext(goalBmi) : undefined;
-  const validRegain = result.regain !== undefined && result.percentRegained !== undefined && result.regain >= 0;
-  const warnings = getResultWarnings(result);
-  const resultCards = [
-    {
-      label: "Current BMI",
-      value: formatNumber(result.currentBmi, 1),
-      explanation: bmiContext.copy,
-      calculation: "BMI = weight lb / height in² × 703",
-    },
-    {
-      label: "Weight change from starting weight",
-      value: `${formatNumber(Math.abs(result.weightLost), 1)} lb ${result.weightLost >= 0 ? "lost" : "gained"}`,
-      explanation:
-        result.weightLost >= 0
-          ? `You have lost ${formatNumber(result.weightLost, 1)} pounds from your starting weight.`
-          : "Your current weight is higher than your starting weight, so weight-loss metrics show weight gain instead of loss.",
-      calculation: "Weight change = starting weight - current weight",
-    },
-    {
-      label: "Percent total weight loss",
-      value: `${formatNumber(result.twl, 1)}%`,
-      explanation: getTwlInterpretation(result.twl),
-      calculation: "%TWL = (starting weight - current weight) / starting weight × 100",
-    },
-    ...(result.ewl !== undefined
-      ? [
-          {
-            label: "Excess weight loss",
-            value: `${formatNumber(result.ewl, 1)}%`,
-            explanation: getEwlInterpretation(result.ewl),
-            calculation: "%EWL = (starting weight - current weight) / (starting weight - BMI 25 reference weight) × 100",
-          },
-        ]
-      : []),
-    ...(result.goalWeight && goalBmi !== undefined
-      ? [
-          {
-            label: "Goal progress",
-            value: `${formatNumber(Math.abs(result.poundsToGoal ?? 0), 1)} lb ${result.poundsToGoal && result.poundsToGoal > 0 ? "from goal" : "past goal"}`,
-            explanation: getGoalInterpretation(result, goalBmi),
-            calculation: "Pounds to goal = current weight - goal weight",
-          },
-        ]
-      : []),
-    ...(validRegain
-      ? [
-          {
-            label: "Weight regain",
-            value: `${formatNumber(result.regain ?? 0, 1)} lb`,
-            explanation: getRegainInterpretation(result.percentRegained ?? 0),
-            calculation: "% regained = (current weight - lowest weight) / (starting weight - lowest weight) × 100",
-          },
-        ]
-      : []),
-    ...(result.daysSinceTreatment !== undefined && result.monthsSinceTreatment !== undefined && result.averageWeightChangePerMonth !== undefined
-      ? [
-          {
-            label: "Time-based progress",
-            value: `${formatNumber(result.monthsSinceTreatment, 1)} months`,
-            explanation: `About ${formatNumber(result.daysSinceTreatment, 0)} days between the treatment and follow-up dates entered. Average weight change is ${formatNumber(
-              Math.abs(result.averageWeightChangePerMonth),
-              1,
-            )} lb per month.`,
-            calculation: "Average monthly change = weight change / months between dates",
-          },
-        ]
-      : []),
-  ];
+  function row(label: string, value: string, highlight = false) {
+    if (y > 700) { doc.addPage(); y = 48; }
+    if (highlight) {
+      doc.setFillColor("#f7fbf9");
+      doc.rect(M, y - 10, W - M * 2, 18, "F");
+    }
+    doc.setFont("helvetica", "bold");
+    doc.setFontSize(9);
+    doc.setTextColor("#1f2c25");
+    doc.text(label, M + 4, y);
+    doc.setFont("helvetica", "normal");
+    doc.setTextColor("#53635b");
+    doc.text(value, M + 200, y);
+    y += 17;
+  }
 
-  return (
-    <div className="rounded-xl border border-[#dce4df] bg-white p-5 shadow-xl shadow-[#20372b]/8 lg:p-6">
-      <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
-        <div>
-          <h3 className="text-2xl font-semibold text-[#1f2c25]">Estimated results</h3>
-          <p className="mt-2 text-sm leading-6 text-[#53635b]">
-            Your numbers are a starting point for a more complete conversation.
-          </p>
-        </div>
-        <Link className="text-sm font-semibold text-[#145c42] underline-offset-4 hover:underline" href="/contact">
-          See If You Qualify
-        </Link>
-      </div>
+  function note(text: string) {
+    if (y > 700) { doc.addPage(); y = 48; }
+    doc.setFont("helvetica", "italic");
+    doc.setFontSize(9);
+    doc.setTextColor("#53635b");
+    const lines = doc.splitTextToSize(text, W - M * 2 - 8);
+    doc.text(lines, M + 4, y);
+    y += lines.length * 13;
+  }
 
-      <div aria-live="polite" className="mt-5 grid gap-3 sm:grid-cols-2">
-        {resultCards.map((card) => (
-          <ResultCard {...card} key={card.label} />
-        ))}
-      </div>
+  // ── Key metrics ──
+  section("Key Metrics");
+  row("Current BMI", formatN(result.currentBmi, 1), true);
+  row("Starting BMI", formatN(result.startingBmi, 1));
+  row("Weight lost", `${formatN(Math.abs(result.weightLost), 1)} lb ${result.weightLost >= 0 ? "lost" : "gained"}`, true);
+  row("% Total weight loss (%TWL)", `${formatN(result.twl, 1)}%`);
+  if (result.ewl !== undefined) row("% Excess weight loss (%EWL)", `${formatN(result.ewl, 1)}%`, true);
+  if (result.ebmil !== undefined) row("% Excess BMI loss (%EBMIL)", `${formatN(result.ebmil, 1)}%`);
+  if (result.goalWeight) row("Goal weight entered", `${result.goalWeight} lb`, true);
+  if (result.goalProgress !== undefined) row("Progress toward goal", `${formatN(clamp(result.goalProgress, 0, 100), 0)}%`);
+  if (result.regain !== undefined) row("Weight regain from lowest", `${formatN(result.regain, 1)} lb`, true);
+  if (result.percentRegained !== undefined) row("% of prior loss regained", `${formatN(result.percentRegained, 1)}%`);
 
-      <div className="mt-5 grid gap-3 lg:grid-cols-[1.1fr_0.9fr]">
-        <div className={`rounded-lg border p-4 ${toneClasses(bmiContext.tone)}`}>
-          <p className="text-xs font-semibold uppercase tracking-[0.1em]">{bmiContext.kicker}</p>
-          <h4 className="mt-2 text-lg font-semibold">{bmiContext.label}</h4>
-          <p className="mt-2 text-sm leading-6">{bmiContext.copy}</p>
-        </div>
-        <div className="rounded-lg border border-[#dce4df] bg-white p-4 text-sm leading-6 text-[#53635b]">
-          <p className="font-semibold text-[#1f2c25]">Quick interpretation</p>
-          <p className="mt-2">
-            Starting BMI: <span className="font-semibold text-[#1f2c25]">{formatNumber(result.startingBmi, 1)}</span>{" "}
-            ({startingBmiContext.label}).
-          </p>
-          {goalBmiContext ? (
-            <p className="mt-2">
-              Goal BMI estimate: <span className="font-semibold text-[#1f2c25]">{formatNumber(goalBmi ?? 0, 1)}</span>{" "}
-              ({goalBmiContext.label}).
-            </p>
-          ) : null}
-          <p className="mt-2">BMI is a screening tool. Your health history, symptoms, labs, medications, and goals also matter.</p>
-        </div>
-      </div>
+  // ── Entered values ──
+  section("Entered Values");
+  row("Height", `${inputs.feet || "0"} ft ${inputs.inches || "0"} in`);
+  row("Starting weight", `${inputs.startingWeight} lb`, true);
+  row("Current weight", `${inputs.currentWeight} lb`);
+  if (inputs.gender) row("Gender context", inputs.gender, true);
+  if (inputs.goalWeight) row("Goal weight", `${inputs.goalWeight} lb`);
+  if (inputs.lowestWeight) row("Lowest weight after treatment", `${inputs.lowestWeight} lb`, true);
 
-      {warnings.length ? (
-        <div className="mt-4 grid gap-3">
-          {warnings.map((warning) => (
-            <div className="rounded-lg border border-[#d8c88b] bg-[#fffdf4] p-4 text-sm leading-6 text-[#5e5235]" key={warning}>
-              {warning}
-            </div>
-          ))}
-        </div>
-      ) : null}
+  // ── Interpretation ──
+  section("Plain-English Interpretation");
+  note(bmiCtx.copy);
+  note(getTwlInterpretation(result.twl));
+  if (result.ewl !== undefined) note(getEwlInterpretation(result.ewl));
+  if (result.goalWeight && result.goalProgress !== undefined) {
+    note(getGoalInterpretation(result, bmiFrom(result.goalWeight!, result.heightIn)));
+  }
+  if (result.percentRegained !== undefined) note(getRegainInterpretation(result.percentRegained));
 
-      <div className="mt-5 space-y-4">
-        <ProgressLine label="% Total Weight Loss" value={clamp(result.twl, 0, 50)} max={50} display={`${formatNumber(result.twl, 1)}%`} />
-        {result.goalProgress !== undefined ? (
-          <ProgressLine label="Progress toward entered goal" value={clamp(result.goalProgress, 0, 100)} max={100} display={`${formatNumber(clamp(result.goalProgress, 0, 100), 0)}%`} />
-        ) : null}
-        {validRegain ? (
-          <ProgressLine
-            label="Weight regained from lowest weight"
-            value={clamp(result.percentRegained ?? 0, 0, 100)}
-            max={100}
-            display={`${formatNumber(result.regain ?? 0, 1)} lb`}
-          />
-        ) : null}
-      </div>
+  // ── Footer ──
+  const pages = doc.getNumberOfPages();
+  for (let i = 1; i <= pages; i++) {
+    doc.setPage(i);
+    doc.setFillColor("#0f3e2e");
+    doc.rect(0, 770, W, 22, "F");
+    doc.setFont("helvetica", "normal");
+    doc.setFontSize(7.5);
+    doc.setTextColor("#9fd4aa");
+    doc.text("JourneyLite Physicians · journeylite.com · For educational use only. Does not replace medical consultation.", M, 784);
+    doc.setTextColor("#b9d2c5");
+    doc.text(`Page ${i} of ${pages}`, W - M, 784, { align: "right" });
+  }
 
-      <div className="mt-6 rounded-lg border border-[#d8c88b] bg-[#fffdf4] p-4 text-sm leading-6 text-[#5e5235]">
-        <p>
-          Your current BMI is {formatNumber(result.currentBmi, 1)}. {bmiContext.copy} {getTwlInterpretation(result.twl)}
-        </p>
-        {inputs.goalWeight && goalBmi !== undefined ? <p className="mt-2">{getGoalInterpretation(result, goalBmi)}</p> : null}
-        {validRegain ? <p className="mt-2">{getRegainInterpretation(result.percentRegained ?? 0)}</p> : null}
-      </div>
-
-      <NextStepCards result={result} />
-
-      <div className="mt-6">
-        <p className="text-sm font-semibold text-[#1f2c25]">
-          Want to save this? Download a simple PDF summary to review or bring to your consultation.
-        </p>
-        <div className="mt-3 flex flex-col gap-3 sm:flex-row">
-          <button
-            className="inline-flex min-h-11 w-full items-center justify-center rounded-md bg-[#145c42] px-5 py-3 text-sm font-semibold text-white shadow-sm transition hover:bg-[#0f4d37] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#145c42] sm:w-auto"
-            onClick={onDownloadPdf}
-            type="button"
-          >
-            {pdfState === "loading" ? "Preparing PDF..." : "Download My Results as PDF"}
-          </button>
-        </div>
-        <p className="mt-2 text-xs leading-5 text-[#53635b]">
-          No name is collected. Your results stay on this page and are not sent anywhere unless you choose what to share.
-        </p>
-        {pdfState === "error" ? <p className="mt-2 text-sm font-semibold text-[#8a3b22]">The PDF could not be generated. Please try again.</p> : null}
-      </div>
-    </div>
-  );
+  doc.save("journeylite-metrics-summary.pdf");
 }
 
-function ResultCard({
-  calculation,
-  explanation,
-  label,
-  value,
-}: {
-  calculation: string;
-  explanation: string;
-  label: string;
-  value: string;
-}) {
-  return (
-    <article className="rounded-lg border border-[#dce4df] bg-[#fafbf9] p-4">
-      <p className="text-xs font-semibold uppercase tracking-[0.1em] text-[#66756d]">{label}</p>
-      <p className="mt-2 text-2xl font-semibold text-[#1f2c25]">{value}</p>
-      <p className="mt-2 text-xs leading-5 text-[#53635b]">{explanation}</p>
-      <details className="mt-3">
-        <summary className="cursor-pointer list-none text-xs font-semibold text-[#145c42] underline-offset-4 hover:underline">
-          How this is calculated
-        </summary>
-        <p className="mt-2 rounded-md bg-white p-3 text-xs leading-5 text-[#53635b]">{calculation}</p>
-      </details>
-    </article>
-  );
-}
+// ─── Pure logic ───────────────────────────────────────────────────────────────
 
-function NextStepCards({ result }: { result: Result }) {
-  const cards = getNextStepCards(result);
+function calculateResults(inputs: Inputs): Result | undefined {
+  const feet = toNum(inputs.feet);
+  const inches = toNum(inputs.inches);
+  const sw = toNum(inputs.startingWeight);
+  const cw = toNum(inputs.currentWeight);
+  const gw = toNum(inputs.goalWeight) || undefined;
+  const lw = toNum(inputs.lowestWeight) || undefined;
+  const h = feet * 12 + inches;
+  if (!h || !sw || !cw) return undefined;
 
-  return (
-    <div className="mt-6">
-      <h4 className="text-lg font-semibold text-[#1f2c25]">Suggested next steps</h4>
-      <div className="mt-3 grid gap-3 md:grid-cols-3">
-        {cards.map((card) => (
-          <article className="flex h-full flex-col rounded-lg border border-[#dce4df] bg-white p-4 shadow-sm" key={card.title}>
-            <h5 className="text-base font-semibold text-[#1f2c25]">{card.title}</h5>
-            <p className="mt-2 flex-1 text-sm leading-6 text-[#53635b]">{card.copy}</p>
-            <Link className="mt-4 text-sm font-semibold text-[#145c42] underline-offset-4 hover:underline" href={card.href}>
-              {card.cta}
-            </Link>
-          </article>
-        ))}
-      </div>
-    </div>
-  );
-}
+  const currentBmi = bmiFrom(cw, h);
+  const startingBmi = bmiFrom(sw, h);
+  const idealWeight = (25 * h * h) / 703;
+  const weightLost = sw - cw;
+  const twl = (weightLost / sw) * 100;
+  const excessWeight = sw - idealWeight;
+  const ewl = excessWeight > 0 ? (weightLost / excessWeight) * 100 : undefined;
+  const bmiLoss = startingBmi - currentBmi;
+  const ebmil = startingBmi > 25 ? (bmiLoss / (startingBmi - 25)) * 100 : undefined;
+  const poundsToGoal = gw ? cw - gw : undefined;
+  const goalProgress = gw && sw > gw ? (weightLost / (sw - gw)) * 100 : undefined;
+  const canRegain = Boolean(lw && sw > lw && cw >= lw);
+  const regain = canRegain ? cw - lw! : undefined;
+  const percentRegained = canRegain ? ((cw - lw!) / (sw - lw!)) * 100 : undefined;
 
-function ProgressLine({ label, value, max, display }: { label: string; value: number; max: number; display: string }) {
-  const width = max > 0 ? (value / max) * 100 : 0;
-
-  return (
-    <div>
-      <div className="flex items-center justify-between gap-4 text-xs font-semibold text-[#53635b]">
-        <span>{label}</span>
-        <span>{display}</span>
-      </div>
-      <div className="mt-2 h-2 overflow-hidden rounded-full bg-[#edf4ef]">
-        <div className="h-full rounded-full bg-[#145c42]" style={{ width: `${clamp(width, 0, 100)}%` }} />
-      </div>
-    </div>
-  );
+  return { heightIn: h, startingWeight: sw, currentWeight: cw, goalWeight: gw, lowestWeight: lw, currentBmi, startingBmi, idealWeight, weightLost, twl, excessWeight, ewl, bmiLoss, ebmil, poundsToGoal, goalProgress, regain, percentRegained };
 }
 
 function getInputFeedback(inputs: Inputs): Partial<Record<keyof Inputs, FieldFeedback>> {
-  const feedback: Partial<Record<keyof Inputs, FieldFeedback>> = {};
-  const feet = parseOptionalNumber(inputs.feet);
-  const inches = inputs.inches === "" ? 0 : parseOptionalNumber(inputs.inches);
-  const startingWeight = parseOptionalNumber(inputs.startingWeight);
-  const currentWeight = parseOptionalNumber(inputs.currentWeight);
-  const goalWeight = parseOptionalNumber(inputs.goalWeight);
-  const lowestWeight = parseOptionalNumber(inputs.lowestWeight);
-  const heightIn = feet && inches !== undefined ? feet * 12 + inches : 0;
+  const fb: Partial<Record<keyof Inputs, FieldFeedback>> = {};
+  const feet = parseNum(inputs.feet);
+  const inches = inputs.inches === "" ? 0 : parseNum(inputs.inches);
+  const sw = parseNum(inputs.startingWeight);
+  const cw = parseNum(inputs.currentWeight);
+  const gw = parseNum(inputs.goalWeight);
+  const lw = parseNum(inputs.lowestWeight);
+  const h = feet && inches !== undefined ? feet * 12 + inches : 0;
 
-  if (inputs.feet === "") feedback.feet = { type: "error", message: "Enter your height so we can calculate BMI." };
-  else if (feet === undefined || feet <= 0) feedback.feet = { type: "error", message: "Enter feet using a positive number." };
+  if (!inputs.feet) fb.feet = { type: "error", message: "Height is required." };
+  else if (!feet || feet <= 0) fb.feet = { type: "error", message: "Enter a valid number of feet." };
+  if (inputs.inches && (inches === undefined || inches < 0 || inches > 11))
+    fb.inches = { type: "error", message: "Enter inches from 0 to 11." };
+  if (h && (h < 48 || h > 90))
+    fb.feet = { type: "error", message: "Height looks outside normal adult range." };
 
-  if (inputs.inches !== "" && (inches === undefined || inches < 0 || inches > 11)) {
-    feedback.inches = { type: "error", message: "Enter inches from 0 to 11." };
+  if (!inputs.startingWeight) fb.startingWeight = { type: "error", message: "Starting weight is required." };
+  else if (!sw || sw < 70) fb.startingWeight = { type: "error", message: "Enter a valid starting weight (≥ 70 lb)." };
+  else if (sw > 800) fb.startingWeight = { type: "error", message: "Check this value — it looks very high." };
+
+  if (!inputs.currentWeight) fb.currentWeight = { type: "error", message: "Current weight is required." };
+  else if (!cw || cw < 70) fb.currentWeight = { type: "error", message: "Enter a valid current weight (≥ 70 lb)." };
+  else if (cw > 800) fb.currentWeight = { type: "error", message: "Check this value — it looks very high." };
+
+  if (inputs.goalWeight && gw !== undefined) {
+    if (gw < 70) fb.goalWeight = { type: "error", message: "Goal weight looks too low." };
+    else if (sw && gw > sw) fb.goalWeight = { type: "warning", message: "Goal is higher than starting weight — is that intentional?" };
   }
 
-  if (heightIn && (heightIn < 48 || heightIn > 90)) {
-    feedback.feet = {
-      type: "error",
-      message: "This height looks outside the usual adult range. Please double-check it.",
-    };
-  }
+  if (inputs.lowestWeight && lw !== undefined && sw && lw > sw)
+    fb.lowestWeight = { type: "warning", message: "Lowest weight is usually below starting weight." };
 
-  if (inputs.startingWeight === "") {
-    feedback.startingWeight = { type: "error", message: "Enter a starting weight to calculate weight-loss progress." };
-  } else {
-    feedback.startingWeight = validateWeight(startingWeight, "This weight looks very low for an adult. Please double-check it.", "This weight looks very high. Please double-check it.");
-  }
-
-  if (inputs.currentWeight === "") {
-    feedback.currentWeight = { type: "error", message: "Enter your current weight to see your results." };
-  } else {
-    feedback.currentWeight = validateWeight(currentWeight, "This weight looks very low for an adult. Please double-check it.", "This weight looks very high. Please double-check it.");
-  }
-
-  if (heightIn && startingWeight && currentWeight && !feedback.currentWeight) {
-    const twl = ((startingWeight - currentWeight) / startingWeight) * 100;
-    const currentBmi = bmiFromWeight(currentWeight, heightIn);
-    if (twl > 50 || currentBmi < 18.5) {
-      feedback.currentWeight = {
-        type: "warning",
-        message: "This is a large change from your starting weight. Please double-check the number.",
-      };
-    } else if (currentWeight > startingWeight) {
-      feedback.currentWeight = {
-        type: "warning",
-        message: "Your current weight is higher than your starting weight, so weight-loss metrics will show weight gain instead of loss.",
-      };
-    }
-  }
-
-  if (inputs.goalWeight !== "") {
-    feedback.goalWeight = validateWeight(goalWeight, "This weight looks very low for an adult. Please double-check it.", "This weight looks very high. Please double-check it.");
-    if (!feedback.goalWeight && goalWeight && heightIn) {
-      if (goalWeight > (currentWeight || 0)) {
-        feedback.goalWeight = { type: "warning", message: "This goal is higher than your current weight. Please double-check that this is intentional." };
-      } else if (startingWeight && ((startingWeight - goalWeight) / startingWeight) * 100 > 50) {
-        feedback.goalWeight = { type: "warning", message: "This is a very large goal. A care team can help set safe, realistic milestones." };
-      }
-    }
-  }
-
-  if (inputs.lowestWeight !== "") {
-    feedback.lowestWeight = validateWeight(lowestWeight, "This weight looks very low for an adult. Please double-check it.", "This weight looks very high. Please double-check it.");
-    if (!feedback.lowestWeight && lowestWeight && heightIn) {
-      if (bmiFromWeight(lowestWeight, heightIn) < 18.5) {
-        feedback.lowestWeight = {
-          type: "warning",
-          message: "This lowest weight would fall below the standard healthy BMI range. Please double-check it.",
-        };
-      } else if (startingWeight && lowestWeight > startingWeight) {
-        feedback.lowestWeight = {
-          type: "warning",
-          message: "Lowest weight is usually below starting weight. Please double-check this value.",
-        };
-      } else if (currentWeight && lowestWeight > currentWeight) {
-        feedback.lowestWeight = {
-          type: "warning",
-          message: "Because this value is higher than your current weight, weight regain from lowest weight does not apply.",
-        };
-      }
-    }
-  }
-
-  if (inputs.treatmentDate && isFutureDate(inputs.treatmentDate)) {
-    feedback.treatmentDate = { type: "error", message: "Treatment date cannot be in the future." };
-  }
-
-  if (inputs.followUpDate && isFutureDate(inputs.followUpDate)) {
-    feedback.followUpDate = { type: "error", message: "Follow-up date cannot be in the future." };
-  }
-
-  if (inputs.treatmentDate && inputs.followUpDate && new Date(inputs.followUpDate) < new Date(inputs.treatmentDate)) {
-    feedback.followUpDate = { type: "error", message: "Follow-up date cannot be before the surgery or treatment date." };
-  }
-
-  return feedback;
-}
-
-function validateWeight(value: number | undefined, lowMessage: string, highMessage: string): FieldFeedback | undefined {
-  if (value === undefined || value <= 0) return { type: "error", message: "Enter weight using a positive number." };
-  if (value < 70) return { type: "error", message: lowMessage };
-  if (value > 800) return { type: "error", message: highMessage };
-  return undefined;
-}
-
-function parseOptionalNumber(value: string) {
-  if (value === "") return undefined;
-  const number = Number(value);
-  return Number.isFinite(number) ? number : undefined;
-}
-
-function isFutureDate(value: string) {
-  const date = new Date(`${value}T00:00:00`);
-  const today = new Date();
-  today.setHours(23, 59, 59, 999);
-  return date > today;
-}
-
-function bmiFromWeight(weight: number, heightIn: number) {
-  return (weight / (heightIn * heightIn)) * 703;
+  return fb;
 }
 
 function getBmiContext(bmi: number) {
-  if (bmi < 18.5) {
-    return {
-      kicker: "Below healthy range",
-      label: "Below the standard healthy BMI range",
-      tone: "red" as const,
-      copy: "This is below the standard healthy BMI range. A medical provider can help evaluate whether this is safe for you.",
-    };
-  }
-
-  if (bmi < 25) {
-    return {
-      kicker: "Healthy range",
-      label: "Standard healthy BMI range",
-      tone: "green" as const,
-      copy: "This is within the standard healthy BMI range.",
-    };
-  }
-
-  if (bmi < 30) {
-    return {
-      kicker: "Overweight range",
-      label: "Overweight BMI range",
-      tone: "yellow" as const,
-      copy: "This falls in the overweight BMI range.",
-    };
-  }
-
-  if (bmi < 35) {
-    return {
-      kicker: "Class I obesity",
-      label: "Class I obesity BMI range",
-      tone: "blue" as const,
-      copy: "This falls in the Class I obesity BMI range.",
-    };
-  }
-
-  if (bmi < 40) {
-    return {
-      kicker: "Class II obesity",
-      label: "Class II obesity BMI range",
-      tone: "blue" as const,
-      copy: "This falls in the Class II obesity BMI range.",
-    };
-  }
-
-  return {
-    kicker: "Class III obesity",
-    label: "Class III obesity BMI range",
-    tone: "blue" as const,
-    copy: "This falls in the Class III obesity BMI range.",
-  };
+  if (bmi < 18.5) return { kicker: "Below healthy range", label: "Below the standard healthy BMI range", tone: "red" as Tone, copy: "This is below the standard healthy BMI range. A provider can help evaluate whether this is safe." };
+  if (bmi < 25) return { kicker: "Healthy range", label: "Standard healthy BMI range", tone: "green" as Tone, copy: "Your BMI is within the standard healthy range." };
+  if (bmi < 30) return { kicker: "Overweight range", label: "Overweight BMI range", tone: "yellow" as Tone, copy: "Your BMI falls in the overweight range. Medical weight loss or non-surgical options may be worth discussing." };
+  if (bmi < 35) return { kicker: "Class I obesity", label: "Class I obesity BMI range", tone: "blue" as Tone, copy: "Your BMI falls in the Class I obesity range. Multiple treatment paths may be available after evaluation." };
+  if (bmi < 40) return { kicker: "Class II obesity", label: "Class II obesity BMI range", tone: "blue" as Tone, copy: "Your BMI is in the Class II range. Bariatric surgery may be an option worth discussing with a provider." };
+  return { kicker: "Class III obesity", label: "Class III obesity BMI range", tone: "blue" as Tone, copy: "Your BMI falls in the Class III range. Bariatric surgery is commonly discussed at this level. A consultation can help." };
 }
 
-function toneClasses(tone: "green" | "yellow" | "red" | "blue") {
-  if (tone === "green") return "border-[#b8d4c4] bg-[#edf8f1] text-[#1f5a3e]";
+function toneClasses(tone: Tone) {
+  if (tone === "green") return "border-[#b8d4c4] bg-[#edf8f1] text-[#1a7046]";
   if (tone === "yellow") return "border-[#d8c88b] bg-[#fffdf4] text-[#5e5235]";
   if (tone === "red") return "border-[#efb3a5] bg-[#fff5f2] text-[#8a3b22]";
   return "border-[#bfccd8] bg-[#f3f8fc] text-[#255374]";
 }
 
-function getGoalBmiContext(goalBmi: number) {
-  if (goalBmi < 18.5) {
-    return {
-      tone: "red" as const,
-      message:
-        "This goal weight would fall below the standard healthy BMI range. Please discuss a safe goal with a medical provider.",
-    };
-  }
-  if (goalBmi < 25) {
-    return {
-      tone: "green" as const,
-      message: "This goal is within the standard healthy BMI range.",
-    };
-  }
-  if (goalBmi < 30) {
-    return {
-      tone: "yellow" as const,
-      message: "This goal is in the overweight BMI range, but it may still be a meaningful and medically helpful milestone.",
-    };
-  }
-  return {
-    tone: "blue" as const,
-    message:
-      "This goal is still in the obesity BMI range, but it may still represent important progress depending on your starting point and health history.",
-  };
+function getRegainTone(pct: number): Tone {
+  if (pct < 10) return "green";
+  if (pct < 20) return "yellow";
+  return "red";
 }
 
 function getTwlInterpretation(twl: number) {
   if (twl < 0) return "This shows weight gain compared with your starting weight.";
-  if (twl < 5) return "This shows early or modest change from your starting weight.";
-  if (twl < 10) return "Even 5% total weight loss can be clinically meaningful for some people.";
-  if (twl < 15) return "This level of total weight loss may represent meaningful progress.";
+  if (twl < 5) return "Early or modest change from starting weight.";
+  if (twl < 10) return "Even 5% total weight loss can be clinically meaningful.";
+  if (twl < 15) return "This level of weight loss may represent meaningful progress.";
   if (twl < 20) return "This is a strong amount of total weight loss.";
   return "This is a substantial amount of total weight loss.";
 }
 
 function getEwlInterpretation(ewl: number) {
-  if (ewl < 0) return "This shows weight gain relative to the starting point.";
-  if (ewl < 25) return "This may represent early progress, depending on timing and treatment type.";
-  if (ewl < 50) return "This may represent meaningful progress.";
-  return "Many bariatric studies use 50% excess weight loss as a common success benchmark, but your care team should interpret this in context.";
+  if (ewl < 0) return "This shows weight gain relative to your starting point.";
+  if (ewl < 25) return "Early progress relative to excess weight.";
+  if (ewl < 50) return "Meaningful progress on excess weight loss.";
+  return "Many bariatric programs cite ≥50% EWL as a success benchmark — discuss with your care team.";
 }
 
 function getGoalInterpretation(result: Result, goalBmi: number) {
-  const pounds = Math.abs(result.poundsToGoal ?? 0);
-  const direction = result.poundsToGoal && result.poundsToGoal > 0 ? "from" : "past";
-  return `You are ${formatNumber(pounds, 1)} lb ${direction} your entered goal. Your entered goal would place BMI at ${formatNumber(
-    goalBmi,
-    1,
-  )}. ${getGoalBmiContext(goalBmi).message} Healthy goals vary by person.`;
+  const lbs = Math.abs(result.poundsToGoal ?? 0);
+  const dir = (result.poundsToGoal ?? 1) > 0 ? "from" : "past";
+  return `You are ${formatN(lbs, 1)} lb ${dir} your entered goal. Goal BMI estimate: ${formatN(goalBmi, 1)}.`;
 }
 
-function getRegainInterpretation(percentRegained: number) {
-  if (percentRegained < 10) return "This suggests limited regain from your lowest weight.";
-  if (percentRegained < 20) return "This may be worth discussing during follow-up, especially if the trend continues.";
-  return "This level of regain may be worth reviewing with a bariatric provider to discuss support or revision options.";
-}
-
-function getResultWarnings(result: Result) {
-  const warnings: string[] = [];
-  const goalBmi = result.goalWeight ? bmiFromWeight(result.goalWeight, result.heightIn) : undefined;
-  const lowestBmi = result.lowestWeight ? bmiFromWeight(result.lowestWeight, result.heightIn) : undefined;
-
-  if (result.weightLost < 0) {
-    warnings.push("Your current weight is higher than your starting weight, so weight-loss metrics will show weight gain instead of loss.");
-  }
-  if (result.twl > 50 || result.currentBmi < 18.5) {
-    warnings.push("This is a large change from your starting weight. Please double-check the number.");
-  }
-  if (goalBmi !== undefined && goalBmi < 18.5) {
-    warnings.push("This goal weight would fall below the standard healthy BMI range. Please discuss a safe goal with a medical provider.");
-  }
-  if (result.goalWeight && result.goalWeight > result.currentWeight) {
-    warnings.push("This goal is higher than your current weight. Please double-check that this is intentional.");
-  }
-  if (result.lowestWeight && result.lowestWeight > result.currentWeight) {
-    warnings.push("Because lowest weight is higher than your current weight, weight regain from lowest weight does not apply.");
-  }
-  if (lowestBmi !== undefined && lowestBmi < 18.5) {
-    warnings.push("The lowest weight entered would fall below the standard healthy BMI range. Please double-check it.");
-  }
-
-  return Array.from(new Set(warnings));
+function getRegainInterpretation(pct: number) {
+  if (pct < 10) return "Limited regain from your lowest weight — strong maintenance.";
+  if (pct < 20) return "Some regain detected. Worth discussing at your next follow-up.";
+  return "Significant regain detected. A provider review may help identify support options.";
 }
 
 function getNextStepCards(result: Result) {
-  if (result.currentBmi < 18.5) {
-    return [
-      {
-        title: "Talk with a provider about safe next steps",
-        copy: "Because this BMI estimate is below the standard healthy range, the next step should be a medical conversation rather than weight-loss treatment browsing.",
-        cta: "Contact JourneyLite",
-        href: "/contact",
-      },
-    ];
-  }
-
-  const cards = [
-    {
-      title: "Explore weight-loss treatment options",
-      copy: "Your results could be a starting point for comparing medical, surgical, and non-surgical paths.",
-      cta: "Explore options",
-      href: "/services/compare-weight-loss-options",
-    },
-  ];
-
-  if (result.currentBmi >= 35) {
-    cards.push({
-      title: "See if bariatric surgery may be an option",
-      copy: "A consultation can help you understand eligibility, health history, insurance steps, and procedure fit.",
-      cta: "Review surgery options",
-      href: "/services/gastric-sleeve",
-    });
-  } else if (result.currentBmi >= 30) {
-    cards.push({
-      title: "Compare medical and procedural care",
-      copy: "Medical weight loss, medications, and procedures may be worth discussing after evaluation.",
-      cta: "Compare options",
-      href: "/services/compare-weight-loss-options",
-    });
-  }
-
-  if (result.percentRegained !== undefined && result.percentRegained >= 20) {
-    cards.push({
-      title: "Learn about revision and follow-up options",
-      copy: "Regain can be reviewed without judgment. Support may include nutrition, medication, anatomy review, or revision evaluation.",
-      cta: "Review regain support",
-      href: "/medications#post-op-support",
-    });
-  } else if (result.goalProgress !== undefined && result.goalProgress >= 80 && result.goalProgress <= 120) {
-    cards.push({
-      title: "Discuss maintenance support",
-      copy: "If you are close to goal, follow-up can help with nutrition, protein, hydration, labs, and long-term maintenance.",
-      cta: "Schedule a visit",
-      href: "/contact",
-    });
-  }
-
+  const cards = [];
+  if (result.currentBmi < 18.5) return [{ title: "Talk with a provider", copy: "BMI is below healthy range — a medical conversation is the recommended next step.", cta: "Contact JourneyLite", href: "/contact" }];
+  cards.push({ title: "Explore treatment options", copy: "Compare surgical, non-surgical, and medication paths with JourneyLite's care team.", cta: "Compare options", href: "/services/compare-weight-loss-options" });
+  if (result.currentBmi >= 35) cards.push({ title: "Consider bariatric surgery", copy: "Your BMI may support a surgical evaluation conversation. Learn about the gastric sleeve and bypass.", cta: "Explore surgery", href: "/services/gastric-sleeve" });
+  else if (result.currentBmi >= 30) cards.push({ title: "Compare medical paths", copy: "Medications, gastric balloon, and medical weight-loss programs may be worth discussing.", cta: "View options", href: "/medications" });
+  if ((result.percentRegained ?? 0) >= 20) cards.push({ title: "Review regain support", copy: "Regain can be addressed without judgment — nutrition, medication, or revision options may help.", cta: "Regain support", href: "/medications#post-op-support" });
+  else cards.push({ title: "Schedule a consultation", copy: "Bring these numbers to your first JourneyLite appointment to guide the conversation.", cta: "Book now", href: "/contact" });
   return cards.slice(0, 3);
 }
 
-function calculateResults(inputs: Inputs): Result | undefined {
-  const feet = toNumber(inputs.feet);
-  const inches = toNumber(inputs.inches);
-  const startingWeight = toNumber(inputs.startingWeight);
-  const currentWeight = toNumber(inputs.currentWeight);
-  const goalWeight = toNumber(inputs.goalWeight);
-  const lowestWeight = toNumber(inputs.lowestWeight);
-  const heightIn = feet * 12 + inches;
-
-  if (!heightIn || !startingWeight || !currentWeight) return undefined;
-
-  const currentBmi = bmiFromWeight(currentWeight, heightIn);
-  const startingBmi = bmiFromWeight(startingWeight, heightIn);
-  const idealWeight = (25 * heightIn * heightIn) / 703;
-  const weightLost = startingWeight - currentWeight;
-  const twl = (weightLost / startingWeight) * 100;
-  const excessWeight = startingWeight - idealWeight;
-  const ewl = excessWeight > 0 ? (weightLost / excessWeight) * 100 : undefined;
-  const bmiLoss = startingBmi - currentBmi;
-  const ebmil = startingBmi > 25 ? (bmiLoss / (startingBmi - 25)) * 100 : undefined;
-  const poundsToGoal = goalWeight ? currentWeight - goalWeight : undefined;
-  const goalProgress = goalWeight && startingWeight > goalWeight ? (weightLost / (startingWeight - goalWeight)) * 100 : undefined;
-  const canCalculateRegain = Boolean(lowestWeight && startingWeight > lowestWeight && currentWeight >= lowestWeight);
-  const regain = canCalculateRegain ? currentWeight - lowestWeight : undefined;
-  const percentRegained = canCalculateRegain ? ((currentWeight - lowestWeight) / (startingWeight - lowestWeight)) * 100 : undefined;
-  const treatmentDate = inputs.treatmentDate ? new Date(`${inputs.treatmentDate}T00:00:00`) : undefined;
-  const followUpDate = inputs.followUpDate ? new Date(`${inputs.followUpDate}T00:00:00`) : undefined;
-  const daysSinceTreatment =
-    treatmentDate && followUpDate && followUpDate >= treatmentDate ? Math.max(0, Math.round((followUpDate.getTime() - treatmentDate.getTime()) / 86400000)) : undefined;
-  const monthsSinceTreatment = daysSinceTreatment !== undefined ? Math.max(daysSinceTreatment / 30.437, 0.1) : undefined;
-  const averageWeightChangePerMonth = monthsSinceTreatment ? weightLost / monthsSinceTreatment : undefined;
-
-  return {
-    heightIn,
-    startingWeight,
-    currentWeight,
-    goalWeight,
-    lowestWeight,
-    currentBmi,
-    startingBmi,
-    idealWeight,
-    weightLost,
-    twl,
-    excessWeight,
-    ewl,
-    bmiLoss,
-    ebmil,
-    poundsToGoal,
-    goalProgress,
-    regain,
-    percentRegained,
-    daysSinceTreatment,
-    monthsSinceTreatment,
-    averageWeightChangePerMonth,
-  };
-}
-
-async function downloadResultsPdf(inputs: Inputs, result?: Result) {
-  const { jsPDF } = await import("jspdf");
-  const doc = new jsPDF({ unit: "pt", format: "letter" });
-  const pageWidth = doc.internal.pageSize.getWidth();
-  const margin = 44;
-  let y = 46;
-
-  const write = (text: string, size = 10, color = "#53635b", x = margin) => {
-    doc.setFont("helvetica", "normal");
-    doc.setFontSize(size);
-    doc.setTextColor(color);
-    const lines = doc.splitTextToSize(text, pageWidth - margin * 2);
-    doc.text(lines, x, y);
-    y += lines.length * (size + 4);
-  };
-  const heading = (text: string, size = 17) => {
-    y += 8;
-    doc.setFont("helvetica", "bold");
-    doc.setFontSize(size);
-    doc.setTextColor("#1f2c25");
-    doc.text(text, margin, y);
-    y += size + 10;
-  };
-  const row = (label: string, value: string) => {
-    doc.setFont("helvetica", "bold");
-    doc.setFontSize(10);
-    doc.setTextColor("#1f2c25");
-    doc.text(label, margin, y);
-    doc.setFont("helvetica", "normal");
-    doc.setTextColor("#53635b");
-    doc.text(value, margin + 190, y);
-    y += 18;
-  };
-  const pageBreak = () => {
-    if (y > 700) {
-      doc.addPage();
-      y = 46;
-    }
-  };
-
-  doc.setFillColor("#f7f8f6");
-  doc.rect(0, 0, pageWidth, 120, "F");
-  doc.setFont("helvetica", "bold");
-  doc.setFontSize(12);
-  doc.setTextColor("#145c42");
-  doc.text("JourneyLite Bariatric Physicians", margin, y);
-  y += 26;
-  doc.setFontSize(24);
-  doc.setTextColor("#1f2c25");
-  doc.text("Your Weight-Loss Metrics Summary", margin, y);
-  y += 24;
-  write(`Date generated: ${new Date().toLocaleDateString()}`, 10);
-  y = 140;
-
-  heading("Entered values");
-  row("Height", `${inputs.feet || "0"} ft ${inputs.inches || "0"} in`);
-  row("Starting weight", `${inputs.startingWeight || "Not entered"} lb`);
-  row("Current weight", `${inputs.currentWeight || "Not entered"} lb`);
-  if (inputs.gender) row("Gender context", inputs.gender);
-  if (inputs.goalWeight) row("Goal weight", `${inputs.goalWeight} lb`);
-  if (inputs.priorTreatment) row("Prior treatment", inputs.priorTreatment);
-  if (inputs.procedureType) row("Procedure or treatment type", inputs.procedureType);
-  if (inputs.lowestWeight) row("Lowest weight after treatment", `${inputs.lowestWeight} lb`);
-  if (inputs.treatmentDate) row("Treatment date", inputs.treatmentDate);
-  if (inputs.followUpDate) row("Follow-up date", inputs.followUpDate);
-
-  heading("Calculated results");
-  if (result) {
-    const bmiContext = getBmiContext(result.currentBmi);
-    row("Current BMI", formatNumber(result.currentBmi, 1));
-    row("BMI category", bmiContext.label);
-    row("Weight change", `${formatNumber(Math.abs(result.weightLost), 1)} lb ${result.weightLost >= 0 ? "lost" : "gained"}`);
-    row("Percent total weight loss", `${formatNumber(result.twl, 1)}%`);
-    if (result.ewl !== undefined) row("Estimated excess weight loss", `${formatNumber(result.ewl, 1)}%`);
-    row("BMI change", formatNumber(result.bmiLoss, 1));
-    if (result.goalProgress !== undefined) row("Progress toward goal", `${formatNumber(clamp(result.goalProgress, 0, 100), 0)}%`);
-    if (result.regain !== undefined) row("Weight regain", `${formatNumber(result.regain, 1)} lb`);
-    if (result.daysSinceTreatment !== undefined) row("Days between dates", `${formatNumber(result.daysSinceTreatment, 0)} days`);
-  } else {
-    write("Not enough values were entered to calculate results.", 10);
-  }
-
-  pageBreak();
-  heading("Plain-English explanations");
-  write("BMI is a height-and-weight screening number. It can help frame a care discussion, but it is not a diagnosis by itself.");
-  if (result) {
-    write(`${getBmiContext(result.currentBmi).label}: ${getBmiContext(result.currentBmi).copy}`);
-    write(getTwlInterpretation(result.twl));
-    if (result.ewl !== undefined) write(getEwlInterpretation(result.ewl));
-    if (result.goalWeight) write(getGoalInterpretation(result, bmiFromWeight(result.goalWeight, result.heightIn)));
-    if (result.percentRegained !== undefined) write(getRegainInterpretation(result.percentRegained));
-  }
-
-  if (result) {
-    const warnings = getResultWarnings(result);
-    if (warnings.length) {
-      pageBreak();
-      heading("Notes to review");
-      warnings.forEach((warning) => write(warning));
-    }
-  }
-
-  pageBreak();
-  heading("What these numbers can help us discuss");
-  write("These numbers can support a conversation about your starting point, treatment history, follow-up needs, realistic goals, insurance or financing questions, and which options may be appropriate after medical evaluation.");
-
-  heading("Next steps");
-  write("Explore Weight Loss Options: journeylite.com/services/compare-weight-loss-options", 10, "#145c42");
-  write("Schedule a Consultation: journeylite.com/contact", 10, "#145c42");
-  write("See If You Qualify: journeylite.com/contact", 10, "#145c42");
-
-  doc.setFontSize(8);
-  doc.setTextColor("#66756d");
-  doc.text(
-    "This summary is for educational purposes only and does not diagnose, treat, or replace a consultation with a qualified medical provider.",
-    margin,
-    760,
-    { maxWidth: pageWidth - margin * 2 },
-  );
-  doc.save("weight-loss-metrics-summary.pdf");
-}
-
-function toNumber(value: string) {
-  const number = Number(value);
-  return Number.isFinite(number) && number > 0 ? number : 0;
-}
-
-function formatNumber(value: number, digits: number) {
-  if (!Number.isFinite(value)) return "0";
-  return value.toFixed(digits);
-}
-
-function clamp(value: number, min: number, max: number) {
-  return Math.min(Math.max(value, min), max);
-}
+function bmiFrom(w: number, h: number) { return (w / (h * h)) * 703; }
+function toNum(v: string) { const n = Number(v); return Number.isFinite(n) && n > 0 ? n : 0; }
+function parseNum(v: string) { if (!v) return undefined; const n = Number(v); return Number.isFinite(n) ? n : undefined; }
+function formatN(v: number, d: number) { return Number.isFinite(v) ? v.toFixed(d) : "0"; }
+function clamp(v: number, mn: number, mx: number) { return Math.min(Math.max(v, mn), mx); }

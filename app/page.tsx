@@ -3,6 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { HomeQuiz } from "./components/HomeQuiz";
 import { TestimonialsSection } from "./components/TestimonialsSection";
+import { BariatricMetricsWidget } from "./components/BariatricMetricsWidget";
 import { BookConsultButton } from "@/components/site/BookConsultButton";
 import {
   ComparisonTable,
@@ -463,6 +464,28 @@ export default function HomePage() {
             <CTAButton href="/contact">Get a Personalized Recommendation</CTAButton>
           </div>
         </Section>
+
+        <section className="bg-white py-16 lg:py-20" id="metrics-calculator">
+          <div className="mx-auto grid max-w-7xl gap-10 px-5 lg:grid-cols-[1fr_1.1fr] lg:items-center lg:px-8">
+            <div>
+              <p className="eyebrow">Free calculator</p>
+              <h2 className="section-title">Know your numbers before your consultation.</h2>
+              <p className="section-intro">
+                Enter your height and weight to instantly see your BMI, percent total weight loss, and where you stand.
+                Everything stays private in your browser — nothing is sent anywhere.
+              </p>
+              <ul className="mt-5 grid gap-2">
+                {["BMI with category and plain-English context", "Percent total weight loss (%TWL)", "Goal progress if you add a target weight", "Suggested next steps based on your numbers"].map((item) => (
+                  <li className="flex items-center gap-2 text-sm text-[#53635b]" key={item}>
+                    <span className="flex size-4 shrink-0 items-center justify-center rounded-full bg-[#edf4ef] text-[10px] font-bold text-[#145c42]">✓</span>
+                    {item}
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <BariatricMetricsWidget />
+          </div>
+        </section>
 
         <section className="bg-[#edf4ef] py-16 lg:py-20" id="quiz">
           <div className="mx-auto grid max-w-7xl gap-10 px-5 lg:grid-cols-[0.8fr_1fr] lg:items-start lg:px-8">
