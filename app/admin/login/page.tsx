@@ -3,14 +3,17 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
-import { FormEvent, Suspense, useState } from "react";
-import { ArrowLeft, Loader2, LogIn } from "lucide-react";
+import { FormEvent, Suspense, useCallback, useState } from "react";
+import { ArrowLeft, Loader2, MailCheck, Send } from "lucide-react";
 import { toast } from "sonner";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { TurnstileWidget } from "@/components/site/TurnstileWidget";
 import { createClient } from "@/lib/supabase/client";
+
+const TURNSTILE_SITE_KEY = process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY;
 
 export default function AdminLoginPage() {
   return (
@@ -23,13 +26,26 @@ export default function AdminLoginPage() {
 function AdminLoginForm() {
   const searchParams = useSearchParams();
   const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
   const [isGoogleLoading, setIsGoogleLoading] = useState(false);
   const [isEmailLoading, setIsEmailLoading] = useState(false);
+  const [isMagicLinkSent, setIsMagicLinkSent] = useState(false);
+  const [turnstileToken, setTurnstileToken] = useState("");
+  const [turnstileError, setTurnstileError] = useState("");
+  const [turnstileResetKey, setTurnstileResetKey] = useState(0);
   const [error, setError] = useState<string | null>(null);
   const displayedError = error ?? searchParams.get("error");
 
   const nextPath = safeAdminNext(searchParams.get("next"));
+
+  const handleTurnstileVerify = useCallback((token: string) => {
+    setTurnstileToken(token);
+    if (token) setTurnstileError("");
+  }, []);
+
+  const handleTurnstileReset = useCallback(() => {
+    setTurnstileToken("");
+    setTurnstileError("Security check failed. Refresh the page and try again.");
+  }, []);
 
   async function startGoogleLogin() {
     setError(null);
@@ -40,7 +56,7 @@ function AdminLoginForm() {
       options: {
         redirectTo: `${window.location.origin}/api/auth/callback?next=${encodeURIComponent(nextPath)}`,
         queryParams: {
-          // Force account selection every time so staff can switch accounts
+          // Force account selection every time so staff can switch accounts.
           prompt: "select_account",
         },
       },
@@ -49,26 +65,40 @@ function AdminLoginForm() {
       setError(oauthError.message);
       setIsGoogleLoading(false);
     }
-    // On success, Supabase redirects the browser — no further handling needed
   }
 
-  async function emailLogin(event: FormEvent<HTMLFormElement>) {
+  async function sendMagicLink(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     setError(null);
+    setIsMagicLinkSent(false);
+
+    if (TURNSTILE_SITE_KEY && !turnstileToken) {
+      setError("Please complete the security check.");
+      return;
+    }
+
     setIsEmailLoading(true);
+
     try {
       const supabase = createClient();
-      const { error: signInError } = await supabase.auth.signInWithPassword({
+      const { error: signInError } = await supabase.auth.signInWithOtp({
         email,
-        password,
+        options: {
+          emailRedirectTo: `${window.location.origin}/api/auth/callback?next=${encodeURIComponent(nextPath)}`,
+          shouldCreateUser: true,
+          captchaToken: turnstileToken || undefined,
+        },
       });
+
       if (signInError) throw signInError;
-      toast.success("Signed in — loading admin…");
-      // Let the middleware redirect handle the navigation
-      window.location.assign(nextPath);
+      setIsMagicLinkSent(true);
+      toast.success("Magic link sent. Check your email to continue.");
     } catch (err) {
-      setError(err instanceof Error ? err.message : "Email sign-in failed.");
+      setError(err instanceof Error ? err.message : "Could not send the magic link.");
+    } finally {
       setIsEmailLoading(false);
+      setTurnstileToken("");
+      setTurnstileResetKey((current) => current + 1);
     }
   }
 
@@ -139,11 +169,11 @@ function AdminLoginForm() {
 
             <div className="my-10 grid grid-cols-[1fr_auto_1fr] items-center gap-5 text-sm font-medium text-[#9aaaa0]">
               <span className="h-px bg-[#dde5df]" />
-              <span>or sign in with email</span>
+              <span>or use a magic link / OTP</span>
               <span className="h-px bg-[#dde5df]" />
             </div>
 
-            <form className="space-y-7" onSubmit={emailLogin}>
+            <form className="space-y-7" onSubmit={sendMagicLink}>
               <div className="space-y-3">
                 <Label className="text-lg font-semibold text-[#2d4b39]" htmlFor="email">
                   Email
@@ -156,36 +186,42 @@ function AdminLoginForm() {
                   value={email}
                   onChange={(event) => setEmail(event.target.value)}
                   placeholder="admin@journeylite.com"
+                  required
                 />
               </div>
-              <div className="space-y-3">
-                <div className="flex items-center justify-between gap-4">
-                  <Label className="text-lg font-semibold text-[#2d4b39]" htmlFor="password">
-                    Password
-                  </Label>
-                </div>
-                <Input
-                  className="h-16 rounded-xl border-[#dbe2dd] px-6 text-lg text-[#173c2b]"
-                  id="password"
-                  autoComplete="current-password"
-                  placeholder="••••••••"
-                  type="password"
-                  value={password}
-                  onChange={(event) => setPassword(event.target.value)}
+
+              {isMagicLinkSent ? (
+                <Alert className="border-[#b9d8c4] bg-[#f0f8f2] text-[#173c2b]">
+                  <MailCheck className="size-5" />
+                  <AlertDescription>
+                    Check your email for a one-time sign-in link. It will bring you back to the admin portal.
+                  </AlertDescription>
+                </Alert>
+              ) : null}
+
+              {TURNSTILE_SITE_KEY ? (
+                <TurnstileWidget
+                  key={turnstileResetKey}
+                  action="admin-login"
+                  onError={handleTurnstileReset}
+                  onExpire={handleTurnstileReset}
+                  onVerify={handleTurnstileVerify}
                 />
-              </div>
+              ) : null}
+              {turnstileError ? <p className="text-sm font-semibold text-[#8a3b22]">{turnstileError}</p> : null}
+
               <Button
                 className="h-16 w-full rounded-xl !bg-[#153f2b] text-lg font-semibold !text-white hover:!bg-[#0f3322]"
-                disabled={isGoogleLoading || isEmailLoading}
+                disabled={isGoogleLoading || isEmailLoading || Boolean(TURNSTILE_SITE_KEY && !turnstileToken)}
                 type="submit"
               >
-                {isEmailLoading ? <Loader2 className="animate-spin" /> : <LogIn />}
-                Log in to admin
+                {isEmailLoading ? <Loader2 className="animate-spin" /> : <Send />}
+                Send magic link
               </Button>
             </form>
 
             <p className="mt-6 text-sm text-muted-foreground">
-              Email sign-in requires a Supabase Auth account. Ask a superadmin to invite you, or use Google sign-in.
+              Email sign-in uses Supabase OTP, delivered as a magic link or one-time code. Only approved admin emails can access the dashboard after sign-in.
             </p>
 
             <Link className="mt-6 inline-flex items-center gap-2 text-lg font-medium text-[#96a89c] hover:text-[#153f2b]" href="/">
