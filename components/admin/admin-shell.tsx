@@ -9,6 +9,7 @@ import {
   BriefcaseMedical,
   ClipboardList,
   ExternalLink,
+  Globe,
   LogOut,
   FileText,
   Images,
@@ -59,6 +60,7 @@ const navigation = [
   { title: "Services", href: "/admin/services", icon: BriefcaseMedical },
   { title: "Pages / Sections", href: "/admin/pages", icon: FileText },
   { title: "Forms / Submissions", href: "/admin/forms", icon: ClipboardList },
+  { title: "Translations", href: "/admin/translations", icon: Globe },
   { title: "Admin Management", href: "/admin/admins", icon: ShieldCheck },
   { title: "Staff / Providers", href: "/admin/staff", icon: Users },
   { title: "Locations", href: "/admin/locations", icon: MapPin },
@@ -70,10 +72,10 @@ const navigation = [
 
 const navSections = [
   { label: "", items: navigation.slice(0, 1) },
-  { label: "Content", items: navigation.slice(1, 6) },
-  { label: "Access", items: navigation.slice(6, 7) },
-  { label: "People & Places", items: navigation.slice(7, 10) },
-  { label: "System", items: navigation.slice(10) },
+  { label: "Content", items: navigation.slice(1, 7) },
+  { label: "Access", items: navigation.slice(7, 8) },
+  { label: "People & Places", items: navigation.slice(8, 11) },
+  { label: "System", items: navigation.slice(11) },
 ];
 
 type AdminShellUser = {

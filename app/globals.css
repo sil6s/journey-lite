@@ -27,6 +27,17 @@ body {
   font-family: var(--font-inter), system-ui, sans-serif;
 }
 
+body > .skiptranslate,
+.goog-te-banner-frame,
+.goog-te-gadget,
+.goog-logo-link {
+  display: none !important;
+}
+
+body {
+  top: 0 !important;
+}
+
 a,
 button,
 summary,
