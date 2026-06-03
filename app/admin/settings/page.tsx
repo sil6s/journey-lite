@@ -5,8 +5,8 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Separator } from "@/components/ui/separator";
 
 export default function AdminSettingsPage() {
-  const recaptchaServerConfigured = Boolean(process.env.RECAPTCHA_ENTERPRISE_API_KEY && process.env.RECAPTCHA_ENTERPRISE_PROJECT_ID);
-  const recaptchaRequired = process.env.RECAPTCHA_ENFORCEMENT === "required";
+  const turnstileServerConfigured = Boolean(process.env.TURNSTILE_SECRET_KEY);
+  const turnstileRequired = process.env.TURNSTILE_ENFORCEMENT === "required";
   const checks = [
     { label: "Sanity project", ok: Boolean(process.env.NEXT_PUBLIC_SANITY_PROJECT_ID), detail: process.env.NEXT_PUBLIC_SANITY_PROJECT_ID || "Missing" },
     { label: "Sanity dataset", ok: Boolean(process.env.NEXT_PUBLIC_SANITY_DATASET), detail: process.env.NEXT_PUBLIC_SANITY_DATASET || "Missing" },
@@ -14,15 +14,15 @@ export default function AdminSettingsPage() {
     { label: "Google OAuth", ok: Boolean(process.env.GOOGLE_OAUTH_CLIENT_ID && process.env.GOOGLE_OAUTH_CLIENT_SECRET), detail: "Admin sign-in" },
     { label: "Admin access table", ok: Boolean(process.env.NEXT_PUBLIC_SUPABASE_URL && process.env.SUPABASE_SERVICE_ROLE_KEY), detail: "Managed in Supabase" },
     { label: "Umami tracking", ok: Boolean(process.env.NEXT_PUBLIC_UMAMI_WEBSITE_ID), detail: process.env.NEXT_PUBLIC_UMAMI_WEBSITE_ID || "Missing" },
-    { label: "reCAPTCHA public key", ok: Boolean(process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY), detail: "Enterprise script" },
+    { label: "Turnstile public key", ok: Boolean(process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY), detail: "Cloudflare managed widget" },
     {
-      label: "reCAPTCHA server verification",
-      ok: recaptchaServerConfigured || !recaptchaRequired,
-      detail: recaptchaServerConfigured
-        ? "Enterprise verification enabled"
-        : recaptchaRequired
+      label: "Turnstile server verification",
+      ok: turnstileServerConfigured || !turnstileRequired,
+      detail: turnstileServerConfigured
+        ? "Cloudflare Siteverify enabled"
+        : turnstileRequired
           ? "Required but missing"
-          : "Optional bypass until Enterprise API key and project ID are added",
+          : "Optional bypass until TURNSTILE_SECRET_KEY is added",
     },
   ];
 

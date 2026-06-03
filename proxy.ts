@@ -1,61 +1,5 @@
-﻿import { createServerClient } from "@supabase/ssr";
+import { createServerClient } from "@supabase/ssr";
 import { NextRequest, NextResponse } from "next/server";
-import {
-  defaultLocale,
-  isValidLocale,
-  LOCALE_COOKIE,
-  type SupportedLocale,
-} from "@/lib/i18n/config";
-
-const BYPASS_LOCALE_PREFIXES = [
-  "/admin",
-  "/studio",
-  "/api",
-  "/_next",
-  "/favicon",
-];
-
-const STATIC_EXTENSION = /\.[\w]+$/;
-
-function detectLocale(request: NextRequest): SupportedLocale {
-  const [, urlSegment] = request.nextUrl.pathname.split("/");
-  if (urlSegment && isValidLocale(urlSegment)) return urlSegment;
-
-  const cookieLocale = request.cookies.get(LOCALE_COOKIE)?.value;
-  if (cookieLocale && isValidLocale(cookieLocale)) return cookieLocale;
-
-  const acceptLang = request.headers.get("accept-language") ?? "";
-  for (const part of acceptLang.split(",")) {
-    const tag = part.split(";")[0]?.trim().split("-")[0]?.toLowerCase();
-    if (tag && isValidLocale(tag)) return tag;
-  }
-
-  return defaultLocale;
-}
-
-function localeRedirectIfNeeded(request: NextRequest) {
-  const { pathname } = request.nextUrl;
-  const shouldBypassLocale =
-    BYPASS_LOCALE_PREFIXES.some((prefix) => pathname.startsWith(prefix)) ||
-    STATIC_EXTENSION.test(pathname);
-
-  if (shouldBypassLocale) return null;
-
-  const [, firstSegment] = pathname.split("/");
-  if (firstSegment && isValidLocale(firstSegment)) return null;
-
-  const locale = detectLocale(request);
-  const url = request.nextUrl.clone();
-  url.pathname = `/${locale}${pathname === "/" ? "" : pathname}`;
-
-  const response = NextResponse.redirect(url);
-  response.cookies.set(LOCALE_COOKIE, locale, {
-    path: "/",
-    maxAge: 60 * 60 * 24 * 365,
-    sameSite: "lax",
-  });
-  return response;
-}
 
 async function refreshSupabaseSession(request: NextRequest) {
   let supabaseResponse = NextResponse.next({ request });
@@ -88,10 +32,6 @@ async function refreshSupabaseSession(request: NextRequest) {
 
 export async function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl;
-
-  const localeRedirect = localeRedirectIfNeeded(request);
-  if (localeRedirect) return localeRedirect;
-
   const { supabaseResponse, user } = await refreshSupabaseSession(request);
 
   if (
@@ -119,8 +59,5 @@ export async function proxy(request: NextRequest) {
 }
 
 export const config = {
-  matcher: [
-    "/admin/:path*",
-    "/((?!_next/static|_next/image|favicon|sitemap|robots|manifest|.*\\.(?:svg|png|jpg|jpeg|gif|webp|ico|woff2?|ttf|otf|mp4|pdf)$).*)",
-  ],
+  matcher: ["/admin/:path*"],
 };

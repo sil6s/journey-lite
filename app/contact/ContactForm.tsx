@@ -1,11 +1,13 @@
 "use client";
 
 import Image from "next/image";
-import { useRef, useState } from "react";
+import { useCallback, useRef, useState } from "react";
 import { CTAButton } from "../components/marketing";
 import { useConsult } from "@/components/site/consult-context";
+import { TurnstileWidget } from "@/components/site/TurnstileWidget";
 
 const GEOAPIFY_KEY = "931a024ec98f486ba9cf392518f88d4c";
+const TURNSTILE_SITE_KEY = process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY;
 
 type FormData = {
   serviceInterest: string;
@@ -212,6 +214,9 @@ export function ContactExperience() {
   const [step, setStep] = useState(0);
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [submitted, setSubmitted] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [turnstileToken, setTurnstileToken] = useState("");
+  const [turnstileResetKey, setTurnstileResetKey] = useState(0);
   const formRef = useRef<HTMLDivElement>(null);
 
   const safeStep = Math.min(step, steps.length - 1);
@@ -237,10 +242,24 @@ export function ContactExperience() {
     if (current === "message") {
       if (!data.emergencyAcknowledgement) e.emergencyAcknowledgement = "Confirm this is not for emergencies.";
       if (!data.contactConsent) e.contactConsent = "Confirm JourneyLite may contact you.";
+      if (TURNSTILE_SITE_KEY && !turnstileToken) e.turnstile = "Please complete the security check.";
     }
     setErrors(e);
     return Object.keys(e).length === 0;
   }
+
+  const handleTurnstileVerify = useCallback((token: string) => {
+    setTurnstileToken(token);
+    if (token) setErrors((prev) => ({ ...prev, turnstile: "" }));
+  }, []);
+
+  const handleTurnstileError = useCallback(() => {
+    setErrors((prev) => ({ ...prev, turnstile: "Security check failed. Please try again." }));
+  }, []);
+
+  const handleTurnstileExpire = useCallback(() => {
+    setErrors((prev) => ({ ...prev, turnstile: "Security check expired. Please try again." }));
+  }, []);
 
   function goNext() {
     if (!validateCurrent()) return;
@@ -257,8 +276,9 @@ export function ContactExperience() {
     if (!validateCurrent()) return;
     if (data.website) return;
     const submittedAt = new Date().toISOString();
+    setIsSubmitting(true);
     try {
-      await fetch("/api/contact", {
+      const response = await fetch("/api/contact", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -284,12 +304,24 @@ export function ContactExperience() {
           sourcePage: data.sourcePage,
           website: data.website,
           submittedAt,
+          turnstileToken,
         }),
       });
-    } catch {
-      // non-fatal
+      if (!response.ok) {
+        const body = await response.json().catch(() => ({}));
+        throw new Error((body as { error?: string }).error ?? "Submission failed.");
+      }
+      setSubmitted(true);
+    } catch (error) {
+      setTurnstileToken("");
+      setTurnstileResetKey((prev) => prev + 1);
+      setErrors((prev) => ({
+        ...prev,
+        submit: error instanceof Error ? error.message : "Something went wrong. Please call us directly.",
+      }));
+    } finally {
+      setIsSubmitting(false);
     }
-    setSubmitted(true);
   }
 
   if (submitted) {
@@ -366,6 +398,23 @@ export function ContactExperience() {
         {current === "measurements" && <MeasurementsStep data={data} update={update} />}
         {current === "insurance" && <InsuranceStep data={data} update={update} />}
         {current === "message" && <MessageStep data={data} errors={errors} update={update} />}
+        {current === "message" && (
+          <div className="mt-6 grid gap-3">
+            <TurnstileWidget
+              action="consultation_request"
+              key={turnstileResetKey}
+              onError={handleTurnstileError}
+              onExpire={handleTurnstileExpire}
+              onVerify={handleTurnstileVerify}
+            />
+            {errors.turnstile ? <p className="text-sm font-semibold text-[#8a3b22]">{errors.turnstile}</p> : null}
+            {errors.submit ? (
+              <div className="rounded-lg border border-[#f0c9be] bg-[#fff7f4] px-4 py-3 text-sm font-semibold text-[#7b351e]">
+                {errors.submit}
+              </div>
+            ) : null}
+          </div>
+        )}
       </div>
 
       {/* Honeypot */}
@@ -391,10 +440,11 @@ export function ContactExperience() {
         </button>
         <button
           className="inline-flex min-h-11 items-center justify-center rounded-md bg-[#145c42] px-6 py-3 text-sm font-semibold text-white shadow-sm transition hover:bg-[#0f4d37] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#145c42] focus-visible:ring-offset-2"
+          disabled={isSubmitting}
           onClick={current === "message" ? submit : goNext}
           type="button"
         >
-          {current === "message" ? "Send Request" : "Continue"}
+          {isSubmitting ? "Sending..." : current === "message" ? "Send Request" : "Continue"}
         </button>
       </div>
     </section>

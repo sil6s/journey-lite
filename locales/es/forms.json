@@ -71,7 +71,7 @@
     "submitting": "Enviando su solicitud…",
     "success": "¡Gracias! Recibimos su solicitud y nos comunicaremos con usted pronto.",
     "error": "Algo salió mal. Por favor, inténtelo de nuevo o llámenos al 877-442-2263.",
-    "recaptchaError": "Error de verificación de seguridad. Por favor actualice la página e inténtelo de nuevo."
+    "securityError": "Error de verificación de seguridad. Por favor actualice la página e inténtelo de nuevo."
   },
   "hints": {
     "requiredFields": "Los campos marcados con * son obligatorios.",

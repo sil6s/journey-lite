@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { verifyRecaptchaToken } from "@/lib/auth/recaptcha";
+import { verifyTurnstileToken } from "@/lib/auth/turnstile";
 import { sendLeadEmail } from "@/lib/email";
 
 interface ContactPayload {
@@ -33,7 +33,7 @@ interface ContactPayload {
   textConsent?: boolean;
   sourcePage?: string;
   submittedAt?: string;
-  recaptchaToken?: string;
+  turnstileToken?: string;
   website?: string;
 }
 
@@ -53,10 +53,14 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: "Missing required fields." }, { status: 400 });
   }
 
-  const captcha = await verifyRecaptchaToken(body.recaptchaToken, "CONSULTATION_REQUEST");
-  if (!captcha.ok) {
-    console.warn("[contact] reCAPTCHA failed:", captcha.reason);
-    if (!captcha.bypassed) {
+  const turnstile = await verifyTurnstileToken(
+    body.turnstileToken,
+    "consultation_request",
+    req.headers.get("x-forwarded-for")?.split(",")[0]?.trim()
+  );
+  if (!turnstile.ok) {
+    console.warn("[contact] Turnstile failed:", turnstile.reason);
+    if (!turnstile.bypassed) {
       return NextResponse.json({ error: "Security check failed. Please try again." }, { status: 400 });
     }
   }
@@ -79,7 +83,7 @@ export async function POST(req: NextRequest) {
     bestTime: body.bestTime ?? "",
     sourcePage: body.sourcePage ?? "unknown",
     submittedAt: body.submittedAt ?? new Date().toISOString(),
-    recaptchaScore: captcha.score ?? null,
+    securityCheck: turnstile.bypassed ? "Turnstile bypassed" : "Turnstile verified",
     contactReason: body.contactReason,
     appointmentInterest: body.appointmentInterest,
     revisionProcedures: body.revisionProcedures,

@@ -1,7 +1,7 @@
 "use client";
 
 import type { ReactNode } from "react";
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import {
   AlertTriangle,
   ArrowLeft,
@@ -40,8 +40,9 @@ import { Textarea } from "@/components/ui/textarea";
 import { Sheet, SheetContent } from "@/components/ui/sheet";
 import { cn } from "@/lib/utils";
 import type { Value as PhoneValue } from "react-phone-number-input";
+import { TurnstileWidget } from "@/components/site/TurnstileWidget";
 
-const SITE_KEY = process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY;
+const TURNSTILE_SITE_KEY = process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY;
 
 const trustStats = [
   ["20+", "Years of Bariatric Experience"],
@@ -167,19 +168,6 @@ interface FormState {
   website: string;
 }
 
-async function getRecaptchaToken(action: string): Promise<string> {
-  if (!SITE_KEY || typeof window === "undefined" || !window.grecaptcha?.enterprise) return "";
-  return new Promise((resolve) => {
-    window.grecaptcha.enterprise.ready(async () => {
-      try {
-        resolve(await window.grecaptcha.enterprise.execute(SITE_KEY, { action }));
-      } catch {
-        resolve("");
-      }
-    });
-  });
-}
-
 const surgicalProcedureOptions = [
   "Gastric Sleeve",
   "Gastric Bypass",
@@ -231,6 +219,8 @@ export function BookConsultOverlay() {
   const [flow, setFlow] = useState<Flow>("choice");
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [form, setForm] = useState<FormState>(initialForm);
+  const [turnstileToken, setTurnstileToken] = useState("");
+  const [turnstileResetKey, setTurnstileResetKey] = useState(0);
   const bodyRef = useRef<HTMLDivElement>(null);
 
   const revisionBlocked = useMemo(
@@ -244,6 +234,8 @@ export function BookConsultOverlay() {
       const hasPrefill = Boolean(prefill.treatmentInterest);
       setFlow(hasPrefill ? "details" : "choice");
       setErrors({});
+      setTurnstileToken("");
+      setTurnstileResetKey((prev) => prev + 1);
       setForm({
         ...initialForm,
         appointmentInterest: normalizePrefill(prefill.treatmentInterest),
@@ -318,9 +310,23 @@ export function BookConsultOverlay() {
     if (form.email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email)) errs.email = "Enter a valid email address.";
     if (form.email && form.confirmEmail !== form.email) errs.confirmEmail = "Email addresses do not match.";
     if (!form.consent) errs.consent = "Please confirm to continue.";
+    if (TURNSTILE_SITE_KEY && !turnstileToken) errs.turnstile = "Please complete the security check.";
     setErrors(errs);
     return Object.keys(errs).length === 0;
   }
+
+  const handleTurnstileVerify = useCallback((token: string) => {
+    setTurnstileToken(token);
+    if (token) setErrors((prev) => ({ ...prev, turnstile: "" }));
+  }, []);
+
+  const handleTurnstileError = useCallback(() => {
+    setErrors((prev) => ({ ...prev, turnstile: "Security check failed. Please try again." }));
+  }, []);
+
+  const handleTurnstileExpire = useCallback(() => {
+    setErrors((prev) => ({ ...prev, turnstile: "Security check expired. Please try again." }));
+  }, []);
 
   function goNext() {
     if (flow === "details") {
@@ -351,7 +357,6 @@ export function BookConsultOverlay() {
     if (form.website) return;
     setFlow("submitting");
 
-    const recaptchaToken = await getRecaptchaToken("CONSULTATION_REQUEST");
     try {
       const res = await fetch("/api/contact", {
         method: "POST",
@@ -364,7 +369,7 @@ export function BookConsultOverlay() {
           bmi: computeBMI(form.heightFt, form.heightIn, form.weight),
           sourcePage: "consult-overlay",
           submittedAt: new Date().toISOString(),
-          recaptchaToken,
+          turnstileToken,
         }),
       });
       if (!res.ok) {
@@ -374,6 +379,8 @@ export function BookConsultOverlay() {
       setFlow("done");
     } catch (error) {
       setErrors({ submit: error instanceof Error ? error.message : "Something went wrong. Please call us directly." });
+      setTurnstileToken("");
+      setTurnstileResetKey((prev) => prev + 1);
       setFlow("contact");
     }
   }
@@ -501,6 +508,14 @@ export function BookConsultOverlay() {
               ) : (
                 <div className="px-6 py-6 grid gap-6">
                   <ContactFields errors={errors} form={form} update={update} />
+                  <TurnstileWidget
+                    action="consultation_request"
+                    key={turnstileResetKey}
+                    onError={handleTurnstileError}
+                    onExpire={handleTurnstileExpire}
+                    onVerify={handleTurnstileVerify}
+                  />
+                  {errors.turnstile ? <p className="text-sm font-semibold text-[#8a3b22]">{errors.turnstile}</p> : null}
                   {errors.submit ? (
                     <Alert className="border-[#f0c9be] bg-[#fff7f4] text-[#7b351e]">
                       <AlertTriangle className="size-4" />

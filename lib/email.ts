@@ -28,7 +28,7 @@ export interface LeadSubmission {
   bestTime: string;
   sourcePage: string;
   submittedAt: string;
-  recaptchaScore: number | null;
+  securityCheck: string | null;
   contactReason?: string;
   appointmentInterest?: string;
   revisionProcedures?: string[];
@@ -178,7 +178,7 @@ function buildStaffEmail(data: LeadSubmission): { subject: string; html: string 
     ${infoRow("Other details", data.otherDetails)}
     ${infoRow("Message", data.message)}
     ${infoRow("Source page", data.sourcePage)}
-    ${infoRow("reCAPTCHA score", data.recaptchaScore !== null ? String(data.recaptchaScore) : null)}
+    ${infoRow("Security check", data.securityCheck)}
   `)}
 
   ${sectionLabel("Quick links")}

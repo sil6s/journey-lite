@@ -71,7 +71,7 @@
     "submitting": "Sending your request…",
     "success": "Thank you! We received your request and will contact you soon.",
     "error": "Something went wrong. Please try again or call us at 877-442-2263.",
-    "recaptchaError": "Security verification failed. Please refresh and try again."
+    "securityError": "Security verification failed. Please refresh and try again."
   },
   "hints": {
     "requiredFields": "Fields marked with * are required.",
