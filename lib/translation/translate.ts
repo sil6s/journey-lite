@@ -38,6 +38,7 @@ import {
 } from "./portable-text";
 import { acquireAiCallSlot, acquireTranslationLock } from "./rate-limiter";
 import { getLanguageEntry, type SupportedLocale } from "@/lib/i18n/config";
+import type { Json } from "@/lib/supabase/database.types";
 
 // ── DeepSeek config ───────────────────────────────────────────────────────────
 
@@ -45,6 +46,10 @@ const DEEPSEEK_API_URL = "https://api.deepseek.com/v1/chat/completions";
 const DEEPSEEK_MODEL = "deepseek-chat"; // DeepSeek-V3: best quality, very cheap
 const MAX_TOKENS = 8192;
 const TEMPERATURE = 0.1; // Low = consistent, deterministic translation
+
+function asJson(value: unknown): Json {
+  return value as Json;
+}
 
 // ── System prompt ─────────────────────────────────────────────────────────────
 
@@ -174,11 +179,11 @@ export async function getOrCreateTranslation(
       sourceContentHash: hash,
       translatedTitle: translated.title ?? null,
       translatedExcerpt: translated.excerpt ?? null,
-      translatedBody: translated.body ?? null,
+      translatedBody: translated.body ? asJson(translated.body) : null,
       translatedSeoTitle: translated.seoTitle ?? null,
       translatedSeoDescription: translated.seoDescription ?? null,
-      translatedFaqs: translated.faqs ?? null,
-      translatedCtas: translated.ctas ?? null,
+      translatedFaqs: translated.faqs ? asJson(translated.faqs) : null,
+      translatedCtas: translated.ctas ? asJson(translated.ctas) : null,
       translatedImageAlts: translated.imageAlts ?? null,
     });
 

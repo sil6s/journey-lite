@@ -7,6 +7,7 @@
 import { createHash } from "crypto";
 import { getSupabaseAdminClient } from "@/lib/supabase/admin";
 import type { SupportedLocale } from "@/lib/i18n/config";
+import type { Json } from "@/lib/supabase/database.types";
 
 // ── Types ─────────────────────────────────────────────────────────────────────
 
@@ -29,12 +30,12 @@ export type CachedTranslation = {
   translated_title: string | null;
   translated_slug: string | null;
   translated_excerpt: string | null;
-  translated_body: unknown | null;
+  translated_body: Json | null;
   translated_seo_title: string | null;
   translated_seo_description: string | null;
-  translated_faqs: unknown | null;
-  translated_ctas: unknown | null;
-  translated_image_alts: unknown | null;
+  translated_faqs: Json | null;
+  translated_ctas: Json | null;
+  translated_image_alts: Json | null;
   status: TranslationStatus;
   error_message: string | null;
   translation_provider: string;
@@ -218,11 +219,11 @@ export async function saveTranslation(
     sourceContentHash: string;
     translatedTitle: string | null;
     translatedExcerpt: string | null;
-    translatedBody: unknown | null;
+    translatedBody: Json | null;
     translatedSeoTitle: string | null;
     translatedSeoDescription: string | null;
-    translatedFaqs: unknown | null;
-    translatedCtas: unknown | null;
+    translatedFaqs: Json | null;
+    translatedCtas: Json | null;
     translatedImageAlts: Record<string, string> | null;
     provider?: string;
   },
