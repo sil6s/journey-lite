@@ -21,6 +21,7 @@ export function TurnstileWidget({ action, onVerify, onExpire, onError }: Turnsti
     let cancelled = false;
     let attempts = 0;
     const container = containerRef.current;
+    const siteKey = TURNSTILE_SITE_KEY;
 
     function renderWidget() {
       if (cancelled || widgetIdRef.current || !container) return;
@@ -32,7 +33,7 @@ export function TurnstileWidget({ action, onVerify, onExpire, onError }: Turnsti
       }
 
       widgetIdRef.current = window.turnstile.render(container, {
-        sitekey: TURNSTILE_SITE_KEY,
+        sitekey: siteKey,
         action,
         theme: "auto",
         callback: onVerify,
