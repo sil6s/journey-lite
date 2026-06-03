@@ -1,7 +1,9 @@
 import type { Metadata } from "next";
+import { headers } from "next/headers";
 import { redirect } from "next/navigation";
 import { AdminShell } from "@/components/admin/admin-shell";
 import { createClient } from "@/lib/supabase/server";
+import { getSupabasePublishableKey, getSupabaseUrl } from "@/lib/supabase/env";
 import { getAdminAccessForEmail } from "@/lib/admin/users";
 
 export const metadata: Metadata = {
@@ -10,6 +12,23 @@ export const metadata: Metadata = {
 };
 
 export default async function AdminLayout({ children }: { children: React.ReactNode }) {
+  const headerStore = await headers();
+  const pathname = headerStore.get("x-pathname") ?? "";
+  const isPublicAdminRoute =
+    pathname.startsWith("/admin/login") || pathname.startsWith("/admin/access-denied");
+
+  if (isPublicAdminRoute) {
+    return children;
+  }
+
+  if (!getSupabaseUrl() || !getSupabasePublishableKey()) {
+    redirect(
+      `/admin/login?error=${encodeURIComponent(
+        "Supabase is not configured. Add NEXT_PUBLIC_SUPABASE_URL and NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY."
+      )}`
+    );
+  }
+
   const supabase = await createClient();
 
   // getUser() re-validates the token against Supabase — never skip this in server components

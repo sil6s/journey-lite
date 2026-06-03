@@ -1,8 +1,10 @@
 import { createServerClient } from "@supabase/ssr";
 import { NextRequest, NextResponse } from "next/server";
 import { defaultLocale, isValidLocale, LOCALE_COOKIE } from "@/lib/i18n/config";
+import { getSupabasePublishableKey, getSupabaseUrl } from "@/lib/supabase/env";
 
 const PUBLIC_FILE = /\.(.*)$/;
+const ADMIN_PUBLIC_PATHS = ["/admin/login", "/admin/access-denied"];
 
 function isBypassedPath(pathname: string) {
   return (
@@ -46,33 +48,59 @@ function rewriteLocalizedPath(request: NextRequest) {
   return response;
 }
 
+function nextWithRequestHeaders(request: NextRequest) {
+  const requestHeaders = new Headers(request.headers);
+  requestHeaders.set("x-pathname", request.nextUrl.pathname);
+
+  return NextResponse.next({
+    request: {
+      headers: requestHeaders,
+    },
+  });
+}
+
+function redirectWithSupabaseCookies(url: URL, supabaseResponse: NextResponse) {
+  const response = NextResponse.redirect(url);
+  supabaseResponse.cookies.getAll().forEach((cookie) => {
+    response.cookies.set(cookie);
+  });
+  return response;
+}
+
 async function refreshSupabaseSession(request: NextRequest) {
-  let supabaseResponse = NextResponse.next({ request });
+  let supabaseResponse = nextWithRequestHeaders(request);
+  const supabaseUrl = getSupabaseUrl();
+  const supabaseKey = getSupabasePublishableKey();
+
+  if (!supabaseUrl || !supabaseKey) {
+    return { supabaseResponse, user: null };
+  }
 
   const supabase = createServerClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
+    supabaseUrl,
+    supabaseKey,
     {
       cookies: {
         getAll() {
           return request.cookies.getAll();
         },
-        setAll(cookiesToSet) {
+        setAll(cookiesToSet, headers) {
           cookiesToSet.forEach(({ name, value }) => request.cookies.set(name, value));
-          supabaseResponse = NextResponse.next({ request });
+          supabaseResponse = nextWithRequestHeaders(request);
           cookiesToSet.forEach(({ name, value, options }) =>
             supabaseResponse.cookies.set(name, value, options)
           );
+          Object.entries(headers).forEach(([key, value]) => {
+            supabaseResponse.headers.set(key, value);
+          });
         },
       },
     }
   );
 
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
+  const { data } = await supabase.auth.getClaims();
 
-  return { supabaseResponse, user };
+  return { supabaseResponse, user: data?.claims ?? null };
 }
 
 export async function proxy(request: NextRequest) {
@@ -82,22 +110,21 @@ export async function proxy(request: NextRequest) {
   if (localizedResponse) return localizedResponse;
 
   if (!pathname.startsWith("/admin")) {
-    return NextResponse.next();
+    return nextWithRequestHeaders(request);
   }
 
   const { supabaseResponse, user } = await refreshSupabaseSession(request);
 
   if (
     pathname.startsWith("/admin") &&
-    pathname !== "/admin/login" &&
-    pathname !== "/admin/access-denied" &&
+    !ADMIN_PUBLIC_PATHS.some((path) => pathname.startsWith(path)) &&
     !user
   ) {
     const loginUrl = request.nextUrl.clone();
     loginUrl.pathname = "/admin/login";
     loginUrl.search = "";
     loginUrl.searchParams.set("next", pathname);
-    return NextResponse.redirect(loginUrl);
+    return redirectWithSupabaseCookies(loginUrl, supabaseResponse);
   }
 
   if (pathname === "/admin/login" && user) {
@@ -105,7 +132,7 @@ export async function proxy(request: NextRequest) {
     const url = request.nextUrl.clone();
     url.pathname = nextParam?.startsWith("/admin") ? nextParam : "/admin";
     url.search = "";
-    return NextResponse.redirect(url);
+    return redirectWithSupabaseCookies(url, supabaseResponse);
   }
 
   return supabaseResponse;

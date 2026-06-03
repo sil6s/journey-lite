@@ -2,17 +2,25 @@ import { createServerClient } from "@supabase/ssr";
 import { cookies } from "next/headers";
 import { type NextRequest, NextResponse } from "next/server";
 import { getAdminAccessForEmail } from "@/lib/admin/users";
+import { getSupabasePublishableKey, getSupabaseUrl } from "@/lib/supabase/env";
 
 /**
  * Used in API route handlers to reject non-admin requests.
  * Returns null if the request is authorized, or a 401 NextResponse if not.
  */
 export async function requireAdmin(request: NextRequest) {
+  const supabaseUrl = getSupabaseUrl();
+  const supabaseKey = getSupabasePublishableKey();
+
+  if (!supabaseUrl || !supabaseKey) {
+    return NextResponse.json({ error: "Supabase is not configured." }, { status: 500 });
+  }
+
   // Build a read-only Supabase client from the incoming request cookies.
   // We don't need to refresh the session here — middleware handles that.
   const supabase = createServerClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
+    supabaseUrl,
+    supabaseKey,
     {
       cookies: {
         getAll() {
@@ -47,10 +55,14 @@ export async function requireAdmin(request: NextRequest) {
  */
 export async function getCurrentAdminAccess() {
   const cookieStore = await cookies();
+  const supabaseUrl = getSupabaseUrl();
+  const supabaseKey = getSupabasePublishableKey();
+
+  if (!supabaseUrl || !supabaseKey) return null;
 
   const supabase = createServerClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
+    supabaseUrl,
+    supabaseKey,
     {
       cookies: {
         getAll() {

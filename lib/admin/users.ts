@@ -1,6 +1,7 @@
 ﻿import { createServerClient } from "@supabase/ssr";
 import { cookies } from "next/headers";
 import { getSupabaseAdminClient } from "@/lib/supabase/admin";
+import { getSupabasePublishableKey, getSupabaseUrl } from "@/lib/supabase/env";
 import { isAllowedAdminEmail, type AdminRole } from "@/lib/auth/session";
 
 export type AdminUser = {
@@ -47,10 +48,14 @@ export async function getAdminAccessForEmail(email: string): Promise<AdminAccess
 
 export async function getCurrentAdminAccess(): Promise<AdminAccess | null> {
   const cookieStore = await cookies();
+  const supabaseUrl = getSupabaseUrl();
+  const supabaseKey = getSupabasePublishableKey();
+
+  if (!supabaseUrl || !supabaseKey) return null;
 
   const supabase = createServerClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
+    supabaseUrl,
+    supabaseKey,
     {
       cookies: {
         getAll() {
