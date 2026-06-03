@@ -11,7 +11,7 @@
  *   import { useTranslation } from "react-i18next"
  *   const { t } = useTranslation("forms")
  */
-import { createInstance } from "i18next";
+import { createInstance, type Resource } from "i18next";
 import { I18nextProvider, initReactI18next } from "react-i18next";
 import { type PropsWithChildren, useMemo } from "react";
 import { defaultLocale, defaultNamespace, type SupportedLocale } from "./config";
@@ -20,7 +20,7 @@ type TranslationsProviderProps = PropsWithChildren<{
   locale: SupportedLocale;
   namespaces: string[];
   /** Pre-loaded resources from the server — shape: { [locale]: { [ns]: { key: value } } } */
-  resources: Record<string, Record<string, unknown>>;
+  resources: Resource;
 }>;
 
 export function TranslationsProvider({
@@ -32,17 +32,28 @@ export function TranslationsProvider({
   // Create a stable i18next instance — memoised so it doesn't re-init on every render.
   const i18n = useMemo(() => {
     const instance = createInstance();
-    // Synchronous init is fine because all resources are already in memory.
-    instance.use(initReactI18next).init({
+
+    // Register the react-i18next plugin first (mutates and returns the instance).
+    // We deliberately call .use() and .init() on SEPARATE statements rather than
+    // chaining them — TypeScript's overload resolution fails on the chained form
+    // because the .use() return type shadows the init() overload signatures.
+    instance.use(initReactI18next);
+
+    // resources is typed as Resource on both sides, but TypeScript's deep
+    // structural check flags the nested `unknown` from JSON parsing.
+    // The `as Resource` cast is safe: the server always serialises well-formed
+    // i18next resource objects before passing them as props.
+    instance.init({
       lng: locale,
       fallbackLng: defaultLocale,
       defaultNS: namespaces[0] ?? defaultNamespace,
       ns: namespaces,
-      resources,
+      resources: resources as Resource,
       interpolation: { escapeValue: false },
-      // Disable backend plugins — resources come from server
+      // All resources are in memory — no async backend needed
       initImmediate: false,
     });
+
     return instance;
   }, [locale, namespaces, resources]);
 

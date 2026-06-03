@@ -6,7 +6,7 @@
  *   // or multiple namespaces:
  *   const { t, resources } = await getTranslationsWithResources("es", ["common", "forms"])
  */
-import { createInstance, type TFunction } from "i18next";
+import { createInstance, type Resource, type ResourceLanguage, type TFunction } from "i18next";
 import { readFileSync } from "fs";
 import path from "path";
 import {
@@ -19,10 +19,10 @@ import {
 const localesDir = path.join(process.cwd(), "locales");
 
 /** Load a single locale/namespace JSON file. Returns {} on missing file. */
-function loadNamespace(locale: string, ns: string): Record<string, unknown> {
+function loadNamespace(locale: string, ns: string): ResourceLanguage {
   try {
     const filePath = path.join(localesDir, locale, `${ns}.json`);
-    return JSON.parse(readFileSync(filePath, "utf-8")) as Record<string, unknown>;
+    return JSON.parse(readFileSync(filePath, "utf-8")) as ResourceLanguage;
   } catch {
     return {};
   }
@@ -42,7 +42,7 @@ export async function getTranslations(
   const namespaces = Array.isArray(namespace) ? namespace : [namespace];
   const instance = createInstance();
 
-  const resources: Record<string, Record<string, unknown>> = {};
+  const resources: Resource = {};
 
   for (const ns of namespaces) {
     // Load the requested locale
@@ -77,10 +77,10 @@ export async function getTranslationsWithResources(
   namespaces: I18nNamespace[],
 ): Promise<{
   t: TFunction;
-  resources: Record<string, Record<string, unknown>>;
+  resources: Resource;
 }> {
   const instance = createInstance();
-  const resources: Record<string, Record<string, unknown>> = {};
+  const resources: Resource = {};
 
   for (const ns of namespaces) {
     resources[locale] ??= {};
