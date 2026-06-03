@@ -1,6 +1,5 @@
-import { cookies } from "next/headers";
-import { NextRequest, NextResponse } from "next/server";
-import { adminSessionCookieName, verifyAdminSession } from "@/lib/auth/session";
+﻿import { NextRequest, NextResponse } from "next/server";
+import { requireAdmin } from "@/lib/admin/auth";
 import { getSupabaseAdminClient } from "@/lib/supabase/admin";
 
 const statuses = new Set(["new", "reviewed", "contacted", "closed", "spam"]);
@@ -10,9 +9,8 @@ type RouteProps = {
 };
 
 export async function PATCH(req: NextRequest, { params }: RouteProps) {
-  const cookieStore = await cookies();
-  const session = await verifyAdminSession(cookieStore.get(adminSessionCookieName)?.value);
-  if (!session) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  const unauthorized = await requireAdmin(req);
+  if (unauthorized) return unauthorized;
 
   const { id } = await params;
   const body = (await req.json()) as { status?: string; admin_notes?: string | null };

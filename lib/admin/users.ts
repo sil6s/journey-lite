@@ -1,6 +1,7 @@
+﻿import { createServerClient } from "@supabase/ssr";
 import { cookies } from "next/headers";
 import { getSupabaseAdminClient } from "@/lib/supabase/admin";
-import { adminSessionCookieName, isAllowedAdminEmail, verifyAdminSession, type AdminRole } from "@/lib/auth/session";
+import { isAllowedAdminEmail, type AdminRole } from "@/lib/auth/session";
 
 export type AdminUser = {
   email: string;
@@ -46,9 +47,30 @@ export async function getAdminAccessForEmail(email: string): Promise<AdminAccess
 
 export async function getCurrentAdminAccess(): Promise<AdminAccess | null> {
   const cookieStore = await cookies();
-  const session = await verifyAdminSession(cookieStore.get(adminSessionCookieName)?.value);
-  if (!session?.email) return null;
-  return getAdminAccessForEmail(session.email);
+
+  const supabase = createServerClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
+    {
+      cookies: {
+        getAll() {
+          return cookieStore.getAll();
+        },
+        setAll(cookiesToSet) {
+          cookiesToSet.forEach(({ name, value, options }) =>
+            cookieStore.set(name, value, options)
+          );
+        },
+      },
+    }
+  );
+
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
+  if (!user?.email) return null;
+  return getAdminAccessForEmail(user.email);
 }
 
 export async function requireSuperadmin(): Promise<AdminAccess> {
