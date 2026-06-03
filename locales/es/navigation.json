@@ -1,0 +1,44 @@
+{
+  "links": {
+    "home": "Inicio",
+    "about": "Acerca de",
+    "services": "Servicios",
+    "procedures": "Procedimientos",
+    "surgicalWeightLoss": "Pérdida de peso quirúrgica",
+    "nonSurgical": "Opciones no quirúrgicas",
+    "medications": "Medicamentos",
+    "gastricBalloon": "Balón gástrico",
+    "blog": "Blog y recursos",
+    "patientStories": "Historias de pacientes",
+    "contact": "Contacto",
+    "pricing": "Precios y financiamiento",
+    "locations": "Ubicaciones",
+    "ourTeam": "Nuestro equipo",
+    "education": "Educación para pacientes",
+    "bmiCalculator": "Calculadora de IMC",
+    "eligibilityCheck": "Verificar elegibilidad",
+    "appointmentRequest": "Solicitar cita",
+    "portal": "Portal del paciente",
+    "login": "Iniciar sesión",
+    "logout": "Cerrar sesión",
+    "dashboard": "Panel de control"
+  },
+  "megaMenu": {
+    "surgical": {
+      "heading": "Pérdida de peso quirúrgica",
+      "description": "Procedimientos permanentes y probados realizados por cirujanos certificados."
+    },
+    "nonSurgical": {
+      "heading": "Opciones no quirúrgicas",
+      "description": "Alternativas eficaces sin incisiones ni estancias nocturnas."
+    },
+    "medical": {
+      "heading": "Pérdida de peso médica",
+      "description": "Medicamentos recetados y programas supervisados por médicos."
+    }
+  },
+  "mobileMenu": {
+    "close": "Cerrar menú",
+    "back": "Atrás"
+  }
+}

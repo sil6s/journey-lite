@@ -1,0 +1,55 @@
+{
+  "tagline": "Atención compasiva. Resultados que cambian vidas.",
+  "description": "JourneyLite es una práctica de pérdida de peso bariátrica y médica reconocida a nivel nacional que atiende a pacientes en Ohio, Kentucky e Indiana.",
+  "sections": {
+    "procedures": "Procedimientos",
+    "resources": "Recursos",
+    "practice": "Práctica",
+    "connect": "Conéctese"
+  },
+  "links": {
+    "gastricSleeve": "Manga gástrica",
+    "gastricBypass": "Bypass gástrico",
+    "gastricBalloon": "Balón gástrico",
+    "lapBand": "Banda gástrica",
+    "sadi": "Cirugía SADI",
+    "medications": "Medicamentos para perder peso",
+    "esg": "Gastroplastia endoscópica en manga",
+    "blog": "Blog y recursos",
+    "patientStories": "Historias de pacientes",
+    "bmiCalculator": "Calculadora de IMC",
+    "faqs": "Preguntas frecuentes",
+    "education": "Educación para pacientes",
+    "about": "Acerca de JourneyLite",
+    "ourTeam": "Nuestro equipo",
+    "locations": "Ubicaciones",
+    "pricing": "Precios y financiamiento",
+    "privacy": "Política de privacidad",
+    "contact": "Contáctenos",
+    "appointment": "Solicitar cita"
+  },
+  "contact": {
+    "phone": "877-442-2263",
+    "phoneLabel": "Llámenos",
+    "address": "10475 Reading Road",
+    "cityStateZip": "Cincinnati, OH 45241",
+    "emailLabel": "Escríbanos"
+  },
+  "social": {
+    "facebook": "Seguir a JourneyLite en Facebook",
+    "instagram": "Seguir a JourneyLite en Instagram",
+    "youtube": "Ver JourneyLite en YouTube",
+    "google": "Leer reseñas en Google"
+  },
+  "legal": {
+    "copyright": "© {{year}} JourneyLite Physicians. Todos los derechos reservados.",
+    "privacy": "Política de privacidad",
+    "terms": "Términos de uso",
+    "hipaa": "Aviso de HIPAA",
+    "disclaimer": "La información en este sitio es solo para fines educativos y no constituye consejo médico. Siempre consulte a un proveedor de salud calificado."
+  },
+  "certifications": {
+    "accredited": "Centro de Cirugía Bariátrica Acreditado",
+    "optumCoe": "Centro de Excelencia Optum"
+  }
+}

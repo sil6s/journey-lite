@@ -1,0 +1,70 @@
+{
+  "bmi": {
+    "title": "Calculadora de IMC",
+    "subtitle": "Descubra su Índice de Masa Corporal y qué significa para sus opciones de pérdida de peso.",
+    "heightLabel": "Altura",
+    "weightLabel": "Peso",
+    "feetLabel": "pies",
+    "inchesLabel": "pulg",
+    "poundsLabel": "lbs",
+    "calculateButton": "Calcular IMC",
+    "resetButton": "Restablecer",
+    "resultLabel": "Su IMC",
+    "categories": {
+      "underweight": "Bajo peso",
+      "normal": "Peso normal",
+      "overweight": "Sobrepeso",
+      "obese1": "Obesidad (Clase I)",
+      "obese2": "Obesidad (Clase II)",
+      "obese3": "Obesidad (Clase III)"
+    },
+    "ranges": {
+      "underweight": "Menos de 18.5",
+      "normal": "18.5 – 24.9",
+      "overweight": "25 – 29.9",
+      "obese1": "30 – 34.9",
+      "obese2": "35 – 39.9",
+      "obese3": "40 o más"
+    },
+    "disclaimer": "El IMC es una herramienta de detección, no un diagnóstico. Consulte con un médico de JourneyLite para una evaluación personalizada.",
+    "cta": "Según su IMC, puede calificar para cirugía de pérdida de peso. Solicite una consulta gratuita para obtener más información."
+  },
+  "eligibility": {
+    "title": "Verificación de elegibilidad",
+    "subtitle": "Responda algunas preguntas rápidas para ver qué programas de JourneyLite podrían ser adecuados para usted.",
+    "questions": {
+      "bmiRange": "¿Cuál es su IMC aproximado?",
+      "hasComorbidities": "¿Tiene alguna condición de salud relacionada con el peso? (p. ej., diabetes, apnea del sueño, presión arterial alta, dolor articular)",
+      "priorWeightLossTried": "¿Ha intentado programas de dieta y ejercicio anteriormente?",
+      "priorSurgery": "¿Ha tenido alguna cirugía de pérdida de peso anteriormente?",
+      "insurance": "¿Tiene seguro médico?",
+      "age": "¿Cuántos años tiene?"
+    },
+    "options": {
+      "bmiRange": [
+        "Menos de 27 (sin sobrepeso aún)",
+        "27 – 29.9 (sobrepeso)",
+        "30 – 34.9 (obeso)",
+        "35 – 39.9 (obeso)",
+        "40 o más (obesidad severa)"
+      ],
+      "yesNo": ["Sí", "No", "No estoy seguro/a"],
+      "ageRange": ["Menor de 18", "18 – 25", "26 – 40", "41 – 60", "Mayor de 60"]
+    },
+    "results": {
+      "surgical": "Puede ser candidato/a para la pérdida de peso quirúrgica. Nuestros cirujanos revisarán su historial completo en su consulta.",
+      "nonSurgical": "Puede ser un buen candidato/a para un programa de balón gástrico o medicamentos GLP-1.",
+      "medical": "Un programa de medicamentos supervisado por un médico puede ser una excelente opción para usted.",
+      "moreInfo": "Nuestro equipo puede ayudarle a explorar sus opciones. Una consulta gratuita es el mejor próximo paso.",
+      "callToAction": "Programe su consulta gratuita hoy.",
+      "disclaimer": "Este resultado es solo informativo y no reemplaza una evaluación médica."
+    },
+    "navigation": {
+      "question": "Pregunta {{current}} de {{total}}",
+      "next": "Siguiente pregunta",
+      "previous": "Pregunta anterior",
+      "seeResults": "Ver mis resultados",
+      "startOver": "Comenzar de nuevo"
+    }
+  }
+}

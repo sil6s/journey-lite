@@ -33,7 +33,7 @@ export default async function AdminFormsPage() {
             <CardDescription>Manage Supabase-stored submissions from Sanity-defined website forms.</CardDescription>
           </div>
           <Button asChild variant="outline">
-            <Link href="/studio/structure/formDefinition">Edit form definitions</Link>
+            <Link href="/studio">Edit form definitions in Studio</Link>
           </Button>
         </CardHeader>
         <CardContent>

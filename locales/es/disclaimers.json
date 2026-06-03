@@ -1,0 +1,24 @@
+{
+  "medical": {
+    "short": "Esta información es solo para fines educativos y no sustituye el consejo médico profesional.",
+    "full": "El contenido de este sitio web es solo para fines informativos y educativos. No constituye consejo médico y no debe utilizarse como sustituto de la consulta con un proveedor de salud calificado. Los resultados individuales varían. JourneyLite no garantiza ningún resultado específico.",
+    "results": "Los resultados individuales varían. Los resultados reales de pérdida de peso dependen de muchos factores, incluida la adherencia a las pautas del programa, el estado de salud individual y los cambios de estilo de vida.",
+    "risks": "Todos los procedimientos quirúrgicos y médicos conllevan riesgos. Hable con su médico de JourneyLite sobre su perfil de riesgo específico antes de tomar cualquier decisión."
+  },
+  "translation": {
+    "autoTranslated": "Esta página fue traducida automáticamente para su comodidad. La versión en inglés es la fuente oficial.",
+    "autoTranslatedFull": "Esta página fue traducida automáticamente al español para su comodidad. La versión en inglés en {{englishUrl}} es la fuente oficial de información. Por favor, comuníquese directamente con JourneyLite para obtener orientación médica específica para su situación.",
+    "reviewNote": "Las traducciones se proporcionan para ayudar a los hablantes no ingleses a acceder a la información y no han sido revisadas por un profesional de la salud.",
+    "contactForGuidance": "Para preguntas o inquietudes médicas, comuníquese directamente con nuestra oficina al 877-442-2263 o solicite una cita con uno de nuestros médicos.",
+    "temporarilyUnavailable": "La traducción al {{language}} no está disponible temporalmente. Mostrando el contenido original en inglés.",
+    "viewEnglish": "Ver en inglés",
+    "viewOriginal": "Ver original"
+  },
+  "insurance": {
+    "coverage": "La cobertura del seguro varía según el plan y el individuo. Comuníquese con su proveedor de seguro o con nuestro equipo de facturación para verificar sus beneficios antes de programar.",
+    "preAuth": "Algunos procedimientos requieren autorización previa de su compañía de seguros. Nuestro equipo le asistirá con este proceso."
+  },
+  "hipaa": {
+    "short": "Su información de salud está protegida bajo HIPAA. Consulte nuestro Aviso de Privacidad para más detalles."
+  }
+}

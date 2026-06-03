@@ -1,0 +1,82 @@
+{
+  "labels": {
+    "firstName": "Nombre",
+    "lastName": "Apellido",
+    "fullName": "Nombre completo",
+    "email": "Correo electrónico",
+    "phone": "Número de teléfono",
+    "dob": "Fecha de nacimiento",
+    "address": "Domicilio",
+    "city": "Ciudad",
+    "state": "Estado",
+    "zip": "Código postal",
+    "heightFt": "Altura (pies)",
+    "heightIn": "Altura (pulgadas)",
+    "weight": "Peso actual (lbs)",
+    "bmi": "IMC",
+    "insurance": "Proveedor de seguro médico",
+    "selfPay": "Pago particular",
+    "location": "Ubicación de preferencia",
+    "procedure": "Procedimiento de interés",
+    "bestTime": "Mejor hora para contactarle",
+    "contactMethod": "Método de contacto preferido",
+    "referralSource": "¿Cómo se enteró de nosotros?",
+    "message": "Mensaje o preguntas",
+    "researchStage": "¿En qué etapa de su decisión se encuentra?",
+    "textConsent": "Acepto recibir mensajes de texto de JourneyLite",
+    "newsletter": "Suscríbame al boletín de JourneyLite"
+  },
+  "placeholders": {
+    "email": "usted@correo.com",
+    "phone": "(555) 555-5555",
+    "message": "Cuéntenos sobre sus objetivos o cualquier pregunta que tenga…",
+    "selectOne": "Seleccione una opción…",
+    "selectLocation": "Seleccione una ubicación…",
+    "selectProcedure": "Seleccione un procedimiento…",
+    "searchCity": "Ingrese su ciudad"
+  },
+  "options": {
+    "contactMethod": ["Llamada telefónica", "Mensaje de texto", "Correo electrónico"],
+    "bestTime": ["Mañana (8am – 12pm)", "Tarde (12pm – 5pm)", "Noche (5pm – 8pm)", "Cualquier hora"],
+    "researchStage": [
+      "Apenas comenzando a investigar",
+      "Lo estoy considerando seriamente",
+      "Listo para programar una consulta",
+      "Ya tengo una cita"
+    ],
+    "referralSource": [
+      "Búsqueda en Google",
+      "Redes sociales",
+      "Recomendación de amigo o familiar",
+      "Derivación médica",
+      "Proveedor de seguro",
+      "Publicidad en línea",
+      "Televisión o radio",
+      "Otro"
+    ]
+  },
+  "validation": {
+    "required": "{{field}} es obligatorio.",
+    "email": "Por favor ingrese una dirección de correo electrónico válida.",
+    "phone": "Por favor ingrese un número de teléfono de 10 dígitos válido.",
+    "minLength": "{{field}} debe tener al menos {{min}} caracteres.",
+    "maxLength": "{{field}} no puede superar los {{max}} caracteres.",
+    "number": "Por favor ingrese un número válido.",
+    "date": "Por favor ingrese una fecha válida.",
+    "minAge": "Debe tener al menos {{age}} años de edad.",
+    "maxAge": "Por favor ingrese una edad menor a {{age}}.",
+    "consent": "Debe aceptar para continuar."
+  },
+  "status": {
+    "submitting": "Enviando su solicitud…",
+    "success": "¡Gracias! Recibimos su solicitud y nos comunicaremos con usted pronto.",
+    "error": "Algo salió mal. Por favor, inténtelo de nuevo o llámenos al 877-442-2263.",
+    "recaptchaError": "Error de verificación de seguridad. Por favor actualice la página e inténtelo de nuevo."
+  },
+  "hints": {
+    "requiredFields": "Los campos marcados con * son obligatorios.",
+    "phoneFormat": "Solo aceptamos números de EE. UU.",
+    "textConsent": "Se pueden aplicar tarifas estándar de mensajes y datos. Responda STOP para cancelar.",
+    "privacyNote": "Su información es confidencial y no será compartida ni vendida."
+  }
+}

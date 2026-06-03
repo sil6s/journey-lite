@@ -1,0 +1,70 @@
+{
+  "bmi": {
+    "title": "BMI Calculator",
+    "subtitle": "Find out your Body Mass Index and what it means for weight loss options.",
+    "heightLabel": "Height",
+    "weightLabel": "Weight",
+    "feetLabel": "ft",
+    "inchesLabel": "in",
+    "poundsLabel": "lbs",
+    "calculateButton": "Calculate BMI",
+    "resetButton": "Reset",
+    "resultLabel": "Your BMI",
+    "categories": {
+      "underweight": "Underweight",
+      "normal": "Normal weight",
+      "overweight": "Overweight",
+      "obese1": "Obese (Class I)",
+      "obese2": "Obese (Class II)",
+      "obese3": "Obese (Class III)"
+    },
+    "ranges": {
+      "underweight": "Under 18.5",
+      "normal": "18.5 – 24.9",
+      "overweight": "25 – 29.9",
+      "obese1": "30 – 34.9",
+      "obese2": "35 – 39.9",
+      "obese3": "40 and above"
+    },
+    "disclaimer": "BMI is a screening tool, not a diagnosis. Speak with a JourneyLite physician for a personalized evaluation.",
+    "cta": "Based on your BMI, you may qualify for weight loss surgery. Request a free consultation to learn more."
+  },
+  "eligibility": {
+    "title": "Eligibility Check",
+    "subtitle": "Answer a few quick questions to see which JourneyLite programs may be right for you.",
+    "questions": {
+      "bmiRange": "What is your approximate BMI?",
+      "hasComorbidities": "Do you have any weight-related health conditions? (e.g., diabetes, sleep apnea, high blood pressure, joint pain)",
+      "priorWeightLossTried": "Have you tried diet and exercise programs before?",
+      "priorSurgery": "Have you had any prior weight loss surgery?",
+      "insurance": "Do you have health insurance?",
+      "age": "How old are you?"
+    },
+    "options": {
+      "bmiRange": [
+        "Under 27 (not yet overweight)",
+        "27 – 29.9 (overweight)",
+        "30 – 34.9 (obese)",
+        "35 – 39.9 (obese)",
+        "40 or above (severely obese)"
+      ],
+      "yesNo": ["Yes", "No", "Not sure"],
+      "ageRange": ["Under 18", "18 – 25", "26 – 40", "41 – 60", "Over 60"]
+    },
+    "results": {
+      "surgical": "You may be a candidate for surgical weight loss. Our surgeons will review your complete history at your consultation.",
+      "nonSurgical": "You may be a good candidate for a gastric balloon or GLP-1 medication program.",
+      "medical": "A physician-supervised medication program may be a great fit for you.",
+      "moreInfo": "Our team can help you explore your options. A free consultation is the best next step.",
+      "callToAction": "Schedule your free consultation today.",
+      "disclaimer": "This result is informational only and does not replace a physician evaluation."
+    },
+    "navigation": {
+      "question": "Question {{current}} of {{total}}",
+      "next": "Next Question",
+      "previous": "Previous Question",
+      "seeResults": "See My Results",
+      "startOver": "Start Over"
+    }
+  }
+}

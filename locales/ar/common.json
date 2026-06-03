@@ -1,0 +1,81 @@
+{
+  "site": {
+    "name": "JourneyLite",
+    "tagline": "رعاية رحيمة لفقدان الوزن",
+    "phone": "877-442-2263",
+    "address": "10475 Reading Road, Cincinnati, OH 45241"
+  },
+  "actions": {
+    "requestAppointment": "طلب موعد",
+    "scheduleConsultation": "حجز استشارة مجانية",
+    "learnMore": "معرفة المزيد",
+    "callUs": "اتصل بنا",
+    "viewAll": "عرض الكل",
+    "readMore": "اقرأ المزيد",
+    "getStarted": "ابدأ الآن",
+    "contactUs": "تواصل معنا",
+    "bookNow": "احجز الآن",
+    "downloadForm": "تحميل النموذج",
+    "watchVideo": "مشاهدة الفيديو",
+    "calculateBmi": "حساب مؤشر كتلة الجسم",
+    "checkEligibility": "التحقق من الأهلية",
+    "seePatientStories": "قصص المرضى",
+    "backToTop": "العودة إلى الأعلى",
+    "close": "إغلاق",
+    "open": "فتح",
+    "loading": "جارٍ التحميل…",
+    "submit": "إرسال",
+    "cancel": "إلغاء",
+    "save": "حفظ",
+    "next": "التالي",
+    "previous": "السابق",
+    "back": "رجوع"
+  },
+  "states": {
+    "loading": "جارٍ التحميل…",
+    "error": "حدث خطأ ما. يرجى المحاولة مرة أخرى.",
+    "noResults": "لم يتم العثور على نتائج.",
+    "empty": "لا يوجد شيء هنا بعد.",
+    "success": "تم!",
+    "required": "مطلوب",
+    "optional": "اختياري"
+  },
+  "accessibility": {
+    "skipToContent": "انتقل إلى المحتوى الرئيسي",
+    "openMenu": "فتح قائمة التنقل",
+    "closeMenu": "إغلاق قائمة التنقل",
+    "toggleLanguage": "اختيار اللغة",
+    "currentLanguage": "اللغة الحالية: {{language}}",
+    "externalLink": "يفتح في علامة تبويب جديدة",
+    "backToTop": "العودة إلى الأعلى"
+  },
+  "procedures": {
+    "gastricSleeve": "تكميم المعدة (VSG)",
+    "gastricBypass": "تحويل مسار المعدة",
+    "lapBand": "ربط المعدة بالمنظار",
+    "sadi": "جراحة SADI",
+    "gastricBalloon": "بالون المعدة",
+    "spatz3": "بالون Spatz3",
+    "orbera": "بالون ORBERA",
+    "allurion": "بالون Allurion",
+    "esg": "تكميم المعدة بالمنظار",
+    "medications": "أدوية فقدان الوزن",
+    "wegovy": "حقن Wegovy / Zepbound",
+    "adipex": "الأدوية الفموية (Adipex)",
+    "revisions": "جراحة المراجعة"
+  },
+  "badges": {
+    "newPatient": "مريض جديد",
+    "featured": "مميز",
+    "popular": "الأكثر شيوعاً",
+    "recommended": "موصى به",
+    "insuranceAccepted": "يُقبل التأمين الصحي",
+    "selfPayAvailable": "الدفع الذاتي متاح",
+    "freeConsultation": "استشارة مجانية"
+  },
+  "pagination": {
+    "page": "الصفحة {{current}} من {{total}}",
+    "nextPage": "الصفحة التالية",
+    "previousPage": "الصفحة السابقة"
+  }
+}

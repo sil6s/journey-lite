@@ -1,0 +1,24 @@
+{
+  "medical": {
+    "short": "This information is for educational purposes only and is not a substitute for professional medical advice.",
+    "full": "The content on this website is for informational and educational purposes only. It does not constitute medical advice and should not be used as a substitute for consultation with a qualified healthcare provider. Individual results vary. JourneyLite does not guarantee any specific outcome.",
+    "results": "Individual results vary. Actual weight loss outcomes depend on many factors including adherence to program guidelines, individual health status, and lifestyle changes.",
+    "risks": "All surgical and medical procedures carry risks. Discuss your specific risk profile with your JourneyLite physician before making any decisions."
+  },
+  "translation": {
+    "autoTranslated": "This page was automatically translated for your convenience. The English version is the official source.",
+    "autoTranslatedFull": "This page was automatically translated to {{language}} for your convenience. The English version at {{englishUrl}} is the official source of information. Please contact JourneyLite directly for medical guidance specific to your situation.",
+    "reviewNote": "Translations are provided to help non-English speakers access information and have not been reviewed by a healthcare professional.",
+    "contactForGuidance": "For medical questions or concerns, please contact our office directly at 877-442-2263 or request an appointment with one of our physicians.",
+    "temporarilyUnavailable": "Translation to {{language}} is temporarily unavailable. Showing the original English content.",
+    "viewEnglish": "View in English",
+    "viewOriginal": "View original"
+  },
+  "insurance": {
+    "coverage": "Insurance coverage varies by plan and individual. Contact your insurance provider or our billing team to verify your benefits before scheduling.",
+    "preAuth": "Some procedures require prior authorization from your insurance company. Our team will assist you with this process."
+  },
+  "hipaa": {
+    "short": "Your health information is protected under HIPAA. See our Privacy Notice for details."
+  }
+}

@@ -1,0 +1,81 @@
+{
+  "site": {
+    "name": "JourneyLite",
+    "tagline": "Compassionate Weight Loss Care",
+    "phone": "877-442-2263",
+    "address": "10475 Reading Road, Cincinnati, OH 45241"
+  },
+  "actions": {
+    "requestAppointment": "Request an Appointment",
+    "scheduleConsultation": "Schedule a Free Consultation",
+    "learnMore": "Learn More",
+    "callUs": "Call Us",
+    "viewAll": "View All",
+    "readMore": "Read More",
+    "getStarted": "Get Started",
+    "contactUs": "Contact Us",
+    "bookNow": "Book Now",
+    "downloadForm": "Download Form",
+    "watchVideo": "Watch Video",
+    "calculateBmi": "Calculate My BMI",
+    "checkEligibility": "Check My Eligibility",
+    "seePatientStories": "See Patient Stories",
+    "backToTop": "Back to top",
+    "close": "Close",
+    "open": "Open",
+    "loading": "Loading…",
+    "submit": "Submit",
+    "cancel": "Cancel",
+    "save": "Save",
+    "next": "Next",
+    "previous": "Previous",
+    "back": "Back"
+  },
+  "states": {
+    "loading": "Loading…",
+    "error": "Something went wrong. Please try again.",
+    "noResults": "No results found.",
+    "empty": "Nothing here yet.",
+    "success": "Done!",
+    "required": "Required",
+    "optional": "Optional"
+  },
+  "accessibility": {
+    "skipToContent": "Skip to main content",
+    "openMenu": "Open navigation menu",
+    "closeMenu": "Close navigation menu",
+    "toggleLanguage": "Select language",
+    "currentLanguage": "Current language: {{language}}",
+    "externalLink": "Opens in a new tab",
+    "backToTop": "Scroll back to top"
+  },
+  "procedures": {
+    "gastricSleeve": "Gastric Sleeve (VSG)",
+    "gastricBypass": "Gastric Bypass",
+    "lapBand": "Lap Band",
+    "sadi": "SADI Surgery",
+    "gastricBalloon": "Gastric Balloon",
+    "spatz3": "Spatz3 Balloon",
+    "orbera": "ORBERA Balloon",
+    "allurion": "Allurion Balloon",
+    "esg": "Endoscopic Sleeve Gastroplasty",
+    "medications": "Weight Loss Medications",
+    "wegovy": "Wegovy / Zepbound Injections",
+    "adipex": "Oral Medications (Adipex)",
+    "revisions": "Revision Surgery"
+  },
+  "badges": {
+    "newPatient": "New Patient",
+    "featured": "Featured",
+    "popular": "Most Popular",
+    "recommended": "Recommended",
+    "insuranceAccepted": "Insurance Accepted",
+    "selfPayAvailable": "Self-Pay Available",
+    "freeConsultation": "Free Consultation"
+  },
+  "pagination": {
+    "page": "Page {{current}} of {{total}}",
+    "nextPage": "Next page",
+    "previousPage": "Previous page"
+  }
+}

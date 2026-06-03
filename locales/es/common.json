@@ -1,0 +1,81 @@
+{
+  "site": {
+    "name": "JourneyLite",
+    "tagline": "Atención compasiva para la pérdida de peso",
+    "phone": "877-442-2263",
+    "address": "10475 Reading Road, Cincinnati, OH 45241"
+  },
+  "actions": {
+    "requestAppointment": "Solicitar una cita",
+    "scheduleConsultation": "Programar una consulta gratuita",
+    "learnMore": "Más información",
+    "callUs": "Llámenos",
+    "viewAll": "Ver todo",
+    "readMore": "Leer más",
+    "getStarted": "Comenzar",
+    "contactUs": "Contáctenos",
+    "bookNow": "Reservar ahora",
+    "downloadForm": "Descargar formulario",
+    "watchVideo": "Ver video",
+    "calculateBmi": "Calcular mi IMC",
+    "checkEligibility": "Verificar mi elegibilidad",
+    "seePatientStories": "Ver historias de pacientes",
+    "backToTop": "Volver arriba",
+    "close": "Cerrar",
+    "open": "Abrir",
+    "loading": "Cargando…",
+    "submit": "Enviar",
+    "cancel": "Cancelar",
+    "save": "Guardar",
+    "next": "Siguiente",
+    "previous": "Anterior",
+    "back": "Atrás"
+  },
+  "states": {
+    "loading": "Cargando…",
+    "error": "Algo salió mal. Por favor, inténtelo de nuevo.",
+    "noResults": "No se encontraron resultados.",
+    "empty": "Aún no hay nada aquí.",
+    "success": "¡Listo!",
+    "required": "Obligatorio",
+    "optional": "Opcional"
+  },
+  "accessibility": {
+    "skipToContent": "Saltar al contenido principal",
+    "openMenu": "Abrir menú de navegación",
+    "closeMenu": "Cerrar menú de navegación",
+    "toggleLanguage": "Seleccionar idioma",
+    "currentLanguage": "Idioma actual: {{language}}",
+    "externalLink": "Se abre en una pestaña nueva",
+    "backToTop": "Desplazarse hacia arriba"
+  },
+  "procedures": {
+    "gastricSleeve": "Manga gástrica (VSG)",
+    "gastricBypass": "Bypass gástrico",
+    "lapBand": "Banda gástrica",
+    "sadi": "Cirugía SADI",
+    "gastricBalloon": "Balón gástrico",
+    "spatz3": "Balón Spatz3",
+    "orbera": "Balón ORBERA",
+    "allurion": "Balón Allurion",
+    "esg": "Gastroplastia endoscópica en manga",
+    "medications": "Medicamentos para perder peso",
+    "wegovy": "Inyecciones Wegovy / Zepbound",
+    "adipex": "Medicamentos orales (Adipex)",
+    "revisions": "Cirugía de revisión"
+  },
+  "badges": {
+    "newPatient": "Nuevo paciente",
+    "featured": "Destacado",
+    "popular": "Más popular",
+    "recommended": "Recomendado",
+    "insuranceAccepted": "Se acepta seguro médico",
+    "selfPayAvailable": "Pago particular disponible",
+    "freeConsultation": "Consulta gratuita"
+  },
+  "pagination": {
+    "page": "Página {{current}} de {{total}}",
+    "nextPage": "Página siguiente",
+    "previousPage": "Página anterior"
+  }
+}

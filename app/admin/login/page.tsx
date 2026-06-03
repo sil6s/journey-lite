@@ -2,7 +2,6 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import Script from "next/script";
 import { useSearchParams } from "next/navigation";
 import { FormEvent, Suspense, useState } from "react";
 import { ArrowLeft, Loader2, LogIn } from "lucide-react";
@@ -11,11 +10,7 @@ import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { cn } from "@/lib/utils";
-
-// window.grecaptcha type is declared in types/recaptcha-enterprise.d.ts
-
-const recaptchaSiteKey = process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY;
+import { createClient } from "@/lib/supabase/client";
 
 export default function AdminLoginPage() {
   return (
@@ -27,41 +22,34 @@ export default function AdminLoginPage() {
 
 function AdminLoginForm() {
   const searchParams = useSearchParams();
-  const [email, setEmail] = useState("admin@journeylite.com");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isGoogleLoading, setIsGoogleLoading] = useState(false);
   const [isEmailLoading, setIsEmailLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const displayedError = error ?? searchParams.get("error");
 
-  async function getRecaptchaToken() {
-    if (!recaptchaSiteKey) return "development-bypass";
-    if (!window.grecaptcha?.enterprise) throw new Error("reCAPTCHA Enterprise has not loaded yet.");
-    return new Promise<string>((resolve, reject) => {
-      window.grecaptcha.enterprise.ready(() => {
-        window.grecaptcha.enterprise.execute(recaptchaSiteKey, { action: "admin_login" }).then(resolve).catch(reject);
-      });
-    });
-  }
+  const nextPath = safeAdminNext(searchParams.get("next"));
 
   async function startGoogleLogin() {
     setError(null);
     setIsGoogleLoading(true);
-    try {
-      const recaptchaToken = await getRecaptchaToken();
-      const response = await fetch("/api/auth/google/start", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ recaptchaToken, next: safeAdminNext(searchParams.get("next")) }),
-      });
-      const payload = (await response.json()) as { url?: string; error?: string; recaptchaBypassed?: boolean };
-      if (!response.ok || !payload.url) throw new Error(payload.error || "Google sign-in could not start.");
-      if (payload.recaptchaBypassed) toast.message("reCAPTCHA is in development bypass mode.");
-      window.location.href = payload.url;
-    } catch (loginError) {
-      setError(loginError instanceof Error ? loginError.message : "Google sign-in failed.");
+    const supabase = createClient();
+    const { error: oauthError } = await supabase.auth.signInWithOAuth({
+      provider: "google",
+      options: {
+        redirectTo: `${window.location.origin}/api/auth/callback?next=${encodeURIComponent(nextPath)}`,
+        queryParams: {
+          // Force account selection every time so staff can switch accounts
+          prompt: "select_account",
+        },
+      },
+    });
+    if (oauthError) {
+      setError(oauthError.message);
       setIsGoogleLoading(false);
     }
+    // On success, Supabase redirects the browser — no further handling needed
   }
 
   async function emailLogin(event: FormEvent<HTMLFormElement>) {
@@ -69,26 +57,23 @@ function AdminLoginForm() {
     setError(null);
     setIsEmailLoading(true);
     try {
-      const recaptchaToken = await getRecaptchaToken();
-      const response = await fetch("/api/auth/mock-login", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, password, recaptchaToken }),
+      const supabase = createClient();
+      const { error: signInError } = await supabase.auth.signInWithPassword({
+        email,
+        password,
       });
-      const payload = (await response.json()) as { ok?: boolean; error?: string; recaptchaBypassed?: boolean };
-      if (!response.ok || !payload.ok) throw new Error(payload.error || "Email login failed.");
-      if (payload.recaptchaBypassed) toast.message("reCAPTCHA is in development bypass mode.");
-      toast.success("Admin login complete.");
-      window.location.assign(safeAdminNext(searchParams.get("next")));
-    } catch (loginError) {
-      setError(loginError instanceof Error ? loginError.message : "Email login failed.");
+      if (signInError) throw signInError;
+      toast.success("Signed in — loading admin…");
+      // Let the middleware redirect handle the navigation
+      window.location.assign(nextPath);
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Email sign-in failed.");
       setIsEmailLoading(false);
     }
   }
 
   return (
     <main className="min-h-screen overflow-hidden bg-[#f7faf7] text-[#173c2b]">
-      {recaptchaSiteKey ? <Script src={`https://www.google.com/recaptcha/enterprise.js?render=${recaptchaSiteKey}`} strategy="afterInteractive" /> : null}
       <div
         className="absolute inset-0 opacity-60"
         style={{
@@ -170,6 +155,7 @@ function AdminLoginForm() {
                   type="email"
                   value={email}
                   onChange={(event) => setEmail(event.target.value)}
+                  placeholder="admin@journeylite.com"
                 />
               </div>
               <div className="space-y-3">
@@ -177,9 +163,6 @@ function AdminLoginForm() {
                   <Label className="text-lg font-semibold text-[#2d4b39]" htmlFor="password">
                     Password
                   </Label>
-                  <button className="text-base font-medium text-[#1d6a3b] hover:underline" type="button">
-                    Forgot password?
-                  </button>
                 </div>
                 <Input
                   className="h-16 rounded-xl border-[#dbe2dd] px-6 text-lg text-[#173c2b]"
@@ -201,14 +184,14 @@ function AdminLoginForm() {
               </Button>
             </form>
 
-            <Link className="mt-8 inline-flex items-center gap-2 text-lg font-medium text-[#96a89c] hover:text-[#153f2b]" href="/">
+            <p className="mt-6 text-sm text-muted-foreground">
+              Email sign-in requires a Supabase Auth account. Ask a superadmin to invite you, or use Google sign-in.
+            </p>
+
+            <Link className="mt-6 inline-flex items-center gap-2 text-lg font-medium text-[#96a89c] hover:text-[#153f2b]" href="/">
               <ArrowLeft className="size-4" />
               Return to public site
             </Link>
-
-            <p className={cn("mt-6 text-xs text-muted-foreground", recaptchaSiteKey ? "sr-only" : "")}>
-              reCAPTCHA v3 keys are not configured yet. Development login is using server-side bypass mode.
-            </p>
           </div>
         </section>
       </div>

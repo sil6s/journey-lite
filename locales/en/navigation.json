@@ -1,0 +1,44 @@
+{
+  "links": {
+    "home": "Home",
+    "about": "About",
+    "services": "Services",
+    "procedures": "Procedures",
+    "surgicalWeightLoss": "Surgical Weight Loss",
+    "nonSurgical": "Non-Surgical Options",
+    "medications": "Medications",
+    "gastricBalloon": "Gastric Balloon",
+    "blog": "Blog & Resources",
+    "patientStories": "Patient Stories",
+    "contact": "Contact",
+    "pricing": "Pricing & Financing",
+    "locations": "Locations",
+    "ourTeam": "Our Team",
+    "education": "Patient Education",
+    "bmiCalculator": "BMI Calculator",
+    "eligibilityCheck": "Check Eligibility",
+    "appointmentRequest": "Request Appointment",
+    "portal": "Patient Portal",
+    "login": "Log In",
+    "logout": "Log Out",
+    "dashboard": "Dashboard"
+  },
+  "megaMenu": {
+    "surgical": {
+      "heading": "Surgical Weight Loss",
+      "description": "Permanent, proven procedures performed by board-certified surgeons."
+    },
+    "nonSurgical": {
+      "heading": "Non-Surgical Options",
+      "description": "Effective alternatives without incisions or overnight stays."
+    },
+    "medical": {
+      "heading": "Medical Weight Loss",
+      "description": "Prescription medications and physician-supervised programs."
+    }
+  },
+  "mobileMenu": {
+    "close": "Close menu",
+    "back": "Back"
+  }
+}

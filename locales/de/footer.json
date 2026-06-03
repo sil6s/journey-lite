@@ -1,0 +1,55 @@
+{
+  "tagline": "Compassionate care. Life-changing results.",
+  "description": "JourneyLite is a nationally recognized bariatric and medical weight loss practice serving patients across Ohio, Kentucky, and Indiana.",
+  "sections": {
+    "procedures": "Procedures",
+    "resources": "Resources",
+    "practice": "Practice",
+    "connect": "Connect"
+  },
+  "links": {
+    "gastricSleeve": "Gastric Sleeve",
+    "gastricBypass": "Gastric Bypass",
+    "gastricBalloon": "Gastric Balloon",
+    "lapBand": "Lap Band",
+    "sadi": "SADI Surgery",
+    "medications": "Weight Loss Medications",
+    "esg": "Endoscopic Sleeve Gastroplasty",
+    "blog": "Blog & Resources",
+    "patientStories": "Patient Stories",
+    "bmiCalculator": "BMI Calculator",
+    "faqs": "FAQs",
+    "education": "Patient Education",
+    "about": "About JourneyLite",
+    "ourTeam": "Our Team",
+    "locations": "Locations",
+    "pricing": "Pricing & Financing",
+    "privacy": "Privacy Policy",
+    "contact": "Contact Us",
+    "appointment": "Request Appointment"
+  },
+  "contact": {
+    "phone": "877-442-2263",
+    "phoneLabel": "Call us",
+    "address": "10475 Reading Road",
+    "cityStateZip": "Cincinnati, OH 45241",
+    "emailLabel": "Email us"
+  },
+  "social": {
+    "facebook": "Follow JourneyLite on Facebook",
+    "instagram": "Follow JourneyLite on Instagram",
+    "youtube": "Watch JourneyLite on YouTube",
+    "google": "Read Google Reviews"
+  },
+  "legal": {
+    "copyright": "© {{year}} JourneyLite Physicians. All rights reserved.",
+    "privacy": "Privacy Policy",
+    "terms": "Terms of Use",
+    "hipaa": "HIPAA Notice",
+    "disclaimer": "Information on this site is for educational purposes only and does not constitute medical advice. Always consult a qualified healthcare provider."
+  },
+  "certifications": {
+    "accredited": "Accredited Bariatric Surgery Center",
+    "optumCoe": "Optum Center of Excellence"
+  }
+}
