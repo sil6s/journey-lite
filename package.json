@@ -14,9 +14,7 @@
     "patch:migrated": "tsx scripts/patch-migrated-sanity-posts.ts",
     "upload:images": "tsx scripts/upload-images-to-sanity.ts",
     "patch:featured-images": "tsx scripts/patch-featured-images.ts",
-    "publish:migrated": "tsx scripts/publish-migrated-posts.ts",
-    "generate:olx": "python3 scripts/generate-openedx-olx.py",
-    "openedx:brand": "bash scripts/apply-openedx-branding.sh"
+    "publish:migrated": "tsx scripts/publish-migrated-posts.ts"
   },
   "dependencies": {
     "@portabletext/react": "^6.1.0",

@@ -3,7 +3,7 @@
 import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { BookOpen, Menu, Phone, ShoppingBag } from "lucide-react";
+import { GraduationCap, Menu, Phone, ShoppingBag } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   Sheet,
@@ -117,10 +117,10 @@ export function MobileNav({
           <div className="grid gap-3 rounded-xl border border-[#dce4df] bg-white p-4">
             <p className="text-xs font-semibold uppercase tracking-[0.14em] text-[#66756d]">Patient Resources</p>
             <SheetClose asChild>
-              <Link className="flex items-center gap-3 rounded-lg bg-[#edf4ef] px-3 py-3 text-sm font-semibold text-[#145c42]" href="/courses">
-                <BookOpen aria-hidden="true" className="size-4" />
-                JourneyLite Education Portal
-              </Link>
+              <a className="flex items-center gap-3 rounded-lg bg-[#edf4ef] px-3 py-3 text-sm font-semibold text-[#145c42]" href="https://learn.journeylite.com">
+                <GraduationCap aria-hidden="true" className="size-4" />
+                JourneyLite Learn
+              </a>
             </SheetClose>
             <SheetClose asChild>
               <Link className="flex items-center gap-3 rounded-lg bg-[#edf4ef] px-3 py-3 text-sm font-semibold text-[#145c42]" href="/shop">

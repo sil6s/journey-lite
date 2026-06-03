@@ -8,10 +8,6 @@ import { sitePage } from "./sitePage";
 import { staffProfile } from "./staffProfile";
 import { testimonial } from "./testimonial";
 
-// Patient Education (LMS) schemas have been removed.
-// Course content is now managed in Open edX (Tutor).
-// See lib/openedx/ for the new API integration.
-
 export const schemaTypes = [
   // Blog & Resources
   blogPost,

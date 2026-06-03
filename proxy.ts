@@ -115,32 +115,12 @@ export async function proxy(request: NextRequest) {
     return NextResponse.redirect(url);
   }
 
-  if (pathname.startsWith("/dashboard") && !user) {
-    const loginUrl = request.nextUrl.clone();
-    loginUrl.pathname = "/login";
-    loginUrl.searchParams.set("redirectTo", pathname);
-    return NextResponse.redirect(loginUrl);
-  }
-
-  if ((pathname === "/login" || pathname === "/signup") && user) {
-    const url = request.nextUrl.clone();
-    url.pathname = "/dashboard";
-    url.search = "";
-    return NextResponse.redirect(url);
-  }
-
   return supabaseResponse;
 }
 
 export const config = {
   matcher: [
     "/admin/:path*",
-    "/dashboard/:path*",
-    "/login",
-    "/signup",
-    "/forgot-password",
-    "/reset-password",
-    "/courses/:path*",
     "/((?!_next/static|_next/image|favicon|sitemap|robots|manifest|.*\\.(?:svg|png|jpg|jpeg|gif|webp|ico|woff2?|ttf|otf|mp4|pdf)$).*)",
   ],
 };

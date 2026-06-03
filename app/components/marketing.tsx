@@ -1,7 +1,7 @@
 import type { ReactNode } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowRight, BookOpen, ShoppingBag } from "lucide-react";
+import { ArrowRight, GraduationCap, ShoppingBag } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { BookConsultButton } from "@/components/site/BookConsultButton";
@@ -233,7 +233,7 @@ export function SiteFooter() {
             ["Compare Options", "/services/compare-weight-loss-options"],
             ["Pricing & Financing", "/services/pricing-financing"],
             ["Bariatric Metrics", "/bariatric-metrics"],
-            ["Education Portal", "/courses"],
+            ["Learn", "https://learn.journeylite.com"],
             ["Locations", "/about/locations"],
             ["Testimonials", "/#reviews"],
             ["Blog", "/blog"],
@@ -249,8 +249,8 @@ export function SiteFooter() {
             <CTAButton href="/admin/login" variant="outline">
               Admin Portal
             </CTAButton>
-            <CTAButton href="/courses" variant="outline">
-              Education Portal
+            <CTAButton href="https://learn.journeylite.com" variant="outline">
+              Learn
             </CTAButton>
             <CTAButton href="/studio" variant="outline">
               Studio Portal
@@ -1114,11 +1114,11 @@ export function ReviewGrid() {
 export function PatientResourcesStrip() {
   const resourceCards = [
     {
-      title: "JourneyLite Education Portal",
-      copy: "Evidence-based courses on surgery prep, post-op recovery, vitamins, and long-term habits.",
-      href: "/courses",
-      cta: "Browse courses",
-      icon: BookOpen,
+      title: "JourneyLite Learn",
+      copy: "Required patient education for surgery prep, recovery, vitamins, and long-term habits.",
+      href: "https://learn.journeylite.com",
+      cta: "Open Learn",
+      icon: GraduationCap,
     },
     {
       title: "JourneyLite Shop",

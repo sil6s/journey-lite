@@ -55,6 +55,46 @@ const nextConfig = {
         destination: "/medications#post-op-support",
         permanent: true,
       },
+      {
+        source: "/courses",
+        destination: "https://learn.journeylite.com",
+        permanent: false,
+      },
+      {
+        source: "/courses/:path*",
+        destination: "https://learn.journeylite.com/:path*",
+        permanent: false,
+      },
+      {
+        source: "/dashboard",
+        destination: "https://learn.journeylite.com/dashboard",
+        permanent: false,
+      },
+      {
+        source: "/dashboard/:path*",
+        destination: "https://learn.journeylite.com/dashboard/:path*",
+        permanent: false,
+      },
+      {
+        source: "/login",
+        destination: "https://learn.journeylite.com/login",
+        permanent: false,
+      },
+      {
+        source: "/signup",
+        destination: "https://learn.journeylite.com/signup",
+        permanent: false,
+      },
+      {
+        source: "/forgot-password",
+        destination: "https://learn.journeylite.com/forgot-password",
+        permanent: false,
+      },
+      {
+        source: "/reset-password",
+        destination: "https://learn.journeylite.com/reset-password",
+        permanent: false,
+      },
     ];
   },
 };
