@@ -116,14 +116,15 @@ export async function getCachedTranslation(
     return null;
   }
   if (!data) return null;
+  const row = data as CachedTranslation;
 
   // Hash mismatch — source has been updated
-  if (data.source_content_hash !== currentHash) {
+  if (row.source_content_hash !== currentHash) {
     void setStatus(documentId, locale, "stale"); // async, don't block the response
     return null;
   }
 
-  return data.status === "complete" ? (data as CachedTranslation) : null;
+  return row.status === "complete" ? row : null;
 }
 
 /**
@@ -142,7 +143,7 @@ export async function getStaleCachedTranslation(
     .eq("locale", locale)
     .in("status", ["complete", "stale"])
     .maybeSingle();
-  return (data as CachedTranslation) ?? null;
+  return data ? (data as CachedTranslation) : null;
 }
 
 /**
@@ -159,7 +160,7 @@ export async function getCacheRow(
     .eq("source_document_id", documentId)
     .eq("locale", locale)
     .maybeSingle();
-  return (data as CachedTranslation) ?? null;
+  return data ? (data as CachedTranslation) : null;
 }
 
 /**
