@@ -16,6 +16,8 @@ import {
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import type { SiteSearchItem } from "./SiteSearch";
 import { InlineSiteSearch } from "./SiteSearch";
+import { LocaleLanguageSwitcher } from "@/components/site/locale-language-switcher";
+import type { SupportedLocale } from "@/lib/i18n/config";
 
 type NavGroup = {
   label: string;
@@ -31,11 +33,13 @@ export function MobileNav({
   searchItems,
   phoneHref,
   phoneNumber,
+  locale = "en",
 }: {
   navGroups: NavGroup[];
   searchItems: SiteSearchItem[];
   phoneHref: string;
   phoneNumber: string;
+  locale?: SupportedLocale;
 }) {
   const [open, setOpen] = useState(false);
 
@@ -114,6 +118,10 @@ export function MobileNav({
               </AccordionItem>
             ))}
           </Accordion>
+          <div className="flex items-center justify-between rounded-xl border border-[#dce4df] bg-white px-4 py-3">
+            <p className="text-xs font-semibold uppercase tracking-[0.14em] text-[#66756d]">Language</p>
+            <LocaleLanguageSwitcher locale={locale} />
+          </div>
           <div className="grid gap-3 rounded-xl border border-[#dce4df] bg-white p-4">
             <p className="text-xs font-semibold uppercase tracking-[0.14em] text-[#66756d]">Patient Resources</p>
             <SheetClose asChild>

@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
+import { cookies } from "next/headers";
 import { notFound } from "next/navigation";
 import { PortableTextRenderer } from "../../components/PortableTextRenderer";
 import { CTAButton, SiteFooter, SiteHeader } from "../../components/marketing";
@@ -8,6 +9,8 @@ import { client } from "@/src/lib/sanity/client";
 import { postBySlugQuery, postSlugsQuery } from "@/src/lib/sanity/queries";
 import type { BlogPost } from "@/src/lib/sanity/types";
 import { urlFor } from "@/src/lib/sanity/image";
+import { isValidLocale, defaultLocale, type SupportedLocale } from "@/lib/i18n/config";
+import { getStaleCachedTranslation } from "@/lib/translation/cache";
 
 export const revalidate = 30;
 
@@ -30,20 +33,32 @@ export async function generateMetadata({ params }: BlogPostPageProps): Promise<M
 
   if (!post) return {};
 
-  const title = post.seoTitle || post.title;
-  const description = post.seoDescription || post.excerpt || "Read JourneyLite weight loss education and patient resources.";
+  // Use translated metadata when a locale cookie is present
+  const cookieStore = await cookies();
+  const raw = cookieStore.get("jl_locale")?.value;
+  const locale: SupportedLocale = raw && isValidLocale(raw) ? raw : defaultLocale;
+  let seoTitle = post.seoTitle || post.title;
+  let seoDescription = post.seoDescription || post.excerpt || "Read JourneyLite weight loss education and patient resources.";
+  if (locale !== defaultLocale && post._id) {
+    const cached = await getStaleCachedTranslation(post._id as string, locale);
+    if (cached) {
+      seoTitle = cached.translated_seo_title ?? cached.translated_title ?? seoTitle;
+      seoDescription = cached.translated_seo_description ?? cached.translated_excerpt ?? seoDescription;
+    }
+  }
+
   const ogImage = post.ogImage || post.featuredImage;
   const imageUrl = ogImage ? urlFor(ogImage).width(1200).height(630).fit("crop").url() : undefined;
 
   return {
-    title,
-    description,
+    title: seoTitle,
+    description: seoDescription,
     alternates: {
       canonical: `/blog/${post.slug}`,
     },
     openGraph: {
-      title,
-      description,
+      title: seoTitle,
+      description: seoDescription,
       type: "article",
       publishedTime: post.publishedAt,
       modifiedTime: post.updatedAt,
@@ -59,25 +74,43 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
 
   if (!post) notFound();
 
-  const toc = getTableOfContents(post.body ?? []);
-  const relatedServices = post.relatedServices ?? [];
-  const sources = post.showSources ? (post.sources ?? []).filter((source) => source.title || source.url) : [];
-  const featuredImageUrl = post.featuredImage ? urlFor(post.featuredImage).width(1400).height(760).fit("crop").url() : null;
-  const authorImageUrl = post.author?.image ? urlFor(post.author.image).width(160).height(160).fit("crop").url() : null;
+  // Serve translated content when the visitor has a non-English locale cookie
+  const cookieStore = await cookies();
+  const raw = cookieStore.get("jl_locale")?.value;
+  const locale: SupportedLocale = raw && isValidLocale(raw) ? raw : defaultLocale;
+  let displayPost = post;
+  if (locale !== defaultLocale && post._id) {
+    const cached = await getStaleCachedTranslation(post._id as string, locale);
+    if (cached) {
+      displayPost = {
+        ...post,
+        title: cached.translated_title ?? post.title,
+        excerpt: cached.translated_excerpt ?? post.excerpt,
+        seoTitle: (cached.translated_seo_title ?? post.seoTitle) as string | undefined,
+        seoDescription: (cached.translated_seo_description ?? post.seoDescription) as string | undefined,
+      };
+    }
+  }
+
+  const toc = getTableOfContents(displayPost.body ?? []);
+  const relatedServices = displayPost.relatedServices ?? [];
+  const sources = displayPost.showSources ? (displayPost.sources ?? []).filter((source) => source.title || source.url) : [];
+  const featuredImageUrl = displayPost.featuredImage ? urlFor(displayPost.featuredImage).width(1400).height(760).fit("crop").url() : null;
+  const authorImageUrl = displayPost.author?.image ? urlFor(displayPost.author.image).width(160).height(160).fit("crop").url() : null;
 
   const blogSchema = {
     "@context": "https://schema.org",
     "@type": "BlogPosting",
-    headline: post.title,
-    description: post.excerpt,
-    datePublished: post.publishedAt,
-    dateModified: post.updatedAt || post.publishedAt,
+    headline: displayPost.title,
+    description: displayPost.excerpt,
+    datePublished: displayPost.publishedAt,
+    dateModified: displayPost.updatedAt || displayPost.publishedAt,
     image: featuredImageUrl ? [featuredImageUrl] : undefined,
-    author: post.author?.name
+    author: displayPost.author?.name
       ? {
           "@type": "Person",
-          name: post.author.name,
-          jobTitle: post.author.title,
+          name: displayPost.author.name,
+          jobTitle: displayPost.author.title,
           image: authorImageUrl,
         }
       : {
@@ -92,7 +125,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
         url: `${siteUrl}/journeylite-logo.svg`,
       },
     },
-    mainEntityOfPage: `${siteUrl}/blog/${post.slug}`,
+    mainEntityOfPage: `${siteUrl}/blog/${displayPost.slug}`,
     citation: sources.map((source) => source.url || source.title).filter(Boolean),
   };
 
@@ -115,8 +148,8 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
       {
         "@type": "ListItem",
         position: 3,
-        name: post.title,
-        item: `${siteUrl}/blog/${post.slug}`,
+        name: displayPost.title,
+        item: `${siteUrl}/blog/${displayPost.slug}`,
       },
     ],
   };
@@ -126,17 +159,17 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
       <SiteHeader />
       <main>
         <article>
-          {post.isMigrated ? <MigrationBanner /> : null}
+          {displayPost.isMigrated ? <MigrationBanner /> : null}
 
           <header className="bg-[#f7f8f6] py-16 lg:py-20">
             <div className="mx-auto max-w-7xl px-5 lg:px-8">
               <div className="max-w-4xl">
-                <p className="eyebrow">{post.category?.name ?? "JourneyLite Blog"}</p>
-                <h1 className="mt-4 font-serif text-5xl leading-[1.05] text-[#1e2b24] md:text-6xl">{post.title}</h1>
-                {post.excerpt ? <p className="mt-6 text-lg leading-8 text-[#53635b]">{post.excerpt}</p> : null}
+                <p className="eyebrow">{displayPost.category?.name ?? "JourneyLite Blog"}</p>
+                <h1 className="mt-4 font-serif text-5xl leading-[1.05] text-[#1e2b24] md:text-6xl">{displayPost.title}</h1>
+                {displayPost.excerpt ? <p className="mt-6 text-lg leading-8 text-[#53635b]">{displayPost.excerpt}</p> : null}
                 <div className="mt-6 flex flex-wrap gap-3 text-sm font-semibold text-[#64736b]">
-                  <span>{formatDate(post.publishedAt)}</span>
-                  {post.author?.name ? <span>By {post.author.name}</span> : null}
+                  <span>{formatDate(displayPost.publishedAt)}</span>
+                  {displayPost.author?.name ? <span>By {displayPost.author.name}</span> : null}
                 </div>
               </div>
             </div>
@@ -146,7 +179,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
             <div className="bg-white">
               <div className="mx-auto max-w-7xl px-5 py-8 lg:px-8">
                 <Image
-                  alt={post.featuredImageAlt || post.title}
+                  alt={displayPost.featuredImageAlt || displayPost.title}
                   className="max-h-[620px] w-full rounded-2xl border border-[#dce4df] object-cover shadow-xl shadow-[#20372b]/8"
                   height={760}
                   priority
@@ -177,9 +210,9 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
               </aside>
 
               <div className="max-w-3xl">
-                <AuthorCard imageUrl={authorImageUrl} post={post} />
-                <KeyTakeaways items={post.keyTakeaways} />
-                {post.body?.length ? <PortableTextRenderer value={post.body} /> : null}
+                <AuthorCard imageUrl={authorImageUrl} post={displayPost} />
+                <KeyTakeaways items={displayPost.keyTakeaways} />
+                {displayPost.body?.length ? <PortableTextRenderer value={displayPost.body} /> : null}
                 <SourcesList sources={sources} />
 
                 <aside className="mt-12 rounded-xl border border-[#d8c88b] bg-[#fffdf4] p-5 text-sm leading-6 text-[#5e5235]">
@@ -211,7 +244,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
           </section>
         </article>
 
-        {post.relatedPosts?.length ? (
+        {displayPost.relatedPosts?.length ? (
           <section className="bg-[#edf4ef] py-16 lg:py-20">
             <div className="mx-auto max-w-7xl px-5 lg:px-8">
               <div className="max-w-3xl">
@@ -219,7 +252,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
                 <h2 className="section-title">More from JourneyLite</h2>
               </div>
               <div className="mt-8 grid gap-5 md:grid-cols-3">
-                {post.relatedPosts.map((related) => (
+                {displayPost.relatedPosts.map((related) => (
                   <Link
                     className="rounded-xl border border-[#dce4df] bg-white p-5 shadow-sm transition hover:-translate-y-0.5 hover:border-[#145c42]"
                     href={`/blog/${related.slug}`}

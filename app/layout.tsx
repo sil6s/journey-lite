@@ -2,8 +2,10 @@ import "./globals.css";
 import type { Metadata } from "next";
 import { Inter, Playfair_Display, Geist } from "next/font/google";
 import Script from "next/script";
+import { cookies } from "next/headers";
 import { cn } from "@/lib/utils";
 import { Providers } from "@/components/site/providers";
+import { isValidLocale, getTextDirection, defaultLocale, type SupportedLocale } from "@/lib/i18n/config";
 
 const geist = Geist({subsets:['latin'],variable:'--font-sans'});
 
@@ -20,9 +22,14 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default async function RootLayout({ children }: { children: React.ReactNode }) {
+  const cookieStore = await cookies();
+  const raw = cookieStore.get("jl_locale")?.value;
+  const locale: SupportedLocale = raw && isValidLocale(raw) ? raw : defaultLocale;
+  const dir = getTextDirection(locale);
+
   return (
-    <html lang="en" className={cn("font-sans", geist.variable)}>
+    <html lang={locale} dir={dir} className={cn("font-sans", geist.variable)}>
       <head>
         {turnstileSiteKey ? <Script src="https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit" strategy="afterInteractive" /> : null}
         <Script defer src="https://cloud.umami.is/script.js" data-website-id={umamiWebsiteId} strategy="afterInteractive" />

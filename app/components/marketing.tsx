@@ -1,6 +1,7 @@
 import type { ReactNode } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { cookies } from "next/headers";
 import { ArrowRight, GraduationCap, ShoppingBag } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -8,6 +9,8 @@ import { BookConsultButton } from "@/components/site/BookConsultButton";
 import { Card, CardContent } from "@/components/ui/card";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { cn } from "@/lib/utils";
+import { isValidLocale, defaultLocale, type SupportedLocale } from "@/lib/i18n/config";
+import { LocaleLanguageSwitcher } from "@/components/site/locale-language-switcher";
 import {
   cincinnatiLocation,
   comparisonRows,
@@ -56,7 +59,11 @@ export function CTAButton({
   );
 }
 
-export function SiteHeader() {
+export async function SiteHeader() {
+  const cookieStore = await cookies();
+  const raw = cookieStore.get("jl_locale")?.value;
+  const locale: SupportedLocale = raw && isValidLocale(raw) ? raw : defaultLocale;
+
   return (
     <header className="sticky top-0 z-40 border-b border-[#dce4df] bg-white/95 backdrop-blur">
       <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-5 py-2 lg:px-8">
@@ -111,11 +118,12 @@ export function SiteHeader() {
 
         <div className="hidden items-center gap-2 lg:flex">
           <SiteSearch items={siteSearchItems} />
+          <LocaleLanguageSwitcher locale={locale} />
           <CallMenu />
           <BookConsultButton />
         </div>
 
-        <MobileNav navGroups={sortedNavGroups} phoneHref={phoneHref} phoneNumber={phoneNumber} searchItems={siteSearchItems} />
+        <MobileNav navGroups={sortedNavGroups} phoneHref={phoneHref} phoneNumber={phoneNumber} searchItems={siteSearchItems} locale={locale} />
       </div>
     </header>
   );
