@@ -50,7 +50,7 @@ async function translateFields(
   doc: TranslatableDoc,
   locale: SupportedLocale,
   apiKey: string,
-): Promise<TranslatableDoc & TranslatedFields> {
+): Promise<TranslatedFields> {
   const language = supportedLanguages.find((l) => l.id === locale)!.title;
 
   const payload: Record<string, string> = {};
@@ -65,7 +65,7 @@ async function translateFields(
   doc.ctas?.forEach((cta, i) => { payload[`cta_label_${i}`] = cta.label; });
 
   if (Object.keys(payload).length === 0) {
-    return { ...doc, title: null, excerpt: null, seoTitle: null, seoDescription: null, faqs: null, ctas: null };
+    return { title: null, excerpt: null, seoTitle: null, seoDescription: null, faqs: null, ctas: null };
   }
 
   const response = await fetch(DEEPSEEK_API_URL, {
@@ -101,7 +101,6 @@ async function translateFields(
   const translated = JSON.parse(content) as Record<string, string>;
 
   return {
-    ...doc,
     title: translated.title ?? null,
     excerpt: translated.excerpt ?? null,
     seoTitle: translated.seoTitle ?? null,
