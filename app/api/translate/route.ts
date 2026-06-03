@@ -11,6 +11,7 @@ import { client } from "@/src/lib/sanity/client";
 import {
   deleteTranslationCache,
   listTranslationsForDocument,
+  type TranslationStatus,
 } from "@/lib/translation/cache";
 import { getOrCreateTranslation } from "@/lib/translation/translate";
 import {
@@ -18,6 +19,14 @@ import {
   publicLocales,
   type SupportedLocale,
 } from "@/lib/i18n/config";
+
+type TranslationStatusResponse = {
+  status: TranslationStatus | "none";
+  generatedAt?: string | null;
+  hash?: string;
+  provider?: string;
+  error?: string;
+};
 
 // ── GET — translation status ──────────────────────────────────────────────────
 
@@ -32,7 +41,7 @@ export async function GET(request: NextRequest) {
 
   try {
     const rows = await listTranslationsForDocument(documentId);
-    const byLocale = Object.fromEntries(
+    const byLocale: Record<string, TranslationStatusResponse> = Object.fromEntries(
       rows.map((r) => [
         r.locale,
         {
