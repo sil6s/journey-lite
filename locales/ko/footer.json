@@ -1,55 +1,55 @@
 {
-  "tagline": "Compassionate care. Life-changing results.",
-  "description": "JourneyLite is a nationally recognized bariatric and medical weight loss practice serving patients across Ohio, Kentucky, and Indiana.",
+  "tagline": "자비로운 배려. 인생을 바꾸는 결과.",
+  "description": "JourneyLite는 오하이오, 켄터키, 인디애나 전역의 환자에게 서비스를 제공하는 전국적으로 인정받는 비만 및 의료 체중 감량 실습입니다.",
   "sections": {
-    "procedures": "Procedures",
-    "resources": "Resources",
-    "practice": "Practice",
-    "connect": "Connect"
+    "procedures": "절차",
+    "resources": "자원",
+    "practice": "연습",
+    "connect": "연결하다"
   },
   "links": {
-    "gastricSleeve": "Gastric Sleeve",
-    "gastricBypass": "Gastric Bypass",
-    "gastricBalloon": "Gastric Balloon",
-    "lapBand": "Lap Band",
-    "sadi": "SADI Surgery",
-    "medications": "Weight Loss Medications",
-    "esg": "Endoscopic Sleeve Gastroplasty",
-    "blog": "Blog & Resources",
-    "patientStories": "Patient Stories",
-    "bmiCalculator": "BMI Calculator",
-    "faqs": "FAQs",
-    "education": "Patient Education",
-    "about": "About JourneyLite",
-    "ourTeam": "Our Team",
-    "locations": "Locations",
-    "pricing": "Pricing & Financing",
-    "privacy": "Privacy Policy",
-    "contact": "Contact Us",
-    "appointment": "Request Appointment"
+    "gastricSleeve": "위소매",
+    "gastricBypass": "위 우회술",
+    "gastricBalloon": "위 풍선",
+    "lapBand": "랩 밴드",
+    "sadi": "사디성형외과",
+    "medications": "체중 감량 약물",
+    "esg": "내시경 소매 위성형술",
+    "blog": "블로그 및 리소스",
+    "patientStories": "환자 이야기",
+    "bmiCalculator": "BMI 계산기",
+    "faqs": "자주 묻는 질문",
+    "education": "환자 교육",
+    "about": "JourneyLite 소개",
+    "ourTeam": "우리 팀",
+    "locations": "위치",
+    "pricing": "가격 및 금융",
+    "privacy": "개인 정보 보호 정책",
+    "contact": "문의하기",
+    "appointment": "예약 요청"
   },
   "contact": {
     "phone": "877-442-2263",
-    "phoneLabel": "Call us",
-    "address": "10475 Reading Road",
-    "cityStateZip": "Cincinnati, OH 45241",
-    "emailLabel": "Email us"
+    "phoneLabel": "전화주세요",
+    "address": "10475 레딩로드",
+    "cityStateZip": "신시내티, OH 45241",
+    "emailLabel": "이메일을 보내주세요"
   },
   "social": {
-    "facebook": "Follow JourneyLite on Facebook",
-    "instagram": "Follow JourneyLite on Instagram",
-    "youtube": "Watch JourneyLite on YouTube",
-    "google": "Read Google Reviews"
+    "facebook": "Facebook에서 JourneyLite를 팔로우하세요.",
+    "instagram": "인스타그램에서 JourneyLite를 팔로우하세요",
+    "youtube": "YouTube에서 JourneyLite 시청하기",
+    "google": "Google 리뷰 읽기"
   },
   "legal": {
-    "copyright": "© {{year}} JourneyLite Physicians. All rights reserved.",
-    "privacy": "Privacy Policy",
-    "terms": "Terms of Use",
-    "hipaa": "HIPAA Notice",
-    "disclaimer": "Information on this site is for educational purposes only and does not constitute medical advice. Always consult a qualified healthcare provider."
+    "copyright": "© {{연도}} JourneyLite 의사. 모든 권리 보유.",
+    "privacy": "개인 정보 보호 정책",
+    "terms": "이용약관",
+    "hipaa": "HIPAA 공지",
+    "disclaimer": "이 사이트의 정보는 교육 목적으로만 제공되며 의학적 조언을 구성하지 않습니다. 항상 자격을 갖춘 의료 서비스 제공자와 상담하십시오."
   },
   "certifications": {
-    "accredited": "Accredited Bariatric Surgery Center",
-    "optumCoe": "Optum Center of Excellence"
+    "accredited": "공인 비만 수술 센터",
+    "optumCoe": "옵텀 우수 센터"
   }
 }

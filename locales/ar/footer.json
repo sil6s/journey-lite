@@ -1,55 +1,55 @@
 {
-  "tagline": "Compassionate care. Life-changing results.",
-  "description": "JourneyLite is a nationally recognized bariatric and medical weight loss practice serving patients across Ohio, Kentucky, and Indiana.",
+  "tagline": "رعاية رحيمة. نتائج تغير الحياة.",
+  "description": "JourneyLite هي ممارسة معترف بها وطنيًا لعلاج السمنة وفقدان الوزن الطبي وتخدم المرضى في جميع أنحاء أوهايو وكنتاكي وإنديانا.",
   "sections": {
-    "procedures": "Procedures",
-    "resources": "Resources",
-    "practice": "Practice",
-    "connect": "Connect"
+    "procedures": "الإجراءات",
+    "resources": "الموارد",
+    "practice": "ممارسة",
+    "connect": "الاتصال"
   },
   "links": {
-    "gastricSleeve": "Gastric Sleeve",
-    "gastricBypass": "Gastric Bypass",
-    "gastricBalloon": "Gastric Balloon",
-    "lapBand": "Lap Band",
-    "sadi": "SADI Surgery",
-    "medications": "Weight Loss Medications",
-    "esg": "Endoscopic Sleeve Gastroplasty",
-    "blog": "Blog & Resources",
-    "patientStories": "Patient Stories",
-    "bmiCalculator": "BMI Calculator",
-    "faqs": "FAQs",
-    "education": "Patient Education",
-    "about": "About JourneyLite",
-    "ourTeam": "Our Team",
-    "locations": "Locations",
-    "pricing": "Pricing & Financing",
-    "privacy": "Privacy Policy",
-    "contact": "Contact Us",
-    "appointment": "Request Appointment"
+    "gastricSleeve": "تكميم المعدة",
+    "gastricBypass": "تجاوز المعدة",
+    "gastricBalloon": "بالون المعدة",
+    "lapBand": "فرقة لاب",
+    "sadi": "جراحة سدي",
+    "medications": "أدوية تخفيف الوزن",
+    "esg": "تكميم المعدة بالمنظار",
+    "blog": "المدونة والموارد",
+    "patientStories": "قصص المرضى",
+    "bmiCalculator": "حاسبة مؤشر كتلة الجسم",
+    "faqs": "الأسئلة الشائعة",
+    "education": "تثقيف المريض",
+    "about": "حول JourneyLite",
+    "ourTeam": "فريقنا",
+    "locations": "المواقع",
+    "pricing": "التسعير والتمويل",
+    "privacy": "سياسة الخصوصية",
+    "contact": "اتصل بنا",
+    "appointment": "طلب موعد"
   },
   "contact": {
     "phone": "877-442-2263",
-    "phoneLabel": "Call us",
-    "address": "10475 Reading Road",
-    "cityStateZip": "Cincinnati, OH 45241",
-    "emailLabel": "Email us"
+    "phoneLabel": "اتصل بنا",
+    "address": "10475 طريق القراءة",
+    "cityStateZip": "سينسيناتي، أوهايو 45241",
+    "emailLabel": "راسلنا عبر البريد الإلكتروني"
   },
   "social": {
-    "facebook": "Follow JourneyLite on Facebook",
-    "instagram": "Follow JourneyLite on Instagram",
-    "youtube": "Watch JourneyLite on YouTube",
-    "google": "Read Google Reviews"
+    "facebook": "اتبع JourneyLite على الفيسبوك",
+    "instagram": "اتبع JourneyLite على Instagram",
+    "youtube": "شاهد JourneyLite على اليوتيوب",
+    "google": "اقرأ مراجعات جوجل"
   },
   "legal": {
-    "copyright": "© {{year}} JourneyLite Physicians. All rights reserved.",
-    "privacy": "Privacy Policy",
-    "terms": "Terms of Use",
-    "hipaa": "HIPAA Notice",
-    "disclaimer": "Information on this site is for educational purposes only and does not constitute medical advice. Always consult a qualified healthcare provider."
+    "copyright": "© {{year}} أطباء JourneyLite. جميع الحقوق محفوظة.",
+    "privacy": "سياسة الخصوصية",
+    "terms": "شروط الاستخدام",
+    "hipaa": "إشعار HIPAA",
+    "disclaimer": "المعلومات الواردة في هذا الموقع هي للأغراض التعليمية فقط ولا تشكل نصيحة طبية. استشر دائمًا مقدم رعاية صحية مؤهل."
   },
   "certifications": {
-    "accredited": "Accredited Bariatric Surgery Center",
-    "optumCoe": "Optum Center of Excellence"
+    "accredited": "مركز جراحة السمنة المعتمد",
+    "optumCoe": "مركز أوبتوم للتميز"
   }
 }

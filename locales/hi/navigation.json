@@ -1,44 +1,44 @@
 {
   "links": {
-    "home": "Home",
-    "about": "About",
-    "services": "Services",
-    "procedures": "Procedures",
-    "surgicalWeightLoss": "Surgical Weight Loss",
-    "nonSurgical": "Non-Surgical Options",
-    "medications": "Medications",
-    "gastricBalloon": "Gastric Balloon",
-    "blog": "Blog & Resources",
-    "patientStories": "Patient Stories",
-    "contact": "Contact",
-    "pricing": "Pricing & Financing",
-    "locations": "Locations",
-    "ourTeam": "Our Team",
-    "education": "Patient Education",
-    "bmiCalculator": "BMI Calculator",
-    "eligibilityCheck": "Check Eligibility",
-    "appointmentRequest": "Request Appointment",
-    "portal": "Patient Portal",
-    "login": "Log In",
-    "logout": "Log Out",
-    "dashboard": "Dashboard"
+    "home": "घर",
+    "about": "के बारे में",
+    "services": "सेवाएं",
+    "procedures": "प्रक्रियाओं",
+    "surgicalWeightLoss": "सर्जिकल वजन घटाना",
+    "nonSurgical": "गैर-सर्जिकल विकल्प",
+    "medications": "दवाएं",
+    "gastricBalloon": "गैस्ट्रिक गुब्बारा",
+    "blog": "ब्लॉग और संसाधन",
+    "patientStories": "रोगी कहानियाँ",
+    "contact": "संपर्क",
+    "pricing": "मूल्य निर्धारण और वित्तपोषण",
+    "locations": "स्थानों",
+    "ourTeam": "हमारी टीम",
+    "education": "रोगी शिक्षा",
+    "bmiCalculator": "बीएमआई कैलकुलेटर",
+    "eligibilityCheck": "पात्रता जांचें",
+    "appointmentRequest": "नियुक्ति का अनुरोध करें",
+    "portal": "रोगी पोर्टल",
+    "login": "लॉग इन करें",
+    "logout": "लॉग आउट",
+    "dashboard": "डैशबोर्ड"
   },
   "megaMenu": {
     "surgical": {
-      "heading": "Surgical Weight Loss",
-      "description": "Permanent, proven procedures performed by board-certified surgeons."
+      "heading": "सर्जिकल वजन घटाना",
+      "description": "बोर्ड-प्रमाणित सर्जनों द्वारा की जाने वाली स्थायी, सिद्ध प्रक्रियाएँ।"
     },
     "nonSurgical": {
-      "heading": "Non-Surgical Options",
-      "description": "Effective alternatives without incisions or overnight stays."
+      "heading": "गैर-सर्जिकल विकल्प",
+      "description": "बिना चीर-फाड़ या रात्रि विश्राम के प्रभावी विकल्प।"
     },
     "medical": {
-      "heading": "Medical Weight Loss",
-      "description": "Prescription medications and physician-supervised programs."
+      "heading": "चिकित्सीय वजन घटाना",
+      "description": "प्रिस्क्रिप्शन दवाएं और चिकित्सक-पर्यवेक्षित कार्यक्रम।"
     }
   },
   "mobileMenu": {
-    "close": "Close menu",
-    "back": "Back"
+    "close": "मेनू बंद करें",
+    "back": "पीछे"
   }
 }

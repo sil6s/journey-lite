@@ -1,0 +1,81 @@
+{
+  "site": {
+    "name": "JourneyLite",
+    "tagline": "Cuidados Compassivos para Perda de Peso",
+    "phone": "877-442-2263",
+    "address": "10475 Reading Road, Cincinnati, OH 45241"
+  },
+  "actions": {
+    "requestAppointment": "Solicite uma consulta",
+    "scheduleConsultation": "Agende uma consulta gratuita",
+    "learnMore": "Saiba mais",
+    "callUs": "Ligue para nós",
+    "viewAll": "Ver tudo",
+    "readMore": "Leia mais",
+    "getStarted": "Comece",
+    "contactUs": "Contate-nos",
+    "bookNow": "Reserve agora",
+    "downloadForm": "Baixar Formulário",
+    "watchVideo": "Assistir ao vídeo",
+    "calculateBmi": "Calcular meu IMC",
+    "checkEligibility": "Verifique minha elegibilidade",
+    "seePatientStories": "Veja histórias de pacientes",
+    "backToTop": "Voltar ao topo",
+    "close": "Fechar",
+    "open": "Abrir",
+    "loading": "Carregando…",
+    "submit": "Enviar",
+    "cancel": "Cancelar",
+    "save": "Salvar",
+    "next": "Próximo",
+    "previous": "Anterior",
+    "back": "Voltar"
+  },
+  "states": {
+    "loading": "Carregando…",
+    "error": "Algo deu errado. Por favor, tente novamente.",
+    "noResults": "Nenhum resultado encontrado.",
+    "empty": "Nada aqui ainda.",
+    "success": "Pronto!",
+    "required": "Obrigatório",
+    "optional": "Opcional"
+  },
+  "accessibility": {
+    "skipToContent": "Pular para o conteúdo principal",
+    "openMenu": "Abrir menu de navegação",
+    "closeMenu": "Fechar menu de navegação",
+    "toggleLanguage": "Selecione o idioma",
+    "currentLanguage": "Idioma atual: {{idioma}}",
+    "externalLink": "Abre em uma nova aba",
+    "backToTop": "Role de volta ao topo"
+  },
+  "procedures": {
+    "gastricSleeve": "Manga Gástrica (VSG)",
+    "gastricBypass": "Bypass gástrico",
+    "lapBand": "Banda de colo",
+    "sadi": "Cirurgia SADI",
+    "gastricBalloon": "Balão Gástrico",
+    "spatz3": "Balão Spatz3",
+    "orbera": "Balão ORBERA",
+    "allurion": "Balão Allurion",
+    "esg": "Gastroplastia Endoscópica Sleeve",
+    "medications": "Medicamentos para perder peso",
+    "wegovy": "Injeções de Wegovy/Zepbound",
+    "adipex": "Medicamentos orais (Adipex)",
+    "revisions": "Cirurgia de Revisão"
+  },
+  "badges": {
+    "newPatient": "Novo paciente",
+    "featured": "Destaque",
+    "popular": "Mais populares",
+    "recommended": "Recomendado",
+    "insuranceAccepted": "Seguro aceito",
+    "selfPayAvailable": "Autopagamento disponível",
+    "freeConsultation": "Consulta Gratuita"
+  },
+  "pagination": {
+    "page": "Página {{atual}} de {{total}}",
+    "nextPage": "Próxima página",
+    "previousPage": "Página anterior"
+  }
+}

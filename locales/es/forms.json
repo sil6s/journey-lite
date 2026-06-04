@@ -35,26 +35,7 @@
     "selectProcedure": "Seleccione un procedimiento…",
     "searchCity": "Ingrese su ciudad"
   },
-  "options": {
-    "contactMethod": ["Llamada telefónica", "Mensaje de texto", "Correo electrónico"],
-    "bestTime": ["Mañana (8am – 12pm)", "Tarde (12pm – 5pm)", "Noche (5pm – 8pm)", "Cualquier hora"],
-    "researchStage": [
-      "Apenas comenzando a investigar",
-      "Lo estoy considerando seriamente",
-      "Listo para programar una consulta",
-      "Ya tengo una cita"
-    ],
-    "referralSource": [
-      "Búsqueda en Google",
-      "Redes sociales",
-      "Recomendación de amigo o familiar",
-      "Derivación médica",
-      "Proveedor de seguro",
-      "Publicidad en línea",
-      "Televisión o radio",
-      "Otro"
-    ]
-  },
+  "options": {},
   "validation": {
     "required": "{{field}} es obligatorio.",
     "email": "Por favor ingrese una dirección de correo electrónico válida.",

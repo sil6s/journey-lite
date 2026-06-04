@@ -1,44 +1,44 @@
 {
   "links": {
-    "home": "Home",
-    "about": "About",
-    "services": "Services",
-    "procedures": "Procedures",
-    "surgicalWeightLoss": "Surgical Weight Loss",
-    "nonSurgical": "Non-Surgical Options",
-    "medications": "Medications",
-    "gastricBalloon": "Gastric Balloon",
-    "blog": "Blog & Resources",
-    "patientStories": "Patient Stories",
-    "contact": "Contact",
-    "pricing": "Pricing & Financing",
-    "locations": "Locations",
-    "ourTeam": "Our Team",
-    "education": "Patient Education",
-    "bmiCalculator": "BMI Calculator",
-    "eligibilityCheck": "Check Eligibility",
-    "appointmentRequest": "Request Appointment",
-    "portal": "Patient Portal",
-    "login": "Log In",
-    "logout": "Log Out",
-    "dashboard": "Dashboard"
+    "home": "Trang chủ",
+    "about": "Giới thiệu",
+    "services": "Dịch vụ",
+    "procedures": "Thủ tục",
+    "surgicalWeightLoss": "Giảm cân phẫu thuật",
+    "nonSurgical": "Lựa chọn không phẫu thuật",
+    "medications": "Thuốc",
+    "gastricBalloon": "Bóng dạ dày",
+    "blog": "Blog & Tài nguyên",
+    "patientStories": "Câu chuyện bệnh nhân",
+    "contact": "Liên hệ",
+    "pricing": "Giá cả & Tài chính",
+    "locations": "Địa điểm",
+    "ourTeam": "Đội ngũ của chúng tôi",
+    "education": "Giáo dục bệnh nhân",
+    "bmiCalculator": "Máy tính BMI",
+    "eligibilityCheck": "Kiểm tra tính đủ điều kiện",
+    "appointmentRequest": "Yêu cầu cuộc hẹn",
+    "portal": "Cổng thông tin bệnh nhân",
+    "login": "Đăng nhập",
+    "logout": "Đăng xuất",
+    "dashboard": "Trang tổng quan"
   },
   "megaMenu": {
     "surgical": {
-      "heading": "Surgical Weight Loss",
-      "description": "Permanent, proven procedures performed by board-certified surgeons."
+      "heading": "Giảm cân phẫu thuật",
+      "description": "Các thủ tục lâu dài, đã được chứng minh được thực hiện bởi các bác sĩ phẫu thuật được hội đồng chứng nhận."
     },
     "nonSurgical": {
-      "heading": "Non-Surgical Options",
-      "description": "Effective alternatives without incisions or overnight stays."
+      "heading": "Lựa chọn không phẫu thuật",
+      "description": "Các lựa chọn thay thế hiệu quả mà không cần rạch hoặc nằm qua đêm."
     },
     "medical": {
-      "heading": "Medical Weight Loss",
-      "description": "Prescription medications and physician-supervised programs."
+      "heading": "Giảm cân y tế",
+      "description": "Thuốc theo toa và các chương trình do bác sĩ giám sát."
     }
   },
   "mobileMenu": {
-    "close": "Close menu",
-    "back": "Back"
+    "close": "Đóng trình đơn",
+    "back": "Quay lại"
   }
 }

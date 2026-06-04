@@ -1,70 +1,60 @@
 {
   "bmi": {
-    "title": "BMI Calculator",
-    "subtitle": "Find out your Body Mass Index and what it means for weight loss options.",
-    "heightLabel": "Height",
-    "weightLabel": "Weight",
+    "title": "Máy tính BMI",
+    "subtitle": "Tìm hiểu Chỉ số khối cơ thể của bạn và ý nghĩa của nó đối với các lựa chọn giảm cân.",
+    "heightLabel": "Chiều cao",
+    "weightLabel": "cân nặng",
     "feetLabel": "ft",
-    "inchesLabel": "in",
-    "poundsLabel": "lbs",
-    "calculateButton": "Calculate BMI",
-    "resetButton": "Reset",
-    "resultLabel": "Your BMI",
+    "inchesLabel": "trong",
+    "poundsLabel": "pound",
+    "calculateButton": "Tính chỉ số BMI",
+    "resetButton": "Đặt lại",
+    "resultLabel": "chỉ số BMI của bạn",
     "categories": {
-      "underweight": "Underweight",
-      "normal": "Normal weight",
-      "overweight": "Overweight",
-      "obese1": "Obese (Class I)",
-      "obese2": "Obese (Class II)",
-      "obese3": "Obese (Class III)"
+      "underweight": "Thiếu cân",
+      "normal": "Cân nặng bình thường",
+      "overweight": "Thừa cân",
+      "obese1": "Béo phì (Loại I)",
+      "obese2": "Béo phì (Loại II)",
+      "obese3": "Béo phì (Loại III)"
     },
     "ranges": {
-      "underweight": "Under 18.5",
-      "normal": "18.5 – 24.9",
-      "overweight": "25 – 29.9",
-      "obese1": "30 – 34.9",
-      "obese2": "35 – 39.9",
-      "obese3": "40 and above"
+      "underweight": "Dưới 18,5",
+      "normal": "18,5 – 24,9",
+      "overweight": "25 – 29,9",
+      "obese1": "30 – 34,9",
+      "obese2": "35 – 39,9",
+      "obese3": "40 trở lên"
     },
-    "disclaimer": "BMI is a screening tool, not a diagnosis. Speak with a JourneyLite physician for a personalized evaluation.",
-    "cta": "Based on your BMI, you may qualify for weight loss surgery. Request a free consultation to learn more."
+    "disclaimer": "BMI là một công cụ sàng lọc, không phải là một chẩn đoán. Nói chuyện với bác sĩ của JourneyLite để được đánh giá cá nhân hóa.",
+    "cta": "Dựa trên chỉ số BMI của bạn, bạn có thể đủ điều kiện để phẫu thuật giảm cân. Yêu cầu tư vấn miễn phí để tìm hiểu thêm."
   },
   "eligibility": {
-    "title": "Eligibility Check",
-    "subtitle": "Answer a few quick questions to see which JourneyLite programs may be right for you.",
+    "title": "Kiểm tra tính đủ điều kiện",
+    "subtitle": "Trả lời một số câu hỏi nhanh để xem chương trình JourneyLite nào có thể phù hợp với bạn.",
     "questions": {
-      "bmiRange": "What is your approximate BMI?",
-      "hasComorbidities": "Do you have any weight-related health conditions? (e.g., diabetes, sleep apnea, high blood pressure, joint pain)",
-      "priorWeightLossTried": "Have you tried diet and exercise programs before?",
-      "priorSurgery": "Have you had any prior weight loss surgery?",
-      "insurance": "Do you have health insurance?",
-      "age": "How old are you?"
+      "bmiRange": "Chỉ số BMI gần đúng của bạn là bao nhiêu?",
+      "hasComorbidities": "Bạn có bất kỳ tình trạng sức khỏe liên quan đến cân nặng? (ví dụ: tiểu đường, ngưng thở khi ngủ, huyết áp cao, đau khớp)",
+      "priorWeightLossTried": "Bạn đã thử các chương trình ăn kiêng và tập thể dục trước đây chưa?",
+      "priorSurgery": "Bạn đã từng phẫu thuật giảm cân trước đó chưa?",
+      "insurance": "Bạn có bảo hiểm y tế không?",
+      "age": "Bạn bao nhiêu tuổi?"
     },
-    "options": {
-      "bmiRange": [
-        "Under 27 (not yet overweight)",
-        "27 – 29.9 (overweight)",
-        "30 – 34.9 (obese)",
-        "35 – 39.9 (obese)",
-        "40 or above (severely obese)"
-      ],
-      "yesNo": ["Yes", "No", "Not sure"],
-      "ageRange": ["Under 18", "18 – 25", "26 – 40", "41 – 60", "Over 60"]
-    },
+    "options": {},
     "results": {
-      "surgical": "You may be a candidate for surgical weight loss. Our surgeons will review your complete history at your consultation.",
-      "nonSurgical": "You may be a good candidate for a gastric balloon or GLP-1 medication program.",
-      "medical": "A physician-supervised medication program may be a great fit for you.",
-      "moreInfo": "Our team can help you explore your options. A free consultation is the best next step.",
-      "callToAction": "Schedule your free consultation today.",
-      "disclaimer": "This result is informational only and does not replace a physician evaluation."
+      "surgical": "Bạn có thể là ứng cử viên cho phương pháp giảm cân bằng phẫu thuật. Các bác sĩ phẫu thuật của chúng tôi sẽ xem xét toàn bộ lịch sử của bạn khi tư vấn cho bạn.",
+      "nonSurgical": "Bạn có thể là ứng cử viên sáng giá cho chương trình bóng dạ dày hoặc thuốc GLP-1.",
+      "medical": "Một chương trình dùng thuốc do bác sĩ giám sát có thể rất phù hợp với bạn.",
+      "moreInfo": "Nhóm của chúng tôi có thể giúp bạn khám phá các lựa chọn của mình. Tư vấn miễn phí là bước tiếp theo tốt nhất.",
+      "callToAction": "Hãy đặt lịch tư vấn miễn phí ngay hôm nay.",
+      "disclaimer": "Kết quả này chỉ mang tính chất cung cấp thông tin và không thay thế đánh giá của bác sĩ."
     },
     "navigation": {
-      "question": "Question {{current}} of {{total}}",
-      "next": "Next Question",
-      "previous": "Previous Question",
-      "seeResults": "See My Results",
-      "startOver": "Start Over"
+      "question": "Câu hỏi {{current}} trong tổng số {{total}}",
+      "next": "Câu hỏi tiếp theo",
+      "previous": "Câu hỏi trước đó",
+      "seeResults": "Xem kết quả của tôi",
+      "startOver": "Bắt đầu lại"
     }
   }
 }

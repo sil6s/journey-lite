@@ -1,70 +1,60 @@
 {
   "bmi": {
-    "title": "BMI Calculator",
-    "subtitle": "Find out your Body Mass Index and what it means for weight loss options.",
-    "heightLabel": "Height",
-    "weightLabel": "Weight",
-    "feetLabel": "ft",
-    "inchesLabel": "in",
-    "poundsLabel": "lbs",
-    "calculateButton": "Calculate BMI",
-    "resetButton": "Reset",
-    "resultLabel": "Your BMI",
+    "title": "BMI 계산기",
+    "subtitle": "체질량지수(BMI)와 이것이 체중 감량 옵션에 대해 무엇을 의미하는지 알아보세요.",
+    "heightLabel": "신장",
+    "weightLabel": "무게",
+    "feetLabel": "피트",
+    "inchesLabel": "안으로",
+    "poundsLabel": "파운드",
+    "calculateButton": "BMI 계산",
+    "resetButton": "재설정",
+    "resultLabel": "당신의 BMI",
     "categories": {
-      "underweight": "Underweight",
-      "normal": "Normal weight",
-      "overweight": "Overweight",
-      "obese1": "Obese (Class I)",
-      "obese2": "Obese (Class II)",
-      "obese3": "Obese (Class III)"
+      "underweight": "저체중",
+      "normal": "정상 체중",
+      "overweight": "과체중",
+      "obese1": "비만(1급)",
+      "obese2": "비만(2급)",
+      "obese3": "비만(3급)"
     },
     "ranges": {
-      "underweight": "Under 18.5",
+      "underweight": "18.5세 미만",
       "normal": "18.5 – 24.9",
       "overweight": "25 – 29.9",
       "obese1": "30 – 34.9",
       "obese2": "35 – 39.9",
-      "obese3": "40 and above"
+      "obese3": "40세 이상"
     },
-    "disclaimer": "BMI is a screening tool, not a diagnosis. Speak with a JourneyLite physician for a personalized evaluation.",
-    "cta": "Based on your BMI, you may qualify for weight loss surgery. Request a free consultation to learn more."
+    "disclaimer": "BMI는 진단이 아닌 선별 도구입니다. 맞춤 평가를 받으려면 JourneyLite 의사와 상담하세요.",
+    "cta": "BMI에 따라 체중 감량 수술을 받을 자격이 있을 수 있습니다. 자세한 내용은 무료 상담을 요청하세요."
   },
   "eligibility": {
-    "title": "Eligibility Check",
-    "subtitle": "Answer a few quick questions to see which JourneyLite programs may be right for you.",
+    "title": "자격 확인",
+    "subtitle": "몇 가지 간단한 질문에 답하여 어떤 JourneyLite 프로그램이 귀하에게 적합한지 확인하세요.",
     "questions": {
-      "bmiRange": "What is your approximate BMI?",
-      "hasComorbidities": "Do you have any weight-related health conditions? (e.g., diabetes, sleep apnea, high blood pressure, joint pain)",
-      "priorWeightLossTried": "Have you tried diet and exercise programs before?",
-      "priorSurgery": "Have you had any prior weight loss surgery?",
-      "insurance": "Do you have health insurance?",
-      "age": "How old are you?"
+      "bmiRange": "당신의 대략적인 BMI는 얼마입니까?",
+      "hasComorbidities": "체중과 관련된 건강 문제가 있습니까? (예: 당뇨병, 수면 무호흡증, 고혈압, 관절통)",
+      "priorWeightLossTried": "이전에 다이어트와 운동 프로그램을 시도해 본 적이 있나요?",
+      "priorSurgery": "이전에 체중 감량 수술을 받은 적이 있습니까?",
+      "insurance": "건강 보험이 있습니까?",
+      "age": "당신은 몇 살입니까?"
     },
-    "options": {
-      "bmiRange": [
-        "Under 27 (not yet overweight)",
-        "27 – 29.9 (overweight)",
-        "30 – 34.9 (obese)",
-        "35 – 39.9 (obese)",
-        "40 or above (severely obese)"
-      ],
-      "yesNo": ["Yes", "No", "Not sure"],
-      "ageRange": ["Under 18", "18 – 25", "26 – 40", "41 – 60", "Over 60"]
-    },
+    "options": {},
     "results": {
-      "surgical": "You may be a candidate for surgical weight loss. Our surgeons will review your complete history at your consultation.",
-      "nonSurgical": "You may be a good candidate for a gastric balloon or GLP-1 medication program.",
-      "medical": "A physician-supervised medication program may be a great fit for you.",
-      "moreInfo": "Our team can help you explore your options. A free consultation is the best next step.",
-      "callToAction": "Schedule your free consultation today.",
-      "disclaimer": "This result is informational only and does not replace a physician evaluation."
+      "surgical": "당신은 수술적 체중 감량의 대상이 될 수 있습니다. 저희 외과 의사는 귀하의 상담 시 귀하의 전체 병력을 검토할 것입니다.",
+      "nonSurgical": "귀하는 위 풍선 또는 GLP-1 약물 치료 프로그램에 적합한 후보자일 수 있습니다.",
+      "medical": "의사가 감독하는 약물 치료 프로그램이 귀하에게 매우 적합할 수 있습니다.",
+      "moreInfo": "우리 팀은 귀하의 옵션을 탐색하는 데 도움을 드릴 수 있습니다. 무료상담이 최선의 다음 단계입니다.",
+      "callToAction": "오늘 무료 상담을 예약하세요.",
+      "disclaimer": "이 결과는 정보 제공용일 뿐 의사의 평가를 대체하지 않습니다."
     },
     "navigation": {
-      "question": "Question {{current}} of {{total}}",
-      "next": "Next Question",
-      "previous": "Previous Question",
-      "seeResults": "See My Results",
-      "startOver": "Start Over"
+      "question": "질문 {{현재}}/{{전체}}",
+      "next": "다음 질문",
+      "previous": "이전 질문",
+      "seeResults": "내 결과 보기",
+      "startOver": "다시 시작"
     }
   }
 }

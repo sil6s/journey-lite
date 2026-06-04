@@ -1,55 +1,55 @@
 {
-  "tagline": "Compassionate care. Life-changing results.",
-  "description": "JourneyLite is a nationally recognized bariatric and medical weight loss practice serving patients across Ohio, Kentucky, and Indiana.",
+  "tagline": "Chăm sóc tận tình. Kết quả thay đổi cuộc sống.",
+  "description": "JourneyLite là cơ sở thực hành giảm cân y tế và giảm béo được công nhận trên toàn quốc phục vụ bệnh nhân trên khắp Ohio, Kentucky và Indiana.",
   "sections": {
-    "procedures": "Procedures",
-    "resources": "Resources",
-    "practice": "Practice",
-    "connect": "Connect"
+    "procedures": "Thủ tục",
+    "resources": "Tài nguyên",
+    "practice": "Thực hành",
+    "connect": "Kết nối"
   },
   "links": {
-    "gastricSleeve": "Gastric Sleeve",
-    "gastricBypass": "Gastric Bypass",
-    "gastricBalloon": "Gastric Balloon",
-    "lapBand": "Lap Band",
-    "sadi": "SADI Surgery",
-    "medications": "Weight Loss Medications",
-    "esg": "Endoscopic Sleeve Gastroplasty",
-    "blog": "Blog & Resources",
-    "patientStories": "Patient Stories",
-    "bmiCalculator": "BMI Calculator",
-    "faqs": "FAQs",
-    "education": "Patient Education",
-    "about": "About JourneyLite",
-    "ourTeam": "Our Team",
-    "locations": "Locations",
-    "pricing": "Pricing & Financing",
-    "privacy": "Privacy Policy",
-    "contact": "Contact Us",
-    "appointment": "Request Appointment"
+    "gastricSleeve": "Bao dạ dày",
+    "gastricBypass": "Bỏ qua dạ dày",
+    "gastricBalloon": "Bóng dạ dày",
+    "lapBand": "Vòng tay",
+    "sadi": "Phẫu thuật SADI",
+    "medications": "Thuốc giảm cân",
+    "esg": "Phẫu thuật nội soi dạ dày",
+    "blog": "Blog & Tài nguyên",
+    "patientStories": "Câu chuyện bệnh nhân",
+    "bmiCalculator": "Máy tính BMI",
+    "faqs": "Câu hỏi thường gặp",
+    "education": "Giáo dục bệnh nhân",
+    "about": "Giới thiệu về JourneyLite",
+    "ourTeam": "Đội ngũ của chúng tôi",
+    "locations": "Địa điểm",
+    "pricing": "Giá cả & Tài chính",
+    "privacy": "Chính sách bảo mật",
+    "contact": "Liên hệ với chúng tôi",
+    "appointment": "Yêu cầu cuộc hẹn"
   },
   "contact": {
     "phone": "877-442-2263",
-    "phoneLabel": "Call us",
-    "address": "10475 Reading Road",
+    "phoneLabel": "Gọi cho chúng tôi",
+    "address": "10475 Đường đọc sách",
     "cityStateZip": "Cincinnati, OH 45241",
-    "emailLabel": "Email us"
+    "emailLabel": "Gửi email cho chúng tôi"
   },
   "social": {
-    "facebook": "Follow JourneyLite on Facebook",
-    "instagram": "Follow JourneyLite on Instagram",
-    "youtube": "Watch JourneyLite on YouTube",
-    "google": "Read Google Reviews"
+    "facebook": "Theo dõi JourneyLite trên Facebook",
+    "instagram": "Theo dõi JourneyLite trên Instagram",
+    "youtube": "Xem JourneyLite trên YouTube",
+    "google": "Đọc các bài đánh giá trên Google"
   },
   "legal": {
-    "copyright": "© {{year}} JourneyLite Physicians. All rights reserved.",
-    "privacy": "Privacy Policy",
-    "terms": "Terms of Use",
-    "hipaa": "HIPAA Notice",
-    "disclaimer": "Information on this site is for educational purposes only and does not constitute medical advice. Always consult a qualified healthcare provider."
+    "copyright": "© {{year}} Bác sĩ JourneyLite. Mọi quyền được bảo lưu.",
+    "privacy": "Chính sách bảo mật",
+    "terms": "Điều khoản sử dụng",
+    "hipaa": "Thông báo HIPAA",
+    "disclaimer": "Thông tin trên trang này chỉ nhằm mục đích giáo dục và không phải là lời khuyên y tế. Luôn luôn tham khảo ý kiến ​​​​của một nhà cung cấp dịch vụ chăm sóc sức khỏe có trình độ."
   },
   "certifications": {
-    "accredited": "Accredited Bariatric Surgery Center",
-    "optumCoe": "Optum Center of Excellence"
+    "accredited": "Trung tâm phẫu thuật béo phì được công nhận",
+    "optumCoe": "Trung tâm xuất sắc Optum"
   }
 }

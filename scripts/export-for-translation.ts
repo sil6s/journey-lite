@@ -24,7 +24,7 @@ import path from "path";
 const LOCALES_DIR = path.join(process.cwd(), "locales");
 const OUTPUT_DIR = path.join(process.cwd(), "translation-tasks");
 
-const TARGET_LOCALES = ["es", "ar", "zh", "fr", "de", "vi", "hi", "ko", "ru"];
+const TARGET_LOCALES = ["es", "ar", "zh", "fr", "de", "vi", "hi", "ko", "ru", "pt"];
 
 // Parse CLI flags
 const nsFlag = process.argv.includes("--namespace")
@@ -100,7 +100,7 @@ function buildTaskPrompt(locale: string, namespace: string, missing: Record<stri
   const localeNames: Record<string, string> = {
     es: "Spanish", ar: "Arabic", zh: "Simplified Chinese",
     fr: "French", de: "German", vi: "Vietnamese",
-    hi: "Hindi", ko: "Korean", ru: "Russian",
+    hi: "Hindi", ko: "Korean", ru: "Russian", pt: "Portuguese",
   };
   const langName = localeNames[locale] ?? locale;
 

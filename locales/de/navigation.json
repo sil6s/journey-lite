@@ -1,44 +1,44 @@
 {
   "links": {
-    "home": "Home",
-    "about": "About",
-    "services": "Services",
-    "procedures": "Procedures",
-    "surgicalWeightLoss": "Surgical Weight Loss",
-    "nonSurgical": "Non-Surgical Options",
-    "medications": "Medications",
-    "gastricBalloon": "Gastric Balloon",
-    "blog": "Blog & Resources",
-    "patientStories": "Patient Stories",
-    "contact": "Contact",
-    "pricing": "Pricing & Financing",
-    "locations": "Locations",
-    "ourTeam": "Our Team",
-    "education": "Patient Education",
-    "bmiCalculator": "BMI Calculator",
-    "eligibilityCheck": "Check Eligibility",
-    "appointmentRequest": "Request Appointment",
-    "portal": "Patient Portal",
-    "login": "Log In",
-    "logout": "Log Out",
-    "dashboard": "Dashboard"
+    "home": "Zuhause",
+    "about": "Über",
+    "services": "Dienstleistungen",
+    "procedures": "Verfahren",
+    "surgicalWeightLoss": "Chirurgischer Gewichtsverlust",
+    "nonSurgical": "Nicht-chirurgische Optionen",
+    "medications": "Medikamente",
+    "gastricBalloon": "Magenballon",
+    "blog": "Blog & Ressourcen",
+    "patientStories": "Patientengeschichten",
+    "contact": "Kontakt",
+    "pricing": "Preise und Finanzierung",
+    "locations": "Standorte",
+    "ourTeam": "Unser Team",
+    "education": "Patientenaufklärung",
+    "bmiCalculator": "BMI-Rechner",
+    "eligibilityCheck": "Überprüfen Sie die Berechtigung",
+    "appointmentRequest": "Termin anfragen",
+    "portal": "Patientenportal",
+    "login": "Anmelden",
+    "logout": "Abmelden",
+    "dashboard": "Armaturenbrett"
   },
   "megaMenu": {
     "surgical": {
-      "heading": "Surgical Weight Loss",
-      "description": "Permanent, proven procedures performed by board-certified surgeons."
+      "heading": "Chirurgischer Gewichtsverlust",
+      "description": "Permanente, bewährte Eingriffe, die von staatlich geprüften Chirurgen durchgeführt werden."
     },
     "nonSurgical": {
-      "heading": "Non-Surgical Options",
-      "description": "Effective alternatives without incisions or overnight stays."
+      "heading": "Nicht-chirurgische Optionen",
+      "description": "Effektive Alternativen ohne Einschnitte oder Übernachtungen."
     },
     "medical": {
-      "heading": "Medical Weight Loss",
-      "description": "Prescription medications and physician-supervised programs."
+      "heading": "Medizinischer Gewichtsverlust",
+      "description": "Verschreibungspflichtige Medikamente und ärztlich überwachte Programme."
     }
   },
   "mobileMenu": {
-    "close": "Close menu",
-    "back": "Back"
+    "close": "Menü schließen",
+    "back": "Zurück"
   }
 }

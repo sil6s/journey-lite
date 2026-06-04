@@ -1,44 +1,44 @@
 {
   "links": {
-    "home": "Home",
-    "about": "About",
-    "services": "Services",
-    "procedures": "Procedures",
-    "surgicalWeightLoss": "Surgical Weight Loss",
-    "nonSurgical": "Non-Surgical Options",
-    "medications": "Medications",
-    "gastricBalloon": "Gastric Balloon",
-    "blog": "Blog & Resources",
-    "patientStories": "Patient Stories",
-    "contact": "Contact",
-    "pricing": "Pricing & Financing",
-    "locations": "Locations",
-    "ourTeam": "Our Team",
-    "education": "Patient Education",
-    "bmiCalculator": "BMI Calculator",
-    "eligibilityCheck": "Check Eligibility",
-    "appointmentRequest": "Request Appointment",
-    "portal": "Patient Portal",
-    "login": "Log In",
-    "logout": "Log Out",
-    "dashboard": "Dashboard"
+    "home": "홈",
+    "about": "소개",
+    "services": "서비스",
+    "procedures": "절차",
+    "surgicalWeightLoss": "외과적 체중 감량",
+    "nonSurgical": "비수술적 옵션",
+    "medications": "약물",
+    "gastricBalloon": "위 풍선",
+    "blog": "블로그 및 리소스",
+    "patientStories": "환자 이야기",
+    "contact": "연락처",
+    "pricing": "가격 및 금융",
+    "locations": "위치",
+    "ourTeam": "우리 팀",
+    "education": "환자 교육",
+    "bmiCalculator": "BMI 계산기",
+    "eligibilityCheck": "자격 확인",
+    "appointmentRequest": "예약 요청",
+    "portal": "환자 포털",
+    "login": "로그인",
+    "logout": "로그아웃",
+    "dashboard": "대시보드"
   },
   "megaMenu": {
     "surgical": {
-      "heading": "Surgical Weight Loss",
-      "description": "Permanent, proven procedures performed by board-certified surgeons."
+      "heading": "외과적 체중 감량",
+      "description": "위원회 인증을 받은 외과 의사가 수행하는 영구적이고 입증된 시술입니다."
     },
     "nonSurgical": {
-      "heading": "Non-Surgical Options",
-      "description": "Effective alternatives without incisions or overnight stays."
+      "heading": "비수술적 옵션",
+      "description": "절개나 하룻밤 체류가 없는 효과적인 대안."
     },
     "medical": {
-      "heading": "Medical Weight Loss",
-      "description": "Prescription medications and physician-supervised programs."
+      "heading": "의료 체중 감소",
+      "description": "처방약 및 의사 감독 프로그램."
     }
   },
   "mobileMenu": {
-    "close": "Close menu",
-    "back": "Back"
+    "close": "메뉴 닫기",
+    "back": "뒤로"
   }
 }

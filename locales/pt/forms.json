@@ -1,0 +1,63 @@
+{
+  "labels": {
+    "firstName": "Primeiro nome",
+    "lastName": "Sobrenome",
+    "fullName": "Nome Completo",
+    "email": "Endereço de e-mail",
+    "phone": "Número de telefone",
+    "dob": "Data de Nascimento",
+    "address": "Endereço residencial",
+    "city": "Cidade",
+    "state": "Estado",
+    "zip": "CEP",
+    "heightFt": "Altura (pés)",
+    "heightIn": "Altura (polegadas)",
+    "weight": "Peso atual (libras)",
+    "bmi": "IMC",
+    "insurance": "Provedor de seguros",
+    "selfPay": "Autopagamento",
+    "location": "Local preferido",
+    "procedure": "Procedimento de Interesse",
+    "bestTime": "Melhor momento para entrar em contato com você",
+    "contactMethod": "Método de contato preferido",
+    "referralSource": "Como você ouviu falar de nós?",
+    "message": "Mensagem ou perguntas",
+    "researchStage": "Onde você está em sua decisão?",
+    "textConsent": "Autorizo receber mensagens de texto do JourneyLite",
+    "newsletter": "Inscreva-me no boletim informativo JourneyLite"
+  },
+  "placeholders": {
+    "email": "você@email.com",
+    "phone": "(555) 555-5555",
+    "message": "Conte-nos sobre seus objetivos ou qualquer dúvida que você tenha…",
+    "selectOne": "Selecione um…",
+    "selectLocation": "Selecione um local…",
+    "selectProcedure": "Selecione um procedimento…",
+    "searchCity": "Digite sua cidade"
+  },
+  "options": {},
+  "validation": {
+    "required": "{{campo}} é obrigatório.",
+    "email": "Insira um endereço de e-mail válido.",
+    "phone": "Insira um número de telefone válido de 10 dígitos.",
+    "minLength": "{{field}} deve ter pelo menos {{min}} caracteres.",
+    "maxLength": "{{field}} não pode exceder {{max}} caracteres.",
+    "number": "Por favor insira um número válido.",
+    "date": "Insira uma data válida.",
+    "minAge": "Você deve ter pelo menos {{age}} anos de idade.",
+    "maxAge": "Insira uma idade inferior a {{age}}.",
+    "consent": "Você deve concordar em continuar."
+  },
+  "status": {
+    "submitting": "Enviando sua solicitação…",
+    "success": "Obrigado! Recebemos sua solicitação e entraremos em contato em breve.",
+    "error": "Algo deu errado. Tente novamente ou ligue para 877-442-2263.",
+    "securityError": "A verificação de segurança falhou. Atualize e tente novamente."
+  },
+  "hints": {
+    "requiredFields": "Os campos marcados com * são obrigatórios.",
+    "phoneFormat": "Aceitamos apenas números dos EUA.",
+    "textConsent": "Taxas padrão de mensagens e dados podem ser aplicadas. Responda STOP para cancelar.",
+    "privacyNote": "Suas informações são confidenciais e não serão compartilhadas ou vendidas."
+  }
+}

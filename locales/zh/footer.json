@@ -1,55 +1,55 @@
 {
-  "tagline": "Compassionate care. Life-changing results.",
-  "description": "JourneyLite is a nationally recognized bariatric and medical weight loss practice serving patients across Ohio, Kentucky, and Indiana.",
+  "tagline": "体恤关怀。改变生活的结果。",
+  "description": "JourneyLite 是一家全国公认的减肥和医疗减肥诊所，为俄亥俄州、肯塔基州和印第安纳州的患者提供服务。",
   "sections": {
-    "procedures": "Procedures",
-    "resources": "Resources",
-    "practice": "Practice",
-    "connect": "Connect"
+    "procedures": "程序",
+    "resources": "资源",
+    "practice": "练习",
+    "connect": "连接"
   },
   "links": {
-    "gastricSleeve": "Gastric Sleeve",
-    "gastricBypass": "Gastric Bypass",
-    "gastricBalloon": "Gastric Balloon",
-    "lapBand": "Lap Band",
-    "sadi": "SADI Surgery",
-    "medications": "Weight Loss Medications",
-    "esg": "Endoscopic Sleeve Gastroplasty",
-    "blog": "Blog & Resources",
-    "patientStories": "Patient Stories",
-    "bmiCalculator": "BMI Calculator",
-    "faqs": "FAQs",
-    "education": "Patient Education",
-    "about": "About JourneyLite",
-    "ourTeam": "Our Team",
-    "locations": "Locations",
-    "pricing": "Pricing & Financing",
-    "privacy": "Privacy Policy",
-    "contact": "Contact Us",
-    "appointment": "Request Appointment"
+    "gastricSleeve": "胃袖",
+    "gastricBypass": "胃绕道术",
+    "gastricBalloon": "胃气球",
+    "lapBand": "圈带",
+    "sadi": "萨迪手术",
+    "medications": "减肥药物",
+    "esg": "内窥镜袖状胃成形术",
+    "blog": "博客和资源",
+    "patientStories": "患者故事",
+    "bmiCalculator": "体重指数计算器",
+    "faqs": "常见问题解答",
+    "education": "患者教育",
+    "about": "关于JourneyLite",
+    "ourTeam": "我们的团队",
+    "locations": "地点",
+    "pricing": "定价与融资",
+    "privacy": "隐私政策",
+    "contact": "联系我们",
+    "appointment": "请求预约"
   },
   "contact": {
     "phone": "877-442-2263",
-    "phoneLabel": "Call us",
-    "address": "10475 Reading Road",
-    "cityStateZip": "Cincinnati, OH 45241",
-    "emailLabel": "Email us"
+    "phoneLabel": "致电我们",
+    "address": "雷丁路10475号",
+    "cityStateZip": "辛辛那提, 俄亥俄州 45241",
+    "emailLabel": "给我们发电子邮件"
   },
   "social": {
-    "facebook": "Follow JourneyLite on Facebook",
-    "instagram": "Follow JourneyLite on Instagram",
-    "youtube": "Watch JourneyLite on YouTube",
-    "google": "Read Google Reviews"
+    "facebook": "在 Facebook 上关注 JourneyLite",
+    "instagram": "在 Instagram 上关注 JourneyLite",
+    "youtube": "在 YouTube 上观看 JourneyLite",
+    "google": "阅读谷歌评论"
   },
   "legal": {
-    "copyright": "© {{year}} JourneyLite Physicians. All rights reserved.",
-    "privacy": "Privacy Policy",
-    "terms": "Terms of Use",
-    "hipaa": "HIPAA Notice",
-    "disclaimer": "Information on this site is for educational purposes only and does not constitute medical advice. Always consult a qualified healthcare provider."
+    "copyright": "© {{year}} JourneyLite 医生。版权所有。",
+    "privacy": "隐私政策",
+    "terms": "使用条款",
+    "hipaa": "健康保险流通与责任法案 (HIPAA) 通知",
+    "disclaimer": "本网站上的信息仅用于教育目的，并不构成医疗建议。请务必咨询合格的医疗保健提供者。"
   },
   "certifications": {
-    "accredited": "Accredited Bariatric Surgery Center",
-    "optumCoe": "Optum Center of Excellence"
+    "accredited": "认可的减肥手术中心",
+    "optumCoe": "Optum 卓越中心"
   }
 }

@@ -1,24 +1,24 @@
 {
   "medical": {
-    "short": "This information is for educational purposes only and is not a substitute for professional medical advice.",
-    "full": "The content on this website is for informational and educational purposes only. It does not constitute medical advice and should not be used as a substitute for consultation with a qualified healthcare provider. Individual results vary. JourneyLite does not guarantee any specific outcome.",
-    "results": "Individual results vary. Actual weight loss outcomes depend on many factors including adherence to program guidelines, individual health status, and lifestyle changes.",
-    "risks": "All surgical and medical procedures carry risks. Discuss your specific risk profile with your JourneyLite physician before making any decisions."
+    "short": "Thông tin này chỉ nhằm mục đích giáo dục và không thay thế cho lời khuyên y tế chuyên nghiệp.",
+    "full": "Nội dung trên trang web này chỉ nhằm mục đích thông tin và giáo dục. Nó không phải là lời khuyên y tế và không nên được sử dụng để thay thế cho việc tư vấn với nhà cung cấp dịch vụ chăm sóc sức khỏe có trình độ. Kết quả cá nhân khác nhau. JourneyLite không đảm bảo bất kỳ kết quả cụ thể nào.",
+    "results": "Kết quả cá nhân khác nhau. Kết quả giảm cân thực tế phụ thuộc vào nhiều yếu tố bao gồm việc tuân thủ các nguyên tắc của chương trình, tình trạng sức khỏe cá nhân và thay đổi lối sống.",
+    "risks": "Tất cả các thủ tục phẫu thuật và y tế đều có rủi ro. Thảo luận về hồ sơ rủi ro cụ thể của bạn với bác sĩ JourneyLite trước khi đưa ra bất kỳ quyết định nào."
   },
   "translation": {
-    "autoTranslated": "This page was automatically translated for your convenience. The English version is the official source.",
-    "autoTranslatedFull": "This page was automatically translated to {{language}} for your convenience. The English version at {{englishUrl}} is the official source of information. Please contact JourneyLite directly for medical guidance specific to your situation.",
-    "reviewNote": "Translations are provided to help non-English speakers access information and have not been reviewed by a healthcare professional.",
-    "contactForGuidance": "For medical questions or concerns, please contact our office directly at 877-442-2263 or request an appointment with one of our physicians.",
-    "temporarilyUnavailable": "Translation to {{language}} is temporarily unavailable. Showing the original English content.",
-    "viewEnglish": "View in English",
-    "viewOriginal": "View original"
+    "autoTranslated": "Trang này được dịch tự động để thuận tiện cho bạn. Phiên bản tiếng Anh là nguồn chính thức.",
+    "autoTranslatedFull": "Trang này đã được dịch tự động sang {{ngôn ngữ}} để thuận tiện cho bạn. Phiên bản tiếng Anh tại {{englishUrl}} là nguồn thông tin chính thức. Vui lòng liên hệ trực tiếp với JourneyLite để được hướng dẫn y tế cụ thể cho trường hợp của bạn.",
+    "reviewNote": "Các bản dịch được cung cấp để giúp những người không nói tiếng Anh truy cập thông tin và chưa được chuyên gia chăm sóc sức khỏe xem xét.",
+    "contactForGuidance": "Nếu có thắc mắc hoặc quan ngại về y tế, vui lòng liên hệ trực tiếp với văn phòng của chúng tôi theo số 877-442-2263 hoặc yêu cầu một cuộc hẹn với một trong các bác sĩ của chúng tôi.",
+    "temporarilyUnavailable": "Tạm thời không có bản dịch sang {{ngôn ngữ}}. Hiển thị nội dung gốc tiếng Anh.",
+    "viewEnglish": "Xem bằng tiếng Anh",
+    "viewOriginal": "Xem bản gốc"
   },
   "insurance": {
-    "coverage": "Insurance coverage varies by plan and individual. Contact your insurance provider or our billing team to verify your benefits before scheduling.",
-    "preAuth": "Some procedures require prior authorization from your insurance company. Our team will assist you with this process."
+    "coverage": "Phạm vi bảo hiểm thay đổi tùy theo chương trình và cá nhân. Hãy liên hệ với nhà cung cấp bảo hiểm của bạn hoặc nhóm thanh toán của chúng tôi để xác minh các quyền lợi của bạn trước khi lên lịch.",
+    "preAuth": "Một số thủ tục yêu cầu sự cho phép trước từ công ty bảo hiểm của bạn. Nhóm của chúng tôi sẽ hỗ trợ bạn trong quá trình này."
   },
   "hipaa": {
-    "short": "Your health information is protected under HIPAA. See our Privacy Notice for details."
+    "short": "Thông tin sức khỏe của bạn được bảo vệ theo HIPAA. Xem Thông báo về quyền riêng tư của chúng tôi để biết chi tiết."
   }
 }

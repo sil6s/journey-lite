@@ -6,7 +6,7 @@
     "weightLabel": "Peso",
     "feetLabel": "pies",
     "inchesLabel": "pulg",
-    "poundsLabel": "lbs",
+    "poundsLabel": "libras",
     "calculateButton": "Calcular IMC",
     "resetButton": "Restablecer",
     "resultLabel": "Su IMC",
@@ -20,10 +20,10 @@
     },
     "ranges": {
       "underweight": "Menos de 18.5",
-      "normal": "18.5 – 24.9",
-      "overweight": "25 – 29.9",
-      "obese1": "30 – 34.9",
-      "obese2": "35 – 39.9",
+      "normal": "18,5 – 24,9",
+      "overweight": "25 – 29,9",
+      "obese1": "30 – 34,9",
+      "obese2": "35 – 39,9",
       "obese3": "40 o más"
     },
     "disclaimer": "El IMC es una herramienta de detección, no un diagnóstico. Consulte con un médico de JourneyLite para una evaluación personalizada.",
@@ -40,17 +40,7 @@
       "insurance": "¿Tiene seguro médico?",
       "age": "¿Cuántos años tiene?"
     },
-    "options": {
-      "bmiRange": [
-        "Menos de 27 (sin sobrepeso aún)",
-        "27 – 29.9 (sobrepeso)",
-        "30 – 34.9 (obeso)",
-        "35 – 39.9 (obeso)",
-        "40 o más (obesidad severa)"
-      ],
-      "yesNo": ["Sí", "No", "No estoy seguro/a"],
-      "ageRange": ["Menor de 18", "18 – 25", "26 – 40", "41 – 60", "Mayor de 60"]
-    },
+    "options": {},
     "results": {
       "surgical": "Puede ser candidato/a para la pérdida de peso quirúrgica. Nuestros cirujanos revisarán su historial completo en su consulta.",
       "nonSurgical": "Puede ser un buen candidato/a para un programa de balón gástrico o medicamentos GLP-1.",

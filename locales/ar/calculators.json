@@ -1,70 +1,60 @@
 {
   "bmi": {
-    "title": "BMI Calculator",
-    "subtitle": "Find out your Body Mass Index and what it means for weight loss options.",
-    "heightLabel": "Height",
-    "weightLabel": "Weight",
-    "feetLabel": "ft",
-    "inchesLabel": "in",
-    "poundsLabel": "lbs",
-    "calculateButton": "Calculate BMI",
-    "resetButton": "Reset",
-    "resultLabel": "Your BMI",
+    "title": "حاسبة مؤشر كتلة الجسم",
+    "subtitle": "تعرف على مؤشر كتلة الجسم الخاص بك وما يعنيه بالنسبة لخيارات فقدان الوزن.",
+    "heightLabel": "الارتفاع",
+    "weightLabel": "الوزن",
+    "feetLabel": "قدم",
+    "inchesLabel": "في",
+    "poundsLabel": "رطل",
+    "calculateButton": "حساب مؤشر كتلة الجسم",
+    "resetButton": "إعادة تعيين",
+    "resultLabel": "مؤشر كتلة الجسم الخاص بك",
     "categories": {
-      "underweight": "Underweight",
-      "normal": "Normal weight",
-      "overweight": "Overweight",
-      "obese1": "Obese (Class I)",
-      "obese2": "Obese (Class II)",
-      "obese3": "Obese (Class III)"
+      "underweight": "نقص الوزن",
+      "normal": "الوزن الطبيعي",
+      "overweight": "زيادة الوزن",
+      "obese1": "السمنة (الفئة الأولى)",
+      "obese2": "السمنة (الفئة الثانية)",
+      "obese3": "السمنة (الفئة الثالثة)"
     },
     "ranges": {
-      "underweight": "Under 18.5",
-      "normal": "18.5 – 24.9",
-      "overweight": "25 – 29.9",
-      "obese1": "30 – 34.9",
-      "obese2": "35 – 39.9",
-      "obese3": "40 and above"
+      "underweight": "تحت 18.5",
+      "normal": "18.5 - 24.9",
+      "overweight": "25 - 29.9",
+      "obese1": "30 - 34.9",
+      "obese2": "35 - 39.9",
+      "obese3": "40 وما فوق"
     },
-    "disclaimer": "BMI is a screening tool, not a diagnosis. Speak with a JourneyLite physician for a personalized evaluation.",
-    "cta": "Based on your BMI, you may qualify for weight loss surgery. Request a free consultation to learn more."
+    "disclaimer": "مؤشر كتلة الجسم هو أداة فحص، وليس تشخيصًا. تحدث مع طبيب JourneyLite للحصول على تقييم شخصي.",
+    "cta": "بناءً على مؤشر كتلة جسمك، قد تكون مؤهلاً لإجراء جراحة لإنقاص الوزن. اطلب استشارة مجانية لمعرفة المزيد."
   },
   "eligibility": {
-    "title": "Eligibility Check",
-    "subtitle": "Answer a few quick questions to see which JourneyLite programs may be right for you.",
+    "title": "التحقق من الأهلية",
+    "subtitle": "أجب عن بعض الأسئلة السريعة لمعرفة برامج JourneyLite التي قد تكون مناسبة لك.",
     "questions": {
-      "bmiRange": "What is your approximate BMI?",
-      "hasComorbidities": "Do you have any weight-related health conditions? (e.g., diabetes, sleep apnea, high blood pressure, joint pain)",
-      "priorWeightLossTried": "Have you tried diet and exercise programs before?",
-      "priorSurgery": "Have you had any prior weight loss surgery?",
-      "insurance": "Do you have health insurance?",
-      "age": "How old are you?"
+      "bmiRange": "ما هو مؤشر كتلة الجسم التقريبي لديك؟",
+      "hasComorbidities": "هل لديك أي ظروف صحية متعلقة بالوزن؟ (على سبيل المثال، مرض السكري، توقف التنفس أثناء النوم، ارتفاع ضغط الدم، آلام المفاصل)",
+      "priorWeightLossTried": "هل جربت برامج الحمية والتمارين الرياضية من قبل؟",
+      "priorSurgery": "هل أجريت أي عملية جراحية سابقة لإنقاص الوزن؟",
+      "insurance": "هل لديك تأمين صحي؟",
+      "age": "كم عمرك؟"
     },
-    "options": {
-      "bmiRange": [
-        "Under 27 (not yet overweight)",
-        "27 – 29.9 (overweight)",
-        "30 – 34.9 (obese)",
-        "35 – 39.9 (obese)",
-        "40 or above (severely obese)"
-      ],
-      "yesNo": ["Yes", "No", "Not sure"],
-      "ageRange": ["Under 18", "18 – 25", "26 – 40", "41 – 60", "Over 60"]
-    },
+    "options": {},
     "results": {
-      "surgical": "You may be a candidate for surgical weight loss. Our surgeons will review your complete history at your consultation.",
-      "nonSurgical": "You may be a good candidate for a gastric balloon or GLP-1 medication program.",
-      "medical": "A physician-supervised medication program may be a great fit for you.",
-      "moreInfo": "Our team can help you explore your options. A free consultation is the best next step.",
-      "callToAction": "Schedule your free consultation today.",
-      "disclaimer": "This result is informational only and does not replace a physician evaluation."
+      "surgical": "قد تكون مرشحًا لفقدان الوزن الجراحي. سيقوم جراحونا بمراجعة تاريخك الكامل أثناء استشارتك.",
+      "nonSurgical": "قد تكون مرشحًا جيدًا لبالون المعدة أو برنامج دواء GLP-1.",
+      "medical": "قد يكون برنامج الدواء تحت إشراف الطبيب مناسبًا لك.",
+      "moreInfo": "يمكن لفريقنا مساعدتك في استكشاف خياراتك. الاستشارة المجانية هي أفضل خطوة تالية.",
+      "callToAction": "حدد موعدًا لاستشارتك المجانية اليوم.",
+      "disclaimer": "هذه النتيجة إعلامية فقط ولا تحل محل تقييم الطبيب."
     },
     "navigation": {
-      "question": "Question {{current}} of {{total}}",
-      "next": "Next Question",
-      "previous": "Previous Question",
-      "seeResults": "See My Results",
-      "startOver": "Start Over"
+      "question": "السؤال {{الحالي}} من {{total}}",
+      "next": "السؤال التالي",
+      "previous": "السؤال السابق",
+      "seeResults": "انظر نتائجي",
+      "startOver": "البدء من جديد"
     }
   }
 }

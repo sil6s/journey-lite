@@ -20,6 +20,7 @@ import { useRouter } from "next/navigation";
 import { useRef, useState, useCallback, useEffect, KeyboardEvent } from "react";
 import { Check, ChevronDown, Globe } from "lucide-react";
 import {
+  defaultLocale,
   supportedLanguages,
   LOCALE_COOKIE,
   type SupportedLocale,
@@ -50,6 +51,9 @@ export function LanguageSwitcher({ locale, pathname, className = "" }: Props) {
   function buildLocalePath(targetLocale: SupportedLocale) {
     // Strip the current locale prefix and replace with target
     const withoutLocale = pathname.replace(/^\/[a-z]{2}(\/|$)/, "/");
+    if (targetLocale === defaultLocale) {
+      return withoutLocale;
+    }
     return `/${targetLocale}${withoutLocale === "/" ? "" : withoutLocale}`;
   }
 
@@ -121,8 +125,9 @@ export function LanguageSwitcher({ locale, pathname, className = "" }: Props) {
         ref={buttonRef}
         type="button"
         role="combobox"
-        aria-haspopup="listbox"
+        aria-controls={open ? "language-switcher-listbox" : undefined}
         aria-expanded={open}
+        aria-haspopup="listbox"
         aria-label={`Select language. Current: ${currentLang.nativeName}`}
         onClick={() => {
           setOpen((v) => !v);
@@ -149,6 +154,7 @@ export function LanguageSwitcher({ locale, pathname, className = "" }: Props) {
       {open && (
         <ul
           ref={listRef}
+          id="language-switcher-listbox"
           role="listbox"
           aria-label="Select language"
           aria-activedescendant={

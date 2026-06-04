@@ -1,55 +1,55 @@
 {
-  "tagline": "Compassionate care. Life-changing results.",
-  "description": "JourneyLite is a nationally recognized bariatric and medical weight loss practice serving patients across Ohio, Kentucky, and Indiana.",
+  "tagline": "दयालु देखभाल. जीवन बदलने वाले परिणाम.",
+  "description": "JourneyLite ओहियो, केंटकी और इंडियाना में मरीजों की सेवा करने वाली एक राष्ट्रीय स्तर पर मान्यता प्राप्त बेरिएट्रिक और चिकित्सीय वजन घटाने की प्रथा है।",
   "sections": {
-    "procedures": "Procedures",
-    "resources": "Resources",
-    "practice": "Practice",
-    "connect": "Connect"
+    "procedures": "प्रक्रियाओं",
+    "resources": "संसाधन",
+    "practice": "अभ्यास",
+    "connect": "जोड़ना"
   },
   "links": {
-    "gastricSleeve": "Gastric Sleeve",
-    "gastricBypass": "Gastric Bypass",
-    "gastricBalloon": "Gastric Balloon",
-    "lapBand": "Lap Band",
-    "sadi": "SADI Surgery",
-    "medications": "Weight Loss Medications",
-    "esg": "Endoscopic Sleeve Gastroplasty",
-    "blog": "Blog & Resources",
-    "patientStories": "Patient Stories",
-    "bmiCalculator": "BMI Calculator",
-    "faqs": "FAQs",
-    "education": "Patient Education",
-    "about": "About JourneyLite",
-    "ourTeam": "Our Team",
-    "locations": "Locations",
-    "pricing": "Pricing & Financing",
-    "privacy": "Privacy Policy",
-    "contact": "Contact Us",
-    "appointment": "Request Appointment"
+    "gastricSleeve": "गैस्ट्रिक आस्तीन",
+    "gastricBypass": "गैस्ट्रिक बाईपास",
+    "gastricBalloon": "गैस्ट्रिक गुब्बारा",
+    "lapBand": "लैप बैंड",
+    "sadi": "एसएडीआई सर्जरी",
+    "medications": "वज़न कम करने वाली दवाएँ",
+    "esg": "एंडोस्कोपिक स्लीव गैस्ट्रोप्लास्टी",
+    "blog": "ब्लॉग और संसाधन",
+    "patientStories": "रोगी कहानियाँ",
+    "bmiCalculator": "बीएमआई कैलकुलेटर",
+    "faqs": "पूछे जाने वाले प्रश्न",
+    "education": "रोगी शिक्षा",
+    "about": "JourneyLite के बारे में",
+    "ourTeam": "हमारी टीम",
+    "locations": "स्थानों",
+    "pricing": "मूल्य निर्धारण और वित्तपोषण",
+    "privacy": "गोपनीयता नीति",
+    "contact": "हमसे संपर्क करें",
+    "appointment": "नियुक्ति का अनुरोध करें"
   },
   "contact": {
     "phone": "877-442-2263",
-    "phoneLabel": "Call us",
-    "address": "10475 Reading Road",
-    "cityStateZip": "Cincinnati, OH 45241",
-    "emailLabel": "Email us"
+    "phoneLabel": "हमें कॉल करें",
+    "address": "10475 रीडिंग रोड",
+    "cityStateZip": "सिनसिनाटी, ओएच 45241",
+    "emailLabel": "हमें ईमेल करें"
   },
   "social": {
-    "facebook": "Follow JourneyLite on Facebook",
-    "instagram": "Follow JourneyLite on Instagram",
-    "youtube": "Watch JourneyLite on YouTube",
-    "google": "Read Google Reviews"
+    "facebook": "फेसबुक पर JourneyLite को फॉलो करें",
+    "instagram": "इंस्टाग्राम पर JourneyLite को फॉलो करें",
+    "youtube": "YouTube पर JourneyLite देखें",
+    "google": "Google समीक्षाएँ पढ़ें"
   },
   "legal": {
-    "copyright": "© {{year}} JourneyLite Physicians. All rights reserved.",
-    "privacy": "Privacy Policy",
-    "terms": "Terms of Use",
-    "hipaa": "HIPAA Notice",
-    "disclaimer": "Information on this site is for educational purposes only and does not constitute medical advice. Always consult a qualified healthcare provider."
+    "copyright": "© {{वर्ष}} JourneyLite फिजिशियन। सर्वाधिकार सुरक्षित।",
+    "privacy": "गोपनीयता नीति",
+    "terms": "उपयोग की शर्तें",
+    "hipaa": "हिपा नोटिस",
+    "disclaimer": "इस साइट पर दी गई जानकारी केवल शैक्षिक उद्देश्यों के लिए है और इसमें चिकित्सीय सलाह शामिल नहीं है। हमेशा किसी योग्य स्वास्थ्य सेवा प्रदाता से परामर्श लें।"
   },
   "certifications": {
-    "accredited": "Accredited Bariatric Surgery Center",
-    "optumCoe": "Optum Center of Excellence"
+    "accredited": "मान्यता प्राप्त बेरिएट्रिक सर्जरी केंद्र",
+    "optumCoe": "ऑप्टम सेंटर ऑफ एक्सीलेंस"
   }
 }

@@ -1,44 +1,44 @@
 {
   "links": {
-    "home": "Home",
-    "about": "About",
-    "services": "Services",
-    "procedures": "Procedures",
-    "surgicalWeightLoss": "Surgical Weight Loss",
-    "nonSurgical": "Non-Surgical Options",
-    "medications": "Medications",
-    "gastricBalloon": "Gastric Balloon",
-    "blog": "Blog & Resources",
-    "patientStories": "Patient Stories",
-    "contact": "Contact",
-    "pricing": "Pricing & Financing",
-    "locations": "Locations",
-    "ourTeam": "Our Team",
-    "education": "Patient Education",
-    "bmiCalculator": "BMI Calculator",
-    "eligibilityCheck": "Check Eligibility",
-    "appointmentRequest": "Request Appointment",
-    "portal": "Patient Portal",
-    "login": "Log In",
-    "logout": "Log Out",
-    "dashboard": "Dashboard"
+    "home": "首页",
+    "about": "关于",
+    "services": "服务",
+    "procedures": "程序",
+    "surgicalWeightLoss": "手术减肥",
+    "nonSurgical": "非手术选择",
+    "medications": "药物",
+    "gastricBalloon": "胃气球",
+    "blog": "博客和资源",
+    "patientStories": "患者故事",
+    "contact": "联系方式",
+    "pricing": "定价与融资",
+    "locations": "地点",
+    "ourTeam": "我们的团队",
+    "education": "患者教育",
+    "bmiCalculator": "体重指数计算器",
+    "eligibilityCheck": "检查资格",
+    "appointmentRequest": "请求预约",
+    "portal": "患者门户",
+    "login": "登录",
+    "logout": "退出",
+    "dashboard": "仪表板"
   },
   "megaMenu": {
     "surgical": {
-      "heading": "Surgical Weight Loss",
-      "description": "Permanent, proven procedures performed by board-certified surgeons."
+      "heading": "手术减肥",
+      "description": "由经过委员会认证的外科医生执行永久性、经过验证的手术。"
     },
     "nonSurgical": {
-      "heading": "Non-Surgical Options",
-      "description": "Effective alternatives without incisions or overnight stays."
+      "heading": "非手术选择",
+      "description": "无需切口或过夜的有效替代方案。"
     },
     "medical": {
-      "heading": "Medical Weight Loss",
-      "description": "Prescription medications and physician-supervised programs."
+      "heading": "医疗减肥",
+      "description": "处方药和医生监督计划。"
     }
   },
   "mobileMenu": {
-    "close": "Close menu",
-    "back": "Back"
+    "close": "关闭菜单",
+    "back": "返回"
   }
 }

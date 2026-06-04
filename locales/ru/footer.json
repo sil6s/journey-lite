@@ -1,55 +1,55 @@
 {
-  "tagline": "Compassionate care. Life-changing results.",
-  "description": "JourneyLite is a nationally recognized bariatric and medical weight loss practice serving patients across Ohio, Kentucky, and Indiana.",
+  "tagline": "Сострадательная забота. Результаты, меняющие жизнь.",
+  "description": "JourneyLite — это признанная на национальном уровне бариатрическая и медицинская практика по снижению веса, обслуживающая пациентов в Огайо, Кентукки и Индиане.",
   "sections": {
-    "procedures": "Procedures",
-    "resources": "Resources",
-    "practice": "Practice",
-    "connect": "Connect"
+    "procedures": "Процедуры",
+    "resources": "Ресурсы",
+    "practice": "Практика",
+    "connect": "Подключиться"
   },
   "links": {
-    "gastricSleeve": "Gastric Sleeve",
-    "gastricBypass": "Gastric Bypass",
-    "gastricBalloon": "Gastric Balloon",
-    "lapBand": "Lap Band",
-    "sadi": "SADI Surgery",
-    "medications": "Weight Loss Medications",
-    "esg": "Endoscopic Sleeve Gastroplasty",
-    "blog": "Blog & Resources",
-    "patientStories": "Patient Stories",
-    "bmiCalculator": "BMI Calculator",
-    "faqs": "FAQs",
-    "education": "Patient Education",
-    "about": "About JourneyLite",
-    "ourTeam": "Our Team",
-    "locations": "Locations",
-    "pricing": "Pricing & Financing",
-    "privacy": "Privacy Policy",
-    "contact": "Contact Us",
-    "appointment": "Request Appointment"
+    "gastricSleeve": "Желудочный рукав",
+    "gastricBypass": "Желудочное шунтирование",
+    "gastricBalloon": "Желудочный баллон",
+    "lapBand": "Группа на коленях",
+    "sadi": "САДИ хирургия",
+    "medications": "Лекарства для похудения",
+    "esg": "Эндоскопическая рукавная гастропластика",
+    "blog": "Блог и ресурсы",
+    "patientStories": "Истории пациентов",
+    "bmiCalculator": "Калькулятор ИМТ",
+    "faqs": "Часто задаваемые вопросы",
+    "education": "Обучение пациентов",
+    "about": "О JourneyLite",
+    "ourTeam": "Наша команда",
+    "locations": "Локации",
+    "pricing": "Ценообразование и финансирование",
+    "privacy": "Политика конфиденциальности",
+    "contact": "Свяжитесь с нами",
+    "appointment": "Запросить встречу"
   },
   "contact": {
     "phone": "877-442-2263",
-    "phoneLabel": "Call us",
-    "address": "10475 Reading Road",
-    "cityStateZip": "Cincinnati, OH 45241",
-    "emailLabel": "Email us"
+    "phoneLabel": "Позвоните нам",
+    "address": "10475 Ридинг-роуд",
+    "cityStateZip": "Цинциннати, Огайо, 45241",
+    "emailLabel": "Напишите нам"
   },
   "social": {
-    "facebook": "Follow JourneyLite on Facebook",
-    "instagram": "Follow JourneyLite on Instagram",
-    "youtube": "Watch JourneyLite on YouTube",
-    "google": "Read Google Reviews"
+    "facebook": "Следите за JourneyLite на Facebook",
+    "instagram": "Следите за JourneyLite в Instagram",
+    "youtube": "Посмотрите JourneyLite на YouTube",
+    "google": "Читайте обзоры Google"
   },
   "legal": {
-    "copyright": "© {{year}} JourneyLite Physicians. All rights reserved.",
-    "privacy": "Privacy Policy",
-    "terms": "Terms of Use",
-    "hipaa": "HIPAA Notice",
-    "disclaimer": "Information on this site is for educational purposes only and does not constitute medical advice. Always consult a qualified healthcare provider."
+    "copyright": "© {{year}} Врачи JourneyLite. Все права защищены.",
+    "privacy": "Политика конфиденциальности",
+    "terms": "Условия использования",
+    "hipaa": "Уведомление о HIPAA",
+    "disclaimer": "Информация на этом сайте предназначена только для образовательных целей и не является медицинской консультацией. Всегда консультируйтесь с квалифицированным медицинским работником."
   },
   "certifications": {
-    "accredited": "Accredited Bariatric Surgery Center",
-    "optumCoe": "Optum Center of Excellence"
+    "accredited": "Аккредитованный центр бариатрической хирургии",
+    "optumCoe": "Центр передового опыта Optum"
   }
 }

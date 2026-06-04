@@ -43,7 +43,14 @@ function rewriteLocalizedPath(request: NextRequest) {
   const url = request.nextUrl.clone();
   url.pathname = `/${segments.slice(1).join("/")}`;
   if (url.pathname === "/") url.pathname = "/";
-  const response = NextResponse.rewrite(url);
+  const requestHeaders = new Headers(request.headers);
+  requestHeaders.set("x-pathname", pathname);
+  requestHeaders.set("x-locale", maybeLocale);
+  const response = NextResponse.rewrite(url, {
+    request: {
+      headers: requestHeaders,
+    },
+  });
   response.cookies.set(LOCALE_COOKIE, maybeLocale, { path: "/", sameSite: "lax" });
   return response;
 }
@@ -51,6 +58,10 @@ function rewriteLocalizedPath(request: NextRequest) {
 function nextWithRequestHeaders(request: NextRequest) {
   const requestHeaders = new Headers(request.headers);
   requestHeaders.set("x-pathname", request.nextUrl.pathname);
+  const cookieLocale = request.cookies.get(LOCALE_COOKIE)?.value;
+  if (cookieLocale && isValidLocale(cookieLocale)) {
+    requestHeaders.set("x-locale", cookieLocale);
+  }
 
   return NextResponse.next({
     request: {

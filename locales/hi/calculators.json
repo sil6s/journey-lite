@@ -1,70 +1,60 @@
 {
   "bmi": {
-    "title": "BMI Calculator",
-    "subtitle": "Find out your Body Mass Index and what it means for weight loss options.",
-    "heightLabel": "Height",
-    "weightLabel": "Weight",
-    "feetLabel": "ft",
-    "inchesLabel": "in",
-    "poundsLabel": "lbs",
-    "calculateButton": "Calculate BMI",
-    "resetButton": "Reset",
-    "resultLabel": "Your BMI",
+    "title": "बीएमआई कैलकुलेटर",
+    "subtitle": "अपना बॉडी मास इंडेक्स पता करें और वजन घटाने के विकल्पों के लिए इसका क्या मतलब है।",
+    "heightLabel": "ऊंचाई",
+    "weightLabel": "वज़न",
+    "feetLabel": "फुट",
+    "inchesLabel": "में",
+    "poundsLabel": "एलबीएस",
+    "calculateButton": "बीएमआई की गणना करें",
+    "resetButton": "रीसेट करें",
+    "resultLabel": "अपना बीएमआई",
     "categories": {
-      "underweight": "Underweight",
-      "normal": "Normal weight",
-      "overweight": "Overweight",
-      "obese1": "Obese (Class I)",
-      "obese2": "Obese (Class II)",
-      "obese3": "Obese (Class III)"
+      "underweight": "वजन",
+      "normal": "सामान्य वज़न",
+      "overweight": "अधिक वजन",
+      "obese1": "मोटापा (कक्षा I)",
+      "obese2": "मोटापा (कक्षा II)",
+      "obese3": "मोटापा (कक्षा III)"
     },
     "ranges": {
-      "underweight": "Under 18.5",
+      "underweight": "18.5 से कम",
       "normal": "18.5 – 24.9",
       "overweight": "25 – 29.9",
       "obese1": "30 – 34.9",
       "obese2": "35 – 39.9",
-      "obese3": "40 and above"
+      "obese3": "40 और उससे अधिक"
     },
-    "disclaimer": "BMI is a screening tool, not a diagnosis. Speak with a JourneyLite physician for a personalized evaluation.",
-    "cta": "Based on your BMI, you may qualify for weight loss surgery. Request a free consultation to learn more."
+    "disclaimer": "बीएमआई एक स्क्रीनिंग टूल है, निदान नहीं। व्यक्तिगत मूल्यांकन के लिए JourneyLite चिकित्सक से बात करें।",
+    "cta": "आपके बीएमआई के आधार पर, आप वजन घटाने की सर्जरी के लिए अर्हता प्राप्त कर सकते हैं। अधिक जानने के लिए निःशुल्क परामर्श का अनुरोध करें।"
   },
   "eligibility": {
-    "title": "Eligibility Check",
-    "subtitle": "Answer a few quick questions to see which JourneyLite programs may be right for you.",
+    "title": "पात्रता जांच",
+    "subtitle": "यह देखने के लिए कुछ त्वरित प्रश्नों के उत्तर दें कि कौन सा JourneyLite कार्यक्रम आपके लिए सही हो सकता है।",
     "questions": {
-      "bmiRange": "What is your approximate BMI?",
-      "hasComorbidities": "Do you have any weight-related health conditions? (e.g., diabetes, sleep apnea, high blood pressure, joint pain)",
-      "priorWeightLossTried": "Have you tried diet and exercise programs before?",
-      "priorSurgery": "Have you had any prior weight loss surgery?",
-      "insurance": "Do you have health insurance?",
-      "age": "How old are you?"
+      "bmiRange": "आपका अनुमानित बीएमआई क्या है?",
+      "hasComorbidities": "क्या आपको वजन संबंधी कोई स्वास्थ्य समस्या है? (जैसे, मधुमेह, स्लीप एपनिया, उच्च रक्तचाप, जोड़ों का दर्द)",
+      "priorWeightLossTried": "क्या आपने पहले आहार और व्यायाम कार्यक्रम आज़माए हैं?",
+      "priorSurgery": "क्या आपने पहले वजन घटाने की कोई सर्जरी करवाई है?",
+      "insurance": "आप स्वास्थ्य बीमा है?",
+      "age": "आपकी आयु कितनी है?"
     },
-    "options": {
-      "bmiRange": [
-        "Under 27 (not yet overweight)",
-        "27 – 29.9 (overweight)",
-        "30 – 34.9 (obese)",
-        "35 – 39.9 (obese)",
-        "40 or above (severely obese)"
-      ],
-      "yesNo": ["Yes", "No", "Not sure"],
-      "ageRange": ["Under 18", "18 – 25", "26 – 40", "41 – 60", "Over 60"]
-    },
+    "options": {},
     "results": {
-      "surgical": "You may be a candidate for surgical weight loss. Our surgeons will review your complete history at your consultation.",
-      "nonSurgical": "You may be a good candidate for a gastric balloon or GLP-1 medication program.",
-      "medical": "A physician-supervised medication program may be a great fit for you.",
-      "moreInfo": "Our team can help you explore your options. A free consultation is the best next step.",
-      "callToAction": "Schedule your free consultation today.",
-      "disclaimer": "This result is informational only and does not replace a physician evaluation."
+      "surgical": "आप सर्जिकल वजन घटाने के लिए उम्मीदवार हो सकते हैं। हमारे सर्जन आपके परामर्श पर आपके संपूर्ण इतिहास की समीक्षा करेंगे।",
+      "nonSurgical": "आप गैस्ट्रिक बैलून या जीएलपी-1 दवा कार्यक्रम के लिए अच्छे उम्मीदवार हो सकते हैं।",
+      "medical": "एक चिकित्सक-पर्यवेक्षित दवा कार्यक्रम आपके लिए बहुत उपयुक्त हो सकता है।",
+      "moreInfo": "हमारी टीम आपके विकल्प तलाशने में आपकी मदद कर सकती है। निःशुल्क परामर्श सर्वोत्तम अगला कदम है।",
+      "callToAction": "आज ही अपना निःशुल्क परामर्श शेड्यूल करें।",
+      "disclaimer": "यह परिणाम केवल सूचनात्मक है और चिकित्सक के मूल्यांकन को प्रतिस्थापित नहीं करता है।"
     },
     "navigation": {
-      "question": "Question {{current}} of {{total}}",
-      "next": "Next Question",
-      "previous": "Previous Question",
-      "seeResults": "See My Results",
-      "startOver": "Start Over"
+      "question": "{{कुल}} में से प्रश्न {{वर्तमान}}",
+      "next": "अगला सवाल",
+      "previous": "पिछला प्रश्न",
+      "seeResults": "मेरे परिणाम देखें",
+      "startOver": "प्रारंभ करें"
     }
   }
 }

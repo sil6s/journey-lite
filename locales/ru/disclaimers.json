@@ -1,24 +1,24 @@
 {
   "medical": {
-    "short": "This information is for educational purposes only and is not a substitute for professional medical advice.",
-    "full": "The content on this website is for informational and educational purposes only. It does not constitute medical advice and should not be used as a substitute for consultation with a qualified healthcare provider. Individual results vary. JourneyLite does not guarantee any specific outcome.",
-    "results": "Individual results vary. Actual weight loss outcomes depend on many factors including adherence to program guidelines, individual health status, and lifestyle changes.",
-    "risks": "All surgical and medical procedures carry risks. Discuss your specific risk profile with your JourneyLite physician before making any decisions."
+    "short": "Эта информация предназначена только для образовательных целей и не заменяет профессиональную медицинскую консультацию.",
+    "full": "Содержимое этого сайта предназначено только для информационных и образовательных целей. Оно не является медицинской рекомендацией и не должно использоваться вместо консультации с квалифицированным медицинским работником. Индивидуальные результаты различаются. JourneyLite не гарантирует какого-либо конкретного результата.",
+    "results": "Индивидуальные результаты различаются. Фактические результаты снижения веса зависят от многих факторов, включая соблюдение рекомендаций программы, индивидуальное состояние здоровья и изменения образа жизни.",
+    "risks": "Все хирургические и медицинские процедуры несут в себе риски. Прежде чем принимать какие-либо решения, обсудите свой конкретный профиль риска со своим врачом JourneyLite."
   },
   "translation": {
-    "autoTranslated": "This page was automatically translated for your convenience. The English version is the official source.",
-    "autoTranslatedFull": "This page was automatically translated to {{language}} for your convenience. The English version at {{englishUrl}} is the official source of information. Please contact JourneyLite directly for medical guidance specific to your situation.",
-    "reviewNote": "Translations are provided to help non-English speakers access information and have not been reviewed by a healthcare professional.",
-    "contactForGuidance": "For medical questions or concerns, please contact our office directly at 877-442-2263 or request an appointment with one of our physicians.",
-    "temporarilyUnavailable": "Translation to {{language}} is temporarily unavailable. Showing the original English content.",
-    "viewEnglish": "View in English",
-    "viewOriginal": "View original"
+    "autoTranslated": "Эта страница была автоматически переведена для вашего удобства. Английская версия является официальным источником.",
+    "autoTranslatedFull": "Для вашего удобства эта страница была автоматически переведена на {{язык}}. Английская версия по адресу {{englishUrl}} является официальным источником информации. Пожалуйста, свяжитесь с JourneyLite напрямую для получения медицинских рекомендаций, касающихся вашей ситуации.",
+    "reviewNote": "Переводы предоставляются для того, чтобы помочь людям, не говорящим на английском языке, получить доступ к информации и не проверялись медицинским работником.",
+    "contactForGuidance": "По медицинским вопросам или проблемам обращайтесь в наш офис напрямую по телефону 877-442-2263 или запишитесь на прием к одному из наших врачей.",
+    "temporarilyUnavailable": "Перевод на {{language}} временно недоступен. Показан оригинальный английский контент.",
+    "viewEnglish": "Посмотреть на английском языке",
+    "viewOriginal": "Посмотреть оригинал"
   },
   "insurance": {
-    "coverage": "Insurance coverage varies by plan and individual. Contact your insurance provider or our billing team to verify your benefits before scheduling.",
-    "preAuth": "Some procedures require prior authorization from your insurance company. Our team will assist you with this process."
+    "coverage": "Страховое покрытие варьируется в зависимости от плана и индивидуально. Свяжитесь со своей страховой компанией или с нашей командой по выставлению счетов, чтобы проверить ваши льготы перед планированием.",
+    "preAuth": "Некоторые процедуры требуют предварительного разрешения вашей страховой компании. Наша команда поможет вам в этом процессе."
   },
   "hipaa": {
-    "short": "Your health information is protected under HIPAA. See our Privacy Notice for details."
+    "short": "Ваша медицинская информация защищена в соответствии с HIPAA. Подробности смотрите в нашем Уведомлении о конфиденциальности."
   }
 }

@@ -1,24 +1,24 @@
 {
   "medical": {
-    "short": "This information is for educational purposes only and is not a substitute for professional medical advice.",
-    "full": "The content on this website is for informational and educational purposes only. It does not constitute medical advice and should not be used as a substitute for consultation with a qualified healthcare provider. Individual results vary. JourneyLite does not guarantee any specific outcome.",
-    "results": "Individual results vary. Actual weight loss outcomes depend on many factors including adherence to program guidelines, individual health status, and lifestyle changes.",
-    "risks": "All surgical and medical procedures carry risks. Discuss your specific risk profile with your JourneyLite physician before making any decisions."
+    "short": "यह जानकारी केवल शैक्षिक उद्देश्यों के लिए है और पेशेवर चिकित्सा सलाह का विकल्प नहीं है।",
+    "full": "इस वेबसाइट की सामग्री केवल सूचनात्मक और शैक्षिक उद्देश्यों के लिए है। यह चिकित्सीय सलाह नहीं है और इसे किसी योग्य स्वास्थ्य सेवा प्रदाता के परामर्श के विकल्प के रूप में उपयोग नहीं किया जाना चाहिए। व्यक्तिगत परिणाम अलग-अलग होते हैं. JourneyLite किसी विशिष्ट परिणाम की गारंटी नहीं देता है।",
+    "results": "व्यक्तिगत परिणाम अलग-अलग होते हैं. वास्तविक वजन घटाने के परिणाम कार्यक्रम दिशानिर्देशों का पालन, व्यक्तिगत स्वास्थ्य स्थिति और जीवनशैली में बदलाव सहित कई कारकों पर निर्भर करते हैं।",
+    "risks": "सभी शल्य चिकित्सा और चिकित्सा प्रक्रियाओं में जोखिम होता है। कोई भी निर्णय लेने से पहले अपने JourneyLite चिकित्सक से अपने विशिष्ट जोखिम प्रोफ़ाइल पर चर्चा करें।"
   },
   "translation": {
-    "autoTranslated": "This page was automatically translated for your convenience. The English version is the official source.",
-    "autoTranslatedFull": "This page was automatically translated to {{language}} for your convenience. The English version at {{englishUrl}} is the official source of information. Please contact JourneyLite directly for medical guidance specific to your situation.",
-    "reviewNote": "Translations are provided to help non-English speakers access information and have not been reviewed by a healthcare professional.",
-    "contactForGuidance": "For medical questions or concerns, please contact our office directly at 877-442-2263 or request an appointment with one of our physicians.",
-    "temporarilyUnavailable": "Translation to {{language}} is temporarily unavailable. Showing the original English content.",
-    "viewEnglish": "View in English",
-    "viewOriginal": "View original"
+    "autoTranslated": "आपकी सुविधा के लिए यह पृष्ठ स्वचालित रूप से अनुवादित किया गया था। अंग्रेजी संस्करण आधिकारिक स्रोत है।",
+    "autoTranslatedFull": "आपकी सुविधा के लिए यह पृष्ठ स्वचालित रूप से {{भाषा}} में अनुवादित किया गया था। {{englishUrl}} पर अंग्रेजी संस्करण जानकारी का आधिकारिक स्रोत है। कृपया अपनी स्थिति के अनुसार चिकित्सीय मार्गदर्शन के लिए सीधे JourneyLite से संपर्क करें।",
+    "reviewNote": "गैर-अंग्रेजी बोलने वालों को जानकारी तक पहुंचने में मदद करने के लिए अनुवाद प्रदान किए जाते हैं और किसी स्वास्थ्य देखभाल पेशेवर द्वारा इसकी समीक्षा नहीं की जाती है।",
+    "contactForGuidance": "चिकित्सा संबंधी प्रश्नों या चिंताओं के लिए, कृपया सीधे हमारे कार्यालय 877-442-2263 पर संपर्क करें या हमारे किसी चिकित्सक से अपॉइंटमेंट का अनुरोध करें।",
+    "temporarilyUnavailable": "{{भाषा}} में अनुवाद अस्थायी रूप से अनुपलब्ध है। मूल अंग्रेजी सामग्री दिखा रहा है.",
+    "viewEnglish": "अंग्रेजी में देखें",
+    "viewOriginal": "मूल देखें"
   },
   "insurance": {
-    "coverage": "Insurance coverage varies by plan and individual. Contact your insurance provider or our billing team to verify your benefits before scheduling.",
-    "preAuth": "Some procedures require prior authorization from your insurance company. Our team will assist you with this process."
+    "coverage": "बीमा कवरेज योजना और व्यक्ति के अनुसार भिन्न होता है। शेड्यूल करने से पहले अपने लाभों को सत्यापित करने के लिए अपने बीमा प्रदाता या हमारी बिलिंग टीम से संपर्क करें।",
+    "preAuth": "कुछ प्रक्रियाओं के लिए आपकी बीमा कंपनी से पूर्व अनुमति की आवश्यकता होती है। हमारी टीम इस प्रक्रिया में आपकी सहायता करेगी।"
   },
   "hipaa": {
-    "short": "Your health information is protected under HIPAA. See our Privacy Notice for details."
+    "short": "आपकी स्वास्थ्य जानकारी HIPAA के अंतर्गत सुरक्षित है। विवरण के लिए हमारी गोपनीयता सूचना देखें।"
   }
 }

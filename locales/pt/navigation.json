@@ -1,0 +1,44 @@
+{
+  "links": {
+    "home": "Página inicial",
+    "about": "Sobre",
+    "services": "Serviços",
+    "procedures": "Procedimentos",
+    "surgicalWeightLoss": "Perda de peso cirúrgica",
+    "nonSurgical": "Opções não cirúrgicas",
+    "medications": "Medicamentos",
+    "gastricBalloon": "Balão Gástrico",
+    "blog": "Blog e recursos",
+    "patientStories": "Histórias de pacientes",
+    "contact": "Contato",
+    "pricing": "Preços e Financiamento",
+    "locations": "Locais",
+    "ourTeam": "Nossa equipe",
+    "education": "Educação do Paciente",
+    "bmiCalculator": "Calculadora de IMC",
+    "eligibilityCheck": "Verifique a elegibilidade",
+    "appointmentRequest": "Solicitar agendamento",
+    "portal": "Portal do Paciente",
+    "login": "Faça login",
+    "logout": "Sair",
+    "dashboard": "Painel"
+  },
+  "megaMenu": {
+    "surgical": {
+      "heading": "Perda de peso cirúrgica",
+      "description": "Procedimentos permanentes e comprovados, realizados por cirurgiões certificados."
+    },
+    "nonSurgical": {
+      "heading": "Opções não cirúrgicas",
+      "description": "Alternativas eficazes sem incisões ou pernoites."
+    },
+    "medical": {
+      "heading": "Perda de peso médica",
+      "description": "Medicamentos prescritos e programas supervisionados por médicos."
+    }
+  },
+  "mobileMenu": {
+    "close": "Fechar menu",
+    "back": "Voltar"
+  }
+}

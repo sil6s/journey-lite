@@ -2,9 +2,10 @@ import "./globals.css";
 import type { Metadata } from "next";
 import { Inter, Playfair_Display, Geist } from "next/font/google";
 import Script from "next/script";
-import { cookies } from "next/headers";
+import { cookies, headers } from "next/headers";
 import { cn } from "@/lib/utils";
 import { Providers } from "@/components/site/providers";
+import { StaticPageTranslator } from "@/components/site/static-page-translator";
 import { isValidLocale, getTextDirection, defaultLocale, type SupportedLocale } from "@/lib/i18n/config";
 
 const geist = Geist({subsets:['latin'],variable:'--font-sans'});
@@ -23,8 +24,9 @@ export const metadata: Metadata = {
 };
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
-  const cookieStore = await cookies();
-  const raw = cookieStore.get("jl_locale")?.value;
+  const [cookieStore, headerStore] = await Promise.all([cookies(), headers()]);
+  const headerLocale = headerStore.get("x-locale");
+  const raw = headerLocale ?? cookieStore.get("jl_locale")?.value;
   const locale: SupportedLocale = raw && isValidLocale(raw) ? raw : defaultLocale;
   const dir = getTextDirection(locale);
 
@@ -35,7 +37,10 @@ export default async function RootLayout({ children }: { children: React.ReactNo
         <Script defer src="https://cloud.umami.is/script.js" data-website-id={umamiWebsiteId} strategy="afterInteractive" />
       </head>
       <body className={`${inter.variable} ${playfair.variable}`}>
-        <Providers>{children}</Providers>
+        <Providers>
+          {children}
+          <StaticPageTranslator />
+        </Providers>
       </body>
     </html>
   );

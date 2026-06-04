@@ -1,55 +1,55 @@
 {
-  "tagline": "Compassionate care. Life-changing results.",
-  "description": "JourneyLite is a nationally recognized bariatric and medical weight loss practice serving patients across Ohio, Kentucky, and Indiana.",
+  "tagline": "Einfühlsame Betreuung. Lebensverändernde Ergebnisse.",
+  "description": "JourneyLite ist eine landesweit anerkannte bariatrische und medizinische Praxis zur Gewichtsreduktion, die Patienten in ganz Ohio, Kentucky und Indiana betreut.",
   "sections": {
-    "procedures": "Procedures",
-    "resources": "Resources",
-    "practice": "Practice",
-    "connect": "Connect"
+    "procedures": "Verfahren",
+    "resources": "Ressourcen",
+    "practice": "Üben",
+    "connect": "Verbinden"
   },
   "links": {
-    "gastricSleeve": "Gastric Sleeve",
-    "gastricBypass": "Gastric Bypass",
-    "gastricBalloon": "Gastric Balloon",
-    "lapBand": "Lap Band",
-    "sadi": "SADI Surgery",
-    "medications": "Weight Loss Medications",
-    "esg": "Endoscopic Sleeve Gastroplasty",
-    "blog": "Blog & Resources",
-    "patientStories": "Patient Stories",
-    "bmiCalculator": "BMI Calculator",
+    "gastricSleeve": "Schlauchmagen",
+    "gastricBypass": "Magenbypass",
+    "gastricBalloon": "Magenballon",
+    "lapBand": "Schoßband",
+    "sadi": "SADI-Chirurgie",
+    "medications": "Medikamente zur Gewichtsreduktion",
+    "esg": "Endoskopische Sleeve-Gastroplastie",
+    "blog": "Blog & Ressourcen",
+    "patientStories": "Patientengeschichten",
+    "bmiCalculator": "BMI-Rechner",
     "faqs": "FAQs",
-    "education": "Patient Education",
-    "about": "About JourneyLite",
-    "ourTeam": "Our Team",
-    "locations": "Locations",
-    "pricing": "Pricing & Financing",
-    "privacy": "Privacy Policy",
-    "contact": "Contact Us",
-    "appointment": "Request Appointment"
+    "education": "Patientenaufklärung",
+    "about": "Über JourneyLite",
+    "ourTeam": "Unser Team",
+    "locations": "Standorte",
+    "pricing": "Preise und Finanzierung",
+    "privacy": "Datenschutzrichtlinie",
+    "contact": "Kontaktieren Sie uns",
+    "appointment": "Termin anfragen"
   },
   "contact": {
     "phone": "877-442-2263",
-    "phoneLabel": "Call us",
-    "address": "10475 Reading Road",
+    "phoneLabel": "Rufen Sie uns an",
+    "address": "10475 Lesestraße",
     "cityStateZip": "Cincinnati, OH 45241",
-    "emailLabel": "Email us"
+    "emailLabel": "Schicken Sie uns eine E-Mail"
   },
   "social": {
-    "facebook": "Follow JourneyLite on Facebook",
-    "instagram": "Follow JourneyLite on Instagram",
-    "youtube": "Watch JourneyLite on YouTube",
-    "google": "Read Google Reviews"
+    "facebook": "Folgen Sie JourneyLite auf Facebook",
+    "instagram": "Folgen Sie JourneyLite auf Instagram",
+    "youtube": "Sehen Sie sich JourneyLite auf YouTube an",
+    "google": "Lesen Sie Google-Bewertungen"
   },
   "legal": {
-    "copyright": "© {{year}} JourneyLite Physicians. All rights reserved.",
-    "privacy": "Privacy Policy",
-    "terms": "Terms of Use",
-    "hipaa": "HIPAA Notice",
-    "disclaimer": "Information on this site is for educational purposes only and does not constitute medical advice. Always consult a qualified healthcare provider."
+    "copyright": "© {{year}} JourneyLite Ärzte. Alle Rechte vorbehalten.",
+    "privacy": "Datenschutzrichtlinie",
+    "terms": "Nutzungsbedingungen",
+    "hipaa": "HIPAA-Hinweis",
+    "disclaimer": "Die Informationen auf dieser Website dienen ausschließlich Bildungszwecken und stellen keine medizinische Beratung dar. Konsultieren Sie immer einen qualifizierten Gesundheitsdienstleister."
   },
   "certifications": {
-    "accredited": "Accredited Bariatric Surgery Center",
-    "optumCoe": "Optum Center of Excellence"
+    "accredited": "Akkreditiertes Zentrum für bariatrische Chirurgie",
+    "optumCoe": "Optum-Kompetenzzentrum"
   }
 }

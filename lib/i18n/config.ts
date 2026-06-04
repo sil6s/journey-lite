@@ -8,7 +8,7 @@
 
 export type SupportedLocale =
   | "en" | "es" | "ar" | "zh" | "fr"
-  | "de" | "vi" | "hi" | "ko" | "ru";
+  | "de" | "vi" | "hi" | "ko" | "ru" | "pt";
 
 export type LanguageEntry = {
   id: SupportedLocale;
@@ -32,6 +32,7 @@ export const supportedLanguages: LanguageEntry[] = [
   { id: "hi", title: "Hindi",      nativeName: "हिन्दी",                         enabled: true,  dir: "ltr", indexAiTranslations: false },
   { id: "ko", title: "Korean",     nativeName: "한국어",                          enabled: true,  dir: "ltr", indexAiTranslations: false },
   { id: "ru", title: "Russian",    nativeName: "Русский",                       enabled: true,  dir: "ltr", indexAiTranslations: false },
+  { id: "pt", title: "Portuguese", nativeName: "Português",                      enabled: true,  dir: "ltr", indexAiTranslations: false },
 ];
 
 // ── Derived helpers ────────────────────────────────────────────────────────────
@@ -75,6 +76,7 @@ export const i18nNamespaces = [
   "calculators",
   "footer",
   "disclaimers",
+  "static",
 ] as const;
 
 export type I18nNamespace = (typeof i18nNamespaces)[number];

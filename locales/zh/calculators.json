@@ -1,70 +1,60 @@
 {
   "bmi": {
-    "title": "BMI Calculator",
-    "subtitle": "Find out your Body Mass Index and what it means for weight loss options.",
-    "heightLabel": "Height",
-    "weightLabel": "Weight",
-    "feetLabel": "ft",
-    "inchesLabel": "in",
-    "poundsLabel": "lbs",
-    "calculateButton": "Calculate BMI",
-    "resetButton": "Reset",
-    "resultLabel": "Your BMI",
+    "title": "体重指数计算器",
+    "subtitle": "了解您的体重指数及其对减肥方案的意义。",
+    "heightLabel": "身高",
+    "weightLabel": "重量",
+    "feetLabel": "英尺",
+    "inchesLabel": "在",
+    "poundsLabel": "磅",
+    "calculateButton": "计算体重指数",
+    "resetButton": "重置",
+    "resultLabel": "您的体重指数",
     "categories": {
-      "underweight": "Underweight",
-      "normal": "Normal weight",
-      "overweight": "Overweight",
-      "obese1": "Obese (Class I)",
-      "obese2": "Obese (Class II)",
-      "obese3": "Obese (Class III)"
+      "underweight": "减持",
+      "normal": "正常体重",
+      "overweight": "超重",
+      "obese1": "肥胖（I 级）",
+      "obese2": "肥胖（II 级）",
+      "obese3": "肥胖（III级）"
     },
     "ranges": {
-      "underweight": "Under 18.5",
+      "underweight": "18.5岁以下",
       "normal": "18.5 – 24.9",
       "overweight": "25 – 29.9",
       "obese1": "30 – 34.9",
       "obese2": "35 – 39.9",
-      "obese3": "40 and above"
+      "obese3": "40岁及以上"
     },
-    "disclaimer": "BMI is a screening tool, not a diagnosis. Speak with a JourneyLite physician for a personalized evaluation.",
-    "cta": "Based on your BMI, you may qualify for weight loss surgery. Request a free consultation to learn more."
+    "disclaimer": "BMI 是一种筛查工具，而不是诊断工具。与 JourneyLite 医生交谈以进行个性化评估。",
+    "cta": "根据您的体重指数，您可能有资格接受减肥手术。请求免费咨询以了解更多信息。"
   },
   "eligibility": {
-    "title": "Eligibility Check",
-    "subtitle": "Answer a few quick questions to see which JourneyLite programs may be right for you.",
+    "title": "资格检查",
+    "subtitle": "回答几个简单的问题，看看哪些 JourneyLite 计划可能适合您。",
     "questions": {
-      "bmiRange": "What is your approximate BMI?",
-      "hasComorbidities": "Do you have any weight-related health conditions? (e.g., diabetes, sleep apnea, high blood pressure, joint pain)",
-      "priorWeightLossTried": "Have you tried diet and exercise programs before?",
-      "priorSurgery": "Have you had any prior weight loss surgery?",
-      "insurance": "Do you have health insurance?",
-      "age": "How old are you?"
+      "bmiRange": "您的体重指数大约是多少？",
+      "hasComorbidities": "您有任何与体重相关的健康状况吗？ （例如糖尿病、睡眠呼吸暂停、高血压、关节痛）",
+      "priorWeightLossTried": "您以前尝试过节食和锻炼计划吗？",
+      "priorSurgery": "您之前接受过减肥手术吗？",
+      "insurance": "您有健康保险吗？",
+      "age": "你几岁了？"
     },
-    "options": {
-      "bmiRange": [
-        "Under 27 (not yet overweight)",
-        "27 – 29.9 (overweight)",
-        "30 – 34.9 (obese)",
-        "35 – 39.9 (obese)",
-        "40 or above (severely obese)"
-      ],
-      "yesNo": ["Yes", "No", "Not sure"],
-      "ageRange": ["Under 18", "18 – 25", "26 – 40", "41 – 60", "Over 60"]
-    },
+    "options": {},
     "results": {
-      "surgical": "You may be a candidate for surgical weight loss. Our surgeons will review your complete history at your consultation.",
-      "nonSurgical": "You may be a good candidate for a gastric balloon or GLP-1 medication program.",
-      "medical": "A physician-supervised medication program may be a great fit for you.",
-      "moreInfo": "Our team can help you explore your options. A free consultation is the best next step.",
-      "callToAction": "Schedule your free consultation today.",
-      "disclaimer": "This result is informational only and does not replace a physician evaluation."
+      "surgical": "您可能是手术减肥的候选人。我们的外科医生将在您咨询时回顾您的完整病史。",
+      "nonSurgical": "您可能是胃气球或 GLP-1 药物治疗计划的良好候选人。",
+      "medical": "医生监督的药物治疗计划可能非常适合您。",
+      "moreInfo": "我们的团队可以帮助您探索您的选择。免费咨询是最好的下一步。",
+      "callToAction": "今天安排您的免费咨询。",
+      "disclaimer": "该结果仅供参考，不能替代医生的评估。"
     },
     "navigation": {
-      "question": "Question {{current}} of {{total}}",
-      "next": "Next Question",
-      "previous": "Previous Question",
-      "seeResults": "See My Results",
-      "startOver": "Start Over"
+      "question": "第 {{current}} 个问题（共 {{total}}）",
+      "next": "下一个问题",
+      "previous": "上一个问题",
+      "seeResults": "查看我的结果",
+      "startOver": "重新开始"
     }
   }
 }

@@ -1,0 +1,24 @@
+{
+  "medical": {
+    "short": "Estas informações são apenas para fins educacionais e não substituem o aconselhamento médico profissional.",
+    "full": "O conteúdo deste site é apenas para fins informativos e educacionais. Não constitui aconselhamento médico e não deve ser utilizado como substituto da consulta com um profissional de saúde qualificado. Os resultados individuais variam. JourneyLite não garante nenhum resultado específico.",
+    "results": "Os resultados individuais variam. Os resultados reais da perda de peso dependem de muitos fatores, incluindo a adesão às diretrizes do programa, o estado de saúde individual e as mudanças no estilo de vida.",
+    "risks": "Todos os procedimentos cirúrgicos e médicos apresentam riscos. Discuta seu perfil de risco específico com seu médico JourneyLite antes de tomar qualquer decisão."
+  },
+  "translation": {
+    "autoTranslated": "Esta página foi traduzida automaticamente para sua conveniência. A versão em inglês é a fonte oficial.",
+    "autoTranslatedFull": "Esta página foi traduzida automaticamente para {{idioma}} para sua conveniência. A versão em inglês em {{englishUrl}} é a fonte oficial de informações. Entre em contato diretamente com JourneyLite para obter orientação médica específica para sua situação.",
+    "reviewNote": "As traduções são fornecidas para ajudar quem não fala inglês a acessar informações e não foram revisadas por um profissional de saúde.",
+    "contactForGuidance": "Para dúvidas ou preocupações médicas, entre em contato diretamente com nosso escritório pelo telefone 877-442-2263 ou solicite uma consulta com um de nossos médicos.",
+    "temporarilyUnavailable": "A tradução para {{idioma}} está temporariamente indisponível. Mostrando o conteúdo original em inglês.",
+    "viewEnglish": "Ver em inglês",
+    "viewOriginal": "Ver original"
+  },
+  "insurance": {
+    "coverage": "A cobertura do seguro varia de acordo com o plano e o indivíduo. Entre em contato com sua seguradora ou nossa equipe de cobrança para verificar seus benefícios antes de agendar.",
+    "preAuth": "Alguns procedimentos requerem autorização prévia da sua seguradora. Nossa equipe irá auxiliá-lo neste processo."
+  },
+  "hipaa": {
+    "short": "Suas informações de saúde são protegidas pela HIPAA. Consulte nosso Aviso de Privacidade para obter detalhes."
+  }
+}

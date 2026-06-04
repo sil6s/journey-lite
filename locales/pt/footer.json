@@ -1,0 +1,55 @@
+{
+  "tagline": "Cuidado compassivo. Resultados que mudam vidas.",
+  "description": "JourneyLite é uma prática bariátrica e médica de perda de peso reconhecida nacionalmente que atende pacientes em Ohio, Kentucky e Indiana.",
+  "sections": {
+    "procedures": "Procedimentos",
+    "resources": "Recursos",
+    "practice": "Pratique",
+    "connect": "Conectar"
+  },
+  "links": {
+    "gastricSleeve": "Manga Gástrica",
+    "gastricBypass": "Bypass gástrico",
+    "gastricBalloon": "Balão Gástrico",
+    "lapBand": "Banda de colo",
+    "sadi": "Cirurgia SADI",
+    "medications": "Medicamentos para perder peso",
+    "esg": "Gastroplastia Endoscópica Sleeve",
+    "blog": "Blog e recursos",
+    "patientStories": "Histórias de pacientes",
+    "bmiCalculator": "Calculadora de IMC",
+    "faqs": "Perguntas frequentes",
+    "education": "Educação do Paciente",
+    "about": "Sobre JourneyLite",
+    "ourTeam": "Nossa equipe",
+    "locations": "Locais",
+    "pricing": "Preços e Financiamento",
+    "privacy": "Política de Privacidade",
+    "contact": "Contate-nos",
+    "appointment": "Solicitar agendamento"
+  },
+  "contact": {
+    "phone": "877-442-2263",
+    "phoneLabel": "Ligue para nós",
+    "address": "10475 Estrada de Leitura",
+    "cityStateZip": "Cincinnati, OH 45241",
+    "emailLabel": "Envie-nos um e-mail"
+  },
+  "social": {
+    "facebook": "Siga JourneyLite no Facebook",
+    "instagram": "Siga JourneyLite no Instagram",
+    "youtube": "Assista JourneyLite no YouTube",
+    "google": "Leia as avaliações do Google"
+  },
+  "legal": {
+    "copyright": "© {{ano}} Médicos JourneyLite. Todos os direitos reservados.",
+    "privacy": "Política de Privacidade",
+    "terms": "Termos de Uso",
+    "hipaa": "Aviso da HIPAA",
+    "disclaimer": "As informações contidas neste site são apenas para fins educacionais e não constituem aconselhamento médico. Consulte sempre um profissional de saúde qualificado."
+  },
+  "certifications": {
+    "accredited": "Centro de Cirurgia Bariátrica Credenciado",
+    "optumCoe": "Centro de Excelência Optum"
+  }
+}

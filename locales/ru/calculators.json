@@ -1,70 +1,60 @@
 {
   "bmi": {
-    "title": "BMI Calculator",
-    "subtitle": "Find out your Body Mass Index and what it means for weight loss options.",
-    "heightLabel": "Height",
-    "weightLabel": "Weight",
-    "feetLabel": "ft",
-    "inchesLabel": "in",
-    "poundsLabel": "lbs",
-    "calculateButton": "Calculate BMI",
-    "resetButton": "Reset",
-    "resultLabel": "Your BMI",
+    "title": "Калькулятор ИМТ",
+    "subtitle": "Узнайте свой индекс массы тела и его значение для вариантов снижения веса.",
+    "heightLabel": "Высота",
+    "weightLabel": "Вес",
+    "feetLabel": "футы",
+    "inchesLabel": "в",
+    "poundsLabel": "фунты",
+    "calculateButton": "Рассчитать ИМТ",
+    "resetButton": "Сброс",
+    "resultLabel": "Ваш ИМТ",
     "categories": {
-      "underweight": "Underweight",
-      "normal": "Normal weight",
-      "overweight": "Overweight",
-      "obese1": "Obese (Class I)",
-      "obese2": "Obese (Class II)",
-      "obese3": "Obese (Class III)"
+      "underweight": "Недостаток веса",
+      "normal": "Нормальный вес",
+      "overweight": "Избыточный вес",
+      "obese1": "Ожирение (класс I)",
+      "obese2": "Ожирение (класс II)",
+      "obese3": "Ожирение (класс III)"
     },
     "ranges": {
-      "underweight": "Under 18.5",
-      "normal": "18.5 – 24.9",
-      "overweight": "25 – 29.9",
-      "obese1": "30 – 34.9",
-      "obese2": "35 – 39.9",
-      "obese3": "40 and above"
+      "underweight": "До 18,5",
+      "normal": "18,5 – 24,9",
+      "overweight": "25 – 29,9",
+      "obese1": "30 – 34,9",
+      "obese2": "35 – 39,9",
+      "obese3": "40 и выше"
     },
-    "disclaimer": "BMI is a screening tool, not a diagnosis. Speak with a JourneyLite physician for a personalized evaluation.",
-    "cta": "Based on your BMI, you may qualify for weight loss surgery. Request a free consultation to learn more."
+    "disclaimer": "ИМТ — это инструмент скрининга, а не диагноз. Поговорите с врачом JourneyLite для индивидуальной оценки.",
+    "cta": "На основании вашего ИМТ вы можете претендовать на операцию по снижению веса. Закажите бесплатную консультацию, чтобы узнать больше."
   },
   "eligibility": {
-    "title": "Eligibility Check",
-    "subtitle": "Answer a few quick questions to see which JourneyLite programs may be right for you.",
+    "title": "Проверка приемлемости",
+    "subtitle": "Ответьте на несколько простых вопросов, чтобы узнать, какие программы JourneyLite могут подойти вам.",
     "questions": {
-      "bmiRange": "What is your approximate BMI?",
-      "hasComorbidities": "Do you have any weight-related health conditions? (e.g., diabetes, sleep apnea, high blood pressure, joint pain)",
-      "priorWeightLossTried": "Have you tried diet and exercise programs before?",
-      "priorSurgery": "Have you had any prior weight loss surgery?",
-      "insurance": "Do you have health insurance?",
-      "age": "How old are you?"
+      "bmiRange": "Какой у вас приблизительный ИМТ?",
+      "hasComorbidities": "Есть ли у вас какие-либо проблемы со здоровьем, связанные с весом? (например, диабет, апноэ во сне, высокое кровяное давление, боль в суставах)",
+      "priorWeightLossTried": "Пробовали ли вы раньше диету и программы упражнений?",
+      "priorSurgery": "Были ли у вас ранее операции по снижению веса?",
+      "insurance": "У вас есть медицинская страховка?",
+      "age": "Сколько тебе лет?"
     },
-    "options": {
-      "bmiRange": [
-        "Under 27 (not yet overweight)",
-        "27 – 29.9 (overweight)",
-        "30 – 34.9 (obese)",
-        "35 – 39.9 (obese)",
-        "40 or above (severely obese)"
-      ],
-      "yesNo": ["Yes", "No", "Not sure"],
-      "ageRange": ["Under 18", "18 – 25", "26 – 40", "41 – 60", "Over 60"]
-    },
+    "options": {},
     "results": {
-      "surgical": "You may be a candidate for surgical weight loss. Our surgeons will review your complete history at your consultation.",
-      "nonSurgical": "You may be a good candidate for a gastric balloon or GLP-1 medication program.",
-      "medical": "A physician-supervised medication program may be a great fit for you.",
-      "moreInfo": "Our team can help you explore your options. A free consultation is the best next step.",
-      "callToAction": "Schedule your free consultation today.",
-      "disclaimer": "This result is informational only and does not replace a physician evaluation."
+      "surgical": "Вы можете быть кандидатом на хирургическое снижение веса. На консультации наши хирурги изучат всю вашу историю болезни.",
+      "nonSurgical": "Вы можете быть хорошим кандидатом на установку желудочного баллона или программу лечения GLP-1.",
+      "medical": "Программа приема лекарств под наблюдением врача может вам подойти.",
+      "moreInfo": "Наша команда может помочь вам изучить ваши варианты. Бесплатная консультация – лучший следующий шаг.",
+      "callToAction": "Запланируйте бесплатную консультацию сегодня.",
+      "disclaimer": "Этот результат носит исключительно информационный характер и не заменяет оценку врача."
     },
     "navigation": {
-      "question": "Question {{current}} of {{total}}",
-      "next": "Next Question",
-      "previous": "Previous Question",
-      "seeResults": "See My Results",
-      "startOver": "Start Over"
+      "question": "Вопрос {{current}} из {{total}}",
+      "next": "Следующий вопрос",
+      "previous": "Предыдущий вопрос",
+      "seeResults": "Посмотреть мои результаты",
+      "startOver": "Начать сначала"
     }
   }
 }

@@ -1,44 +1,44 @@
 {
   "links": {
-    "home": "Home",
-    "about": "About",
-    "services": "Services",
-    "procedures": "Procedures",
-    "surgicalWeightLoss": "Surgical Weight Loss",
-    "nonSurgical": "Non-Surgical Options",
-    "medications": "Medications",
-    "gastricBalloon": "Gastric Balloon",
-    "blog": "Blog & Resources",
-    "patientStories": "Patient Stories",
-    "contact": "Contact",
-    "pricing": "Pricing & Financing",
-    "locations": "Locations",
-    "ourTeam": "Our Team",
-    "education": "Patient Education",
-    "bmiCalculator": "BMI Calculator",
-    "eligibilityCheck": "Check Eligibility",
-    "appointmentRequest": "Request Appointment",
-    "portal": "Patient Portal",
-    "login": "Log In",
-    "logout": "Log Out",
-    "dashboard": "Dashboard"
+    "home": "Главная",
+    "about": "О",
+    "services": "Услуги",
+    "procedures": "Процедуры",
+    "surgicalWeightLoss": "Хирургическое похудение",
+    "nonSurgical": "Нехирургические варианты",
+    "medications": "Лекарства",
+    "gastricBalloon": "Желудочный баллон",
+    "blog": "Блог и ресурсы",
+    "patientStories": "Истории пациентов",
+    "contact": "Контакт",
+    "pricing": "Ценообразование и финансирование",
+    "locations": "Локации",
+    "ourTeam": "Наша команда",
+    "education": "Обучение пациентов",
+    "bmiCalculator": "Калькулятор ИМТ",
+    "eligibilityCheck": "Проверить право на участие",
+    "appointmentRequest": "Запросить встречу",
+    "portal": "Портал для пациентов",
+    "login": "Войти",
+    "logout": "Выйти",
+    "dashboard": "Панель управления"
   },
   "megaMenu": {
     "surgical": {
-      "heading": "Surgical Weight Loss",
-      "description": "Permanent, proven procedures performed by board-certified surgeons."
+      "heading": "Хирургическое похудение",
+      "description": "Постоянные, проверенные процедуры, выполняемые сертифицированными хирургами."
     },
     "nonSurgical": {
-      "heading": "Non-Surgical Options",
-      "description": "Effective alternatives without incisions or overnight stays."
+      "heading": "Нехирургические варианты",
+      "description": "Эффективные альтернативы без разрезов и ночевок."
     },
     "medical": {
-      "heading": "Medical Weight Loss",
-      "description": "Prescription medications and physician-supervised programs."
+      "heading": "Медицинская потеря веса",
+      "description": "Лекарства, отпускаемые по рецепту, и программы под наблюдением врача."
     }
   },
   "mobileMenu": {
-    "close": "Close menu",
-    "back": "Back"
+    "close": "Закрыть меню",
+    "back": "Назад"
   }
 }

@@ -1,0 +1,60 @@
+{
+  "bmi": {
+    "title": "Calculadora de IMC",
+    "subtitle": "Descubra o seu Índice de Massa Corporal e o que ele significa para as opções de perda de peso.",
+    "heightLabel": "Altura",
+    "weightLabel": "Peso",
+    "feetLabel": "pés",
+    "inchesLabel": "em",
+    "poundsLabel": "libras",
+    "calculateButton": "Calcular o IMC",
+    "resetButton": "Redefinir",
+    "resultLabel": "Seu IMC",
+    "categories": {
+      "underweight": "Abaixo do peso",
+      "normal": "Peso normal",
+      "overweight": "Excesso de peso",
+      "obese1": "Obeso (Classe I)",
+      "obese2": "Obeso (Classe II)",
+      "obese3": "Obeso (Classe III)"
+    },
+    "ranges": {
+      "underweight": "Menos de 18,5",
+      "normal": "18,5 – 24,9",
+      "overweight": "25 – 29,9",
+      "obese1": "30 – 34,9",
+      "obese2": "35 – 39,9",
+      "obese3": "40 e acima"
+    },
+    "disclaimer": "O IMC é uma ferramenta de triagem, não um diagnóstico. Fale com um médico JourneyLite para uma avaliação personalizada.",
+    "cta": "Com base no seu IMC, você pode se qualificar para uma cirurgia para perda de peso. Solicite uma consulta gratuita para saber mais."
+  },
+  "eligibility": {
+    "title": "Verificação de elegibilidade",
+    "subtitle": "Responda a algumas perguntas rápidas para ver quais programas JourneyLite podem ser adequados para você.",
+    "questions": {
+      "bmiRange": "Qual é o seu IMC aproximado?",
+      "hasComorbidities": "Você tem algum problema de saúde relacionado ao peso? (por exemplo, diabetes, apnéia do sono, pressão alta, dor nas articulações)",
+      "priorWeightLossTried": "Você já experimentou programas de dieta e exercícios antes?",
+      "priorSurgery": "Você já fez alguma cirurgia anterior para perda de peso?",
+      "insurance": "Você tem seguro saúde?",
+      "age": "Quantos anos você tem?"
+    },
+    "options": {},
+    "results": {
+      "surgical": "Você pode ser um candidato à perda cirúrgica de peso. Nossos cirurgiões revisarão seu histórico completo em sua consulta.",
+      "nonSurgical": "Você pode ser um bom candidato para um balão gástrico ou um programa de medicação GLP-1.",
+      "medical": "Um programa de medicação supervisionado por um médico pode ser uma ótima opção para você.",
+      "moreInfo": "Nossa equipe pode ajudá-lo a explorar suas opções. Uma consulta gratuita é o melhor próximo passo.",
+      "callToAction": "Agende sua consulta gratuita hoje.",
+      "disclaimer": "Este resultado é apenas informativo e não substitui uma avaliação médica."
+    },
+    "navigation": {
+      "question": "Pergunta {{atual}} de {{total}}",
+      "next": "Próxima pergunta",
+      "previous": "Pergunta anterior",
+      "seeResults": "Ver meus resultados",
+      "startOver": "Recomeçar"
+    }
+  }
+}

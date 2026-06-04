@@ -23,7 +23,7 @@ const targetLocale = process.argv.includes("--locale")
   : null;
 const dryRun = process.argv.includes("--dry-run");
 
-const targetLocales = ["zh", "fr", "de", "vi", "hi", "ko", "ru"].filter(
+const targetLocales = ["zh", "fr", "de", "vi", "hi", "ko", "ru", "pt"].filter(
   (l) => !targetLocale || l === targetLocale
 );
 

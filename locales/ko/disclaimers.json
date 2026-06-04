@@ -1,24 +1,24 @@
 {
   "medical": {
-    "short": "This information is for educational purposes only and is not a substitute for professional medical advice.",
-    "full": "The content on this website is for informational and educational purposes only. It does not constitute medical advice and should not be used as a substitute for consultation with a qualified healthcare provider. Individual results vary. JourneyLite does not guarantee any specific outcome.",
-    "results": "Individual results vary. Actual weight loss outcomes depend on many factors including adherence to program guidelines, individual health status, and lifestyle changes.",
-    "risks": "All surgical and medical procedures carry risks. Discuss your specific risk profile with your JourneyLite physician before making any decisions."
+    "short": "이 정보는 교육 목적으로만 제공되며 전문적인 의학적 조언을 대체할 수 없습니다.",
+    "full": "이 웹사이트의 콘텐츠는 정보 제공 및 교육 목적으로만 제공됩니다. 이는 의학적 조언으로 간주되지 않으며 자격을 갖춘 의료 서비스 제공자와의 상담을 대신하여 사용되어서는 안 됩니다. 개별 결과는 다양합니다. JourneyLite는 특정 결과를 보장하지 않습니다.",
+    "results": "개별 결과는 다양합니다. 실제 체중 감량 결과는 프로그램 지침 준수, 개인 건강 상태, 생활 방식 변화 등 다양한 요인에 따라 달라집니다.",
+    "risks": "모든 수술 및 의료 절차에는 위험이 따릅니다. 결정을 내리기 전에 JourneyLite 의사와 특정 위험 프로필에 대해 논의하십시오."
   },
   "translation": {
-    "autoTranslated": "This page was automatically translated for your convenience. The English version is the official source.",
-    "autoTranslatedFull": "This page was automatically translated to {{language}} for your convenience. The English version at {{englishUrl}} is the official source of information. Please contact JourneyLite directly for medical guidance specific to your situation.",
-    "reviewNote": "Translations are provided to help non-English speakers access information and have not been reviewed by a healthcare professional.",
-    "contactForGuidance": "For medical questions or concerns, please contact our office directly at 877-442-2263 or request an appointment with one of our physicians.",
-    "temporarilyUnavailable": "Translation to {{language}} is temporarily unavailable. Showing the original English content.",
-    "viewEnglish": "View in English",
-    "viewOriginal": "View original"
+    "autoTranslated": "이 페이지는 귀하의 편의를 위해 자동으로 번역되었습니다. 영어 버전이 공식 소스입니다.",
+    "autoTranslatedFull": "귀하의 편의를 위해 이 페이지는 자동으로 {{언어}}로 번역되었습니다. {{englishUrl}}의 영어 버전이 정보의 공식 소스입니다. 귀하의 상황에 맞는 의료 지침을 얻으려면 JourneyLite에 직접 문의하십시오.",
+    "reviewNote": "영어가 아닌 사용자가 정보에 접근할 수 있도록 번역이 제공되며 의료 전문가의 검토를 거치지 않았습니다.",
+    "contactForGuidance": "의학적 질문이나 우려 사항이 있는 경우 877-442-2263으로 직접 저희 사무실에 연락하시거나 담당 의사에게 예약을 요청하십시오.",
+    "temporarilyUnavailable": "일시적으로 {{언어}} 번역을 사용할 수 없습니다. 원본 영어 콘텐츠를 표시합니다.",
+    "viewEnglish": "영어로 보기",
+    "viewOriginal": "원본 보기"
   },
   "insurance": {
-    "coverage": "Insurance coverage varies by plan and individual. Contact your insurance provider or our billing team to verify your benefits before scheduling.",
-    "preAuth": "Some procedures require prior authorization from your insurance company. Our team will assist you with this process."
+    "coverage": "보험 보장 범위는 플랜과 개인에 따라 다릅니다. 예약하기 전에 보험사 또는 당사 청구팀에 문의하여 혜택을 확인하세요.",
+    "preAuth": "일부 절차에는 보험회사의 사전 승인이 필요합니다. 우리 팀이 이 과정을 도와드릴 것입니다."
   },
   "hipaa": {
-    "short": "Your health information is protected under HIPAA. See our Privacy Notice for details."
+    "short": "귀하의 건강 정보는 HIPAA에 따라 보호됩니다. 자세한 내용은 개인정보 보호정책을 참조하세요."
   }
 }
