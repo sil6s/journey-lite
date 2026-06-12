@@ -447,6 +447,15 @@ export const blogPost = defineType({
       description: "Optional. Uses featured image if blank.",
       options: { hotspot: true },
     }),
+    defineField({
+      name: "htmlBody",
+      title: "Article body (HTML — admin editor)",
+      type: "text",
+      group: "content",
+      description:
+        "HTML content written via the admin portal rich-text editor. When present, this is used instead of the 'Article body' Portable Text field.",
+      hidden: ({ document }) => !document?.htmlBody,
+    }),
   ],
   preview: {
     select: {

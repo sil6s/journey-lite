@@ -41,7 +41,8 @@ const postFields = groq`
   relatedServices,
   "category": category->{name, "slug": slug.current, description},
   "author": author->{name, title, bio, credentials, image{..., asset->}},
-  isMigrated
+  isMigrated,
+  htmlBody
 `;
 
 export const postsQuery = groq`

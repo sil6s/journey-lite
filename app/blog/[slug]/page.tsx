@@ -212,7 +212,11 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
               <div className="max-w-3xl">
                 <AuthorCard imageUrl={authorImageUrl} post={displayPost} />
                 <KeyTakeaways items={displayPost.keyTakeaways} />
-                {displayPost.body?.length ? <PortableTextRenderer value={displayPost.body} /> : null}
+                {displayPost.htmlBody
+                  ? <div className="prose prose-green max-w-none" dangerouslySetInnerHTML={{ __html: displayPost.htmlBody }} />
+                  : displayPost.body?.length
+                    ? <PortableTextRenderer value={displayPost.body} />
+                    : null}
                 <SourcesList sources={sources} />
 
                 <aside className="mt-12 rounded-xl border border-[#d8c88b] bg-[#fffdf4] p-5 text-sm leading-6 text-[#5e5235]">

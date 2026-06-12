@@ -87,6 +87,9 @@ export function BlogAdminTable({
             <CardDescription>Search, filter, review SEO metadata, and jump to the public page or Studio.</CardDescription>
           </div>
           <div className="flex flex-wrap gap-2">
+            <Button asChild className="bg-[#0D3D24] hover:bg-[#145c42] text-white">
+              <Link href="/admin/blog/new">New Post</Link>
+            </Button>
             <Button asChild>
               <Link href="/admin/ai-blog-builder">Create with AI</Link>
             </Button>
@@ -270,6 +273,11 @@ export function BlogAdminTable({
                           <DropdownMenuItem asChild>
                             <Link href={`/blog/${post.slug}`}>
                               <ExternalLink /> Open public URL
+                            </Link>
+                          </DropdownMenuItem>
+                          <DropdownMenuItem asChild>
+                            <Link href={`/admin/blog/${post._id}`}>
+                              <Pencil /> Edit in Admin
                             </Link>
                           </DropdownMenuItem>
                           <DropdownMenuItem asChild>

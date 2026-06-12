@@ -40,8 +40,12 @@ export default async function AdminLayout({ children }: { children: React.ReactN
     redirect("/admin/login");
   }
 
-  // Check that this Supabase user is in the admin_users allowlist
-  const access = await getAdminAccessForEmail(user.email);
+  // Check admin_users table first; fall back to app_metadata.role set by the LMS.
+  // Both sites share the same Supabase project, so either grant works for either portal.
+  let access = await getAdminAccessForEmail(user.email);
+  if (!access && user.app_metadata?.role === 'admin') {
+    access = { email: user.email, role: 'admin', source: 'supabase' };
+  }
   if (!access) {
     redirect("/admin/access-denied");
   }

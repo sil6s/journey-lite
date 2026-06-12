@@ -17,6 +17,7 @@ export type AdminBlogPost = BlogPost & {
   status?: "published" | "draft" | "scheduled" | "archived";
   readingTime?: number;
   bodyText?: string;
+  htmlBody?: string;
 };
 
 export type AdminAuthor = {

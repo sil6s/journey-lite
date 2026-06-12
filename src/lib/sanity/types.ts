@@ -9,6 +9,7 @@ export type SanityImageAsset = {
 };
 
 export type BlogCategory = {
+  _id: string;
   name?: string;
   slug?: string;
   description?: string;
@@ -50,6 +51,7 @@ export type BlogPost = {
   author?: BlogAuthor;
   isMigrated?: boolean;
   body?: PortableTextBlock[];
+  htmlBody?: string;
   relatedPosts?: BlogPost[];
 };
 
