@@ -1,4 +1,4 @@
-import { ExternalLink, ShoppingBag } from "lucide-react";
+import { ShoppingBag } from "lucide-react";
 import { storefrontFetch } from "@/lib/shopify/client";
 import { PRODUCTS_QUERY } from "@/lib/shopify/queries";
 import { ProductCard } from "@/components/shop/ProductCard";
@@ -6,27 +6,95 @@ import type { ProductsQuery, ShopifyProduct } from "@/lib/shopify/types";
 
 export const revalidate = 60;
 
-type ProductGroup = { label: string; products: ShopifyProduct[] };
+// ── Category config ─────────────────────────────────────────────────────────
+
+type CategoryConfig = {
+  label: string;
+  emoji: string;
+  description: string;
+  test: (handle: string, title: string) => boolean;
+};
+
+const CATEGORIES: CategoryConfig[] = [
+  {
+    label: "Pre-Op Diet",
+    emoji: "🥗",
+    description: "Meal replacements and protein shakes to prepare for surgery",
+    test: (h) => h.includes("pre-op") || h.includes("preop"),
+  },
+  {
+    label: "Post-Op Diet",
+    emoji: "🍲",
+    description: "Soft, bariatric-friendly foods for your recovery phase",
+    test: (h) => h.includes("post-op") || h.includes("postop"),
+  },
+  {
+    label: "Vitamin Kits",
+    emoji: "💊",
+    description: "Complete bariatric vitamin bundles recommended by your care team",
+    test: (h) => h.includes("kit") || h.includes("vitamin"),
+  },
+  {
+    label: "Protein Shakes & Smoothies",
+    emoji: "🥤",
+    description: "High-protein shakes and smoothie mixes to hit your daily goals",
+    test: (h) => h.includes("smoothie") || h.includes("shake") || h.includes("protein-shake"),
+  },
+  {
+    label: "Food & Snacks",
+    emoji: "🍫",
+    description: "Bariatric-friendly snacks, soups, and nutritious meals",
+    test: (h) =>
+      ["mashed", "pasta", "soup", "protein-bar", "bar", "snack", "chip", "cracker", "cookie"].some((w) =>
+        h.includes(w)
+      ),
+  },
+  {
+    label: "Supplements",
+    emoji: "🧪",
+    description: "Individual vitamins, minerals, and nutritional supplements",
+    test: (h, title) =>
+      ["supplement", "calcium", "iron", "zinc", "b12", "omega", "probiotic", "fiber"].some(
+        (w) => h.includes(w) || title.toLowerCase().includes(w)
+      ),
+  },
+  {
+    label: "Other",
+    emoji: "📦",
+    description: "Additional bariatric products and accessories",
+    test: () => true, // catch-all
+  },
+];
+
+type ProductGroup = { config: CategoryConfig; products: ShopifyProduct[] };
 
 function categorize(products: ShopifyProduct[]): ProductGroup[] {
-  const order = ["Pre-Op Diet", "Post-Op Diet", "Vitamin Kits", "Smoothies", "Food & Snacks", "Other"];
-  const groups: Record<string, ShopifyProduct[]> = Object.fromEntries(order.map((k) => [k, []]));
+  const assigned = new Set<string>();
+  const groups: ProductGroup[] = [];
 
-  for (const p of products) {
-    const h = p.handle;
-    if (h.includes("pre-op")) groups["Pre-Op Diet"].push(p);
-    else if (h.includes("post-op")) groups["Post-Op Diet"].push(p);
-    else if (h.includes("kit")) groups["Vitamin Kits"].push(p);
-    else if (h.includes("smoothie")) groups["Smoothies"].push(p);
-    else if (["mashed", "pasta", "soup", "protein", "bar", "snack"].some((w) => h.includes(w)))
-      groups["Food & Snacks"].push(p);
-    else groups["Other"].push(p);
+  for (const config of CATEGORIES) {
+    const matched = products.filter((p) => {
+      if (assigned.has(p.id)) return false;
+      return config.test(p.handle, p.title);
+    });
+    if (matched.length > 0 || config.label === "Other") {
+      // "Other" only shows if it has items (since all assigned first)
+      const othersOnly = matched.filter((p) => !assigned.has(p.id));
+      if (othersOnly.length > 0) {
+        othersOnly.forEach((p) => assigned.add(p.id));
+        groups.push({ config, products: othersOnly });
+      }
+    }
   }
 
-  return order
-    .filter((k) => groups[k].length > 0)
-    .map((k) => ({ label: k, products: groups[k] }));
+  return groups;
 }
+
+function slugify(label: string) {
+  return label.toLowerCase().replace(/[^a-z0-9]+/g, "-");
+}
+
+// ── Page ────────────────────────────────────────────────────────────────────
 
 export default async function ShopPage() {
   let allProducts: ShopifyProduct[] = [];
@@ -41,63 +109,89 @@ export default async function ShopPage() {
   const groups = categorize(allProducts);
 
   return (
-    <div className="space-y-10">
-      <div className="flex flex-wrap items-center justify-between gap-3">
-        <div className="flex flex-wrap items-center gap-3">
-          <a
-            href="https://www.journeylite.com"
-            className="inline-flex items-center gap-1.5 rounded-md px-3 py-2 text-sm font-medium text-[#66756d] hover:bg-[#f5f8f6] hover:text-[#145c42]"
-          >
-            Main JourneyLite site
-            <ExternalLink className="h-3.5 w-3.5" />
-          </a>
+    <div className="min-h-screen">
+      {/* ── Page header ──────────────────────────────────────────────────── */}
+      <div className="border-b border-[#dce4df] bg-gradient-to-br from-[#f2f8f4] to-white pb-8 pt-6">
+        <div className="mx-auto max-w-7xl px-5 lg:px-8">
+          <div className="flex items-center gap-3">
+            <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[#145c42] shadow">
+              <ShoppingBag className="h-5 w-5 text-white" />
+            </div>
+            <div>
+              <h1 className="text-2xl font-bold text-[#1f2c25] sm:text-3xl">JourneyLite Shop</h1>
+              <p className="mt-0.5 text-sm text-[#66756d]">
+                Bariatric vitamins, supplements, and diet products — curated by your care team
+              </p>
+            </div>
+          </div>
+
+          {/* Category pills */}
+          {groups.length > 0 && (
+            <div className="mt-6 flex flex-wrap gap-2">
+              {groups.map(({ config }) => (
+                <a
+                  key={config.label}
+                  href={`#${slugify(config.label)}`}
+                  className="inline-flex items-center gap-1.5 rounded-full border border-[#dce4df] bg-white px-3 py-1.5 text-xs font-semibold text-[#314139] shadow-sm transition hover:border-[#145c42] hover:text-[#145c42] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#145c42]"
+                >
+                  <span>{config.emoji}</span>
+                  {config.label}
+                </a>
+              ))}
+            </div>
+          )}
         </div>
       </div>
 
-      {/* Page header */}
-      <div className="border-b border-[#dce4df] pb-6">
-        <div className="flex items-center gap-2.5">
-          <ShoppingBag className="h-6 w-6 text-[#145c42]" />
-          <h1 className="text-2xl font-semibold text-[#1f2c25] sm:text-3xl">JourneyLite Shop</h1>
-        </div>
-        <p className="mt-2 text-sm leading-6 text-[#66756d]">
-          Bariatric-friendly vitamins, supplements, pre-op diet kits, and nutritional products
-          curated by your JourneyLite care team. Checkout is handled securely by Shopify.
-        </p>
-      </div>
+      {/* ── Products ─────────────────────────────────────────────────────── */}
+      <div className="mx-auto max-w-7xl space-y-14 px-5 py-10 lg:px-8">
+        {allProducts.length === 0 ? (
+          <div className="rounded-2xl border border-[#dce4df] bg-white p-16 text-center shadow-sm">
+            <ShoppingBag className="mx-auto h-12 w-12 text-[#c8ddd4]" />
+            <p className="mt-4 text-base font-semibold text-[#1f2c25]">Products coming soon</p>
+            <p className="mt-1 text-sm text-[#66756d]">
+              We're stocking the shelves. Check back shortly.
+            </p>
+          </div>
+        ) : (
+          groups.map(({ config, products }) => (
+            <section
+              key={config.label}
+              id={slugify(config.label)}
+              aria-labelledby={`heading-${slugify(config.label)}`}
+              className="scroll-mt-24"
+            >
+              {/* Section header */}
+              <div className="mb-6 flex items-start gap-3">
+                <span className="mt-0.5 text-2xl leading-none">{config.emoji}</span>
+                <div>
+                  <h2
+                    id={`heading-${slugify(config.label)}`}
+                    className="text-xl font-bold text-[#1f2c25]"
+                  >
+                    {config.label}
+                  </h2>
+                  <p className="mt-0.5 text-sm text-[#66756d]">{config.description}</p>
+                </div>
+              </div>
 
-      {/* Products */}
-      {allProducts.length === 0 ? (
-        <div className="rounded-2xl border border-[#dce4df] bg-white p-12 text-center">
-          <ShoppingBag className="mx-auto h-10 w-10 text-[#c8ddd4]" />
-          <p className="mt-3 text-sm font-semibold text-[#1f2c25]">Products coming soon</p>
-          <p className="mt-1 text-xs text-[#66756d]">Check back shortly.</p>
-        </div>
-      ) : (
-        <div className="space-y-12">
-          {groups.map((group) => (
-            <section key={group.label} aria-labelledby={`group-${group.label}`}>
-              <h2
-                id={`group-${group.label}`}
-                className="mb-5 text-lg font-semibold text-[#1f2c25]"
-              >
-                {group.label}
-              </h2>
+              {/* Product grid */}
               <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-                {group.products.map((product) => (
+                {products.map((product) => (
                   <ProductCard key={product.id} product={product} />
                 ))}
               </div>
             </section>
-          ))}
-        </div>
-      )}
+          ))
+        )}
 
-      {/* Footer note */}
-      <p className="border-t border-[#dce4df] pt-6 text-xs text-[#8fa09a]">
-        Products are recommendations from your care team and do not constitute individualized medical advice.
-        Always follow the guidance of your JourneyLite physician and dietitian.
-      </p>
+        {/* Footer note */}
+        <p className="border-t border-[#dce4df] pt-6 text-xs text-[#8fa09a]">
+          Products are recommendations from your care team and do not constitute individualized
+          medical advice. Always follow the guidance of your JourneyLite physician and dietitian.
+          Checkout is handled securely by Shopify.
+        </p>
+      </div>
     </div>
   );
 }

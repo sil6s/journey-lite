@@ -4,10 +4,10 @@ import dynamic from "next/dynamic";
 import { useRef, useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
 import {
-  AlertTriangle, ArrowLeft, BookOpen, CheckCircle2, ChevronDown, ChevronRight,
-  Code2, Edit3, FileText, Globe, Hash, Image as ImageIcon,
-  Loader2, MousePointerClick, Plus, Save, Search, Sparkles, Trash2,
-  TrendingUp, X, Zap,
+  AlertCircle, AlertTriangle, ArrowLeft, BookOpen, CheckCircle2, ChevronDown, ChevronRight,
+  Code2, Edit3, Eye, FileText, Globe, Hash, Image as ImageIcon, Info,
+  Lightbulb, Loader2, MousePointerClick, Plus, Quote, Save, Search, Sparkles,
+  Star, Trash2, TrendingUp, X, Zap,
 } from "lucide-react";
 import { marked } from "marked";
 import TurndownService from "turndown";
@@ -309,6 +309,15 @@ function ContentEditor({
   const [formOpen, setFormOpen]     = useState(false);
   const [pickedForm, setPickedForm] = useState<string>("");
 
+  // Callout / emphasis block dialog
+  const [calloutOpen, setCalloutOpen] = useState(false);
+  const [calloutType, setCalloutType] = useState<"info"|"tip"|"warning"|"success"|"highlight"|"stat"|"quote">("tip");
+  const [calloutTitle, setCalloutTitle] = useState("");
+  const [calloutText, setCalloutText]   = useState("");
+
+  // Preview
+  const [previewOpen, setPreviewOpen] = useState(false);
+
   function handleTitleChange(v: string) {
     setTitle(v);
     if (!slugManual) setSlug(slugify(v));
@@ -383,6 +392,31 @@ function ContentEditor({
     setPickedForm("");
   }
 
+  function insertCallout() {
+    const styles: Record<string, { bg: string; border: string; titleColor: string; textColor: string; icon: string }> = {
+      tip:       { bg: "#f0fdf4", border: "#86efac", titleColor: "#166534", textColor: "#15803d", icon: "💡" },
+      info:      { bg: "#eff6ff", border: "#93c5fd", titleColor: "#1d4ed8", textColor: "#1e40af", icon: "ℹ️" },
+      warning:   { bg: "#fffbeb", border: "#fcd34d", titleColor: "#92400e", textColor: "#b45309", icon: "⚠️" },
+      success:   { bg: "#f0fdf4", border: "#4ade80", titleColor: "#14532d", textColor: "#166534", icon: "✅" },
+      highlight: { bg: "#faf5ff", border: "#c4b5fd", titleColor: "#5b21b6", textColor: "#6d28d9", icon: "⭐" },
+      stat:      { bg: "#0D3D24", border: "#145c42", titleColor: "#ffffff", textColor: "#d1fae5", icon: "📊" },
+      quote:     { bg: "#f9fafb", border: "#d1d5db", titleColor: "#111827", textColor: "#374151", icon: "❝" },
+    };
+    const s = styles[calloutType];
+    const titleHtml = calloutTitle.trim()
+      ? `<p style="font-weight:700;font-size:1rem;color:${s.titleColor};margin:0 0 0.35rem">${s.icon} ${calloutTitle}</p>`
+      : "";
+    const html = `<div class="jl-callout jl-callout-${calloutType}" style="background:${s.bg};border:1.5px solid ${s.border};border-radius:12px;padding:1.25rem 1.5rem;margin:1.5rem 0;">
+  ${titleHtml}<p style="color:${s.textColor};margin:0;line-height:1.65">${calloutText}</p>
+</div>`;
+    const current = getFinalHtml();
+    setHtmlBody(current + html);
+    if (mode === "rich") setRichKey((k) => k + 1);
+    setCalloutOpen(false);
+    setCalloutTitle("");
+    setCalloutText("");
+  }
+
   function handleSave() {
     const body = getFinalHtml();
     setSaving(true);
@@ -442,6 +476,10 @@ function ContentEditor({
         <div className="flex items-center gap-2">
           {saveStatus === "saved" && <span className="text-xs font-semibold text-emerald-600">Saved ✓</span>}
           {saveStatus === "error" && <span className="text-xs font-semibold text-red-600">Save failed</span>}
+          <button onClick={() => setPreviewOpen(true)}
+            className="flex items-center gap-1 rounded-lg border border-[#dce4df] px-2.5 py-1.5 text-xs font-semibold text-[#5f6f66] hover:bg-zinc-50">
+            <Eye className="h-3.5 w-3.5" /> Preview
+          </button>
           {!isNew && (
             <button onClick={handleDelete} disabled={deleting} title="Delete"
               className="flex items-center gap-1 rounded-lg border border-red-100 px-2.5 py-1.5 text-xs font-semibold text-red-500 hover:bg-red-50 disabled:opacity-40">
@@ -478,6 +516,7 @@ function ContentEditor({
             {/* Block inserter */}
             <div className="ml-auto flex items-center gap-1">
               <InsertButton icon={<MousePointerClick className="h-3.5 w-3.5" />} label="CTA" onClick={() => setCtaOpen(true)} />
+              <InsertButton icon={<Lightbulb className="h-3.5 w-3.5" />} label="Callout" onClick={() => setCalloutOpen(true)} />
               <InsertButton icon={<Zap className="h-3.5 w-3.5" />} label="Form" onClick={() => setFormOpen(true)} disabled={forms.length === 0} />
               <InsertButton icon={<ImageIcon className="h-3.5 w-3.5" />} label="Image" onClick={handleImageRequest} disabled={uploadingImage} />
             </div>
@@ -563,6 +602,74 @@ function ContentEditor({
             </div>
           </div>
         </Dialog>
+      )}
+
+      {/* Callout / emphasis block dialog */}
+      {calloutOpen && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/30 p-4">
+          <div className="w-full max-w-lg rounded-2xl border border-[#dce4df] bg-white shadow-2xl">
+            <div className="flex items-center justify-between border-b border-[#dce4df] px-5 py-3">
+              <h3 className="text-sm font-bold text-[#1f2c25]">Insert Callout Block</h3>
+              <button onClick={() => setCalloutOpen(false)} className="text-[#9aafa5] hover:text-[#1f2c25]"><X className="h-4 w-4" /></button>
+            </div>
+            <div className="px-5 py-4 space-y-4">
+              {/* Type picker */}
+              <div>
+                <label className="mb-2 block text-xs font-semibold text-[#5f6f66]">Block type</label>
+                <div className="grid grid-cols-4 gap-1.5">
+                  {([
+                    { type: "tip",       label: "💡 Tip",       bg: "bg-green-50  border-green-200  text-green-800" },
+                    { type: "info",      label: "ℹ️ Info",      bg: "bg-blue-50   border-blue-200   text-blue-800" },
+                    { type: "warning",   label: "⚠️ Warning",   bg: "bg-amber-50  border-amber-200  text-amber-800" },
+                    { type: "success",   label: "✅ Success",   bg: "bg-emerald-50 border-emerald-200 text-emerald-800" },
+                    { type: "highlight", label: "⭐ Highlight", bg: "bg-purple-50 border-purple-200 text-purple-800" },
+                    { type: "stat",      label: "📊 Stat",      bg: "bg-[#0D3D24] border-[#145c42]  text-white" },
+                    { type: "quote",     label: "❝ Quote",      bg: "bg-zinc-100  border-zinc-300   text-zinc-800" },
+                  ] as const).map(({ type, label, bg }) => (
+                    <button key={type} onClick={() => setCalloutType(type as typeof calloutType)}
+                      className={`rounded-lg border px-2 py-1.5 text-[11px] font-bold transition-all ${bg} ${calloutType === type ? "ring-2 ring-offset-1 ring-[#0D3D24]" : "opacity-70 hover:opacity-100"}`}>
+                      {label}
+                    </button>
+                  ))}
+                </div>
+              </div>
+              <div>
+                <label className="mb-1 block text-xs font-semibold text-[#5f6f66]">Title (optional)</label>
+                <input value={calloutTitle} onChange={(e) => setCalloutTitle(e.target.value)}
+                  placeholder="Key takeaway…"
+                  className="w-full rounded-lg border border-[#dce4df] bg-white px-3 py-1.5 text-sm text-[#1f2c25] outline-none focus:border-[#145c42]" />
+              </div>
+              <div>
+                <label className="mb-1 block text-xs font-semibold text-[#5f6f66]">Content *</label>
+                <textarea value={calloutText} onChange={(e) => setCalloutText(e.target.value)} rows={3}
+                  placeholder="Write your callout text here…"
+                  className="w-full resize-none rounded-lg border border-[#dce4df] bg-white px-3 py-2 text-sm text-[#1f2c25] outline-none focus:border-[#145c42]" />
+              </div>
+              {/* Live preview */}
+              {calloutText && (
+                <CalloutPreview type={calloutType} title={calloutTitle} text={calloutText} />
+              )}
+            </div>
+            <div className="flex justify-end gap-2 border-t border-[#dce4df] px-5 py-3">
+              <button onClick={() => setCalloutOpen(false)} className="rounded-lg border border-[#dce4df] px-4 py-1.5 text-xs font-semibold text-[#5f6f66] hover:bg-zinc-50">Cancel</button>
+              <button onClick={insertCallout} disabled={!calloutText.trim()}
+                className="rounded-lg bg-[#0D3D24] px-4 py-1.5 text-xs font-semibold text-white hover:bg-[#145c42] disabled:opacity-50">Insert Block</button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Content preview modal */}
+      {previewOpen && (
+        <ContentPreviewModal
+          title={title}
+          html={getFinalHtml()}
+          forms={forms}
+          onClose={() => setPreviewOpen(false)}
+          onSave={handleSave}
+          isSaving={saving || isPending}
+          isNew={isNew}
+        />
       )}
     </div>
   );
@@ -985,6 +1092,121 @@ function SeoStat({ label, value, good, warn }: { label: string; value: string; g
         : <TrendingUp className="h-3.5 w-3.5 text-[#9aafa5]" />}
       <span className="text-[11px] font-semibold text-[#5f6f66]">{label}:</span>
       <span className="text-[11px] font-bold text-[#1f2c25]">{value}</span>
+    </div>
+  );
+}
+
+/* ── Callout live preview ─────────────────────────────────────────────────── */
+const CALLOUT_STYLES: Record<string, { bg: string; border: string; titleColor: string; textColor: string; icon: string }> = {
+  tip:       { bg: "#f0fdf4", border: "#86efac", titleColor: "#166534", textColor: "#15803d", icon: "💡" },
+  info:      { bg: "#eff6ff", border: "#93c5fd", titleColor: "#1d4ed8", textColor: "#1e40af", icon: "ℹ️" },
+  warning:   { bg: "#fffbeb", border: "#fcd34d", titleColor: "#92400e", textColor: "#b45309", icon: "⚠️" },
+  success:   { bg: "#f0fdf4", border: "#4ade80", titleColor: "#14532d", textColor: "#166534", icon: "✅" },
+  highlight: { bg: "#faf5ff", border: "#c4b5fd", titleColor: "#5b21b6", textColor: "#6d28d9", icon: "⭐" },
+  stat:      { bg: "#0D3D24", border: "#145c42", titleColor: "#ffffff", textColor: "#d1fae5", icon: "📊" },
+  quote:     { bg: "#f9fafb", border: "#d1d5db", titleColor: "#111827", textColor: "#374151", icon: "❝" },
+};
+
+function CalloutPreview({ type, title, text }: { type: string; title: string; text: string }) {
+  const s = CALLOUT_STYLES[type] ?? CALLOUT_STYLES.tip;
+  return (
+    <div>
+      <p className="mb-1.5 text-[10px] font-bold uppercase tracking-wide text-[#9aafa5]">Preview</p>
+      <div style={{ background: s.bg, border: `1.5px solid ${s.border}`, borderRadius: 12, padding: "1.25rem 1.5rem" }}>
+        {title && <p style={{ fontWeight: 700, fontSize: "1rem", color: s.titleColor, margin: "0 0 0.35rem" }}>{s.icon} {title}</p>}
+        <p style={{ color: s.textColor, margin: 0, lineHeight: 1.65, fontSize: "0.875rem" }}>{text}</p>
+      </div>
+    </div>
+  );
+}
+
+/* ── Content preview modal ───────────────────────────────────────────────── */
+function ContentPreviewModal({
+  title, html, forms, onClose, onSave, isSaving, isNew,
+}: {
+  title: string;
+  html: string;
+  forms: FormDefinition[];
+  onClose: () => void;
+  onSave: () => void;
+  isSaving: boolean;
+  isNew: boolean;
+}) {
+  // Replace form-embed placeholders with rendered preview forms
+  const renderedHtml = html.replace(
+    /<div[^>]*class="jl-form-embed"[^>]*data-form-key="([^"]*)"[^>]*data-form-name="([^"]*)"[^>]*>[\s\S]*?<\/div>/g,
+    (_, key, name) => {
+      const form = forms.find((f) => f.slug === key);
+      if (!form) return `<div style="background:#f7faf8;border:1px solid #dce4df;border-radius:12px;padding:1.5rem;margin:1.5rem 0;"><p style="color:#9aafa5;font-size:0.875rem;">📋 Form: <strong>${name}</strong></p></div>`;
+      const fieldsHtml = form.fields.map((f) => {
+        const inputStyle = "display:block;width:100%;padding:0.5rem 0.75rem;border:1px solid #dce4df;border-radius:8px;font-size:0.875rem;color:#1f2c25;background:white;margin-top:4px;box-sizing:border-box;";
+        const labelStyle = "display:block;font-size:0.8rem;font-weight:600;color:#5f6f66;margin-bottom:2px;";
+        if (f.type === "textarea") return `<div style="margin-bottom:1rem;"><label style="${labelStyle}">${f.label}${f.required ? " *" : ""}</label><textarea placeholder="${f.placeholder || ""}" style="${inputStyle}height:80px;resize:none;" disabled></textarea></div>`;
+        if (f.type === "checkbox" || f.type === "consent") return `<div style="margin-bottom:1rem;display:flex;align-items:flex-start;gap:0.5rem;"><input type="checkbox" disabled style="margin-top:3px;accent-color:#0D3D24;" /><label style="${labelStyle}">${f.label}${f.required ? " *" : ""}</label></div>`;
+        if (f.type === "select") return `<div style="margin-bottom:1rem;"><label style="${labelStyle}">${f.label}${f.required ? " *" : ""}</label><select disabled style="${inputStyle}"><option>Select…</option></select></div>`;
+        return `<div style="margin-bottom:1rem;"><label style="${labelStyle}">${f.label}${f.required ? " *" : ""}</label><input type="${f.type === "email" ? "email" : f.type === "phone" ? "tel" : "text"}" placeholder="${f.placeholder || ""}" disabled style="${inputStyle}" /></div>`;
+      }).join("");
+      return `<div style="background:#f7faf8;border:1px solid #dce4df;border-radius:12px;padding:1.5rem;margin:1.5rem 0;">
+        <p style="font-size:0.9rem;font-weight:700;color:#1f2c25;margin:0 0 1rem;">${form.name}</p>
+        ${fieldsHtml}
+        <button disabled style="background:#0D3D24;color:white;border:none;padding:0.6rem 1.5rem;border-radius:8px;font-size:0.875rem;font-weight:600;cursor:not-allowed;opacity:0.8;">Submit</button>
+      </div>`;
+    }
+  );
+
+  return (
+    <div className="fixed inset-0 z-50 flex flex-col bg-white">
+      {/* Preview top bar */}
+      <div className="flex items-center gap-3 border-b border-[#dce4df] bg-white px-6 py-3 shadow-sm">
+        <button onClick={onClose} className="flex items-center gap-1.5 rounded-lg border border-[#dce4df] px-3 py-1.5 text-xs font-semibold text-[#5f6f66] hover:bg-zinc-50">
+          <X className="h-3.5 w-3.5" /> Close Preview
+        </button>
+        <div className="flex-1">
+          <span className="rounded-full bg-blue-50 px-2.5 py-0.5 text-[11px] font-bold text-blue-700">PREVIEW MODE</span>
+          <span className="ml-2 text-xs text-[#9aafa5]">This is how it will look on your site</span>
+        </div>
+        <button onClick={() => { onSave(); onClose(); }} disabled={isSaving}
+          className="flex items-center gap-1.5 rounded-lg bg-[#0D3D24] px-4 py-1.5 text-xs font-semibold text-white hover:bg-[#145c42] disabled:opacity-50">
+          {isSaving ? <Loader2 className="h-3.5 w-3.5 animate-spin" /> : <Save className="h-3.5 w-3.5" />}
+          {isNew ? "Create & Publish" : "Save"}
+        </button>
+      </div>
+
+      {/* Scrollable preview content */}
+      <div className="flex-1 overflow-y-auto">
+        {/* Simulated blog page header */}
+        <div className="mx-auto max-w-3xl px-6 pt-12 pb-4">
+          <h1 className="text-3xl font-bold leading-tight text-[#1f2c25] md:text-4xl">{title || "Untitled"}</h1>
+        </div>
+
+        {/* Article body */}
+        <div
+          className="mx-auto max-w-3xl px-6 pb-16 prose prose-green max-w-none"
+          style={{
+            // Supplement Tailwind prose with inline styles for our custom blocks
+            // prose-green handles headings/paragraphs/lists
+          }}
+          dangerouslySetInnerHTML={{ __html: renderedHtml }}
+        />
+
+        {/* Global styles for callout blocks inside preview */}
+        <style>{`
+          .jl-callout { margin: 1.5rem 0; }
+          .prose h2 { font-size: 1.5rem; font-weight: 700; color: #1f2c25; margin-top: 2rem; margin-bottom: 0.75rem; }
+          .prose h3 { font-size: 1.2rem; font-weight: 700; color: #1f2c25; margin-top: 1.5rem; margin-bottom: 0.5rem; }
+          .prose p { color: #374151; line-height: 1.75; margin-bottom: 1rem; }
+          .prose ul, .prose ol { color: #374151; padding-left: 1.5rem; margin-bottom: 1rem; }
+          .prose li { margin-bottom: 0.35rem; line-height: 1.7; }
+          .prose a { color: #145c42; text-decoration: underline; }
+          .prose blockquote { border-left: 4px solid #dce4df; padding-left: 1rem; color: #5f6f66; font-style: italic; margin: 1.5rem 0; }
+          .prose strong { color: #1f2c25; font-weight: 700; }
+          .prose img { border-radius: 12px; max-width: 100%; margin: 1.5rem 0; }
+          .prose table { width: 100%; border-collapse: collapse; margin: 1.5rem 0; font-size: 0.9rem; }
+          .prose th { background: #f7faf8; font-weight: 700; color: #1f2c25; padding: 0.6rem 1rem; border: 1px solid #dce4df; text-align: left; }
+          .prose td { padding: 0.6rem 1rem; border: 1px solid #dce4df; color: #374151; }
+          .jl-cta-block a { display: inline-block; }
+        `}</style>
+      </div>
     </div>
   );
 }

@@ -16,9 +16,9 @@ function readLocaleCookie(): SupportedLocale {
   return val && isValidLocale(val) ? val : defaultLocale;
 }
 
-export function LocaleLanguageSwitcher() {
+export function LocaleLanguageSwitcher({ compact = false }: { compact?: boolean }) {
   const pathname = usePathname();
   const locale = readLocaleFromPath(pathname) ?? readLocaleCookie();
 
-  return <LanguageSwitcher locale={locale} pathname={pathname} />;
+  return <LanguageSwitcher locale={locale} pathname={pathname} compact={compact} />;
 }

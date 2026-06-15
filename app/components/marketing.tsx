@@ -112,8 +112,20 @@ export function SiteHeader() {
 
         <div className="hidden items-center gap-2 lg:flex">
           <SiteSearch items={siteSearchItems} />
-          <LocaleLanguageSwitcher />
-          <CallMenu />
+          <Link
+            href="/shop"
+            aria-label="Shop JourneyLite products"
+            className="inline-flex items-center justify-center rounded-lg border border-transparent p-1.5 text-[#314139] transition hover:bg-[#f0f5f2] hover:text-[#145c42] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#145c42]"
+          >
+            <ShoppingBag className="size-4 shrink-0" aria-hidden="true" />
+          </Link>
+          <LocaleLanguageSwitcher compact />
+          <Link
+            href="/contact"
+            className="inline-flex min-h-10 items-center justify-center rounded-md border border-[#cbd7d0] bg-white px-4 py-2.5 text-sm font-semibold text-[#17362a] transition hover:border-[#145c42] hover:text-[#145c42] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#145c42] focus-visible:ring-offset-2"
+          >
+            Contact
+          </Link>
           <BookConsultButton />
         </div>
 

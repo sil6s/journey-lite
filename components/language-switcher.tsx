@@ -33,11 +33,13 @@ type Props = {
   pathname: string;
   /** Extra class names applied to the root button */
   className?: string;
+  /** Compact mode: shows only the Globe icon (no language name or chevron) */
+  compact?: boolean;
 };
 
 const enabledLanguages = supportedLanguages.filter((l) => l.enabled);
 
-export function LanguageSwitcher({ locale, pathname, className = "" }: Props) {
+export function LanguageSwitcher({ locale, pathname, className = "", compact = false }: Props) {
   const router = useRouter();
   const [open, setOpen] = useState(false);
   const buttonRef = useRef<HTMLButtonElement>(null);
@@ -135,19 +137,23 @@ export function LanguageSwitcher({ locale, pathname, className = "" }: Props) {
         }}
         onKeyDown={handleKeyDown}
         className={[
-          "inline-flex items-center gap-1.5 rounded-lg border border-transparent px-2.5 py-1.5",
+          compact
+            ? "inline-flex items-center justify-center rounded-lg border border-transparent p-1.5"
+            : "inline-flex items-center gap-1.5 rounded-lg border border-transparent px-2.5 py-1.5",
           "text-sm font-medium text-foreground/80 hover:bg-muted hover:text-foreground",
           "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
           "transition-colors",
           className,
         ].join(" ")}
       >
-        <Globe className="size-4 shrink-0 opacity-60" aria-hidden="true" />
-        <span>{currentLang.nativeName}</span>
-        <ChevronDown
-          className={`size-3.5 opacity-50 transition-transform ${open ? "rotate-180" : ""}`}
-          aria-hidden="true"
-        />
+        <Globe className={compact ? "size-4 shrink-0" : "size-4 shrink-0 opacity-60"} aria-hidden="true" />
+        {!compact && <span>{currentLang.nativeName}</span>}
+        {!compact && (
+          <ChevronDown
+            className={`size-3.5 opacity-50 transition-transform ${open ? "rotate-180" : ""}`}
+            aria-hidden="true"
+          />
+        )}
       </button>
 
       {/* Dropdown list */}
