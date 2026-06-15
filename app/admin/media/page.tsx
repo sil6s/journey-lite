@@ -1,19 +1,33 @@
-import Link from "next/link";
-import { Images } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { EmptyState } from "@/components/admin/empty-state";
+import { adminClient } from "@/src/lib/sanity/client";
+import { MediaClient } from "./MediaClient";
 
-export default function AdminMediaPage() {
-  return (
-    <div className="space-y-4">
-      <div>
-        <h1 className="text-3xl font-semibold tracking-tight">Media Library</h1>
-        <p className="mt-2 text-muted-foreground">Manage Sanity assets and image alt text from Studio.</p>
-      </div>
-      <EmptyState icon={Images} title="Use Studio for media assets" description="Sanity already manages image uploads, asset metadata, and article images. A guided media library can be added once asset workflows are finalized." />
-      <Button asChild>
-        <Link href="/studio">Open Sanity Studio</Link>
-      </Button>
-    </div>
-  );
+export const metadata = { title: "Media Library — JourneyLite Admin" };
+export const dynamic = "force-dynamic";
+
+type SanityAsset = {
+  _id: string;
+  url: string;
+  originalFilename: string;
+  size: number;
+  mimeType: string;
+  metadata?: { dimensions?: { width: number; height: number } };
+  _createdAt: string;
+};
+
+async function fetchAssets(): Promise<SanityAsset[]> {
+  try {
+    return await adminClient.fetch<SanityAsset[]>(
+      `*[_type == "sanity.imageAsset"] | order(_createdAt desc) [0...200] {
+        _id, url, originalFilename, size, mimeType, _createdAt,
+        metadata { dimensions { width, height } }
+      }`
+    );
+  } catch {
+    return [];
+  }
+}
+
+export default async function AdminMediaPage() {
+  const assets = await fetchAssets();
+  return <MediaClient initialAssets={assets} />;
 }

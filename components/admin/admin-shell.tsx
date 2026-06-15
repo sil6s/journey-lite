@@ -4,22 +4,18 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import {
   BarChart3,
-  BookOpen,
-  Bot,
-  BriefcaseMedical,
   ClipboardList,
   ExternalLink,
-  Globe,
-  LogOut,
-  FileText,
   GraduationCap,
+  FileText,
+  Globe,
   Images,
+  LogOut,
   MapPin,
   Menu,
   MessageSquareQuote,
   Search,
   Settings,
-  Sparkles,
   ShieldCheck,
   UserRound,
   Users,
@@ -59,29 +55,25 @@ import { useMemo, useState } from "react";
 const LMS_URL = process.env.NEXT_PUBLIC_LMS_URL ?? "https://learn.journeylite.com";
 
 const navigation = [
-  { title: "Web Analytics",       href: "/admin",                icon: BarChart3,          exact: true },
-  { title: "Blog / Resources",    href: "/admin/blog",           icon: BookOpen },
-  { title: "AI Blog Builder",     href: "/admin/ai-blog-builder",icon: Bot },
-  { title: "Services",            href: "/admin/services",       icon: BriefcaseMedical },
-  { title: "Pages / Sections",    href: "/admin/pages",          icon: FileText },
-  { title: "Forms / Submissions", href: "/admin/forms",          icon: ClipboardList },
+  { title: "Dashboard",           href: "/admin",                icon: BarChart3,   exact: true },
+  { title: "Content",             href: "/admin/content",        icon: FileText },
+  { title: "Forms",               href: "/admin/forms",          icon: ClipboardList },
+  { title: "Media Library",       href: "/admin/media",          icon: Images },
   { title: "Translations",        href: "/admin/translations",   icon: Globe },
   { title: "Admin Management",    href: "/admin/admins",         icon: ShieldCheck },
   { title: "Patients",            href: "/admin/patients",       icon: UserRound },
   { title: "Staff / Providers",   href: "/admin/staff",          icon: Users },
   { title: "Locations",           href: "/admin/locations",      icon: MapPin },
   { title: "Testimonials",        href: "/admin/testimonials",   icon: MessageSquareQuote },
-  { title: "Media Library",       href: "/admin/media",          icon: Images },
-  { title: "Sanity Studio",       href: "/admin/studio",         icon: Sparkles },
   { title: "Settings",            href: "/admin/settings",       icon: Settings },
 ];
 
 const navSections = [
-  { label: "",              items: navigation.slice(0, 1) },
-  { label: "Content",       items: navigation.slice(1, 7) },
-  { label: "Access",        items: navigation.slice(7, 9) },
-  { label: "People & Places", items: navigation.slice(9, 12) },
-  { label: "System",        items: navigation.slice(12) },
+  { label: "",               items: navigation.slice(0, 1) },
+  { label: "Content",        items: navigation.slice(1, 5) },
+  { label: "Access",         items: navigation.slice(5, 7) },
+  { label: "People & Places",items: navigation.slice(7, 10) },
+  { label: "System",         items: navigation.slice(10) },
 ];
 
 type AdminShellUser = {

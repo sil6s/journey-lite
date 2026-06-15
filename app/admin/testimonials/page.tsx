@@ -1,20 +1,10 @@
-import { LocalContentManager } from "@/components/admin/local-content-manager";
-import { reviewCards } from "@/app/components/data";
+import { fetchTestimonials } from "@/app/admin/people/actions";
+import { TestimonialsClient } from "./TestimonialsClient";
 
-export default function AdminTestimonialsPage() {
-  return (
-    <LocalContentManager
-      title="Testimonials / Reviews"
-      description="Review published testimonial excerpts and prepare guided review management."
-      createLabel="Add testimonial"
-      rows={reviewCards.map((review) => ({
-        id: review.name,
-        title: review.name,
-        description: review.excerpt,
-        group: "Google review excerpt",
-        href: "/#reviews",
-        status: "Published",
-      }))}
-    />
-  );
+export const metadata = { title: "Testimonials — JourneyLite Admin" };
+export const dynamic = "force-dynamic";
+
+export default async function AdminTestimonialsPage() {
+  const testimonials = await fetchTestimonials().catch(() => []);
+  return <TestimonialsClient initialTestimonials={testimonials} />;
 }

@@ -1,49 +1,26 @@
-import Link from "next/link";
-import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { FormSubmissionsManager, type FormSubmissionListItem } from "@/components/admin/form-submissions-manager";
+import { FormsClient } from "./FormsClient";
+import { fetchFormDefinitions } from "@/app/admin/content/actions";
 import { getSupabaseAdminClient } from "@/lib/supabase/admin";
+import type { FormSubmissionListItem } from "@/components/admin/form-submissions-manager";
 
+export const metadata = { title: "Forms — JourneyLite Admin" };
 export const dynamic = "force-dynamic";
 
 export default async function AdminFormsPage() {
-  let submissions: FormSubmissionListItem[] = [];
-  let errorMessage = "";
+  const [forms, submissions] = await Promise.all([
+    fetchFormDefinitions().catch(() => []),
+    (async () => {
+      try {
+        const db = getSupabaseAdminClient();
+        const { data } = await db
+          .from("form_submissions")
+          .select("id,form_key,form_name,page_slug,status,submitted_at,data,admin_notes")
+          .order("submitted_at", { ascending: false })
+          .limit(200);
+        return (data ?? []) as FormSubmissionListItem[];
+      } catch { return [] as FormSubmissionListItem[]; }
+    })(),
+  ]);
 
-  try {
-    const supabase = getSupabaseAdminClient();
-    const { data, error } = await supabase
-      .from("form_submissions")
-      .select("id,form_key,form_name,page_slug,status,submitted_at,data,admin_notes")
-      .order("submitted_at", { ascending: false })
-      .limit(50);
-
-    if (error) errorMessage = error.message;
-    else submissions = data ?? [];
-  } catch (err) {
-    errorMessage = err instanceof Error ? err.message : "Could not load form submissions.";
-  }
-
-  return (
-    <div className="grid gap-6">
-      <Card>
-        <CardHeader className="grid gap-4 md:grid-cols-[1fr_auto] md:items-center">
-          <div>
-            <CardTitle>Forms / Submissions</CardTitle>
-            <CardDescription>Manage Supabase-stored submissions from Sanity-defined website forms.</CardDescription>
-          </div>
-          <Button asChild variant="outline">
-            <Link href="/studio">Edit form definitions in Studio</Link>
-          </Button>
-        </CardHeader>
-        <CardContent>
-          {errorMessage ? (
-            <div className="rounded-xl border border-red-200 bg-red-50 p-4 text-sm text-red-700">{errorMessage}</div>
-          ) : (
-            <FormSubmissionsManager submissions={submissions} />
-          )}
-        </CardContent>
-      </Card>
-    </div>
-  );
+  return <FormsClient forms={forms} submissions={submissions} />;
 }

@@ -285,6 +285,14 @@ export const sitePage = defineType({
       options: { list: [{ title: "Public", value: "public" }, { title: "Unlisted", value: "unlisted" }], layout: "radio" },
       initialValue: "public",
     }),
+    defineField({
+      name: "htmlBody",
+      title: "Page body (HTML — admin editor)",
+      type: "text",
+      group: "content",
+      description: "HTML content written via the admin portal editor. When present, this is used instead of the sections array.",
+      hidden: ({ document }) => !document?.htmlBody,
+    }),
   ],
   preview: {
     select: { title: "title", subtitle: "slug.current", status: "status" },

@@ -1,42 +1,32 @@
 import { getSupabaseAdminClient } from "@/lib/supabase/admin";
+import { fetchLmsCourses } from "./actions";
 import { PatientsClient } from "./PatientsClient";
 
 export const metadata = { title: "Patients — JourneyLite Admin" };
-export const revalidate = 60;
+export const dynamic = "force-dynamic";
 
 const LMS_URL = process.env.NEXT_PUBLIC_LMS_URL ?? "https://learn.journeylite.com";
 
 export default async function PatientsAdminPage() {
   const db = getSupabaseAdminClient();
 
-  // Pull all patient profiles + their enrollments + lesson progress counts in parallel
-  const [profilesRes, enrollmentsRes, progressRes] = await Promise.all([
-    db
-      .from("profiles")
-      .select("id, full_name, email, role, created_at")
-      .order("created_at", { ascending: false }),
-
-    db
-      .from("enrollments")
-      .select("id, user_id, course_slug, status, enrolled_at, completed_at"),
-
-    db
-      .from("lesson_progress")
-      .select("user_id, course_slug, completed, lesson_slug"),
+  const [profilesRes, enrollmentsRes, progressRes, courses] = await Promise.all([
+    db.from("profiles").select("id, full_name, email, role, created_at").order("created_at", { ascending: false }),
+    db.from("enrollments").select("id, user_id, course_slug, status, enrolled_at, completed_at"),
+    db.from("lesson_progress").select("user_id, course_slug, completed, lesson_slug"),
+    fetchLmsCourses(),
   ]);
 
   const profiles = profilesRes.data ?? [];
   const enrollments = enrollmentsRes.data ?? [];
   const progress = progressRes.data ?? [];
 
-  // Build per-user enrollment summary
   const enrollmentsByUser: Record<string, typeof enrollments> = {};
   for (const e of enrollments) {
     if (!enrollmentsByUser[e.user_id]) enrollmentsByUser[e.user_id] = [];
     enrollmentsByUser[e.user_id].push(e);
   }
 
-  // Build per-(user,course) lesson counts
   const lessonMap: Record<string, { total: number; completed: number }> = {};
   for (const p of progress) {
     const key = `${p.user_id}::${p.course_slug}`;
@@ -45,7 +35,6 @@ export default async function PatientsAdminPage() {
     if (p.completed) lessonMap[key].completed += 1;
   }
 
-  // Shape the data for the client component
   const patients = profiles
     .filter((p) => p.role === "student" || enrollmentsByUser[p.id]?.length)
     .map((p) => {
@@ -53,12 +42,14 @@ export default async function PatientsAdminPage() {
         const key = `${p.id}::${e.course_slug}`;
         const lp = lessonMap[key] ?? { total: 0, completed: 0 };
         const pct = lp.total > 0 ? Math.round((lp.completed / lp.total) * 100) : 0;
+        const course = courses.find((c) => c.slug === e.course_slug);
         return {
           id: e.id,
           courseSlug: e.course_slug,
-          status: e.status,
-          enrolledAt: e.enrolled_at,
-          completedAt: e.completed_at,
+          courseTitle: course?.title ?? e.course_slug,
+          status: e.status as string,
+          enrolledAt: e.enrolled_at as string,
+          completedAt: e.completed_at as string | null,
           lessonsCompleted: lp.completed,
           lessonsTotal: lp.total,
           progressPct: pct,
@@ -74,11 +65,11 @@ export default async function PatientsAdminPage() {
         id: p.id,
         name: p.full_name ?? "—",
         email: p.email ?? "—",
-        joinedAt: p.created_at,
+        joinedAt: p.created_at as string,
         enrollments: userEnrollments,
         overallPct,
       };
     });
 
-  return <PatientsClient patients={patients} lmsUrl={LMS_URL} />;
+  return <PatientsClient patients={patients} courses={courses} lmsUrl={LMS_URL} />;
 }
