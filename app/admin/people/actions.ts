@@ -184,6 +184,8 @@ export type TestimonialDoc = {
   procedure?: string;
   weightLost?: number;
   shortQuote?: string;
+  /** Full patient story (plain text / markdown paragraphs) shown on a detail page */
+  fullStory?: string;
   featured?: boolean;
   publishedAt?: string;
   _updatedAt?: string;
@@ -193,7 +195,7 @@ export async function fetchTestimonials(): Promise<TestimonialDoc[]> {
   return client.fetch<TestimonialDoc[]>(
     `*[_type == "testimonial"] | order(coalesce(publishedAt, _createdAt) desc) {
       _id, name, "slug": slug.current, procedure, weightLost,
-      shortQuote, featured, publishedAt, _updatedAt
+      shortQuote, fullStory, featured, publishedAt, _updatedAt
     }`,
     {},
     { next: { revalidate: 30 } }
@@ -209,6 +211,7 @@ export async function createTestimonialAction(data: Omit<TestimonialDoc, "_id">)
     procedure: data.procedure || "",
     weightLost: data.weightLost ?? 0,
     shortQuote: data.shortQuote || "",
+    fullStory: data.fullStory || "",
     featured: data.featured ?? false,
     publishedAt: data.publishedAt || new Date().toISOString(),
   };
@@ -225,6 +228,7 @@ export async function updateTestimonialAction(id: string, data: Partial<Testimon
   if (data.procedure !== undefined)   patch.procedure = data.procedure;
   if (data.weightLost !== undefined)  patch.weightLost = data.weightLost;
   if (data.shortQuote !== undefined)  patch.shortQuote = data.shortQuote;
+  if (data.fullStory !== undefined)   patch.fullStory = data.fullStory;
   if (data.featured !== undefined)    patch.featured = data.featured;
   if (data.publishedAt !== undefined) patch.publishedAt = data.publishedAt;
   await adminClient.patch(id).set(patch).commit();

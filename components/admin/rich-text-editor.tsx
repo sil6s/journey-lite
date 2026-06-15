@@ -2,6 +2,7 @@
 
 import { forwardRef, useImperativeHandle, useState } from "react";
 import { useEditor, EditorContent } from "@tiptap/react";
+import { Node } from "@tiptap/core";
 import StarterKit from "@tiptap/starter-kit";
 import UnderlineExt from "@tiptap/extension-underline";
 import LinkExt from "@tiptap/extension-link";
@@ -35,7 +36,61 @@ import {
 export interface RichTextEditorHandle {
   insertImage: (url: string, alt?: string) => void;
   getHTML: () => string;
+  insertRawBlock: (html: string) => void;
 }
+
+// ── RawHtmlBlock extension ────────────────────────────────────────────────────
+// Preserves jl-* custom divs (CTA blocks, form embeds, callouts) as atomic
+// non-editable nodes so they survive Tiptap's parse/serialize cycle.
+const rawHtmlStore = new Map<string, string>();
+
+const RawHtmlBlock = Node.create({
+  name: "rawHtmlBlock",
+  group: "block",
+  atom: true,
+  draggable: true,
+  selectable: true,
+
+  addAttributes() {
+    return { blockId: { default: "" } };
+  },
+
+  parseHTML() {
+    return [
+      {
+        tag: "div",
+        priority: 60,
+        getAttrs: (dom) => {
+          const el = dom as HTMLElement;
+          const cls = el.className ?? "";
+          if (cls.includes("jl-")) {
+            const blockId = `jl-${Math.random().toString(36).slice(2)}-${Date.now()}`;
+            rawHtmlStore.set(blockId, el.outerHTML);
+            return { blockId };
+          }
+          return false;
+        },
+      },
+    ];
+  },
+
+  renderHTML({ node }) {
+    // During serialization, emit a sentinel that getHTML() will replace
+    return ["div", { "data-jl-block-id": node.attrs.blockId }];
+  },
+
+  addNodeView() {
+    return ({ node }) => {
+      const dom = document.createElement("div");
+      dom.innerHTML = rawHtmlStore.get(node.attrs.blockId) ?? "";
+      dom.style.userSelect = "none";
+      dom.style.pointerEvents = "none";
+      dom.style.opacity = "0.9";
+      dom.setAttribute("contenteditable", "false");
+      return { dom };
+    };
+  },
+});
 
 interface Props {
   initialContent: string;
@@ -65,6 +120,7 @@ const RichTextEditor = forwardRef<RichTextEditorHandle, Props>(
         TableCellExt,
         TextAlignExt.configure({ types: ["heading", "paragraph"] }),
         YoutubeExt.configure({ inline: false }),
+        RawHtmlBlock,
       ],
       content: initialContent,
       onUpdate: ({ editor }) => onChange(editor.getHTML()),
@@ -78,7 +134,17 @@ const RichTextEditor = forwardRef<RichTextEditorHandle, Props>(
         editor?.chain().focus().setImage({ src: url, alt }).run();
       },
       getHTML() {
-        return editor?.getHTML() ?? "";
+        const raw = editor?.getHTML() ?? "";
+        // Replace rawHtmlBlock sentinel divs with their stored HTML
+        return raw.replace(/<div data-jl-block-id="([^"]+)"[^>]*><\/div>/g, (_, id) => {
+          return rawHtmlStore.get(id) ?? "";
+        });
+      },
+      insertRawBlock(html: string) {
+        // Store in map first, then insert as parsed content so parseHTML fires
+        editor?.chain().focus().insertContent(html, {
+          parseOptions: { preserveWhitespace: "full" },
+        }).run();
       },
     }));
 

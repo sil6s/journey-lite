@@ -4,7 +4,7 @@ import dynamic from "next/dynamic";
 import { useRef, useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
 import {
-  AlertCircle, AlertTriangle, ArrowLeft, BookOpen, CheckCircle2, ChevronDown, ChevronRight,
+  AlertCircle, AlertTriangle, ArrowLeft, BookOpen, Check, CheckCircle2, ChevronDown, ChevronRight,
   Code2, Edit3, Eye, FileText, Globe, Hash, Image as ImageIcon, Info,
   Lightbulb, Loader2, MousePointerClick, Plus, Quote, Save, Search, Sparkles,
   Star, Trash2, TrendingUp, X, Zap,
@@ -371,11 +371,13 @@ function ContentEditor({
     ${ctaBtn2Label ? `<a href="${ctaBtn2Href}" style="border:1px solid #0D3D24;color:#0D3D24;padding:0.75rem 1.5rem;border-radius:8px;font-weight:600;text-decoration:none">${ctaBtn2Label}</a>` : ""}
   </div>
 </div>`;
-    if (mode === "rich") richRef.current?.insertImage(""); // workaround — inject via htmlBody update then remount
-    const current = getFinalHtml();
-    setHtmlBody(current + html);
-    if (mode === "rich") setRichKey((k) => k + 1);
-    else if (mode === "markdown") setMdDraft((d) => d + "\n\n<!-- CTA Block inserted — switch to HTML mode to edit -->\n");
+    if (mode === "rich") {
+      richRef.current?.insertRawBlock(html);
+    } else {
+      const current = getFinalHtml();
+      setHtmlBody(current + html);
+      if (mode === "markdown") setMdDraft((d) => d + "\n\n<!-- CTA Block inserted — switch to HTML mode to edit -->\n");
+    }
     setCtaOpen(false);
   }
 
@@ -383,35 +385,41 @@ function ContentEditor({
     const form = forms.find((f) => f._id === pickedForm);
     if (!form) return;
     const html = `<div class="jl-form-embed" data-form-key="${form.slug}" data-form-name="${form.name}" style="background:#f7faf8;border:1px solid #dce4df;border-radius:12px;padding:1.5rem;margin:1.5rem 0;">
-  <p style="color:#5f6f66;font-size:0.875rem;font-style:italic">📋 Form: <strong>${form.name}</strong> (renders on the live site)</p>
+  <p style="color:#5f6f66;font-size:0.875rem;font-style:italic">Form: <strong>${form.name}</strong> (renders on the live site)</p>
 </div>`;
-    const current = getFinalHtml();
-    setHtmlBody(current + html);
-    if (mode === "rich") setRichKey((k) => k + 1);
+    if (mode === "rich") {
+      richRef.current?.insertRawBlock(html);
+    } else {
+      const current = getFinalHtml();
+      setHtmlBody(current + html);
+    }
     setFormOpen(false);
     setPickedForm("");
   }
 
   function insertCallout() {
-    const styles: Record<string, { bg: string; border: string; titleColor: string; textColor: string; icon: string }> = {
-      tip:       { bg: "#f0fdf4", border: "#86efac", titleColor: "#166534", textColor: "#15803d", icon: "💡" },
-      info:      { bg: "#eff6ff", border: "#93c5fd", titleColor: "#1d4ed8", textColor: "#1e40af", icon: "ℹ️" },
-      warning:   { bg: "#fffbeb", border: "#fcd34d", titleColor: "#92400e", textColor: "#b45309", icon: "⚠️" },
-      success:   { bg: "#f0fdf4", border: "#4ade80", titleColor: "#14532d", textColor: "#166534", icon: "✅" },
-      highlight: { bg: "#faf5ff", border: "#c4b5fd", titleColor: "#5b21b6", textColor: "#6d28d9", icon: "⭐" },
-      stat:      { bg: "#0D3D24", border: "#145c42", titleColor: "#ffffff", textColor: "#d1fae5", icon: "📊" },
-      quote:     { bg: "#f9fafb", border: "#d1d5db", titleColor: "#111827", textColor: "#374151", icon: "❝" },
+    const styles: Record<string, { bg: string; border: string; titleColor: string; textColor: string; badge: string }> = {
+      tip:       { bg: "#f0fdf4", border: "#86efac", titleColor: "#166534", textColor: "#15803d", badge: "TIP" },
+      info:      { bg: "#eff6ff", border: "#93c5fd", titleColor: "#1d4ed8", textColor: "#1e40af", badge: "INFO" },
+      warning:   { bg: "#fffbeb", border: "#fcd34d", titleColor: "#92400e", textColor: "#b45309", badge: "NOTE" },
+      success:   { bg: "#f0fdf4", border: "#4ade80", titleColor: "#14532d", textColor: "#166534", badge: "DONE" },
+      highlight: { bg: "#faf5ff", border: "#c4b5fd", titleColor: "#5b21b6", textColor: "#6d28d9", badge: "KEY" },
+      stat:      { bg: "#0D3D24", border: "#145c42", titleColor: "#ffffff", textColor: "#d1fae5", badge: "STAT" },
+      quote:     { bg: "#f9fafb", border: "#d1d5db", titleColor: "#111827", textColor: "#374151", badge: "“" },
     };
     const s = styles[calloutType];
     const titleHtml = calloutTitle.trim()
-      ? `<p style="font-weight:700;font-size:1rem;color:${s.titleColor};margin:0 0 0.35rem">${s.icon} ${calloutTitle}</p>`
+      ? `<p style="font-weight:700;font-size:1rem;color:${s.titleColor};margin:0 0 0.35rem"><span style="font-size:0.65rem;font-weight:800;letter-spacing:0.1em;background:${s.border};color:${s.titleColor};padding:1px 6px;border-radius:4px;margin-right:8px;vertical-align:middle">${s.badge}</span>${calloutTitle}</p>`
       : "";
     const html = `<div class="jl-callout jl-callout-${calloutType}" style="background:${s.bg};border:1.5px solid ${s.border};border-radius:12px;padding:1.25rem 1.5rem;margin:1.5rem 0;">
   ${titleHtml}<p style="color:${s.textColor};margin:0;line-height:1.65">${calloutText}</p>
 </div>`;
-    const current = getFinalHtml();
-    setHtmlBody(current + html);
-    if (mode === "rich") setRichKey((k) => k + 1);
+    if (mode === "rich") {
+      richRef.current?.insertRawBlock(html);
+    } else {
+      const current = getFinalHtml();
+      setHtmlBody(current + html);
+    }
     setCalloutOpen(false);
     setCalloutTitle("");
     setCalloutText("");
@@ -474,7 +482,7 @@ function ContentEditor({
         <input value={title} onChange={(e) => handleTitleChange(e.target.value)}
           placeholder="Untitled" className="flex-1 bg-transparent text-base font-bold text-[#1f2c25] outline-none placeholder-[#9aafa5]" />
         <div className="flex items-center gap-2">
-          {saveStatus === "saved" && <span className="text-xs font-semibold text-emerald-600">Saved ✓</span>}
+          {saveStatus === "saved" && <span className="flex items-center gap-1 text-xs font-semibold text-emerald-600"><Check className="h-3.5 w-3.5" />Saved</span>}
           {saveStatus === "error" && <span className="text-xs font-semibold text-red-600">Save failed</span>}
           <button onClick={() => setPreviewOpen(true)}
             className="flex items-center gap-1 rounded-lg border border-[#dce4df] px-2.5 py-1.5 text-xs font-semibold text-[#5f6f66] hover:bg-zinc-50">
@@ -618,13 +626,13 @@ function ContentEditor({
                 <label className="mb-2 block text-xs font-semibold text-[#5f6f66]">Block type</label>
                 <div className="grid grid-cols-4 gap-1.5">
                   {([
-                    { type: "tip",       label: "💡 Tip",       bg: "bg-green-50  border-green-200  text-green-800" },
-                    { type: "info",      label: "ℹ️ Info",      bg: "bg-blue-50   border-blue-200   text-blue-800" },
-                    { type: "warning",   label: "⚠️ Warning",   bg: "bg-amber-50  border-amber-200  text-amber-800" },
-                    { type: "success",   label: "✅ Success",   bg: "bg-emerald-50 border-emerald-200 text-emerald-800" },
-                    { type: "highlight", label: "⭐ Highlight", bg: "bg-purple-50 border-purple-200 text-purple-800" },
-                    { type: "stat",      label: "📊 Stat",      bg: "bg-[#0D3D24] border-[#145c42]  text-white" },
-                    { type: "quote",     label: "❝ Quote",      bg: "bg-zinc-100  border-zinc-300   text-zinc-800" },
+                    { type: "tip",       label: "Tip",       bg: "bg-green-50  border-green-200  text-green-800" },
+                    { type: "info",      label: "Info",      bg: "bg-blue-50   border-blue-200   text-blue-800" },
+                    { type: "warning",   label: "Warning",   bg: "bg-amber-50  border-amber-200  text-amber-800" },
+                    { type: "success",   label: "Success",   bg: "bg-emerald-50 border-emerald-200 text-emerald-800" },
+                    { type: "highlight", label: "Highlight", bg: "bg-purple-50 border-purple-200 text-purple-800" },
+                    { type: "stat",      label: "Stat",      bg: "bg-[#0D3D24] border-[#145c42]  text-white" },
+                    { type: "quote",     label: "Quote",     bg: "bg-zinc-100  border-zinc-300   text-zinc-800" },
                   ] as const).map(({ type, label, bg }) => (
                     <button key={type} onClick={() => setCalloutType(type as typeof calloutType)}
                       className={`rounded-lg border px-2 py-1.5 text-[11px] font-bold transition-all ${bg} ${calloutType === type ? "ring-2 ring-offset-1 ring-[#0D3D24]" : "opacity-70 hover:opacity-100"}`}>
@@ -663,6 +671,11 @@ function ContentEditor({
       {previewOpen && (
         <ContentPreviewModal
           title={title}
+          excerpt={excerpt}
+          publishedAt={publishedAt}
+          authorName={authors.find((a) => a._id === authorId)?.name}
+          categoryName={categories.find((c) => c._id === categoryId)?.name}
+          isBlog={isBlog}
           html={getFinalHtml()}
           forms={forms}
           onClose={() => setPreviewOpen(false)}
@@ -997,8 +1010,8 @@ function AiGeneratePanel({ onClose, onFill }: {
                 <p className="font-semibold text-[#1f2c25]">Ready to generate</p>
                 <p className="text-sm text-[#9aafa5] max-w-xs">Fill in your topic and keyword on the left, then click Generate. The AI will write a full SEO-optimized article.</p>
                 <div className="mt-2 flex flex-wrap gap-2 text-[11px] text-[#9aafa5] justify-center">
-                  {["✓ Keyword density 1–1.5%", "✓ 3+ H2 headings", "✓ Internal links", "✓ Meta description", "✓ E-E-A-T signals"].map((t) => (
-                    <span key={t} className="rounded-full border border-[#dce4df] px-2 py-0.5">{t}</span>
+                  {["Keyword density 1–1.5%", "3+ H2 headings", "Internal links", "Meta description", "E-E-A-T signals"].map((t) => (
+                    <span key={t} className="flex items-center gap-1 rounded-full border border-[#dce4df] px-2 py-0.5"><CheckCircle2 className="h-3 w-3 text-emerald-500" />{t}</span>
                   ))}
                 </div>
               </div>
@@ -1097,14 +1110,14 @@ function SeoStat({ label, value, good, warn }: { label: string; value: string; g
 }
 
 /* ── Callout live preview ─────────────────────────────────────────────────── */
-const CALLOUT_STYLES: Record<string, { bg: string; border: string; titleColor: string; textColor: string; icon: string }> = {
-  tip:       { bg: "#f0fdf4", border: "#86efac", titleColor: "#166534", textColor: "#15803d", icon: "💡" },
-  info:      { bg: "#eff6ff", border: "#93c5fd", titleColor: "#1d4ed8", textColor: "#1e40af", icon: "ℹ️" },
-  warning:   { bg: "#fffbeb", border: "#fcd34d", titleColor: "#92400e", textColor: "#b45309", icon: "⚠️" },
-  success:   { bg: "#f0fdf4", border: "#4ade80", titleColor: "#14532d", textColor: "#166534", icon: "✅" },
-  highlight: { bg: "#faf5ff", border: "#c4b5fd", titleColor: "#5b21b6", textColor: "#6d28d9", icon: "⭐" },
-  stat:      { bg: "#0D3D24", border: "#145c42", titleColor: "#ffffff", textColor: "#d1fae5", icon: "📊" },
-  quote:     { bg: "#f9fafb", border: "#d1d5db", titleColor: "#111827", textColor: "#374151", icon: "❝" },
+const CALLOUT_STYLES: Record<string, { bg: string; border: string; titleColor: string; textColor: string; badge: string }> = {
+  tip:       { bg: "#f0fdf4", border: "#86efac", titleColor: "#166534", textColor: "#15803d", badge: "TIP" },
+  info:      { bg: "#eff6ff", border: "#93c5fd", titleColor: "#1d4ed8", textColor: "#1e40af", badge: "INFO" },
+  warning:   { bg: "#fffbeb", border: "#fcd34d", titleColor: "#92400e", textColor: "#b45309", badge: "NOTE" },
+  success:   { bg: "#f0fdf4", border: "#4ade80", titleColor: "#14532d", textColor: "#166534", badge: "DONE" },
+  highlight: { bg: "#faf5ff", border: "#c4b5fd", titleColor: "#5b21b6", textColor: "#6d28d9", badge: "KEY" },
+  stat:      { bg: "#0D3D24", border: "#145c42", titleColor: "#ffffff", textColor: "#d1fae5", badge: "STAT" },
+  quote:     { bg: "#f9fafb", border: "#d1d5db", titleColor: "#111827", textColor: "#374151", badge: "“" },
 };
 
 function CalloutPreview({ type, title, text }: { type: string; title: string; text: string }) {
@@ -1113,7 +1126,12 @@ function CalloutPreview({ type, title, text }: { type: string; title: string; te
     <div>
       <p className="mb-1.5 text-[10px] font-bold uppercase tracking-wide text-[#9aafa5]">Preview</p>
       <div style={{ background: s.bg, border: `1.5px solid ${s.border}`, borderRadius: 12, padding: "1.25rem 1.5rem" }}>
-        {title && <p style={{ fontWeight: 700, fontSize: "1rem", color: s.titleColor, margin: "0 0 0.35rem" }}>{s.icon} {title}</p>}
+        {title && (
+          <p style={{ fontWeight: 700, fontSize: "1rem", color: s.titleColor, margin: "0 0 0.35rem" }}>
+            <span style={{ fontSize: "0.65rem", fontWeight: 800, letterSpacing: "0.1em", background: s.border, color: s.titleColor, padding: "1px 6px", borderRadius: 4, marginRight: 8, verticalAlign: "middle" }}>{s.badge}</span>
+            {title}
+          </p>
+        )}
         <p style={{ color: s.textColor, margin: 0, lineHeight: 1.65, fontSize: "0.875rem" }}>{text}</p>
       </div>
     </div>
@@ -1121,26 +1139,15 @@ function CalloutPreview({ type, title, text }: { type: string; title: string; te
 }
 
 /* ── Content preview modal ───────────────────────────────────────────────── */
-function ContentPreviewModal({
-  title, html, forms, onClose, onSave, isSaving, isNew,
-}: {
-  title: string;
-  html: string;
-  forms: FormDefinition[];
-  onClose: () => void;
-  onSave: () => void;
-  isSaving: boolean;
-  isNew: boolean;
-}) {
-  // Replace form-embed placeholders with rendered preview forms
-  const renderedHtml = html.replace(
+function renderFormEmbeds(html: string, forms: FormDefinition[]): string {
+  return html.replace(
     /<div[^>]*class="jl-form-embed"[^>]*data-form-key="([^"]*)"[^>]*data-form-name="([^"]*)"[^>]*>[\s\S]*?<\/div>/g,
     (_, key, name) => {
       const form = forms.find((f) => f.slug === key);
-      if (!form) return `<div style="background:#f7faf8;border:1px solid #dce4df;border-radius:12px;padding:1.5rem;margin:1.5rem 0;"><p style="color:#9aafa5;font-size:0.875rem;">📋 Form: <strong>${name}</strong></p></div>`;
+      if (!form) return `<div style="background:#f7faf8;border:1px solid #dce4df;border-radius:12px;padding:1.5rem;margin:1.5rem 0;"><p style="color:#9aafa5;font-size:0.875rem;">Form: <strong>${name}</strong></p></div>`;
+      const inputStyle = "display:block;width:100%;padding:0.5rem 0.75rem;border:1px solid #dce4df;border-radius:8px;font-size:0.875rem;color:#1f2c25;background:white;margin-top:4px;box-sizing:border-box;";
+      const labelStyle = "display:block;font-size:0.8rem;font-weight:600;color:#5f6f66;margin-bottom:2px;";
       const fieldsHtml = form.fields.map((f) => {
-        const inputStyle = "display:block;width:100%;padding:0.5rem 0.75rem;border:1px solid #dce4df;border-radius:8px;font-size:0.875rem;color:#1f2c25;background:white;margin-top:4px;box-sizing:border-box;";
-        const labelStyle = "display:block;font-size:0.8rem;font-weight:600;color:#5f6f66;margin-bottom:2px;";
         if (f.type === "textarea") return `<div style="margin-bottom:1rem;"><label style="${labelStyle}">${f.label}${f.required ? " *" : ""}</label><textarea placeholder="${f.placeholder || ""}" style="${inputStyle}height:80px;resize:none;" disabled></textarea></div>`;
         if (f.type === "checkbox" || f.type === "consent") return `<div style="margin-bottom:1rem;display:flex;align-items:flex-start;gap:0.5rem;"><input type="checkbox" disabled style="margin-top:3px;accent-color:#0D3D24;" /><label style="${labelStyle}">${f.label}${f.required ? " *" : ""}</label></div>`;
         if (f.type === "select") return `<div style="margin-bottom:1rem;"><label style="${labelStyle}">${f.label}${f.required ? " *" : ""}</label><select disabled style="${inputStyle}"><option>Select…</option></select></div>`;
@@ -1153,60 +1160,164 @@ function ContentPreviewModal({
       </div>`;
     }
   );
+}
+
+function extractPreviewToc(html: string): Array<{ id: string; text: string }> {
+  const matches = [...html.matchAll(/<h2[^>]*>([\s\S]*?)<\/h2>/gi)];
+  return matches.map((m) => {
+    const text = m[1].replace(/<[^>]+>/g, "").trim();
+    const id = text.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "");
+    return { id, text };
+  }).filter((t) => t.text);
+}
+
+function injectHeadingIds(html: string): string {
+  return html.replace(/<h2([^>]*)>([\s\S]*?)<\/h2>/gi, (_, attrs, content) => {
+    const text = content.replace(/<[^>]+>/g, "").trim();
+    const id = text.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "");
+    return `<h2${attrs} id="${id}">${content}</h2>`;
+  });
+}
+
+function formatPreviewDate(iso?: string) {
+  if (!iso) return "";
+  try { return new Date(iso).toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric" }); } catch { return ""; }
+}
+
+function ContentPreviewModal({
+  title, excerpt, publishedAt, authorName, categoryName, isBlog,
+  html, forms, onClose, onSave, isSaving, isNew,
+}: {
+  title: string;
+  excerpt?: string;
+  publishedAt?: string;
+  authorName?: string;
+  categoryName?: string;
+  isBlog: boolean;
+  html: string;
+  forms: FormDefinition[];
+  onClose: () => void;
+  onSave: () => void;
+  isSaving: boolean;
+  isNew: boolean;
+}) {
+  const renderedHtml = injectHeadingIds(renderFormEmbeds(html, forms));
+  const toc = extractPreviewToc(renderedHtml);
 
   return (
     <div className="fixed inset-0 z-50 flex flex-col bg-white">
-      {/* Preview top bar */}
-      <div className="flex items-center gap-3 border-b border-[#dce4df] bg-white px-6 py-3 shadow-sm">
-        <button onClick={onClose} className="flex items-center gap-1.5 rounded-lg border border-[#dce4df] px-3 py-1.5 text-xs font-semibold text-[#5f6f66] hover:bg-zinc-50">
+      {/* Preview top bar — mimics the real site's admin bar feel */}
+      <div className="flex shrink-0 items-center gap-3 border-b border-[#dce4df] bg-white px-6 py-3 shadow-sm">
+        <button onClick={onClose}
+          className="flex items-center gap-1.5 rounded-lg border border-[#dce4df] px-3 py-1.5 text-xs font-semibold text-[#5f6f66] hover:bg-zinc-50">
           <X className="h-3.5 w-3.5" /> Close Preview
         </button>
-        <div className="flex-1">
-          <span className="rounded-full bg-blue-50 px-2.5 py-0.5 text-[11px] font-bold text-blue-700">PREVIEW MODE</span>
-          <span className="ml-2 text-xs text-[#9aafa5]">This is how it will look on your site</span>
-        </div>
+        <span className="rounded-full bg-blue-50 px-2.5 py-0.5 text-[11px] font-bold text-blue-700">PREVIEW</span>
+        <span className="text-xs text-[#9aafa5]">Matches live site layout exactly</span>
+        <div className="flex-1" />
         <button onClick={() => { onSave(); onClose(); }} disabled={isSaving}
           className="flex items-center gap-1.5 rounded-lg bg-[#0D3D24] px-4 py-1.5 text-xs font-semibold text-white hover:bg-[#145c42] disabled:opacity-50">
           {isSaving ? <Loader2 className="h-3.5 w-3.5 animate-spin" /> : <Save className="h-3.5 w-3.5" />}
-          {isNew ? "Create & Publish" : "Save"}
+          {isNew ? "Create & Publish" : "Save Changes"}
         </button>
       </div>
 
-      {/* Scrollable preview content */}
-      <div className="flex-1 overflow-y-auto">
-        {/* Simulated blog page header */}
-        <div className="mx-auto max-w-3xl px-6 pt-12 pb-4">
-          <h1 className="text-3xl font-bold leading-tight text-[#1f2c25] md:text-4xl">{title || "Untitled"}</h1>
+      {/* Scrollable content — replicates blog/[slug]/page.tsx layout */}
+      <div className="flex-1 overflow-y-auto bg-white">
+
+        {/* ── Hero header (matches <header className="bg-[#f7f8f6] py-16 lg:py-20">) */}
+        <div style={{ background: "#f7f8f6", paddingTop: "4rem", paddingBottom: "4rem" }}>
+          <div style={{ maxWidth: "80rem", margin: "0 auto", padding: "0 2rem" }}>
+            <div style={{ maxWidth: "56rem" }}>
+              {/* Category eyebrow */}
+              <p style={{ fontSize: "0.7rem", fontWeight: 700, letterSpacing: "0.15em", textTransform: "uppercase", color: "#145c42", marginBottom: "1rem" }}>
+                {categoryName || (isBlog ? "JourneyLite Blog" : "Page")}
+              </p>
+              {/* Title in serif (matches font-serif text-5xl) */}
+              <h1 style={{ fontSize: "clamp(2rem, 5vw, 3.5rem)", fontWeight: 700, lineHeight: 1.05, color: "#1e2b24", margin: "0 0 1.5rem", fontFamily: "Georgia, 'Times New Roman', serif" }}>
+                {title || "Untitled"}
+              </h1>
+              {excerpt && (
+                <p style={{ fontSize: "1.125rem", lineHeight: 2, color: "#53635b", marginBottom: "1.25rem" }}>{excerpt}</p>
+              )}
+              <div style={{ display: "flex", flexWrap: "wrap", gap: "0.75rem", fontSize: "0.875rem", fontWeight: 600, color: "#64736b" }}>
+                {publishedAt && <span>{formatPreviewDate(publishedAt)}</span>}
+                {authorName && <span>By {authorName}</span>}
+              </div>
+            </div>
+          </div>
         </div>
 
-        {/* Article body */}
-        <div
-          className="mx-auto max-w-3xl px-6 pb-16 prose prose-green max-w-none"
-          style={{
-            // Supplement Tailwind prose with inline styles for our custom blocks
-            // prose-green handles headings/paragraphs/lists
-          }}
-          dangerouslySetInnerHTML={{ __html: renderedHtml }}
-        />
+        {/* ── Article body with sidebar (matches section > grid > [aside + div]) */}
+        <div style={{ background: "white", padding: "3rem 0" }}>
+          <div style={{ maxWidth: "80rem", margin: "0 auto", padding: "0 2rem", display: "grid", gridTemplateColumns: toc.length ? "260px 1fr" : "1fr", gap: "2.5rem" }}>
 
-        {/* Global styles for callout blocks inside preview */}
-        <style>{`
-          .jl-callout { margin: 1.5rem 0; }
-          .prose h2 { font-size: 1.5rem; font-weight: 700; color: #1f2c25; margin-top: 2rem; margin-bottom: 0.75rem; }
-          .prose h3 { font-size: 1.2rem; font-weight: 700; color: #1f2c25; margin-top: 1.5rem; margin-bottom: 0.5rem; }
-          .prose p { color: #374151; line-height: 1.75; margin-bottom: 1rem; }
-          .prose ul, .prose ol { color: #374151; padding-left: 1.5rem; margin-bottom: 1rem; }
-          .prose li { margin-bottom: 0.35rem; line-height: 1.7; }
-          .prose a { color: #145c42; text-decoration: underline; }
-          .prose blockquote { border-left: 4px solid #dce4df; padding-left: 1rem; color: #5f6f66; font-style: italic; margin: 1.5rem 0; }
-          .prose strong { color: #1f2c25; font-weight: 700; }
-          .prose img { border-radius: 12px; max-width: 100%; margin: 1.5rem 0; }
-          .prose table { width: 100%; border-collapse: collapse; margin: 1.5rem 0; font-size: 0.9rem; }
-          .prose th { background: #f7faf8; font-weight: 700; color: #1f2c25; padding: 0.6rem 1rem; border: 1px solid #dce4df; text-align: left; }
-          .prose td { padding: 0.6rem 1rem; border: 1px solid #dce4df; color: #374151; }
-          .jl-cta-block a { display: inline-block; }
-        `}</style>
+            {/* TOC sidebar */}
+            {toc.length > 0 && (
+              <aside style={{ alignSelf: "start", position: "sticky", top: "2rem" }}>
+                <nav style={{ background: "#f8fbf9", border: "1px solid #dce4df", borderRadius: "12px", padding: "1.25rem" }}>
+                  <p style={{ fontSize: "0.75rem", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.1em", color: "#355346", marginBottom: "1rem" }}>In this article</p>
+                  <ol style={{ margin: 0, padding: "0 0 0 1rem", lineHeight: 1.6 }}>
+                    {toc.map((item) => (
+                      <li key={item.id} style={{ marginBottom: "0.5rem" }}>
+                        <a href={`#${item.id}`} style={{ color: "#53635b", fontSize: "0.875rem", textDecoration: "none" }}>{item.text}</a>
+                      </li>
+                    ))}
+                  </ol>
+                </nav>
+              </aside>
+            )}
+
+            {/* Article body */}
+            <div style={{ minWidth: 0, maxWidth: "48rem" }}>
+              {/* Body prose */}
+              <div className="prose prose-green max-w-none" dangerouslySetInnerHTML={{ __html: renderedHtml }} />
+
+              {/* Medical disclaimer (matches the aside in the real page) */}
+              <div style={{ marginTop: "3rem", background: "#fffdf4", border: "1px solid #d8c88b", borderRadius: "12px", padding: "1.25rem", fontSize: "0.875rem", lineHeight: 1.6, color: "#5e5235" }}>
+                <p style={{ fontWeight: 700, color: "#1f2c25", margin: "0 0 0.5rem" }}>Medical disclaimer</p>
+                <p style={{ margin: 0 }}>This article is for educational purposes only and does not replace medical advice. Treatment recommendations depend on your health history, BMI, goals, and provider evaluation.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* ── Bottom CTA (matches the dark green section at the end of the real page) */}
+        <div style={{ background: "#0f3e2e", padding: "4rem 0", color: "white" }}>
+          <div style={{ maxWidth: "80rem", margin: "0 auto", padding: "0 2rem" }}>
+            <p style={{ fontSize: "0.7rem", fontWeight: 700, letterSpacing: "0.15em", textTransform: "uppercase", color: "#b9d2c5", marginBottom: "0.75rem" }}>Personalized next step</p>
+            <h2 style={{ fontSize: "clamp(1.75rem, 4vw, 2.75rem)", fontWeight: 700, color: "white", margin: "0 0 1rem", fontFamily: "Georgia, 'Times New Roman', serif", maxWidth: "40rem", lineHeight: 1.25 }}>
+              Ready to talk with JourneyLite?
+            </h2>
+            <p style={{ color: "#d8e6de", maxWidth: "36rem", lineHeight: 1.7, marginBottom: "2rem" }}>
+              Schedule a consultation to compare surgical, non-surgical, and medication-supported options with a care team that can review your goals and health history.
+            </p>
+            <div style={{ display: "flex", flexWrap: "wrap", gap: "0.75rem" }}>
+              <a href="/contact" style={{ background: "white", color: "#0f3e2e", padding: "0.75rem 1.5rem", borderRadius: "8px", fontWeight: 700, fontSize: "0.875rem", textDecoration: "none", display: "inline-block" }}>Book Consultation</a>
+              <a href="/services/compare-weight-loss-options" style={{ border: "1px solid rgba(255,255,255,0.4)", color: "white", padding: "0.75rem 1.5rem", borderRadius: "8px", fontWeight: 700, fontSize: "0.875rem", textDecoration: "none", display: "inline-block" }}>Compare Options</a>
+            </div>
+          </div>
+        </div>
+
       </div>
+
+      {/* Prose + callout styles */}
+      <style>{`
+        .prose h2 { font-size: 1.5rem; font-weight: 700; color: #1f2c25; margin-top: 2.5rem; margin-bottom: 0.75rem; }
+        .prose h3 { font-size: 1.2rem; font-weight: 700; color: #1f2c25; margin-top: 1.75rem; margin-bottom: 0.5rem; }
+        .prose p { color: #374151; line-height: 1.75; margin-bottom: 1rem; }
+        .prose ul, .prose ol { color: #374151; padding-left: 1.5rem; margin-bottom: 1rem; }
+        .prose li { margin-bottom: 0.35rem; line-height: 1.7; }
+        .prose a { color: #145c42; text-decoration: underline; }
+        .prose blockquote { border-left: 4px solid #dce4df; padding-left: 1rem; color: #5f6f66; font-style: italic; margin: 1.5rem 0; }
+        .prose strong { color: #1f2c25; font-weight: 700; }
+        .prose img { border-radius: 12px; max-width: 100%; margin: 1.5rem 0; }
+        .prose table { width: 100%; border-collapse: collapse; margin: 1.5rem 0; font-size: 0.9rem; }
+        .prose th { background: #f7faf8; font-weight: 700; color: #1f2c25; padding: 0.6rem 1rem; border: 1px solid #dce4df; text-align: left; }
+        .prose td { padding: 0.6rem 1rem; border: 1px solid #dce4df; color: #374151; }
+        .jl-callout { margin: 1.5rem 0; }
+        .jl-cta-block a { display: inline-block; }
+      `}</style>
     </div>
   );
 }

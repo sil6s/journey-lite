@@ -102,12 +102,6 @@ export function SiteHeader() {
               </div>
             </div>
           ))}
-          <Link
-            className="rounded-md px-2.5 py-2 text-[13px] font-medium text-[#314139] transition hover:bg-[#f0f5f2] hover:text-[#145c42] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#145c42]"
-            href="/contact"
-          >
-            Contact
-          </Link>
         </nav>
 
         <div className="hidden items-center gap-2 lg:flex">

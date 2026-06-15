@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useTransition } from "react";
-import { ChevronDown, ChevronRight, ClipboardList, Eye, Loader2, Plus, Save, Trash2, X } from "lucide-react";
+import { Check, ChevronDown, ChevronRight, ClipboardList, Eye, Loader2, Plus, Save, Trash2, X } from "lucide-react";
 import { FormSubmissionsManager, type FormSubmissionListItem } from "@/components/admin/form-submissions-manager";
 import { createFormAction, updateFormAction, deleteFormAction, type FormDefinition, type FormField } from "@/app/admin/content/actions";
 import { useRouter } from "next/navigation";
@@ -221,7 +221,7 @@ function FormBuilderPanel({ existing, onSaved, onCancel }: {
               </button>
               {success && (
                 <div className="mt-3 rounded-xl border border-emerald-200 bg-emerald-50 px-4 py-3 text-sm text-emerald-800">
-                  ✓ <em>After submit:</em> "{success}"
+                  <Check className="mr-1.5 inline h-3.5 w-3.5" /><em>After submit:</em> "{success}"
                 </div>
               )}
             </div>

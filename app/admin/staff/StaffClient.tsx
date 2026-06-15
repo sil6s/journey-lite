@@ -3,7 +3,7 @@
 import { useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
 import {
-  Loader2, Plus, Save, Search, Trash2, Users, X,
+  Check, Loader2, Plus, Save, Search, Trash2, Users, X,
 } from "lucide-react";
 import {
   createStaffAction, updateStaffAction, deleteStaffAction,
@@ -174,7 +174,7 @@ export function StaffClient({ initialStaff }: { initialStaff: StaffDoc[] }) {
               </span>
               <span className="flex-1 font-bold text-[#1f2c25] truncate">{name || "Untitled"}</span>
               <div className="flex items-center gap-2">
-                {saveStatus === "saved" && <span className="text-xs font-semibold text-emerald-600">Saved ✓</span>}
+                {saveStatus === "saved" && <span className="flex items-center gap-1 text-xs font-semibold text-emerald-600"><Check className="h-3.5 w-3.5" />Saved</span>}
                 {saveStatus === "error" && <span className="text-xs font-semibold text-red-600">Save failed</span>}
                 {!isNew && (
                   <button onClick={handleDelete} disabled={deleting} title="Delete"

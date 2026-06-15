@@ -2,7 +2,7 @@
 
 import { useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
-import { Loader2, MapPin, Plus, Save, Search, Trash2, X } from "lucide-react";
+import { Check, Loader2, MapPin, Plus, Save, Search, Trash2, X } from "lucide-react";
 import {
   createLocationAction, updateLocationAction, deleteLocationAction,
   type LocationDoc,
@@ -166,7 +166,7 @@ export function LocationsClient({ initialLocations }: { initialLocations: Locati
               </span>
               <span className="flex-1 font-bold text-[#1f2c25] truncate">{name || "Untitled"}</span>
               <div className="flex items-center gap-2">
-                {saveStatus === "saved" && <span className="text-xs font-semibold text-emerald-600">Saved ✓</span>}
+                {saveStatus === "saved" && <span className="flex items-center gap-1 text-xs font-semibold text-emerald-600"><Check className="h-3.5 w-3.5" />Saved</span>}
                 {saveStatus === "error" && <span className="text-xs font-semibold text-red-600">Save failed</span>}
                 {!isNew && (
                   <button onClick={handleDelete} disabled={deleting}

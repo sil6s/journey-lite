@@ -49,7 +49,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Sheet, SheetContent, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 import { cn } from "@/lib/utils";
-import { useMemo, useState } from "react";
+import { useMemo, useState, useEffect } from "react";
 
 // URL of the Patient LMS admin portal — override with NEXT_PUBLIC_LMS_URL env var
 const LMS_URL = process.env.NEXT_PUBLIC_LMS_URL ?? "https://learn.journeylite.com";
@@ -248,6 +248,13 @@ function SidebarContent({
   user?: AdminShellUser;
   onNavigate?: () => void;
 }) {
+  const [navigatingTo, setNavigatingTo] = useState<string | null>(null);
+
+  // Clear loading state when pathname actually changes
+  useEffect(() => {
+    setNavigatingTo(null);
+  }, [pathname]);
+
   return (
     <div className="flex h-full flex-col">
       {/* Logo */}
@@ -274,20 +281,32 @@ function SidebarContent({
               const active = item.exact
                 ? pathname === item.href
                 : pathname.startsWith(item.href);
+              const isNavigating = navigatingTo === item.href && !active;
               return (
                 <Link
                   key={item.href}
                   href={item.href}
                   prefetch={false}
-                  onClick={onNavigate}
+                  onClick={() => {
+                    if (!active) setNavigatingTo(item.href);
+                    onNavigate?.();
+                  }}
                   className={cn(
                     "flex h-9 items-center gap-2.5 rounded-lg px-3 text-sm font-medium transition-colors",
                     active
                       ? "bg-[#0D3D24]/[0.08] text-[#0D3D24] font-semibold"
-                      : "text-[#5f6f66] hover:bg-[#0D3D24]/[0.05] hover:text-[#0D3D24]",
+                      : isNavigating
+                        ? "bg-[#0D3D24]/[0.05] text-[#0D3D24]"
+                        : "text-[#5f6f66] hover:bg-[#0D3D24]/[0.05] hover:text-[#0D3D24]",
                   )}
                 >
-                  <item.icon className="h-4 w-4 shrink-0" />
+                  {isNavigating ? (
+                    <span className="h-4 w-4 shrink-0 flex items-center justify-center">
+                      <span className="h-3.5 w-3.5 animate-spin rounded-full border-2 border-[#0D3D24]/20 border-t-[#0D3D24]" />
+                    </span>
+                  ) : (
+                    <item.icon className="h-4 w-4 shrink-0" />
+                  )}
                   {item.title}
                 </Link>
               );

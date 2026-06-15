@@ -1,4 +1,5 @@
-import { ShoppingBag } from "lucide-react";
+import { Apple, Beaker, Box, Dumbbell, Pill, ShoppingBag, UtensilsCrossed, Wheat } from "lucide-react";
+import type { LucideIcon } from "lucide-react";
 import { storefrontFetch } from "@/lib/shopify/client";
 import { PRODUCTS_QUERY } from "@/lib/shopify/queries";
 import { ProductCard } from "@/components/shop/ProductCard";
@@ -10,7 +11,7 @@ export const revalidate = 60;
 
 type CategoryConfig = {
   label: string;
-  emoji: string;
+  Icon: LucideIcon;
   description: string;
   test: (handle: string, title: string) => boolean;
 };
@@ -18,31 +19,31 @@ type CategoryConfig = {
 const CATEGORIES: CategoryConfig[] = [
   {
     label: "Pre-Op Diet",
-    emoji: "🥗",
+    Icon: Apple,
     description: "Meal replacements and protein shakes to prepare for surgery",
     test: (h) => h.includes("pre-op") || h.includes("preop"),
   },
   {
     label: "Post-Op Diet",
-    emoji: "🍲",
+    Icon: UtensilsCrossed,
     description: "Soft, bariatric-friendly foods for your recovery phase",
     test: (h) => h.includes("post-op") || h.includes("postop"),
   },
   {
     label: "Vitamin Kits",
-    emoji: "💊",
+    Icon: Pill,
     description: "Complete bariatric vitamin bundles recommended by your care team",
     test: (h) => h.includes("kit") || h.includes("vitamin"),
   },
   {
     label: "Protein Shakes & Smoothies",
-    emoji: "🥤",
+    Icon: Dumbbell,
     description: "High-protein shakes and smoothie mixes to hit your daily goals",
     test: (h) => h.includes("smoothie") || h.includes("shake") || h.includes("protein-shake"),
   },
   {
     label: "Food & Snacks",
-    emoji: "🍫",
+    Icon: Wheat,
     description: "Bariatric-friendly snacks, soups, and nutritious meals",
     test: (h) =>
       ["mashed", "pasta", "soup", "protein-bar", "bar", "snack", "chip", "cracker", "cookie"].some((w) =>
@@ -51,7 +52,7 @@ const CATEGORIES: CategoryConfig[] = [
   },
   {
     label: "Supplements",
-    emoji: "🧪",
+    Icon: Beaker,
     description: "Individual vitamins, minerals, and nutritional supplements",
     test: (h, title) =>
       ["supplement", "calcium", "iron", "zinc", "b12", "omega", "probiotic", "fiber"].some(
@@ -60,7 +61,7 @@ const CATEGORIES: CategoryConfig[] = [
   },
   {
     label: "Other",
-    emoji: "📦",
+    Icon: Box,
     description: "Additional bariatric products and accessories",
     test: () => true, // catch-all
   },
@@ -134,7 +135,7 @@ export default async function ShopPage() {
                   href={`#${slugify(config.label)}`}
                   className="inline-flex items-center gap-1.5 rounded-full border border-[#dce4df] bg-white px-3 py-1.5 text-xs font-semibold text-[#314139] shadow-sm transition hover:border-[#145c42] hover:text-[#145c42] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#145c42]"
                 >
-                  <span>{config.emoji}</span>
+                  <config.Icon className="h-3.5 w-3.5" />
                   {config.label}
                 </a>
               ))}
@@ -163,7 +164,9 @@ export default async function ShopPage() {
             >
               {/* Section header */}
               <div className="mb-6 flex items-start gap-3">
-                <span className="mt-0.5 text-2xl leading-none">{config.emoji}</span>
+                <div className="mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-[#edf4ef]">
+                  <config.Icon className="h-4 w-4 text-[#145c42]" />
+                </div>
                 <div>
                   <h2
                     id={`heading-${slugify(config.label)}`}

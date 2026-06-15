@@ -313,7 +313,7 @@ export function PatientsClient({
                   })}
                 </div>
                 <div className="shrink-0 border-t border-[#dce4df] p-3 space-y-2">
-                  {saveStatus === "saved" && <p className="text-center text-xs font-semibold text-emerald-600">Saved ✓</p>}
+                  {saveStatus === "saved" && <p className="flex items-center justify-center gap-1 text-xs font-semibold text-emerald-600"><Check className="h-3.5 w-3.5" />Saved</p>}
                   {saveStatus === "error" && <p className="text-center text-xs font-semibold text-red-600">Save failed</p>}
                   <button onClick={handleSaveAssignments} disabled={saveStatus === "saving"}
                     className="flex w-full items-center justify-center gap-1.5 rounded-xl bg-[#0D3D24] py-2.5 text-xs font-bold text-white hover:bg-[#145c42] disabled:opacity-50">
