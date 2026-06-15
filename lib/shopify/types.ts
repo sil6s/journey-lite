@@ -20,6 +20,8 @@ export type ShopifyProduct = {
   title: string;
   handle: string;
   description: string;
+  productType: string;
+  tags: string[];
   priceRange: {
     minVariantPrice: ShopifyMoney;
     maxVariantPrice: ShopifyMoney;

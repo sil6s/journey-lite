@@ -7,6 +7,8 @@ export const PRODUCTS_QUERY = `
           title
           handle
           description
+          productType
+          tags
           priceRange {
             minVariantPrice { amount currencyCode }
             maxVariantPrice { amount currencyCode }

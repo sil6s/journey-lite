@@ -4,8 +4,10 @@ export async function storefrontFetch<T>(
   query: string,
   variables: Record<string, unknown> = {}
 ): Promise<T> {
-  const token = process.env.SHOPIFY_STOREFRONT_PRIVATE_TOKEN
-    ?? process.env.NEXT_PUBLIC_SHOPIFY_STOREFRONT_TOKEN;
+  // Always use the Storefront API token (NEXT_PUBLIC_ prefix is fine — Shopify
+  // storefront tokens are designed to be public). The shpat_ admin token is a
+  // different credential type and must NOT be used with the Storefront API.
+  const token = process.env.NEXT_PUBLIC_SHOPIFY_STOREFRONT_TOKEN;
 
   const res = await fetch(STOREFRONT_URL, {
     method: "POST",
