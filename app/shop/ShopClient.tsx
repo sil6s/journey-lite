@@ -1,19 +1,29 @@
 "use client";
 
-import { useState, useTransition, useCallback } from "react";
+import Image from "next/image";
+import Link from "next/link";
+import { useEffect, useState, useTransition, useCallback } from "react";
 import {
-  Leaf,
   ArrowLeft,
   Headphones,
   Package,
-  Pill,
   ShoppingCart,
   ChevronDown,
   ChevronUp,
   Info,
+  FileText,
+  CheckCircle2,
+  UserRound,
 } from "lucide-react";
 import type { ShopifyProduct } from "@/lib/shopify/types";
-import { createCheckout } from "@/lib/shopify/actions";
+import { addToCart } from "@/lib/shopify/actions";
+
+const SHOPIFY_STORE_DOMAIN = process.env.NEXT_PUBLIC_SHOPIFY_STORE_DOMAIN;
+const SHOPIFY_STORE_URL = SHOPIFY_STORE_DOMAIN ? `https://${SHOPIFY_STORE_DOMAIN}` : null;
+const CART_ID_KEY = "journeylite_shopify_cart_id";
+const CART_URL_KEY = "journeylite_shopify_checkout_url";
+const CART_QTY_KEY = "journeylite_shopify_cart_qty";
+const CART_UPDATED_EVENT = "journeylite-shopify-cart-updated";
 
 // ─────────────────────────────────────────────────────────────────────────────
 // Types
@@ -29,35 +39,51 @@ type ProteinFilter = "all" | "shake" | "bar" | "liquid";
 function getSectionTag(p: ShopifyProduct): string {
   const pt = p.productType;
   const h = p.handle;
-  if (pt === "Vitamin Kits") {
-    if (h.includes("starter-kit")) return "type-preop-kit";
-    if (h.includes("90-day") || h.includes("90days")) return "type-long-term-kit";
+  const tags = p.tags.map((tag) => tag.toLowerCase());
+  const hasTag = (tag: string) => tags.includes(tag.toLowerCase());
+  const hasAnyTag = (...values: string[]) => values.some(hasTag);
+
+  if (pt === "Vitamin Kits" || pt === "Vitamins & Supplements") {
+    if (h.includes("starter-kit") || hasTag("Procedure Starter Kits")) return "type-preop-kit";
+    if (h.includes("90-day") || h.includes("90days") || hasTag("Procedure Maintenance Kits")) return "type-long-term-kit";
+    if (hasAnyTag("Multivitamins", "ADEK Multivitamins")) return "type-multivitamin";
+    if (hasTag("Calcium")) return "type-calcium";
+    if (hasAnyTag("B12", "Vitamin D")) return "type-b12-vitamin-d";
+    if (hasAnyTag("Iron", "Biotin")) return "type-other-vitamin";
     return "type-other";
   }
-  if (pt === "Pre-op Diet") {
-    if (h.includes("clear-liquid") || h.includes("post-op")) return "type-clear-liquid";
+
+  if (pt === "Pre-op Diet" || pt === "Diet Kits") {
+    if (h.includes("clear-liquid") || h.includes("post-op") || hasTag("Post-Op Diet Kits")) return "type-clear-liquid";
     return "type-preop-diet";
   }
+
   if (pt === "Multivitamins") return "type-multivitamin";
   if (pt === "Calcium") return "type-calcium";
   if (pt === "B12" || pt === "D Vitamins") return "type-b12-vitamin-d";
   if (pt === "Iron") return "type-iron";
   if (pt === "Other Vitamins") return "type-other-vitamin";
-  if (pt === "Bars VLC" || pt === "Bars Crunchy") return "type-bar";
-  if (pt === "Smoothies") return "type-shake";
-  if (["Pasta & Potatoes", "Breakfast", "Soups", "Snacks"].includes(pt)) return "type-snack";
+  if (pt === "Bars VLC" || pt === "Bars Crunchy" || hasAnyTag("Protein Bars", "Protein Bars - Very Low Carb", "Protein Bars - Crunchy")) return "type-bar";
+  if (pt === "Smoothies" || pt === "Shakes & Puddings" || hasAnyTag("Smoothies", "Shakes & Puddings")) return "type-shake";
+  if (pt === "Drinks-Cold" || pt === "Drinks-Hot" || pt === "Protein Drinks" || hasAnyTag("Cold Drinks", "Hot Drinks")) return "type-drink";
+  if (pt === "Protein Chips" || pt === "Protein Snacks" || hasTag("Protein Chips")) return "type-chip";
+  if (["Pasta & Potatoes", "Breakfast", "Soups", "Snacks", "Entrees", "Meals & Soups"].includes(pt) || hasAnyTag("Breakfast", "Soups", "Pasta & Potatoes")) return "type-snack";
+  if (pt === "Services") return "type-service";
   return "type-other";
 }
 
 function getPhases(p: ShopifyProduct): Phase[] {
   const pt = p.productType;
   const h = p.handle;
-  if (pt === "Vitamin Kits" && h.includes("starter-kit")) return ["pre-op"];
-  if (pt === "Vitamin Kits" && (h.includes("90-day") || h.includes("90days"))) return ["long-term"];
-  if (pt === "Pre-op Diet") {
-    if (h.includes("clear-liquid") || h.includes("post-op")) return ["post-op"];
+  const tags = p.tags.map((tag) => tag.toLowerCase());
+  const hasTag = (tag: string) => tags.includes(tag.toLowerCase());
+  if ((pt === "Vitamin Kits" || pt === "Vitamins & Supplements") && (h.includes("starter-kit") || hasTag("Procedure Starter Kits"))) return ["pre-op"];
+  if ((pt === "Vitamin Kits" || pt === "Vitamins & Supplements") && (h.includes("90-day") || h.includes("90days") || hasTag("Procedure Maintenance Kits"))) return ["long-term"];
+  if (pt === "Pre-op Diet" || pt === "Diet Kits") {
+    if (h.includes("clear-liquid") || h.includes("post-op") || hasTag("Post-Op Diet Kits")) return ["post-op"];
     return ["pre-op"];
   }
+  if (pt === "Services") return ["all"];
   return ["post-op", "long-term"];
 }
 
@@ -71,11 +97,11 @@ function matchesPhase(p: ShopifyProduct, phase: Phase): boolean {
 // ─────────────────────────────────────────────────────────────────────────────
 
 const SURGERY_TYPES = [
-  { key: "gastric-sleeve", label: "Sleeve" },
-  { key: "gastric-bypass", label: "Bypass" },
-  { key: "sadi-sips", label: "SADI/SIPS" },
-  { key: "gastric-band", label: "Band" },
-  { key: "gastric-balloon", label: "Balloon" },
+  { key: "gastric-sleeve", label: "Gastric Sleeve", shortLabel: "Sleeve", note: "Most sleeve patients" },
+  { key: "gastric-bypass", label: "Gastric Bypass", shortLabel: "Bypass", note: "Bypass-specific support" },
+  { key: "sadi-sips", label: "SADI/SIPS", shortLabel: "SADI/SIPS", note: "Higher-malabsorption plan" },
+  { key: "gastric-band", label: "Gastric Band", shortLabel: "Band", note: "Band procedure plan" },
+  { key: "gastric-balloon", label: "Gastric Balloon", shortLabel: "Balloon", note: "Non-surgical balloon plan" },
 ];
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -88,16 +114,21 @@ function spanFor(index: number, total: number, cols: number): number {
   const orphans = total % cols;
   if (orphans === 0) return 1;
   const orphanStart = total - orphans;
+
+  if (cols === 4 && orphans === 1 && index >= total - 5) {
+    return [2, 1, 1, 2, 2][index - (total - 5)];
+  }
+
   if (index < orphanStart) return 1;
   // Orphan row rules per spec
   if (cols === 4) {
-    if (orphans === 1) return 4;
     if (orphans === 2) return 2;
-    if (orphans === 3) return 2;
+    if (orphans === 3) return 1;
   }
   if (cols === 3) {
-    if (orphans === 1) return 3;
-    if (orphans === 2) return 2; // each spans 2 in 3-col grid
+    if (orphans === 1 && index >= total - 4) {
+      return [2, 1, 1, 2][index - (total - 4)];
+    }
   }
   return 1;
 }
@@ -108,6 +139,33 @@ function spanFor(index: number, total: number, cols: number): number {
 
 function fmtPrice(amount: string, currency: string) {
   return new Intl.NumberFormat("en-US", { style: "currency", currency }).format(parseFloat(amount));
+}
+
+function conciseDescription(product: ShopifyProduct): string | null {
+  const description = product.description?.trim();
+  if (!description) return null;
+  if (description.includes("Imported from the JourneyLite shop category")) return null;
+  if (description.startsWith("A JourneyLite ")) return null;
+  return description;
+}
+
+function productEyebrow(product: ShopifyProduct): string {
+  const tag = getSectionTag(product);
+  if (tag === "type-preop-kit") return "Starter kit";
+  if (tag === "type-long-term-kit") return "90-day refill";
+  if (tag === "type-preop-diet") return "Pre-op diet";
+  if (tag === "type-clear-liquid") return "Post-op diet";
+  if (tag === "type-multivitamin") return "Multivitamin";
+  if (tag === "type-calcium") return "Calcium";
+  if (tag === "type-b12-vitamin-d") return "B12 / D";
+  if (tag === "type-other-vitamin") return "Supplement";
+  if (tag === "type-shake") return "Shake / pudding";
+  if (tag === "type-bar") return "Protein bar";
+  if (tag === "type-drink") return "Protein drink";
+  if (tag === "type-chip") return "Protein snack";
+  if (tag === "type-snack") return "Meal";
+  if (tag === "type-service") return "Service";
+  return product.productType || "Product";
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -156,15 +214,24 @@ function BuyBtn({
   function handleBuy() {
     setError(null);
     startTransition(async () => {
-      const res = await createCheckout(variantId);
+      const cartId = window.localStorage.getItem(CART_ID_KEY);
+      const res = await addToCart(variantId, cartId);
       if (res.error) setError(res.error);
-      else if (res.checkoutUrl) window.location.href = res.checkoutUrl;
+      else {
+        if (res.cartId) window.localStorage.setItem(CART_ID_KEY, res.cartId);
+        if (res.checkoutUrl) window.localStorage.setItem(CART_URL_KEY, res.checkoutUrl);
+        if (typeof res.totalQuantity === "number") {
+          window.localStorage.setItem(CART_QTY_KEY, String(res.totalQuantity));
+        }
+        window.dispatchEvent(new Event(CART_UPDATED_EVENT));
+      }
     });
   }
 
   return (
-    <div>
+    <div className="jls-buy-wrap">
       <button
+        className="jls-buybtn"
         onClick={handleBuy}
         disabled={isPending}
         style={{
@@ -178,6 +245,7 @@ function BuyBtn({
           cursor: isPending ? "wait" : "pointer",
           whiteSpace: "nowrap",
           display: "inline-flex",
+          justifyContent: "center",
           alignItems: "center",
           gap: 6,
           opacity: isPending ? 0.75 : 1,
@@ -185,7 +253,7 @@ function BuyBtn({
         }}
       >
         <ShoppingCart size={iconSz} />
-        {isPending ? "Redirecting…" : label}
+        {isPending ? "Adding…" : label}
       </button>
       {error && (
         <p style={{ fontSize: 11, color: "#dc2626", marginTop: 4 }}>{error}</p>
@@ -205,74 +273,63 @@ function PCard({
   product: ShopifyProduct;
   span?: number;
 }) {
-  const image = product.images.edges[0]?.node ?? null;
   const variant = product.variants.edges[0]?.node ?? null;
   const price = product.priceRange.minVariantPrice;
   const maxPrice = product.priceRange.maxVariantPrice;
   const hasRange = price.amount !== maxPrice.amount;
+  const description = conciseDescription(product);
 
   return (
     <div
+      className="jls-product-card"
       style={{
         background: "#fff",
         border: "1px solid #d4e3da",
-        borderRadius: 10,
-        padding: 14,
+        borderRadius: 8,
+        padding: 16,
         display: "flex",
         flexDirection: "column",
         minWidth: 0,
+        minHeight: 158,
         gridColumn: span > 1 ? `span ${span}` : undefined,
       }}
     >
-      {/* Image */}
-      <div
-        style={{
-          width: "100%",
-          aspectRatio: span > 1 ? undefined : "1/1",
-          maxHeight: span > 1 ? 120 : undefined,
-          background: "#f0f5f2",
-          borderRadius: 7,
-          marginBottom: 10,
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          overflow: "hidden",
-          flexShrink: 0,
-        }}
-      >
-        {image ? (
-          // eslint-disable-next-line @next/next/no-img-element
-          <img
-            src={`${image.url}&width=400`}
-            alt={image.altText ?? product.title}
-            style={{ width: "100%", height: "100%", objectFit: "contain" }}
-          />
-        ) : (
-          <Package size={28} color="#b8cfc6" />
-        )}
-      </div>
-
-      {/* Name */}
       <p
         style={{
-          fontSize: 13,
-          fontWeight: 500,
+          alignSelf: "flex-start",
+          background: "#edf4ef",
+          borderRadius: 999,
+          color: "#3b6d4e",
+          fontSize: 10,
+          fontWeight: 700,
+          letterSpacing: "0.07em",
+          margin: "0 0 10px",
+          padding: "3px 8px",
+          textTransform: "uppercase",
+        }}
+      >
+        {productEyebrow(product)}
+      </p>
+
+      <p
+        style={{
+          fontSize: 14,
+          fontWeight: 700,
           color: "#1a3d2b",
-          lineHeight: 1.35,
-          marginBottom: 4,
-          margin: "0 0 4px",
+          lineHeight: 1.3,
+          margin: "0 0 8px",
         }}
       >
         {product.title}
       </p>
 
-      {/* Description/meta */}
-      {product.description && (
+      {description && (
         <p
           style={{
-            fontSize: 11,
+            fontSize: 12,
             color: "#7a9a83",
-            margin: "0 0 8px",
+            lineHeight: 1.45,
+            margin: "0 0 10px",
             flex: 1,
             overflow: "hidden",
             display: "-webkit-box",
@@ -280,12 +337,12 @@ function PCard({
             WebkitBoxOrient: "vertical" as const,
           }}
         >
-          {product.description}
+          {description}
         </p>
       )}
 
-      {/* Footer */}
       <div
+        className="jls-product-footer"
         style={{
           display: "flex",
           alignItems: "center",
@@ -293,6 +350,8 @@ function PCard({
           gap: 8,
           marginTop: "auto",
           flexWrap: "nowrap",
+          borderTop: "1px solid #edf2ee",
+          paddingTop: 12,
         }}
       >
         <span
@@ -342,19 +401,21 @@ function PGrid({
   const expanded = showMore[id] ?? false;
   const visible = expanded ? products : products.slice(0, defaultShow);
   const hidden = products.length - visible.length;
+  const gridCols = cols;
 
   return (
     <>
       <div
+        className={`jls-grid jls-g${gridCols}`}
         style={{
           display: "grid",
-          gridTemplateColumns: `repeat(${cols}, 1fr)`,
+          gridTemplateColumns: `repeat(${gridCols}, 1fr)`,
           gap: 14,
           marginBottom: hidden > 0 || expanded ? 8 : 16,
         }}
       >
         {visible.map((p, i) => (
-          <PCard key={p.id} product={p} span={spanFor(i, visible.length, cols)} />
+          <PCard key={p.id} product={p} span={spanFor(i, visible.length, gridCols)} />
         ))}
       </div>
 
@@ -445,11 +506,29 @@ export function ShopClient({ products }: { products: ShopifyProduct[] }) {
   const [proteinFilter, setProteinFilter] = useState<ProteinFilter>("all");
   const [showMore, setShowMore] = useState<Record<string, boolean>>({});
   const [selectedSurgery, setSelectedSurgery] = useState("gastric-sleeve");
+  const [cartUrl, setCartUrl] = useState<string | null>(null);
+  const [cartQty, setCartQty] = useState(0);
 
   const toggle = useCallback(
     (id: string) => setShowMore((prev) => ({ ...prev, [id]: !prev[id] })),
     []
   );
+
+  useEffect(() => {
+    function syncCartState() {
+      setCartUrl(window.localStorage.getItem(CART_URL_KEY));
+      setCartQty(Number(window.localStorage.getItem(CART_QTY_KEY) ?? "0") || 0);
+    }
+
+    syncCartState();
+    window.addEventListener(CART_UPDATED_EVENT, syncCartState);
+    window.addEventListener("storage", syncCartState);
+
+    return () => {
+      window.removeEventListener(CART_UPDATED_EVENT, syncCartState);
+      window.removeEventListener("storage", syncCartState);
+    };
+  }, []);
 
   // ── Bucketed products ──────────────────────────────────────────────────────
 
@@ -468,32 +547,37 @@ export function ShopClient({ products }: { products: ShopifyProduct[] }) {
   const clearLiquid = products.filter(
     (p) => getSectionTag(p) === "type-clear-liquid" && matchesPhase(p, phase)
   );
+  const services = byTag("type-service");
 
   const multivitamins = byTag("type-multivitamin");
   const calcium = byTag("type-calcium");
   const b12VitD = byTag("type-b12-vitamin-d");
   const iron = byTag("type-iron");
   const otherVitamins = byTag("type-other-vitamin");
+  const additionalSupplements = [...iron, ...otherVitamins];
   const shakes = byTag("type-shake");
   const bars = byTag("type-bar");
+  const drinks = byTag("type-drink");
+  const chips = byTag("type-chip");
   const snacks = byTag("type-snack");
+  const otherProducts = byTag("type-other");
 
   const hasVitamins =
-    multivitamins.length + calcium.length + b12VitD.length + iron.length + otherVitamins.length > 0;
+    multivitamins.length + calcium.length + b12VitD.length + additionalSupplements.length > 0;
 
   const showStarterCard = phase === "all" || phase === "pre-op";
   const showPreOpDiet = (phase === "all" || phase === "pre-op") && preOpDiet.length > 0;
   const showLongTerm = (phase === "all" || phase === "long-term") && longTermKits.length > 0;
 
   // Protein section products (filtered by tab)
-  const allProtein = [...shakes, ...bars, ...clearLiquid];
+  const allProtein = [...shakes, ...bars, ...drinks, ...chips, ...clearLiquid];
   const proteinFiltered =
     proteinFilter === "shake"
       ? shakes
       : proteinFilter === "bar"
-      ? bars
+      ? [...bars, ...chips]
       : proteinFilter === "liquid"
-      ? clearLiquid
+      ? [...drinks, ...clearLiquid]
       : allProtein;
   const hasProtein = allProtein.length > 0;
 
@@ -520,7 +604,9 @@ export function ShopClient({ products }: { products: ShopifyProduct[] }) {
     !hasProtein &&
     !showLongTerm &&
     !showPreOpDiet &&
-    snacks.length === 0;
+    services.length === 0 &&
+    snacks.length === 0 &&
+    otherProducts.length === 0;
 
   return (
     <>
@@ -530,22 +616,33 @@ export function ShopClient({ products }: { products: ShopifyProduct[] }) {
         .jls-phasetab:hover { color: #d4ede0 !important; }
         .jls-ptab:hover { filter: brightness(0.92); }
         .jls-buybtn:hover:not(:disabled) { background: #1a5c38 !important; }
+        .jls-shop-link:hover { border-color: #145c42 !important; color: #145c42 !important; background: #f0f5f2 !important; }
         .jls-showmore:hover { background: #e8f2ec !important; }
         .jls-surg:hover { filter: brightness(0.92); }
-        .jls-back:hover { opacity: 0.9; }
+        .jls-back:hover { background: #eff6f2 !important; }
         .jls-cta-btn:hover { background: #1a5c38 !important; }
         .jls-return:hover { background: #1a5c38 !important; }
+        .jls-product-card:hover { border-color: #b9d0c3 !important; box-shadow: 0 10px 22px rgba(25, 61, 43, 0.07); }
         @media (max-width: 1024px) {
           .jls-g4 { grid-template-columns: repeat(2, 1fr) !important; }
           .jls-g3 { grid-template-columns: repeat(2, 1fr) !important; }
+          .jls-product-card { grid-column: auto !important; }
         }
         @media (max-width: 640px) {
           .jls-g4, .jls-g3 { grid-template-columns: 1fr !important; }
+          .jls-grid { gap: 12px !important; }
           .jls-surgery-row { flex-wrap: wrap; }
           .jls-topbar { padding: 10px 16px !important; }
           .jls-hero { padding: 28px 16px 36px !important; }
           .jls-content { padding: 20px 16px 0 !important; }
           .jls-featcard { flex-direction: column !important; }
+          .jls-featcard { padding: 18px !important; }
+          .jls-topbar { align-items: flex-start !important; gap: 12px !important; }
+          .jls-shop-actions { width: 100% !important; justify-content: space-between !important; }
+          .jls-product-footer { align-items: stretch !important; flex-direction: column !important; gap: 10px !important; }
+          .jls-buy-wrap, .jls-buybtn { width: 100% !important; }
+          .jls-buybtn { padding: 10px 12px !important; }
+          .jls-starter-layout { grid-template-columns: 1fr !important; }
         }
       `}</style>
 
@@ -561,39 +658,105 @@ export function ShopClient({ products }: { products: ShopifyProduct[] }) {
         <div
           className="jls-topbar"
           style={{
-            background: "#0D3D24",
-            padding: "12px 32px",
+            background: "#fff",
+            borderBottom: "1px solid #dce4df",
+            padding: "10px 32px",
             display: "flex",
             alignItems: "center",
             justifyContent: "space-between",
+            gap: 16,
+            flexWrap: "wrap",
           }}
         >
-          <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
-            <Leaf size={16} color="#a8ccb5" />
-            <span style={{ color: "#fff", fontSize: 15, fontWeight: 500 }}>
-              JourneyLite Shop
-            </span>
-          </div>
-          <a
-            className="jls-back"
-            href="https://journeylite.com"
+          <Link
+            href="/"
             style={{
-              background: "#fff",
-              color: "#0D3D24",
-              borderRadius: 6,
-              padding: "7px 16px",
-              fontSize: 13,
-              fontWeight: 500,
-              textDecoration: "none",
-              whiteSpace: "nowrap",
-              display: "flex",
+              display: "inline-flex",
               alignItems: "center",
-              gap: 6,
+              borderRadius: 4,
             }}
           >
-            <ArrowLeft size={14} />
-            Back to JourneyLite.com
-          </a>
+            <Image
+              alt="JourneyLite Bariatric Physicians"
+              src="/journeylite-logo.svg"
+              width={560}
+              height={160}
+              priority
+              style={{ width: 198, maxWidth: "54vw", height: "auto" }}
+            />
+          </Link>
+          <div
+            className="jls-shop-actions"
+            style={{ display: "flex", alignItems: "center", justifyContent: "flex-end", gap: 8 }}
+          >
+            {SHOPIFY_STORE_URL && (
+              <>
+                <a
+                  className="jls-shop-link"
+                  href={cartUrl ?? `${SHOPIFY_STORE_URL}/cart`}
+                  style={{
+                    background: "#fff",
+                    border: "1px solid #dce4df",
+                    color: "#314139",
+                    borderRadius: 6,
+                    padding: "7px 10px",
+                    fontSize: 13,
+                    fontWeight: 600,
+                    textDecoration: "none",
+                    whiteSpace: "nowrap",
+                    display: "inline-flex",
+                    alignItems: "center",
+                    gap: 6,
+                  }}
+                >
+                  <ShoppingCart size={14} />
+                  Cart{cartQty > 0 ? ` (${cartQty})` : ""}
+                </a>
+                <a
+                  className="jls-shop-link"
+                  href={`${SHOPIFY_STORE_URL}/account`}
+                  style={{
+                    background: "#fff",
+                    border: "1px solid #dce4df",
+                    color: "#314139",
+                    borderRadius: 6,
+                    padding: "7px 10px",
+                    fontSize: 13,
+                    fontWeight: 600,
+                    textDecoration: "none",
+                    whiteSpace: "nowrap",
+                    display: "inline-flex",
+                    alignItems: "center",
+                    gap: 6,
+                  }}
+                >
+                  <UserRound size={14} />
+                  Account
+                </a>
+              </>
+            )}
+            <Link
+              className="jls-back"
+              href="/"
+              style={{
+                background: "#f7faf8",
+                border: "1px solid #dce4df",
+                color: "#145c42",
+                borderRadius: 6,
+                padding: "7px 12px",
+                fontSize: 13,
+                fontWeight: 600,
+                textDecoration: "none",
+                whiteSpace: "nowrap",
+                display: "inline-flex",
+                alignItems: "center",
+                gap: 6,
+              }}
+            >
+              <ArrowLeft size={14} />
+              Main site
+            </Link>
+          </div>
         </div>
 
         {/* ── Hero ────────────────────────────────────────────────────────── */}
@@ -601,7 +764,7 @@ export function ShopClient({ products }: { products: ShopifyProduct[] }) {
           className="jls-hero"
           style={{
             background: "#0D3D24",
-            padding: "40px 32px 48px",
+            padding: "30px 32px 34px",
             textAlign: "center",
           }}
         >
@@ -619,10 +782,10 @@ export function ShopClient({ products }: { products: ShopifyProduct[] }) {
           <h1
             style={{
               fontFamily: "Georgia, 'Times New Roman', serif",
-              fontSize: 28,
+              fontSize: 26,
               fontWeight: "normal",
               color: "#fff",
-              margin: "0 0 14px",
+              margin: "0 0 10px",
             }}
           >
             Everything you need, in one place
@@ -631,9 +794,9 @@ export function ShopClient({ products }: { products: ShopifyProduct[] }) {
             style={{
               fontSize: 14,
               color: "#c2deca",
-              maxWidth: 520,
+              maxWidth: 600,
               margin: "0 auto",
-              lineHeight: 1.6,
+              lineHeight: 1.5,
             }}
           >
             Supplements and nutrition products recommended by your JourneyLite care team —
@@ -684,7 +847,8 @@ export function ShopClient({ products }: { products: ShopifyProduct[] }) {
           className="jls-content"
           style={{
             padding: "32px 24px 0",
-            maxWidth: 1200,
+            width: "100%",
+            maxWidth: 1080,
             margin: "0 auto",
           }}
         >
@@ -708,110 +872,187 @@ export function ShopClient({ products }: { products: ShopifyProduct[] }) {
 
           {/* ── Starter kit featured card ────────────────────────────────── */}
           {showStarterCard && starterKits.length > 0 && (
-            <div
-              className="jls-featcard"
-              style={{
-                background: "#fff",
-                border: "1px solid #d4e3da",
-                borderRadius: 12,
-                padding: "20px 24px",
-                display: "flex",
-                alignItems: "flex-start",
-                gap: 20,
-                marginBottom: 24,
-              }}
-            >
-              {/* Icon */}
+            <section style={{ marginBottom: 24 }}>
               <div
                 style={{
-                  width: 48,
-                  height: 48,
-                  background: "#e8f2ec",
-                  borderRadius: 10,
+                  marginBottom: 12,
                   display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  flexShrink: 0,
-                  color: "#0D3D24",
+                  alignItems: "flex-end",
+                  justifyContent: "space-between",
+                  gap: 16,
+                  flexWrap: "wrap",
                 }}
               >
-                <Pill size={22} />
+                <div>
+                  <p style={subLabel}>Most popular option</p>
+                  <h2
+                    style={{
+                      fontSize: 22,
+                      fontWeight: 700,
+                      color: "#0D3D24",
+                      margin: "0 0 6px",
+                      lineHeight: 1.2,
+                    }}
+                  >
+                    Start with a surgery-specific vitamin kit
+                  </h2>
+                  <p
+                    style={{
+                      maxWidth: 760,
+                      fontSize: 14,
+                      color: "#5a7a65",
+                      lineHeight: 1.5,
+                      margin: 0,
+                    }}
+                  >
+                    If you are not sure what to buy first, choose the starter kit
+                    that matches your procedure. It bundles the first-month
+                    vitamin essentials your care team commonly recommends.
+                  </p>
+                </div>
               </div>
-
-              {/* Body */}
-              <div style={{ flex: 1, minWidth: 0 }}>
+              <div
+                className="jls-featcard"
+                style={{
+                  background: "#fff",
+                  border: "1px solid #d4e3da",
+                  borderRadius: 8,
+                  padding: 0,
+                  display: "block",
+                  overflow: "hidden",
+                }}
+              >
+              <div
+                className="jls-starter-layout"
+                style={{
+                  display: "grid",
+                  gridTemplateColumns: "1.35fr 0.65fr",
+                  gap: 0,
+                }}
+              >
+              <div style={{ padding: "22px 24px" }}>
                 <h3
                   style={{
-                    fontSize: 15,
+                    fontSize: 18,
                     fontWeight: 600,
                     color: "#0D3D24",
                     margin: "0 0 4px",
                   }}
                 >
-                  Vitamin Starter Kit
+                  Choose the starter kit for your surgery
                 </h3>
                 <p
                   style={{
                     fontSize: 13,
                     color: "#5a7a65",
-                    margin: "0 0 14px",
+                    margin: "0 0 18px",
                     lineHeight: 1.5,
                   }}
                 >
-                  Our most popular bundle — everything your care team recommends,
-                  at a lower price than buying individually. 1-month supply.
-                  Choose your surgery type:
+                  Pick your procedure and the matching first-month kit updates automatically.
                 </p>
 
                 {/* Surgery selector */}
+                <p style={{ ...subLabel, marginBottom: 8 }}>Select your procedure</p>
                 <div
                   className="jls-surgery-row"
-                  style={{ display: "flex", flexWrap: "wrap", gap: 6, marginBottom: 16 }}
+                  style={{
+                    display: "grid",
+                    gridTemplateColumns: "repeat(auto-fit, minmax(132px, 1fr))",
+                    gap: 8,
+                    marginBottom: 16,
+                  }}
                 >
-                  {SURGERY_TYPES.map((s) => (
-                    <button
-                      key={s.key}
-                      className="jls-surg"
-                      onClick={() => setSelectedSurgery(s.key)}
-                      style={{
-                        background:
-                          selectedSurgery === s.key ? "#0D3D24" : "#e8f2ec",
-                        color: selectedSurgery === s.key ? "#fff" : "#2a5a3a",
-                        border: "none",
-                        borderRadius: 20,
-                        padding: "5px 13px",
-                        fontSize: 12,
-                        fontWeight: 500,
-                        cursor: "pointer",
-                        fontFamily: "inherit",
-                      }}
-                    >
-                      {s.label}
-                    </button>
-                  ))}
+                  {SURGERY_TYPES.map((s) => {
+                    const active = selectedSurgery === s.key;
+                    return (
+                      <button
+                        key={s.key}
+                        className="jls-surg"
+                        onClick={() => setSelectedSurgery(s.key)}
+                        style={{
+                          background: active ? "#edf6f1" : "#fff",
+                          color: "#17362a",
+                          border: active ? "2px solid #145c42" : "1px solid #d4e3da",
+                          borderRadius: 7,
+                          padding: "10px 12px",
+                          textAlign: "left",
+                          cursor: "pointer",
+                          fontFamily: "inherit",
+                          minHeight: 72,
+                        }}
+                      >
+                        <span
+                          style={{
+                            display: "flex",
+                            alignItems: "center",
+                            justifyContent: "space-between",
+                            gap: 8,
+                            fontSize: 13,
+                            fontWeight: 700,
+                            color: active ? "#0D3D24" : "#1f2c25",
+                          }}
+                        >
+                          {s.shortLabel}
+                          {active && <CheckCircle2 size={15} color="#145c42" />}
+                        </span>
+                        <span
+                          style={{
+                            display: "block",
+                            marginTop: 4,
+                            fontSize: 11,
+                            lineHeight: 1.35,
+                            color: "#6b8f76",
+                          }}
+                        >
+                          {s.note}
+                        </span>
+                      </button>
+                    );
+                  })}
                 </div>
+              </div>
 
                 {/* Selected kit details */}
                 {selectedKit ? (
                   () => {
                     const variant = selectedKit.variants.edges[0]?.node;
                     const price = selectedKit.priceRange.minVariantPrice;
+                    const surgery = SURGERY_TYPES.find((s) => s.key === selectedSurgery);
                     return (
                       <div
                         style={{
                           display: "flex",
-                          alignItems: "center",
+                          alignItems: "stretch",
                           justifyContent: "space-between",
-                          flexWrap: "wrap",
-                          gap: 12,
+                          flexDirection: "column",
+                          gap: 14,
+                          background: "#f7faf8",
+                          borderLeft: "1px solid #dce8e0",
+                          height: "100%",
+                          padding: "22px 24px",
                         }}
                       >
                         <div>
                           <p
                             style={{
-                              fontSize: 12,
-                              color: "#7a9a83",
-                              margin: "0 0 2px",
+                              fontSize: 11,
+                              color: "#5a7a65",
+                              margin: "0 0 4px",
+                              textTransform: "uppercase",
+                              letterSpacing: "0.08em",
+                              fontWeight: 700,
+                            }}
+                          >
+                            Matched kit for {surgery?.label}
+                          </p>
+                          <p
+                            style={{
+                              fontSize: 18,
+                              color: "#0D3D24",
+                              margin: "0 0 8px",
+                              fontWeight: 700,
+                              lineHeight: 1.25,
                             }}
                           >
                             {selectedKit.title}
@@ -842,7 +1083,8 @@ export function ShopClient({ products }: { products: ShopifyProduct[] }) {
                   </p>
                 )}
               </div>
-            </div>
+              </div>
+            </section>
           )}
 
           {/* ── Pre-op diet kits ─────────────────────────────────────────── */}
@@ -965,34 +1207,16 @@ export function ShopClient({ products }: { products: ShopifyProduct[] }) {
                 </>
               )}
 
-              {iron.length > 0 && (
+              {additionalSupplements.length > 0 && (
                 <>
                   <hr style={divider} />
-                  <p style={subLabel}>Iron</p>
+                  <p style={subLabel}>Additional Supplements</p>
                   <div className="jls-g3">
                     <PGrid
-                      products={iron}
+                      products={additionalSupplements}
                       cols={3}
                       defaultShow={4}
-                      id="iron"
-                      label="iron"
-                      showMore={showMore}
-                      toggle={toggle}
-                    />
-                  </div>
-                </>
-              )}
-
-              {otherVitamins.length > 0 && (
-                <>
-                  <hr style={divider} />
-                  <p style={subLabel}>Other Supplements</p>
-                  <div className="jls-g3">
-                    <PGrid
-                      products={otherVitamins}
-                      cols={3}
-                      defaultShow={4}
-                      id="other-vitamins"
+                      id="additional-supplements"
                       label="supplements"
                       showMore={showMore}
                       toggle={toggle}
@@ -1017,8 +1241,8 @@ export function ShopClient({ products }: { products: ShopifyProduct[] }) {
                   [
                     { key: "all" as ProteinFilter, label: "All", count: allProtein.length },
                     { key: "shake" as ProteinFilter, label: "Shakes", count: shakes.length },
-                    { key: "bar" as ProteinFilter, label: "Bars", count: bars.length },
-                    { key: "liquid" as ProteinFilter, label: "Liquid diet", count: clearLiquid.length },
+                    { key: "bar" as ProteinFilter, label: "Bars & chips", count: bars.length + chips.length },
+                    { key: "liquid" as ProteinFilter, label: "Drinks & liquid diet", count: drinks.length + clearLiquid.length },
                   ] as const
                 )
                   .filter((t) => t.count > 0)
@@ -1058,6 +1282,31 @@ export function ShopClient({ products }: { products: ShopifyProduct[] }) {
             </section>
           )}
 
+          {/* ── Program fees & services ─────────────────────────────────── */}
+          {services.length > 0 && (
+            <section style={{ marginBottom: 40 }}>
+              <SectionHead
+                title="Program Fees & Services"
+                subtitle="Administrative fees and visit payments handled through secure Shopify checkout"
+              />
+              <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 14 }}>
+                <FileText size={16} color="#5a7a65" />
+                <p style={{ fontSize: 12, color: "#5a7a65", margin: 0 }}>
+                  Use these only when directed by the JourneyLite team.
+                </p>
+              </div>
+              <PGrid
+                products={services}
+                cols={3}
+                defaultShow={6}
+                id="services"
+                label="services"
+                showMore={showMore}
+                toggle={toggle}
+              />
+            </section>
+          )}
+
           {/* ── Food & snacks ────────────────────────────────────────────── */}
           {snacks.length > 0 && (
             <section style={{ marginBottom: 40 }}>
@@ -1072,6 +1321,27 @@ export function ShopClient({ products }: { products: ShopifyProduct[] }) {
                   defaultShow={4}
                   id="snacks"
                   label="snacks"
+                  showMore={showMore}
+                  toggle={toggle}
+                />
+              </div>
+            </section>
+          )}
+
+          {/* ── Catch-all for future Shopify product types ──────────────── */}
+          {otherProducts.length > 0 && (
+            <section style={{ marginBottom: 40 }}>
+              <SectionHead
+                title="Other Products"
+                subtitle="Additional JourneyLite shop items"
+              />
+              <div className="jls-g3">
+                <PGrid
+                  products={otherProducts}
+                  cols={3}
+                  defaultShow={6}
+                  id="other-products"
+                  label="products"
                   showMore={showMore}
                   toggle={toggle}
                 />
@@ -1158,7 +1428,7 @@ export function ShopClient({ products }: { products: ShopifyProduct[] }) {
                   Your care team can help you choose the right supplements for
                   your procedure and health history.
                 </p>
-                <a
+                <Link
                   className="jls-cta-btn"
                   href="/contact"
                   style={{
@@ -1177,7 +1447,7 @@ export function ShopClient({ products }: { products: ShopifyProduct[] }) {
                   }}
                 >
                   Contact your care team
-                </a>
+                </Link>
               </div>
             </div>
           </div>

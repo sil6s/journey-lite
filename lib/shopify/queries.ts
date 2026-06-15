@@ -38,6 +38,20 @@ export const CART_CREATE_MUTATION = `
       cart {
         id
         checkoutUrl
+        totalQuantity
+      }
+      userErrors { message }
+    }
+  }
+`;
+
+export const CART_LINES_ADD_MUTATION = `
+  mutation CartLinesAdd($cartId: ID!, $lines: [CartLineInput!]!) {
+    cartLinesAdd(cartId: $cartId, lines: $lines) {
+      cart {
+        id
+        checkoutUrl
+        totalQuantity
       }
       userErrors { message }
     }

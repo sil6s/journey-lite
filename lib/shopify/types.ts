@@ -33,6 +33,7 @@ export type ShopifyProduct = {
 export type ShopifyCart = {
   id: string;
   checkoutUrl: string;
+  totalQuantity: number;
   lines: {
     edges: {
       node: {
@@ -50,4 +51,8 @@ export type ProductsQuery = {
 
 export type CartCreateMutation = {
   cartCreate: { cart: ShopifyCart; userErrors: { message: string }[] };
+};
+
+export type CartLinesAddMutation = {
+  cartLinesAdd: { cart: ShopifyCart; userErrors: { message: string }[] };
 };
