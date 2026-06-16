@@ -7,17 +7,23 @@ export const dynamic = "force-dynamic";
 
 const LMS_URL = process.env.NEXT_PUBLIC_LMS_URL ?? "https://learn.journeylite.com";
 
+function displayName(user: { user_metadata?: { full_name?: string; name?: string } | null; email?: string | null }) {
+  return user.user_metadata?.full_name ?? user.user_metadata?.name ?? user.email?.split("@")[0] ?? "Patient";
+}
+
 export default async function PatientsAdminPage() {
   const db = getSupabaseAdminClient();
 
-  const [profilesRes, enrollmentsRes, progressRes, courses] = await Promise.all([
-    db.from("profiles").select("id, full_name, email, role, created_at").order("created_at", { ascending: false }),
+  // Same data sources the LMS's own admin dashboard reads from — both apps
+  // share one Supabase project, so this is the same patients, same progress.
+  const [usersRes, enrollmentsRes, progressRes, courses] = await Promise.all([
+    db.auth.admin.listUsers({ page: 1, perPage: 1000 }),
     db.from("enrollments").select("id, user_id, course_slug, status, enrolled_at, completed_at"),
     db.from("lesson_progress").select("user_id, course_slug, completed, lesson_slug"),
     fetchLmsCourses(),
   ]);
 
-  const profiles = profilesRes.data ?? [];
+  const users = usersRes.data?.users ?? [];
   const enrollments = enrollmentsRes.data ?? [];
   const progress = progressRes.data ?? [];
 
@@ -35,11 +41,11 @@ export default async function PatientsAdminPage() {
     if (p.completed) lessonMap[key].completed += 1;
   }
 
-  const patients = profiles
-    .filter((p) => p.role === "student" || enrollmentsByUser[p.id]?.length)
-    .map((p) => {
-      const userEnrollments = (enrollmentsByUser[p.id] ?? []).map((e) => {
-        const key = `${p.id}::${e.course_slug}`;
+  const patients = users
+    .filter((u) => u.app_metadata?.role !== "admin")
+    .map((u) => {
+      const userEnrollments = (enrollmentsByUser[u.id] ?? []).map((e) => {
+        const key = `${u.id}::${e.course_slug}`;
         const lp = lessonMap[key] ?? { total: 0, completed: 0 };
         const pct = lp.total > 0 ? Math.round((lp.completed / lp.total) * 100) : 0;
         const course = courses.find((c) => c.slug === e.course_slug);
@@ -60,14 +66,18 @@ export default async function PatientsAdminPage() {
         userEnrollments.length > 0
           ? Math.round(userEnrollments.reduce((sum, e) => sum + e.progressPct, 0) / userEnrollments.length)
           : 0;
+      const certificateCount = userEnrollments.filter((e) => e.progressPct === 100).length;
 
       return {
-        id: p.id,
-        name: p.full_name ?? "—",
-        email: p.email ?? "—",
-        joinedAt: p.created_at as string,
+        id: u.id,
+        name: displayName(u),
+        email: u.email ?? "—",
+        joinedAt: u.created_at,
+        lastSignInAt: u.last_sign_in_at ?? null,
+        status: (u.app_metadata?.deactivated ? "inactive" : "active") as "active" | "inactive",
         enrollments: userEnrollments,
         overallPct,
+        certificateCount,
       };
     });
 

@@ -7,6 +7,21 @@ import { revalidatePath } from "next/cache";
 function slugify(v: string) {
   return v.toLowerCase().trim().replace(/['"]/g, "").replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "");
 }
+
+/** Plain text (blank-line-separated paragraphs) → Portable Text blocks, matching scripts/seed-testimonials.ts. */
+function paragraphsToPortableText(text: string) {
+  return text
+    .split(/\n\n+/)
+    .map((p) => p.trim())
+    .filter(Boolean)
+    .map((p, i) => ({
+      _type: "block" as const,
+      _key: `p${i}-${Math.random().toString(36).slice(2, 8)}`,
+      style: "normal",
+      markDefs: [],
+      children: [{ _type: "span", _key: `s${i}-${Math.random().toString(36).slice(2, 8)}`, text: p, marks: [] }],
+    }));
+}
 function revalidatePeople() {
   revalidatePath("/admin/staff");
   revalidatePath("/admin/locations");
@@ -184,7 +199,8 @@ export type TestimonialDoc = {
   procedure?: string;
   weightLost?: number;
   shortQuote?: string;
-  /** Full patient story (plain text / markdown paragraphs) shown on a detail page */
+  /** Full patient story — plain text in the admin UI, blank lines separate paragraphs.
+   *  Stored in Sanity as Portable Text blocks; converted at the actions boundary. */
   fullStory?: string;
   featured?: boolean;
   publishedAt?: string;
@@ -195,7 +211,7 @@ export async function fetchTestimonials(): Promise<TestimonialDoc[]> {
   return client.fetch<TestimonialDoc[]>(
     `*[_type == "testimonial"] | order(coalesce(publishedAt, _createdAt) desc) {
       _id, name, "slug": slug.current, procedure, weightLost,
-      shortQuote, fullStory, featured, publishedAt, _updatedAt
+      shortQuote, "fullStory": pt::text(fullStory), featured, publishedAt, _updatedAt
     }`,
     {},
     { next: { revalidate: 30 } }
@@ -211,7 +227,7 @@ export async function createTestimonialAction(data: Omit<TestimonialDoc, "_id">)
     procedure: data.procedure || "",
     weightLost: data.weightLost ?? 0,
     shortQuote: data.shortQuote || "",
-    fullStory: data.fullStory || "",
+    fullStory: data.fullStory ? paragraphsToPortableText(data.fullStory) : [],
     featured: data.featured ?? false,
     publishedAt: data.publishedAt || new Date().toISOString(),
   };
@@ -228,7 +244,7 @@ export async function updateTestimonialAction(id: string, data: Partial<Testimon
   if (data.procedure !== undefined)   patch.procedure = data.procedure;
   if (data.weightLost !== undefined)  patch.weightLost = data.weightLost;
   if (data.shortQuote !== undefined)  patch.shortQuote = data.shortQuote;
-  if (data.fullStory !== undefined)   patch.fullStory = data.fullStory;
+  if (data.fullStory !== undefined)   patch.fullStory = paragraphsToPortableText(data.fullStory);
   if (data.featured !== undefined)    patch.featured = data.featured;
   if (data.publishedAt !== undefined) patch.publishedAt = data.publishedAt;
   await adminClient.patch(id).set(patch).commit();

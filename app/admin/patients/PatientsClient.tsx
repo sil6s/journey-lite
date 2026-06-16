@@ -1,12 +1,13 @@
 "use client";
 
 import { useState, useTransition } from "react";
+import { useRouter } from "next/navigation";
 import {
-  BookOpen, Check, ChevronRight, ExternalLink,
-  GraduationCap, Loader2, RotateCcw, Save, Search,
+  Award, BookOpen, Check, ChevronRight, Clock, ExternalLink,
+  GraduationCap, Loader2, Mail, Plus, RotateCcw, Save, Search,
   TrendingUp, UserRound, X,
 } from "lucide-react";
-import { assignCoursesAction, resetProgressAction, type LmsCourse } from "./actions";
+import { assignCoursesAction, inviteUserAction, resetProgressAction, type LmsCourse } from "./actions";
 
 type Enrollment = {
   id: string;
@@ -25,8 +26,11 @@ type Patient = {
   name: string;
   email: string;
   joinedAt: string;
+  lastSignInAt: string | null;
+  status: "active" | "inactive";
   enrollments: Enrollment[];
   overallPct: number;
+  certificateCount: number;
 };
 
 function fmtDate(iso?: string | null) {
@@ -59,12 +63,14 @@ export function PatientsClient({
   courses: LmsCourse[];
   lmsUrl: string;
 }) {
+  const router = useRouter();
   const [patients, setPatients] = useState(initialPatients);
   const [selectedId, setSelectedId] = useState<string | null>(null);
   const [query, setQuery] = useState("");
   const [assignedSlugs, setAssignedSlugs] = useState<Set<string>>(new Set());
   const [saveStatus, setSaveStatus] = useState<"idle" | "saving" | "saved" | "error">("idle");
   const [resetting, setResetting] = useState(false);
+  const [inviteOpen, setInviteOpen] = useState(false);
   const [, startT] = useTransition();
 
   const filtered = query.trim()
@@ -162,6 +168,10 @@ export function PatientsClient({
           ))}
         </div>
         <div className="border-b border-[#dce4df] px-4 py-2">
+          <button onClick={() => setInviteOpen(true)}
+            className="mb-2 flex w-full items-center justify-center gap-1.5 rounded-lg bg-[#0D3D24] px-3 py-1.5 text-xs font-semibold text-white hover:bg-[#145c42]">
+            <Plus className="h-3.5 w-3.5" /> Invite patient
+          </button>
           <div className="relative">
             <Search className="absolute left-2.5 top-2 h-3.5 w-3.5 text-[#9aafa5]" />
             <input value={query} onChange={(e) => setQuery(e.target.value)} placeholder="Search patients…"
@@ -176,7 +186,10 @@ export function PatientsClient({
               className={`w-full border-b border-[#dce4df] px-4 py-3 text-left transition-colors hover:bg-white ${selectedId === p.id ? "bg-white border-l-2 border-l-[#0D3D24]" : ""}`}>
               <div className="flex items-center justify-between gap-2">
                 <span className={`truncate text-xs font-semibold ${selectedId === p.id ? "text-[#0D3D24]" : "text-[#1f2c25]"}`}>{p.name}</span>
-                {p.enrollments.length > 0 && <span className="shrink-0 text-[10px] font-bold text-[#9aafa5]">{p.overallPct}%</span>}
+                <span className="flex shrink-0 items-center gap-1">
+                  {p.status === "inactive" && <span className="rounded-full bg-zinc-200 px-1.5 py-0.5 text-[9px] font-bold text-zinc-600">Inactive</span>}
+                  {p.enrollments.length > 0 && <span className="text-[10px] font-bold text-[#9aafa5]">{p.overallPct}%</span>}
+                </span>
               </div>
               <p className="mt-0.5 truncate text-[11px] text-[#9aafa5]">{p.email}</p>
               {p.enrollments.length > 0 && <ProgressBar pct={p.overallPct} className="mt-1.5" />}
@@ -203,7 +216,10 @@ export function PatientsClient({
                 {selected.name.charAt(0).toUpperCase()}
               </div>
               <div className="flex-1 min-w-0">
-                <p className="truncate text-sm font-bold text-[#1f2c25]">{selected.name}</p>
+                <div className="flex items-center gap-1.5">
+                  <p className="truncate text-sm font-bold text-[#1f2c25]">{selected.name}</p>
+                  {selected.status === "inactive" && <span className="shrink-0 rounded-full bg-zinc-200 px-1.5 py-0.5 text-[9px] font-bold text-zinc-600">Inactive</span>}
+                </div>
                 <p className="truncate text-[11px] text-[#9aafa5]">{selected.email}</p>
               </div>
               <a href={`${lmsUrl}/admin/patients?userId=${selected.id}`} target="_blank" rel="noopener noreferrer"
@@ -254,11 +270,13 @@ export function PatientsClient({
                 )}
 
                 {selected.enrollments.length > 0 && (
-                  <div className="mt-4 grid grid-cols-3 gap-3">
+                  <div className="mt-4 grid grid-cols-5 gap-3">
                     {[
                       { label: "Overall", value: `${selected.overallPct}%`, icon: TrendingUp },
                       { label: "Courses", value: String(selected.enrollments.length), icon: BookOpen },
+                      { label: "Certs", value: String(selected.certificateCount), icon: Award },
                       { label: "Joined", value: fmtDate(selected.joinedAt), icon: ChevronRight },
+                      { label: "Last seen", value: fmtDate(selected.lastSignInAt), icon: Clock },
                     ].map(({ label, value, icon: Icon }) => (
                       <div key={label} className="rounded-xl border border-[#dce4df] bg-zinc-50 p-3 text-center">
                         <Icon className="mx-auto mb-1 h-4 w-4 text-[#9aafa5]" />
@@ -327,6 +345,99 @@ export function PatientsClient({
           </div>
         )}
       </main>
+
+      {inviteOpen && (
+        <InviteModal
+          courses={courses}
+          onClose={() => setInviteOpen(false)}
+          onInvited={() => { setInviteOpen(false); router.refresh(); }}
+        />
+      )}
+    </div>
+  );
+}
+
+function InviteModal({ courses, onClose, onInvited }: {
+  courses: LmsCourse[];
+  onClose: () => void;
+  onInvited: () => void;
+}) {
+  const [email, setEmail] = useState("");
+  const [fullName, setFullName] = useState("");
+  const [selectedSlugs, setSelectedSlugs] = useState<Set<string>>(new Set());
+  const [status, setStatus] = useState<"idle" | "sending" | "error">("idle");
+  const [errorMsg, setErrorMsg] = useState("");
+
+  function toggleCourse(slug: string) {
+    setSelectedSlugs((prev) => {
+      const next = new Set(prev);
+      if (next.has(slug)) next.delete(slug);
+      else next.add(slug);
+      return next;
+    });
+  }
+
+  async function handleInvite() {
+    if (!email.trim()) return;
+    setStatus("sending");
+    setErrorMsg("");
+    try {
+      await inviteUserAction({ email: email.trim(), fullName: fullName.trim(), courseSlugs: Array.from(selectedSlugs) });
+      onInvited();
+    } catch (err) {
+      setStatus("error");
+      setErrorMsg(err instanceof Error ? err.message : "Failed to send invite");
+    }
+  }
+
+  return (
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/30 p-4">
+      <div className="w-full max-w-md rounded-2xl border border-[#dce4df] bg-white shadow-2xl">
+        <div className="flex items-center justify-between border-b border-[#dce4df] px-5 py-3">
+          <h3 className="flex items-center gap-1.5 text-sm font-bold text-[#1f2c25]"><Mail className="h-4 w-4 text-[#145c42]" /> Invite patient</h3>
+          <button onClick={onClose} className="text-[#9aafa5] hover:text-[#1f2c25]"><X className="h-4 w-4" /></button>
+        </div>
+        <div className="px-5 py-4 space-y-3">
+          <div>
+            <label className="mb-1 block text-xs font-semibold text-[#5f6f66]">Email *</label>
+            <input value={email} onChange={(e) => setEmail(e.target.value)} type="email" placeholder="patient@example.com"
+              className="w-full rounded-lg border border-[#dce4df] bg-white px-3 py-1.5 text-sm text-[#1f2c25] outline-none focus:border-[#145c42]" />
+          </div>
+          <div>
+            <label className="mb-1 block text-xs font-semibold text-[#5f6f66]">Full name</label>
+            <input value={fullName} onChange={(e) => setFullName(e.target.value)} placeholder="Jane Doe"
+              className="w-full rounded-lg border border-[#dce4df] bg-white px-3 py-1.5 text-sm text-[#1f2c25] outline-none focus:border-[#145c42]" />
+          </div>
+          <div>
+            <label className="mb-1.5 block text-xs font-semibold text-[#5f6f66]">Assign courses</label>
+            <div className="max-h-48 space-y-1.5 overflow-y-auto">
+              {courses.length === 0 ? (
+                <p className="text-xs text-[#9aafa5]">No LMS courses found.</p>
+              ) : courses.map((course) => {
+                const checked = selectedSlugs.has(course.slug);
+                return (
+                  <label key={course.slug}
+                    className={`flex cursor-pointer items-center gap-2.5 rounded-lg border p-2 transition-colors ${checked ? "border-[#0D3D24] bg-[#edf7f2]" : "border-[#dce4df] bg-white hover:border-[#9aafa5]"}`}>
+                    <input type="checkbox" checked={checked} onChange={() => toggleCourse(course.slug)} className="accent-[#0D3D24]" />
+                    <span className="text-xs font-semibold text-[#1f2c25]">{course.title}</span>
+                  </label>
+                );
+              })}
+            </div>
+          </div>
+          {status === "error" && (
+            <p className="rounded-lg border border-red-200 bg-red-50 px-3 py-2 text-xs text-red-600">{errorMsg}</p>
+          )}
+        </div>
+        <div className="flex justify-end gap-2 border-t border-[#dce4df] px-5 py-3">
+          <button onClick={onClose} className="rounded-lg border border-[#dce4df] px-4 py-1.5 text-xs font-semibold text-[#5f6f66] hover:bg-zinc-50">Cancel</button>
+          <button onClick={handleInvite} disabled={!email.trim() || status === "sending"}
+            className="flex items-center gap-1.5 rounded-lg bg-[#0D3D24] px-4 py-1.5 text-xs font-semibold text-white hover:bg-[#145c42] disabled:opacity-50">
+            {status === "sending" ? <Loader2 className="h-3.5 w-3.5 animate-spin" /> : <Mail className="h-3.5 w-3.5" />}
+            Send invite
+          </button>
+        </div>
+      </div>
     </div>
   );
 }

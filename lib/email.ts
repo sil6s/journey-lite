@@ -490,3 +490,46 @@ export async function sendFormSubmissionEmail({
     `),
   });
 }
+
+/* ── Patient LMS invite ─────────────────────────────────── */
+
+export async function sendPatientInviteEmail({
+  to,
+  name,
+  inviteHref,
+  courseTitles,
+}: {
+  to: string;
+  name: string;
+  inviteHref: string;
+  courseTitles: string[];
+}): Promise<void> {
+  const from = process.env.CONTACT_FROM_EMAIL ?? `JourneyLite <${process.env.SMTP_USER}>`;
+  const courseListHtml = courseTitles.length
+    ? `<ul style="margin:16px 0;padding:0;">${courseTitles
+        .map(
+          (title) =>
+            `<li style="margin:8px 0;padding:12px 16px;background:#f0f7f3;border:1px solid #c3dfd0;border-left:4px solid #145c42;border-radius:6px;list-style:none;"><span style="color:#145c42;font-weight:700;margin-right:8px;">&#10003;</span><span style="color:#1f2c25;font-weight:600;">${title}</span></li>`
+        )
+        .join("")}</ul>`
+    : `<p style="color:#5f6f66;">No courses are currently assigned.</p>`;
+
+  await transporter.sendMail({
+    from,
+    to,
+    subject: `Welcome to JourneyLite Patient Education, ${name}`,
+    html: wrapper(`
+      ${header(`Welcome, ${name}`, "Your JourneyLite Patient Education account is ready.", "JourneyLite")}
+      <tr>
+        <td style="background:#ffffff;padding:24px 32px;">
+          <p style="margin:0 0 8px;font-size:14px;color:#1f2c25;">Your care team has assigned you the following lessons as mandatory for your upcoming procedure:</p>
+          ${courseListHtml}
+          <p style="margin:16px 0 0;font-size:14px;color:#37443e;">Please complete these lessons before your surgery date. You can sign in from any phone, tablet, or computer — start and stop whenever it works for you.</p>
+          <p style="margin:20px 0 0;">${greenButton("Begin My Education", inviteHref)}</p>
+          <p style="margin:20px 0 0;font-size:13px;color:#5f6f66;">Questions? Contact your JourneyLite care team at <a href="https://journeylite.com/contact" style="color:#145c42;">journeylite.com/contact</a>.</p>
+        </td>
+      </tr>
+      ${footer()}
+    `),
+  });
+}
