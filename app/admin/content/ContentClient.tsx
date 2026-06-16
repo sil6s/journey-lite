@@ -94,7 +94,7 @@ export function ContentClient({
   }
 
   return (
-    <div className="flex h-[calc(100vh-60px)] overflow-hidden -mx-4 -mb-8 lg:-mx-8">
+    <div className="flex h-[calc(100vh-60px)] overflow-hidden -mx-4 -mt-8 -mb-8 lg:-mx-8">
       {/* ── Left sidebar ───────────────────────────────────────────────── */}
       <aside className="flex w-72 shrink-0 flex-col border-r border-[#dce4df] bg-zinc-50">
         {/* Header */}
@@ -299,6 +299,11 @@ function ContentEditor({
       setSeoTitle(data.seoTitle);
       setSeoDesc(data.seoDescription);
       if (!tags.trim() && data.tags.length) setTags(data.tags.join(", "));
+    } else {
+      // Pages don't have seoTitle/excerpt fields — reuse the AI's SEO description
+      // for the meta description, and the excerpt for the subtitle if blank.
+      setMetaDesc(data.seoDescription);
+      if (!subtitle.trim()) setSubtitle(data.excerpt);
     }
     // Drop the generated article into the body at the cursor (rich mode) or append.
     if (mode === "rich") {
@@ -918,7 +923,7 @@ function Dialog({ title, children, onClose, onConfirm, confirmLabel, disabled }:
 /* ── AI Generate Panel ───────────────────────────────────────────────────── */
 type AiFillData = {
   title: string; slug: string; excerpt: string; htmlBody: string;
-  seoTitle: string; seoDescription: string; tags: string[];
+  seoTitle: string; seoDescription: string; tags: string[]; keyword?: string;
 };
 
 function AiGeneratePanel({ onClose, onInsert }: {
@@ -938,7 +943,7 @@ function AiGeneratePanel({ onClose, onInsert }: {
   const [result, setResult]       = useState<(AiFillData & { wordCount?: number; keywordDensity?: number }) | null>(null);
 
   async function generate() {
-    if (!topic.trim() || !keyword.trim()) return;
+    if (!topic.trim()) return;
     setStatus("streaming");
     setStreamText("");
     setResult(null);
@@ -983,6 +988,7 @@ function AiGeneratePanel({ onClose, onInsert }: {
                 seoTitle: parsed.seoTitle ?? "",
                 seoDescription: parsed.seoDescription ?? "",
                 tags: Array.isArray(parsed.tags) ? parsed.tags : [],
+                keyword: parsed.keyword ?? "",
                 wordCount: parsed.wordCount,
                 keywordDensity: parsed.keywordDensity,
               });
@@ -1040,9 +1046,9 @@ function AiGeneratePanel({ onClose, onInsert }: {
                 placeholder="Gastric sleeve surgery recovery timeline"
                 className={aiInputCls} />
             </AiField>
-            <AiField label="Primary keyword *" hint="The exact SEO phrase to target">
+            <AiField label="Primary keyword" hint="Optional — leave blank and the AI will choose the best SEO keyword for your topic">
               <input value={keyword} onChange={(e) => setKeyword(e.target.value)}
-                placeholder="gastric sleeve recovery"
+                placeholder="Leave blank to let AI pick one"
                 className={aiInputCls} />
             </AiField>
             <AiField label="Target audience" hint="Leave blank for JourneyLite default">
@@ -1074,7 +1080,7 @@ function AiGeneratePanel({ onClose, onInsert }: {
 
             <button
               onClick={generate}
-              disabled={!topic.trim() || !keyword.trim() || status === "streaming"}
+              disabled={!topic.trim() || status === "streaming"}
               className="w-full flex items-center justify-center gap-2 rounded-xl bg-violet-600 py-2.5 text-sm font-bold text-white hover:bg-violet-700 disabled:opacity-50 transition-colors"
             >
               {status === "streaming"
@@ -1091,7 +1097,7 @@ function AiGeneratePanel({ onClose, onInsert }: {
                   <Sparkles className="h-8 w-8 text-violet-400" />
                 </div>
                 <p className="font-semibold text-[#1f2c25]">Ready to generate</p>
-                <p className="text-sm text-[#9aafa5] max-w-xs">Fill in your topic and keyword on the left, then click Generate. The AI will write a full SEO-optimized article.</p>
+                <p className="text-sm text-[#9aafa5] max-w-xs">Fill in your topic on the left, then click Generate. The AI will pick a target keyword and write a full SEO-optimized article.</p>
                 <div className="mt-2 flex flex-wrap gap-2 text-[11px] text-[#9aafa5] justify-center">
                   {["Keyword density 1–1.5%", "3+ H2 headings", "Internal links", "Meta description", "E-E-A-T signals"].map((t) => (
                     <span key={t} className="flex items-center gap-1 rounded-full border border-[#dce4df] px-2 py-0.5"><CheckCircle2 className="h-3 w-3 text-emerald-500" />{t}</span>
@@ -1105,6 +1111,7 @@ function AiGeneratePanel({ onClose, onInsert }: {
                 {/* SEO score bar (shown when done) */}
                 {status === "done" && result && (
                   <div className="flex items-center gap-4 border-b border-[#dce4df] bg-zinc-50 px-5 py-3 flex-wrap">
+                    {result.keyword && <SeoStat label="Keyword" value={result.keyword} good />}
                     <SeoStat label="Words" value={String(result.wordCount ?? "—")} good={(result.wordCount ?? 0) > 600} />
                     <SeoStat
                       label="Keyword density"

@@ -21,6 +21,11 @@ CONTENT GUIDELINES
 - Include a brief medical disclaimer reminder at the end if the content is about medical procedures
 
 SEO REQUIREMENTS (CRITICAL — follow exactly)
+0. PRIMARY KEYWORD: If the user did not supply one, choose the single best primary SEO
+   keyword phrase for this topic yourself (what a real patient would actually search for
+   on Google) before writing anything else. Report your chosen keyword in the "keyword"
+   output field either way.
+
 1. TARGET KEYWORD PLACEMENT:
    - Title: keyword in first 60 characters
    - Opening paragraph: keyword appears naturally within the first 100 words
@@ -64,12 +69,13 @@ Only swap in the text content and badge label — keep the inline styles exactly
 OUTPUT FORMAT
 Return ONLY a single valid JSON object — no markdown fences, no explanatory text before or after. Schema:
 {
+  "keyword": string,          // the primary SEO keyword used — either the one supplied, or the one you chose
   "title": string,            // 50-70 chars, keyword near start, compelling
   "slug": string,             // lowercase, hyphens, max 80 chars
   "excerpt": string,          // 150-220 chars, includes keyword, ends with value promise
   "htmlBody": string,         // Full article body as HTML. Use <h2>, <h3>, <p>, <ul>/<ol>/<li>, <strong>, <a href="...">...</a>. Do NOT include <html>, <head>, <body> or the article <h1> (that is the title). Escape quotes inside attribute values.
   "seoTitle": string,         // 50-60 chars for <title> tag
-  "seoDescription": string,   // 150-160 chars for meta description, includes keyword + soft CTA
+  "seoDescription": string,   // 150-160 chars for meta description, includes keyword + soft CTA — also reused as the page meta description when generating for a static page
   "tags": string[],           // 5-8 short tag strings
   "internalLinks": [          // suggested internal links already woven into htmlBody
     { "anchor": string, "href": string }
@@ -94,14 +100,14 @@ function buildUserPrompt(opts: {
   return `Generate a complete SEO-optimized blog post with the following parameters:
 
 TOPIC: ${opts.topic}
-PRIMARY KEYWORD: "${opts.keyword}"
+PRIMARY KEYWORD: ${opts.keyword ? `"${opts.keyword}"` : "(not provided — choose the best one yourself per the system prompt)"}
 TARGET AUDIENCE: ${opts.audience}
 ARTICLE LENGTH: ${lengths[opts.length] ?? lengths.medium}
 TONE: ${opts.tone}
 ${opts.extraInstructions ? `ADDITIONAL INSTRUCTIONS: ${opts.extraInstructions}` : ""}
 
 Remember:
-- Keyword "${opts.keyword}" must appear in: title (first 60 chars), opening paragraph, ≥2 H2 headings, meta description
+- The keyword (supplied or chosen) must appear in: title (first 60 chars), opening paragraph, ≥2 H2 headings, meta description
 - Keyword density 1.0–1.5%
 - Return ONLY valid JSON, no other text`;
 }
@@ -129,19 +135,19 @@ export async function POST(req: NextRequest) {
 
   const body = await req.json();
   const { topic, keyword, audience, length, tone, extraInstructions } = body as {
-    topic: string; keyword: string; audience?: string; length?: string;
+    topic: string; keyword?: string; audience?: string; length?: string;
     tone?: string; extraInstructions?: string;
   };
 
-  if (!topic?.trim() || !keyword?.trim()) {
-    return new Response(JSON.stringify({ error: "topic and keyword are required" }), {
+  if (!topic?.trim()) {
+    return new Response(JSON.stringify({ error: "topic is required" }), {
       status: 400, headers: { "Content-Type": "application/json" },
     });
   }
 
   const userPrompt = buildUserPrompt({
     topic: topic.trim(),
-    keyword: keyword.trim(),
+    keyword: keyword?.trim() || "",
     audience: audience || "Adults in Ohio, Kentucky, and Indiana exploring weight loss surgery and non-surgical options",
     length: length || "medium",
     tone: tone || "warm, expert, patient-focused",
