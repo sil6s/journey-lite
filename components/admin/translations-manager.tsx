@@ -380,7 +380,7 @@ function LocaleFilesTab({ initialStatus }: { initialStatus: LocaleFileStatus[] }
       <div className="rounded-xl border border-[#dfe8e2] bg-[#f7faf7] p-4 text-sm text-[#193f2c]">
         <p className="font-medium">How it works</p>
         <ul className="mt-2 list-inside list-disc space-y-1 text-muted-foreground">
-          <li><strong>Auto</strong> — translates missing keys immediately using DeepSeek API and saves to <code>locales/</code></li>
+          <li><strong>Auto</strong> — translates missing keys immediately using the Gemini API and saves to <code>locales/</code></li>
           <li><strong>Task file</strong> — downloads a markdown file to paste into your own AI agent (ChatGPT, Claude.ai, etc.) — no API cost</li>
           <li>After your agent responds, save the JSON into <code>locales/[locale]/[namespace].json</code> and refresh this page</li>
         </ul>

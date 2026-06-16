@@ -13,8 +13,8 @@ import {
   isDistributedTranslationInProgress,
 } from "@/lib/translation/cache";
 
-const DEEPSEEK_API_URL = "https://api.deepseek.com/v1/chat/completions";
-const DEEPSEEK_MODEL = "deepseek-chat";
+const GEMINI_API_URL = "https://generativelanguage.googleapis.com/v1beta/openai/chat/completions";
+const GEMINI_MODEL = "gemini-flash-lite-latest";
 
 export const TRANSLATABLE_TYPES = new Set(["blogPost", "sitePage", "post"]);
 
@@ -68,11 +68,11 @@ async function translateFields(
     return { title: null, excerpt: null, seoTitle: null, seoDescription: null, faqs: null, ctas: null };
   }
 
-  const response = await fetch(DEEPSEEK_API_URL, {
+  const response = await fetch(GEMINI_API_URL, {
     method: "POST",
     headers: { Authorization: `Bearer ${apiKey}`, "Content-Type": "application/json" },
     body: JSON.stringify({
-      model: DEEPSEEK_MODEL,
+      model: GEMINI_MODEL,
       temperature: 0.1,
       max_tokens: 4096,
       response_format: { type: "json_object" },
@@ -93,10 +93,10 @@ async function translateFields(
     }),
   });
 
-  if (!response.ok) throw new Error(`DeepSeek API error: ${response.status}`);
+  if (!response.ok) throw new Error(`Gemini API error: ${response.status}`);
   const data = await response.json() as { choices?: Array<{ message?: { content?: string } }> };
   const content = data?.choices?.[0]?.message?.content;
-  if (!content) throw new Error("No content from DeepSeek");
+  if (!content) throw new Error("No content from Gemini");
 
   const translated = JSON.parse(content) as Record<string, string>;
 
@@ -134,7 +134,7 @@ async function translateOneLocale(
     source_content_hash: contentHash,
     locale,
     status: "translating",
-    translation_provider: "deepseek",
+    translation_provider: "gemini",
   });
 
   const translated = await translateFields(doc, locale, apiKey);
@@ -153,7 +153,7 @@ async function translateOneLocale(
     translatedFaqs: translated.faqs ? (translated.faqs as Parameters<typeof saveTranslation>[2]["translatedFaqs"]) : null,
     translatedCtas: translated.ctas ? (translated.ctas as Parameters<typeof saveTranslation>[2]["translatedCtas"]) : null,
     translatedImageAlts: null,
-    provider: "deepseek",
+    provider: "gemini",
   });
 }
 

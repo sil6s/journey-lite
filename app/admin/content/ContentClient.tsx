@@ -944,7 +944,7 @@ function AiGeneratePanel({ onClose, onFill }: {
           </div>
           <div className="flex-1">
             <h2 className="text-sm font-bold text-[#1f2c25]">AI Blog Generator</h2>
-            <p className="text-[11px] text-[#9aafa5]">Powered by DeepSeek · SEO-optimized for JourneyLite</p>
+            <p className="text-[11px] text-[#9aafa5]">Powered by Gemini · SEO-optimized for JourneyLite</p>
           </div>
           <button onClick={onClose} className="text-[#9aafa5] hover:text-[#1f2c25]"><X className="h-5 w-5" /></button>
         </div>
@@ -1045,7 +1045,7 @@ function AiGeneratePanel({ onClose, onFill }: {
                 {status === "error" && (
                   <div className="mx-5 mt-4 flex items-start gap-2 rounded-xl border border-red-100 bg-red-50 px-4 py-3">
                     <AlertTriangle className="h-4 w-4 shrink-0 text-red-500 mt-0.5" />
-                    <p className="text-xs font-semibold text-red-700">{errorMsg || "Generation failed. Check your DeepSeek API key in .env.local."}</p>
+                    <p className="text-xs font-semibold text-red-700">{errorMsg || "Generation failed. Check your GEMINI_API_KEY in .env.local."}</p>
                   </div>
                 )}
 

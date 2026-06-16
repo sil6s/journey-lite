@@ -296,7 +296,7 @@ function setAtPath(root: unknown, path: string, value: string): void {
  * stays below `maxChars`. This is more reliable than block-count chunking
  * because token cost tracks character count more closely.
  *
- * DeepSeek-chat has 64K input context; 8K chars per chunk keeps us well within
+ * Gemini flash-lite has a large input context; 8K chars per chunk keeps us well within
  * a single request even after system-prompt overhead.
  */
 export function chunkTextMap(

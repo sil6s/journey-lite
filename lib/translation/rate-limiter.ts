@@ -6,7 +6,7 @@
  *    duplicate translations for the same document+locale pair.
  *
  * 2. Global AI concurrency slot (semaphore)
- *    Caps simultaneous DeepSeek API calls to `MAX_CONCURRENT_AI_CALLS`.
+ *    Caps simultaneous Gemini API calls to `MAX_CONCURRENT_AI_CALLS`.
  *    Prevents request spikes from exhausting rate limits or incurring large
  *    parallel costs.
  *
@@ -58,7 +58,7 @@ let activeAiCalls = 0;
 const aiQueue: Array<() => void> = [];
 
 /**
- * Acquire a slot for making a DeepSeek API call.
+ * Acquire a slot for making a Gemini API call.
  * Blocks until a slot is available (max `MAX_CONCURRENT_AI_CALLS` in flight).
  * Returns a `release()` function — always call in a `finally` block.
  */

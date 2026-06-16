@@ -206,7 +206,7 @@ export async function upsertCacheRow(
 }
 
 /**
- * Save a completed translation. `provider` defaults to "deepseek".
+ * Save a completed translation. `provider` defaults to "gemini".
  */
 export async function saveTranslation(
   documentId: string,
@@ -247,7 +247,7 @@ export async function saveTranslation(
     translated_image_alts: payload.translatedImageAlts ?? null,
     status: "complete",
     error_message: null,
-    translation_provider: payload.provider ?? "deepseek",
+    translation_provider: payload.provider ?? "gemini",
     generated_at: new Date().toISOString(),
   });
 }

@@ -4,7 +4,7 @@
  * GET  /api/admin/translations?tab=locales   → locale file completion status
  * GET  /api/admin/translations?tab=cms       → CMS translation_cache rows
  * POST /api/admin/translations               → action dispatcher
- *   { action: "auto-translate", locale, namespace }   → translate missing keys via DeepSeek
+ *   { action: "auto-translate", locale, namespace }   → translate missing keys via Gemini
  *   { action: "export-task", locale, namespace? }      → return markdown task file
  *   { action: "cms-retrigger", documentId }            → re-trigger CMS translation
  *   { action: "cms-retrigger-all-stale" }              → re-trigger all stale CMS docs
@@ -137,21 +137,21 @@ async function listAllCmsRows(): Promise<CmsDocRow[]> {
   return (data ?? []) as CmsDocRow[];
 }
 
-// ── DeepSeek translation for locale files ─────────────────────────────────────
+// ── Gemini translation for locale files ───────────────────────────────────────
 
-const DEEPSEEK_API_URL = "https://api.deepseek.com/v1/chat/completions";
+const GEMINI_API_URL = "https://generativelanguage.googleapis.com/v1beta/openai/chat/completions";
 
-async function deepseekTranslate(
+async function geminiTranslate(
   texts: Record<string, string>,
   targetLocale: SupportedLocale,
   apiKey: string,
 ): Promise<Record<string, string>> {
   const langEntry = supportedLanguages.find((l) => l.id === targetLocale)!;
-  const response = await fetch(DEEPSEEK_API_URL, {
+  const response = await fetch(GEMINI_API_URL, {
     method: "POST",
     headers: { Authorization: `Bearer ${apiKey}`, "Content-Type": "application/json" },
     body: JSON.stringify({
-      model: "deepseek-chat",
+      model: "gemini-flash-lite-latest",
       temperature: 0.1,
       max_tokens: 4096,
       response_format: { type: "json_object" },
@@ -171,10 +171,10 @@ async function deepseekTranslate(
       ],
     }),
   });
-  if (!response.ok) throw new Error(`DeepSeek ${response.status}`);
+  if (!response.ok) throw new Error(`Gemini ${response.status}`);
   const data = await response.json() as { choices?: Array<{ message?: { content?: string } }> };
   const content = data?.choices?.[0]?.message?.content;
-  if (!content) throw new Error("No content from DeepSeek");
+  if (!content) throw new Error("No content from Gemini");
   return JSON.parse(content) as Record<string, string>;
 }
 
@@ -244,7 +244,7 @@ export async function POST(request: NextRequest) {
     documentId?: string;
   };
 
-  const apiKey = process.env.DEEPSEEK_API_KEY;
+  const apiKey = process.env.GEMINI_API_KEY;
 
   // ── Export task file ──────────────────────────────────────────────────────
   if (body.action === "export-task") {
@@ -289,9 +289,9 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ content: sections.join("\n") });
   }
 
-  // ── Auto-translate locale file via DeepSeek ───────────────────────────────
+  // ── Auto-translate locale file via Gemini ───────────────────────────────
   if (body.action === "auto-translate") {
-    if (!apiKey) return NextResponse.json({ error: "DEEPSEEK_API_KEY not configured" }, { status: 503 });
+    if (!apiKey) return NextResponse.json({ error: "GEMINI_API_KEY not configured" }, { status: 503 });
 
     const locale = body.locale as SupportedLocale;
     const ns = body.namespace;
@@ -307,7 +307,7 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ ok: true, translated: 0 });
     }
 
-    const translated = await deepseekTranslate(missing, locale, apiKey);
+    const translated = await geminiTranslate(missing, locale, apiKey);
 
     // Merge translations into existing target
     const merged = { ...target };
@@ -325,14 +325,14 @@ export async function POST(request: NextRequest) {
   // ── CMS retrigger single document ─────────────────────────────────────────
   if (body.action === "cms-retrigger") {
     if (!body.documentId) return NextResponse.json({ error: "documentId required" }, { status: 400 });
-    if (!apiKey) return NextResponse.json({ error: "DEEPSEEK_API_KEY not configured" }, { status: 503 });
+    if (!apiKey) return NextResponse.json({ error: "GEMINI_API_KEY not configured" }, { status: 503 });
     await retriggerCmsDocument(body.documentId, apiKey);
     return NextResponse.json({ ok: true });
   }
 
   // ── CMS retrigger all stale ────────────────────────────────────────────────
   if (body.action === "cms-retrigger-all-stale") {
-    if (!apiKey) return NextResponse.json({ error: "DEEPSEEK_API_KEY not configured" }, { status: 503 });
+    if (!apiKey) return NextResponse.json({ error: "GEMINI_API_KEY not configured" }, { status: 503 });
     const supabase = getSupabaseAdminClient();
     const { data } = await supabase
       .from("translation_cache")

@@ -5,7 +5,8 @@ import { getAdminAccessForEmail } from "@/lib/admin/users";
 export const runtime = "nodejs";
 export const maxDuration = 120;
 
-const DEEPSEEK_API = "https://api.deepseek.com/v1/chat/completions";
+const GEMINI_API = "https://generativelanguage.googleapis.com/v1beta/openai/chat/completions";
+const GEMINI_MODEL = "gemini-flash-lite-latest";
 
 const SYSTEM_PROMPT = `You are a senior SEO content strategist and medical content writer for JourneyLite Bariatric Physicians — a bariatric surgery and medical weight loss practice serving Ohio, Kentucky, and Indiana (Cincinnati area and beyond).
 
@@ -102,10 +103,10 @@ export async function POST(req: NextRequest) {
     return new Response("Auth error", { status: 500 });
   }
 
-  const apiKey = process.env.DEEPSEEK_API_KEY;
+  const apiKey = process.env.GEMINI_API_KEY;
   if (!apiKey) {
     return new Response(
-      JSON.stringify({ error: "DEEPSEEK_API_KEY is not configured. Add it to your .env.local file." }),
+      JSON.stringify({ error: "GEMINI_API_KEY is not configured. Add it to your .env.local file." }),
       { status: 503, headers: { "Content-Type": "application/json" } }
     );
   }
@@ -131,15 +132,15 @@ export async function POST(req: NextRequest) {
     extraInstructions: extraInstructions || "",
   });
 
-  // Call DeepSeek with streaming
-  const dsResponse = await fetch(DEEPSEEK_API, {
+  // Call Gemini (OpenAI-compatible endpoint) with streaming
+  const aiResponse = await fetch(GEMINI_API, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
       Authorization: `Bearer ${apiKey}`,
     },
     body: JSON.stringify({
-      model: "deepseek-chat",
+      model: GEMINI_MODEL,
       messages: [
         { role: "system", content: SYSTEM_PROMPT },
         { role: "user", content: userPrompt },
@@ -151,9 +152,9 @@ export async function POST(req: NextRequest) {
     }),
   });
 
-  if (!dsResponse.ok) {
-    const err = await dsResponse.text();
-    return new Response(JSON.stringify({ error: `DeepSeek API error: ${dsResponse.status}`, details: err }), {
+  if (!aiResponse.ok) {
+    const err = await aiResponse.text();
+    return new Response(JSON.stringify({ error: `Gemini API error: ${aiResponse.status}`, details: err }), {
       status: 502, headers: { "Content-Type": "application/json" },
     });
   }
@@ -162,7 +163,7 @@ export async function POST(req: NextRequest) {
   const encoder = new TextEncoder();
   const stream = new ReadableStream({
     async start(controller) {
-      const reader = dsResponse.body!.getReader();
+      const reader = aiResponse.body!.getReader();
       const decoder = new TextDecoder();
       let buffer = "";
 

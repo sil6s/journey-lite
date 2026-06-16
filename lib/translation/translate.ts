@@ -1,5 +1,5 @@
 /**
- * AI translation orchestrator — DeepSeek backend.
+ * AI translation orchestrator — Gemini backend.
  *
  * Flow per request:
  *  1. Compute content hash → check Supabase cache
@@ -10,14 +10,14 @@
  *     b. Acquire in-process lock (prevents duplicate work within this instance)
  *     c. Double-check cache after lock (another request may have just finished)
  *     d. Mark DB status="translating"
- *     e. Call DeepSeek — one batched request for all flat fields + PT text map
+ *     e. Call Gemini — one batched request for all flat fields + PT text map
  *     f. Save to cache with status="complete"
  *  4. On error → mark status="error", return null (caller falls back to English)
  *
- * DeepSeek API is OpenAI-compatible and supports `response_format: json_object`,
+ * Gemini's OpenAI-compatible endpoint supports `response_format: json_object`,
  * which guarantees valid JSON output — no code-fence stripping needed.
  *
- * All API calls are server-side. DEEPSEEK_API_KEY never reaches the browser.
+ * All API calls are server-side. GEMINI_API_KEY never reaches the browser.
  */
 
 import {
@@ -40,10 +40,10 @@ import { acquireAiCallSlot, acquireTranslationLock } from "./rate-limiter";
 import { getLanguageEntry, type SupportedLocale } from "@/lib/i18n/config";
 import type { Json } from "@/lib/supabase/database.types";
 
-// ── DeepSeek config ───────────────────────────────────────────────────────────
+// ── Gemini config ─────────────────────────────────────────────────────────────
 
-const DEEPSEEK_API_URL = "https://api.deepseek.com/v1/chat/completions";
-const DEEPSEEK_MODEL = "deepseek-chat"; // DeepSeek-V3: best quality, very cheap
+const GEMINI_API_URL = "https://generativelanguage.googleapis.com/v1beta/openai/chat/completions";
+const GEMINI_MODEL = "gemini-flash-lite-latest"; // cheapest Gemini tier
 const MAX_TOKENS = 8192;
 const TEMPERATURE = 0.1; // Low = consistent, deterministic translation
 
@@ -259,7 +259,7 @@ async function runTranslation(
       if (Object.keys(firstChunk).length > 0) payload.ptTexts = firstChunk;
       if (faqItems.length > 0) payload.faqs = faqItems;
 
-      const response = await callDeepSeek<typeof payload>(
+      const response = await callGemini<typeof payload>(
         buildSystemPrompt(lang.title),
         `Translate the following JSON to ${lang.title}. Translate ONLY the string values in "fields", the string values in "ptTexts" (keys are structural paths — do not change them), and the "question"/"answer" strings in "faqs". Return JSON with the same structure.\n\n${JSON.stringify(payload)}`,
       );
@@ -276,7 +276,7 @@ async function runTranslation(
       const remainingTranslated = { ...extractPtTextsMap(result.body ?? blocks) };
 
       for (const chunk of ptChunks.slice(1)) {
-        const chunkResponse = await callDeepSeek<{ ptTexts: Record<string, string> }>(
+        const chunkResponse = await callGemini<{ ptTexts: Record<string, string> }>(
           buildSystemPrompt(lang.title),
           `Translate the string values in this JSON path map to ${lang.title}. Do not change the keys.\n\n${JSON.stringify({ ptTexts: chunk })}`,
         );
@@ -301,20 +301,20 @@ function extractPtTextsMap(blocks: PortableTextBlock[]): Record<string, string> 
   return Object.fromEntries(entries.map((e) => [e.path, e.text]));
 }
 
-// ── DeepSeek API call ─────────────────────────────────────────────────────────
+// ── Gemini API call ─────────────────────────────────────────────────────────
 
-async function callDeepSeek<T>(system: string, user: string): Promise<T> {
-  const apiKey = process.env.DEEPSEEK_API_KEY;
-  if (!apiKey) throw new Error("DEEPSEEK_API_KEY is not set.");
+async function callGemini<T>(system: string, user: string): Promise<T> {
+  const apiKey = process.env.GEMINI_API_KEY;
+  if (!apiKey) throw new Error("GEMINI_API_KEY is not set.");
 
-  const response = await fetch(DEEPSEEK_API_URL, {
+  const response = await fetch(GEMINI_API_URL, {
     method: "POST",
     headers: {
       Authorization: `Bearer ${apiKey}`,
       "Content-Type": "application/json",
     },
     body: JSON.stringify({
-      model: DEEPSEEK_MODEL,
+      model: GEMINI_MODEL,
       max_tokens: MAX_TOKENS,
       temperature: TEMPERATURE,
       // json_object mode guarantees valid JSON output — no post-processing needed
@@ -329,26 +329,26 @@ async function callDeepSeek<T>(system: string, user: string): Promise<T> {
 
   if (!response.ok) {
     const body = await response.text();
-    throw new Error(`DeepSeek ${response.status}: ${body.slice(0, 300)}`);
+    throw new Error(`Gemini ${response.status}: ${body.slice(0, 300)}`);
   }
 
-  type DeepSeekResponse = {
+  type GeminiResponse = {
     choices: Array<{ message: { content: string } }>;
     usage?: { prompt_tokens: number; completion_tokens: number };
   };
 
-  const data = (await response.json()) as DeepSeekResponse;
+  const data = (await response.json()) as GeminiResponse;
   const text = data.choices[0]?.message?.content ?? "";
 
   if (data.usage) {
     console.debug(
-      `[translate/deepseek] tokens in=${data.usage.prompt_tokens} out=${data.usage.completion_tokens}`,
+      `[translate/gemini] tokens in=${data.usage.prompt_tokens} out=${data.usage.completion_tokens}`,
     );
   }
 
   try {
     return JSON.parse(text) as T;
   } catch {
-    throw new Error(`DeepSeek returned invalid JSON. Preview: ${text.slice(0, 200)}`);
+    throw new Error(`Gemini returned invalid JSON. Preview: ${text.slice(0, 200)}`);
   }
 }
