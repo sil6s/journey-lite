@@ -482,6 +482,10 @@ function ContentEditor({
   }
 
   function handleSaveDraft() {
+    if (!title.trim()) {
+      setValidationError("Add a title before saving — even a draft needs one.");
+      return;
+    }
     setValidationError(null);
     handleSave(true);
   }
@@ -532,12 +536,12 @@ function ContentEditor({
               <Trash2 className="h-3.5 w-3.5" />
             </button>
           )}
-          <button onClick={() => handleSave(true)} disabled={saving || !title.trim()}
+          <button onClick={handleSaveDraft} disabled={saving}
             className="flex items-center gap-1.5 rounded-lg border border-[#dce4df] px-3.5 py-1.5 text-xs font-semibold text-[#5f6f66] hover:bg-zinc-50 disabled:opacity-50">
             {saving ? <Loader2 className="h-3.5 w-3.5 animate-spin" /> : <FileText className="h-3.5 w-3.5" />}
             Save Draft
           </button>
-          <button onClick={handlePreviewAndPublish} disabled={saving || !title.trim()}
+          <button onClick={handlePreviewAndPublish} disabled={saving}
             className="flex items-center gap-1.5 rounded-lg bg-[#0D3D24] px-3.5 py-1.5 text-xs font-semibold text-white hover:bg-[#145c42] disabled:opacity-50">
             {saving ? <Loader2 className="h-3.5 w-3.5 animate-spin" /> : <Eye className="h-3.5 w-3.5" />}
             Preview & Publish
