@@ -112,6 +112,40 @@ Remember:
 - Return ONLY valid JSON, no other text`;
 }
 
+// ── Testimonial generation ──────────────────────────────────────────────────
+
+const TESTIMONIAL_SYSTEM_PROMPT = `You are a patient-story writer for JourneyLite Bariatric Physicians — a bariatric surgery and medical weight loss practice. You turn a few raw facts about a patient's journey into a polished testimonial for the website.
+
+RULES
+- Write in third person about the patient (e.g. "Sue had gastric bypass surgery...").
+- Warm, genuine, specific — avoid generic phrases like "changed my life" unless backed by a concrete detail.
+- Never invent medical details, dates, or numbers beyond what's given. If something isn't provided, write around it rather than making it up.
+- Medical claims stay hedged where appropriate ("can help", "for many patients") — but personal results already given (weight lost, dates) are stated as fact since they're the patient's own data.
+- Do not promise outcomes for other readers.
+
+OUTPUT FORMAT
+Return ONLY a single valid JSON object — no markdown fences, no explanatory text before or after. Schema:
+{
+  "shortQuote": string,   // <=120 chars, first-person, punchy, suitable for a homepage card. Written AS the patient (e.g. "I stopped watching life from the sidelines.")
+  "fullStory": string     // 4-6 paragraphs, third person, separated by blank lines (\\n\\n). No headings, no markdown — plain prose paragraphs only.
+}`;
+
+function buildTestimonialUserPrompt(opts: {
+  name: string;
+  procedure: string;
+  weightLost?: string;
+  keyDetails?: string;
+}) {
+  return `Write a testimonial for:
+
+PATIENT: ${opts.name}
+PROCEDURE: ${opts.procedure}
+${opts.weightLost ? `WEIGHT LOST: ${opts.weightLost} lbs` : ""}
+${opts.keyDetails ? `KEY DETAILS / NOTES FROM THE PATIENT:\n${opts.keyDetails}` : "No additional details provided — keep the story general but still specific to the procedure and weight lost."}
+
+Return ONLY the JSON object described in the system prompt.`;
+}
+
 export async function POST(req: NextRequest) {
   // Auth check
   try {
@@ -134,25 +168,42 @@ export async function POST(req: NextRequest) {
   }
 
   const body = await req.json();
-  const { topic, keyword, audience, length, tone, extraInstructions } = body as {
-    topic: string; keyword?: string; audience?: string; length?: string;
-    tone?: string; extraInstructions?: string;
+  const { kind, topic, keyword, audience, length, tone, extraInstructions, name, procedure, weightLost, keyDetails } = body as {
+    kind?: "blog" | "testimonial";
+    topic?: string; keyword?: string; audience?: string; length?: string; tone?: string; extraInstructions?: string;
+    name?: string; procedure?: string; weightLost?: string; keyDetails?: string;
   };
 
-  if (!topic?.trim()) {
-    return new Response(JSON.stringify({ error: "topic is required" }), {
-      status: 400, headers: { "Content-Type": "application/json" },
+  let systemPrompt: string;
+  let userPrompt: string;
+
+  if (kind === "testimonial") {
+    if (!name?.trim() || !procedure?.trim()) {
+      return new Response(JSON.stringify({ error: "name and procedure are required" }), {
+        status: 400, headers: { "Content-Type": "application/json" },
+      });
+    }
+    systemPrompt = TESTIMONIAL_SYSTEM_PROMPT;
+    userPrompt = buildTestimonialUserPrompt({
+      name: name.trim(), procedure: procedure.trim(),
+      weightLost: weightLost?.trim(), keyDetails: keyDetails?.trim(),
+    });
+  } else {
+    if (!topic?.trim()) {
+      return new Response(JSON.stringify({ error: "topic is required" }), {
+        status: 400, headers: { "Content-Type": "application/json" },
+      });
+    }
+    systemPrompt = SYSTEM_PROMPT;
+    userPrompt = buildUserPrompt({
+      topic: topic.trim(),
+      keyword: keyword?.trim() || "",
+      audience: audience || "Adults in Ohio, Kentucky, and Indiana exploring weight loss surgery and non-surgical options",
+      length: length || "medium",
+      tone: tone || "warm, expert, patient-focused",
+      extraInstructions: extraInstructions || "",
     });
   }
-
-  const userPrompt = buildUserPrompt({
-    topic: topic.trim(),
-    keyword: keyword?.trim() || "",
-    audience: audience || "Adults in Ohio, Kentucky, and Indiana exploring weight loss surgery and non-surgical options",
-    length: length || "medium",
-    tone: tone || "warm, expert, patient-focused",
-    extraInstructions: extraInstructions || "",
-  });
 
   // Call Gemini (OpenAI-compatible endpoint) with streaming
   const aiResponse = await fetch(GEMINI_API, {
@@ -164,7 +215,7 @@ export async function POST(req: NextRequest) {
     body: JSON.stringify({
       model: GEMINI_MODEL,
       messages: [
-        { role: "system", content: SYSTEM_PROMPT },
+        { role: "system", content: systemPrompt },
         { role: "user", content: userPrompt },
       ],
       stream: true,

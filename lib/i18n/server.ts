@@ -15,17 +15,31 @@ import {
   type I18nNamespace,
   type SupportedLocale,
 } from "./config";
+import { applyOverrides, getOverrides } from "@/lib/translation/locale-overrides";
 
 const localesDir = path.join(process.cwd(), "locales");
 
 /** Load a single locale/namespace JSON file. Returns {} on missing file. */
-function loadNamespace(locale: string, ns: string): ResourceLanguage {
+function loadNamespaceFile(locale: string, ns: string): ResourceLanguage {
   try {
     const filePath = path.join(localesDir, locale, `${ns}.json`);
     return JSON.parse(readFileSync(filePath, "utf-8")) as ResourceLanguage;
   } catch {
     return {};
   }
+}
+
+/**
+ * Load a locale/namespace, merging in AI-translated strings saved by the
+ * admin "Auto translate" action. locales/*.json is baked into the deployed
+ * bundle (read-only at runtime), so those overrides live in Supabase instead
+ * — see lib/translation/locale-overrides.ts.
+ */
+async function loadNamespace(locale: string, ns: string): Promise<ResourceLanguage> {
+  const base = loadNamespaceFile(locale, ns);
+  if (locale === defaultLocale) return base; // English is the source, never overridden
+  const overrides = await getOverrides(locale, ns);
+  return applyOverrides(base as Record<string, unknown>, overrides) as ResourceLanguage;
 }
 
 /**
@@ -47,12 +61,12 @@ export async function getTranslations(
   for (const ns of namespaces) {
     // Load the requested locale
     resources[locale] ??= {};
-    resources[locale][ns] = loadNamespace(locale, ns);
+    resources[locale][ns] = await loadNamespace(locale, ns);
 
     // Always load English as fallback
     if (locale !== defaultLocale) {
       resources[defaultLocale] ??= {};
-      resources[defaultLocale][ns] = loadNamespace(defaultLocale, ns);
+      resources[defaultLocale][ns] = await loadNamespace(defaultLocale, ns);
     }
   }
 
@@ -84,10 +98,10 @@ export async function getTranslationsWithResources(
 
   for (const ns of namespaces) {
     resources[locale] ??= {};
-    resources[locale][ns] = loadNamespace(locale, ns);
+    resources[locale][ns] = await loadNamespace(locale, ns);
     if (locale !== defaultLocale) {
       resources[defaultLocale] ??= {};
-      resources[defaultLocale][ns] = loadNamespace(defaultLocale, ns);
+      resources[defaultLocale][ns] = await loadNamespace(defaultLocale, ns);
     }
   }
 

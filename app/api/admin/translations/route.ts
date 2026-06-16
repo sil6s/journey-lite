@@ -5,19 +5,19 @@
  * GET  /api/admin/translations?tab=cms       → CMS translation_cache rows
  * POST /api/admin/translations               → action dispatcher
  *   { action: "auto-translate", locale, namespace }   → translate missing keys via Gemini
- *   { action: "export-task", locale, namespace? }      → return markdown task file
  *   { action: "cms-retrigger", documentId }            → re-trigger CMS translation
  *   { action: "cms-retrigger-all-stale" }              → re-trigger all stale CMS docs
  */
 
 import { NextRequest, NextResponse } from "next/server";
-import { readFileSync, writeFileSync, readdirSync, existsSync, mkdirSync } from "fs";
+import { readFileSync, readdirSync, existsSync } from "fs";
 import path from "path";
 import { createClient } from "@/lib/supabase/server";
 import { getAdminAccessForEmail } from "@/lib/admin/users";
 import { supportedLanguages, type SupportedLocale } from "@/lib/i18n/config";
 import { getSupabaseAdminClient } from "@/lib/supabase/admin";
 import { translateDocument } from "@/lib/translation/translate-document";
+import { applyOverrides, getOverrides, getOverridesForLocale, saveOverrides } from "@/lib/translation/locale-overrides";
 
 // ── Auth guard ────────────────────────────────────────────────────────────────
 
@@ -85,16 +85,18 @@ export type LocaleFileStatus = {
   pct: number;
 };
 
-function buildLocaleStatus(): LocaleFileStatus[] {
+async function buildLocaleStatus(): Promise<LocaleFileStatus[]> {
   const namespaces = getNamespaces();
   const result: LocaleFileStatus[] = [];
   for (const locale of NON_ENGLISH) {
     const langEntry = supportedLanguages.find((l) => l.id === locale)!;
+    const overridesByNs = await getOverridesForLocale(locale);
     for (const ns of namespaces) {
       const enPath = path.join(LOCALES_DIR, "en", `${ns}.json`);
       const targetPath = path.join(LOCALES_DIR, locale, `${ns}.json`);
       const english = loadJson(enPath);
-      const target = existsSync(targetPath) ? loadJson(targetPath) : {};
+      const fileTarget = existsSync(targetPath) ? loadJson(targetPath) : {};
+      const target = applyOverrides(fileTarget, overridesByNs[ns] ?? {});
       const allKeys = countKeys(english);
       const missing = findMissingKeys(english, target);
       const total = allKeys.length;
@@ -178,17 +180,6 @@ async function geminiTranslate(
   return JSON.parse(content) as Record<string, string>;
 }
 
-function setNestedValue(obj: Record<string, unknown>, dotPath: string, value: string) {
-  const parts = dotPath.split(".");
-  let cur = obj;
-  for (let i = 0; i < parts.length - 1; i++) {
-    const k = parts[i]!;
-    if (!cur[k] || typeof cur[k] !== "object") cur[k] = {};
-    cur = cur[k] as Record<string, unknown>;
-  }
-  cur[parts[parts.length - 1]!] = value;
-}
-
 // ── CMS retrigger ─────────────────────────────────────────────────────────────
 
 async function retriggerCmsDocument(documentId: string, apiKey: string) {
@@ -227,7 +218,7 @@ export async function GET(request: NextRequest) {
   }
 
   // Default: locale file status
-  const status = buildLocaleStatus();
+  const status = await buildLocaleStatus();
   return NextResponse.json({ status });
 }
 
@@ -246,49 +237,6 @@ export async function POST(request: NextRequest) {
 
   const apiKey = process.env.GEMINI_API_KEY;
 
-  // ── Export task file ──────────────────────────────────────────────────────
-  if (body.action === "export-task") {
-    const locale = body.locale;
-    const ns = body.namespace;
-    if (!locale) return NextResponse.json({ error: "locale required" }, { status: 400 });
-
-    const langEntry = supportedLanguages.find((l) => l.id === locale);
-    const langName = langEntry?.title ?? locale;
-    const namespaces = ns ? [ns] : getNamespaces();
-    const sections: string[] = [
-      `# Translation task — ${langName} (${locale})`,
-      `Generated: ${new Date().toISOString()}`,
-      "",
-      "Paste each section into your AI agent. Save each response to: locales/" + locale + "/<namespace>.json",
-      "",
-      "---",
-      "",
-    ];
-
-    for (const namespace of namespaces) {
-      const enPath = path.join(LOCALES_DIR, "en", `${namespace}.json`);
-      const targetPath = path.join(LOCALES_DIR, locale, `${namespace}.json`);
-      const english = loadJson(enPath);
-      const target = existsSync(targetPath) ? loadJson(targetPath) : {};
-      const missing = findMissingKeys(english, target);
-      if (Object.keys(missing).length === 0) continue;
-
-      sections.push(`## ${namespace}.json → ${langName}`);
-      sections.push("");
-      sections.push(`Translate from English to ${langName}. Return only JSON with the same keys.`);
-      sections.push("Do NOT translate: JourneyLite, HIPAA, URLs, phone numbers, medication brand names, procedure acronyms, physician names. Preserve {{interpolation}} placeholders.");
-      sections.push("");
-      sections.push("```json");
-      sections.push(JSON.stringify(missing, null, 2));
-      sections.push("```");
-      sections.push("");
-      sections.push("---");
-      sections.push("");
-    }
-
-    return NextResponse.json({ content: sections.join("\n") });
-  }
-
   // ── Auto-translate locale file via Gemini ───────────────────────────────
   if (body.action === "auto-translate") {
     if (!apiKey) return NextResponse.json({ error: "GEMINI_API_KEY not configured" }, { status: 503 });
@@ -300,7 +248,9 @@ export async function POST(request: NextRequest) {
     const enPath = path.join(LOCALES_DIR, "en", `${ns}.json`);
     const targetPath = path.join(LOCALES_DIR, locale, `${ns}.json`);
     const english = loadJson(enPath);
-    const target = existsSync(targetPath) ? loadJson(targetPath) : {};
+    const fileTarget = existsSync(targetPath) ? loadJson(targetPath) : {};
+    const existingOverrides = await getOverrides(locale, ns);
+    const target = applyOverrides(fileTarget, existingOverrides);
     const missing = findMissingKeys(english, target);
 
     if (Object.keys(missing).length === 0) {
@@ -309,15 +259,9 @@ export async function POST(request: NextRequest) {
 
     const translated = await geminiTranslate(missing, locale, apiKey);
 
-    // Merge translations into existing target
-    const merged = { ...target };
-    for (const [key, value] of Object.entries(translated)) {
-      setNestedValue(merged as Record<string, unknown>, key, value);
-    }
-
-    const localeDir = path.join(LOCALES_DIR, locale);
-    if (!existsSync(localeDir)) mkdirSync(localeDir, { recursive: true });
-    writeFileSync(targetPath, JSON.stringify(merged, null, 2) + "\n", "utf-8");
+    // locales/*.json is baked into the deployed bundle and read-only at
+    // runtime — persist to Supabase instead, merged in by lib/i18n/server.ts.
+    await saveOverrides(locale, ns, translated);
 
     return NextResponse.json({ ok: true, translated: Object.keys(translated).length });
   }

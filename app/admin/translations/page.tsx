@@ -5,6 +5,7 @@ import { readFileSync, readdirSync, existsSync } from "fs";
 import path from "path";
 import { supportedLanguages } from "@/lib/i18n/config";
 import type { LocaleFileStatus, CmsDocRow } from "@/app/api/admin/translations/route";
+import { applyOverrides, getOverridesForLocale } from "@/lib/translation/locale-overrides";
 
 export const metadata: Metadata = {
   title: "Translations — JourneyLite Admin",
@@ -38,7 +39,7 @@ function getNestedValue(obj: Record<string, unknown>, dotPath: string): unknown 
   }, obj);
 }
 
-function buildLocaleStatus(): LocaleFileStatus[] {
+async function buildLocaleStatus(): Promise<LocaleFileStatus[]> {
   const enDir = path.join(LOCALES_DIR, "en");
   if (!existsSync(enDir)) return [];
   const namespaces = readdirSync(enDir).filter((f) => f.endsWith(".json")).map((f) => f.replace(".json", ""));
@@ -46,10 +47,12 @@ function buildLocaleStatus(): LocaleFileStatus[] {
   const result: LocaleFileStatus[] = [];
   for (const locale of NON_ENGLISH) {
     const langEntry = supportedLanguages.find((l) => l.id === locale)!;
+    const overridesByNs = await getOverridesForLocale(locale);
     for (const ns of namespaces) {
       const english = loadJson(path.join(LOCALES_DIR, "en", `${ns}.json`));
       const targetPath = path.join(LOCALES_DIR, locale, `${ns}.json`);
-      const target = existsSync(targetPath) ? loadJson(targetPath) : {};
+      const fileTarget = existsSync(targetPath) ? loadJson(targetPath) : {};
+      const target = applyOverrides(fileTarget, overridesByNs[ns] ?? {});
       const allKeys = countLeafKeys(english);
       const missingCount = allKeys.filter((k) => {
         const enVal = getNestedValue(english, k) as string;
@@ -91,7 +94,7 @@ async function fetchCmsRows(): Promise<CmsDocRow[]> {
 
 export default async function TranslationsPage() {
   const [localeStatus, cmsRows] = await Promise.all([
-    Promise.resolve(buildLocaleStatus()),
+    buildLocaleStatus(),
     fetchCmsRows(),
   ]);
 

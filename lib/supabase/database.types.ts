@@ -426,6 +426,30 @@ export type Database = {
         };
         Relationships: [];
       };
+      locale_overrides: {
+        Row: {
+          locale: string;
+          namespace: string;
+          key: string;
+          value: string;
+          updated_at: string;
+        };
+        Insert: {
+          locale: string;
+          namespace: string;
+          key: string;
+          value: string;
+          updated_at?: string;
+        };
+        Update: {
+          locale?: string;
+          namespace?: string;
+          key?: string;
+          value?: string;
+          updated_at?: string;
+        };
+        Relationships: [];
+      };
     };
     Views: Record<string, never>;
     Functions: {

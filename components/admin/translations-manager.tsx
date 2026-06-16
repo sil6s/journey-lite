@@ -4,8 +4,6 @@ import { useState, useTransition } from "react";
 import {
   AlertCircle,
   CheckCircle2,
-  Clock,
-  Download,
   Globe,
   Loader2,
   RefreshCcw,
@@ -16,7 +14,7 @@ import {
 } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
 import {
   Select,
@@ -111,19 +109,12 @@ function relTime(dateStr: string | null) {
 
 function LocaleFilesTab({ initialStatus }: { initialStatus: LocaleFileStatus[] }) {
   const [status, setStatus] = useState(initialStatus);
-  const [filterLocale, setFilterLocale] = useState("all");
-  const [filterNs, setFilterNs] = useState("all");
   const [isPending, startTransition] = useTransition();
   const [activeOp, setActiveOp] = useState<string | null>(null);
   const [toast, setToast] = useState<{ type: "ok" | "err"; msg: string } | null>(null);
 
   const locales = [...new Set(status.map((s) => s.locale))];
   const namespaces = [...new Set(status.map((s) => s.namespace))];
-
-  const filtered = status.filter(
-    (s) => (filterLocale === "all" || s.locale === filterLocale) &&
-            (filterNs === "all" || s.namespace === filterNs),
-  );
 
   function showToast(type: "ok" | "err", msg: string) {
     setToast({ type, msg });
@@ -138,47 +129,30 @@ function LocaleFilesTab({ initialStatus }: { initialStatus: LocaleFileStatus[] }
     }
   }
 
-  function downloadTask(locale: string, namespace?: string) {
-    startTransition(async () => {
-      const opKey = `dl-${locale}-${namespace ?? "all"}`;
-      setActiveOp(opKey);
-      try {
-        const res = await fetch("/api/admin/translations", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ action: "export-task", locale, namespace }),
-        });
-        const data = await res.json() as { content?: string; error?: string };
-        if (!data.content) throw new Error(data.error ?? "Failed");
-        const blob = new Blob([data.content], { type: "text/markdown" });
-        const url = URL.createObjectURL(blob);
-        const a = document.createElement("a");
-        a.href = url;
-        a.download = `translate-${locale}${namespace ? `-${namespace}` : ""}.md`;
-        a.click();
-        URL.revokeObjectURL(url);
-        showToast("ok", "Task file downloaded — paste each section into your AI agent.");
-      } catch (e) {
-        showToast("err", e instanceof Error ? e.message : "Download failed");
-      } finally {
-        setActiveOp(null);
-      }
+  async function autoTranslateOne(locale: string, namespace: string) {
+    const res = await fetch("/api/admin/translations", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ action: "auto-translate", locale, namespace }),
     });
+    const data = await res.json() as { ok?: boolean; translated?: number; error?: string };
+    if (!data.ok) throw new Error(data.error ?? "Failed");
+    return data.translated ?? 0;
   }
 
-  function autoTranslate(locale: string, namespace: string) {
+  function aiTranslateLocale(locale: string, localeName: string) {
     startTransition(async () => {
-      const opKey = `at-${locale}-${namespace}`;
-      setActiveOp(opKey);
+      setActiveOp(locale);
       try {
-        const res = await fetch("/api/admin/translations", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ action: "auto-translate", locale, namespace }),
+        const missingNs = namespaces.filter((ns) => {
+          const row = status.find((r) => r.locale === locale && r.namespace === ns);
+          return row && row.missing > 0;
         });
-        const data = await res.json() as { ok?: boolean; translated?: number; error?: string };
-        if (!data.ok) throw new Error(data.error ?? "Failed");
-        showToast("ok", `Translated ${data.translated} keys for ${locale}/${namespace}.json`);
+        let total = 0;
+        for (const ns of missingNs) {
+          total += await autoTranslateOne(locale, ns);
+        }
+        showToast("ok", `AI translated ${total} string${total !== 1 ? "s" : ""} for ${localeName}.`);
         await refreshStatus();
       } catch (e) {
         showToast("err", e instanceof Error ? e.message : "Translation failed");
@@ -209,7 +183,14 @@ function LocaleFilesTab({ initialStatus }: { initialStatus: LocaleFileStatus[] }
         </div>
       )}
 
-      {/* Summary cards */}
+      <div className="flex items-center justify-between">
+        <p className="text-sm text-muted-foreground">Translates missing UI strings with Gemini and saves them immediately — no manual steps.</p>
+        <Button size="sm" variant="outline" className="h-8" onClick={() => startTransition(() => void refreshStatus())}>
+          <RefreshCcw className="size-3.5" /> Refresh
+        </Button>
+      </div>
+
+      {/* Per-locale cards — AI Translate is the only action needed */}
       <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
         {summaryByLocale.map((s) => (
           <Card key={s.locale} className="border-[#dfe8e2]">
@@ -220,170 +201,21 @@ function LocaleFilesTab({ initialStatus }: { initialStatus: LocaleFileStatus[] }
               </div>
               <Progress value={s.pct} className="mb-2 h-1.5" />
               <p className="text-xs text-muted-foreground">
-                {s.translated} / {s.total} keys translated
+                {s.translated} / {s.total} strings translated
                 {s.missing > 0 && <span className="ml-1 text-amber-600">({s.missing} missing)</span>}
               </p>
-              <div className="mt-3 flex gap-2">
-                <Button
-                  size="sm"
-                  variant="outline"
-                  className="h-7 flex-1 text-xs"
-                  disabled={s.missing === 0 || isPending}
-                  onClick={() => downloadTask(s.locale)}
-                >
-                  {activeOp === `dl-${s.locale}-all` ? <Loader2 className="size-3 animate-spin" /> : <Download className="size-3" />}
-                  Task file
-                </Button>
-                <Button
-                  size="sm"
-                  variant="outline"
-                  className="h-7 flex-1 text-xs border-[#153f2b] text-[#153f2b] hover:bg-[#f7faf7]"
-                  disabled={s.missing === 0 || isPending}
-                  onClick={() => {
-                    /* auto-translate all namespaces for this locale */
-                    namespaces.forEach((ns) => {
-                      const row = status.find((r) => r.locale === s.locale && r.namespace === ns);
-                      if (row && row.missing > 0) autoTranslate(s.locale, ns);
-                    });
-                  }}
-                >
-                  <Sparkles className="size-3" />
-                  Auto
-                </Button>
-              </div>
+              <Button
+                size="sm"
+                className="mt-3 h-8 w-full bg-violet-600 text-xs font-semibold text-white hover:bg-violet-700"
+                disabled={s.missing === 0 || isPending}
+                onClick={() => aiTranslateLocale(s.locale, s.localeName)}
+              >
+                {activeOp === s.locale ? <Loader2 className="size-3.5 animate-spin" /> : <Sparkles className="size-3.5" />}
+                {s.missing === 0 ? "Up to date" : "AI Translate"}
+              </Button>
             </CardContent>
           </Card>
         ))}
-      </div>
-
-      {/* Detailed table */}
-      <Card className="border-[#dfe8e2]">
-        <CardHeader className="pb-3">
-          <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-            <div>
-              <CardTitle className="text-base">Namespace detail</CardTitle>
-              <CardDescription>Per-locale, per-namespace translation status</CardDescription>
-            </div>
-            <div className="flex gap-2">
-              <Select value={filterLocale} onValueChange={setFilterLocale}>
-                <SelectTrigger className="h-8 w-36 text-xs">
-                  <SelectValue placeholder="All locales" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="all">All locales</SelectItem>
-                  {locales.map((l) => (
-                    <SelectItem key={l} value={l}>
-                      {supportedLanguages.find((x) => x.id === l)?.title ?? l}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-              <Select value={filterNs} onValueChange={setFilterNs}>
-                <SelectTrigger className="h-8 w-36 text-xs">
-                  <SelectValue placeholder="All namespaces" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="all">All namespaces</SelectItem>
-                  {namespaces.map((ns) => (
-                    <SelectItem key={ns} value={ns}>{ns}</SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-              <Button size="sm" variant="outline" className="h-8" onClick={() => startTransition(() => void refreshStatus())}>
-                <RefreshCcw className="size-3.5" />
-              </Button>
-            </div>
-          </div>
-        </CardHeader>
-        <CardContent className="p-0">
-          <Table>
-            <TableHeader>
-              <TableRow className="border-[#dfe8e2] hover:bg-transparent">
-                <TableHead>Locale</TableHead>
-                <TableHead>Namespace</TableHead>
-                <TableHead className="text-right">Keys</TableHead>
-                <TableHead className="text-right">Missing</TableHead>
-                <TableHead>Progress</TableHead>
-                <TableHead className="text-right">Actions</TableHead>
-              </TableRow>
-            </TableHeader>
-            <TableBody>
-              {filtered.map((row) => (
-                <TableRow key={`${row.locale}-${row.namespace}`} className="border-[#dfe8e2]">
-                  <TableCell className="font-medium">{row.localeName} <span className="text-xs text-muted-foreground">({row.locale})</span></TableCell>
-                  <TableCell><code className="rounded bg-muted px-1 py-0.5 text-xs">{row.namespace}.json</code></TableCell>
-                  <TableCell className="text-right text-sm">{row.total}</TableCell>
-                  <TableCell className={`text-right text-sm font-medium ${row.missing > 0 ? "text-amber-600" : "text-emerald-600"}`}>
-                    {row.missing === 0 ? "—" : row.missing}
-                  </TableCell>
-                  <TableCell className="w-36">
-                    <div className="flex items-center gap-2">
-                      <Progress value={row.pct} className="h-1.5 flex-1" />
-                      <span className={`min-w-8 text-right text-xs font-medium ${pctColor(row.pct)}`}>{row.pct}%</span>
-                    </div>
-                  </TableCell>
-                  <TableCell className="text-right">
-                    <div className="flex justify-end gap-1.5">
-                      {row.missing > 0 && (
-                        <>
-                          <Button
-                            size="sm"
-                            variant="outline"
-                            className="h-7 px-2 text-xs"
-                            disabled={isPending}
-                            onClick={() => downloadTask(row.locale, row.namespace)}
-                          >
-                            {activeOp === `dl-${row.locale}-${row.namespace}` ? (
-                              <Loader2 className="size-3 animate-spin" />
-                            ) : (
-                              <Download className="size-3" />
-                            )}
-                            Task
-                          </Button>
-                          <Button
-                            size="sm"
-                            variant="outline"
-                            className="h-7 px-2 text-xs border-[#153f2b] text-[#153f2b] hover:bg-[#f7faf7]"
-                            disabled={isPending}
-                            onClick={() => autoTranslate(row.locale, row.namespace)}
-                          >
-                            {activeOp === `at-${row.locale}-${row.namespace}` ? (
-                              <Loader2 className="size-3 animate-spin" />
-                            ) : (
-                              <Sparkles className="size-3" />
-                            )}
-                            Auto
-                          </Button>
-                        </>
-                      )}
-                      {row.missing === 0 && (
-                        <span className="flex items-center gap-1 text-xs text-emerald-600">
-                          <CheckCircle2 className="size-3.5" /> Done
-                        </span>
-                      )}
-                    </div>
-                  </TableCell>
-                </TableRow>
-              ))}
-              {filtered.length === 0 && (
-                <TableRow>
-                  <TableCell colSpan={6} className="py-8 text-center text-muted-foreground">
-                    No locale files found.
-                  </TableCell>
-                </TableRow>
-              )}
-            </TableBody>
-          </Table>
-        </CardContent>
-      </Card>
-
-      <div className="rounded-xl border border-[#dfe8e2] bg-[#f7faf7] p-4 text-sm text-[#193f2c]">
-        <p className="font-medium">How it works</p>
-        <ul className="mt-2 list-inside list-disc space-y-1 text-muted-foreground">
-          <li><strong>Auto</strong> — translates missing keys immediately using the Gemini API and saves to <code>locales/</code></li>
-          <li><strong>Task file</strong> — downloads a markdown file to paste into your own AI agent (ChatGPT, Claude.ai, etc.) — no API cost</li>
-          <li>After your agent responds, save the JSON into <code>locales/[locale]/[namespace].json</code> and refresh this page</li>
-        </ul>
       </div>
     </div>
   );
@@ -525,12 +357,12 @@ function CmsTab({ initialRows }: { initialRows: CmsDocRow[] }) {
         {staleCount > 0 && (
           <Button
             size="sm"
-            className="h-8 bg-[#153f2b] text-white hover:bg-[#0f3322]"
+            className="h-8 bg-violet-600 text-white hover:bg-violet-700"
             disabled={isPending}
             onClick={retriggerAllStale}
           >
-            {activeOp === "rt-all-stale" ? <Loader2 className="size-3.5 animate-spin" /> : <RefreshCcw className="size-3.5" />}
-            Re-translate {staleCount} stale doc{staleCount !== 1 ? "s" : ""}
+            {activeOp === "rt-all-stale" ? <Loader2 className="size-3.5 animate-spin" /> : <Sparkles className="size-3.5" />}
+            AI Translate {staleCount} stale doc{staleCount !== 1 ? "s" : ""}
           </Button>
         )}
       </div>
@@ -592,14 +424,14 @@ function CmsTab({ initialRows }: { initialRows: CmsDocRow[] }) {
                       <Button
                         size="sm"
                         variant="outline"
-                        className="h-7 px-2 text-xs"
+                        className="h-7 border-violet-200 px-2 text-xs text-violet-700 hover:bg-violet-50"
                         disabled={isPending}
                         onClick={() => retrigger(group.documentId)}
                       >
                         {activeOp === `rt-${group.documentId}`
                           ? <Loader2 className="size-3 animate-spin" />
-                          : <RefreshCcw className="size-3" />}
-                        Re-translate
+                          : <Sparkles className="size-3" />}
+                        AI Translate
                       </Button>
                     </TableCell>
                   </TableRow>,
