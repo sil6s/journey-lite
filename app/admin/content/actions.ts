@@ -107,7 +107,7 @@ export async function fetchContentById(id: string): Promise<ContentDetail | null
 export async function createBlogPostAction(data: {
   title: string; slug: string; excerpt: string; htmlBody: string;
   publishedAt: string; seoTitle?: string; seoDescription?: string;
-  tags?: string[]; categoryId?: string; authorId?: string;
+  tags?: string[]; categoryId?: string; authorId?: string; asDraft?: boolean;
 }): Promise<string> {
   const slug = data.slug || slugify(data.title);
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -117,7 +117,8 @@ export async function createBlogPostAction(data: {
     slug: { _type: "slug", current: slug },
     excerpt: data.excerpt || data.title,
     htmlBody: data.htmlBody,
-    publishedAt: data.publishedAt || new Date().toISOString(),
+    // Omitting publishedAt keeps the post in "draft" status (see fetchAllContent's select()).
+    ...(data.asDraft ? {} : { publishedAt: data.publishedAt || new Date().toISOString() }),
     ...(data.seoTitle ? { seoTitle: data.seoTitle } : {}),
     ...(data.seoDescription ? { seoDescription: data.seoDescription } : {}),
     ...(data.tags?.length ? { tags: data.tags } : {}),
@@ -132,20 +133,23 @@ export async function createBlogPostAction(data: {
 export async function updateBlogPostAction(id: string, data: Partial<{
   title: string; slug: string; excerpt: string; htmlBody: string;
   publishedAt: string; seoTitle: string; seoDescription: string;
-  tags: string[]; categoryId: string; authorId: string;
+  tags: string[]; categoryId: string; authorId: string; asDraft: boolean;
 }>): Promise<void> {
   const patch: Record<string, unknown> = {};
   if (data.title !== undefined) patch.title = data.title;
   if (data.slug !== undefined) patch["slug.current"] = data.slug;
   if (data.excerpt !== undefined) patch.excerpt = data.excerpt;
   if (data.htmlBody !== undefined) patch.htmlBody = data.htmlBody;
-  if (data.publishedAt !== undefined) patch.publishedAt = data.publishedAt;
   if (data.seoTitle !== undefined) patch.seoTitle = data.seoTitle;
   if (data.seoDescription !== undefined) patch.seoDescription = data.seoDescription;
   if (data.tags !== undefined) patch.tags = data.tags;
   if (data.categoryId !== undefined) patch.category = { _type: "reference", _ref: data.categoryId };
   if (data.authorId !== undefined) patch.author = { _type: "reference", _ref: data.authorId };
-  await adminClient.patch(id).set(patch).commit();
+  let p = adminClient.patch(id).set(patch);
+  // Draft = no publishedAt. Unset it explicitly so the post reverts to draft status.
+  if (data.asDraft) p = p.unset(["publishedAt"]);
+  else if (data.publishedAt !== undefined) p = p.set({ publishedAt: data.publishedAt });
+  await p.commit();
   revalidateAll();
 }
 
@@ -158,7 +162,7 @@ export async function deleteBlogPostAction(id: string): Promise<void> {
 
 export async function createPageAction(data: {
   title: string; slug: string; htmlBody: string;
-  subtitle?: string; pageType?: string; metaDescription?: string;
+  subtitle?: string; pageType?: string; metaDescription?: string; status?: string;
 }): Promise<string> {
   const slug = data.slug || slugify(data.title);
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -167,7 +171,7 @@ export async function createPageAction(data: {
     title: data.title,
     slug: { _type: "slug", current: slug },
     htmlBody: data.htmlBody,
-    status: "draft",
+    status: data.status || "draft",
     ...(data.subtitle ? { subtitle: data.subtitle } : {}),
     ...(data.pageType ? { pageType: data.pageType } : { pageType: "general" }),
     ...(data.metaDescription ? { metaDescription: data.metaDescription } : {}),

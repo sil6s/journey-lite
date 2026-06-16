@@ -65,29 +65,8 @@ export function ContentClient({
   const [detail, setDetail] = useState<ContentDetail | null>(null);
   const [detailLoading, setDetailLoading] = useState(false);
   const [query, setQuery] = useState("");
-  const [aiOpen, setAiOpen] = useState(false);
 
   const refresh = () => router.refresh();
-
-  function handleAiFill(data: {
-    title: string; slug: string; excerpt: string; htmlBody: string;
-    seoTitle: string; seoDescription: string; tags: string[];
-  }) {
-    setAiOpen(false);
-    setActiveTab("blog");
-    setSelectedId("__new_blog");
-    setDetail({
-      _id: "__new_blog",
-      _type: "blogPost",
-      title: data.title,
-      slug: data.slug,
-      excerpt: data.excerpt,
-      htmlBody: data.htmlBody,
-      seoTitle: data.seoTitle,
-      seoDescription: data.seoDescription,
-      tags: data.tags,
-    });
-  }
 
   const posts = initialPosts;
   const pages = initialPages;
@@ -123,13 +102,6 @@ export function ContentClient({
           <div className="flex items-center justify-between mb-3">
             <h1 className="text-sm font-bold text-[#1f2c25]">Content</h1>
             <div className="flex items-center gap-1.5">
-              <button
-                onClick={() => setAiOpen(true)}
-                title="Generate with AI"
-                className="flex items-center gap-1 rounded-lg border border-[#dce4df] bg-white px-2 py-1.5 text-[11px] font-semibold text-[#5f6f66] hover:border-violet-300 hover:bg-violet-50 hover:text-violet-700 transition-colors"
-              >
-                <Sparkles className="h-3 w-3" /> AI
-              </button>
             <NewContentMenu
               onNewBlog={() => { setActiveTab("blog"); setSelectedId("__new_blog"); setDetail({ _id: "__new_blog", _type: "blogPost", title: "", slug: "", htmlBody: "" }); }}
               onNewPage={() => { setActiveTab("pages"); setSelectedId("__new_page"); setDetail({ _id: "__new_page", _type: "sitePage", title: "", slug: "", htmlBody: "" }); }}
@@ -169,11 +141,6 @@ export function ContentClient({
           ))}
         </div>
       </aside>
-
-      {/* ── AI Generate panel ──────────────────────────────────────────── */}
-      {aiOpen && (
-        <AiGeneratePanel onClose={() => setAiOpen(false)} onFill={handleAiFill} />
-      )}
 
       {/* ── Right editor pane ──────────────────────────────────────────── */}
       <main className="flex flex-1 flex-col overflow-hidden bg-white">
@@ -318,6 +285,29 @@ function ContentEditor({
   // Preview
   const [previewOpen, setPreviewOpen] = useState(false);
 
+  // AI Builder
+  const [aiOpen, setAiOpen] = useState(false);
+
+  function handleAiInsert(data: AiFillData) {
+    setAiOpen(false);
+    // Only fill metadata that's still blank — never clobber existing work.
+    if (!title.trim()) handleTitleChange(data.title);
+    if (isBlog) {
+      if (!excerpt.trim()) setExcerpt(data.excerpt);
+      if (!seoTitle.trim()) setSeoTitle(data.seoTitle);
+      if (!seoDesc.trim()) setSeoDesc(data.seoDescription);
+      if (!tags.trim() && data.tags.length) setTags(data.tags.join(", "));
+    }
+    // Drop the generated article into the body at the cursor (rich mode) or append.
+    if (mode === "rich") {
+      richRef.current?.insertRawBlock(data.htmlBody);
+    } else if (mode === "markdown") {
+      setMdDraft((d) => (d ? d + "\n\n" + htmlToMd(data.htmlBody) : htmlToMd(data.htmlBody)));
+    } else {
+      setHtmlBody((h) => (h ? h + "\n" + data.htmlBody : data.htmlBody));
+    }
+  }
+
   function handleTitleChange(v: string) {
     setTitle(v);
     if (!slugManual) setSlug(slugify(v));
@@ -425,7 +415,7 @@ function ContentEditor({
     setCalloutText("");
   }
 
-  function handleSave() {
+  function handleSave(asDraft = false) {
     const body = getFinalHtml();
     setSaving(true);
     startTransition(async () => {
@@ -441,6 +431,7 @@ function ContentEditor({
             tags: tags.split(",").map((t) => t.trim()).filter(Boolean),
             categoryId: categoryId || undefined,
             authorId: authorId || undefined,
+            asDraft,
           };
           if (isNew) { const id = await createBlogPostAction(data); onSaved(id); }
           else { await updateBlogPostAction(detail._id, data); onSaved(); }
@@ -451,6 +442,7 @@ function ContentEditor({
             subtitle: subtitle || undefined,
             pageType,
             metaDescription: metaDesc || undefined,
+            status: asDraft ? "draft" : "published",
           };
           if (isNew) { const id = await createPageAction(data); onSaved(id); }
           else { await updatePageAction(detail._id, data); onSaved(); }
@@ -494,7 +486,12 @@ function ContentEditor({
               <Trash2 className="h-3.5 w-3.5" />
             </button>
           )}
-          <button onClick={handleSave} disabled={saving || isPending || !title.trim()}
+          <button onClick={() => handleSave(true)} disabled={saving || isPending || !title.trim()}
+            className="flex items-center gap-1.5 rounded-lg border border-[#dce4df] px-3.5 py-1.5 text-xs font-semibold text-[#5f6f66] hover:bg-zinc-50 disabled:opacity-50">
+            {saving ? <Loader2 className="h-3.5 w-3.5 animate-spin" /> : <FileText className="h-3.5 w-3.5" />}
+            Save Draft
+          </button>
+          <button onClick={() => handleSave(false)} disabled={saving || isPending || !title.trim()}
             className="flex items-center gap-1.5 rounded-lg bg-[#0D3D24] px-3.5 py-1.5 text-xs font-semibold text-white hover:bg-[#145c42] disabled:opacity-50">
             {saving ? <Loader2 className="h-3.5 w-3.5 animate-spin" /> : <Save className="h-3.5 w-3.5" />}
             {isNew ? "Create" : "Save"}
@@ -523,6 +520,13 @@ function ContentEditor({
             ))}
             {/* Block inserter */}
             <div className="ml-auto flex items-center gap-1">
+              <button
+                onClick={() => setAiOpen(true)}
+                title="AI Builder"
+                className="flex items-center gap-1 rounded-lg border border-[#dce4df] bg-white px-2 py-1.5 text-[11px] font-semibold text-[#5f6f66] hover:border-violet-300 hover:bg-violet-50 hover:text-violet-700 transition-colors"
+              >
+                <Sparkles className="h-3.5 w-3.5" /> AI Builder
+              </button>
               <InsertButton icon={<MousePointerClick className="h-3.5 w-3.5" />} label="CTA" onClick={() => setCtaOpen(true)} />
               <InsertButton icon={<Lightbulb className="h-3.5 w-3.5" />} label="Callout" onClick={() => setCalloutOpen(true)} />
               <InsertButton icon={<Zap className="h-3.5 w-3.5" />} label="Form" onClick={() => setFormOpen(true)} disabled={forms.length === 0} />
@@ -665,6 +669,11 @@ function ContentEditor({
             </div>
           </div>
         </div>
+      )}
+
+      {/* AI Builder panel */}
+      {aiOpen && (
+        <AiGeneratePanel onClose={() => setAiOpen(false)} onInsert={handleAiInsert} />
       )}
 
       {/* Content preview modal */}
@@ -838,9 +847,9 @@ type AiFillData = {
   seoTitle: string; seoDescription: string; tags: string[];
 };
 
-function AiGeneratePanel({ onClose, onFill }: {
+function AiGeneratePanel({ onClose, onInsert }: {
   onClose: () => void;
-  onFill: (data: AiFillData) => void;
+  onInsert: (data: AiFillData) => void;
 }) {
   const [topic, setTopic]         = useState("");
   const [keyword, setKeyword]     = useState("");
@@ -925,7 +934,7 @@ function AiGeneratePanel({ onClose, onFill }: {
   }
 
   function handleUse() {
-    if (result) onFill(result);
+    if (result) onInsert(result);
   }
 
   const lengthOpts: { value: "short"|"medium"|"long"; label: string; desc: string }[] = [
@@ -1036,7 +1045,7 @@ function AiGeneratePanel({ onClose, onFill }: {
                       </button>
                       <button onClick={handleUse}
                         className="flex items-center gap-1.5 rounded-lg bg-[#0D3D24] px-4 py-1.5 text-xs font-semibold text-white hover:bg-[#145c42]">
-                        <CheckCircle2 className="h-3.5 w-3.5" /> Use this content
+                        <CheckCircle2 className="h-3.5 w-3.5" /> Insert into article
                       </button>
                     </div>
                   </div>

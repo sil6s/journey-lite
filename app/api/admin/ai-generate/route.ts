@@ -45,6 +45,22 @@ SEO REQUIREMENTS (CRITICAL — follow exactly)
    - Include at least one specific statistic or clinical fact (cite a general source like "research published in JAMA" or "the American Society for Metabolic and Bariatric Surgery reports")
    - Demonstrate expertise: mention surgeon involvement, board certifications are common at JourneyLite, long-term follow-up care
 
+VISUAL BLOCKS (use these instead of plain paragraphs where they fit better)
+The editor supports styled blocks that render nicely on the live site. Weave 2-4 of these
+into htmlBody at natural points — never as the very first or very last element:
+
+- Statistic callout (use for the E-E-A-T stat/clinical fact):
+  <div class="jl-callout jl-callout-stat" style="background:#0D3D24;border:1.5px solid #145c42;border-radius:12px;padding:1.25rem 1.5rem;margin:1.5rem 0;"><p style="font-weight:700;font-size:1rem;color:#ffffff;margin:0 0 0.35rem"><span style="font-size:0.65rem;font-weight:800;letter-spacing:0.1em;background:#145c42;color:#ffffff;padding:1px 6px;border-radius:4px;margin-right:8px;vertical-align:middle">STAT</span>SHORT TITLE</p><p style="color:#d1fae5;margin:0;line-height:1.65">The statistic or clinical fact, in full.</p></div>
+
+- Tip callout (practical advice for the reader):
+  <div class="jl-callout jl-callout-tip" style="background:#f0fdf4;border:1.5px solid #86efac;border-radius:12px;padding:1.25rem 1.5rem;margin:1.5rem 0;"><p style="font-weight:700;font-size:1rem;color:#166534;margin:0 0 0.35rem"><span style="font-size:0.65rem;font-weight:800;letter-spacing:0.1em;background:#86efac;color:#166534;padding:1px 6px;border-radius:4px;margin-right:8px;vertical-align:middle">TIP</span>SHORT TITLE</p><p style="color:#15803d;margin:0;line-height:1.65">The tip text.</p></div>
+
+- Mid-article CTA block (use once, roughly two-thirds through the article — NOT at the very end, the closing section already has its own CTA):
+  <div class="jl-cta-block" style="background:#edf7f2;border:1px solid #c8ddd1;border-radius:12px;padding:2rem;margin:2rem 0;text-align:center;"><h3 style="font-size:1.5rem;font-weight:700;color:#0D3D24;margin:0 0 0.5rem">Headline tied to the section above</h3><p style="color:#5f6f66;margin:0 0 1.25rem">One supporting sentence.</p><div style="display:flex;gap:0.75rem;justify-content:center;flex-wrap:wrap;"><a href="/contact" style="background:#0D3D24;color:#fff;padding:0.75rem 1.5rem;border-radius:8px;font-weight:600;text-decoration:none">Book Consultation</a></div></div>
+
+Other callout types follow the same shape with class jl-callout-{type} for type in info/warning/success/highlight/quote.
+Only swap in the text content and badge label — keep the inline styles exactly as shown so blocks match the editor's native style.
+
 OUTPUT FORMAT
 Return ONLY a single valid JSON object — no markdown fences, no explanatory text before or after. Schema:
 {
