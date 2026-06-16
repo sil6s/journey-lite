@@ -575,18 +575,19 @@ function ContentEditor({
               </ModeButton>
             ))}
             {/* Block inserter */}
-            <div className="ml-auto flex items-center gap-1">
+            <div className="ml-auto flex items-center gap-1.5">
               <button
                 onClick={() => setAiOpen(true)}
-                title="AI Builder"
-                className="flex items-center gap-1 rounded-lg border border-[#dce4df] bg-white px-2 py-1.5 text-[11px] font-semibold text-[#5f6f66] hover:border-violet-300 hover:bg-violet-50 hover:text-violet-700 transition-colors"
+                title="Generate with AI"
+                className="flex items-center gap-1.5 rounded-lg border border-violet-200 bg-violet-50 px-2.5 py-1.5 text-xs font-semibold text-violet-700 hover:bg-violet-100 transition-colors"
               >
-                <Sparkles className="h-3.5 w-3.5" /> AI Builder
+                <Sparkles className="h-3.5 w-3.5" /> AI
               </button>
-              <InsertButton icon={<MousePointerClick className="h-3.5 w-3.5" />} label="CTA" onClick={() => setCtaOpen(true)} />
-              <InsertButton icon={<Lightbulb className="h-3.5 w-3.5" />} label="Callout" onClick={() => setCalloutOpen(true)} />
-              <InsertButton icon={<Zap className="h-3.5 w-3.5" />} label="Form" onClick={() => setFormOpen(true)} disabled={forms.length === 0} />
-              <InsertButton icon={<ImageIcon className="h-3.5 w-3.5" />} label="Image" onClick={handleImageRequest} disabled={uploadingImage} />
+              <div className="h-5 w-px bg-[#dce4df]" />
+              <InsertButton icon={<MousePointerClick className="h-3.5 w-3.5" />} label="Insert CTA block" onClick={() => setCtaOpen(true)} />
+              <InsertButton icon={<Lightbulb className="h-3.5 w-3.5" />} label="Insert callout block" onClick={() => setCalloutOpen(true)} />
+              <InsertButton icon={<Zap className="h-3.5 w-3.5" />} label="Embed a form" onClick={() => setFormOpen(true)} disabled={forms.length === 0} />
+              <InsertButton icon={uploadingImage ? <Loader2 className="h-3.5 w-3.5 animate-spin" /> : <ImageIcon className="h-3.5 w-3.5" />} label="Insert image" onClick={handleImageRequest} disabled={uploadingImage} />
             </div>
           </div>
 
@@ -895,9 +896,9 @@ function ModeButton({ active, onClick, children }: { active: boolean; onClick: (
 
 function InsertButton({ icon, label, onClick, disabled }: { icon: React.ReactNode; label: string; onClick: () => void; disabled?: boolean }) {
   return (
-    <button onClick={onClick} disabled={disabled}
-      className="flex items-center gap-1 rounded-md border border-[#dce4df] px-2.5 py-1 text-xs font-semibold text-[#5f6f66] transition-colors hover:border-[#0D3D24] hover:text-[#0D3D24] disabled:opacity-40">
-      {icon} {label}
+    <button onClick={onClick} disabled={disabled} title={label} aria-label={label}
+      className="flex h-8 w-8 items-center justify-center rounded-md border border-[#dce4df] text-[#5f6f66] transition-colors hover:border-[#0D3D24] hover:text-[#0D3D24] disabled:opacity-40">
+      {icon}
     </button>
   );
 }
