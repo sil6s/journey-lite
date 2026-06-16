@@ -1,7 +1,7 @@
 "use client";
 
 import dynamic from "next/dynamic";
-import { useRef, useState, useTransition } from "react";
+import { useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import {
   AlertCircle, AlertTriangle, ArrowLeft, BookOpen, Check, CheckCircle2, ChevronDown, ChevronRight,
@@ -261,7 +261,6 @@ function ContentEditor({
   const [saveStatus, setSaveStatus] = useState<"idle" | "saved" | "error">("idle");
   const [deleting, setDeleting]     = useState(false);
   const [uploadingImage, setUploadingImage] = useState(false);
-  const [isPending, startTransition]= useTransition();
 
   // CTA dialog
   const [ctaOpen, setCtaOpen]       = useState(false);
@@ -284,18 +283,21 @@ function ContentEditor({
 
   // Preview
   const [previewOpen, setPreviewOpen] = useState(false);
+  const [validationError, setValidationError] = useState<string | null>(null);
+  const [liveUrl, setLiveUrl] = useState<string | null>(null);
 
   // AI Builder
   const [aiOpen, setAiOpen] = useState(false);
 
   function handleAiInsert(data: AiFillData) {
     setAiOpen(false);
-    // Only fill metadata that's still blank — never clobber existing work.
+    // Title/excerpt/tags: only fill if blank, never clobber existing work.
+    // SEO fields: always take the AI's values — that's the whole point of asking it to generate them.
     if (!title.trim()) handleTitleChange(data.title);
     if (isBlog) {
       if (!excerpt.trim()) setExcerpt(data.excerpt);
-      if (!seoTitle.trim()) setSeoTitle(data.seoTitle);
-      if (!seoDesc.trim()) setSeoDesc(data.seoDescription);
+      setSeoTitle(data.seoTitle);
+      setSeoDesc(data.seoDescription);
       if (!tags.trim() && data.tags.length) setTags(data.tags.join(", "));
     }
     // Drop the generated article into the body at the cursor (rich mode) or append.
@@ -415,43 +417,86 @@ function ContentEditor({
     setCalloutText("");
   }
 
-  function handleSave(asDraft = false) {
+  // Fields required before content can go live. Drafts skip this check.
+  function getMissingFields(): string[] {
+    const bodyText = getFinalHtml().replace(/<[^>]*>/g, "").trim();
+    const missing: string[] = [];
+    if (!title.trim()) missing.push("Title");
+    if (!(slug || slugify(title)).trim()) missing.push("Slug");
+    if (!bodyText) missing.push("Content body");
+    if (isBlog) {
+      if (!excerpt.trim()) missing.push("Excerpt");
+      if (!seoTitle.trim()) missing.push("SEO title");
+      if (!seoDesc.trim()) missing.push("SEO description");
+    } else {
+      if (!metaDesc.trim()) missing.push("Meta description");
+    }
+    return missing;
+  }
+
+  async function handleSave(asDraft = false): Promise<boolean> {
     const body = getFinalHtml();
     setSaving(true);
-    startTransition(async () => {
-      try {
-        if (isBlog) {
-          const data = {
-            title, slug: slug || slugify(title),
-            excerpt: excerpt || title,
-            htmlBody: body,
-            publishedAt: new Date(publishedAt).toISOString(),
-            seoTitle: seoTitle || undefined,
-            seoDescription: seoDesc || undefined,
-            tags: tags.split(",").map((t) => t.trim()).filter(Boolean),
-            categoryId: categoryId || undefined,
-            authorId: authorId || undefined,
-            asDraft,
-          };
-          if (isNew) { const id = await createBlogPostAction(data); onSaved(id); }
-          else { await updateBlogPostAction(detail._id, data); onSaved(); }
-        } else {
-          const data = {
-            title, slug: slug || slugify(title),
-            htmlBody: body,
-            subtitle: subtitle || undefined,
-            pageType,
-            metaDescription: metaDesc || undefined,
-            status: asDraft ? "draft" : "published",
-          };
-          if (isNew) { const id = await createPageAction(data); onSaved(id); }
-          else { await updatePageAction(detail._id, data); onSaved(); }
-        }
-        setSaveStatus("saved");
-        setTimeout(() => setSaveStatus("idle"), 2500);
-      } catch { setSaveStatus("error"); }
-      finally { setSaving(false); }
-    });
+    try {
+      if (isBlog) {
+        const data = {
+          title, slug: slug || slugify(title),
+          excerpt: excerpt || title,
+          htmlBody: body,
+          publishedAt: new Date(publishedAt).toISOString(),
+          seoTitle: seoTitle || undefined,
+          seoDescription: seoDesc || undefined,
+          tags: tags.split(",").map((t) => t.trim()).filter(Boolean),
+          categoryId: categoryId || undefined,
+          authorId: authorId || undefined,
+          asDraft,
+        };
+        if (isNew) { const id = await createBlogPostAction(data); onSaved(id); }
+        else { await updateBlogPostAction(detail._id, data); onSaved(); }
+      } else {
+        const data = {
+          title, slug: slug || slugify(title),
+          htmlBody: body,
+          subtitle: subtitle || undefined,
+          pageType,
+          metaDescription: metaDesc || undefined,
+          status: asDraft ? "draft" : "published",
+        };
+        if (isNew) { const id = await createPageAction(data); onSaved(id); }
+        else { await updatePageAction(detail._id, data); onSaved(); }
+      }
+      setSaveStatus("saved");
+      setTimeout(() => setSaveStatus("idle"), 2500);
+      return true;
+    } catch {
+      setSaveStatus("error");
+      return false;
+    } finally {
+      setSaving(false);
+    }
+  }
+
+  function handleSaveDraft() {
+    setValidationError(null);
+    handleSave(true);
+  }
+
+  function handlePreviewAndPublish() {
+    const missing = getMissingFields();
+    if (missing.length > 0) {
+      setValidationError(`Fill in before publishing: ${missing.join(", ")}.`);
+      return;
+    }
+    setValidationError(null);
+    setPreviewOpen(true);
+  }
+
+  async function handlePublishFromPreview() {
+    const ok = await handleSave(false);
+    if (ok) {
+      setPreviewOpen(false);
+      setLiveUrl(`${window.location.origin}${isBlog ? "/blog/" : "/"}${slug || slugify(title)}`);
+    }
   }
 
   async function handleDelete() {
@@ -476,28 +521,30 @@ function ContentEditor({
         <div className="flex items-center gap-2">
           {saveStatus === "saved" && <span className="flex items-center gap-1 text-xs font-semibold text-emerald-600"><Check className="h-3.5 w-3.5" />Saved</span>}
           {saveStatus === "error" && <span className="text-xs font-semibold text-red-600">Save failed</span>}
-          <button onClick={() => setPreviewOpen(true)}
-            className="flex items-center gap-1 rounded-lg border border-[#dce4df] px-2.5 py-1.5 text-xs font-semibold text-[#5f6f66] hover:bg-zinc-50">
-            <Eye className="h-3.5 w-3.5" /> Preview
-          </button>
           {!isNew && (
             <button onClick={handleDelete} disabled={deleting} title="Delete"
               className="flex items-center gap-1 rounded-lg border border-red-100 px-2.5 py-1.5 text-xs font-semibold text-red-500 hover:bg-red-50 disabled:opacity-40">
               <Trash2 className="h-3.5 w-3.5" />
             </button>
           )}
-          <button onClick={() => handleSave(true)} disabled={saving || isPending || !title.trim()}
+          <button onClick={() => handleSave(true)} disabled={saving || !title.trim()}
             className="flex items-center gap-1.5 rounded-lg border border-[#dce4df] px-3.5 py-1.5 text-xs font-semibold text-[#5f6f66] hover:bg-zinc-50 disabled:opacity-50">
             {saving ? <Loader2 className="h-3.5 w-3.5 animate-spin" /> : <FileText className="h-3.5 w-3.5" />}
             Save Draft
           </button>
-          <button onClick={() => handleSave(false)} disabled={saving || isPending || !title.trim()}
+          <button onClick={handlePreviewAndPublish} disabled={saving || !title.trim()}
             className="flex items-center gap-1.5 rounded-lg bg-[#0D3D24] px-3.5 py-1.5 text-xs font-semibold text-white hover:bg-[#145c42] disabled:opacity-50">
-            {saving ? <Loader2 className="h-3.5 w-3.5 animate-spin" /> : <Save className="h-3.5 w-3.5" />}
-            {isNew ? "Create" : "Save"}
+            {saving ? <Loader2 className="h-3.5 w-3.5 animate-spin" /> : <Eye className="h-3.5 w-3.5" />}
+            Preview & Publish
           </button>
         </div>
       </div>
+
+      {validationError && (
+        <div className="flex items-center gap-2 border-b border-amber-200 bg-amber-50 px-5 py-2 text-xs font-semibold text-amber-800">
+          <AlertTriangle className="h-3.5 w-3.5 shrink-0" /> {validationError}
+        </div>
+      )}
 
       <div className="flex flex-1 overflow-hidden">
         {/* Editor */}
@@ -688,10 +735,37 @@ function ContentEditor({
           html={getFinalHtml()}
           forms={forms}
           onClose={() => setPreviewOpen(false)}
-          onSave={handleSave}
-          isSaving={saving || isPending}
+          onPublish={handlePublishFromPreview}
+          isSaving={saving}
           isNew={isNew}
         />
+      )}
+
+      {/* Live confirmation popup */}
+      {liveUrl && (
+        <div className="fixed inset-0 z-[60] flex items-center justify-center bg-black/40 p-4">
+          <div className="w-full max-w-sm rounded-2xl border border-[#dce4df] bg-white p-6 text-center shadow-2xl">
+            <div className="mx-auto mb-3 flex h-12 w-12 items-center justify-center rounded-full bg-emerald-50">
+              <CheckCircle2 className="h-6 w-6 text-emerald-600" />
+            </div>
+            <h3 className="text-sm font-bold text-[#1f2c25]">Your {isBlog ? "post" : "page"} is live!</h3>
+            <p className="mt-1 text-xs text-[#5f6f66]">It&apos;s published and visible to visitors now.</p>
+            <a href={liveUrl} target="_blank" rel="noopener noreferrer"
+              className="mt-4 block truncate rounded-lg border border-[#dce4df] bg-zinc-50 px-3 py-2 text-xs font-medium text-[#145c42] hover:bg-zinc-100">
+              {liveUrl}
+            </a>
+            <div className="mt-4 flex gap-2">
+              <button onClick={() => setLiveUrl(null)}
+                className="flex-1 rounded-lg border border-[#dce4df] px-3 py-2 text-xs font-semibold text-[#5f6f66] hover:bg-zinc-50">
+                Close
+              </button>
+              <a href={liveUrl} target="_blank" rel="noopener noreferrer"
+                className="flex-1 rounded-lg bg-[#0D3D24] px-3 py-2 text-xs font-semibold text-white hover:bg-[#145c42]">
+                View it live
+              </a>
+            </div>
+          </div>
+        </div>
       )}
     </div>
   );
@@ -1195,7 +1269,7 @@ function formatPreviewDate(iso?: string) {
 
 function ContentPreviewModal({
   title, excerpt, publishedAt, authorName, categoryName, isBlog,
-  html, forms, onClose, onSave, isSaving, isNew,
+  html, forms, onClose, onPublish, isSaving, isNew,
 }: {
   title: string;
   excerpt?: string;
@@ -1206,7 +1280,7 @@ function ContentPreviewModal({
   html: string;
   forms: FormDefinition[];
   onClose: () => void;
-  onSave: () => void;
+  onPublish: () => void;
   isSaving: boolean;
   isNew: boolean;
 }) {
@@ -1224,7 +1298,7 @@ function ContentPreviewModal({
         <span className="rounded-full bg-blue-50 px-2.5 py-0.5 text-[11px] font-bold text-blue-700">PREVIEW</span>
         <span className="text-xs text-[#9aafa5]">Matches live site layout exactly</span>
         <div className="flex-1" />
-        <button onClick={() => { onSave(); onClose(); }} disabled={isSaving}
+        <button onClick={onPublish} disabled={isSaving}
           className="flex items-center gap-1.5 rounded-lg bg-[#0D3D24] px-4 py-1.5 text-xs font-semibold text-white hover:bg-[#145c42] disabled:opacity-50">
           {isSaving ? <Loader2 className="h-3.5 w-3.5 animate-spin" /> : <Save className="h-3.5 w-3.5" />}
           {isNew ? "Create & Publish" : "Save Changes"}
