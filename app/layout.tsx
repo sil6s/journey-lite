@@ -7,6 +7,7 @@ import { cn } from "@/lib/utils";
 import { Providers } from "@/components/site/providers";
 import { StaticPageTranslator } from "@/components/site/static-page-translator";
 import { isValidLocale, getTextDirection, defaultLocale, type SupportedLocale } from "@/lib/i18n/config";
+import { Analytics } from "@vercel/analytics/next";
 
 const geist = Geist({subsets:['latin'],variable:'--font-sans'});
 
@@ -41,6 +42,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
           {children}
           <StaticPageTranslator />
         </Providers>
+        <Analytics />
       </body>
     </html>
   );
