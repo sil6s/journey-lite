@@ -38,6 +38,7 @@ export interface LeadSubmission {
   message?: string;
   preferredContactMethod?: string;
   textConsent?: boolean;
+  generalInquiry?: boolean;
 }
 
 const BASE = "https://journeylite.com";
@@ -419,27 +420,112 @@ function buildPatientEmail(data: LeadSubmission): { subject: string; html: strin
   return { subject, html };
 }
 
+/* ── CRM parseable email ────────────────────────────────── */
+
+function buildCRMEmail(data: LeadSubmission): { subject: string; text: string } {
+  const isInfo = data.contactReason === "Information Request";
+  const isGeneral = data.contactReason === "General Inquiry";
+
+  // Build Combined Interests — the field PF parses into the Procedure column
+  const interests: string[] = [];
+  if (data.appointmentInterest && data.appointmentInterest !== "Cancel Appointment") {
+    interests.push(data.appointmentInterest);
+  }
+  if (data.proceduresOfInterest?.length) {
+    data.proceduresOfInterest.forEach((p) => { if (!interests.includes(p)) interests.push(p); });
+  }
+  if (data.informationTopics?.length) {
+    data.informationTopics.forEach((t) => { if (!interests.includes(t)) interests.push(t); });
+  }
+  if (data.treatmentInterest && !interests.some((i) => i === data.treatmentInterest)) {
+    interests.push(data.treatmentInterest);
+  }
+
+  const combinedInterests = interests.filter(Boolean).join("; ") || "General Inquiry";
+
+  const contactType = isGeneral
+    ? "General Inquiry"
+    : isInfo
+      ? "Information Request"
+      : data.appointmentInterest === "Cancel Appointment"
+        ? "Cancel Appointment"
+        : "Appointment Request";
+
+  const dob = data.dob
+    ? (() => {
+        const d = new Date(data.dob);
+        return isNaN(d.getTime()) ? data.dob : `${String(d.getUTCMonth() + 1).padStart(2, "0")}/${String(d.getUTCDate()).padStart(2, "0")}/${d.getUTCFullYear()}`;
+      })()
+    : "";
+
+  const submittedAt = data.submittedAt
+    ? new Date(data.submittedAt).toLocaleString("en-US", { dateStyle: "full", timeStyle: "short", timeZone: "America/New_York" })
+    : "";
+
+  const lines = [
+    `Contact Type: ${contactType}`,
+    `Combined Interests: ${combinedInterests}`,
+    `Name: ${data.name}`,
+    ...(dob ? [`Date of Birth: ${dob}`] : []),
+    ...(data.email ? [`Email: ${data.email}`] : []),
+    `Permission to Text/SMS: ${data.textConsent ? "I agree to receive texts" : "No"}`,
+    ...(data.phone ? [`Phone: ${data.phone}`] : []),
+    ...(data.address ? [`Address: ${data.address}`] : []),
+    ...(data.heightFt ? [`Height (ft): ${data.heightFt}`] : []),
+    ...(data.heightIn ? [`Inches: ${data.heightIn}`] : []),
+    ...(data.weight ? [`Weight (lbs): ${data.weight}`] : []),
+    ...(data.bmi ? [`BMI: ${data.bmi}`] : []),
+    ...(data.location ? [`Preferred Location: ${data.location}`] : []),
+    ...(data.proceduresOfInterest?.length ? [`Select Procedures of Interest: ${data.proceduresOfInterest.join("; ")}`] : []),
+    ...(data.insuranceProvider ? [`Insurance/Self Pay: ${data.insuranceProvider}`] : []),
+    ...(data.referralSource ? [`How did you first hear about us?: ${data.referralSource}`] : []),
+    ...(data.preferredContactMethod ? [`Preferred Contact Method: ${data.preferredContactMethod}`] : []),
+    ...(data.bestTime ? [`Best Time to Reach: ${data.bestTime}`] : []),
+    ...(data.researchStage ? [`Research Stage: ${data.researchStage}`] : []),
+    ...(data.message ? [`Message: ${data.message}`] : []),
+    ...(data.otherDetails ? [`Other Details: ${data.otherDetails}`] : []),
+    `Source Page: ${data.sourcePage}`,
+    ...(submittedAt ? [`Submitted At: ${submittedAt}`] : []),
+  ];
+
+  const subject = `[JourneyLite Lead] ${data.name} — ${combinedInterests}`;
+  const text = lines.join("\n");
+
+  return { subject, text };
+}
+
 /* ── Public send function ───────────────────────────────── */
 
 export async function sendLeadEmail(data: LeadSubmission): Promise<void> {
-  const to = process.env.CONTACT_NOTIFY_EMAIL;
-  const from = process.env.CONTACT_FROM_EMAIL ?? `JourneyLite <${process.env.SMTP_USER}>`;
+  const notifyEnv = process.env.CONTACT_NOTIFY_EMAIL;
+  const staffRecipients = notifyEnv?.includes(",")
+    ? notifyEnv.split(",").map((e) => e.trim()).filter(Boolean)
+    : notifyEnv
+      ? [notifyEnv]
+      : ["silas.curry@icloud.com", "dr.c@curryweightloss.com"];
 
-  if (!to) {
-    console.warn("[email] CONTACT_NOTIFY_EMAIL not set — skipping send.");
-    return;
-  }
+  const from = process.env.CONTACT_FROM_EMAIL ?? "noreply@journeylite.com";
 
   const { subject: staffSubject, html: staffHtml } = buildStaffEmail(data);
   const { subject: patientSubject, html: patientHtml } = buildPatientEmail(data);
+  const { subject: crmSubject, text: crmText } = buildCRMEmail(data);
 
-  // Staff notification
+  // Staff HTML notification + CRM parseable text in same email
   await transporter.sendMail({
     from,
-    to,
+    to: staffRecipients.join(", "),
     replyTo: data.email || undefined,
     subject: staffSubject,
     html: staffHtml,
+  });
+
+  // CRM parseable plain-text email
+  await transporter.sendMail({
+    from,
+    to: staffRecipients.join(", "),
+    replyTo: data.email || undefined,
+    subject: crmSubject,
+    text: crmText,
   });
 
   // Patient confirmation (only if they gave an email)
@@ -452,7 +538,7 @@ export async function sendLeadEmail(data: LeadSubmission): Promise<void> {
     });
   }
 
-  console.log(`[email] Sent staff notification to ${to} and patient confirmation to ${data.email || "none"}`);
+  console.log(`[email] Sent staff + CRM notification to ${staffRecipients.join(", ")} and patient confirmation to ${data.email || "none"}`);
 }
 
 export async function sendFormSubmissionEmail({

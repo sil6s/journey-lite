@@ -35,6 +35,7 @@ interface ContactPayload {
   submittedAt?: string;
   turnstileToken?: string;
   website?: string;
+  generalInquiry?: boolean;
 }
 
 export async function POST(req: NextRequest) {
@@ -93,6 +94,7 @@ export async function POST(req: NextRequest) {
     message: body.message,
     preferredContactMethod: body.preferredContactMethod,
     textConsent: body.textConsent,
+    generalInquiry: body.generalInquiry,
   };
 
   try {
