@@ -137,7 +137,7 @@ const pageLocations = [
 
 /* ── Types ────────────────────────────────────────────────── */
 
-type Flow = "choice" | "details" | "location" | "contact" | "submitting" | "done";
+type Flow = "choice" | "details" | "contact" | "submitting" | "done";
 type RequestType = "information" | "appointment" | "general";
 
 interface FormState {
@@ -275,12 +275,6 @@ export function ContactExperience() {
     return Object.keys(errs).length === 0;
   }
 
-  function validateLocation() {
-    const errs: Record<string, string> = {};
-    if (!form.location) errs.location = "Choose a preferred location.";
-    setErrors(errs);
-    return Object.keys(errs).length === 0;
-  }
 
   function validateContact() {
     const errs: Record<string, string> = {};
@@ -312,11 +306,6 @@ export function ContactExperience() {
     if (flow === "details") {
       if (!validateDetails()) return;
       setErrors({});
-      setFlow(form.requestType === "appointment" ? "location" : "contact");
-      scrollTop();
-    } else if (flow === "location") {
-      if (!validateLocation()) return;
-      setErrors({});
       setFlow("contact");
       scrollTop();
     }
@@ -325,12 +314,7 @@ export function ContactExperience() {
   function goBack() {
     setErrors({});
     if (flow === "details") setFlow("choice");
-    else if (flow === "location") setFlow("details");
-    else if (flow === "contact") {
-      if (form.requestType === "general") setFlow("choice");
-      else if (form.requestType === "appointment") setFlow("location");
-      else setFlow("details");
-    }
+    else if (flow === "contact") setFlow(form.requestType === "general" ? "choice" : "details");
     scrollTop();
   }
 
@@ -379,18 +363,13 @@ export function ContactExperience() {
     }
   }
 
-  const totalSteps =
-    form.requestType === "general" ? 2 :
-    form.requestType === "information" ? 2 : 3;
-
+  const totalSteps = form.requestType === "general" ? 1 : 2;
   const stepNumber =
     flow === "details" ? 1 :
-    flow === "location" ? 2 :
     flow === "contact" || flow === "submitting" ? totalSteps :
     null;
-
   const progressPct = stepNumber !== null ? Math.round((stepNumber / totalSteps) * 100) : 0;
-  const isFormFlow = flow === "details" || flow === "location" || flow === "contact" || flow === "submitting";
+  const isFormFlow = flow === "details" || flow === "contact" || flow === "submitting";
 
   if (flow === "done") {
     return (
@@ -422,11 +401,9 @@ export function ContactExperience() {
               ? "How can we help you today?"
               : flow === "details"
                 ? form.requestType === "information" ? "What are you interested in?" : "Your appointment interest"
-                : flow === "location"
-                  ? "Choose a location"
-                  : form.requestType === "general" && form.generalInquiryTopic
-                    ? form.generalInquiryTopic
-                    : "Your contact information"}
+                : form.requestType === "general" && form.generalInquiryTopic
+                  ? form.generalInquiryTopic
+                  : "Your contact information"}
           </h2>
         </div>
         {stepNumber !== null && (
@@ -461,16 +438,6 @@ export function ContactExperience() {
                 onSwitchToMedical={switchToMedical}
               />
             )}
-          </div>
-        )}
-
-        {flow === "location" && (
-          <div className="grid gap-6">
-            <LocationStep
-              error={errors.location}
-              selected={form.location}
-              onSelect={(value) => update("location", value)}
-            />
           </div>
         )}
 
@@ -519,7 +486,7 @@ export function ContactExperience() {
                 <Phone className="size-4" />
                 Call Us — 877-442-2263
               </a>
-            ) : flow === "details" || flow === "location" ? (
+            ) : flow === "details" ? (
               <Button
                 className="h-12 flex-1 bg-[#145c42] text-white hover:bg-[#0f4d37] text-sm font-semibold sm:flex-none sm:px-10"
                 onClick={goNext}
@@ -902,7 +869,7 @@ function AppointmentDetails({ interest }: { interest: string }) {
   );
 }
 
-/* ── Location step ────────────────────────────────────────── */
+/* ── Location step (kept for internal use) ───────────────────── */
 
 function LocationStep({
   selected,
@@ -998,6 +965,24 @@ function LocationStep({
   );
 }
 
+/* ── BMI helpers ──────────────────────────────────────────── */
+
+const GAUGE_MIN = 15;
+const GAUGE_MAX = 55;
+
+function bmiGaugePct(n: number) {
+  return Math.min(100, Math.max(0, ((n - GAUGE_MIN) / (GAUGE_MAX - GAUGE_MIN)) * 100));
+}
+
+function bmiCategory(n: number): { label: string; color: string } {
+  if (n < 18.5) return { label: "Underweight", color: "#3b82f6" };
+  if (n < 25)   return { label: "Normal weight", color: "#22c55e" };
+  if (n < 30)   return { label: "Overweight", color: "#f59e0b" };
+  if (n < 35)   return { label: "Obese — Class I", color: "#f97316" };
+  if (n < 40)   return { label: "Obese — Class II", color: "#ef4444" };
+  return           { label: "Obese — Class III", color: "#b91c1c" };
+}
+
 /* ── Contact fields ───────────────────────────────────────── */
 
 function ContactFields({
@@ -1010,11 +995,41 @@ function ContactFields({
   update: <K extends keyof FormState>(key: K, value: FormState[K]) => void;
 }) {
   const bmi = computeBMI(form.heightFt, form.heightIn, form.weight);
+  const bmiNum = parseFloat(bmi);
+  const { label: bmiLabel, color: bmiColor } = bmiNum ? bmiCategory(bmiNum) : { label: "", color: "#145c42" };
   const isGeneral = form.requestType === "general";
 
   return (
     <div className="grid gap-6">
       <StepCard icon={<User className="size-5 text-[#145c42]" />} title="Almost there" description="Share your contact details so the JourneyLite team can reach you." />
+
+      {/* Location — compact inline picker for appointment */}
+      {form.requestType === "appointment" && (
+        <div className="grid gap-2">
+          <p className="text-sm font-semibold text-[#1f2c25]">Preferred location <span className="font-normal text-[#66756d]">(optional)</span></p>
+          <div className="grid gap-2 sm:grid-cols-2">
+            {pageLocations.map((loc) => {
+              const selected = form.location === loc.name;
+              return (
+                <button
+                  aria-pressed={selected}
+                  className={cn(
+                    "flex items-center gap-2.5 rounded-lg border px-3 py-2.5 text-left text-sm transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#145c42]",
+                    selected ? "border-[#145c42] bg-[#edf6f0] font-semibold text-[#143d2c]" : "border-[#dce7e0] bg-white text-[#43564d] hover:border-[#145c42]",
+                  )}
+                  key={loc.id}
+                  onClick={() => update("location", selected ? "" : loc.name)}
+                  type="button"
+                >
+                  <MapPin className={cn("size-3.5 shrink-0", selected ? "text-[#145c42]" : "text-[#9ca3af]")} />
+                  <span className="truncate">{loc.name}</span>
+                  {selected && <Check className="ml-auto size-3.5 shrink-0 text-[#145c42]" />}
+                </button>
+              );
+            })}
+          </div>
+        </div>
+      )}
 
       {/* Name + DOB */}
       <div className="grid gap-4 sm:grid-cols-2">
@@ -1028,8 +1043,8 @@ function ContactFields({
       {/* Height / Weight / BMI — skip for general inquiry */}
       {!isGeneral && (
         <div className="grid gap-3 rounded-xl border border-[#dce7e0] bg-[#f8fbf9] p-4">
-          <p className="text-sm font-semibold text-[#1f2c25]">Height, Weight &amp; BMI</p>
-          <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
+          <p className="text-sm font-semibold text-[#1f2c25]">Height, Weight &amp; BMI <span className="font-normal text-[#66756d]">(optional)</span></p>
+          <div className="grid grid-cols-3 gap-3">
             <div className="grid gap-1.5">
               <Label htmlFor="heightFt">Height (ft)</Label>
               <Input className="border-[#cbd7d0] focus-visible:ring-[#145c42]" id="heightFt" max="8" min="1" onChange={(e) => update("heightFt", e.target.value)} placeholder="5" type="number" value={form.heightFt} />
@@ -1042,13 +1057,29 @@ function ContactFields({
               <Label htmlFor="weight">Weight (lbs)</Label>
               <Input className="border-[#cbd7d0] focus-visible:ring-[#145c42]" id="weight" min="0" onChange={(e) => update("weight", e.target.value)} placeholder="240" type="number" value={form.weight} />
             </div>
-            <div className="grid gap-1.5">
-              <Label>BMI</Label>
-              <div className={cn("flex h-10 items-center rounded-lg border px-3 text-sm font-bold", bmi ? "border-[#145c42] bg-[#edf6f0] text-[#145c42]" : "border-[#dce7e0] bg-white text-[#9ca3af]")}>
-                {bmi || "—"}
+          </div>
+          {bmi && (
+            <div className="mt-1">
+              <div className="flex items-baseline justify-between mb-1.5">
+                <span className="text-xs font-semibold text-[#66756d]">BMI</span>
+                <span className="text-lg font-bold tabular-nums" style={{ color: bmiColor }}>
+                  {bmi} <span className="text-xs font-semibold">{bmiLabel}</span>
+                </span>
+              </div>
+              <div
+                className="relative h-3 rounded-full overflow-hidden"
+                style={{ background: "linear-gradient(to right, #3b82f6 0%,#3b82f6 8.75%,#22c55e 8.75%,#22c55e 25%,#f59e0b 25%,#f59e0b 37.5%,#f97316 37.5%,#f97316 50%,#ef4444 50%,#ef4444 62.5%,#b91c1c 62.5%,#b91c1c 100%)" }}
+              >
+                <div
+                  className="absolute top-1/2 h-4 w-4 -translate-x-1/2 -translate-y-1/2 rounded-full border-2 border-white shadow-md transition-all duration-300"
+                  style={{ left: `${bmiGaugePct(bmiNum)}%`, background: bmiColor }}
+                />
+              </div>
+              <div className="mt-1 flex justify-between text-[10px] text-[#9ca3af]">
+                <span>Under</span><span>Normal</span><span>Over</span><span>Obese</span>
               </div>
             </div>
-          </div>
+          )}
         </div>
       )}
 
@@ -1077,35 +1108,17 @@ function ContactFields({
         </div>
       )}
 
-      <RadioField
-        compact
-        label="Preferred contact method"
-        onChange={(v) => update("preferredContactMethod", v)}
-        options={["Email", "Phone call", "Text message", "No preference"]}
-        value={form.preferredContactMethod}
-      />
+      <RadioField compact label="Preferred contact method" onChange={(v) => update("preferredContactMethod", v)} options={["Email", "Phone call", "Text message", "No preference"]} value={form.preferredContactMethod} />
 
       {form.requestType === "appointment" && (
-        <RadioField
-          compact
-          label="Best time to reach you"
-          onChange={(v) => update("bestTime", v)}
-          options={["Morning", "Afternoon", "Evening", "No preference"]}
-          value={form.bestTime}
-        />
+        <RadioField compact label="Best time to reach you" onChange={(v) => update("bestTime", v)} options={["Morning", "Afternoon", "Evening", "No preference"]} value={form.bestTime} />
       )}
 
       <div className="grid gap-2">
         <Label htmlFor="contact-message">
           {isGeneral ? "Your message" : "Questions or additional details (optional)"}
         </Label>
-        <Textarea
-          className="min-h-24 border-[#cbd7d0] focus-visible:ring-[#145c42]"
-          id="contact-message"
-          onChange={(e) => update("message", e.target.value)}
-          placeholder={isGeneral ? "How can we help you?" : "Pricing, insurance, timing, or treatment questions."}
-          value={form.message}
-        />
+        <Textarea className="min-h-24 border-[#cbd7d0] focus-visible:ring-[#145c42]" id="contact-message" onChange={(e) => update("message", e.target.value)} placeholder={isGeneral ? "How can we help you?" : "Pricing, insurance, timing, or treatment questions."} value={form.message} />
       </div>
 
       {/* Honeypot */}
@@ -1113,16 +1126,12 @@ function ContactFields({
 
       <label className="flex cursor-pointer gap-3 rounded-lg border border-[#dce7e0] p-4 text-sm leading-6 text-[#53635b]">
         <input checked={form.textConsent} className="mt-1 size-4 shrink-0 accent-[#145c42]" onChange={(e) => update("textConsent", e.target.checked)} type="checkbox" />
-        <span>
-          SMS Consent (optional): I agree to receive text messages from JourneyLite. Message and data rates may apply. Reply STOP to opt out.
-        </span>
+        <span>SMS Consent (optional): I agree to receive text messages from JourneyLite. Message and data rates may apply. Reply STOP to opt out.</span>
       </label>
 
       <label className="flex cursor-pointer gap-3 rounded-lg border border-[#dce7e0] p-4 text-sm leading-6 text-[#53635b]">
         <input checked={form.consent} className="mt-1 size-4 shrink-0 accent-[#145c42]" onChange={(e) => update("consent", e.target.checked)} type="checkbox" />
-        <span>
-          I understand this form is not for medical emergencies, and I agree that JourneyLite may contact me using the information I provided.
-        </span>
+        <span>I understand this form is not for medical emergencies, and I agree that JourneyLite may contact me using the information I provided.</span>
       </label>
       {errors.consent && <p className="text-sm font-semibold text-[#8a3b22]">{errors.consent}</p>}
     </div>

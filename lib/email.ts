@@ -510,35 +510,37 @@ export async function sendLeadEmail(data: LeadSubmission): Promise<void> {
   const { subject: patientSubject, html: patientHtml } = buildPatientEmail(data);
   const { subject: crmSubject, text: crmText } = buildCRMEmail(data);
 
-  // Staff HTML notification + CRM parseable text in same email
-  await transporter.sendMail({
-    from,
-    to: staffRecipients.join(", "),
-    replyTo: data.email || undefined,
-    subject: staffSubject,
-    html: staffHtml,
-  });
-
-  // CRM parseable plain-text email
-  await transporter.sendMail({
-    from,
-    to: staffRecipients.join(", "),
-    replyTo: data.email || undefined,
-    subject: crmSubject,
-    text: crmText,
-  });
-
-  // Patient confirmation (only if they gave an email)
-  if (data.email) {
-    await transporter.sendMail({
+  const sends: Promise<unknown>[] = [
+    transporter.sendMail({
       from,
-      to: data.email,
-      subject: patientSubject,
-      html: patientHtml,
-    });
+      to: staffRecipients.join(", "),
+      replyTo: data.email || undefined,
+      subject: staffSubject,
+      html: staffHtml,
+    }),
+    transporter.sendMail({
+      from,
+      to: staffRecipients.join(", "),
+      replyTo: data.email || undefined,
+      subject: crmSubject,
+      text: crmText,
+    }),
+  ];
+
+  if (data.email) {
+    sends.push(
+      transporter.sendMail({
+        from,
+        to: data.email,
+        subject: patientSubject,
+        html: patientHtml,
+      })
+    );
   }
 
-  console.log(`[email] Sent staff + CRM notification to ${staffRecipients.join(", ")} and patient confirmation to ${data.email || "none"}`);
+  await Promise.all(sends);
+
+  console.log(`[email] Sent staff + CRM to ${staffRecipients.join(", ")} and patient confirmation to ${data.email || "none"}`);
 }
 
 export async function sendFormSubmissionEmail({

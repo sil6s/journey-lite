@@ -60,7 +60,7 @@ export function CTAButton({
 export function SiteHeader() {
   return (
     <header className="sticky top-0 z-40 border-b border-[#dce4df] bg-white/95 backdrop-blur">
-      <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-5 py-2 lg:px-8">
+      <div className="mx-auto flex max-w-[96rem] items-center justify-between gap-4 px-5 py-2 lg:px-8">
         <Link
           href="/"
           className="rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#145c42] focus-visible:ring-offset-4"

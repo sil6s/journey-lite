@@ -1,0 +1,160 @@
+{
+  "generatedAt": "2026-06-30T18:14:41.629Z",
+  "viewport": {
+    "width": 1920,
+    "height": 1200,
+    "deviceScaleFactor": 2
+  },
+  "items": [
+    {
+      "id": "01",
+      "slug": "home-landing-navigation",
+      "title": "Home and Navigation",
+      "before": {
+        "label": "Before",
+        "caption": "Legacy live homepage above the fold.",
+        "path": "01-home-landing-navigation/before.png"
+      },
+      "after": {
+        "label": "After",
+        "caption": "Redesigned patient-centered entry with clearer navigation and CTA hierarchy.",
+        "path": "01-home-landing-navigation/after.png"
+      }
+    },
+    {
+      "id": "02",
+      "slug": "treatment-options-discovery",
+      "title": "Treatment Option Discovery",
+      "before": {
+        "label": "Before",
+        "caption": "Legacy page content requires more scanning to understand paths.",
+        "path": "02-treatment-options-discovery/before.png"
+      },
+      "after": {
+        "label": "After",
+        "caption": "Redesigned treatment cards group surgical, non-surgical, and medication pathways.",
+        "path": "02-treatment-options-discovery/after.png"
+      }
+    },
+    {
+      "id": "03",
+      "slug": "gastric-sleeve-service-page",
+      "title": "Gastric Sleeve Service Page",
+      "before": {
+        "label": "Before",
+        "caption": "Legacy service page example from the live site.",
+        "path": "03-gastric-sleeve-service-page/before.png"
+      },
+      "after": {
+        "label": "After",
+        "caption": "Redesigned service detail with clearer sections, research, CTA paths, and support content.",
+        "path": "03-gastric-sleeve-service-page/after.png"
+      }
+    },
+    {
+      "id": "04",
+      "slug": "consultation-request-flow",
+      "title": "Consultation Request Flow",
+      "before": {
+        "label": "Before",
+        "caption": "Legacy contact or appointment entry point.",
+        "path": "04-consultation-request-flow/before.png"
+      },
+      "after": {
+        "label": "After",
+        "caption": "Redesigned consultation flow with structured patient context and clearer next action.",
+        "path": "04-consultation-request-flow/after.png"
+      }
+    },
+    {
+      "id": "05",
+      "slug": "bariatric-metrics-calculator",
+      "title": "Bariatric Metrics Calculator",
+      "before": {
+        "label": "Before",
+        "caption": "Legacy capture set has no equivalent interactive metrics workflow.",
+        "path": "05-bariatric-metrics-calculator/before.png"
+      },
+      "after": {
+        "label": "After",
+        "caption": "New calculator turns user inputs into insights, treatment suggestions, and consultation-ready output.",
+        "path": "05-bariatric-metrics-calculator/after.png"
+      }
+    },
+    {
+      "id": "06",
+      "slug": "admin-analytics-dashboard",
+      "title": "Admin Analytics Dashboard",
+      "before": {
+        "label": "Before",
+        "caption": "No comparable unified admin analytics view in the legacy capture set.",
+        "path": "06-admin-analytics-dashboard/before.png"
+      },
+      "after": {
+        "label": "After",
+        "caption": "Mock-data admin dashboard showing analytics, acquisition, top pages, and content performance.",
+        "path": "06-admin-analytics-dashboard/after.png"
+      }
+    },
+    {
+      "id": "07",
+      "slug": "admin-content-builder-ai-flow",
+      "title": "Admin Content Builder + AI Flow",
+      "before": {
+        "label": "Before",
+        "caption": "Legacy capture set does not include a comparable integrated content workflow.",
+        "path": "07-admin-content-builder-ai-flow/before.png"
+      },
+      "after": {
+        "label": "After",
+        "caption": "Mock-data content builder with AI drafting, SEO controls, editor tools, and publish actions.",
+        "path": "07-admin-content-builder-ai-flow/after.png"
+      }
+    },
+    {
+      "id": "08",
+      "slug": "lms-education-portal",
+      "title": "LMS Education Portal",
+      "before": {
+        "label": "Before",
+        "caption": "Legacy capture set has no equivalent patient education portal surface.",
+        "path": "08-lms-education-portal/before.png"
+      },
+      "after": {
+        "label": "After",
+        "caption": "New LMS landing page explains required courses and gives patients a clear access point.",
+        "path": "08-lms-education-portal/after.png"
+      }
+    },
+    {
+      "id": "09",
+      "slug": "lms-patient-course-progress",
+      "title": "LMS Patient Course Progress",
+      "before": {
+        "label": "Before",
+        "caption": "Legacy capture set has no equivalent patient progress dashboard.",
+        "path": "09-lms-patient-course-progress/before.png"
+      },
+      "after": {
+        "label": "After",
+        "caption": "Mock-data dashboard showing assigned courses, progress, certificates, and continuation actions.",
+        "path": "09-lms-patient-course-progress/after.png"
+      }
+    },
+    {
+      "id": "10",
+      "slug": "lms-admin-patient-management",
+      "title": "LMS Admin Patient Management",
+      "before": {
+        "label": "Before",
+        "caption": "Legacy capture set has no comparable course management console.",
+        "path": "10-lms-admin-patient-management/before.png"
+      },
+      "after": {
+        "label": "After",
+        "caption": "Mock-data LMS admin screen for users, courses, progress, certificates, and invites.",
+        "path": "10-lms-admin-patient-management/after.png"
+      }
+    }
+  ]
+}

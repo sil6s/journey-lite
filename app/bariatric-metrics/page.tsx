@@ -3,9 +3,9 @@ import { SiteFooter, SiteHeader } from "../components/marketing";
 import { MetricsDashboard } from "./MetricsDashboard";
 
 export const metadata: Metadata = {
-  title: "Bariatric Metrics Calculator | BMI & Weight-Loss Progress | JourneyLite",
+  title: "Personalized Bariatric Assessment | Surgery Eligibility & BMI Analysis | JourneyLite",
   description:
-    "Calculate BMI, percent total weight loss, excess weight loss, and goal progress with JourneyLite's free bariatric metrics calculator. Private — nothing leaves your browser.",
+    "Get your personalized bariatric assessment in 30 seconds. See your BMI analysis, surgery eligibility, procedure recommendations, and a clear next step — all private, all in your browser.",
 };
 
 export default function BariatricMetricsPage() {

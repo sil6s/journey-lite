@@ -5,21 +5,18 @@ import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import {
   AlertTriangle,
   ArrowLeft,
-  Building2,
   CalendarCheck,
   CalendarX,
   ChevronDown,
   ChevronUp,
   Check,
   ClipboardList,
-  ExternalLink,
   HelpCircle,
   Info,
   Layers,
   Loader2,
   Mail,
   MapPin,
-  Navigation,
   Phone,
   Pill,
   RefreshCw,
@@ -136,7 +133,7 @@ const overlayLocations = [
   },
 ];
 
-type Flow = "choice" | "details" | "location" | "contact" | "submitting" | "done";
+type Flow = "choice" | "details" | "contact" | "submitting" | "done";
 type RequestType = "information" | "appointment";
 
 interface FormState {
@@ -295,13 +292,6 @@ export function BookConsultOverlay() {
     return Object.keys(errs).length === 0;
   }
 
-  function validateLocation() {
-    const errs: Record<string, string> = {};
-    if (!form.location) errs.location = "Choose a preferred location.";
-    setErrors(errs);
-    return Object.keys(errs).length === 0;
-  }
-
   function validateContact() {
     const errs: Record<string, string> = {};
     if (!form.firstName.trim()) errs.firstName = "First name is required.";
@@ -332,11 +322,6 @@ export function BookConsultOverlay() {
     if (flow === "details") {
       if (!validateDetails()) return;
       setErrors({});
-      setFlow(form.requestType === "appointment" ? "location" : "contact");
-      scrollTop();
-    } else if (flow === "location") {
-      if (!validateLocation()) return;
-      setErrors({});
       setFlow("contact");
       scrollTop();
     }
@@ -344,11 +329,8 @@ export function BookConsultOverlay() {
 
   function goBack() {
     setErrors({});
-    if (flow === "details") { setFlow("choice"); }
-    else if (flow === "location") { setFlow("details"); }
-    else if (flow === "contact") {
-      setFlow(form.requestType === "appointment" ? "location" : "details");
-    }
+    if (flow === "details") setFlow("choice");
+    else if (flow === "contact") setFlow("details");
     scrollTop();
   }
 
@@ -385,20 +367,15 @@ export function BookConsultOverlay() {
     }
   }
 
-  const isFormFlow = flow === "details" || flow === "location" || flow === "contact" || flow === "submitting";
-  const totalSteps = form.requestType === "information" ? 2 : 3;
-  const stepNumber =
-    flow === "details" ? 1 :
-    flow === "location" ? 2 :
-    flow === "contact" || flow === "submitting" ? totalSteps :
-    null;
+  const isFormFlow = flow === "details" || flow === "contact" || flow === "submitting";
+  const totalSteps = 2;
+  const stepNumber = flow === "details" ? 1 : flow === "contact" || flow === "submitting" ? 2 : null;
   const progressPct = stepNumber !== null ? Math.round((stepNumber / totalSteps) * 100) : 0;
 
   const headerTitle =
     flow === "choice" ? "How can we help you today?" :
     flow === "done" ? "Request received" :
     flow === "details" ? (form.requestType === "information" ? "What are you interested in?" : "Your appointment interest") :
-    flow === "location" ? "Choose a location" :
     "Your contact information";
 
   return (
@@ -497,14 +474,6 @@ export function BookConsultOverlay() {
                     />
                   )}
                 </div>
-              ) : flow === "location" ? (
-                <div className="px-6 py-6 grid gap-6">
-                  <LocationStep
-                    error={errors.location}
-                    selected={form.location}
-                    onSelect={(value) => update("location", value)}
-                  />
-                </div>
               ) : (
                 <div className="px-6 py-6 grid gap-6">
                   <ContactFields errors={errors} form={form} update={update} />
@@ -550,7 +519,7 @@ export function BookConsultOverlay() {
                       <Phone className="size-4" />
                       Call Us — 877-442-2263
                     </a>
-                  ) : flow === "details" || flow === "location" ? (
+                  ) : flow === "details" ? (
                     <Button
                       className="h-12 flex-1 bg-[#145c42] text-white hover:bg-[#0f4d37] text-sm font-semibold sm:flex-none sm:px-10"
                       onClick={goNext}
@@ -888,106 +857,23 @@ function AppointmentDetails({ interest }: { interest: string }) {
   );
 }
 
-/* ── Location step ────────────────────────────────────────── */
+/* ── Contact fields ───────────────────────────────────────── */
 
-function LocationStep({
-  selected,
-  onSelect,
-  error,
-}: {
-  selected: string;
-  onSelect: (value: string) => void;
-  error?: string;
-}) {
-  return (
-    <div className="grid gap-6">
-      <StepCard
-        icon={<MapPin className="size-5 text-[#145c42]" />}
-        title="Choose a location"
-        description="Select the JourneyLite office most convenient for you. You can always discuss alternatives when our team reaches out."
-      />
-      {error ? <p className="text-sm font-semibold text-[#8a3b22]">{error}</p> : null}
-      <div className="grid gap-3">
-        {overlayLocations.map((loc) => {
-          const isSelected = selected === loc.name;
-          const isNotSure = loc.id === "not-sure";
-          return (
-            <button
-              aria-pressed={isSelected}
-              className={cn(
-                "relative w-full rounded-xl border-2 p-4 text-left transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#145c42] focus-visible:ring-offset-2",
-                isSelected
-                  ? "border-[#145c42] bg-[#edf6f0]"
-                  : "border-[#dce7e0] bg-white hover:border-[#145c42]",
-              )}
-              key={loc.id}
-              onClick={() => onSelect(loc.name)}
-              type="button"
-            >
-              {isSelected ? (
-                <span className="absolute right-3 top-3 flex size-6 items-center justify-center rounded-full bg-[#145c42]">
-                  <Check className="size-3.5 text-white" />
-                </span>
-              ) : null}
+const GAUGE_MIN = 15;
+const GAUGE_MAX = 55;
 
-              <div className="flex items-start gap-3">
-                <div className={cn(
-                  "mt-0.5 flex size-9 shrink-0 items-center justify-center rounded-lg",
-                  isSelected ? "bg-[#145c42] text-white" : "bg-[#f0f5f2] text-[#145c42]",
-                )}>
-                  {isNotSure ? <HelpCircle className="size-4" /> : <Building2 className="size-4" />}
-                </div>
-                <div className="min-w-0 flex-1 pr-8">
-                  <div className="flex flex-wrap items-center gap-2">
-                    <p className={cn("text-base font-semibold", isSelected ? "text-[#163d2d]" : "text-[#1f2c25]")}>
-                      {loc.name}
-                    </p>
-                    {loc.badge ? (
-                      <span className="rounded-full bg-[#145c42] px-2.5 py-0.5 text-xs font-semibold text-white">
-                        {loc.badge}
-                      </span>
-                    ) : null}
-                  </div>
-                  {loc.address1 ? (
-                    <p className="mt-1 flex items-start gap-1.5 text-sm text-[#66756d]">
-                      {!isNotSure && <MapPin className="mt-0.5 size-3.5 shrink-0" />}
-                      <span>{loc.address1}{loc.address2 ? `, ${loc.address2}` : ""}</span>
-                    </p>
-                  ) : null}
-                  <div className="mt-2 flex flex-wrap gap-x-4 gap-y-1.5">
-                    <a
-                      className="inline-flex items-center gap-1.5 text-sm font-semibold text-[#145c42] hover:text-[#0f4d37]"
-                      href={loc.phoneHref}
-                      onClick={(e) => e.stopPropagation()}
-                    >
-                      <Phone className="size-3.5" />
-                      {loc.phone}
-                    </a>
-                    {loc.directions ? (
-                      <a
-                        className="inline-flex items-center gap-1.5 text-sm font-semibold text-[#145c42] hover:text-[#0f4d37]"
-                        href={loc.directions}
-                        onClick={(e) => e.stopPropagation()}
-                        rel="noreferrer"
-                        target="_blank"
-                      >
-                        <Navigation className="size-3.5" />
-                        Directions
-                        <ExternalLink className="size-3" />
-                      </a>
-                    ) : null}
-                  </div>
-                </div>
-              </div>
-            </button>
-          );
-        })}
-      </div>
-    </div>
-  );
+function bmiGaugePct(n: number) {
+  return Math.min(100, Math.max(0, ((n - GAUGE_MIN) / (GAUGE_MAX - GAUGE_MIN)) * 100));
 }
 
-/* ── Contact fields ───────────────────────────────────────── */
+function bmiCategory(n: number): { label: string; color: string } {
+  if (n < 18.5) return { label: "Underweight", color: "#3b82f6" };
+  if (n < 25)   return { label: "Normal weight", color: "#22c55e" };
+  if (n < 30)   return { label: "Overweight", color: "#f59e0b" };
+  if (n < 35)   return { label: "Obese — Class I", color: "#f97316" };
+  if (n < 40)   return { label: "Obese — Class II", color: "#ef4444" };
+  return           { label: "Obese — Class III", color: "#b91c1c" };
+}
 
 function ContactFields({
   form,
@@ -998,9 +884,42 @@ function ContactFields({
   errors: Record<string, string>;
   update: <K extends keyof FormState>(key: K, value: FormState[K]) => void;
 }) {
+  const bmi = computeBMI(form.heightFt, form.heightIn, form.weight);
+  const bmiNum = parseFloat(bmi);
+  const { label: bmiLabel, color: bmiColor } = bmiNum ? bmiCategory(bmiNum) : { label: "", color: "#145c42" };
+
   return (
     <div className="grid gap-6">
       <StepCard icon={<User className="size-5 text-[#145c42]" />} title="Almost there" description="Share your contact details so the JourneyLite team can reach you." />
+
+      {/* Location — shown for appointment requests */}
+      {form.requestType === "appointment" && (
+        <div className="grid gap-3">
+          <p className="text-sm font-semibold text-[#1f2c25]">Preferred location <span className="font-normal text-[#66756d]">(optional)</span></p>
+          <div className="grid gap-2 sm:grid-cols-2">
+            {overlayLocations.map((loc) => {
+              const selected = form.location === loc.name;
+              return (
+                <button
+                  aria-pressed={selected}
+                  className={cn(
+                    "flex items-center gap-2.5 rounded-lg border px-3 py-3 text-left text-sm transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#145c42]",
+                    selected ? "border-[#145c42] bg-[#edf6f0] font-semibold text-[#143d2c]" : "border-[#dce7e0] bg-white text-[#43564d] hover:border-[#145c42]",
+                  )}
+                  key={loc.id}
+                  onClick={() => update("location", selected ? "" : loc.name)}
+                  type="button"
+                >
+                  <MapPin className={cn("size-3.5 shrink-0", selected ? "text-[#145c42]" : "text-[#9ca3af]")} />
+                  <span className="truncate">{loc.name}</span>
+                  {selected && <Check className="ml-auto size-3.5 shrink-0 text-[#145c42]" />}
+                </button>
+              );
+            })}
+          </div>
+        </div>
+      )}
+
       {/* Name + DOB */}
       <div className="grid gap-4 sm:grid-cols-2">
         <TextField error={errors.firstName} label="First name" onChange={(v) => update("firstName", v)} value={form.firstName} />
@@ -1009,63 +928,43 @@ function ContactFields({
       </div>
 
       {/* Height / Weight / BMI */}
-      {(() => {
-        const bmi = computeBMI(form.heightFt, form.heightIn, form.weight);
-        return (
-          <div className="grid gap-3 rounded-xl border border-[#dce7e0] bg-[#f8fbf9] p-4">
-            <p className="text-sm font-semibold text-[#1f2c25]">Height, Weight &amp; BMI</p>
-            <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
-              <div className="grid gap-1.5">
-                <Label htmlFor="heightFt">Height (ft)</Label>
-                <Input
-                  className="border-[#cbd7d0] focus-visible:ring-[#145c42]"
-                  id="heightFt"
-                  max="8"
-                  min="1"
-                  onChange={(e) => update("heightFt", e.target.value)}
-                  placeholder="5"
-                  type="number"
-                  value={form.heightFt}
-                />
-              </div>
-              <div className="grid gap-1.5">
-                <Label htmlFor="heightIn">Inches</Label>
-                <Input
-                  className="border-[#cbd7d0] focus-visible:ring-[#145c42]"
-                  id="heightIn"
-                  max="11"
-                  min="0"
-                  onChange={(e) => update("heightIn", e.target.value)}
-                  placeholder="4"
-                  type="number"
-                  value={form.heightIn}
-                />
-              </div>
-              <div className="grid gap-1.5">
-                <Label htmlFor="weight">Weight (lbs)</Label>
-                <Input
-                  className="border-[#cbd7d0] focus-visible:ring-[#145c42]"
-                  id="weight"
-                  min="0"
-                  onChange={(e) => update("weight", e.target.value)}
-                  placeholder="240"
-                  type="number"
-                  value={form.weight}
-                />
-              </div>
-              <div className="grid gap-1.5">
-                <Label>BMI</Label>
-                <div className={cn(
-                  "flex h-10 items-center rounded-lg border px-3 text-sm font-bold",
-                  bmi ? "border-[#145c42] bg-[#edf6f0] text-[#145c42]" : "border-[#dce7e0] bg-white text-[#9ca3af]",
-                )}>
-                  {bmi || "—"}
-                </div>
-              </div>
+      <div className="grid gap-3 rounded-xl border border-[#dce7e0] bg-[#f8fbf9] p-4">
+        <p className="text-sm font-semibold text-[#1f2c25]">Height, Weight &amp; BMI <span className="font-normal text-[#66756d]">(optional)</span></p>
+        <div className="grid grid-cols-3 gap-3">
+          <div className="grid gap-1.5">
+            <Label htmlFor="heightFt">Height (ft)</Label>
+            <Input className="border-[#cbd7d0] focus-visible:ring-[#145c42]" id="heightFt" max="8" min="1" onChange={(e) => update("heightFt", e.target.value)} placeholder="5" type="number" value={form.heightFt} />
+          </div>
+          <div className="grid gap-1.5">
+            <Label htmlFor="heightIn">Inches</Label>
+            <Input className="border-[#cbd7d0] focus-visible:ring-[#145c42]" id="heightIn" max="11" min="0" onChange={(e) => update("heightIn", e.target.value)} placeholder="4" type="number" value={form.heightIn} />
+          </div>
+          <div className="grid gap-1.5">
+            <Label htmlFor="weight">Weight (lbs)</Label>
+            <Input className="border-[#cbd7d0] focus-visible:ring-[#145c42]" id="weight" min="0" onChange={(e) => update("weight", e.target.value)} placeholder="240" type="number" value={form.weight} />
+          </div>
+        </div>
+        {bmi && (
+          <div className="mt-1">
+            <div className="flex items-baseline justify-between mb-1.5">
+              <span className="text-xs font-semibold text-[#66756d]">BMI</span>
+              <span className="text-lg font-bold tabular-nums" style={{ color: bmiColor }}>{bmi} <span className="text-xs font-semibold" style={{ color: bmiColor }}>{bmiLabel}</span></span>
+            </div>
+            <div
+              className="relative h-3 rounded-full overflow-hidden"
+              style={{ background: "linear-gradient(to right, #3b82f6 0%,#3b82f6 8.75%,#22c55e 8.75%,#22c55e 25%,#f59e0b 25%,#f59e0b 37.5%,#f97316 37.5%,#f97316 50%,#ef4444 50%,#ef4444 62.5%,#b91c1c 62.5%,#b91c1c 100%)" }}
+            >
+              <div
+                className="absolute top-1/2 h-4 w-4 -translate-x-1/2 -translate-y-1/2 rounded-full border-2 border-white shadow-md transition-all duration-300"
+                style={{ left: `${bmiGaugePct(bmiNum)}%`, background: bmiColor }}
+              />
+            </div>
+            <div className="mt-1 flex justify-between text-[10px] text-[#9ca3af]">
+              <span>Under</span><span>Normal</span><span>Over</span><span>Obese</span>
             </div>
           </div>
-        );
-      })()}
+        )}
+      </div>
 
       {/* Address */}
       <TextField label="Address (optional)" onChange={(v) => update("address", v)} value={form.address} />
@@ -1079,12 +978,7 @@ function ContactFields({
       {/* Phone */}
       <div className="grid gap-2 sm:max-w-xs">
         <Label htmlFor="consult-phone">Phone (optional)</Label>
-        <PhoneInput
-          id="consult-phone"
-          value={form.phone as PhoneValue}
-          onChange={(v) => update("phone", v ?? "")}
-          placeholder="Enter a phone number"
-        />
+        <PhoneInput id="consult-phone" value={form.phone as PhoneValue} onChange={(v) => update("phone", v ?? "")} placeholder="Enter a phone number" />
       </div>
 
       {/* Insurance + Referral */}
@@ -1092,64 +986,22 @@ function ContactFields({
         <TextField label="Insurance / Self-pay" onChange={(v) => update("insuranceProvider", v)} value={form.insuranceProvider} />
         <TextField label="How did you hear about us? (optional)" onChange={(v) => update("referralSource", v)} value={form.referralSource} />
       </div>
-      <RadioField
-        compact
-        label="Preferred contact method"
-        onChange={(v) => update("preferredContactMethod", v)}
-        options={["Email", "Phone call", "Text message", "No preference"]}
-        value={form.preferredContactMethod}
-      />
+      <RadioField compact label="Preferred contact method" onChange={(v) => update("preferredContactMethod", v)} options={["Email", "Phone call", "Text message", "No preference"]} value={form.preferredContactMethod} />
       {form.requestType === "appointment" ? (
-        <RadioField
-          compact
-          label="Best time to reach you"
-          onChange={(v) => update("bestTime", v)}
-          options={["Morning", "Afternoon", "Evening", "No preference"]}
-          value={form.bestTime}
-        />
+        <RadioField compact label="Best time to reach you" onChange={(v) => update("bestTime", v)} options={["Morning", "Afternoon", "Evening", "No preference"]} value={form.bestTime} />
       ) : null}
       <div className="grid gap-2">
         <Label htmlFor="consult-message">Questions or additional details (optional)</Label>
-        <Textarea
-          className="min-h-24 border-[#cbd7d0] focus-visible:ring-[#145c42]"
-          id="consult-message"
-          onChange={(e) => update("message", e.target.value)}
-          placeholder="Pricing, insurance, timing, or treatment questions."
-          value={form.message}
-        />
+        <Textarea className="min-h-24 border-[#cbd7d0] focus-visible:ring-[#145c42]" id="consult-message" onChange={(e) => update("message", e.target.value)} placeholder="Pricing, insurance, timing, or treatment questions." value={form.message} />
       </div>
-      <input
-        aria-hidden="true"
-        autoComplete="off"
-        className="hidden"
-        name="website"
-        onChange={(e) => update("website", e.target.value)}
-        tabIndex={-1}
-        value={form.website}
-      />
+      <input aria-hidden="true" autoComplete="off" className="hidden" name="website" onChange={(e) => update("website", e.target.value)} tabIndex={-1} value={form.website} />
       <label className="flex cursor-pointer gap-3 rounded-lg border border-[#dce7e0] p-4 text-sm leading-6 text-[#53635b]">
-        <input
-          checked={form.textConsent}
-          className="mt-1 size-4 shrink-0 accent-[#145c42]"
-          onChange={(e) => update("textConsent", e.target.checked)}
-          type="checkbox"
-        />
-        <span>
-          SMS Consent (optional): I agree to receive text messages from JourneyLite. Message and data rates may apply.
-          Reply STOP to opt out.
-        </span>
+        <input checked={form.textConsent} className="mt-1 size-4 shrink-0 accent-[#145c42]" onChange={(e) => update("textConsent", e.target.checked)} type="checkbox" />
+        <span>SMS Consent (optional): I agree to receive text messages from JourneyLite. Message and data rates may apply. Reply STOP to opt out.</span>
       </label>
       <label className="flex cursor-pointer gap-3 rounded-lg border border-[#dce7e0] p-4 text-sm leading-6 text-[#53635b]">
-        <input
-          checked={form.consent}
-          className="mt-1 size-4 shrink-0 accent-[#145c42]"
-          onChange={(e) => update("consent", e.target.checked)}
-          type="checkbox"
-        />
-        <span>
-          I understand this form is not for medical emergencies, and I agree that JourneyLite may contact me using the
-          information I provided.
-        </span>
+        <input checked={form.consent} className="mt-1 size-4 shrink-0 accent-[#145c42]" onChange={(e) => update("consent", e.target.checked)} type="checkbox" />
+        <span>I understand this form is not for medical emergencies, and I agree that JourneyLite may contact me using the information I provided.</span>
       </label>
       {errors.consent ? <p className="text-sm font-semibold text-[#8a3b22]">{errors.consent}</p> : null}
     </div>
