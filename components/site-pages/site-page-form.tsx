@@ -2,6 +2,7 @@
 
 import { useMemo, useState, type FormEvent } from "react";
 import { CheckCircle2, FileText, UploadCloud } from "lucide-react";
+import { TurnstileWidget } from "@/components/site/TurnstileWidget";
 import { createClient } from "@/lib/supabase/client";
 import type { FormDefinition, FormFieldDefinition } from "@/src/lib/sanity/types";
 
@@ -9,6 +10,7 @@ type SubmitState = "idle" | "submitting" | "success" | "error";
 type UploadValue = { path: string; originalName: string; size: number; type: string };
 type FormValue = string | boolean | string[] | File | UploadValue | null;
 const UPLOAD_BUCKET = "form-uploads";
+const TURNSTILE_SITE_KEY = process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY;
 
 export function SitePageForm({ form, pageSlug }: { form: FormDefinition; pageSlug: string }) {
   const fields = useMemo(() => form.fields?.filter((field) => field.key && field.type) ?? [], [form.fields]);
@@ -16,10 +18,13 @@ export function SitePageForm({ form, pageSlug }: { form: FormDefinition; pageSlu
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [state, setState] = useState<SubmitState>("idle");
   const [message, setMessage] = useState("");
+  const [turnstileToken, setTurnstileToken] = useState("");
+  const [turnstileResetKey, setTurnstileResetKey] = useState(0);
 
   async function onSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     const nextErrors = validateFields(fields, values);
+    if (TURNSTILE_SITE_KEY && !turnstileToken) nextErrors.turnstile = "Please complete the security check.";
     setErrors(nextErrors);
     if (Object.keys(nextErrors).length) return;
 
@@ -35,6 +40,7 @@ export function SitePageForm({ form, pageSlug }: { form: FormDefinition; pageSlu
           formKey: form.key,
           pageSlug,
           values: preparedValues,
+          turnstileToken,
         }),
       });
       const payload = (await response.json()) as { ok?: boolean; error?: string; redirectUrl?: string };
@@ -47,10 +53,14 @@ export function SitePageForm({ form, pageSlug }: { form: FormDefinition; pageSlu
 
       setState("success");
       setMessage(form.successMessage || "Thank you. We received your submission.");
+      setTurnstileToken("");
+      setTurnstileResetKey((key) => key + 1);
       if (payload.redirectUrl) window.location.href = payload.redirectUrl;
     } catch {
       setState("error");
       setMessage(form.errorMessage || "Something went wrong. Please try again.");
+      setTurnstileToken("");
+      setTurnstileResetKey((key) => key + 1);
     }
   }
 
@@ -85,6 +95,25 @@ export function SitePageForm({ form, pageSlug }: { form: FormDefinition; pageSlu
           setValues((prev) => ({ ...prev, [form.spamProtection?.honeypotFieldName || "website"]: event.target.value }))
         }
       />
+      <div className="mt-6">
+        <TurnstileWidget
+          action="site_form_submit"
+          key={turnstileResetKey}
+          onError={() => {
+            setTurnstileToken("");
+            setErrors((prev) => ({ ...prev, turnstile: "Security check failed. Please try again." }));
+          }}
+          onExpire={() => {
+            setTurnstileToken("");
+            setErrors((prev) => ({ ...prev, turnstile: "Security check expired. Please try again." }));
+          }}
+          onVerify={(token) => {
+            setTurnstileToken(token);
+            if (token) setErrors((prev) => ({ ...prev, turnstile: "" }));
+          }}
+        />
+        {errors.turnstile ? <p className="mt-2 text-sm font-semibold text-[#8a3b22]">{errors.turnstile}</p> : null}
+      </div>
       <div className="mt-6">
         <button
           className="inline-flex min-h-11 items-center justify-center rounded-md bg-[#145c42] px-5 py-3 text-sm font-semibold text-white transition hover:bg-[#0f4d37] disabled:cursor-not-allowed disabled:opacity-70"

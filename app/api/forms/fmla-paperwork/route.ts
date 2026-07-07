@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
+import { verifyTurnstileToken } from "@/lib/auth/turnstile";
 import { sendFormSubmissionEmail } from "@/lib/email";
 import { getSupabaseAdminClient } from "@/lib/supabase/admin";
 import type { Json } from "@/lib/supabase/database.types";
@@ -25,6 +26,7 @@ type FmlaPayload = {
   additionalInformation?: string;
   upload?: UploadMetadata | null;
   website?: string;
+  turnstileToken?: string;
 };
 
 export async function POST(req: NextRequest) {
@@ -43,10 +45,20 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: validation.error }, { status: 400 });
   }
 
+  const remoteIp = req.headers.get("x-forwarded-for")?.split(",")[0]?.trim() || req.headers.get("x-real-ip") || undefined;
+  const turnstile = await verifyTurnstileToken(payload.turnstileToken, "fmla_paperwork", remoteIp);
+  if (!turnstile.ok) {
+    console.warn("[fmla-paperwork] Turnstile failed:", turnstile.reason);
+    if (!turnstile.bypassed) {
+      return NextResponse.json({ error: "Security check failed. Please refresh and try again." }, { status: 400 });
+    }
+  }
+
   const metadata = {
     userAgent: req.headers.get("user-agent"),
-    ip: req.headers.get("x-forwarded-for")?.split(",")[0]?.trim() || req.headers.get("x-real-ip"),
+    ip: remoteIp,
     submittedPath: "/fmla-short-term-disability-paperwork",
+    securityCheck: turnstile.bypassed ? "Turnstile bypassed" : "Turnstile verified",
   };
 
   const supabase = getSupabaseAdminClient();
@@ -117,8 +129,10 @@ function validatePayload(payload: FmlaPayload):
   const confirmEmail = String(payload.confirmEmail ?? "").trim();
   if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return { ok: false, error: "Email must be valid." };
   if (email.toLowerCase() !== confirmEmail.toLowerCase()) return { ok: false, error: "Email and confirmation email must match." };
-  if (String(payload.phone ?? "").replace(/\D/g, "").length < 10) return { ok: false, error: "Phone must be valid." };
-  if (Number.isNaN(Date.parse(String(payload.dob)))) return { ok: false, error: "Date of birth must be valid." };
+  if (!isValidUsPhone(String(payload.phone ?? "").replace(/\D/g, ""))) return { ok: false, error: "Phone must be valid." };
+  const dobDate = new Date(`${String(payload.dob)}T00:00:00`);
+  if (Number.isNaN(dobDate.getTime()) || dobDate > new Date()) return { ok: false, error: "Date of birth must be valid." };
+  if (!isValidEmailOrFax(String(payload.sendCompletedTo ?? "").trim())) return { ok: false, error: "Send completed form to must be a valid email address or fax number." };
   if (!payload.permissionToTransmit) return { ok: false, error: "Permission to transmit is required." };
   if (!payload.paymentAcknowledged) return { ok: false, error: "Payment acknowledgement is required." };
 
@@ -167,4 +181,13 @@ function fieldLabel(key: keyof FmlaPayload) {
 
 function isUploadMetadata(value: unknown): value is UploadMetadata {
   return Boolean(value && typeof value === "object" && !Array.isArray(value) && "path" in value);
+}
+
+function isValidUsPhone(digits: string) {
+  return digits.length === 10 || (digits.length === 11 && digits.startsWith("1"));
+}
+
+function isValidEmailOrFax(value: string) {
+  if (/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) return true;
+  return isValidUsPhone(value.replace(/\D/g, ""));
 }

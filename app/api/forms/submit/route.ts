@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
+import { verifyTurnstileToken } from "@/lib/auth/turnstile";
 import { sendFormSubmissionEmail } from "@/lib/email";
 import { getSupabaseAdminClient } from "@/lib/supabase/admin";
 import type { Json } from "@/lib/supabase/database.types";
@@ -11,6 +12,7 @@ type Payload = {
   formId?: string;
   pageSlug?: string;
   values?: Record<string, unknown>;
+  turnstileToken?: string;
 };
 
 export async function POST(req: NextRequest) {
@@ -36,6 +38,15 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ ok: true });
   }
 
+  const remoteIp = req.headers.get("x-forwarded-for")?.split(",")[0]?.trim() || req.headers.get("x-real-ip") || undefined;
+  const turnstile = await verifyTurnstileToken(payload.turnstileToken, "site_form_submit", remoteIp);
+  if (!turnstile.ok) {
+    console.warn("[forms] Turnstile failed:", turnstile.reason);
+    if (!turnstile.bypassed) {
+      return NextResponse.json({ error: "Security check failed. Please refresh and try again." }, { status: 400 });
+    }
+  }
+
   const validation = validateSubmission(form, payload.values);
   if (!validation.ok) {
     return NextResponse.json({ error: validation.error }, { status: 400 });
@@ -43,8 +54,9 @@ export async function POST(req: NextRequest) {
 
   const metadata = {
     userAgent: req.headers.get("user-agent"),
-    ip: req.headers.get("x-forwarded-for")?.split(",")[0]?.trim() || req.headers.get("x-real-ip"),
+    ip: remoteIp,
     submittedPath: payload.pageSlug ? `/${payload.pageSlug}` : null,
+    securityCheck: turnstile.bypassed ? "Turnstile bypassed" : "Turnstile verified",
   };
 
   const supabase = getSupabaseAdminClient();

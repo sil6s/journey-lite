@@ -34,6 +34,14 @@ const CART_ID_KEY = "journeylite_shopify_cart_id";
 const CART_URL_KEY = "journeylite_shopify_checkout_url";
 const CART_QTY_KEY = "journeylite_shopify_cart_qty";
 const CART_UPDATED_EVENT = "journeylite-shopify-cart-updated";
+const PROCEDURE_OPTIONS = [
+  { id: "all", label: "Not selected", terms: [] },
+  { id: "sleeve", label: "Gastric Sleeve", terms: ["sleeve", "vsg"] },
+  { id: "bypass", label: "Gastric Bypass", terms: ["bypass", "roux"] },
+  { id: "sadi", label: "SADI/SIPS", terms: ["sadi", "sips", "duodenal"] },
+  { id: "band", label: "Gastric Band", terms: ["band", "lap band", "lap-band"] },
+  { id: "balloon", label: "Gastric Balloon", terms: ["balloon", "orbera", "spatz", "allurion"] },
+];
 
 function getSectionTag(p: ShopifyProduct): string {
   const pt = p.productType;
@@ -100,6 +108,13 @@ function productEyebrow(product: ShopifyProduct): string {
   if (tag === "type-snack") return "Meal";
   if (tag === "type-service") return "Service";
   return product.productType || "Product";
+}
+
+function matchesProcedure(product: ShopifyProduct, procedureId: string): boolean {
+  const procedure = PROCEDURE_OPTIONS.find((option) => option.id === procedureId);
+  if (!procedure || procedure.id === "all") return true;
+  const haystack = `${product.title} ${product.handle} ${product.productType} ${product.tags.join(" ")}`.toLowerCase();
+  return procedure.terms.some((term) => haystack.includes(term));
 }
 
 function spanFor(index: number, total: number, cols: number): number {
@@ -277,6 +292,7 @@ function SectionHead({ title, subtitle }: { title: string; subtitle?: string }) 
 export function ShopClient({ products }: { products: ShopifyProduct[] }) {
   const [category, setCategory] = useState("all");
   const [search, setSearch] = useState("");
+  const [selectedProcedure, setSelectedProcedure] = useState("all");
   const [showMore, setShowMore] = useState<Record<string, boolean>>({});
   const [cartUrl, setCartUrl] = useState<string | null>(null);
   const [cartQty, setCartQty] = useState(0);
@@ -323,9 +339,11 @@ export function ShopClient({ products }: { products: ShopifyProduct[] }) {
     { id: "forms", label: "Forms & Admin", icon: ClipboardList, products: services.filter((product) => /form|admin|fmla|paperwork|disability/i.test(`${product.title} ${product.handle}`)) },
   ];
 
+  const selectedProcedureLabel = PROCEDURE_OPTIONS.find((option) => option.id === selectedProcedure)?.label ?? "Not selected";
   const activeProducts = category === "all" ? products : categories.find((item) => item.id === category)?.products ?? products;
   const searchTerm = search.trim().toLowerCase();
   const searchedProducts = activeProducts.filter((product) => {
+    if (!matchesProcedure(product, selectedProcedure)) return false;
     if (!searchTerm) return true;
     return `${product.title} ${product.productType} ${product.tags.join(" ")}`.toLowerCase().includes(searchTerm);
   });
@@ -343,7 +361,7 @@ export function ShopClient({ products }: { products: ShopifyProduct[] }) {
     .slice(0, 2);
   const cartPreviewTotal = cartPreview.reduce((total, product) => total + Number(product.priceRange.minVariantPrice.amount), 0);
   const checkoutHref = cartUrl ?? (SHOPIFY_STORE_URL ? `${SHOPIFY_STORE_URL}/cart` : "/shop");
-  const showSearchResults = category !== "all" || searchTerm.length > 0;
+  const showSearchResults = category !== "all" || searchTerm.length > 0 || selectedProcedure !== "all";
 
   const collections = [
     { badge: "Best seller", title: "Essential Vitamins", copy: "Daily vitamins recommended by our care team.", product: multivitamins[0] ?? longTermKits[0] ?? starterKits[0] },
@@ -381,7 +399,10 @@ export function ShopClient({ products }: { products: ShopifyProduct[] }) {
 
       <div className="jls-shop-shell">
         <TopStrip />
-        <Header checkoutHref={checkoutHref} cartCount={cartQty || cartPreview.length} cartTotal={cartPreviewTotal} search={search} setSearch={setSearch} />
+        <Header checkoutHref={checkoutHref} cartCount={cartQty || cartPreview.length} cartTotal={cartPreviewTotal} search={search} selectedProcedure={selectedProcedure} setSearch={setSearch} setSelectedProcedure={(value) => {
+          setSelectedProcedure(value);
+          if (value !== "all") setCategory("all");
+        }} />
 
         <div className="jls-store-grid">
           <main>
@@ -390,7 +411,7 @@ export function ShopClient({ products }: { products: ShopifyProduct[] }) {
 
             {showSearchResults ? (
               <section id="featured" style={{ padding: "20px 0 8px" }}>
-                <SectionHead title={category === "all" ? "Search Results" : categories.find((item) => item.id === category)?.label ?? "Products"} subtitle={`${searchedProducts.length} matching item${searchedProducts.length === 1 ? "" : "s"}`} />
+                <SectionHead title={selectedProcedure !== "all" ? `${selectedProcedureLabel} Products` : category === "all" ? "Search Results" : categories.find((item) => item.id === category)?.label ?? "Products"} subtitle={`${searchedProducts.length} matching item${searchedProducts.length === 1 ? "" : "s"}`} />
                 <PGrid cols={4} defaultShow={12} id="search-results" label="products" onSelect={setSelectedProduct} products={searchedProducts} showMore={showMore} toggle={toggle} />
               </section>
             ) : (
@@ -449,16 +470,22 @@ function Header({
   cartCount,
   cartTotal,
   search,
+  selectedProcedure,
   setSearch,
+  setSelectedProcedure,
 }: {
   checkoutHref: string;
   cartCount: number;
   cartTotal: number;
   search: string;
+  selectedProcedure: string;
   setSearch: (value: string) => void;
+  setSelectedProcedure: (value: string) => void;
 }) {
+  const [procedureOpen, setProcedureOpen] = useState(false);
   const navItems = ["Starter Kits", "Vitamins & Supplements", "Protein & Nutrition", "Meals", "Medical Services", "Forms & Admin"];
   const navTargets = ["starter-kits", "vitamins", "protein", "meals", "services", "services"];
+  const selectedProcedureLabel = PROCEDURE_OPTIONS.find((option) => option.id === selectedProcedure)?.label ?? "Not selected";
 
   return (
     <header style={{ background: "#fff", borderBottom: "1px solid #e0e6e2" }}>
@@ -473,9 +500,30 @@ function Header({
         </label>
 
         <div style={{ alignItems: "center", display: "flex", gap: 18, justifyContent: "flex-end" }}>
-          <button className="jls-icon-button jls-actions-extra" style={headerActionStyle}><ClipboardList size={20} /><span><strong>Procedure</strong><br />Not selected</span><ChevronDown size={14} /></button>
+          <div className="jls-actions-extra" style={{ position: "relative" }}>
+            <button aria-expanded={procedureOpen} aria-haspopup="listbox" className="jls-icon-button" onClick={() => setProcedureOpen((open) => !open)} style={headerActionStyle}>
+              <ClipboardList size={20} />
+              <span><strong>Procedure</strong><br />{selectedProcedureLabel}</span>
+              <ChevronDown size={14} />
+            </button>
+            {procedureOpen ? (
+              <div role="listbox" style={{ background: "#fff", border: "1px solid #dbe6df", borderRadius: 9, boxShadow: "0 16px 38px rgba(12, 42, 30, 0.14)", minWidth: 210, padding: 6, position: "absolute", right: 0, top: "calc(100% + 12px)", zIndex: 20 }}>
+                {PROCEDURE_OPTIONS.map((option) => {
+                  const active = option.id === selectedProcedure;
+                  return (
+                    <button aria-selected={active} key={option.id} onClick={() => {
+                      setSelectedProcedure(option.id);
+                      setProcedureOpen(false);
+                    }} role="option" style={{ alignItems: "center", background: active ? "#eef7f2" : "#fff", border: 0, borderRadius: 7, color: "#071b13", cursor: "pointer", display: "flex", font: "inherit", fontSize: 13, fontWeight: active ? 800 : 600, justifyContent: "space-between", padding: "10px 11px", textAlign: "left", width: "100%" }}>
+                      {option.label}
+                      {active ? <span style={{ background: "#0a4b38", borderRadius: 999, height: 7, width: 7 }} /> : null}
+                    </button>
+                  );
+                })}
+              </div>
+            ) : null}
+          </div>
           <a className="jls-icon-button jls-actions-extra" href={SHOPIFY_STORE_URL ? `${SHOPIFY_STORE_URL}/account` : "#"} style={headerActionStyle}><UserRound size={20} /><span>Account</span></a>
-          <button className="jls-icon-button jls-actions-extra" style={headerActionStyle}><Heart size={20} /><span>Favorites</span></button>
           <a href={checkoutHref} style={{ alignItems: "center", color: "#071b13", display: "inline-flex", fontSize: 14, fontWeight: 800, gap: 10, textDecoration: "none" }}>
             <span style={{ position: "relative" }}>
               <ShoppingCart size={28} />

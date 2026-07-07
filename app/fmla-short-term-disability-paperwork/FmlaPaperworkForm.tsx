@@ -1,8 +1,9 @@
 "use client";
 
 import Link from "next/link";
-import { useState, type FormEvent } from "react";
-import { AlertCircle, CheckCircle2, CreditCard, FileText, UploadCloud } from "lucide-react";
+import { useState, type ComponentType, type FormEvent } from "react";
+import { AlertCircle, AlertTriangle, BriefcaseBusiness, Building2, CalendarDays, CheckCircle2, CreditCard, FileText, Mail, Phone, Send, UploadCloud, UserRound } from "lucide-react";
+import { TurnstileWidget } from "@/components/site/TurnstileWidget";
 import { addToCart } from "@/lib/shopify/actions";
 import { createClient } from "@/lib/supabase/client";
 
@@ -12,6 +13,7 @@ const CART_ID_KEY = "journeylite_shopify_cart_id";
 const CART_URL_KEY = "journeylite_shopify_checkout_url";
 const CART_QTY_KEY = "journeylite_shopify_cart_qty";
 const CART_UPDATED_EVENT = "journeylite-shopify-cart-updated";
+const TURNSTILE_SITE_KEY = process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY;
 
 type SubmitState = "idle" | "uploading" | "submitting" | "addingToCart" | "success" | "error";
 
@@ -28,6 +30,8 @@ export function FmlaPaperworkForm() {
   const [file, setFile] = useState<File | null>(null);
   const [checkoutUrl, setCheckoutUrl] = useState<string | null>(null);
   const [errors, setErrors] = useState<Record<string, string>>({});
+  const [turnstileToken, setTurnstileToken] = useState("");
+  const [turnstileResetKey, setTurnstileResetKey] = useState(0);
 
   async function uploadFile(): Promise<UploadResult | null> {
     if (!file) return null;
@@ -82,6 +86,7 @@ export function FmlaPaperworkForm() {
     const email = String(formData.get("email") ?? "").trim();
     const confirmEmail = String(formData.get("confirmEmail") ?? "").trim();
     const nextErrors = validateForm(formData, file);
+    if (TURNSTILE_SITE_KEY && !turnstileToken) nextErrors.turnstile = "Please complete the security check.";
 
     if (Object.keys(nextErrors).length) {
       setState("error");
@@ -113,6 +118,7 @@ export function FmlaPaperworkForm() {
           additionalInformation: String(formData.get("additionalInformation") ?? "").trim(),
           upload,
           website: String(formData.get("website") ?? ""),
+          turnstileToken,
         }),
       });
       const payload = (await response.json()) as { ok?: boolean; error?: string };
@@ -122,6 +128,8 @@ export function FmlaPaperworkForm() {
 
       form.reset();
       setFile(null);
+      setTurnstileToken("");
+      setTurnstileResetKey((key) => key + 1);
       const nextCheckoutUrl = await maybeAddFmlaProductToCart();
       setState("success");
       setMessage(
@@ -131,6 +139,8 @@ export function FmlaPaperworkForm() {
       );
     } catch (error) {
       setState("error");
+      setTurnstileToken("");
+      setTurnstileResetKey((key) => key + 1);
       setMessage(error instanceof Error ? error.message : "Something went wrong. Please try again.");
     }
   }
@@ -174,39 +184,29 @@ export function FmlaPaperworkForm() {
 
       <div className="grid gap-4 md:grid-cols-2">
         <input autoComplete="off" className="hidden" name="website" tabIndex={-1} type="text" />
-        <Field autoComplete="given-name" error={errors.firstName} label="First Name" name="firstName" required />
-        <Field autoComplete="family-name" error={errors.lastName} label="Last Name" name="lastName" required />
-        <Field autoComplete="email" error={errors.email} label="Your Email" name="email" required type="email" />
-        <Field autoComplete="email" error={errors.confirmEmail} label="Confirm Email" name="confirmEmail" required type="email" />
-        <Field error={errors.dob} label="Date of Birth" name="dob" required type="date" />
-        <Field autoComplete="tel" error={errors.phone} label="Phone" name="phone" required type="tel" />
+        <Field autoComplete="given-name" error={errors.firstName} icon={UserRound} label="First Name" name="firstName" placeholder="First name" required />
+        <Field autoComplete="family-name" error={errors.lastName} icon={UserRound} label="Last Name" name="lastName" placeholder="Last name" required />
+        <Field autoComplete="email" error={errors.email} icon={Mail} label="Your Email" name="email" placeholder="you@example.com" required type="email" />
+        <Field autoComplete="email" error={errors.confirmEmail} icon={Mail} label="Confirm Email" name="confirmEmail" placeholder="Re-enter email" required type="email" />
+        <Field error={errors.dob} icon={CalendarDays} label="Date of Birth" name="dob" required type="date" />
+        <Field autoComplete="tel" error={errors.phone} icon={Phone} inputMode="tel" label="Phone" name="phone" pattern="[0-9()+\\-.\\s]{10,}" placeholder="(513) 555-1234" required type="tel" />
         <label className="grid gap-1 text-sm font-semibold text-[#1f2c25] md:col-span-2">
-          My Job Is <span className="sr-only">required</span>
-          <select className="min-h-11 rounded-md border border-[#cbd9d1] bg-white px-3 py-2 text-sm" name="jobType" required aria-invalid={Boolean(errors.jobType)}>
-            <option value="">Select job type</option>
-            <option value="Desk Only">Desk Only</option>
-            <option value="Light Duty">Light Duty</option>
-            <option value="Moderate Duty">Moderate Duty</option>
-            <option value="Heavy Labor">Heavy Labor</option>
-            <option value="Other">Other</option>
-          </select>
+          <span className="inline-flex items-center gap-2"><BriefcaseBusiness className="size-4 text-[#145c42]" aria-hidden="true" /> My Job Is <span className="text-red-600">*</span></span>
+          <span className="relative">
+            <BriefcaseBusiness className="pointer-events-none absolute left-3 top-1/2 size-4 -translate-y-1/2 text-[#6a7c72]" aria-hidden="true" />
+            <select className="min-h-11 w-full rounded-md border border-[#cbd9d1] bg-white px-10 py-2 text-sm outline-none transition focus:border-[#145c42] focus:ring-2 focus:ring-[#145c42]/15 aria-[invalid=true]:border-red-500" name="jobType" required aria-invalid={Boolean(errors.jobType)}>
+              <option value="">Select job type</option>
+              <option value="Desk Only">Desk Only</option>
+              <option value="Light Duty">Light Duty</option>
+              <option value="Moderate Duty">Moderate Duty</option>
+              <option value="Heavy Labor">Heavy Labor</option>
+              <option value="Other">Other</option>
+            </select>
+          </span>
           {errors.jobType ? <span className="text-xs font-medium text-red-700">{errors.jobType}</span> : null}
         </label>
-        <Field error={errors.employer} label="Employer" name="employer" required />
-        <Field error={errors.sendCompletedTo} label="Send Completed Form To Fax/Email" name="sendCompletedTo" required />
-        <label className="flex gap-3 rounded-md border border-[#dce4df] bg-[#f8fbf9] p-3 text-sm leading-6 text-[#53635b] md:col-span-2">
-          <input className="mt-1" name="permissionToTransmit" required type="checkbox" />
-          <span>I give permission to transmit this info via email or fax.</span>
-        </label>
-        <label className="flex gap-3 rounded-md border border-[#dce4df] bg-[#f8fbf9] p-3 text-sm leading-6 text-[#53635b] md:col-span-2">
-          <input className="mt-1" name="paymentAcknowledged" required type="checkbox" />
-          <span>
-            I understand I will complete the $30 FMLA payment after submitting this form.{" "}
-            <Link className="font-semibold text-[#145c42] underline-offset-4 hover:underline" href="/shop#services">
-              View eStore
-            </Link>
-          </span>
-        </label>
+        <Field error={errors.employer} icon={Building2} label="Employer" name="employer" placeholder="Employer name" required />
+        <Field error={errors.sendCompletedTo} helpText="Enter a valid email address or a 10-digit fax number." icon={Send} label="Send Completed Form To Fax/Email" name="sendCompletedTo" placeholder="hr@example.com or (513) 555-1234" required />
         <label className="group grid cursor-pointer gap-3 rounded-lg border-2 border-dashed border-[#b9d0c3] bg-[#f8fbf9] p-5 text-center transition hover:border-[#145c42] hover:bg-[#f1f8f4] md:col-span-2">
           <span className="mx-auto flex size-12 items-center justify-center rounded-full bg-white text-[#145c42] shadow-sm">
             {file ? <FileText className="size-6" aria-hidden="true" /> : <UploadCloud className="size-6" aria-hidden="true" />}
@@ -236,8 +236,53 @@ export function FmlaPaperworkForm() {
         </label>
         <label className="grid gap-1 text-sm font-semibold text-[#1f2c25] md:col-span-2">
           Additional Information
-          <textarea className="min-h-28 rounded-md border border-[#cbd9d1] bg-white px-3 py-2 text-sm" name="additionalInformation" />
+          <textarea className="min-h-28 rounded-md border border-[#cbd9d1] bg-white px-3 py-2 text-sm outline-none transition focus:border-[#145c42] focus:ring-2 focus:ring-[#145c42]/15" name="additionalInformation" placeholder="Anything else our medical assistants should know?" />
         </label>
+        <div className="rounded-lg border border-orange-300 bg-orange-50 p-4 text-sm leading-6 text-orange-950 md:col-span-2" role="alert">
+          <div className="flex gap-3">
+            <AlertTriangle className="mt-0.5 size-5 shrink-0 text-orange-700" aria-hidden="true" />
+            <div>
+              <p className="font-bold">Payment must be completed within 1 hour.</p>
+              <p className="mt-1">
+                After this form is submitted, complete the $30 payment checkout within one hour. If payment is not completed within one hour, this form submission may be deleted and you may need to submit it again.
+              </p>
+            </div>
+          </div>
+        </div>
+        <label className="flex gap-3 rounded-md border border-[#dce4df] bg-[#f8fbf9] p-3 text-sm leading-6 text-[#53635b] md:col-span-2">
+          <input className="mt-1" name="permissionToTransmit" required type="checkbox" />
+          <span>I give permission to transmit this info via email or fax.</span>
+        </label>
+        {errors.permissionToTransmit ? <span className="-mt-3 text-xs font-medium text-red-700 md:col-span-2">{errors.permissionToTransmit}</span> : null}
+        <label className="flex gap-3 rounded-md border border-[#dce4df] bg-[#f8fbf9] p-3 text-sm leading-6 text-[#53635b] md:col-span-2">
+          <input className="mt-1" name="paymentAcknowledged" required type="checkbox" />
+          <span>
+            I understand I must complete the $30 FMLA payment after submitting this form and within one hour.{" "}
+            <Link className="font-semibold text-[#145c42] underline-offset-4 hover:underline" href="/shop#services">
+              View eStore
+            </Link>
+          </span>
+        </label>
+        {errors.paymentAcknowledged ? <span className="-mt-3 text-xs font-medium text-red-700 md:col-span-2">{errors.paymentAcknowledged}</span> : null}
+        <div className="md:col-span-2">
+          <TurnstileWidget
+            action="fmla_paperwork"
+            key={turnstileResetKey}
+            onError={() => {
+              setTurnstileToken("");
+              setErrors((prev) => ({ ...prev, turnstile: "Security check failed. Please try again." }));
+            }}
+            onExpire={() => {
+              setTurnstileToken("");
+              setErrors((prev) => ({ ...prev, turnstile: "Security check expired. Please try again." }));
+            }}
+            onVerify={(token) => {
+              setTurnstileToken(token);
+              if (token) setErrors((prev) => ({ ...prev, turnstile: "" }));
+            }}
+          />
+          {errors.turnstile ? <p className="mt-2 text-sm font-semibold text-[#8a3b22]">{errors.turnstile}</p> : null}
+        </div>
       </div>
 
       <button
@@ -285,11 +330,29 @@ function validateForm(formData: FormData, file: File | null) {
   if (email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) errors.email = "Enter a valid email address.";
   if (email && confirmEmail && email.toLowerCase() !== confirmEmail.toLowerCase()) errors.confirmEmail = "Email addresses must match.";
   const phoneDigits = String(formData.get("phone") ?? "").replace(/\D/g, "");
-  if (phoneDigits && phoneDigits.length < 10) errors.phone = "Enter a valid 10-digit phone number.";
+  if (phoneDigits && !isValidUsPhone(phoneDigits)) errors.phone = "Enter a valid 10-digit phone number.";
+  const dob = String(formData.get("dob") ?? "").trim();
+  if (dob) {
+    const dobDate = new Date(`${dob}T00:00:00`);
+    if (Number.isNaN(dobDate.getTime()) || dobDate > new Date()) errors.dob = "Enter a valid date of birth.";
+  }
+  const sendCompletedTo = String(formData.get("sendCompletedTo") ?? "").trim();
+  if (sendCompletedTo && !isValidEmailOrFax(sendCompletedTo)) errors.sendCompletedTo = "Enter a valid email address or 10-digit fax number.";
+  if (formData.get("permissionToTransmit") !== "on") errors.permissionToTransmit = "Permission to transmit is required.";
+  if (formData.get("paymentAcknowledged") !== "on") errors.paymentAcknowledged = "Payment acknowledgement is required.";
   if (file && file.type !== "application/pdf" && !file.name.toLowerCase().endsWith(".pdf")) errors.file = "Upload must be a PDF.";
   if (file && file.size > MAX_FILE_SIZE) errors.file = "PDF must be 50 MB or smaller.";
 
   return errors;
+}
+
+function isValidUsPhone(digits: string) {
+  return digits.length === 10 || (digits.length === 11 && digits.startsWith("1"));
+}
+
+function isValidEmailOrFax(value: string) {
+  if (/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) return true;
+  return isValidUsPhone(value.replace(/\D/g, ""));
 }
 
 function Field({
@@ -299,6 +362,11 @@ function Field({
   type = "text",
   error,
   autoComplete,
+  helpText,
+  icon: Icon,
+  inputMode,
+  pattern,
+  placeholder,
 }: {
   label: string;
   name: string;
@@ -306,18 +374,34 @@ function Field({
   type?: "text" | "email" | "tel" | "date";
   error?: string;
   autoComplete?: string;
+  helpText?: string;
+  icon?: ComponentType<{ className?: string; "aria-hidden"?: boolean }>;
+  inputMode?: "tel" | "email" | "text" | "numeric" | "decimal";
+  pattern?: string;
+  placeholder?: string;
 }) {
   return (
     <label className="grid gap-1 text-sm font-semibold text-[#1f2c25]">
-      {label}
-      <input
-        aria-invalid={Boolean(error)}
-        autoComplete={autoComplete}
-        className="min-h-11 rounded-md border border-[#cbd9d1] bg-white px-3 py-2 text-sm outline-none transition focus:border-[#145c42] focus:ring-2 focus:ring-[#145c42]/15 aria-[invalid=true]:border-red-500"
-        name={name}
-        required={required}
-        type={type}
-      />
+      <span className="inline-flex items-center gap-2">
+        {Icon ? <Icon className="size-4 text-[#145c42]" aria-hidden={true} /> : null}
+        {label}
+        {required ? <span className="text-red-600">*</span> : null}
+      </span>
+      <span className="relative">
+        {Icon ? <Icon className="pointer-events-none absolute left-3 top-1/2 size-4 -translate-y-1/2 text-[#6a7c72]" aria-hidden={true} /> : null}
+        <input
+          aria-invalid={Boolean(error)}
+          autoComplete={autoComplete}
+          className={`min-h-11 w-full rounded-md border border-[#cbd9d1] bg-white py-2 text-sm outline-none transition placeholder:text-[#8b9b92] focus:border-[#145c42] focus:ring-2 focus:ring-[#145c42]/15 aria-[invalid=true]:border-red-500 ${Icon ? "px-10" : "px-3"}`}
+          inputMode={inputMode}
+          name={name}
+          pattern={pattern}
+          placeholder={placeholder}
+          required={required}
+          type={type}
+        />
+      </span>
+      {helpText ? <span className="text-xs font-normal leading-5 text-[#64736b]">{helpText}</span> : null}
       {error ? <span className="text-xs font-medium text-red-700">{error}</span> : null}
     </label>
   );
