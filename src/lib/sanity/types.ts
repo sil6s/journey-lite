@@ -110,6 +110,7 @@ export type FormFieldDefinition = {
     | "radio"
     | "checkboxGroup"
     | "checkbox"
+    | "file"
     | "hidden"
     | "consent";
   placeholder?: string;
@@ -121,6 +122,8 @@ export type FormFieldDefinition = {
     maxLength?: number;
     pattern?: string;
   };
+  acceptedFileTypes?: string[];
+  maxFileSizeMb?: number;
   defaultValue?: string;
   width?: "full" | "half";
   adminNote?: string;

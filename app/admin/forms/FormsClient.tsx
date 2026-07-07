@@ -1,19 +1,48 @@
 "use client";
 
-import { useState, useTransition } from "react";
-import { Check, ChevronDown, ChevronRight, ClipboardList, Eye, Loader2, Plus, Save, Trash2, X } from "lucide-react";
+import { useState, useTransition, type ComponentType } from "react";
+import {
+  AlignLeft,
+  CalendarDays,
+  Check,
+  CheckSquare,
+  ChevronDown,
+  ChevronRight,
+  ClipboardList,
+  Eye,
+  EyeOff,
+  FileUp,
+  Hash,
+  ListChecks,
+  Loader2,
+  Mail,
+  Phone,
+  Plus,
+  Radio,
+  Save,
+  ShieldCheck,
+  Trash2,
+  Type,
+  X,
+} from "lucide-react";
 import { FormSubmissionsManager, type FormSubmissionListItem } from "@/components/admin/form-submissions-manager";
 import { createFormAction, updateFormAction, deleteFormAction, type FormDefinition, type FormField } from "@/app/admin/content/actions";
 import { useRouter } from "next/navigation";
 
-const FIELD_TYPES = [
-  { value: "text",     label: "Text" },
-  { value: "email",    label: "Email" },
-  { value: "phone",    label: "Phone" },
-  { value: "textarea", label: "Textarea" },
-  { value: "select",   label: "Dropdown" },
-  { value: "checkbox", label: "Checkbox" },
-  { value: "consent",  label: "Consent" },
+const FIELD_TYPES: Array<{ value: FormField["type"]; label: string; icon: ComponentType<{ className?: string }> }> = [
+  { value: "text", label: "Text", icon: Type },
+  { value: "email", label: "Email", icon: Mail },
+  { value: "phone", label: "Phone", icon: Phone },
+  { value: "textarea", label: "Textarea", icon: AlignLeft },
+  { value: "number", label: "Number", icon: Hash },
+  { value: "date", label: "Date", icon: CalendarDays },
+  { value: "select", label: "Dropdown", icon: ChevronDown },
+  { value: "radio", label: "Radio group", icon: Radio },
+  { value: "checkboxGroup", label: "Checkbox group", icon: ListChecks },
+  { value: "checkbox", label: "Checkbox", icon: CheckSquare },
+  { value: "file", label: "File upload", icon: FileUp },
+  { value: "hidden", label: "Hidden", icon: EyeOff },
+  { value: "consent", label: "Consent", icon: ShieldCheck },
 ] as const;
 
 function newKey() { return Math.random().toString(36).slice(2, 10); }
@@ -104,7 +133,7 @@ function FormCard({ form, onEdit, onDelete, submissionCount }: {
           <div className="mt-2 flex flex-wrap gap-1.5">
             {form.fields.map((f) => (
               <span key={f._key} className="rounded-full border border-[#dce4df] bg-zinc-50 px-2 py-0.5 text-[11px] text-[#5f6f66]">
-                {f.label} ({f.type})
+                {f.label} ({fieldTypeMeta(f.type).label})
               </span>
             ))}
           </div>
@@ -143,7 +172,7 @@ function FormBuilderPanel({ existing, onSaved, onCancel }: {
   const [previewOpen, setPreviewOpen] = useState(false);
 
   function addField() {
-    setFields((prev) => [...prev, { _key: newKey(), label: "New field", key: "field_" + newKey().slice(0, 4), type: "text", required: false }]);
+    setFields((prev) => [...prev, { _key: newKey(), label: "New field", key: "field_" + newKey().slice(0, 4), type: "text", required: false, width: "full" }]);
   }
   function removeField(key: string) { setFields((prev) => prev.filter((f) => f._key !== key)); }
   function updateField(key: string, patch: Partial<FormField>) {
@@ -223,12 +252,16 @@ function FormBuilderPanel({ existing, onSaved, onCancel }: {
                       <select disabled className="w-full rounded-lg border border-[#dce4df] bg-zinc-50 px-3 py-2 text-sm text-[#9aafa5]">
                         <option>Select an option…</option>
                       </select>
+                    ) : f.type === "file" ? (
+                      <div className="rounded-lg border-2 border-dashed border-[#dce4df] bg-zinc-50 px-3 py-5 text-center text-sm text-[#9aafa5]">
+                        <FileUp className="mx-auto mb-2 h-5 w-5" /> File upload
+                      </div>
                     ) : f.type === "checkbox" || f.type === "consent" ? (
                       <label className="flex items-center gap-2.5 text-sm text-[#5f6f66]">
                         <input type="checkbox" disabled className="accent-[#0D3D24]" /> {f.label}
                       </label>
                     ) : (
-                      <input disabled type={f.type === "email" ? "email" : f.type === "phone" ? "tel" : "text"}
+                      <input disabled type={inputTypeForField(f.type)}
                         placeholder={f.placeholder}
                         className="w-full rounded-lg border border-[#dce4df] bg-zinc-50 px-3 py-2 text-sm text-[#9aafa5]" />
                     )}
@@ -316,6 +349,12 @@ function FormBuilderPanel({ existing, onSaved, onCancel }: {
           <div className="space-y-2">
             {fields.map((field, idx) => (
               <div key={field._key} className="flex items-start gap-2 rounded-lg border border-[#dce4df] bg-white p-3">
+                <div className="mt-5 hidden size-8 shrink-0 items-center justify-center rounded-lg bg-[#edf4ef] text-[#145c42] sm:flex">
+                  {(() => {
+                    const Icon = fieldTypeMeta(field.type).icon;
+                    return <Icon className="h-4 w-4" />;
+                  })()}
+                </div>
                 <div className="flex flex-col gap-0.5">
                   <button onClick={() => moveField(field._key, -1)} disabled={idx === 0} className="rounded p-0.5 text-[#9aafa5] hover:text-[#1f2c25] disabled:opacity-30">▲</button>
                   <button onClick={() => moveField(field._key, 1)} disabled={idx === fields.length - 1} className="rounded p-0.5 text-[#9aafa5] hover:text-[#1f2c25] disabled:opacity-30">▼</button>
@@ -328,7 +367,7 @@ function FormBuilderPanel({ existing, onSaved, onCancel }: {
                   </div>
                   <div>
                     <label className="mb-0.5 block text-[10px] font-semibold text-[#9aafa5]">Type</label>
-                    <select value={field.type} onChange={(e) => updateField(field._key, { type: e.target.value as FormField["type"] })} className={inputCls}>
+                    <select value={field.type} onChange={(e) => updateField(field._key, defaultsForType(e.target.value as FormField["type"]))} className={inputCls}>
                       {FIELD_TYPES.map((t) => <option key={t.value} value={t.value}>{t.label}</option>)}
                     </select>
                   </div>
@@ -339,12 +378,86 @@ function FormBuilderPanel({ existing, onSaved, onCancel }: {
                     </label>
                   </div>
                   {field.type !== "checkbox" && field.type !== "consent" && (
-                    <div className="sm:col-span-4">
+                    <div className="sm:col-span-2">
                       <label className="mb-0.5 block text-[10px] font-semibold text-[#9aafa5]">Placeholder</label>
                       <input value={field.placeholder || ""} onChange={(e) => updateField(field._key, { placeholder: e.target.value })}
                         placeholder="Optional hint text…" className={inputCls} />
                     </div>
                   )}
+                  <div>
+                    <label className="mb-0.5 block text-[10px] font-semibold text-[#9aafa5]">Width</label>
+                    <select value={field.width || "full"} onChange={(e) => updateField(field._key, { width: e.target.value as "full" | "half" })} className={inputCls}>
+                      <option value="full">Full</option>
+                      <option value="half">Half</option>
+                    </select>
+                  </div>
+                  <div>
+                    <label className="mb-0.5 block text-[10px] font-semibold text-[#9aafa5]">Default value</label>
+                    <input value={field.defaultValue || ""} onChange={(e) => updateField(field._key, { defaultValue: e.target.value })} className={inputCls} />
+                  </div>
+                  <div className="sm:col-span-4">
+                    <label className="mb-0.5 block text-[10px] font-semibold text-[#9aafa5]">Help text</label>
+                    <input value={field.helpText || ""} onChange={(e) => updateField(field._key, { helpText: e.target.value })} placeholder="Small explanatory text shown below the field" className={inputCls} />
+                  </div>
+                  {["select", "radio", "checkboxGroup"].includes(field.type) ? (
+                    <div className="sm:col-span-4">
+                      <label className="mb-0.5 block text-[10px] font-semibold text-[#9aafa5]">Options</label>
+                      <textarea
+                        value={formatOptions(field.options)}
+                        onChange={(e) => updateField(field._key, { options: parseOptions(e.target.value) })}
+                        placeholder={"Desk Only|Desk Only\nLight Duty|Light Duty"}
+                        rows={3}
+                        className={inputCls}
+                      />
+                      <p className="mt-1 text-[10px] text-[#9aafa5]">One option per line. Use Label|value or just Label.</p>
+                    </div>
+                  ) : null}
+                  {field.type === "file" ? (
+                    <>
+                      <div className="sm:col-span-2">
+                        <label className="mb-0.5 block text-[10px] font-semibold text-[#9aafa5]">Accepted MIME types</label>
+                        <input
+                          value={(field.acceptedFileTypes ?? ["application/pdf"]).join(", ")}
+                          onChange={(e) => updateField(field._key, { acceptedFileTypes: e.target.value.split(",").map((item) => item.trim()).filter(Boolean) })}
+                          className={inputCls}
+                        />
+                      </div>
+                      <div className="sm:col-span-2">
+                        <label className="mb-0.5 block text-[10px] font-semibold text-[#9aafa5]">Max file size MB</label>
+                        <input
+                          inputMode="numeric"
+                          value={field.maxFileSizeMb ?? 10}
+                          onChange={(e) => updateField(field._key, { maxFileSizeMb: Number(e.target.value) || 10 })}
+                          className={inputCls}
+                        />
+                      </div>
+                    </>
+                  ) : field.type !== "checkbox" && field.type !== "consent" && field.type !== "hidden" ? (
+                    <>
+                      <div>
+                        <label className="mb-0.5 block text-[10px] font-semibold text-[#9aafa5]">Min length</label>
+                        <input
+                          inputMode="numeric"
+                          value={field.validation?.minLength ?? ""}
+                          onChange={(e) => updateField(field._key, { validation: { ...field.validation, minLength: e.target.value ? Number(e.target.value) : undefined } })}
+                          className={inputCls}
+                        />
+                      </div>
+                      <div>
+                        <label className="mb-0.5 block text-[10px] font-semibold text-[#9aafa5]">Max length</label>
+                        <input
+                          inputMode="numeric"
+                          value={field.validation?.maxLength ?? ""}
+                          onChange={(e) => updateField(field._key, { validation: { ...field.validation, maxLength: e.target.value ? Number(e.target.value) : undefined } })}
+                          className={inputCls}
+                        />
+                      </div>
+                      <div className="sm:col-span-2">
+                        <label className="mb-0.5 block text-[10px] font-semibold text-[#9aafa5]">Regex pattern</label>
+                        <input value={field.validation?.pattern || ""} onChange={(e) => updateField(field._key, { validation: { ...field.validation, pattern: e.target.value } })} className={inputCls} />
+                      </div>
+                    </>
+                  ) : null}
                 </div>
                 <button onClick={() => removeField(field._key)} className="mt-0.5 shrink-0 text-[#9aafa5] hover:text-red-500">
                   <Trash2 className="h-4 w-4" />
@@ -367,6 +480,10 @@ function FormBuilderPanel({ existing, onSaved, onCancel }: {
   );
 }
 
+function fieldTypeMeta(type: FormField["type"]) {
+  return FIELD_TYPES.find((item) => item.value === type) ?? FIELD_TYPES[0];
+}
+
 const inputCls = "w-full rounded-lg border border-[#dce4df] bg-white px-3 py-1.5 text-sm text-[#1f2c25] outline-none focus:border-[#145c42]";
 
 function Field({ label, children }: { label: string; children: React.ReactNode }) {
@@ -383,4 +500,43 @@ function parseEmails(value: string) {
     .split(",")
     .map((email) => email.trim())
     .filter(Boolean);
+}
+
+function parseOptions(value: string) {
+  return value
+    .split("\n")
+    .map((line) => line.trim())
+    .filter(Boolean)
+    .map((line) => {
+      const [label, optionValue] = line.split("|").map((item) => item.trim());
+      return { label, value: optionValue || label };
+    });
+}
+
+function formatOptions(options?: FormField["options"]) {
+  return (options ?? [])
+    .map((option) => {
+      const label = option.label || option.value || "";
+      const value = option.value || label;
+      return label === value ? label : `${label}|${value}`;
+    })
+    .join("\n");
+}
+
+function defaultsForType(type: FormField["type"]): Partial<FormField> {
+  if (type === "file") {
+    return { type, acceptedFileTypes: ["application/pdf"], maxFileSizeMb: 10, options: [], validation: {} };
+  }
+  if (["select", "radio", "checkboxGroup"].includes(type)) {
+    return { type, options: [{ label: "Option 1", value: "Option 1" }], acceptedFileTypes: undefined, maxFileSizeMb: undefined };
+  }
+  return { type, options: [], acceptedFileTypes: undefined, maxFileSizeMb: undefined };
+}
+
+function inputTypeForField(type: FormField["type"]) {
+  if (type === "email") return "email";
+  if (type === "phone") return "tel";
+  if (type === "number") return "number";
+  if (type === "date") return "date";
+  return "text";
 }

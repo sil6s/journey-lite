@@ -11,6 +11,7 @@ const fieldTypes = [
   { title: "Radio group", value: "radio" },
   { title: "Checkbox group", value: "checkboxGroup" },
   { title: "Single checkbox", value: "checkbox" },
+  { title: "File upload", value: "file" },
   { title: "Hidden field", value: "hidden" },
   { title: "Consent checkbox", value: "consent" },
 ];
@@ -81,11 +82,28 @@ export const formFieldMember = defineArrayMember({
       name: "validation",
       title: "Validation rules",
       type: "object",
+      hidden: ({ parent }) => parent?.type === "file",
       fields: [
         defineField({ name: "minLength", title: "Minimum length", type: "number" }),
         defineField({ name: "maxLength", title: "Maximum length", type: "number" }),
         defineField({ name: "pattern", title: "Regex pattern", type: "string" }),
       ],
+    }),
+    defineField({
+      name: "acceptedFileTypes",
+      title: "Accepted file MIME types",
+      type: "array",
+      hidden: ({ parent }) => parent?.type !== "file",
+      of: [defineArrayMember({ type: "string" })],
+      initialValue: ["application/pdf"],
+    }),
+    defineField({
+      name: "maxFileSizeMb",
+      title: "Maximum file size (MB)",
+      type: "number",
+      hidden: ({ parent }) => parent?.type !== "file",
+      initialValue: 50,
+      validation: (rule) => rule.min(1).max(50),
     }),
     defineField({
       name: "defaultValue",

@@ -220,10 +220,20 @@ export type FormField = {
   _key: string;
   label: string;
   key: string;
-  type: "text" | "email" | "phone" | "textarea" | "select" | "checkbox" | "consent";
+  type: "text" | "email" | "phone" | "textarea" | "number" | "date" | "select" | "radio" | "checkboxGroup" | "checkbox" | "file" | "hidden" | "consent";
   placeholder?: string;
+  helpText?: string;
   required?: boolean;
-  options?: string[];
+  options?: { label?: string; value?: string }[];
+  validation?: {
+    minLength?: number;
+    maxLength?: number;
+    pattern?: string;
+  };
+  acceptedFileTypes?: string[];
+  maxFileSizeMb?: number;
+  defaultValue?: string;
+  width?: "full" | "half";
 };
 
 export type FormDefinition = {
@@ -261,7 +271,21 @@ export async function fetchFormDefinitions(): Promise<FormDefinition[]> {
       submitButtonLabel,
       redirectUrl,
       brevoListId,
-      fields[]{ _key, label, "key": key.current, type, placeholder, required, options }
+      fields[]{
+        _key,
+        label,
+        "key": key.current,
+        type,
+        placeholder,
+        helpText,
+        required,
+        options,
+        validation,
+        acceptedFileTypes,
+        maxFileSizeMb,
+        defaultValue,
+        width
+      }
     }`,
     {},
     { next: { revalidate: 30 } }
@@ -302,7 +326,14 @@ export async function createFormAction(data: {
       key: { _type: "slug", current: f.key || slugify(f.label) },
       type: f.type,
       placeholder: f.placeholder || "",
+      helpText: f.helpText || "",
       required: f.required ?? false,
+      options: normalizeFieldOptions(f.options),
+      validation: f.validation ?? {},
+      acceptedFileTypes: f.acceptedFileTypes ?? undefined,
+      maxFileSizeMb: f.maxFileSizeMb ?? undefined,
+      defaultValue: f.defaultValue || "",
+      width: f.width || "full",
     })),
   };
   const created = await adminClient.create(doc);
@@ -341,7 +372,14 @@ export async function updateFormAction(id: string, data: {
       key: { _type: "slug", current: f.key || slugify(f.label) },
       type: f.type,
       placeholder: f.placeholder || "",
+      helpText: f.helpText || "",
       required: f.required ?? false,
+      options: normalizeFieldOptions(f.options),
+      validation: f.validation ?? {},
+      acceptedFileTypes: f.acceptedFileTypes ?? undefined,
+      maxFileSizeMb: f.maxFileSizeMb ?? undefined,
+      defaultValue: f.defaultValue || "",
+      width: f.width || "full",
     })),
   }).commit();
   revalidatePath("/admin/forms");
@@ -350,4 +388,14 @@ export async function updateFormAction(id: string, data: {
 export async function deleteFormAction(id: string): Promise<void> {
   await adminClient.delete(id);
   revalidatePath("/admin/forms");
+}
+
+function normalizeFieldOptions(options?: FormField["options"]) {
+  return (options ?? [])
+    .filter((option) => option.label || option.value)
+    .map((option, index) => ({
+      _key: `option_${index}_${slugify(option.value || option.label || "option")}`,
+      label: option.label || option.value || "",
+      value: option.value || option.label || "",
+    }));
 }

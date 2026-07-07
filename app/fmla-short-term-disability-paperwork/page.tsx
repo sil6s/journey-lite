@@ -31,9 +31,11 @@ export default function FmlaShortTermDisabilityPaperworkPage() {
               </div>
             </div>
             <div className="rounded-lg border border-[#dce4df] bg-[#f8fbf9] p-5">
-              <h2 className="text-lg font-semibold text-[#1f2c25]">Before you submit</h2>
+              <h2 className="text-lg font-semibold text-[#1f2c25]">How this works</h2>
               <ul className="mt-4 space-y-3 text-sm leading-6 text-[#53635b]">
-                <li>Complete the form below before paying the $30 administrative fee.</li>
+                <li><strong>Step 1:</strong> Complete the form below.</li>
+                <li><strong>Step 2:</strong> The $30 FMLA fee is added to your cart after the form submits.</li>
+                <li><strong>Step 3:</strong> Continue to checkout and complete payment.</li>
                 <li>Upload a PDF copy of your form if JourneyLite has not already received it.</li>
                 <li>You may also fax your paperwork to 513-559-1235.</li>
                 <li>For questions or issues, email ma@curryweightloss.com.</li>

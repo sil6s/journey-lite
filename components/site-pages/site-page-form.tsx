@@ -1,13 +1,18 @@
 "use client";
 
 import { useMemo, useState, type FormEvent } from "react";
+import { CheckCircle2, FileText, UploadCloud } from "lucide-react";
+import { createClient } from "@/lib/supabase/client";
 import type { FormDefinition, FormFieldDefinition } from "@/src/lib/sanity/types";
 
 type SubmitState = "idle" | "submitting" | "success" | "error";
+type UploadValue = { path: string; originalName: string; size: number; type: string };
+type FormValue = string | boolean | string[] | File | UploadValue | null;
+const UPLOAD_BUCKET = "form-uploads";
 
 export function SitePageForm({ form, pageSlug }: { form: FormDefinition; pageSlug: string }) {
   const fields = useMemo(() => form.fields?.filter((field) => field.key && field.type) ?? [], [form.fields]);
-  const [values, setValues] = useState<Record<string, string | boolean | string[]>>(() => initialValues(fields));
+  const [values, setValues] = useState<Record<string, FormValue>>(() => initialValues(fields));
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [state, setState] = useState<SubmitState>("idle");
   const [message, setMessage] = useState("");
@@ -22,13 +27,14 @@ export function SitePageForm({ form, pageSlug }: { form: FormDefinition; pageSlu
     setMessage("");
 
     try {
+      const preparedValues = await prepareValuesForSubmit(form.key, fields, values);
       const response = await fetch("/api/forms/submit", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           formKey: form.key,
           pageSlug,
-          values,
+          values: preparedValues,
         }),
       });
       const payload = (await response.json()) as { ok?: boolean; error?: string; redirectUrl?: string };
@@ -107,9 +113,9 @@ function FieldControl({
   onChange,
 }: {
   field: FormFieldDefinition;
-  value: string | boolean | string[] | undefined;
+  value: FormValue | undefined;
   error?: string;
-  onChange: (value: string | boolean | string[]) => void;
+  onChange: (value: FormValue) => void;
 }) {
   const id = `form-field-${field._key || field.key}`;
   const commonClass =
@@ -196,6 +202,30 @@ function FieldControl({
           <span>{field.helpText || field.label}</span>
         </label>
       ) : null}
+      {field.type === "file" ? (
+        <label className="mt-1 grid cursor-pointer gap-3 rounded-lg border-2 border-dashed border-[#b9d0c3] bg-[#f8fbf9] p-5 text-center transition hover:border-[#145c42] hover:bg-[#f1f8f4]">
+          <span className="mx-auto flex size-11 items-center justify-center rounded-full bg-white text-[#145c42] shadow-sm">
+            {value instanceof File ? <FileText className="size-5" aria-hidden="true" /> : <UploadCloud className="size-5" aria-hidden="true" />}
+          </span>
+          <span className="text-sm font-semibold text-[#1f2c25]">{value instanceof File ? value.name : field.placeholder || "Choose file"}</span>
+          <span className="text-xs font-normal leading-5 text-[#64736b]">
+            {(field.acceptedFileTypes ?? ["application/pdf"]).join(", ")} · max {field.maxFileSizeMb ?? 10} MB
+          </span>
+          <input
+            accept={(field.acceptedFileTypes ?? ["application/pdf"]).join(",")}
+            className="sr-only"
+            required={field.required}
+            type="file"
+            onChange={(event) => onChange(event.target.files?.[0] ?? null)}
+          />
+          {value instanceof File ? (
+            <span className="mx-auto inline-flex items-center gap-2 rounded-full bg-white px-3 py-1 text-xs font-semibold text-[#145c42]">
+              <CheckCircle2 className="size-3.5" aria-hidden="true" />
+              Ready to upload
+            </span>
+          ) : null}
+        </label>
+      ) : null}
       {field.helpText && !["checkbox", "consent"].includes(field.type) ? <p className="mt-1 text-xs leading-5 text-[#64736b]">{field.helpText}</p> : null}
       {error ? <p className="mt-1 text-xs font-medium text-red-700">{error}</p> : null}
     </div>
@@ -203,26 +233,70 @@ function FieldControl({
 }
 
 function initialValues(fields: FormFieldDefinition[]) {
-  const values: Record<string, string | boolean | string[]> = {};
+  const values: Record<string, FormValue> = {};
   for (const field of fields) {
     if (!field.key) continue;
     if (field.type === "checkbox" || field.type === "consent") values[field.key] = field.defaultValue === "true";
     else if (field.type === "checkboxGroup") values[field.key] = field.defaultValue ? [field.defaultValue] : [];
+    else if (field.type === "file") values[field.key] = null;
     else values[field.key] = field.defaultValue || "";
   }
   values.website = "";
   return values;
 }
 
-function validateFields(fields: FormFieldDefinition[], values: Record<string, string | boolean | string[]>) {
+function validateFields(fields: FormFieldDefinition[], values: Record<string, FormValue>) {
   const errors: Record<string, string> = {};
   for (const field of fields) {
     if (!field.key) continue;
     const value = values[field.key];
-    const isEmpty = Array.isArray(value) ? value.length === 0 : typeof value === "boolean" ? !value : !String(value ?? "").trim();
+    const isEmpty = value instanceof File ? false : Array.isArray(value) ? value.length === 0 : typeof value === "boolean" ? !value : !String(value ?? "").trim();
     if (field.required && isEmpty) errors[field.key] = "This field is required.";
     if (field.type === "email" && value && typeof value === "string" && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) errors[field.key] = "Enter a valid email address.";
     if (field.type === "phone" && value && typeof value === "string" && value.replace(/\D/g, "").length < 10) errors[field.key] = "Enter a valid phone number.";
+    if (field.type === "file" && value instanceof File) {
+      const maxBytes = (field.maxFileSizeMb ?? 10) * 1024 * 1024;
+      const accepted = field.acceptedFileTypes ?? ["application/pdf"];
+      if (value.size > maxBytes) errors[field.key] = `File must be ${field.maxFileSizeMb ?? 10} MB or smaller.`;
+      if (accepted.length && !accepted.includes(value.type)) errors[field.key] = "This file type is not accepted.";
+    }
   }
   return errors;
+}
+
+async function prepareValuesForSubmit(formKey: string, fields: FormFieldDefinition[], values: Record<string, FormValue>) {
+  const next: Record<string, unknown> = { ...values };
+  const supabase = createClient();
+
+  for (const field of fields) {
+    if (!field.key || field.type !== "file") continue;
+    const value = values[field.key];
+    if (!(value instanceof File)) continue;
+
+    const response = await fetch("/api/forms/upload-url", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        formKey,
+        fieldKey: field.key,
+        fileName: value.name,
+        fileSize: value.size,
+        fileType: value.type || "application/octet-stream",
+      }),
+    });
+    const payload = (await response.json()) as { path?: string; token?: string; error?: string };
+    if (!response.ok || !payload.path || !payload.token) throw new Error(payload.error || "Could not prepare file upload.");
+
+    const { error } = await supabase.storage.from(UPLOAD_BUCKET).uploadToSignedUrl(payload.path, payload.token, value);
+    if (error) throw new Error(error.message || "Could not upload file.");
+
+    next[field.key] = {
+      path: payload.path,
+      originalName: value.name,
+      size: value.size,
+      type: value.type || "application/octet-stream",
+    };
+  }
+
+  return next;
 }

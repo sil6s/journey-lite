@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useState, type FormEvent } from "react";
+import { AlertCircle, CheckCircle2, CreditCard, FileText, UploadCloud } from "lucide-react";
 import { addToCart } from "@/lib/shopify/actions";
 import { createClient } from "@/lib/supabase/client";
 
@@ -26,6 +27,7 @@ export function FmlaPaperworkForm() {
   const [message, setMessage] = useState("");
   const [file, setFile] = useState<File | null>(null);
   const [checkoutUrl, setCheckoutUrl] = useState<string | null>(null);
+  const [errors, setErrors] = useState<Record<string, string>>({});
 
   async function uploadFile(): Promise<UploadResult | null> {
     if (!file) return null;
@@ -79,14 +81,17 @@ export function FmlaPaperworkForm() {
 
     const email = String(formData.get("email") ?? "").trim();
     const confirmEmail = String(formData.get("confirmEmail") ?? "").trim();
+    const nextErrors = validateForm(formData, file);
 
-    if (email.toLowerCase() !== confirmEmail.toLowerCase()) {
+    if (Object.keys(nextErrors).length) {
       setState("error");
-      setMessage("Email and confirmation email must match.");
+      setErrors(nextErrors);
+      setMessage("Please fix the highlighted fields before submitting.");
       return;
     }
 
     try {
+      setErrors({});
       const upload = await uploadFile();
       setState("submitting");
 
@@ -155,17 +160,29 @@ export function FmlaPaperworkForm() {
 
   return (
     <form className="rounded-lg border border-[#dce4df] bg-white p-5 shadow-sm md:p-6" onSubmit={onSubmit}>
+      <div className="mb-6 rounded-lg border border-[#c9ded2] bg-[#f4faf6] p-4">
+        <div className="flex gap-3">
+          <CreditCard className="mt-0.5 size-5 shrink-0 text-[#145c42]" aria-hidden="true" />
+          <div>
+            <h2 className="text-sm font-semibold text-[#1f2c25]">Next step after this form: payment</h2>
+            <p className="mt-1 text-sm leading-6 text-[#53635b]">
+              Submit the paperwork details first. After successful submission, the $30 FMLA paperwork fee is added to your cart so you can complete payment.
+            </p>
+          </div>
+        </div>
+      </div>
+
       <div className="grid gap-4 md:grid-cols-2">
         <input autoComplete="off" className="hidden" name="website" tabIndex={-1} type="text" />
-        <Field label="First Name" name="firstName" required />
-        <Field label="Last Name" name="lastName" required />
-        <Field label="Your Email" name="email" required type="email" />
-        <Field label="Confirm Email" name="confirmEmail" required type="email" />
-        <Field label="Date of Birth" name="dob" required type="date" />
-        <Field label="Phone" name="phone" required type="tel" />
+        <Field autoComplete="given-name" error={errors.firstName} label="First Name" name="firstName" required />
+        <Field autoComplete="family-name" error={errors.lastName} label="Last Name" name="lastName" required />
+        <Field autoComplete="email" error={errors.email} label="Your Email" name="email" required type="email" />
+        <Field autoComplete="email" error={errors.confirmEmail} label="Confirm Email" name="confirmEmail" required type="email" />
+        <Field error={errors.dob} label="Date of Birth" name="dob" required type="date" />
+        <Field autoComplete="tel" error={errors.phone} label="Phone" name="phone" required type="tel" />
         <label className="grid gap-1 text-sm font-semibold text-[#1f2c25] md:col-span-2">
           My Job Is <span className="sr-only">required</span>
-          <select className="min-h-11 rounded-md border border-[#cbd9d1] bg-white px-3 py-2 text-sm" name="jobType" required>
+          <select className="min-h-11 rounded-md border border-[#cbd9d1] bg-white px-3 py-2 text-sm" name="jobType" required aria-invalid={Boolean(errors.jobType)}>
             <option value="">Select job type</option>
             <option value="Desk Only">Desk Only</option>
             <option value="Light Duty">Light Duty</option>
@@ -173,9 +190,10 @@ export function FmlaPaperworkForm() {
             <option value="Heavy Labor">Heavy Labor</option>
             <option value="Other">Other</option>
           </select>
+          {errors.jobType ? <span className="text-xs font-medium text-red-700">{errors.jobType}</span> : null}
         </label>
-        <Field label="Employer" name="employer" required />
-        <Field label="Send Completed Form To Fax/Email" name="sendCompletedTo" required />
+        <Field error={errors.employer} label="Employer" name="employer" required />
+        <Field error={errors.sendCompletedTo} label="Send Completed Form To Fax/Email" name="sendCompletedTo" required />
         <label className="flex gap-3 rounded-md border border-[#dce4df] bg-[#f8fbf9] p-3 text-sm leading-6 text-[#53635b] md:col-span-2">
           <input className="mt-1" name="permissionToTransmit" required type="checkbox" />
           <span>I give permission to transmit this info via email or fax.</span>
@@ -189,17 +207,32 @@ export function FmlaPaperworkForm() {
             </Link>
           </span>
         </label>
-        <label className="grid gap-1 text-sm font-semibold text-[#1f2c25] md:col-span-2">
-          Upload Scanned FMLA Form Here
+        <label className="group grid cursor-pointer gap-3 rounded-lg border-2 border-dashed border-[#b9d0c3] bg-[#f8fbf9] p-5 text-center transition hover:border-[#145c42] hover:bg-[#f1f8f4] md:col-span-2">
+          <span className="mx-auto flex size-12 items-center justify-center rounded-full bg-white text-[#145c42] shadow-sm">
+            {file ? <FileText className="size-6" aria-hidden="true" /> : <UploadCloud className="size-6" aria-hidden="true" />}
+          </span>
+          <span className="text-sm font-semibold text-[#1f2c25]">Upload scanned FMLA form PDF</span>
+          <span className="text-xs font-normal leading-5 text-[#64736b]">
+            Drag-style upload area. Accepted file type: PDF. Max file size: 50 MB. You can also fax it to 513-559-1235.
+          </span>
           <input
             accept="application/pdf,.pdf"
-            className="min-h-11 rounded-md border border-[#cbd9d1] bg-white px-3 py-2 text-sm"
+            className="sr-only"
             type="file"
             onChange={(event) => setFile(event.target.files?.[0] ?? null)}
           />
-          <span className="text-xs font-normal leading-5 text-[#64736b]">
-            Accepted file type: PDF. Max file size: 50 MB. If we have not already received it, upload a PDF here or fax it to 513-559-1235.
-          </span>
+          {file ? (
+            <span className="mx-auto inline-flex items-center gap-2 rounded-full bg-white px-3 py-1 text-xs font-semibold text-[#145c42]">
+              <CheckCircle2 className="size-3.5" aria-hidden="true" />
+              {file.name}
+            </span>
+          ) : null}
+          {errors.file ? (
+            <span className="mx-auto inline-flex items-center gap-2 text-xs font-medium text-red-700">
+              <AlertCircle className="size-3.5" aria-hidden="true" />
+              {errors.file}
+            </span>
+          ) : null}
         </label>
         <label className="grid gap-1 text-sm font-semibold text-[#1f2c25] md:col-span-2">
           Additional Information
@@ -239,21 +272,53 @@ export function FmlaPaperworkForm() {
   );
 }
 
+function validateForm(formData: FormData, file: File | null) {
+  const errors: Record<string, string> = {};
+  const requiredFields = ["firstName", "lastName", "email", "confirmEmail", "dob", "phone", "jobType", "employer", "sendCompletedTo"];
+
+  for (const key of requiredFields) {
+    if (!String(formData.get(key) ?? "").trim()) errors[key] = "This field is required.";
+  }
+
+  const email = String(formData.get("email") ?? "").trim();
+  const confirmEmail = String(formData.get("confirmEmail") ?? "").trim();
+  if (email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) errors.email = "Enter a valid email address.";
+  if (email && confirmEmail && email.toLowerCase() !== confirmEmail.toLowerCase()) errors.confirmEmail = "Email addresses must match.";
+  const phoneDigits = String(formData.get("phone") ?? "").replace(/\D/g, "");
+  if (phoneDigits && phoneDigits.length < 10) errors.phone = "Enter a valid 10-digit phone number.";
+  if (file && file.type !== "application/pdf" && !file.name.toLowerCase().endsWith(".pdf")) errors.file = "Upload must be a PDF.";
+  if (file && file.size > MAX_FILE_SIZE) errors.file = "PDF must be 50 MB or smaller.";
+
+  return errors;
+}
+
 function Field({
   label,
   name,
   required,
   type = "text",
+  error,
+  autoComplete,
 }: {
   label: string;
   name: string;
   required?: boolean;
   type?: "text" | "email" | "tel" | "date";
+  error?: string;
+  autoComplete?: string;
 }) {
   return (
     <label className="grid gap-1 text-sm font-semibold text-[#1f2c25]">
       {label}
-      <input className="min-h-11 rounded-md border border-[#cbd9d1] bg-white px-3 py-2 text-sm" name={name} required={required} type={type} />
+      <input
+        aria-invalid={Boolean(error)}
+        autoComplete={autoComplete}
+        className="min-h-11 rounded-md border border-[#cbd9d1] bg-white px-3 py-2 text-sm outline-none transition focus:border-[#145c42] focus:ring-2 focus:ring-[#145c42]/15 aria-[invalid=true]:border-red-500"
+        name={name}
+        required={required}
+        type={type}
+      />
+      {error ? <span className="text-xs font-medium text-red-700">{error}</span> : null}
     </label>
   );
 }

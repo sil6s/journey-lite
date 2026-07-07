@@ -24,7 +24,8 @@ export async function GET(req: NextRequest, { params }: RouteProps) {
     return NextResponse.json({ error: "Submission not found." }, { status: 404 });
   }
 
-  const upload = getUploadMetadata(submission.data);
+  const field = req.nextUrl.searchParams.get("field");
+  const upload = getUploadMetadata(submission.data, field);
   if (!upload?.path) {
     return NextResponse.json({ error: "No attachment found for this submission." }, { status: 404 });
   }
@@ -44,9 +45,10 @@ export async function GET(req: NextRequest, { params }: RouteProps) {
   });
 }
 
-function getUploadMetadata(data: unknown) {
+function getUploadMetadata(data: unknown, field?: string | null) {
   if (!data || typeof data !== "object" || Array.isArray(data)) return null;
-  const upload = (data as { upload?: unknown }).upload;
+  const record = data as Record<string, unknown>;
+  const upload = field ? record[field] : record.upload;
   if (!upload || typeof upload !== "object" || Array.isArray(upload)) return null;
   return upload as { path?: string; originalName?: string; type?: string };
 }

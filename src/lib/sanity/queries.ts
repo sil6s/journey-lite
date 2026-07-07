@@ -184,6 +184,8 @@ const formDefinitionFields = groq`
     required,
     options[] { label, value },
     validation,
+    acceptedFileTypes,
+    maxFileSizeMb,
     defaultValue,
     width,
     adminNote

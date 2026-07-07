@@ -130,6 +130,20 @@ function normalizeValue(field: FormFieldDefinition, value: unknown): { value?: u
     return { value };
   }
 
+  if (field.type === "file") {
+    if (!value || typeof value !== "object" || Array.isArray(value)) return { error: `${label} must be an uploaded file.` };
+    const upload = value as { path?: unknown; originalName?: unknown; size?: unknown; type?: unknown };
+    if (typeof upload.path !== "string" || !upload.path.startsWith("site-forms/")) return { error: `${label} has invalid upload metadata.` };
+    if (typeof upload.originalName !== "string" || typeof upload.type !== "string" || typeof upload.size !== "number") {
+      return { error: `${label} has invalid upload metadata.` };
+    }
+    const maxBytes = Math.min((field.maxFileSizeMb || 10) * 1024 * 1024, 50 * 1024 * 1024);
+    const accepted = field.acceptedFileTypes?.filter(Boolean) ?? ["application/pdf"];
+    if (upload.size > maxBytes) return { error: `${label} is too large.` };
+    if (accepted.length && !accepted.includes(upload.type)) return { error: `${label} file type is not accepted.` };
+    return { value: upload };
+  }
+
   const stringValue = String(value ?? "").trim();
 
   if (field.type === "email" && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(stringValue)) return { error: `${label} must be a valid email address.` };
