@@ -1,6 +1,7 @@
 import { randomUUID } from "crypto";
 import { NextRequest, NextResponse } from "next/server";
 import { getSupabaseAdminClient } from "@/lib/supabase/admin";
+import { ensureFormUploadsBucket } from "@/lib/supabase/storage";
 
 const BUCKET = "form-uploads";
 const MAX_FILE_SIZE = 50 * 1024 * 1024;
@@ -35,7 +36,13 @@ export async function POST(req: NextRequest) {
   const path = `fmla-paperwork/${new Date().toISOString().slice(0, 10)}/${randomUUID()}-${safeName}`;
 
   const supabase = getSupabaseAdminClient();
-  const { data, error } = await supabase.storage.from(BUCKET).createSignedUploadUrl(path);
+  let { data, error } = await supabase.storage.from(BUCKET).createSignedUploadUrl(path);
+  if (error || !data?.token) {
+    await ensureFormUploadsBucket();
+    const retry = await supabase.storage.from(BUCKET).createSignedUploadUrl(path);
+    data = retry.data;
+    error = retry.error;
+  }
   if (error || !data?.token) {
     console.error("[fmla-paperwork] Signed upload URL failed:", error);
     return NextResponse.json({ error: "Could not prepare the PDF upload." }, { status: 500 });
