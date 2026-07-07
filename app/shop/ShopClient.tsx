@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useCallback, useEffect, useState, useTransition, type ComponentType, type CSSProperties } from "react";
+import { useCallback, useEffect, useState, useTransition, type ComponentType, type CSSProperties, type MouseEvent } from "react";
 import {
   ArrowLeft,
   ChevronDown,
@@ -108,7 +108,6 @@ function spanFor(index: number, total: number, cols: number): number {
   if (orphans === 0) return 1;
   const orphanStart = total - orphans;
   if (index < orphanStart) return 1;
-  if (cols === 4 && orphans === 2) return 2;
   return 1;
 }
 
@@ -132,7 +131,8 @@ function BuyBtn({
     );
   }
 
-  function handleBuy() {
+  function handleBuy(event: MouseEvent<HTMLButtonElement>) {
+    event.stopPropagation();
     setError(null);
     startTransition(async () => {
       const cartId = window.localStorage.getItem(CART_ID_KEY);
@@ -160,7 +160,19 @@ function BuyBtn({
   );
 }
 
-function PCard({ product, span = 1 }: { product: ShopifyProduct; span?: number }) {
+function ProductPlaceholder({ compact = false }: { compact?: boolean }) {
+  return (
+    <div aria-hidden="true" style={{ alignItems: "center", display: "flex", height: "100%", justifyContent: "center", width: "100%" }}>
+      <div style={{ alignItems: "center", background: "linear-gradient(180deg, #ffffff 0%, #edf4ef 100%)", border: "1px solid #c9d8cf", borderRadius: compact ? 10 : 14, boxShadow: "0 10px 24px rgba(10, 75, 56, 0.08)", display: "flex", flexDirection: "column", height: compact ? 50 : 82, justifyContent: "center", position: "relative", width: compact ? 38 : 58 }}>
+        <div style={{ background: "#0a4b38", borderRadius: "7px 7px 3px 3px", height: compact ? 8 : 12, left: "50%", position: "absolute", top: compact ? -6 : -9, transform: "translateX(-50%)", width: compact ? 21 : 32 }} />
+        <div style={{ background: "#ffffff", border: "1px solid #d6e2dc", borderRadius: 6, height: compact ? 22 : 34, width: compact ? 25 : 39 }} />
+        <div style={{ background: "#0a4b38", borderRadius: 999, height: 4, marginTop: compact ? 4 : 7, width: compact ? 20 : 30 }} />
+      </div>
+    </div>
+  );
+}
+
+function PCard({ product, span = 1, onSelect }: { product: ShopifyProduct; span?: number; onSelect: (product: ShopifyProduct) => void }) {
   const variant = product.variants.edges[0]?.node ?? null;
   const price = product.priceRange.minVariantPrice;
   const maxPrice = product.priceRange.maxVariantPrice;
@@ -170,12 +182,17 @@ function PCard({ product, span = 1 }: { product: ShopifyProduct; span?: number }
   const isFmlaPaperwork = /fmla|short-term|disability|paperwork/i.test(`${product.title} ${product.handle}`);
 
   return (
-    <article className="jls-product-card" style={{ ...productCardStyle, gridColumn: span > 1 ? `span ${span}` : undefined }}>
+    <article className="jls-product-card" onClick={() => onSelect(product)} onKeyDown={(event) => {
+      if (event.key === "Enter" || event.key === " ") {
+        event.preventDefault();
+        onSelect(product);
+      }
+    }} role="button" tabIndex={0} style={{ ...productCardStyle, gridColumn: span > 1 ? `span ${span}` : undefined }}>
       <div style={productImageWrapStyle}>
         {image ? (
           <Image alt={image.altText || product.title} fill sizes="(max-width: 640px) 100vw, (max-width: 1024px) 45vw, 22vw" src={image.url} style={{ objectFit: "contain", padding: 14 }} />
         ) : (
-          <Package size={38} />
+          <ProductPlaceholder />
         )}
       </div>
       <div style={{ display: "flex", flex: 1, flexDirection: "column", padding: 14 }}>
@@ -186,7 +203,7 @@ function PCard({ product, span = 1 }: { product: ShopifyProduct; span?: number }
           <strong style={{ fontSize: 14 }}>{hasRange ? "From " : ""}{fmtPrice(price.amount, price.currencyCode)}</strong>
           {variant && isFmlaPaperwork ? (
             variant.availableForSale ? (
-              <Link href={`/fmla-short-term-disability-paperwork?variantId=${encodeURIComponent(variant.id)}`} style={formGateStyle}>
+              <Link href={`/fmla-short-term-disability-paperwork?variantId=${encodeURIComponent(variant.id)}`} onClick={(event) => event.stopPropagation()} style={formGateStyle}>
                 <FileText size={13} />
                 Form first
               </Link>
@@ -210,14 +227,16 @@ function PGrid({
   label,
   showMore,
   toggle,
+  onSelect,
 }: {
   products: ShopifyProduct[];
-  cols: 3 | 4;
+  cols: 3 | 4 | 5;
   defaultShow?: number;
   id: string;
   label: string;
   showMore: Record<string, boolean>;
   toggle: (id: string) => void;
+  onSelect: (product: ShopifyProduct) => void;
 }) {
   if (products.length === 0) return null;
   const expanded = showMore[id] ?? false;
@@ -228,7 +247,7 @@ function PGrid({
     <>
       <div className={`jls-grid jls-g${cols}`} style={{ display: "grid", gap: 14, gridTemplateColumns: `repeat(${cols}, minmax(0, 1fr))` }}>
         {visible.map((product, index) => (
-          <PCard key={product.id} product={product} span={spanFor(index, visible.length, cols)} />
+          <PCard key={product.id} onSelect={onSelect} product={product} span={spanFor(index, visible.length, cols)} />
         ))}
       </div>
       {!expanded && hidden > 0 ? (
@@ -261,6 +280,7 @@ export function ShopClient({ products }: { products: ShopifyProduct[] }) {
   const [showMore, setShowMore] = useState<Record<string, boolean>>({});
   const [cartUrl, setCartUrl] = useState<string | null>(null);
   const [cartQty, setCartQty] = useState(0);
+  const [selectedProduct, setSelectedProduct] = useState<ShopifyProduct | null>(null);
 
   const toggle = useCallback((id: string) => setShowMore((prev) => ({ ...prev, [id]: !prev[id] })), []);
 
@@ -310,8 +330,17 @@ export function ShopClient({ products }: { products: ShopifyProduct[] }) {
     return `${product.title} ${product.productType} ${product.tags.join(" ")}`.toLowerCase().includes(searchTerm);
   });
 
-  const heroProducts = [multivitamins[0] ?? starterKits[0], protein[0], calcium[0] ?? longTermKits[0]].filter(Boolean) as ShopifyProduct[];
+  const productWithImage = (items: ShopifyProduct[]) => items.find((product) => Boolean(product.images.edges[0]?.node));
+  const heroProducts = [
+    productWithImage([...multivitamins, ...starterKits, ...products]),
+    productWithImage([...protein, ...products]),
+    productWithImage([...calcium, ...longTermKits, ...products]),
+  ].filter(Boolean) as ShopifyProduct[];
   const cartPreview = [multivitamins[0] ?? starterKits[0], protein[0], calcium[0] ?? longTermKits[0]].filter(Boolean) as ShopifyProduct[];
+  const suggestedProducts = [protein[1] ?? protein[0], preOpDiet[0] ?? meals[0], supplements[0] ?? b12VitD[0]]
+    .filter((product): product is ShopifyProduct => Boolean(product))
+    .filter((product) => !cartPreview.some((cartItem) => cartItem.id === product.id))
+    .slice(0, 2);
   const cartPreviewTotal = cartPreview.reduce((total, product) => total + Number(product.priceRange.minVariantPrice.amount), 0);
   const checkoutHref = cartUrl ?? (SHOPIFY_STORE_URL ? `${SHOPIFY_STORE_URL}/cart` : "/shop");
   const showSearchResults = category !== "all" || searchTerm.length > 0;
@@ -324,7 +353,7 @@ export function ShopClient({ products }: { products: ShopifyProduct[] }) {
   ].filter((item) => item.product) as Array<{ badge: string; title: string; copy: string; product: ShopifyProduct }>;
 
   const sections = [
-    { id: "starter-kits", title: "Starter Kits", subtitle: "Procedure-specific kits for the first phase of care", products: starterKits, cols: 4 as const },
+    { id: "starter-kits", title: "Starter Kits", subtitle: "Procedure-specific kits for the first phase of care", products: starterKits, cols: 5 as const },
     { id: "vitamins", title: "Vitamins & Supplements", subtitle: "Daily bariatric essentials recommended by your care team", products: [...multivitamins, ...calcium, ...b12VitD, ...supplements, ...longTermKits], cols: 4 as const },
     { id: "protein", title: "Protein & Nutrition", subtitle: "Shakes, bars, drinks, and recovery nutrition", products: protein, cols: 4 as const },
     { id: "meals", title: "Meals", subtitle: "Bariatric-friendly meals and snacks", products: meals, cols: 3 as const },
@@ -335,17 +364,19 @@ export function ShopClient({ products }: { products: ShopifyProduct[] }) {
     <>
       <style>{`
         .jls-shop-shell { min-height: 100vh; background: #f7f8f6; color: #071b13; font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
-        .jls-store-grid { display: grid; grid-template-columns: minmax(0, 1fr) 360px; gap: 26px; max-width: 1540px; margin: 0 auto; padding: 0 24px; }
+        .jls-store-grid { display: grid; grid-template-columns: minmax(0, 1fr) 384px; gap: 0; max-width: 1540px; margin: 0 auto; padding: 0 0 0 24px; }
         .jls-search:focus-within { border-color: #0a4b38; box-shadow: 0 0 0 3px rgba(10, 75, 56, 0.1); }
         .jls-nav-link:hover, .jls-icon-button:hover, .jls-category:hover, .jls-collection:hover { border-color: #adc8b9 !important; transform: translateY(-1px); }
         .jls-product-card:hover { border-color: #adc8b9 !important; box-shadow: 0 10px 24px rgba(13, 61, 36, 0.08); transform: translateY(-1px); }
         .jls-buybtn:hover:not(:disabled), .jls-checkout:hover, .jls-hero-cta:hover { background: #063a2a !important; }
-        .jls-side-cart { position: sticky; top: 18px; align-self: start; }
+        .jls-side-cart { align-self: stretch; background: #fff; border-left: 1px solid #e1e7e3; box-shadow: -16px 0 34px rgba(12, 42, 30, 0.08); position: sticky; top: 0; }
+        .jls-g5 { grid-template-columns: repeat(5, minmax(0, 1fr)) !important; }
         .jls-g4 { grid-template-columns: repeat(4, minmax(0, 1fr)) !important; }
         .jls-g3 { grid-template-columns: repeat(3, minmax(0, 1fr)) !important; }
-        @media (max-width: 1180px) { .jls-store-grid { grid-template-columns: 1fr; } .jls-side-cart { position: static; } .jls-actions-extra { display: none !important; } }
-        @media (max-width: 920px) { .jls-main-header { grid-template-columns: 1fr !important; } .jls-hero { grid-template-columns: 1fr !important; padding: 32px !important; } .jls-g4, .jls-g3 { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; } .jls-product-card { grid-column: auto !important; } }
-        @media (max-width: 640px) { .jls-store-grid { padding: 0 14px; } .jls-top-strip-inner, .jls-main-header, .jls-nav-inner { padding-left: 16px !important; padding-right: 16px !important; } .jls-g4, .jls-g3, .jls-category-grid, .jls-collections, .jls-trust-grid { grid-template-columns: 1fr !important; } .jls-hero { margin-left: -14px !important; margin-right: -14px !important; padding: 24px !important; } .jls-hero-title { font-size: 34px !important; } .jls-side-cart { display: none; } }
+        @media (max-width: 1320px) { .jls-g5 { grid-template-columns: repeat(4, minmax(0, 1fr)) !important; } }
+        @media (max-width: 1180px) { .jls-store-grid { grid-template-columns: 1fr; padding-right: 24px; } .jls-side-cart { border: 1px solid #e1e7e3; box-shadow: none; position: static; } .jls-actions-extra { display: none !important; } }
+        @media (max-width: 920px) { .jls-main-header { grid-template-columns: 1fr !important; } .jls-hero { grid-template-columns: 1fr !important; padding: 32px !important; } .jls-g5, .jls-g4, .jls-g3 { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; } .jls-product-card { grid-column: auto !important; } }
+        @media (max-width: 640px) { .jls-store-grid { padding: 0 14px; } .jls-top-strip-inner, .jls-main-header, .jls-nav-inner { padding-left: 16px !important; padding-right: 16px !important; } .jls-g5, .jls-g4, .jls-g3, .jls-category-grid, .jls-collections, .jls-trust-grid { grid-template-columns: 1fr !important; } .jls-hero { margin-left: -14px !important; margin-right: -14px !important; padding: 24px !important; } .jls-hero-title { font-size: 34px !important; } .jls-side-cart { display: none; } }
       `}</style>
 
       <div className="jls-shop-shell">
@@ -360,7 +391,7 @@ export function ShopClient({ products }: { products: ShopifyProduct[] }) {
             {showSearchResults ? (
               <section id="featured" style={{ padding: "20px 0 8px" }}>
                 <SectionHead title={category === "all" ? "Search Results" : categories.find((item) => item.id === category)?.label ?? "Products"} subtitle={`${searchedProducts.length} matching item${searchedProducts.length === 1 ? "" : "s"}`} />
-                <PGrid cols={4} defaultShow={12} id="search-results" label="products" products={searchedProducts} showMore={showMore} toggle={toggle} />
+                <PGrid cols={4} defaultShow={12} id="search-results" label="products" onSelect={setSelectedProduct} products={searchedProducts} showMore={showMore} toggle={toggle} />
               </section>
             ) : (
               <>
@@ -370,14 +401,14 @@ export function ShopClient({ products }: { products: ShopifyProduct[] }) {
                     <a href="#starter-kits" style={viewAllStyle}>View all collections →</a>
                   </div>
                   <div className="jls-collections" style={{ display: "grid", gap: 14, gridTemplateColumns: "repeat(4, minmax(0, 1fr))" }}>
-                    {collections.map((collection) => <CollectionCard key={collection.title} {...collection} />)}
+                    {collections.map((collection) => <CollectionCard key={collection.title} onSelect={setSelectedProduct} {...collection} />)}
                   </div>
                 </section>
 
                 {sections.map((section) => (
                   <section id={section.id} key={section.id} style={{ padding: "22px 0 4px" }}>
                     <SectionHead subtitle={section.subtitle} title={section.title} />
-                    <PGrid cols={section.cols} defaultShow={section.cols === 4 ? 8 : 6} id={section.id} label="products" products={section.products} showMore={showMore} toggle={toggle} />
+                    <PGrid cols={section.cols} defaultShow={section.cols === 5 ? 10 : section.cols === 4 ? 8 : 6} id={section.id} label="products" onSelect={setSelectedProduct} products={section.products} showMore={showMore} toggle={toggle} />
                   </section>
                 ))}
               </>
@@ -387,11 +418,12 @@ export function ShopClient({ products }: { products: ShopifyProduct[] }) {
           </main>
 
           <aside className="jls-side-cart">
-            <CartPanel cartPreview={cartPreview} checkoutHref={checkoutHref} total={cartPreviewTotal} />
+            <CartPanel cartPreview={cartPreview} checkoutHref={checkoutHref} suggestedProducts={suggestedProducts} total={cartPreviewTotal} />
           </aside>
         </div>
 
         <ShopFooter />
+        {selectedProduct ? <ProductDetailModal onClose={() => setSelectedProduct(null)} product={selectedProduct} /> : null}
       </div>
     </>
   );
@@ -470,6 +502,17 @@ function Header({
 }
 
 function Hero({ products }: { products: ShopifyProduct[] }) {
+  const fallbackVisuals = [
+    { alt: "Bariatric vitamin bottle", url: "/legacy-blog/495__BA-dark-cherry-MVI-chew.jpg.webp" },
+    { alt: "Bariatric vitamin D capsules", url: "/legacy-blog/495__BA-vitamin-d-capsule-5000-IU-60-ct-500x500.jpg.webp" },
+    { alt: "Procedure-specific vitamin kit", url: "/legacy-blog/vitamins__SADI-600x600-1.jpg.webp" },
+  ];
+  const productVisuals = products
+    .map((product) => product.images.edges[0]?.node)
+    .filter((image): image is NonNullable<typeof image> => Boolean(image))
+    .map((image) => ({ alt: image.altText || "JourneyLite shop product", url: image.url }));
+  const uniqueVisuals = [...productVisuals, ...fallbackVisuals].filter((image, index, images) => images.findIndex((item) => item.url === image.url) === index).slice(0, 3);
+
   return (
     <section className="jls-hero" style={{ background: "linear-gradient(90deg, #fff 0%, #f6f5f1 58%, #ebe6dd 100%)", borderBottom: "1px solid #e1e6e2", display: "grid", gap: 24, gridTemplateColumns: "1fr 1fr", margin: "0 -24px", minHeight: 300, padding: "44px 72px 34px" }}>
       <div style={{ alignSelf: "center", maxWidth: 510 }}>
@@ -481,11 +524,10 @@ function Hero({ products }: { products: ShopifyProduct[] }) {
         </div>
       </div>
       <div style={{ alignItems: "end", display: "flex", justifyContent: "center", minHeight: 275, position: "relative" }}>
-        {products.map((product, index) => {
-          const image = product.images.edges[0]?.node;
+        {uniqueVisuals.map((image, index) => {
           return (
-            <div key={product.id} style={{ height: index === 1 ? 255 : 185, marginLeft: index === 0 ? 0 : -14, position: "relative", width: index === 1 ? 210 : 145, zIndex: index === 1 ? 2 : 1 }}>
-              {image ? <Image alt={image.altText || product.title} fill sizes="220px" src={image.url} style={{ objectFit: "contain" }} /> : <Package size={90} />}
+            <div key={image.url} style={{ height: index === 1 ? 255 : 185, marginLeft: index === 0 ? 0 : -14, position: "relative", width: index === 1 ? 210 : 145, zIndex: index === 1 ? 2 : 1 }}>
+              <Image alt={image.alt} fill sizes="220px" src={image.url} style={{ objectFit: "contain" }} />
             </div>
           );
         })}
@@ -522,26 +564,26 @@ function CategoryTiles({
   );
 }
 
-function CollectionCard({ badge, title, copy, product }: { badge: string; title: string; copy: string; product: ShopifyProduct }) {
+function CollectionCard({ badge, title, copy, product, onSelect }: { badge: string; title: string; copy: string; product: ShopifyProduct; onSelect: (product: ShopifyProduct) => void }) {
   const image = product.images.edges[0]?.node;
   return (
-    <a className="jls-collection" href="#featured" style={{ background: "#fff", border: "1px solid #dfe6e2", borderRadius: 8, color: "inherit", display: "block", overflow: "hidden", position: "relative", textDecoration: "none" }}>
+    <button className="jls-collection" onClick={() => onSelect(product)} style={{ background: "#fff", border: "1px solid #dfe6e2", borderRadius: 8, color: "inherit", cursor: "pointer", display: "block", font: "inherit", overflow: "hidden", padding: 0, position: "relative", textAlign: "left", textDecoration: "none" }}>
       <span style={{ background: "#00624b", borderRadius: 4, color: "#fff", fontSize: 10, fontWeight: 800, left: 10, padding: "4px 7px", position: "absolute", textTransform: "uppercase", top: 10, zIndex: 2 }}>{badge}</span>
       <div style={{ background: "#f6f8f6", height: 120, position: "relative" }}>
-        {image ? <Image alt={image.altText || product.title} fill sizes="260px" src={image.url} style={{ objectFit: "contain", padding: 12 }} /> : <Package size={42} />}
+        {image ? <Image alt={image.altText || product.title} fill sizes="260px" src={image.url} style={{ objectFit: "contain", padding: 12 }} /> : <ProductPlaceholder />}
       </div>
       <div style={{ padding: 14 }}>
         <h3 style={{ fontSize: 14, margin: "0 0 4px" }}>{title}</h3>
         <p style={{ color: "#4f5d55", fontSize: 12, lineHeight: 1.35, margin: "0 0 10px" }}>{copy}</p>
-        <span style={{ color: "#004633", fontSize: 12, fontWeight: 800 }}>Shop now {">"}</span>
+        <span style={{ color: "#004633", fontSize: 12, fontWeight: 800 }}>Read more {">"}</span>
       </div>
-    </a>
+    </button>
   );
 }
 
-function CartPanel({ cartPreview, checkoutHref, total }: { cartPreview: ShopifyProduct[]; checkoutHref: string; total: number }) {
+function CartPanel({ cartPreview, checkoutHref, suggestedProducts, total }: { cartPreview: ShopifyProduct[]; checkoutHref: string; suggestedProducts: ShopifyProduct[]; total: number }) {
   return (
-    <div style={{ background: "#fff", border: "1px solid #e1e7e3", borderRadius: 10, boxShadow: "0 12px 34px rgba(12, 42, 30, 0.12)", padding: 22 }}>
+    <div style={{ background: "#fff", display: "flex", flexDirection: "column", minHeight: "calc(100vh - 124px)", padding: "26px 22px" }}>
       <div style={{ alignItems: "center", display: "flex", justifyContent: "space-between", marginBottom: 18 }}>
         <h2 style={{ fontSize: 19, margin: 0 }}>Your Cart ({cartPreview.length})</h2>
         <X size={20} />
@@ -553,7 +595,7 @@ function CartPanel({ cartPreview, checkoutHref, total }: { cartPreview: ShopifyP
           return (
             <div key={product.id} style={{ borderBottom: "1px solid #edf1ee", display: "grid", gap: 12, gridTemplateColumns: "76px 1fr", paddingBottom: 14 }}>
               <div style={{ background: "#f6f8f6", borderRadius: 7, minHeight: 76, position: "relative" }}>
-                {image ? <Image alt={image.altText || product.title} fill sizes="76px" src={image.url} style={{ objectFit: "contain", padding: 8 }} /> : <Package size={28} />}
+                {image ? <Image alt={image.altText || product.title} fill sizes="76px" src={image.url} style={{ objectFit: "contain", padding: 8 }} /> : <ProductPlaceholder compact />}
               </div>
               <div>
                 <p style={{ fontSize: 13, fontWeight: 800, lineHeight: 1.25, margin: "0 0 5px" }}>{product.title}</p>
@@ -582,6 +624,74 @@ function CartPanel({ cartPreview, checkoutHref, total }: { cartPreview: ShopifyP
       </div>
       <a className="jls-checkout" href={checkoutHref} style={{ alignItems: "center", background: "#004633", borderRadius: 7, color: "#fff", display: "flex", fontSize: 15, fontWeight: 800, gap: 8, justifyContent: "center", padding: "14px 18px", textDecoration: "none" }}><LockKeyhole size={16} /> Checkout Securely</a>
       <a href={checkoutHref} style={{ color: "#004633", display: "block", fontSize: 14, fontWeight: 800, marginTop: 14, textAlign: "center", textDecoration: "none" }}>View Cart</a>
+      {suggestedProducts.length > 0 ? (
+        <div style={{ borderTop: "1px solid #edf1ee", marginTop: "auto", paddingTop: 18 }}>
+          <h3 style={{ fontSize: 15, margin: "0 0 12px" }}>Suggested for you</h3>
+          <div style={{ display: "grid", gap: 10 }}>
+            {suggestedProducts.map((product) => {
+              const image = product.images.edges[0]?.node;
+              const variant = product.variants.edges[0]?.node;
+              const price = product.priceRange.minVariantPrice;
+              const isFmlaPaperwork = /fmla|short-term|disability|paperwork/i.test(`${product.title} ${product.handle}`);
+
+              return (
+                <div key={product.id} style={{ alignItems: "center", border: "1px solid #e3e9e5", borderRadius: 8, display: "grid", gap: 10, gridTemplateColumns: "56px 1fr auto", padding: 10 }}>
+                  <div style={{ background: "#f6f8f6", borderRadius: 6, height: 56, position: "relative" }}>
+                    {image ? <Image alt={image.altText || product.title} fill sizes="56px" src={image.url} style={{ objectFit: "contain", padding: 6 }} /> : <ProductPlaceholder compact />}
+                  </div>
+                  <div>
+                    <p style={{ fontSize: 12, fontWeight: 800, lineHeight: 1.25, margin: "0 0 3px" }}>{product.title}</p>
+                    <p style={{ color: "#52645a", fontSize: 11, margin: 0 }}>{fmtPrice(price.amount, price.currencyCode)}</p>
+                  </div>
+                  {variant && isFmlaPaperwork ? (
+                    <Link href={`/fmla-short-term-disability-paperwork?variantId=${encodeURIComponent(variant.id)}`} style={formGateStyle}>Form</Link>
+                  ) : variant ? (
+                    <BuyBtn available={variant.availableForSale} label="Add" variantId={variant.id} />
+                  ) : null}
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      ) : null}
+    </div>
+  );
+}
+
+function ProductDetailModal({ product, onClose }: { product: ShopifyProduct; onClose: () => void }) {
+  const variant = product.variants.edges[0]?.node ?? null;
+  const price = product.priceRange.minVariantPrice;
+  const image = product.images.edges[0]?.node ?? null;
+  const description = conciseDescription(product) ?? "Care-team selected bariatric product for your nutrition, recovery, or administrative care needs.";
+  const isFmlaPaperwork = /fmla|short-term|disability|paperwork/i.test(`${product.title} ${product.handle}`);
+
+  return (
+    <div aria-modal="true" role="dialog" style={{ alignItems: "center", background: "rgba(4, 20, 14, 0.55)", display: "flex", inset: 0, justifyContent: "center", padding: 20, position: "fixed", zIndex: 50 }}>
+      <div style={{ background: "#fff", borderRadius: 12, boxShadow: "0 24px 70px rgba(0,0,0,0.24)", display: "grid", gap: 0, gridTemplateColumns: "minmax(260px, 0.8fr) minmax(300px, 1fr)", maxWidth: 860, overflow: "hidden", width: "100%" }}>
+        <div style={{ background: "#f4f7f5", minHeight: 360, position: "relative" }}>
+          {image ? <Image alt={image.altText || product.title} fill sizes="420px" src={image.url} style={{ objectFit: "contain", padding: 34 }} /> : <ProductPlaceholder />}
+        </div>
+        <div style={{ padding: 28, position: "relative" }}>
+          <button aria-label="Close product details" onClick={onClose} style={{ alignItems: "center", background: "#fff", border: "1px solid #dfe6e2", borderRadius: 999, cursor: "pointer", display: "inline-flex", height: 34, justifyContent: "center", position: "absolute", right: 18, top: 18, width: 34 }}>
+            <X size={18} />
+          </button>
+          <span style={badgeStyle}>{productEyebrow(product)}</span>
+          <h2 style={{ color: "#071b13", fontSize: 28, lineHeight: 1.15, margin: "8px 44px 10px 0" }}>{product.title}</h2>
+          <p style={{ color: "#46564e", fontSize: 15, lineHeight: 1.55, margin: "0 0 18px" }}>{description}</p>
+          <div style={{ alignItems: "center", borderTop: "1px solid #e5ece8", display: "flex", gap: 14, justifyContent: "space-between", paddingTop: 18 }}>
+            <strong style={{ fontSize: 22 }}>{fmtPrice(price.amount, price.currencyCode)}</strong>
+            {variant && isFmlaPaperwork ? (
+              <Link href={`/fmla-short-term-disability-paperwork?variantId=${encodeURIComponent(variant.id)}`} style={formGateStyle}>
+                <FileText size={15} />
+                Complete form before cart
+              </Link>
+            ) : variant ? (
+              <BuyBtn available={variant.availableForSale} label="Add to cart" variantId={variant.id} />
+            ) : null}
+          </div>
+          {isFmlaPaperwork ? <p style={{ background: "#eef7f2", borderRadius: 8, color: "#113d2d", fontSize: 13, lineHeight: 1.45, margin: "18px 0 0", padding: 12 }}>Next step: complete the paperwork form first. After the form is submitted, you will be sent to payment for the $30 fee.</p> : null}
+        </div>
+      </div>
     </div>
   );
 }
