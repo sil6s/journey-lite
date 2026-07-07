@@ -4,7 +4,7 @@ import { FmlaPaperworkForm } from "./FmlaPaperworkForm";
 
 export const metadata: Metadata = {
   title: "FMLA & Short-Term Disability Paperwork | JourneyLite",
-  description: "Complete JourneyLite's FMLA or short-term disability paperwork request after paying the administrative fee.",
+  description: "Complete JourneyLite's FMLA or short-term disability paperwork request before paying the administrative fee.",
 };
 
 export default function FmlaShortTermDisabilityPaperworkPage() {
@@ -21,10 +21,10 @@ export default function FmlaShortTermDisabilityPaperworkPage() {
               </h1>
               <p className="mt-5 max-w-2xl text-base leading-7 text-[#53635b]">
                 Our practice charges a $30 fee for completing and submitting FMLA or short-term disability paperwork.
-                Please complete the eStore transaction before submitting this form.
+                Please complete this form first; the fee will be added to your cart after successful submission.
               </p>
               <div className="mt-7 flex flex-wrap gap-3">
-                <CTAButton href="/shop#services">Pay FMLA Fee</CTAButton>
+                <CTAButton href="#fmla-form">Start Form</CTAButton>
                 <CTAButton href="mailto:ma@curryweightloss.com" variant="secondary">
                   Email Medical Assistants
                 </CTAButton>
@@ -33,7 +33,7 @@ export default function FmlaShortTermDisabilityPaperworkPage() {
             <div className="rounded-lg border border-[#dce4df] bg-[#f8fbf9] p-5">
               <h2 className="text-lg font-semibold text-[#1f2c25]">Before you submit</h2>
               <ul className="mt-4 space-y-3 text-sm leading-6 text-[#53635b]">
-                <li>Complete the $30 FMLA payment in the eStore.</li>
+                <li>Complete the form below before paying the $30 administrative fee.</li>
                 <li>Upload a PDF copy of your form if JourneyLite has not already received it.</li>
                 <li>You may also fax your paperwork to 513-559-1235.</li>
                 <li>For questions or issues, email ma@curryweightloss.com.</li>
@@ -42,7 +42,7 @@ export default function FmlaShortTermDisabilityPaperworkPage() {
           </div>
         </section>
 
-        <section className="px-5 py-12 lg:px-8 lg:py-16">
+        <section className="px-5 py-12 lg:px-8 lg:py-16" id="fmla-form">
           <div className="mx-auto max-w-3xl">
             <FmlaPaperworkForm />
           </div>

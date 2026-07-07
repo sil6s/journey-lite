@@ -21,7 +21,7 @@ type FmlaPayload = {
   employer?: string;
   sendCompletedTo?: string;
   permissionToTransmit?: boolean;
-  paymentComplete?: boolean;
+  paymentAcknowledged?: boolean;
   additionalInformation?: string;
   upload?: UploadMetadata | null;
   website?: string;
@@ -120,7 +120,7 @@ function validatePayload(payload: FmlaPayload):
   if (String(payload.phone ?? "").replace(/\D/g, "").length < 10) return { ok: false, error: "Phone must be valid." };
   if (Number.isNaN(Date.parse(String(payload.dob)))) return { ok: false, error: "Date of birth must be valid." };
   if (!payload.permissionToTransmit) return { ok: false, error: "Permission to transmit is required." };
-  if (!payload.paymentComplete) return { ok: false, error: "Payment confirmation is required." };
+  if (!payload.paymentAcknowledged) return { ok: false, error: "Payment acknowledgement is required." };
 
   if (payload.upload) {
     if (!payload.upload.path?.startsWith("fmla-paperwork/") || payload.upload.type !== "application/pdf") {
@@ -143,7 +143,7 @@ function validatePayload(payload: FmlaPayload):
       employer: String(payload.employer).trim(),
       sendCompletedTo: String(payload.sendCompletedTo).trim(),
       permissionToTransmit: true,
-      paymentComplete: true,
+      paymentAcknowledged: true,
       upload: payload.upload ?? null,
       additionalInformation: String(payload.additionalInformation ?? "").trim(),
     },

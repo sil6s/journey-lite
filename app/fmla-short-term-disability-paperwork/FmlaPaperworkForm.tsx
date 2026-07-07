@@ -2,12 +2,17 @@
 
 import Link from "next/link";
 import { useState, type FormEvent } from "react";
+import { addToCart } from "@/lib/shopify/actions";
 import { createClient } from "@/lib/supabase/client";
 
 const MAX_FILE_SIZE = 50 * 1024 * 1024;
 const FMLA_BUCKET = "form-uploads";
+const CART_ID_KEY = "journeylite_shopify_cart_id";
+const CART_URL_KEY = "journeylite_shopify_checkout_url";
+const CART_QTY_KEY = "journeylite_shopify_cart_qty";
+const CART_UPDATED_EVENT = "journeylite-shopify-cart-updated";
 
-type SubmitState = "idle" | "uploading" | "submitting" | "success" | "error";
+type SubmitState = "idle" | "uploading" | "submitting" | "addingToCart" | "success" | "error";
 
 type UploadResult = {
   path: string;
@@ -20,6 +25,7 @@ export function FmlaPaperworkForm() {
   const [state, setState] = useState<SubmitState>("idle");
   const [message, setMessage] = useState("");
   const [file, setFile] = useState<File | null>(null);
+  const [checkoutUrl, setCheckoutUrl] = useState<string | null>(null);
 
   async function uploadFile(): Promise<UploadResult | null> {
     if (!file) return null;
@@ -98,7 +104,7 @@ export function FmlaPaperworkForm() {
           employer: String(formData.get("employer") ?? "").trim(),
           sendCompletedTo: String(formData.get("sendCompletedTo") ?? "").trim(),
           permissionToTransmit: formData.get("permissionToTransmit") === "on",
-          paymentComplete: formData.get("paymentComplete") === "on",
+          paymentAcknowledged: formData.get("paymentAcknowledged") === "on",
           additionalInformation: String(formData.get("additionalInformation") ?? "").trim(),
           upload,
           website: String(formData.get("website") ?? ""),
@@ -111,15 +117,41 @@ export function FmlaPaperworkForm() {
 
       form.reset();
       setFile(null);
+      const nextCheckoutUrl = await maybeAddFmlaProductToCart();
       setState("success");
-      setMessage("Thank you. We received your FMLA/short-term disability paperwork request.");
+      setMessage(
+        nextCheckoutUrl
+          ? "Thank you. We received your paperwork request and added the FMLA fee to your cart."
+          : "Thank you. We received your paperwork request. Please complete the $30 FMLA payment in the eStore."
+      );
     } catch (error) {
       setState("error");
       setMessage(error instanceof Error ? error.message : "Something went wrong. Please try again.");
     }
   }
 
-  const isBusy = state === "uploading" || state === "submitting";
+  async function maybeAddFmlaProductToCart() {
+    const variantId = new URLSearchParams(window.location.search).get("variantId");
+    if (!variantId) return null;
+
+    setState("addingToCart");
+    const cartId = window.localStorage.getItem(CART_ID_KEY);
+    const result = await addToCart(variantId, cartId);
+    if (result.error) throw new Error(result.error);
+
+    if (result.cartId) window.localStorage.setItem(CART_ID_KEY, result.cartId);
+    if (result.checkoutUrl) {
+      window.localStorage.setItem(CART_URL_KEY, result.checkoutUrl);
+      setCheckoutUrl(result.checkoutUrl);
+    }
+    if (typeof result.totalQuantity === "number") {
+      window.localStorage.setItem(CART_QTY_KEY, String(result.totalQuantity));
+    }
+    window.dispatchEvent(new Event(CART_UPDATED_EVENT));
+    return result.checkoutUrl ?? null;
+  }
+
+  const isBusy = state === "uploading" || state === "submitting" || state === "addingToCart";
 
   return (
     <form className="rounded-lg border border-[#dce4df] bg-white p-5 shadow-sm md:p-6" onSubmit={onSubmit}>
@@ -149,11 +181,11 @@ export function FmlaPaperworkForm() {
           <span>I give permission to transmit this info via email or fax.</span>
         </label>
         <label className="flex gap-3 rounded-md border border-[#dce4df] bg-[#f8fbf9] p-3 text-sm leading-6 text-[#53635b] md:col-span-2">
-          <input className="mt-1" name="paymentComplete" required type="checkbox" />
+          <input className="mt-1" name="paymentAcknowledged" required type="checkbox" />
           <span>
-            I have completed the $30 FMLA payment.{" "}
+            I understand I will complete the $30 FMLA payment after submitting this form.{" "}
             <Link className="font-semibold text-[#145c42] underline-offset-4 hover:underline" href="/shop#services">
-              Go to eStore
+              View eStore
             </Link>
           </span>
         </label>
@@ -180,8 +212,16 @@ export function FmlaPaperworkForm() {
         disabled={isBusy}
         type="submit"
       >
-        {state === "uploading" ? "Uploading PDF..." : state === "submitting" ? "Submitting..." : "Submit"}
+        {state === "uploading" ? "Uploading PDF..." : state === "submitting" ? "Submitting..." : state === "addingToCart" ? "Adding fee to cart..." : "Submit"}
       </button>
+      {state === "success" && checkoutUrl ? (
+        <Link
+          className="ml-3 mt-6 inline-flex min-h-11 items-center justify-center rounded-md border border-[#145c42] bg-white px-5 py-3 text-sm font-semibold text-[#145c42] transition hover:bg-[#edf4ef]"
+          href={checkoutUrl}
+        >
+          Continue to Checkout
+        </Link>
+      ) : null}
 
       {message ? (
         <p

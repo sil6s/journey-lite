@@ -366,28 +366,39 @@ function PCard({
           {hasRange ? "From " : ""}
           {fmtPrice(price.amount, price.currencyCode)}
         </span>
-        {variant && (
+        {variant && isFmlaPaperwork ? (
+          variant.availableForSale ? (
+            <Link
+              href={`/fmla-short-term-disability-paperwork?variantId=${encodeURIComponent(variant.id)}`}
+              style={{
+                background: "#0D3D24",
+                border: "none",
+                borderRadius: 7,
+                color: "#fff",
+                display: "inline-flex",
+                fontFamily: "inherit",
+                fontSize: 12,
+                fontWeight: 500,
+                gap: 6,
+                justifyContent: "center",
+                padding: "6px 12px",
+                textDecoration: "none",
+                whiteSpace: "nowrap",
+              }}
+            >
+              <FileText size={12} />
+              Complete form first
+            </Link>
+          ) : (
+            <BuyBtn variantId={variant.id} available={false} />
+          )
+        ) : variant ? (
           <BuyBtn
             variantId={variant.id}
             available={variant.availableForSale}
           />
-        )}
+        ) : null}
       </div>
-      {isFmlaPaperwork ? (
-        <Link
-          href="/fmla-short-term-disability-paperwork"
-          style={{
-            color: "#145c42",
-            fontSize: 12,
-            fontWeight: 600,
-            marginTop: 10,
-            textDecoration: "underline",
-            textUnderlineOffset: 3,
-          }}
-        >
-          Complete form after payment
-        </Link>
-      ) : null}
     </div>
   );
 }
