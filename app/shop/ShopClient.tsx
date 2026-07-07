@@ -2,21 +2,31 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useState, useTransition, useCallback } from "react";
+import { useCallback, useEffect, useState, useTransition, type ComponentType, type CSSProperties } from "react";
 import {
   ArrowLeft,
-  Headphones,
-  Package,
-  ShoppingCart,
   ChevronDown,
-  ChevronUp,
-  Info,
+  ClipboardList,
   FileText,
-  CheckCircle2,
+  Heart,
+  LockKeyhole,
+  Menu,
+  Minus,
+  Package,
+  Pill,
+  Plus,
+  Search,
+  ShieldCheck,
+  ShoppingCart,
+  Stethoscope,
+  Trash2,
+  Truck,
   UserRound,
+  Utensils,
+  X,
 } from "lucide-react";
-import type { ShopifyProduct } from "@/lib/shopify/types";
 import { addToCart } from "@/lib/shopify/actions";
+import type { ShopifyProduct } from "@/lib/shopify/types";
 
 const SHOPIFY_STORE_DOMAIN = process.env.NEXT_PUBLIC_SHOPIFY_STORE_DOMAIN;
 const SHOPIFY_STORE_URL = SHOPIFY_STORE_DOMAIN ? `https://${SHOPIFY_STORE_DOMAIN}` : null;
@@ -24,17 +34,6 @@ const CART_ID_KEY = "journeylite_shopify_cart_id";
 const CART_URL_KEY = "journeylite_shopify_checkout_url";
 const CART_QTY_KEY = "journeylite_shopify_cart_qty";
 const CART_UPDATED_EVENT = "journeylite-shopify-cart-updated";
-
-// ─────────────────────────────────────────────────────────────────────────────
-// Types
-// ─────────────────────────────────────────────────────────────────────────────
-
-type Phase = "all" | "pre-op" | "post-op" | "long-term";
-type ProteinFilter = "all" | "shake" | "bar" | "liquid";
-
-// ─────────────────────────────────────────────────────────────────────────────
-// Product categorization (derived from productType + handle)
-// ─────────────────────────────────────────────────────────────────────────────
 
 function getSectionTag(p: ShopifyProduct): string {
   const pt = p.productType;
@@ -72,71 +71,6 @@ function getSectionTag(p: ShopifyProduct): string {
   return "type-other";
 }
 
-function getPhases(p: ShopifyProduct): Phase[] {
-  const pt = p.productType;
-  const h = p.handle;
-  const tags = p.tags.map((tag) => tag.toLowerCase());
-  const hasTag = (tag: string) => tags.includes(tag.toLowerCase());
-  if ((pt === "Vitamin Kits" || pt === "Vitamins & Supplements") && (h.includes("starter-kit") || hasTag("Procedure Starter Kits"))) return ["pre-op"];
-  if ((pt === "Vitamin Kits" || pt === "Vitamins & Supplements") && (h.includes("90-day") || h.includes("90days") || hasTag("Procedure Maintenance Kits"))) return ["long-term"];
-  if (pt === "Pre-op Diet" || pt === "Diet Kits") {
-    if (h.includes("clear-liquid") || h.includes("post-op") || hasTag("Post-Op Diet Kits")) return ["post-op"];
-    return ["pre-op"];
-  }
-  if (pt === "Services") return ["all"];
-  return ["post-op", "long-term"];
-}
-
-function matchesPhase(p: ShopifyProduct, phase: Phase): boolean {
-  if (phase === "all") return true;
-  return getPhases(p).includes(phase);
-}
-
-// ─────────────────────────────────────────────────────────────────────────────
-// Surgery types
-// ─────────────────────────────────────────────────────────────────────────────
-
-const SURGERY_TYPES = [
-  { key: "gastric-sleeve", label: "Gastric Sleeve", shortLabel: "Sleeve", note: "Most sleeve patients" },
-  { key: "gastric-bypass", label: "Gastric Bypass", shortLabel: "Bypass", note: "Bypass-specific support" },
-  { key: "sadi-sips", label: "SADI/SIPS", shortLabel: "SADI/SIPS", note: "Higher-malabsorption plan" },
-  { key: "gastric-band", label: "Gastric Band", shortLabel: "Band", note: "Band procedure plan" },
-  { key: "gastric-balloon", label: "Gastric Balloon", shortLabel: "Balloon", note: "Non-surgical balloon plan" },
-];
-
-// ─────────────────────────────────────────────────────────────────────────────
-// Grid orphan-span calculation
-// ─────────────────────────────────────────────────────────────────────────────
-
-function spanFor(index: number, total: number, cols: number): number {
-  // If all products fit in one row (or fewer), no orphan manipulation
-  if (total <= cols) return 1;
-  const orphans = total % cols;
-  if (orphans === 0) return 1;
-  const orphanStart = total - orphans;
-
-  if (cols === 4 && orphans === 1 && index >= total - 5) {
-    return [2, 1, 1, 2, 2][index - (total - 5)];
-  }
-
-  if (index < orphanStart) return 1;
-  // Orphan row rules per spec
-  if (cols === 4) {
-    if (orphans === 2) return 2;
-    if (orphans === 3) return 1;
-  }
-  if (cols === 3) {
-    if (orphans === 1 && index >= total - 4) {
-      return [2, 1, 1, 2][index - (total - 4)];
-    }
-  }
-  return 1;
-}
-
-// ─────────────────────────────────────────────────────────────────────────────
-// Price formatter
-// ─────────────────────────────────────────────────────────────────────────────
-
 function fmtPrice(amount: string, currency: string) {
   return new Intl.NumberFormat("en-US", { style: "currency", currency }).format(parseFloat(amount));
 }
@@ -158,7 +92,7 @@ function productEyebrow(product: ShopifyProduct): string {
   if (tag === "type-multivitamin") return "Multivitamin";
   if (tag === "type-calcium") return "Calcium";
   if (tag === "type-b12-vitamin-d") return "B12 / D";
-  if (tag === "type-other-vitamin") return "Supplement";
+  if (tag === "type-other-vitamin" || tag === "type-iron") return "Supplement";
   if (tag === "type-shake") return "Shake / pudding";
   if (tag === "type-bar") return "Protein bar";
   if (tag === "type-drink") return "Protein drink";
@@ -168,44 +102,31 @@ function productEyebrow(product: ShopifyProduct): string {
   return product.productType || "Product";
 }
 
-// ─────────────────────────────────────────────────────────────────────────────
-// Buy button
-// ─────────────────────────────────────────────────────────────────────────────
+function spanFor(index: number, total: number, cols: number): number {
+  if (total <= cols) return 1;
+  const orphans = total % cols;
+  if (orphans === 0) return 1;
+  const orphanStart = total - orphans;
+  if (index < orphanStart) return 1;
+  if (cols === 4 && orphans === 2) return 2;
+  return 1;
+}
 
 function BuyBtn({
   variantId,
   available,
-  label = "Add to cart",
-  featured = false,
+  label = "Add",
 }: {
   variantId: string;
   available: boolean;
   label?: string;
-  featured?: boolean;
 }) {
   const [isPending, startTransition] = useTransition();
   const [error, setError] = useState<string | null>(null);
 
-  const pad = featured ? "8px 18px" : "6px 12px";
-  const fs = featured ? 13 : 12;
-  const iconSz = featured ? 14 : 12;
-
   if (!available) {
     return (
-      <button
-        disabled
-        style={{
-          background: "#e8f0eb",
-          color: "#9aafa5",
-          border: "none",
-          borderRadius: 7,
-          padding: pad,
-          fontSize: fs,
-          fontWeight: 500,
-          cursor: "not-allowed",
-          whiteSpace: "nowrap",
-        }}
-      >
+      <button disabled style={disabledButtonStyle}>
         Out of stock
       </button>
     );
@@ -229,183 +150,57 @@ function BuyBtn({
   }
 
   return (
-    <div className="jls-buy-wrap">
-      <button
-        className="jls-buybtn"
-        onClick={handleBuy}
-        disabled={isPending}
-        style={{
-          background: "#0D3D24",
-          color: "#fff",
-          border: "none",
-          borderRadius: 7,
-          padding: pad,
-          fontSize: fs,
-          fontWeight: 500,
-          cursor: isPending ? "wait" : "pointer",
-          whiteSpace: "nowrap",
-          display: "inline-flex",
-          justifyContent: "center",
-          alignItems: "center",
-          gap: 6,
-          opacity: isPending ? 0.75 : 1,
-          fontFamily: "inherit",
-        }}
-      >
-        <ShoppingCart size={iconSz} />
-        {isPending ? "Adding…" : label}
+    <div>
+      <button className="jls-buybtn" disabled={isPending} onClick={handleBuy} style={buyButtonStyle}>
+        <Plus size={14} />
+        {isPending ? "Adding..." : label}
       </button>
-      {error && (
-        <p style={{ fontSize: 11, color: "#dc2626", marginTop: 4 }}>{error}</p>
-      )}
+      {error ? <p style={{ color: "#b91c1c", fontSize: 11, margin: "5px 0 0" }}>{error}</p> : null}
     </div>
   );
 }
 
-// ─────────────────────────────────────────────────────────────────────────────
-// Product card
-// ─────────────────────────────────────────────────────────────────────────────
-
-function PCard({
-  product,
-  span = 1,
-}: {
-  product: ShopifyProduct;
-  span?: number;
-}) {
+function PCard({ product, span = 1 }: { product: ShopifyProduct; span?: number }) {
   const variant = product.variants.edges[0]?.node ?? null;
   const price = product.priceRange.minVariantPrice;
   const maxPrice = product.priceRange.maxVariantPrice;
   const hasRange = price.amount !== maxPrice.amount;
   const description = conciseDescription(product);
+  const image = product.images.edges[0]?.node ?? null;
   const isFmlaPaperwork = /fmla|short-term|disability|paperwork/i.test(`${product.title} ${product.handle}`);
 
   return (
-    <div
-      className="jls-product-card"
-      style={{
-        background: "#fff",
-        border: "1px solid #d4e3da",
-        borderRadius: 8,
-        padding: 16,
-        display: "flex",
-        flexDirection: "column",
-        minWidth: 0,
-        minHeight: 158,
-        gridColumn: span > 1 ? `span ${span}` : undefined,
-      }}
-    >
-      <p
-        style={{
-          alignSelf: "flex-start",
-          background: "#edf4ef",
-          borderRadius: 999,
-          color: "#3b6d4e",
-          fontSize: 10,
-          fontWeight: 700,
-          letterSpacing: "0.07em",
-          margin: "0 0 10px",
-          padding: "3px 8px",
-          textTransform: "uppercase",
-        }}
-      >
-        {productEyebrow(product)}
-      </p>
-
-      <p
-        style={{
-          fontSize: 14,
-          fontWeight: 700,
-          color: "#1a3d2b",
-          lineHeight: 1.3,
-          margin: "0 0 8px",
-        }}
-      >
-        {product.title}
-      </p>
-
-      {description && (
-        <p
-          style={{
-            fontSize: 12,
-            color: "#7a9a83",
-            lineHeight: 1.45,
-            margin: "0 0 10px",
-            flex: 1,
-            overflow: "hidden",
-            display: "-webkit-box",
-            WebkitLineClamp: 2,
-            WebkitBoxOrient: "vertical" as const,
-          }}
-        >
-          {description}
-        </p>
-      )}
-
-      <div
-        className="jls-product-footer"
-        style={{
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "space-between",
-          gap: 8,
-          marginTop: "auto",
-          flexWrap: "nowrap",
-          borderTop: "1px solid #edf2ee",
-          paddingTop: 12,
-        }}
-      >
-        <span
-          style={{
-            fontSize: 14,
-            fontWeight: 600,
-            color: "#0D3D24",
-            flexShrink: 0,
-          }}
-        >
-          {hasRange ? "From " : ""}
-          {fmtPrice(price.amount, price.currencyCode)}
-        </span>
-        {variant && isFmlaPaperwork ? (
-          variant.availableForSale ? (
-            <Link
-              href={`/fmla-short-term-disability-paperwork?variantId=${encodeURIComponent(variant.id)}`}
-              style={{
-                background: "#0D3D24",
-                border: "none",
-                borderRadius: 7,
-                color: "#fff",
-                display: "inline-flex",
-                fontFamily: "inherit",
-                fontSize: 12,
-                fontWeight: 500,
-                gap: 6,
-                justifyContent: "center",
-                padding: "6px 12px",
-                textDecoration: "none",
-                whiteSpace: "nowrap",
-              }}
-            >
-              <FileText size={12} />
-              Complete form first
-            </Link>
-          ) : (
-            <BuyBtn variantId={variant.id} available={false} />
-          )
-        ) : variant ? (
-          <BuyBtn
-            variantId={variant.id}
-            available={variant.availableForSale}
-          />
-        ) : null}
+    <article className="jls-product-card" style={{ ...productCardStyle, gridColumn: span > 1 ? `span ${span}` : undefined }}>
+      <div style={productImageWrapStyle}>
+        {image ? (
+          <Image alt={image.altText || product.title} fill sizes="(max-width: 640px) 100vw, (max-width: 1024px) 45vw, 22vw" src={image.url} style={{ objectFit: "contain", padding: 14 }} />
+        ) : (
+          <Package size={38} />
+        )}
       </div>
-    </div>
+      <div style={{ display: "flex", flex: 1, flexDirection: "column", padding: 14 }}>
+        <span style={badgeStyle}>{productEyebrow(product)}</span>
+        <h3 style={{ color: "#111f18", fontSize: 14, lineHeight: 1.3, margin: "0 0 5px" }}>{product.title}</h3>
+        {description ? <p style={descriptionStyle}>{description}</p> : <span style={{ flex: 1 }} />}
+        <div style={productFooterStyle}>
+          <strong style={{ fontSize: 14 }}>{hasRange ? "From " : ""}{fmtPrice(price.amount, price.currencyCode)}</strong>
+          {variant && isFmlaPaperwork ? (
+            variant.availableForSale ? (
+              <Link href={`/fmla-short-term-disability-paperwork?variantId=${encodeURIComponent(variant.id)}`} style={formGateStyle}>
+                <FileText size={13} />
+                Form first
+              </Link>
+            ) : (
+              <BuyBtn available={false} variantId={variant.id} />
+            )
+          ) : variant ? (
+            <BuyBtn available={variant.availableForSale} variantId={variant.id} />
+          ) : null}
+        </div>
+      </div>
+    </article>
   );
 }
-
-// ─────────────────────────────────────────────────────────────────────────────
-// Product grid
-// ─────────────────────────────────────────────────────────────────────────────
 
 function PGrid({
   products,
@@ -417,7 +212,7 @@ function PGrid({
   toggle,
 }: {
   products: ShopifyProduct[];
-  cols: 2 | 3 | 4;
+  cols: 3 | 4;
   defaultShow?: number;
   id: string;
   label: string;
@@ -428,118 +223,46 @@ function PGrid({
   const expanded = showMore[id] ?? false;
   const visible = expanded ? products : products.slice(0, defaultShow);
   const hidden = products.length - visible.length;
-  const gridCols = cols;
 
   return (
     <>
-      <div
-        className={`jls-grid jls-g${gridCols}`}
-        style={{
-          display: "grid",
-          gridTemplateColumns: `repeat(${gridCols}, 1fr)`,
-          gap: 14,
-          marginBottom: hidden > 0 || expanded ? 8 : 16,
-        }}
-      >
-        {visible.map((p, i) => (
-          <PCard key={p.id} product={p} span={spanFor(i, visible.length, gridCols)} />
+      <div className={`jls-grid jls-g${cols}`} style={{ display: "grid", gap: 14, gridTemplateColumns: `repeat(${cols}, minmax(0, 1fr))` }}>
+        {visible.map((product, index) => (
+          <PCard key={product.id} product={product} span={spanFor(index, visible.length, cols)} />
         ))}
       </div>
-
-      {!expanded && hidden > 0 && (
+      {!expanded && hidden > 0 ? (
         <button onClick={() => toggle(id)} style={showMoreBtn}>
           <ChevronDown size={14} />
           Show {hidden} more {label}
         </button>
-      )}
-      {expanded && products.length > defaultShow && (
+      ) : null}
+      {expanded && products.length > defaultShow ? (
         <button onClick={() => toggle(id)} style={showMoreBtn}>
-          <ChevronUp size={14} />
           Show less
         </button>
-      )}
+      ) : null}
     </>
   );
 }
 
-// ─────────────────────────────────────────────────────────────────────────────
-// Section header
-// ─────────────────────────────────────────────────────────────────────────────
-
 function SectionHead({ title, subtitle }: { title: string; subtitle?: string }) {
   return (
-    <div
-      style={{
-        marginBottom: 16,
-        paddingBottom: 12,
-        borderBottom: "1px solid #dce8e0",
-      }}
-    >
-      <h2 style={{ fontSize: 17, fontWeight: 500, color: "#0D3D24", margin: 0 }}>
-        {title}
-      </h2>
-      {subtitle && (
-        <p style={{ fontSize: 13, color: "#6b8f76", margin: "4px 0 0" }}>
-          {subtitle}
-        </p>
-      )}
+    <div style={{ borderBottom: "1px solid #dfe6e2", marginBottom: 16, paddingBottom: 10 }}>
+      <h2 style={{ color: "#071b13", fontSize: 19, fontWeight: 800, margin: 0 }}>{title}</h2>
+      {subtitle ? <p style={{ color: "#596960", fontSize: 13, margin: "4px 0 0" }}>{subtitle}</p> : null}
     </div>
   );
 }
 
-// ─────────────────────────────────────────────────────────────────────────────
-// Shared style objects
-// ─────────────────────────────────────────────────────────────────────────────
-
-const showMoreBtn: React.CSSProperties = {
-  width: "100%",
-  background: "transparent",
-  border: "1px solid #c2d9cc",
-  borderRadius: 8,
-  padding: 10,
-  fontSize: 13,
-  color: "#3b6d4e",
-  cursor: "pointer",
-  display: "flex",
-  alignItems: "center",
-  justifyContent: "center",
-  gap: 6,
-  marginTop: 4,
-  marginBottom: 16,
-  fontFamily: "inherit",
-};
-
-const subLabel: React.CSSProperties = {
-  fontSize: 11,
-  textTransform: "uppercase",
-  letterSpacing: "0.09em",
-  color: "#5a7a65",
-  margin: "0 0 10px",
-};
-
-const divider: React.CSSProperties = {
-  height: 1,
-  background: "#d4e3da",
-  margin: "20px 0 28px",
-  border: "none",
-};
-
-// ─────────────────────────────────────────────────────────────────────────────
-// Main client component
-// ─────────────────────────────────────────────────────────────────────────────
-
 export function ShopClient({ products }: { products: ShopifyProduct[] }) {
-  const [phase, setPhase] = useState<Phase>("all");
-  const [proteinFilter, setProteinFilter] = useState<ProteinFilter>("all");
+  const [category, setCategory] = useState("all");
+  const [search, setSearch] = useState("");
   const [showMore, setShowMore] = useState<Record<string, boolean>>({});
-  const [selectedSurgery, setSelectedSurgery] = useState("gastric-sleeve");
   const [cartUrl, setCartUrl] = useState<string | null>(null);
   const [cartQty, setCartQty] = useState(0);
 
-  const toggle = useCallback(
-    (id: string) => setShowMore((prev) => ({ ...prev, [id]: !prev[id] })),
-    []
-  );
+  const toggle = useCallback((id: string) => setShowMore((prev) => ({ ...prev, [id]: !prev[id] })), []);
 
   useEffect(() => {
     function syncCartState() {
@@ -557,960 +280,525 @@ export function ShopClient({ products }: { products: ShopifyProduct[] }) {
     };
   }, []);
 
-  // ── Bucketed products ──────────────────────────────────────────────────────
-
-  const byTag = (tag: string) =>
-    products.filter((p) => getSectionTag(p) === tag && matchesPhase(p, phase));
-
-  const starterKits = products.filter((p) => getSectionTag(p) === "type-preop-kit");
-  const selectedKit = starterKits.find(
-    (p) => p.handle === `${selectedSurgery}-starter-kit`
-  );
-
-  const longTermKits = products.filter(
-    (p) => getSectionTag(p) === "type-long-term-kit" && matchesPhase(p, phase)
-  );
+  const byTag = (tag: string) => products.filter((product) => getSectionTag(product) === tag);
+  const starterKits = byTag("type-preop-kit");
+  const longTermKits = byTag("type-long-term-kit");
   const preOpDiet = byTag("type-preop-diet");
-  const clearLiquid = products.filter(
-    (p) => getSectionTag(p) === "type-clear-liquid" && matchesPhase(p, phase)
-  );
-  const services = byTag("type-service");
-
+  const clearLiquid = byTag("type-clear-liquid");
   const multivitamins = byTag("type-multivitamin");
   const calcium = byTag("type-calcium");
   const b12VitD = byTag("type-b12-vitamin-d");
-  const iron = byTag("type-iron");
-  const otherVitamins = byTag("type-other-vitamin");
-  const additionalSupplements = [...iron, ...otherVitamins];
-  const shakes = byTag("type-shake");
-  const bars = byTag("type-bar");
-  const drinks = byTag("type-drink");
-  const chips = byTag("type-chip");
-  const snacks = byTag("type-snack");
-  const otherProducts = byTag("type-other");
+  const supplements = [...byTag("type-iron"), ...byTag("type-other-vitamin")];
+  const protein = [...byTag("type-shake"), ...byTag("type-bar"), ...byTag("type-drink"), ...byTag("type-chip"), ...clearLiquid];
+  const meals = byTag("type-snack");
+  const services = byTag("type-service");
 
-  const hasVitamins =
-    multivitamins.length + calcium.length + b12VitD.length + additionalSupplements.length > 0;
+  const categories = [
+    { id: "starter", label: "Starter Kits", icon: Package, products: starterKits },
+    { id: "preop", label: "Pre-op Diet", icon: ShoppingCart, products: preOpDiet },
+    { id: "vitamins", label: "Vitamins", icon: Pill, products: [...multivitamins, ...calcium, ...b12VitD, ...supplements, ...longTermKits] },
+    { id: "protein", label: "Protein", icon: Utensils, products: protein },
+    { id: "meals", label: "Meals", icon: Utensils, products: meals },
+    { id: "services", label: "Medical Services", icon: Stethoscope, products: services },
+    { id: "forms", label: "Forms & Admin", icon: ClipboardList, products: services.filter((product) => /form|admin|fmla|paperwork|disability/i.test(`${product.title} ${product.handle}`)) },
+  ];
 
-  const showStarterCard = phase === "all" || phase === "pre-op";
-  const showPreOpDiet = (phase === "all" || phase === "pre-op") && preOpDiet.length > 0;
-  const showLongTerm = (phase === "all" || phase === "long-term") && longTermKits.length > 0;
+  const activeProducts = category === "all" ? products : categories.find((item) => item.id === category)?.products ?? products;
+  const searchTerm = search.trim().toLowerCase();
+  const searchedProducts = activeProducts.filter((product) => {
+    if (!searchTerm) return true;
+    return `${product.title} ${product.productType} ${product.tags.join(" ")}`.toLowerCase().includes(searchTerm);
+  });
 
-  // Protein section products (filtered by tab)
-  const allProtein = [...shakes, ...bars, ...drinks, ...chips, ...clearLiquid];
-  const proteinFiltered =
-    proteinFilter === "shake"
-      ? shakes
-      : proteinFilter === "bar"
-      ? [...bars, ...chips]
-      : proteinFilter === "liquid"
-      ? [...drinks, ...clearLiquid]
-      : allProtein;
-  const hasProtein = allProtein.length > 0;
+  const heroProducts = [multivitamins[0] ?? starterKits[0], protein[0], calcium[0] ?? longTermKits[0]].filter(Boolean) as ShopifyProduct[];
+  const cartPreview = [multivitamins[0] ?? starterKits[0], protein[0], calcium[0] ?? longTermKits[0]].filter(Boolean) as ShopifyProduct[];
+  const cartPreviewTotal = cartPreview.reduce((total, product) => total + Number(product.priceRange.minVariantPrice.amount), 0);
+  const checkoutHref = cartUrl ?? (SHOPIFY_STORE_URL ? `${SHOPIFY_STORE_URL}/cart` : "/shop");
+  const showSearchResults = category !== "all" || searchTerm.length > 0;
 
-  // Phase hint copy
-  const phaseHints: Partial<Record<Phase, string>> = {
-    "pre-op":
-      "Before surgery: These products support your body in the weeks leading up to your procedure. Start with a Starter Kit if you're unsure where to begin.",
-    "post-op":
-      "After surgery: Focus on chewable or liquid forms for the first several weeks. Your care team will guide your progression.",
-    "long-term":
-      "Long-term support: Maintain your results with these ongoing daily essentials recommended by your care team.",
-  };
+  const collections = [
+    { badge: "Best seller", title: "Essential Vitamins", copy: "Daily vitamins recommended by our care team.", product: multivitamins[0] ?? longTermKits[0] ?? starterKits[0] },
+    { badge: "Popular", title: "Protein Essentials", copy: "High-quality protein to support healing and weight loss.", product: protein[0] },
+    { badge: "Care team pick", title: "Post-Op Essentials", copy: "Top products for a smooth recovery and lifelong success.", product: longTermKits[0] ?? calcium[0] },
+    { badge: "Staff favorite", title: "Hydration & Wellness", copy: "Stay hydrated and feel your best every day.", product: clearLiquid[0] ?? protein[1] },
+  ].filter((item) => item.product) as Array<{ badge: string; title: string; copy: string; product: ShopifyProduct }>;
 
-  const phaseLabels: Record<Phase, string> = {
-    all: "All products",
-    "pre-op": "Before surgery",
-    "post-op": "After surgery",
-    "long-term": "Long-term support",
-  };
-
-  const isEmpty =
-    !showStarterCard &&
-    !hasVitamins &&
-    !hasProtein &&
-    !showLongTerm &&
-    !showPreOpDiet &&
-    services.length === 0 &&
-    snacks.length === 0 &&
-    otherProducts.length === 0;
+  const sections = [
+    { id: "starter-kits", title: "Starter Kits", subtitle: "Procedure-specific kits for the first phase of care", products: starterKits, cols: 4 as const },
+    { id: "vitamins", title: "Vitamins & Supplements", subtitle: "Daily bariatric essentials recommended by your care team", products: [...multivitamins, ...calcium, ...b12VitD, ...supplements, ...longTermKits], cols: 4 as const },
+    { id: "protein", title: "Protein & Nutrition", subtitle: "Shakes, bars, drinks, and recovery nutrition", products: protein, cols: 4 as const },
+    { id: "meals", title: "Meals", subtitle: "Bariatric-friendly meals and snacks", products: meals, cols: 3 as const },
+    { id: "services", title: "Medical Services", subtitle: "Administrative fees and visit payments", products: services, cols: 3 as const },
+  ].filter((section) => section.products.length > 0);
 
   return (
     <>
-      {/* ─── Scoped styles ──────────────────────────────────────────────────── */}
       <style>{`
-        .jls-phasetab { transition: color 0.15s, border-color 0.15s; }
-        .jls-phasetab:hover { color: #d4ede0 !important; }
-        .jls-ptab:hover { filter: brightness(0.92); }
-        .jls-buybtn:hover:not(:disabled) { background: #1a5c38 !important; }
-        .jls-shop-link:hover { border-color: #145c42 !important; color: #145c42 !important; background: #f0f5f2 !important; }
-        .jls-showmore:hover { background: #e8f2ec !important; }
-        .jls-surg:hover { filter: brightness(0.92); }
-        .jls-back:hover { background: #eff6f2 !important; }
-        .jls-cta-btn:hover { background: #1a5c38 !important; }
-        .jls-return:hover { background: #1a5c38 !important; }
-        .jls-product-card:hover { border-color: #b9d0c3 !important; box-shadow: 0 10px 22px rgba(25, 61, 43, 0.07); }
-        @media (max-width: 1024px) {
-          .jls-g4 { grid-template-columns: repeat(2, 1fr) !important; }
-          .jls-g3 { grid-template-columns: repeat(2, 1fr) !important; }
-          .jls-product-card { grid-column: auto !important; }
-        }
-        @media (max-width: 640px) {
-          .jls-g4, .jls-g3 { grid-template-columns: 1fr !important; }
-          .jls-grid { gap: 12px !important; }
-          .jls-surgery-row { flex-wrap: wrap; }
-          .jls-topbar { padding: 10px 16px !important; }
-          .jls-hero { padding: 28px 16px 36px !important; }
-          .jls-content { padding: 20px 16px 0 !important; }
-          .jls-featcard { flex-direction: column !important; }
-          .jls-featcard { padding: 18px !important; }
-          .jls-topbar { align-items: flex-start !important; gap: 12px !important; }
-          .jls-shop-actions { width: 100% !important; justify-content: space-between !important; }
-          .jls-product-footer { align-items: stretch !important; flex-direction: column !important; gap: 10px !important; }
-          .jls-buy-wrap, .jls-buybtn { width: 100% !important; }
-          .jls-buybtn { padding: 10px 12px !important; }
-          .jls-starter-layout { grid-template-columns: 1fr !important; }
-        }
+        .jls-shop-shell { min-height: 100vh; background: #f7f8f6; color: #071b13; font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
+        .jls-store-grid { display: grid; grid-template-columns: minmax(0, 1fr) 360px; gap: 26px; max-width: 1540px; margin: 0 auto; padding: 0 24px; }
+        .jls-search:focus-within { border-color: #0a4b38; box-shadow: 0 0 0 3px rgba(10, 75, 56, 0.1); }
+        .jls-nav-link:hover, .jls-icon-button:hover, .jls-category:hover, .jls-collection:hover { border-color: #adc8b9 !important; transform: translateY(-1px); }
+        .jls-product-card:hover { border-color: #adc8b9 !important; box-shadow: 0 10px 24px rgba(13, 61, 36, 0.08); transform: translateY(-1px); }
+        .jls-buybtn:hover:not(:disabled), .jls-checkout:hover, .jls-hero-cta:hover { background: #063a2a !important; }
+        .jls-side-cart { position: sticky; top: 18px; align-self: start; }
+        .jls-g4 { grid-template-columns: repeat(4, minmax(0, 1fr)) !important; }
+        .jls-g3 { grid-template-columns: repeat(3, minmax(0, 1fr)) !important; }
+        @media (max-width: 1180px) { .jls-store-grid { grid-template-columns: 1fr; } .jls-side-cart { position: static; } .jls-actions-extra { display: none !important; } }
+        @media (max-width: 920px) { .jls-main-header { grid-template-columns: 1fr !important; } .jls-hero { grid-template-columns: 1fr !important; padding: 32px !important; } .jls-g4, .jls-g3 { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; } .jls-product-card { grid-column: auto !important; } }
+        @media (max-width: 640px) { .jls-store-grid { padding: 0 14px; } .jls-top-strip-inner, .jls-main-header, .jls-nav-inner { padding-left: 16px !important; padding-right: 16px !important; } .jls-g4, .jls-g3, .jls-category-grid, .jls-collections, .jls-trust-grid { grid-template-columns: 1fr !important; } .jls-hero { margin-left: -14px !important; margin-right: -14px !important; padding: 24px !important; } .jls-hero-title { font-size: 34px !important; } .jls-side-cart { display: none; } }
       `}</style>
 
-      <div
-        style={{
-          minHeight: "100vh",
-          background: "#f7f9f6",
-          fontFamily:
-            "system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif",
-        }}
-      >
-        {/* ── Top bar ─────────────────────────────────────────────────────── */}
-        <div
-          className="jls-topbar"
-          style={{
-            background: "#fff",
-            borderBottom: "1px solid #dce4df",
-            padding: "10px 32px",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "space-between",
-            gap: 16,
-            flexWrap: "wrap",
-          }}
-        >
-          <Link
-            href="/"
-            style={{
-              display: "inline-flex",
-              alignItems: "center",
-              borderRadius: 4,
-            }}
-          >
-            <Image
-              alt="JourneyLite Bariatric Physicians"
-              src="/journeylite-logo.svg"
-              width={560}
-              height={160}
-              priority
-              style={{ width: 198, maxWidth: "54vw", height: "auto" }}
-            />
-          </Link>
-          <div
-            className="jls-shop-actions"
-            style={{ display: "flex", alignItems: "center", justifyContent: "flex-end", gap: 8 }}
-          >
-            {SHOPIFY_STORE_URL && (
+      <div className="jls-shop-shell">
+        <TopStrip />
+        <Header checkoutHref={checkoutHref} cartCount={cartQty || cartPreview.length} cartTotal={cartPreviewTotal} search={search} setSearch={setSearch} />
+
+        <div className="jls-store-grid">
+          <main>
+            <Hero products={heroProducts} />
+            <CategoryTiles categories={categories} selected={category} setSelected={setCategory} />
+
+            {showSearchResults ? (
+              <section id="featured" style={{ padding: "20px 0 8px" }}>
+                <SectionHead title={category === "all" ? "Search Results" : categories.find((item) => item.id === category)?.label ?? "Products"} subtitle={`${searchedProducts.length} matching item${searchedProducts.length === 1 ? "" : "s"}`} />
+                <PGrid cols={4} defaultShow={12} id="search-results" label="products" products={searchedProducts} showMore={showMore} toggle={toggle} />
+              </section>
+            ) : (
               <>
-                <a
-                  className="jls-shop-link"
-                  href={cartUrl ?? `${SHOPIFY_STORE_URL}/cart`}
-                  style={{
-                    background: "#fff",
-                    border: "1px solid #dce4df",
-                    color: "#314139",
-                    borderRadius: 6,
-                    padding: "7px 10px",
-                    fontSize: 13,
-                    fontWeight: 600,
-                    textDecoration: "none",
-                    whiteSpace: "nowrap",
-                    display: "inline-flex",
-                    alignItems: "center",
-                    gap: 6,
-                  }}
-                >
-                  <ShoppingCart size={14} />
-                  Cart{cartQty > 0 ? ` (${cartQty})` : ""}
-                </a>
-                <a
-                  className="jls-shop-link"
-                  href={`${SHOPIFY_STORE_URL}/account`}
-                  style={{
-                    background: "#fff",
-                    border: "1px solid #dce4df",
-                    color: "#314139",
-                    borderRadius: 6,
-                    padding: "7px 10px",
-                    fontSize: 13,
-                    fontWeight: 600,
-                    textDecoration: "none",
-                    whiteSpace: "nowrap",
-                    display: "inline-flex",
-                    alignItems: "center",
-                    gap: 6,
-                  }}
-                >
-                  <UserRound size={14} />
-                  Account
-                </a>
+                <section id="featured" style={{ padding: "20px 0 8px" }}>
+                  <div style={{ alignItems: "center", display: "flex", justifyContent: "space-between", marginBottom: 12 }}>
+                    <h2 style={blockTitleStyle}>Featured Collections</h2>
+                    <a href="#starter-kits" style={viewAllStyle}>View all collections →</a>
+                  </div>
+                  <div className="jls-collections" style={{ display: "grid", gap: 14, gridTemplateColumns: "repeat(4, minmax(0, 1fr))" }}>
+                    {collections.map((collection) => <CollectionCard key={collection.title} {...collection} />)}
+                  </div>
+                </section>
+
+                {sections.map((section) => (
+                  <section id={section.id} key={section.id} style={{ padding: "22px 0 4px" }}>
+                    <SectionHead subtitle={section.subtitle} title={section.title} />
+                    <PGrid cols={section.cols} defaultShow={section.cols === 4 ? 8 : 6} id={section.id} label="products" products={section.products} showMore={showMore} toggle={toggle} />
+                  </section>
+                ))}
               </>
             )}
-            <Link
-              className="jls-back"
-              href="/"
-              style={{
-                background: "#f7faf8",
-                border: "1px solid #dce4df",
-                color: "#145c42",
-                borderRadius: 6,
-                padding: "7px 12px",
-                fontSize: 13,
-                fontWeight: 600,
-                textDecoration: "none",
-                whiteSpace: "nowrap",
-                display: "inline-flex",
-                alignItems: "center",
-                gap: 6,
-              }}
-            >
-              <ArrowLeft size={14} />
-              Main site
-            </Link>
-          </div>
+
+            <TrustBar />
+          </main>
+
+          <aside className="jls-side-cart">
+            <CartPanel cartPreview={cartPreview} checkoutHref={checkoutHref} total={cartPreviewTotal} />
+          </aside>
         </div>
 
-        {/* ── Hero ────────────────────────────────────────────────────────── */}
-        <div
-          className="jls-hero"
-          style={{
-            background: "#0D3D24",
-            padding: "30px 32px 34px",
-            textAlign: "center",
-          }}
-        >
-          <p
-            style={{
-              fontSize: 12,
-              textTransform: "uppercase",
-              letterSpacing: "0.1em",
-              color: "#a8ccb5",
-              margin: "0 0 12px",
-            }}
-          >
-            Patient supplement store
-          </p>
-          <h1
-            style={{
-              fontFamily: "Georgia, 'Times New Roman', serif",
-              fontSize: 26,
-              fontWeight: "normal",
-              color: "#fff",
-              margin: "0 0 10px",
-            }}
-          >
-            Everything you need, in one place
-          </h1>
-          <p
-            style={{
-              fontSize: 14,
-              color: "#c2deca",
-              maxWidth: 600,
-              margin: "0 auto",
-              lineHeight: 1.5,
-            }}
-          >
-            Supplements and nutrition products recommended by your JourneyLite care team —
-            organized by where you are in your journey.
-          </p>
-        </div>
-
-        {/* ── Phase nav ───────────────────────────────────────────────────── */}
-        <div
-          style={{
-            background: "#0a2e1b",
-            borderTop: "1px solid rgba(255,255,255,0.1)",
-            display: "flex",
-            justifyContent: "center",
-            padding: "0 24px",
-            overflowX: "auto",
-          }}
-        >
-          {(["all", "pre-op", "post-op", "long-term"] as Phase[]).map((p) => {
-            const active = phase === p;
-            return (
-              <button
-                key={p}
-                className="jls-phasetab"
-                onClick={() => setPhase(p)}
-                style={{
-                  color: active ? "#ffffff" : "#8fbfa0",
-                  padding: "11px 18px",
-                  fontSize: 13,
-                  background: "transparent",
-                  border: "none",
-                  borderBottom: active
-                    ? "2px solid #ffffff"
-                    : "2px solid transparent",
-                  cursor: "pointer",
-                  whiteSpace: "nowrap",
-                  fontFamily: "inherit",
-                }}
-              >
-                {phaseLabels[p]}
-              </button>
-            );
-          })}
-        </div>
-
-        {/* ── Content ─────────────────────────────────────────────────────── */}
-        <div
-          className="jls-content"
-          style={{
-            padding: "32px 24px 0",
-            width: "100%",
-            maxWidth: 1080,
-            margin: "0 auto",
-          }}
-        >
-          {/* Phase hint banner */}
-          {phaseHints[phase] && (
-            <div
-              style={{
-                background: "#e8f2ec",
-                borderLeft: "3px solid #0D3D24",
-                borderRadius: "0 6px 6px 0",
-                padding: "10px 16px",
-                fontSize: 13,
-                color: "#0D3D24",
-                marginBottom: 28,
-                lineHeight: 1.5,
-              }}
-            >
-              {phaseHints[phase]}
-            </div>
-          )}
-
-          {/* ── Starter kit featured card ────────────────────────────────── */}
-          {showStarterCard && starterKits.length > 0 && (
-            <section style={{ marginBottom: 24 }}>
-              <div
-                style={{
-                  marginBottom: 12,
-                  display: "flex",
-                  alignItems: "flex-end",
-                  justifyContent: "space-between",
-                  gap: 16,
-                  flexWrap: "wrap",
-                }}
-              >
-                <div>
-                  <p style={subLabel}>Most popular option</p>
-                  <h2
-                    style={{
-                      fontSize: 22,
-                      fontWeight: 700,
-                      color: "#0D3D24",
-                      margin: "0 0 6px",
-                      lineHeight: 1.2,
-                    }}
-                  >
-                    Start with a surgery-specific vitamin kit
-                  </h2>
-                  <p
-                    style={{
-                      maxWidth: 760,
-                      fontSize: 14,
-                      color: "#5a7a65",
-                      lineHeight: 1.5,
-                      margin: 0,
-                    }}
-                  >
-                    If you are not sure what to buy first, choose the starter kit
-                    that matches your procedure. It bundles the first-month
-                    vitamin essentials your care team commonly recommends.
-                  </p>
-                </div>
-              </div>
-              <div
-                className="jls-featcard"
-                style={{
-                  background: "#fff",
-                  border: "1px solid #d4e3da",
-                  borderRadius: 8,
-                  padding: 0,
-                  display: "block",
-                  overflow: "hidden",
-                }}
-              >
-              <div
-                className="jls-starter-layout"
-                style={{
-                  display: "grid",
-                  gridTemplateColumns: "1.35fr 0.65fr",
-                  gap: 0,
-                }}
-              >
-              <div style={{ padding: "22px 24px" }}>
-                <h3
-                  style={{
-                    fontSize: 18,
-                    fontWeight: 600,
-                    color: "#0D3D24",
-                    margin: "0 0 4px",
-                  }}
-                >
-                  Choose the starter kit for your surgery
-                </h3>
-                <p
-                  style={{
-                    fontSize: 13,
-                    color: "#5a7a65",
-                    margin: "0 0 18px",
-                    lineHeight: 1.5,
-                  }}
-                >
-                  Pick your procedure and the matching first-month kit updates automatically.
-                </p>
-
-                {/* Surgery selector */}
-                <p style={{ ...subLabel, marginBottom: 8 }}>Select your procedure</p>
-                <div
-                  className="jls-surgery-row"
-                  style={{
-                    display: "grid",
-                    gridTemplateColumns: "repeat(auto-fit, minmax(132px, 1fr))",
-                    gap: 8,
-                    marginBottom: 16,
-                  }}
-                >
-                  {SURGERY_TYPES.map((s) => {
-                    const active = selectedSurgery === s.key;
-                    return (
-                      <button
-                        key={s.key}
-                        className="jls-surg"
-                        onClick={() => setSelectedSurgery(s.key)}
-                        style={{
-                          background: active ? "#edf6f1" : "#fff",
-                          color: "#17362a",
-                          border: active ? "2px solid #145c42" : "1px solid #d4e3da",
-                          borderRadius: 7,
-                          padding: "10px 12px",
-                          textAlign: "left",
-                          cursor: "pointer",
-                          fontFamily: "inherit",
-                          minHeight: 72,
-                        }}
-                      >
-                        <span
-                          style={{
-                            display: "flex",
-                            alignItems: "center",
-                            justifyContent: "space-between",
-                            gap: 8,
-                            fontSize: 13,
-                            fontWeight: 700,
-                            color: active ? "#0D3D24" : "#1f2c25",
-                          }}
-                        >
-                          {s.shortLabel}
-                          {active && <CheckCircle2 size={15} color="#145c42" />}
-                        </span>
-                        <span
-                          style={{
-                            display: "block",
-                            marginTop: 4,
-                            fontSize: 11,
-                            lineHeight: 1.35,
-                            color: "#6b8f76",
-                          }}
-                        >
-                          {s.note}
-                        </span>
-                      </button>
-                    );
-                  })}
-                </div>
-              </div>
-
-                {/* Selected kit details */}
-                {selectedKit ? (
-                  () => {
-                    const variant = selectedKit.variants.edges[0]?.node;
-                    const price = selectedKit.priceRange.minVariantPrice;
-                    const surgery = SURGERY_TYPES.find((s) => s.key === selectedSurgery);
-                    return (
-                      <div
-                        style={{
-                          display: "flex",
-                          alignItems: "stretch",
-                          justifyContent: "space-between",
-                          flexDirection: "column",
-                          gap: 14,
-                          background: "#f7faf8",
-                          borderLeft: "1px solid #dce8e0",
-                          height: "100%",
-                          padding: "22px 24px",
-                        }}
-                      >
-                        <div>
-                          <p
-                            style={{
-                              fontSize: 11,
-                              color: "#5a7a65",
-                              margin: "0 0 4px",
-                              textTransform: "uppercase",
-                              letterSpacing: "0.08em",
-                              fontWeight: 700,
-                            }}
-                          >
-                            Matched kit for {surgery?.label}
-                          </p>
-                          <p
-                            style={{
-                              fontSize: 18,
-                              color: "#0D3D24",
-                              margin: "0 0 8px",
-                              fontWeight: 700,
-                              lineHeight: 1.25,
-                            }}
-                          >
-                            {selectedKit.title}
-                          </p>
-                          <span
-                            style={{
-                              fontSize: 20,
-                              fontWeight: 700,
-                              color: "#0D3D24",
-                            }}
-                          >
-                            {fmtPrice(price.amount, price.currencyCode)}
-                          </span>
-                        </div>
-                        {variant && (
-                          <BuyBtn
-                            variantId={variant.id}
-                            available={variant.availableForSale}
-                            featured
-                          />
-                        )}
-                      </div>
-                    );
-                  }
-                )() : (
-                  <p style={{ fontSize: 13, color: "#9aafa5" }}>
-                    Kit not available for this surgery type.
-                  </p>
-                )}
-              </div>
-              </div>
-            </section>
-          )}
-
-          {/* ── Pre-op diet kits ─────────────────────────────────────────── */}
-          {showPreOpDiet && (
-            <section style={{ marginBottom: 40 }}>
-              <SectionHead
-                title="Pre-Op Diet Kits"
-                subtitle="BMI-matched meal replacement kits to prepare your liver before surgery"
-              />
-              <PGrid
-                products={preOpDiet}
-                cols={3}
-                defaultShow={4}
-                id="preop-diet"
-                label="diet kits"
-                showMore={showMore}
-                toggle={toggle}
-              />
-            </section>
-          )}
-
-          {/* ── 90-day refill kits ───────────────────────────────────────── */}
-          {showLongTerm && (
-            <section style={{ marginBottom: 40 }}>
-              <SectionHead
-                title="90-Day Vitamin Refill Kits"
-                subtitle="Ongoing supply packs matched to your surgery type — for after your first month"
-              />
-              <PGrid
-                products={longTermKits}
-                cols={4}
-                defaultShow={5}
-                id="long-term-kits"
-                label="refill kits"
-                showMore={showMore}
-                toggle={toggle}
-              />
-            </section>
-          )}
-
-          {/* ── Vitamins & Supplements ───────────────────────────────────── */}
-          {hasVitamins && (
-            <section style={{ marginBottom: 40 }}>
-              <SectionHead
-                title="Vitamins & Supplements"
-                subtitle="Individual supplements recommended for bariatric patients"
-              />
-
-              {/* Absorption order notice */}
-              <div
-                style={{
-                  display: "inline-flex",
-                  alignItems: "center",
-                  gap: 5,
-                  background: "#fff8e8",
-                  border: "1px solid #f0d080",
-                  borderRadius: 20,
-                  padding: "4px 12px",
-                  fontSize: 11,
-                  color: "#7a5800",
-                  marginBottom: 20,
-                }}
-              >
-                <Info size={12} />
-                Ordered by absorption: chewable first, then capsules
-              </div>
-
-              {multivitamins.length > 0 && (
-                <>
-                  <p style={subLabel}>Multivitamins</p>
-                  <div className="jls-g4">
-                    <PGrid
-                      products={multivitamins}
-                      cols={4}
-                      defaultShow={8}
-                      id="multivitamins"
-                      label="multivitamins"
-                      showMore={showMore}
-                      toggle={toggle}
-                    />
-                  </div>
-                </>
-              )}
-
-              {calcium.length > 0 && (
-                <>
-                  {multivitamins.length > 0 && <hr style={divider} />}
-                  <p style={subLabel}>Calcium</p>
-                  <div className="jls-g3">
-                    <PGrid
-                      products={calcium}
-                      cols={3}
-                      defaultShow={4}
-                      id="calcium"
-                      label="calcium"
-                      showMore={showMore}
-                      toggle={toggle}
-                    />
-                  </div>
-                </>
-              )}
-
-              {b12VitD.length > 0 && (
-                <>
-                  {(multivitamins.length > 0 || calcium.length > 0) && (
-                    <hr style={divider} />
-                  )}
-                  <p style={subLabel}>B12 & Vitamin D</p>
-                  <div className="jls-g4">
-                    <PGrid
-                      products={b12VitD}
-                      cols={4}
-                      defaultShow={4}
-                      id="b12-vitd"
-                      label="B12 & Vitamin D"
-                      showMore={showMore}
-                      toggle={toggle}
-                    />
-                  </div>
-                </>
-              )}
-
-              {additionalSupplements.length > 0 && (
-                <>
-                  <hr style={divider} />
-                  <p style={subLabel}>Additional Supplements</p>
-                  <div className="jls-g3">
-                    <PGrid
-                      products={additionalSupplements}
-                      cols={3}
-                      defaultShow={4}
-                      id="additional-supplements"
-                      label="supplements"
-                      showMore={showMore}
-                      toggle={toggle}
-                    />
-                  </div>
-                </>
-              )}
-            </section>
-          )}
-
-          {/* ── Protein Shakes & Bars ────────────────────────────────────── */}
-          {hasProtein && (
-            <section style={{ marginBottom: 40 }}>
-              <SectionHead
-                title="Protein Shakes & Bars"
-                subtitle="High-protein nutrition to support your recovery and long-term health"
-              />
-
-              {/* Filter tabs */}
-              <div style={{ display: "flex", flexWrap: "wrap", gap: 8, marginBottom: 16 }}>
-                {(
-                  [
-                    { key: "all" as ProteinFilter, label: "All", count: allProtein.length },
-                    { key: "shake" as ProteinFilter, label: "Shakes", count: shakes.length },
-                    { key: "bar" as ProteinFilter, label: "Bars & chips", count: bars.length + chips.length },
-                    { key: "liquid" as ProteinFilter, label: "Drinks & liquid diet", count: drinks.length + clearLiquid.length },
-                  ] as const
-                )
-                  .filter((t) => t.count > 0)
-                  .map((t) => (
-                    <button
-                      key={t.key}
-                      className="jls-ptab"
-                      onClick={() => setProteinFilter(t.key)}
-                      style={{
-                        background:
-                          proteinFilter === t.key ? "#0D3D24" : "#e8f2ec",
-                        color: proteinFilter === t.key ? "#fff" : "#2a5a3a",
-                        border: "none",
-                        borderRadius: 20,
-                        padding: "6px 14px",
-                        fontSize: 12,
-                        cursor: "pointer",
-                        fontFamily: "inherit",
-                      }}
-                    >
-                      {t.label}
-                    </button>
-                  ))}
-              </div>
-
-              <div className="jls-g4">
-                <PGrid
-                  products={proteinFiltered}
-                  cols={4}
-                  defaultShow={4}
-                  id={`protein-${proteinFilter}`}
-                  label="products"
-                  showMore={showMore}
-                  toggle={toggle}
-                />
-              </div>
-            </section>
-          )}
-
-          {/* ── Program fees & services ─────────────────────────────────── */}
-          {services.length > 0 && (
-            <section style={{ marginBottom: 40 }}>
-              <SectionHead
-                title="Program Fees & Services"
-                subtitle="Administrative fees and visit payments handled through secure Shopify checkout"
-              />
-              <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 14 }}>
-                <FileText size={16} color="#5a7a65" />
-                <p style={{ fontSize: 12, color: "#5a7a65", margin: 0 }}>
-                  Use these only when directed by the JourneyLite team.
-                </p>
-              </div>
-              <PGrid
-                products={services}
-                cols={3}
-                defaultShow={6}
-                id="services"
-                label="services"
-                showMore={showMore}
-                toggle={toggle}
-              />
-            </section>
-          )}
-
-          {/* ── Food & snacks ────────────────────────────────────────────── */}
-          {snacks.length > 0 && (
-            <section style={{ marginBottom: 40 }}>
-              <SectionHead
-                title="Food & Snacks"
-                subtitle="Bariatric-friendly meals and snacks"
-              />
-              <div className="jls-g3">
-                <PGrid
-                  products={snacks}
-                  cols={3}
-                  defaultShow={4}
-                  id="snacks"
-                  label="snacks"
-                  showMore={showMore}
-                  toggle={toggle}
-                />
-              </div>
-            </section>
-          )}
-
-          {/* ── Catch-all for future Shopify product types ──────────────── */}
-          {otherProducts.length > 0 && (
-            <section style={{ marginBottom: 40 }}>
-              <SectionHead
-                title="Other Products"
-                subtitle="Additional JourneyLite shop items"
-              />
-              <div className="jls-g3">
-                <PGrid
-                  products={otherProducts}
-                  cols={3}
-                  defaultShow={6}
-                  id="other-products"
-                  label="products"
-                  showMore={showMore}
-                  toggle={toggle}
-                />
-              </div>
-            </section>
-          )}
-
-          {/* ── Empty state ──────────────────────────────────────────────── */}
-          {isEmpty && (
-            <div
-              style={{
-                textAlign: "center",
-                padding: "60px 24px",
-                color: "#7a9a83",
-              }}
-            >
-              <Package
-                size={40}
-                color="#c2d9cc"
-                style={{ marginBottom: 12, display: "block", margin: "0 auto 12px" }}
-              />
-              <p
-                style={{
-                  fontSize: 15,
-                  fontWeight: 500,
-                  color: "#3b6d4e",
-                  marginBottom: 6,
-                }}
-              >
-                No products for this phase yet
-              </p>
-              <p style={{ fontSize: 13 }}>
-                Try &ldquo;All products&rdquo; to see everything we carry.
-              </p>
-            </div>
-          )}
-
-          {/* ── Care team CTA ─────────────────────────────────────────────── */}
-          <div
-            style={{
-              background: "#fff",
-              border: "1px solid #d4e3da",
-              borderRadius: 12,
-              padding: "20px 20px 24px",
-              marginBottom: 40,
-            }}
-          >
-            <div
-              style={{ display: "flex", gap: 14, alignItems: "flex-start" }}
-            >
-              <div
-                style={{
-                  width: 40,
-                  height: 40,
-                  background: "#e8f2ec",
-                  borderRadius: 10,
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  flexShrink: 0,
-                }}
-              >
-                <Headphones size={20} color="#0D3D24" />
-              </div>
-              <div style={{ flex: 1 }}>
-                <h3
-                  style={{
-                    fontSize: 15,
-                    fontWeight: 500,
-                    color: "#0D3D24",
-                    margin: "0 0 6px",
-                  }}
-                >
-                  Not sure what to order?
-                </h3>
-                <p
-                  style={{
-                    fontSize: 13,
-                    color: "#5a7a65",
-                    lineHeight: 1.6,
-                    margin: "0 0 14px",
-                  }}
-                >
-                  Your care team can help you choose the right supplements for
-                  your procedure and health history.
-                </p>
-                <Link
-                  className="jls-cta-btn"
-                  href="/contact"
-                  style={{
-                    background: "#0D3D24",
-                    color: "#fff",
-                    border: "none",
-                    borderRadius: 7,
-                    padding: "8px 18px",
-                    fontSize: 13,
-                    fontWeight: 500,
-                    textDecoration: "none",
-                    display: "inline-flex",
-                    alignItems: "center",
-                    gap: 6,
-                    cursor: "pointer",
-                  }}
-                >
-                  Contact your care team
-                </Link>
-              </div>
-            </div>
-          </div>
-
-          {/* ── Return button ────────────────────────────────────────────── */}
-          <div
-            style={{
-              display: "flex",
-              justifyContent: "center",
-              padding: "0 24px",
-              marginTop: 32,
-              marginBottom: 48,
-            }}
-          >
-            <a
-              className="jls-return"
-              href="https://journeylite.com"
-              style={{
-                background: "#0D3D24",
-                color: "#fff",
-                borderRadius: 40,
-                padding: "12px 28px",
-                fontSize: 14,
-                fontWeight: 500,
-                textDecoration: "none",
-                display: "flex",
-                alignItems: "center",
-                gap: 8,
-              }}
-            >
-              <ArrowLeft size={16} />
-              Return to JourneyLite.com
-            </a>
-          </div>
-        </div>
+        <ShopFooter />
       </div>
     </>
   );
 }
+
+function TopStrip() {
+  return (
+    <div style={{ background: "#003f2d", color: "#fff" }}>
+      <div className="jls-top-strip-inner" style={{ alignItems: "center", display: "grid", gridTemplateColumns: "1fr auto 1fr", margin: "0 auto", maxWidth: 1540, padding: "10px 24px" }}>
+        <Link href="/" style={{ alignItems: "center", color: "#fff", display: "inline-flex", fontSize: 13, fontWeight: 700, gap: 8, textDecoration: "none" }}>
+          <ArrowLeft size={15} />
+          Return to Main Site
+        </Link>
+        <p style={{ fontSize: 13, fontWeight: 700, margin: 0 }}>Bariatric and Medical Weight Loss Care You Can Trust</p>
+        <span />
+      </div>
+    </div>
+  );
+}
+
+function Header({
+  checkoutHref,
+  cartCount,
+  cartTotal,
+  search,
+  setSearch,
+}: {
+  checkoutHref: string;
+  cartCount: number;
+  cartTotal: number;
+  search: string;
+  setSearch: (value: string) => void;
+}) {
+  const navItems = ["Starter Kits", "Vitamins & Supplements", "Protein & Nutrition", "Meals", "Medical Services", "Forms & Admin"];
+  const navTargets = ["starter-kits", "vitamins", "protein", "meals", "services", "services"];
+
+  return (
+    <header style={{ background: "#fff", borderBottom: "1px solid #e0e6e2" }}>
+      <div className="jls-main-header" style={{ alignItems: "center", display: "grid", gap: 24, gridTemplateColumns: "260px minmax(280px, 1fr) auto", margin: "0 auto", maxWidth: 1540, padding: "18px 24px" }}>
+        <Link href="/" style={{ display: "inline-flex" }}>
+          <Image alt="JourneyLite Bariatric Physicians" height={160} priority src="/journeylite-logo.svg" style={{ height: "auto", width: 198 }} width={560} />
+        </Link>
+
+        <label className="jls-search" style={{ alignItems: "center", background: "#fff", border: "1px solid #ccd8d1", borderRadius: 7, display: "flex", gap: 12, minHeight: 47, padding: "0 16px" }}>
+          <Search size={20} />
+          <input aria-label="Search products" onChange={(event) => setSearch(event.target.value)} placeholder="Search products, categories, or services..." style={{ border: 0, flex: 1, font: "inherit", outline: "none" }} value={search} />
+        </label>
+
+        <div style={{ alignItems: "center", display: "flex", gap: 18, justifyContent: "flex-end" }}>
+          <button className="jls-icon-button jls-actions-extra" style={headerActionStyle}><ClipboardList size={20} /><span><strong>Procedure</strong><br />Not selected</span><ChevronDown size={14} /></button>
+          <a className="jls-icon-button jls-actions-extra" href={SHOPIFY_STORE_URL ? `${SHOPIFY_STORE_URL}/account` : "#"} style={headerActionStyle}><UserRound size={20} /><span>Account</span></a>
+          <button className="jls-icon-button jls-actions-extra" style={headerActionStyle}><Heart size={20} /><span>Favorites</span></button>
+          <a href={checkoutHref} style={{ alignItems: "center", color: "#071b13", display: "inline-flex", fontSize: 14, fontWeight: 800, gap: 10, textDecoration: "none" }}>
+            <span style={{ position: "relative" }}>
+              <ShoppingCart size={28} />
+              <span style={{ background: "#0a4b38", borderRadius: 999, color: "#fff", fontSize: 11, fontWeight: 800, minWidth: 19, padding: "2px 6px", position: "absolute", right: -11, textAlign: "center", top: -9 }}>{cartCount}</span>
+            </span>
+            {cartTotal ? `$${cartTotal.toFixed(2)}` : "Cart"}
+          </a>
+        </div>
+      </div>
+
+      <nav style={{ borderTop: "1px solid #edf1ee" }}>
+        <div className="jls-nav-inner" style={{ alignItems: "center", display: "flex", gap: 18, margin: "0 auto", maxWidth: 1540, overflowX: "auto", padding: "11px 24px" }}>
+          <button className="jls-nav-link" style={{ ...navButtonStyle, border: "1px solid #ccd8d1", borderRadius: 6 }}><Menu size={16} /> Shop by Category</button>
+          {navItems.map((item, index) => (
+            <a className="jls-nav-link" href={`#${navTargets[index]}`} key={item} style={navButtonStyle}>
+              {item}
+              {index > 0 ? <ChevronDown size={13} /> : null}
+            </a>
+          ))}
+        </div>
+      </nav>
+    </header>
+  );
+}
+
+function Hero({ products }: { products: ShopifyProduct[] }) {
+  return (
+    <section className="jls-hero" style={{ background: "linear-gradient(90deg, #fff 0%, #f6f5f1 58%, #ebe6dd 100%)", borderBottom: "1px solid #e1e6e2", display: "grid", gap: 24, gridTemplateColumns: "1fr 1fr", margin: "0 -24px", minHeight: 300, padding: "44px 72px 34px" }}>
+      <div style={{ alignSelf: "center", maxWidth: 510 }}>
+        <h1 className="jls-hero-title" style={{ color: "#052b1f", fontFamily: "Georgia, 'Times New Roman', serif", fontSize: 48, fontWeight: 400, lineHeight: 1.02, margin: "0 0 18px" }}>Everything you need for every step of your journey.</h1>
+        <p style={{ color: "#3f4d46", fontSize: 17, lineHeight: 1.55, margin: "0 0 24px" }}>Premium vitamins, nutrition, and services chosen and recommended by our bariatric care team.</p>
+        <div style={{ display: "flex", flexWrap: "wrap", gap: 12 }}>
+          <a className="jls-hero-cta" href="#featured" style={{ background: "#004633", borderRadius: 7, color: "#fff", fontSize: 14, fontWeight: 800, padding: "13px 28px", textDecoration: "none" }}>Shop Products</a>
+          <a href="#starter-kits" style={{ background: "#fff", border: "1px solid #ccd8d1", borderRadius: 7, color: "#0a2e21", fontSize: 14, fontWeight: 800, padding: "12px 26px", textDecoration: "none" }}>View Starter Kits</a>
+        </div>
+      </div>
+      <div style={{ alignItems: "end", display: "flex", justifyContent: "center", minHeight: 275, position: "relative" }}>
+        {products.map((product, index) => {
+          const image = product.images.edges[0]?.node;
+          return (
+            <div key={product.id} style={{ height: index === 1 ? 255 : 185, marginLeft: index === 0 ? 0 : -14, position: "relative", width: index === 1 ? 210 : 145, zIndex: index === 1 ? 2 : 1 }}>
+              {image ? <Image alt={image.altText || product.title} fill sizes="220px" src={image.url} style={{ objectFit: "contain" }} /> : <Package size={90} />}
+            </div>
+          );
+        })}
+      </div>
+    </section>
+  );
+}
+
+function CategoryTiles({
+  categories,
+  selected,
+  setSelected,
+}: {
+  categories: Array<{ id: string; label: string; icon: ComponentType<{ size?: number; strokeWidth?: number }>; products: ShopifyProduct[] }>;
+  selected: string;
+  setSelected: (value: string) => void;
+}) {
+  return (
+    <section style={{ padding: "18px 0 8px" }}>
+      <h2 style={blockTitleStyle}>Shop by Category</h2>
+      <div className="jls-category-grid" style={{ display: "grid", gap: 12, gridTemplateColumns: "repeat(7, minmax(0, 1fr))" }}>
+        {categories.map((tile) => {
+          const Icon = tile.icon;
+          const active = selected === tile.id;
+          return (
+            <button className="jls-category" key={tile.id} onClick={() => setSelected(active ? "all" : tile.id)} style={{ alignItems: "center", background: active ? "#eef7f2" : "#fff", border: active ? "2px solid #0a4b38" : "1px solid #dfe6e2", borderRadius: 8, cursor: "pointer", display: "flex", flexDirection: "column", gap: 10, minHeight: 94, padding: 16 }}>
+              <Icon size={30} strokeWidth={1.5} />
+              <span style={{ fontSize: 13, fontWeight: 800 }}>{tile.label}</span>
+            </button>
+          );
+        })}
+      </div>
+    </section>
+  );
+}
+
+function CollectionCard({ badge, title, copy, product }: { badge: string; title: string; copy: string; product: ShopifyProduct }) {
+  const image = product.images.edges[0]?.node;
+  return (
+    <a className="jls-collection" href="#featured" style={{ background: "#fff", border: "1px solid #dfe6e2", borderRadius: 8, color: "inherit", display: "block", overflow: "hidden", position: "relative", textDecoration: "none" }}>
+      <span style={{ background: "#00624b", borderRadius: 4, color: "#fff", fontSize: 10, fontWeight: 800, left: 10, padding: "4px 7px", position: "absolute", textTransform: "uppercase", top: 10, zIndex: 2 }}>{badge}</span>
+      <div style={{ background: "#f6f8f6", height: 120, position: "relative" }}>
+        {image ? <Image alt={image.altText || product.title} fill sizes="260px" src={image.url} style={{ objectFit: "contain", padding: 12 }} /> : <Package size={42} />}
+      </div>
+      <div style={{ padding: 14 }}>
+        <h3 style={{ fontSize: 14, margin: "0 0 4px" }}>{title}</h3>
+        <p style={{ color: "#4f5d55", fontSize: 12, lineHeight: 1.35, margin: "0 0 10px" }}>{copy}</p>
+        <span style={{ color: "#004633", fontSize: 12, fontWeight: 800 }}>Shop now {">"}</span>
+      </div>
+    </a>
+  );
+}
+
+function CartPanel({ cartPreview, checkoutHref, total }: { cartPreview: ShopifyProduct[]; checkoutHref: string; total: number }) {
+  return (
+    <div style={{ background: "#fff", border: "1px solid #e1e7e3", borderRadius: 10, boxShadow: "0 12px 34px rgba(12, 42, 30, 0.12)", padding: 22 }}>
+      <div style={{ alignItems: "center", display: "flex", justifyContent: "space-between", marginBottom: 18 }}>
+        <h2 style={{ fontSize: 19, margin: 0 }}>Your Cart ({cartPreview.length})</h2>
+        <X size={20} />
+      </div>
+      <div style={{ display: "grid", gap: 14 }}>
+        {cartPreview.map((product) => {
+          const image = product.images.edges[0]?.node;
+          const price = product.priceRange.minVariantPrice;
+          return (
+            <div key={product.id} style={{ borderBottom: "1px solid #edf1ee", display: "grid", gap: 12, gridTemplateColumns: "76px 1fr", paddingBottom: 14 }}>
+              <div style={{ background: "#f6f8f6", borderRadius: 7, minHeight: 76, position: "relative" }}>
+                {image ? <Image alt={image.altText || product.title} fill sizes="76px" src={image.url} style={{ objectFit: "contain", padding: 8 }} /> : <Package size={28} />}
+              </div>
+              <div>
+                <p style={{ fontSize: 13, fontWeight: 800, lineHeight: 1.25, margin: "0 0 5px" }}>{product.title}</p>
+                <p style={{ color: "#5d6b64", fontSize: 12, margin: "0 0 8px" }}>{productEyebrow(product)}</p>
+                <div style={{ alignItems: "center", display: "flex", justifyContent: "space-between", gap: 8 }}>
+                  <strong style={{ fontSize: 13 }}>{fmtPrice(price.amount, price.currencyCode)}</strong>
+                  <div style={{ alignItems: "center", display: "flex", gap: 8 }}>
+                    <button style={qtyButtonStyle}><Minus size={12} /></button>
+                    <span style={{ fontSize: 13 }}>1</span>
+                    <button style={qtyButtonStyle}><Plus size={12} /></button>
+                    <Trash2 size={14} />
+                  </div>
+                </div>
+              </div>
+            </div>
+          );
+        })}
+      </div>
+      <div style={{ background: "#eef4f1", borderRadius: 7, margin: "16px 0", padding: 14 }}>
+        <p style={{ fontSize: 13, fontWeight: 800, margin: "0 0 8px" }}>You&apos;re $20.03 away from free shipping!</p>
+        <div style={{ background: "#fff", borderRadius: 999, height: 7, overflow: "hidden" }}><div style={{ background: "#00624b", height: "100%", width: "65%" }} /></div>
+      </div>
+      <div style={{ alignItems: "center", display: "flex", justifyContent: "space-between", marginBottom: 16 }}>
+        <strong>Estimated Total</strong>
+        <strong>${total.toFixed(2)}</strong>
+      </div>
+      <a className="jls-checkout" href={checkoutHref} style={{ alignItems: "center", background: "#004633", borderRadius: 7, color: "#fff", display: "flex", fontSize: 15, fontWeight: 800, gap: 8, justifyContent: "center", padding: "14px 18px", textDecoration: "none" }}><LockKeyhole size={16} /> Checkout Securely</a>
+      <a href={checkoutHref} style={{ color: "#004633", display: "block", fontSize: 14, fontWeight: 800, marginTop: 14, textAlign: "center", textDecoration: "none" }}>View Cart</a>
+    </div>
+  );
+}
+
+function TrustBar() {
+  const items = [
+    { icon: ShieldCheck, title: "Care You Can Trust", copy: "Recommended by our bariatric specialists" },
+    { icon: Package, title: "Quality Products", copy: "Premium brands we stand behind" },
+    { icon: Truck, title: "Fast & Reliable", copy: "Quick shipping on all orders" },
+    { icon: Heart, title: "Questions? We're Here", copy: "Call (513) 682-4803 Mon-Fri 8am-5pm EST" },
+  ];
+  return (
+    <div className="jls-trust-grid" style={{ background: "#f2f7f4", border: "1px solid #e0e8e3", borderRadius: 8, display: "grid", gap: 12, gridTemplateColumns: "repeat(4, minmax(0, 1fr))", margin: "20px 0 10px", padding: "14px 18px" }}>
+      {items.map((item) => {
+        const Icon = item.icon;
+        return (
+          <div key={item.title} style={{ alignItems: "center", display: "flex", gap: 12 }}>
+            <Icon size={24} strokeWidth={1.5} />
+            <div><p style={{ fontSize: 13, fontWeight: 800, margin: 0 }}>{item.title}</p><p style={{ color: "#364a40", fontSize: 12, lineHeight: 1.35, margin: "2px 0 0" }}>{item.copy}</p></div>
+          </div>
+        );
+      })}
+    </div>
+  );
+}
+
+function ShopFooter() {
+  return (
+    <footer style={{ background: "#003f2d", color: "#fff", marginTop: 12 }}>
+      <div style={{ display: "grid", gap: 46, gridTemplateColumns: "1.2fr 1fr 1fr 1fr 1fr", margin: "0 auto", maxWidth: 1540, padding: "24px" }}>
+        <div>
+          <Link href="/" style={{ alignItems: "center", color: "#fff", display: "inline-flex", fontSize: 14, fontWeight: 800, gap: 8, textDecoration: "none" }}><ArrowLeft size={15} /> Return to Main Site</Link>
+          <p style={{ color: "#c8ded4", fontSize: 13, lineHeight: 1.5, marginTop: 16 }}>Continue exploring our care, resources, and patient information.</p>
+        </div>
+        <FooterLinks title="Shop" links={["Starter Kits", "Vitamins & Supplements", "Protein & Nutrition", "Meals", "Medical Services", "Forms & Admin"]} />
+        <FooterLinks title="Resources" links={["Patient Guides", "Nutrition Tips", "Recipes", "Blog"]} />
+        <FooterLinks title="Help" links={["FAQs", "Shipping & Returns", "Contact Us", "Store Policies"]} />
+        <div><h3 style={footerTitleStyle}>JourneyLite Store</h3><p style={{ color: "#d8e8df", fontSize: 13, lineHeight: 1.5 }}>Supporting your journey before, during, and after surgery.</p></div>
+      </div>
+    </footer>
+  );
+}
+
+function FooterLinks({ title, links }: { title: string; links: string[] }) {
+  return (
+    <div>
+      <h3 style={footerTitleStyle}>{title}</h3>
+      <ul style={{ listStyle: "none", margin: 0, padding: 0 }}>
+        {links.map((link) => <li key={link} style={{ color: "#d8e8df", fontSize: 13, lineHeight: 1.5 }}>{link}</li>)}
+      </ul>
+    </div>
+  );
+}
+
+const showMoreBtn: CSSProperties = {
+  alignItems: "center",
+  background: "transparent",
+  border: "1px solid #c2d9cc",
+  borderRadius: 8,
+  color: "#3b6d4e",
+  cursor: "pointer",
+  display: "flex",
+  fontFamily: "inherit",
+  fontSize: 13,
+  gap: 6,
+  justifyContent: "center",
+  margin: "12px 0 16px",
+  padding: 10,
+  width: "100%",
+};
+
+const productCardStyle: CSSProperties = {
+  background: "#fff",
+  border: "1px solid #dfe6e2",
+  borderRadius: 10,
+  display: "flex",
+  flexDirection: "column",
+  minHeight: 260,
+  minWidth: 0,
+  overflow: "hidden",
+  transition: "border-color 0.15s, box-shadow 0.15s, transform 0.15s",
+};
+
+const productImageWrapStyle: CSSProperties = {
+  background: "#f6f8f6",
+  borderBottom: "1px solid #edf2ee",
+  height: 126,
+  position: "relative",
+};
+
+const badgeStyle: CSSProperties = {
+  alignSelf: "flex-start",
+  background: "#00624b",
+  borderRadius: 999,
+  color: "#fff",
+  fontSize: 10,
+  fontWeight: 800,
+  marginBottom: 9,
+  padding: "3px 8px",
+  textTransform: "uppercase",
+};
+
+const descriptionStyle: CSSProperties = {
+  color: "#596960",
+  display: "-webkit-box",
+  flex: 1,
+  fontSize: 12,
+  lineHeight: 1.45,
+  margin: "0 0 12px",
+  overflow: "hidden",
+  WebkitBoxOrient: "vertical",
+  WebkitLineClamp: 2,
+};
+
+const productFooterStyle: CSSProperties = {
+  alignItems: "center",
+  display: "flex",
+  gap: 8,
+  justifyContent: "space-between",
+  marginTop: "auto",
+};
+
+const buyButtonStyle: CSSProperties = {
+  alignItems: "center",
+  background: "#004633",
+  border: 0,
+  borderRadius: 7,
+  color: "#fff",
+  cursor: "pointer",
+  display: "inline-flex",
+  fontFamily: "inherit",
+  fontSize: 13,
+  fontWeight: 800,
+  gap: 6,
+  justifyContent: "center",
+  padding: "8px 13px",
+};
+
+const disabledButtonStyle: CSSProperties = {
+  background: "#e8f0eb",
+  border: 0,
+  borderRadius: 7,
+  color: "#9aafa5",
+  cursor: "not-allowed",
+  fontSize: 12,
+  padding: "8px 12px",
+};
+
+const formGateStyle: CSSProperties = {
+  alignItems: "center",
+  background: "#004633",
+  borderRadius: 7,
+  color: "#fff",
+  display: "inline-flex",
+  fontSize: 12,
+  fontWeight: 800,
+  gap: 6,
+  padding: "8px 12px",
+  textDecoration: "none",
+};
+
+const headerActionStyle: CSSProperties = {
+  alignItems: "center",
+  background: "transparent",
+  border: 0,
+  color: "#071b13",
+  cursor: "pointer",
+  display: "inline-flex",
+  font: "inherit",
+  fontSize: 13,
+  fontWeight: 700,
+  gap: 9,
+  padding: 0,
+  textDecoration: "none",
+};
+
+const navButtonStyle: CSSProperties = {
+  alignItems: "center",
+  background: "#fff",
+  color: "#071b13",
+  display: "inline-flex",
+  fontSize: 13,
+  fontWeight: 800,
+  gap: 8,
+  minHeight: 36,
+  padding: "0 12px",
+  textDecoration: "none",
+  whiteSpace: "nowrap",
+};
+
+const blockTitleStyle: CSSProperties = {
+  color: "#071b13",
+  fontSize: 19,
+  fontWeight: 800,
+  margin: "0 0 12px",
+};
+
+const viewAllStyle: CSSProperties = {
+  color: "#004633",
+  fontSize: 13,
+  fontWeight: 800,
+  textDecoration: "none",
+};
+
+const qtyButtonStyle: CSSProperties = {
+  alignItems: "center",
+  background: "#fff",
+  border: "1px solid #dfe6e2",
+  borderRadius: 5,
+  display: "inline-flex",
+  height: 28,
+  justifyContent: "center",
+  width: 28,
+};
+
+const footerTitleStyle: CSSProperties = {
+  color: "#fff",
+  fontSize: 14,
+  margin: "0 0 10px",
+};

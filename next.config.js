@@ -11,6 +11,10 @@ const nextConfig = {
         protocol: "https",
         hostname: "terbeqsmulzhfntskjjj.supabase.co",
       },
+      {
+        protocol: "https",
+        hostname: "cdn.shopify.com",
+      },
     ],
   },
   async redirects() {
