@@ -34,12 +34,22 @@ export type ShopifyCart = {
   id: string;
   checkoutUrl: string;
   totalQuantity: number;
+  cost?: {
+    subtotalAmount: ShopifyMoney;
+    totalAmount: ShopifyMoney;
+  };
   lines: {
     edges: {
       node: {
         id: string;
         quantity: number;
-        merchandise: { id: string; title: string; product: { title: string } };
+        merchandise: {
+          id: string;
+          title: string;
+          image?: ShopifyImage | null;
+          price?: ShopifyMoney;
+          product: { title: string; handle: string };
+        };
       };
     }[];
   };
@@ -55,4 +65,16 @@ export type CartCreateMutation = {
 
 export type CartLinesAddMutation = {
   cartLinesAdd: { cart: ShopifyCart; userErrors: { message: string }[] };
+};
+
+export type CartQuery = {
+  cart: ShopifyCart | null;
+};
+
+export type CartLinesUpdateMutation = {
+  cartLinesUpdate: { cart: ShopifyCart; userErrors: { message: string }[] };
+};
+
+export type CartLinesRemoveMutation = {
+  cartLinesRemove: { cart: ShopifyCart; userErrors: { message: string }[] };
 };
