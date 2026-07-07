@@ -55,7 +55,7 @@ export function FormSubmissionsManager({ submissions }: { submissions: FormSubmi
                 {Object.entries(asRecord(item.data)).map(([key, value]) => (
                   <div className="rounded-lg bg-[#f7faf7] p-3" key={key}>
                     <dt className="text-xs font-semibold uppercase tracking-[0.12em] text-muted-foreground">{key}</dt>
-                    <dd className="mt-1 break-words text-[#193f2c]">{formatValue(value)}</dd>
+                    <dd className="mt-1 break-words text-[#193f2c]">{formatValue(value, item.id)}</dd>
                   </div>
                 ))}
               </dl>
@@ -98,8 +98,19 @@ function asRecord(value: unknown): Record<string, unknown> {
   return value && typeof value === "object" && !Array.isArray(value) ? (value as Record<string, unknown>) : {};
 }
 
-function formatValue(value: unknown) {
+function formatValue(value: unknown, submissionId: string) {
   if (Array.isArray(value)) return value.join(", ");
   if (typeof value === "boolean") return value ? "Yes" : "No";
+  if (isUploadMetadata(value)) {
+    return (
+      <a className="font-semibold text-[#145c42] underline-offset-4 hover:underline" href={`/api/admin/form-submissions/${submissionId}/attachment`}>
+        {value.originalName || "Download uploaded PDF"}
+      </a>
+    );
+  }
   return String(value ?? "");
+}
+
+function isUploadMetadata(value: unknown): value is { originalName?: string } {
+  return Boolean(value && typeof value === "object" && !Array.isArray(value) && "path" in value);
 }

@@ -562,7 +562,7 @@ export async function sendFormSubmissionEmail({
   const from = process.env.CONTACT_FROM_EMAIL ?? `JourneyLite <${process.env.SMTP_USER}>`;
   const rows = Object.entries(data)
     .filter(([key]) => key !== "website")
-    .map(([key, value]) => infoRow(key, Array.isArray(value) ? value.join(", ") : typeof value === "boolean" ? (value ? "Yes" : "No") : String(value ?? "")))
+    .map(([key, value]) => infoRow(key, formatSubmissionEmailValue(value)))
     .join("");
 
   await transporter.sendMail({
@@ -577,6 +577,18 @@ export async function sendFormSubmissionEmail({
       ${footer()}
     `),
   });
+}
+
+function formatSubmissionEmailValue(value: unknown) {
+  if (Array.isArray(value)) return value.join(", ");
+  if (typeof value === "boolean") return value ? "Yes" : "No";
+  if (value && typeof value === "object" && !Array.isArray(value) && "path" in value) {
+    const upload = value as { originalName?: string; adminDownloadUrl?: string };
+    return upload.adminDownloadUrl
+      ? `${upload.originalName || "Uploaded PDF"}\nAdmin download: ${BASE}${upload.adminDownloadUrl}`
+      : upload.originalName || "Uploaded PDF";
+  }
+  return String(value ?? "");
 }
 
 /* ── Patient LMS invite ─────────────────────────────────── */

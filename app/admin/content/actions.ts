@@ -229,16 +229,38 @@ export type FormField = {
 export type FormDefinition = {
   _id: string;
   name: string;
-  slug: string;
+  key: string;
+  slug?: string;
+  status?: "active" | "inactive" | "archived";
+  title?: string;
+  introText?: string;
   submitEmailTo?: string;
+  notificationEmails?: string[];
   successMessage?: string;
+  errorMessage?: string;
+  submitButtonLabel?: string;
+  redirectUrl?: string;
+  brevoListId?: number;
   fields: FormField[];
 };
 
 export async function fetchFormDefinitions(): Promise<FormDefinition[]> {
   return client.fetch<FormDefinition[]>(
     `*[_type == "formDefinition"] | order(name asc) {
-      _id, name, "slug": slug.current, submitEmailTo, successMessage,
+      _id,
+      name,
+      "key": coalesce(key.current, slug.current),
+      "slug": slug.current,
+      status,
+      title,
+      introText,
+      submitEmailTo,
+      notificationEmails,
+      successMessage,
+      errorMessage,
+      submitButtonLabel,
+      redirectUrl,
+      brevoListId,
       fields[]{ _key, label, "key": key.current, type, placeholder, required, options }
     }`,
     {},
@@ -247,15 +269,32 @@ export async function fetchFormDefinitions(): Promise<FormDefinition[]> {
 }
 
 export async function createFormAction(data: {
-  name: string; submitEmailTo: string; successMessage: string; fields: FormField[];
+  name: string;
+  status: "active" | "inactive" | "archived";
+  title: string;
+  introText: string;
+  notificationEmails: string[];
+  successMessage: string;
+  errorMessage: string;
+  submitButtonLabel: string;
+  redirectUrl: string;
+  brevoListId: string;
+  fields: FormField[];
 }): Promise<string> {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const doc: any = {
     _type: "formDefinition",
     name: data.name,
-    slug: { _type: "slug", current: slugify(data.name) },
-    submitEmailTo: data.submitEmailTo,
+    key: { _type: "slug", current: slugify(data.name) },
+    status: data.status,
+    title: data.title,
+    introText: data.introText,
+    notificationEmails: data.notificationEmails,
     successMessage: data.successMessage,
+    errorMessage: data.errorMessage,
+    submitButtonLabel: data.submitButtonLabel,
+    redirectUrl: data.redirectUrl || undefined,
+    brevoListId: data.brevoListId ? Number(data.brevoListId) : undefined,
     fields: data.fields.map((f) => ({
       _type: "formField",
       _key: f._key,
@@ -272,12 +311,29 @@ export async function createFormAction(data: {
 }
 
 export async function updateFormAction(id: string, data: {
-  name: string; submitEmailTo: string; successMessage: string; fields: FormField[];
+  name: string;
+  status: "active" | "inactive" | "archived";
+  title: string;
+  introText: string;
+  notificationEmails: string[];
+  successMessage: string;
+  errorMessage: string;
+  submitButtonLabel: string;
+  redirectUrl: string;
+  brevoListId: string;
+  fields: FormField[];
 }): Promise<void> {
   await adminClient.patch(id).set({
     name: data.name,
-    submitEmailTo: data.submitEmailTo,
+    status: data.status,
+    title: data.title,
+    introText: data.introText,
+    notificationEmails: data.notificationEmails,
     successMessage: data.successMessage,
+    errorMessage: data.errorMessage,
+    submitButtonLabel: data.submitButtonLabel,
+    redirectUrl: data.redirectUrl || undefined,
+    brevoListId: data.brevoListId ? Number(data.brevoListId) : undefined,
     fields: data.fields.map((f) => ({
       _type: "formField",
       _key: f._key,

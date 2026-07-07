@@ -68,7 +68,7 @@ export function FormsClient({ forms, submissions }: {
             <div className="rounded-xl border border-dashed border-[#dce4df] bg-zinc-50 py-12 text-center">
               <ClipboardList className="mx-auto mb-3 h-10 w-10 text-[#dce4df]" />
               <p className="font-semibold text-[#5f6f66]">No forms yet</p>
-              <p className="mt-1 text-sm text-[#9aafa5]">Click "New Form" to create your first form.</p>
+              <p className="mt-1 text-sm text-[#9aafa5]">Click &ldquo;New Form&rdquo; to create your first form.</p>
             </div>
           ) : forms.map((form) => (
             editingId === form._id
@@ -78,7 +78,7 @@ export function FormsClient({ forms, submissions }: {
               : <FormCard key={form._id} form={form}
                   onEdit={() => setEditingId(form._id)}
                   onDelete={() => { deleteFormAction(form._id).then(refresh); }}
-                  submissionCount={submissions.filter((s) => s.form_key === form.slug).length} />
+                  submissionCount={submissions.filter((s) => s.form_key === form.key || s.form_key === form.slug).length} />
           ))}
         </div>
       ) : (
@@ -99,7 +99,7 @@ function FormCard({ form, onEdit, onDelete, submissionCount }: {
           <p className="font-semibold text-[#1f2c25]">{form.name}</p>
           <p className="mt-0.5 text-xs text-[#9aafa5]">
             {form.fields.length} fields · {submissionCount} submission{submissionCount !== 1 ? "s" : ""}
-            {form.submitEmailTo ? ` · Sends to ${form.submitEmailTo}` : ""}
+            {form.notificationEmails?.length ? ` · Sends to ${form.notificationEmails.join(", ")}` : form.submitEmailTo ? ` · Sends to ${form.submitEmailTo}` : ""}
           </p>
           <div className="mt-2 flex flex-wrap gap-1.5">
             {form.fields.map((f) => (
@@ -128,8 +128,15 @@ function FormBuilderPanel({ existing, onSaved, onCancel }: {
   onCancel: () => void;
 }) {
   const [name, setName]           = useState(existing?.name || "");
-  const [email, setEmail]         = useState(existing?.submitEmailTo || "");
-  const [success, setSuccess]     = useState(existing?.successMessage || "Thank you! We'll be in touch soon.");
+  const [status, setStatus]       = useState<"active" | "inactive" | "archived">(existing?.status || "active");
+  const [title, setTitle]         = useState(existing?.title || "");
+  const [introText, setIntroText] = useState(existing?.introText || "");
+  const [emails, setEmails]       = useState((existing?.notificationEmails?.length ? existing.notificationEmails : existing?.submitEmailTo ? [existing.submitEmailTo] : []).join(", "));
+  const [success, setSuccess]     = useState(existing?.successMessage || "Thank you. We received your submission.");
+  const [errorMessage, setErrorMessage] = useState(existing?.errorMessage || "Something went wrong. Please try again.");
+  const [submitLabel, setSubmitLabel] = useState(existing?.submitButtonLabel || "Submit");
+  const [redirectUrl, setRedirectUrl] = useState(existing?.redirectUrl || "");
+  const [brevoListId, setBrevoListId] = useState(existing?.brevoListId ? String(existing.brevoListId) : "");
   const [fields, setFields]       = useState<FormField[]>(existing?.fields ?? []);
   const [saving, setSaving]       = useState(false);
   const [isPending, startT]       = useTransition();
@@ -158,7 +165,19 @@ function FormBuilderPanel({ existing, onSaved, onCancel }: {
     if (!name.trim()) return;
     setSaving(true);
     startT(async () => {
-      const data = { name: name.trim(), submitEmailTo: email.trim(), successMessage: success.trim(), fields };
+      const data = {
+        name: name.trim(),
+        status,
+        title: title.trim(),
+        introText: introText.trim(),
+        notificationEmails: parseEmails(emails),
+        successMessage: success.trim(),
+        errorMessage: errorMessage.trim(),
+        submitButtonLabel: submitLabel.trim() || "Submit",
+        redirectUrl: redirectUrl.trim(),
+        brevoListId: brevoListId.trim(),
+        fields,
+      };
       if (existing) await updateFormAction(existing._id, data);
       else await createFormAction(data);
       setSaving(false);
@@ -221,7 +240,7 @@ function FormBuilderPanel({ existing, onSaved, onCancel }: {
               </button>
               {success && (
                 <div className="mt-3 rounded-xl border border-emerald-200 bg-emerald-50 px-4 py-3 text-sm text-emerald-800">
-                  <Check className="mr-1.5 inline h-3.5 w-3.5" /><em>After submit:</em> "{success}"
+                  <Check className="mr-1.5 inline h-3.5 w-3.5" /><em>After submit:</em> &ldquo;{success}&rdquo;
                 </div>
               )}
             </div>
@@ -233,13 +252,52 @@ function FormBuilderPanel({ existing, onSaved, onCancel }: {
         <Field label="Form name *">
           <input value={name} onChange={(e) => setName(e.target.value)} placeholder="Contact Form" className={inputCls} />
         </Field>
-        <Field label="Send submissions to (email)">
-          <input value={email} onChange={(e) => setEmail(e.target.value)} placeholder="info@journeylite.com" type="email" className={inputCls} />
+        <Field label="Status">
+          <select value={status} onChange={(e) => setStatus(e.target.value as "active" | "inactive" | "archived")} className={inputCls}>
+            <option value="active">Active</option>
+            <option value="inactive">Inactive</option>
+            <option value="archived">Archived</option>
+          </select>
+        </Field>
+        <Field label="Public form title">
+          <input value={title} onChange={(e) => setTitle(e.target.value)} placeholder="Contact JourneyLite" className={inputCls} />
         </Field>
         <div className="sm:col-span-2">
-          <Field label="Success message shown after submit">
-            <input value={success} onChange={(e) => setSuccess(e.target.value)} className={inputCls} />
+          <Field label="Intro text shown above form">
+            <textarea value={introText} onChange={(e) => setIntroText(e.target.value)} rows={2} className={inputCls} />
           </Field>
+        </div>
+        <div className="sm:col-span-2 rounded-lg border border-[#dce4df] bg-white/70 p-4">
+          <p className="mb-3 text-xs font-bold uppercase tracking-wide text-[#5f6f66]">Email & Delivery</p>
+          <div className="grid gap-4 sm:grid-cols-2">
+            <div className="sm:col-span-2">
+              <Field label="Notification recipients">
+                <input value={emails} onChange={(e) => setEmails(e.target.value)} placeholder="ma@curryweightloss.com, info@journeylite.com" className={inputCls} />
+              </Field>
+              <p className="mt-1 text-[11px] text-[#7b8d84]">Separate multiple email addresses with commas. These receive the submission notification.</p>
+            </div>
+            <Field label="Submit button label">
+              <input value={submitLabel} onChange={(e) => setSubmitLabel(e.target.value)} placeholder="Submit" className={inputCls} />
+            </Field>
+            <Field label="Optional Brevo list ID">
+              <input value={brevoListId} onChange={(e) => setBrevoListId(e.target.value.replace(/\D/g, ""))} inputMode="numeric" placeholder="123" className={inputCls} />
+            </Field>
+            <div className="sm:col-span-2">
+              <Field label="Success message shown after submit">
+                <input value={success} onChange={(e) => setSuccess(e.target.value)} className={inputCls} />
+              </Field>
+            </div>
+            <div className="sm:col-span-2">
+              <Field label="Error message shown if submit fails">
+                <input value={errorMessage} onChange={(e) => setErrorMessage(e.target.value)} className={inputCls} />
+              </Field>
+            </div>
+            <div className="sm:col-span-2">
+              <Field label="Optional redirect URL after success">
+                <input value={redirectUrl} onChange={(e) => setRedirectUrl(e.target.value)} placeholder="/thank-you or https://example.com" className={inputCls} />
+              </Field>
+            </div>
+          </div>
         </div>
       </div>
 
@@ -253,7 +311,7 @@ function FormBuilderPanel({ existing, onSaved, onCancel }: {
         </div>
 
         {fields.length === 0 ? (
-          <p className="rounded-lg border border-dashed border-[#dce4df] py-6 text-center text-xs text-[#9aafa5]">No fields yet. Click "Add field".</p>
+          <p className="rounded-lg border border-dashed border-[#dce4df] py-6 text-center text-xs text-[#9aafa5]">No fields yet. Click &ldquo;Add field&rdquo;.</p>
         ) : (
           <div className="space-y-2">
             {fields.map((field, idx) => (
@@ -318,4 +376,11 @@ function Field({ label, children }: { label: string; children: React.ReactNode }
       {children}
     </div>
   );
+}
+
+function parseEmails(value: string) {
+  return value
+    .split(",")
+    .map((email) => email.trim())
+    .filter(Boolean);
 }

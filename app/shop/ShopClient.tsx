@@ -278,6 +278,7 @@ function PCard({
   const maxPrice = product.priceRange.maxVariantPrice;
   const hasRange = price.amount !== maxPrice.amount;
   const description = conciseDescription(product);
+  const isFmlaPaperwork = /fmla|short-term|disability|paperwork/i.test(`${product.title} ${product.handle}`);
 
   return (
     <div
@@ -372,6 +373,21 @@ function PCard({
           />
         )}
       </div>
+      {isFmlaPaperwork ? (
+        <Link
+          href="/fmla-short-term-disability-paperwork"
+          style={{
+            color: "#145c42",
+            fontSize: 12,
+            fontWeight: 600,
+            marginTop: 10,
+            textDecoration: "underline",
+            textUnderlineOffset: 3,
+          }}
+        >
+          Complete form after payment
+        </Link>
+      ) : null}
     </div>
   );
 }

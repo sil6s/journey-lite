@@ -137,7 +137,7 @@ const PROCEDURES: Procedure[] = [
       "Strictest nutritional supplementation requirements",
       "Less widely offered than sleeve or bypass",
     ],
-    bestFor: "BMI ≥ 50, severe metabolic disease, very high weight-loss goals",
+    bestFor: "BMI 50 or above, severe metabolic disease, very high weight-loss goals",
   },
   {
     id: "revision",
@@ -193,52 +193,53 @@ export function MetricsDashboard() {
 
   return (
     <div className="min-h-screen" style={{ background: "#f7f8f6" }}>
-      {/* ── Hero ── */}
-      <section style={{ background: "#ffffff", borderBottom: "1px solid #e4e9e6" }}>
-        <div style={{ maxWidth: 768, margin: "0 auto", padding: "72px 24px 80px", textAlign: "center" }}>
+
+      {/* Hero */}
+      <section style={{ background: "#fff", borderBottom: "1px solid #e4e9e6" }}>
+        <div style={{ maxWidth: 720, margin: "0 auto", padding: "64px 24px 72px", textAlign: "center" }}>
           <div style={{
             display: "inline-flex", alignItems: "center", gap: 8,
             borderRadius: 999, border: "1px solid #c8ddd1", background: "#f0f7f3",
-            padding: "6px 14px", marginBottom: 24,
+            padding: "6px 14px", marginBottom: 22,
           }}>
             <span style={{ width: 6, height: 6, borderRadius: "50%", background: "#145c42", flexShrink: 0 }} />
             <span style={{ fontSize: 11, fontWeight: 700, letterSpacing: "0.08em", textTransform: "uppercase", color: "#145c42" }}>
               Completes in ~30 seconds · Private
             </span>
           </div>
-          <h1 className="font-serif" style={{ fontSize: "clamp(34px,5vw,52px)", lineHeight: 1.12, color: "#0d1a11", margin: "0 0 20px" }}>
+          <h1 className="font-serif" style={{ fontSize: "clamp(32px,5vw,50px)", lineHeight: 1.13, color: "#0d1a11", margin: "0 0 18px" }}>
             Your Personalized<br />Bariatric Assessment
           </h1>
-          <p style={{ fontSize: 16, lineHeight: 1.75, color: "#586760", maxWidth: 520, margin: "0 auto 28px" }}>
+          <p style={{ fontSize: 15, lineHeight: 1.75, color: "#586760", maxWidth: 480, margin: "0 auto 24px" }}>
             Enter your health details to receive a clinical assessment of your BMI, surgery eligibility,
-            procedure options, and a personalized path forward — all calculated privately in your browser.
+            procedure options, and a personalized path forward — calculated privately in your browser.
           </p>
           <div style={{ display: "flex", flexWrap: "wrap", gap: 20, justifyContent: "center" }}>
             {[
-              { icon: "🔒", text: "Nothing leaves your device" },
-              { icon: "🩺", text: "Educational, not a diagnosis" },
-              { icon: "📄", text: "PDF report available" },
-            ].map(item => (
-              <span key={item.text} style={{ fontSize: 12, color: "#8a9b92", display: "flex", alignItems: "center", gap: 6 }}>
-                <span>{item.icon}</span>{item.text}
+              "Nothing leaves your device",
+              "Educational, not a diagnosis",
+              "PDF report available",
+            ].map(text => (
+              <span key={text} style={{ fontSize: 12, color: "#8a9b92", display: "flex", alignItems: "center", gap: 6 }}>
+                <span style={{ width: 4, height: 4, borderRadius: "50%", background: "#c8ddd1", flexShrink: 0 }} />
+                {text}
               </span>
             ))}
           </div>
         </div>
       </section>
 
-      {/* ── Assessment Form ── */}
-      <section style={{ maxWidth: 800, margin: "0 auto", padding: "48px 24px 56px" }}>
-        <AssessmentForm
+      {/* Multi-step form */}
+      <section style={{ maxWidth: 680, margin: "0 auto", padding: "48px 24px 56px" }}>
+        <MultiStepForm
           inputs={inputs}
           onUpdateField={updateField}
           onToggleCondition={toggleCondition}
           onCalculate={handleCalculate}
-          isValid={canCalculate(inputs)}
         />
       </section>
 
-      {/* ── Results ── */}
+      {/* Results */}
       {showResults && result && (
         <div id="assessment-results">
           <AssessmentResultsView
@@ -254,6 +255,12 @@ export function MetricsDashboard() {
                 setPdfState("error");
               }
             }}
+            onEditInputs={() => {
+              setShowResults(false);
+              setTimeout(() => {
+                document.querySelector("section")?.scrollIntoView({ behavior: "smooth" });
+              }, 50);
+            }}
           />
         </div>
       )}
@@ -261,20 +268,319 @@ export function MetricsDashboard() {
   );
 }
 
-// ─── Assessment Form ──────────────────────────────────────────────────────────
+// ─── Multi-step form ──────────────────────────────────────────────────────────
 
-function AssessmentForm({
+const STEPS = ["Measurements", "About You", "Conditions", "Finish"] as const;
+
+function MultiStepForm({
   inputs,
   onUpdateField,
   onToggleCondition,
   onCalculate,
-  isValid,
 }: {
   inputs: AssessmentInputs;
   onUpdateField: <K extends keyof AssessmentInputs>(key: K, value: AssessmentInputs[K]) => void;
   onToggleCondition: (key: keyof Conditions) => void;
   onCalculate: () => void;
-  isValid: boolean;
+}) {
+  const [step, setStep] = useState(0);
+
+  // Live BMI for step 1 callout
+  const liveCurrentBmi = useMemo(() => {
+    const f = toNum(inputs.feet), i = toNum(inputs.inches), w = toNum(inputs.currentWeight);
+    const h = f * 12 + i;
+    return h && w ? bmiFrom(w, h) : null;
+  }, [inputs.feet, inputs.inches, inputs.currentWeight]);
+
+  const highBmi = liveCurrentBmi !== null && liveCurrentBmi >= 50;
+
+  const step0Valid = Boolean(toNum(inputs.feet) && toNum(inputs.currentWeight) && toNum(inputs.startWeight));
+  const step1Valid = Boolean(toNum(inputs.age) && inputs.sex);
+  const step2Valid = true; // conditions are optional
+  const step3Valid = true; // all optional
+
+  function next() {
+    if (step < STEPS.length - 1) setStep(s => s + 1);
+  }
+
+  function back() {
+    if (step > 0) setStep(s => s - 1);
+  }
+
+  function stepCanAdvance() {
+    if (step === 0) return step0Valid;
+    if (step === 1) return step1Valid;
+    return true;
+  }
+
+  return (
+    <div>
+      {/* Step indicator */}
+      <div style={{ display: "flex", alignItems: "center", marginBottom: 28 }}>
+        {STEPS.map((label, i) => {
+          const done = i < step;
+          const active = i === step;
+          return (
+            <div key={label} style={{ display: "flex", alignItems: "center", flex: i < STEPS.length - 1 ? 1 : 0 }}>
+              <div style={{ display: "flex", alignItems: "center", gap: 8, flexShrink: 0 }}>
+                <div style={{
+                  width: 28, height: 28, borderRadius: "50%",
+                  display: "flex", alignItems: "center", justifyContent: "center",
+                  fontSize: 11, fontWeight: 800,
+                  background: done ? "#145c42" : active ? "#0f3e2e" : "#e4e9e6",
+                  color: done || active ? "#fff" : "#8a9b92",
+                  transition: "all 0.2s",
+                }}>
+                  {done ? (
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={3} strokeLinecap="round" strokeLinejoin="round">
+                      <path d="M4.5 12.75l6 6 9-13.5" />
+                    </svg>
+                  ) : i + 1}
+                </div>
+                <span style={{
+                  fontSize: 12, fontWeight: active ? 700 : 500,
+                  color: active ? "#0d1a11" : done ? "#145c42" : "#8a9b92",
+                  whiteSpace: "nowrap",
+                }}>
+                  {label}
+                </span>
+              </div>
+              {i < STEPS.length - 1 && (
+                <div style={{ flex: 1, height: 1, background: done ? "#c8ddd1" : "#e4e9e6", margin: "0 12px" }} />
+              )}
+            </div>
+          );
+        })}
+      </div>
+
+      {/* Card */}
+      <div style={{
+        background: "#fff", border: "1px solid #e4e9e6", borderRadius: 18,
+        overflow: "hidden", boxShadow: "0 1px 4px rgba(0,0,0,0.04)",
+      }}>
+        {step === 0 && (
+          <StepMeasurements inputs={inputs} onUpdateField={onUpdateField} liveBmi={liveCurrentBmi} highBmi={highBmi} />
+        )}
+        {step === 1 && (
+          <StepAboutYou inputs={inputs} onUpdateField={onUpdateField} />
+        )}
+        {step === 2 && (
+          <StepConditions inputs={inputs} onToggleCondition={onToggleCondition} />
+        )}
+        {step === 3 && (
+          <StepFinish inputs={inputs} onUpdateField={onUpdateField} />
+        )}
+
+        {/* Navigation */}
+        <div style={{
+          padding: "20px 28px", background: "#f8fbf9",
+          borderTop: "1px solid #f0f4f2",
+          display: "flex", gap: 10, alignItems: "center",
+        }}>
+          {step > 0 && (
+            <button
+              type="button"
+              onClick={back}
+              style={{
+                padding: "11px 22px", borderRadius: 10,
+                border: "1px solid #e4e9e6", background: "#fff",
+                fontSize: 13, fontWeight: 600, color: "#586760",
+                cursor: "pointer",
+              }}
+            >
+              Back
+            </button>
+          )}
+          <div style={{ flex: 1 }} />
+          {step < STEPS.length - 1 ? (
+            <button
+              type="button"
+              disabled={!stepCanAdvance()}
+              onClick={next}
+              style={{
+                padding: "11px 28px", borderRadius: 10, border: "none",
+                background: stepCanAdvance() ? "#0f3e2e" : "#c8d5cf",
+                color: "#fff", fontSize: 13, fontWeight: 700,
+                cursor: stepCanAdvance() ? "pointer" : "not-allowed",
+                transition: "background 0.15s",
+              }}
+            >
+              Continue
+            </button>
+          ) : (
+            <button
+              type="button"
+              onClick={onCalculate}
+              style={{
+                padding: "11px 28px", borderRadius: 10, border: "none",
+                background: "#0f3e2e", color: "#fff",
+                fontSize: 13, fontWeight: 700, cursor: "pointer",
+              }}
+            >
+              Generate My Assessment
+            </button>
+          )}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+// ─── Step 1: Measurements ─────────────────────────────────────────────────────
+
+function StepMeasurements({
+  inputs,
+  onUpdateField,
+  liveBmi,
+  highBmi,
+}: {
+  inputs: AssessmentInputs;
+  onUpdateField: <K extends keyof AssessmentInputs>(key: K, value: AssessmentInputs[K]) => void;
+  liveBmi: number | null;
+  highBmi: boolean;
+}) {
+  return (
+    <div style={{ padding: "28px 28px 24px" }}>
+      <StepHeader
+        title="Measurements"
+        subtitle="Height and weight are required. Goal weight is optional."
+      />
+
+      {/* High-BMI direct-contact callout */}
+      {highBmi && (
+        <div style={{
+          margin: "0 0 24px",
+          padding: "16px 20px",
+          borderRadius: 12,
+          border: "1.5px solid #c8ddd1",
+          background: "#f0f7f3",
+          display: "flex", gap: 16, alignItems: "flex-start",
+        }}>
+          <div style={{
+            width: 36, height: 36, borderRadius: "50%", flexShrink: 0,
+            background: "#0f3e2e", display: "flex", alignItems: "center", justifyContent: "center",
+          }}>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth={2.5} strokeLinecap="round" strokeLinejoin="round">
+              <path d="M12 9v4m0 4h.01M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z" />
+            </svg>
+          </div>
+          <div>
+            <p style={{ fontSize: 13, fontWeight: 700, color: "#0f3e2e", margin: "0 0 4px" }}>
+              Your BMI ({liveBmi?.toFixed(1)}) is in a range where direct guidance may be most helpful.
+            </p>
+            <p style={{ fontSize: 12, lineHeight: 1.6, color: "#4a5e53", margin: "0 0 10px" }}>
+              At this level, a JourneyLite specialist can give you a more complete picture than an online tool. You are welcome to finish this assessment, but we encourage you to connect with our team directly.
+            </p>
+            <Link
+              href="/contact"
+              style={{
+                display: "inline-flex", alignItems: "center", gap: 6,
+                fontSize: 12, fontWeight: 700, color: "#0f3e2e",
+                textDecoration: "none", borderBottom: "1px solid #c8ddd1",
+                paddingBottom: 1,
+              }}
+            >
+              Talk to a specialist now
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2.5} strokeLinecap="round" strokeLinejoin="round">
+                <path d="M5 12h14M12 5l7 7-7 7" />
+              </svg>
+            </Link>
+          </div>
+        </div>
+      )}
+
+      <div style={{ display: "grid", gap: 16 }}>
+        {/* Height */}
+        <div>
+          <label style={labelStyle}>Height</label>
+          <div style={{ display: "flex", gap: 10, marginTop: 6 }}>
+            <div style={{ flex: 1 }}>
+              <div style={inputWrap}>
+                <input style={inputBase} id="feet" inputMode="numeric" placeholder="5" type="number" min="3" max="8"
+                  value={inputs.feet} onChange={e => onUpdateField("feet", e.target.value)} />
+                <span style={suffixStyle}>ft</span>
+              </div>
+            </div>
+            <div style={{ flex: 1 }}>
+              <div style={inputWrap}>
+                <input style={inputBase} id="inches" inputMode="numeric" placeholder="8" type="number" min="0" max="11"
+                  value={inputs.inches} onChange={e => onUpdateField("inches", e.target.value)} />
+                <span style={suffixStyle}>in</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12 }}>
+          <NumberInput label="Current Weight" id="currentWeight" value={inputs.currentWeight}
+            onChange={v => onUpdateField("currentWeight", v)} suffix="lb" placeholder="220" />
+          <NumberInput label="Starting / Highest Weight" id="startWeight" value={inputs.startWeight}
+            onChange={v => onUpdateField("startWeight", v)} suffix="lb" placeholder="280"
+            helper="Your heaviest weight or weight before treatment." />
+        </div>
+
+        <NumberInput label="Goal Weight (optional)" id="goalWeight" value={inputs.goalWeight}
+          onChange={v => onUpdateField("goalWeight", v)} suffix="lb" placeholder="160"
+          helper="Unlocks goal BMI and progress tracking." />
+      </div>
+
+      {/* Live BMI preview */}
+      {liveBmi !== null && !highBmi && (
+        <div style={{
+          marginTop: 20, padding: "12px 16px", borderRadius: 10,
+          background: "#f8fbf9", border: "1px solid #e4e9e6",
+          display: "flex", alignItems: "center", justifyContent: "space-between",
+        }}>
+          <span style={{ fontSize: 12, color: "#6b7f74" }}>Current BMI estimate</span>
+          <span style={{ fontSize: 16, fontWeight: 800, color: "#0d1a11" }}>
+            {liveBmi.toFixed(1)}
+            <span style={{ fontSize: 11, fontWeight: 500, color: "#8a9b92", marginLeft: 6 }}>
+              {getBmiContext(liveBmi).label}
+            </span>
+          </span>
+        </div>
+      )}
+    </div>
+  );
+}
+
+// ─── Step 2: About You ────────────────────────────────────────────────────────
+
+function StepAboutYou({
+  inputs,
+  onUpdateField,
+}: {
+  inputs: AssessmentInputs;
+  onUpdateField: <K extends keyof AssessmentInputs>(key: K, value: AssessmentInputs[K]) => void;
+}) {
+  return (
+    <div style={{ padding: "28px 28px 24px" }}>
+      <StepHeader title="About You" subtitle="Age and sex are used to contextualize your assessment." />
+      <div style={{ display: "grid", gap: 20 }}>
+        <NumberInput label="Age" id="age" value={inputs.age}
+          onChange={v => onUpdateField("age", v)} suffix="yrs" placeholder="42" />
+        <div>
+          <label style={labelStyle}>Sex</label>
+          <div style={{ marginTop: 8, display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 8 }}>
+            {["Female", "Male", "Other"].map(opt => (
+              <ToggleButton key={opt} label={opt} active={inputs.sex === opt}
+                onClick={() => onUpdateField("sex", opt)} />
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+// ─── Step 3: Conditions ───────────────────────────────────────────────────────
+
+function StepConditions({
+  inputs,
+  onToggleCondition,
+}: {
+  inputs: AssessmentInputs;
+  onToggleCondition: (key: keyof Conditions) => void;
 }) {
   const conditionList: { key: keyof Conditions; label: string }[] = [
     { key: "diabetes", label: "Type 2 Diabetes" },
@@ -285,253 +591,104 @@ function AssessmentForm({
     { key: "jointPain", label: "Joint Pain / Arthritis" },
   ];
 
-  const cardStyle: React.CSSProperties = {
-    background: "#fff",
-    border: "1px solid #e4e9e6",
-    borderRadius: 16,
-    overflow: "hidden",
-    boxShadow: "0 1px 4px rgba(0,0,0,0.04)",
-  };
-
-  const sectionStyle: React.CSSProperties = {
-    padding: "28px 32px",
-    borderBottom: "1px solid #f0f4f2",
-  };
-
   return (
-    <div style={cardStyle}>
-      {/* Header */}
-      <div style={{ padding: "24px 32px", background: "#f8fbf9", borderBottom: "1px solid #f0f4f2" }}>
-        <h2 style={{ fontSize: 17, fontWeight: 700, color: "#0d1a11", margin: "0 0 4px" }}>Patient Information</h2>
-        <p style={{ fontSize: 13, color: "#6b7f74", margin: 0 }}>Fields marked with * are required to generate your assessment.</p>
+    <div style={{ padding: "28px 28px 24px" }}>
+      <StepHeader
+        title="Health Conditions"
+        subtitle="Select any that apply. These affect eligibility scoring and procedure recommendations."
+      />
+      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 8 }}>
+        {conditionList.map(({ key, label }) => {
+          const active = inputs.conditions[key];
+          return (
+            <button
+              key={key}
+              type="button"
+              aria-pressed={active}
+              onClick={() => onToggleCondition(key)}
+              style={{
+                display: "flex", alignItems: "center", gap: 10,
+                padding: "12px 14px", borderRadius: 10, textAlign: "left",
+                border: active ? "1.5px solid #145c42" : "1.5px solid #dce6e1",
+                background: active ? "#f0f7f3" : "#fff",
+                color: active ? "#145c42" : "#3d4f45",
+                fontSize: 13, fontWeight: 500, cursor: "pointer",
+                transition: "all 0.15s",
+              }}
+            >
+              <span style={{
+                width: 17, height: 17, borderRadius: 4, flexShrink: 0,
+                border: active ? "none" : "1.5px solid #b0c5bb",
+                background: active ? "#145c42" : "transparent",
+                display: "flex", alignItems: "center", justifyContent: "center",
+              }}>
+                {active && (
+                  <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth={3.5} strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M4.5 12.75l6 6 9-13.5" />
+                  </svg>
+                )}
+              </span>
+              {label}
+            </button>
+          );
+        })}
       </div>
+      <p style={{ fontSize: 11, color: "#8a9b92", margin: "14px 0 0" }}>
+        None of these apply? Leave all unselected and continue.
+      </p>
+    </div>
+  );
+}
 
-      {/* Section 1 — Measurements */}
-      <div style={sectionStyle}>
-        <FormSectionLabel number="1" label="Measurements" />
-        <div style={{ marginTop: 20, display: "grid", gap: 16, gridTemplateColumns: "repeat(auto-fill, minmax(180px, 1fr))" }}>
-          {/* Height */}
-          <div style={{ gridColumn: "span 2" }}>
-            <label style={labelStyle}>Height *</label>
-            <div style={{ display: "flex", gap: 10, marginTop: 6 }}>
-              <div style={{ flex: 1 }}>
-                <div style={inputWrapStyle}>
-                  <input
-                    style={inputStyle}
-                    id="feet"
-                    inputMode="numeric"
-                    placeholder="5"
-                    type="number"
-                    min="3"
-                    max="8"
-                    value={inputs.feet}
-                    onChange={e => onUpdateField("feet", e.target.value)}
-                  />
-                  <span style={suffixStyle}>ft</span>
-                </div>
-              </div>
-              <div style={{ flex: 1 }}>
-                <div style={inputWrapStyle}>
-                  <input
-                    style={inputStyle}
-                    id="inches"
-                    inputMode="numeric"
-                    placeholder="8"
-                    type="number"
-                    min="0"
-                    max="11"
-                    value={inputs.inches}
-                    onChange={e => onUpdateField("inches", e.target.value)}
-                  />
-                  <span style={suffixStyle}>in</span>
-                </div>
-              </div>
-            </div>
-          </div>
+// ─── Step 4: Finish ───────────────────────────────────────────────────────────
 
-          <NumberInput
-            label="Current Weight *"
-            id="currentWeight"
-            value={inputs.currentWeight}
-            onChange={v => onUpdateField("currentWeight", v)}
-            suffix="lb"
-            placeholder="220"
-          />
-
-          <NumberInput
-            label="Starting / Highest Weight *"
-            id="startWeight"
-            value={inputs.startWeight}
-            onChange={v => onUpdateField("startWeight", v)}
-            suffix="lb"
-            placeholder="280"
-            helper="Weight before treatment or at your heaviest."
-          />
-
-          <NumberInput
-            label="Goal Weight"
-            id="goalWeight"
-            value={inputs.goalWeight}
-            onChange={v => onUpdateField("goalWeight", v)}
-            suffix="lb"
-            placeholder="160"
-            helper="Optional — unlocks goal BMI and progress."
-          />
-        </div>
-      </div>
-
-      {/* Section 2 — About You */}
-      <div style={sectionStyle}>
-        <FormSectionLabel number="2" label="About You" />
-        <div style={{ marginTop: 20, display: "grid", gap: 20, gridTemplateColumns: "1fr 1fr" }}>
-          <NumberInput
-            label="Age *"
-            id="age"
-            value={inputs.age}
-            onChange={v => onUpdateField("age", v)}
-            suffix="yrs"
-            placeholder="42"
-          />
-          <div>
-            <label style={labelStyle}>Sex *</label>
-            <div style={{ marginTop: 8, display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 8 }}>
-              {["Female", "Male", "Other"].map(opt => (
-                <ToggleButton
-                  key={opt}
-                  label={opt}
-                  active={inputs.sex === opt}
-                  onClick={() => onUpdateField("sex", opt)}
-                />
-              ))}
-            </div>
+function StepFinish({
+  inputs,
+  onUpdateField,
+}: {
+  inputs: AssessmentInputs;
+  onUpdateField: <K extends keyof AssessmentInputs>(key: K, value: AssessmentInputs[K]) => void;
+}) {
+  return (
+    <div style={{ padding: "28px 28px 24px" }}>
+      <StepHeader
+        title="Additional Information"
+        subtitle="All fields on this step are optional. They help personalize procedure recommendations."
+      />
+      <div style={{ display: "grid", gap: 18 }}>
+        <div>
+          <label style={labelStyle}>Previous Bariatric Surgery</label>
+          <div style={{ marginTop: 8, display: "grid", gridTemplateColumns: "1fr 1fr", gap: 8 }}>
+            {["Yes", "No"].map(opt => (
+              <ToggleButton key={opt} label={opt} active={inputs.previousSurgery === opt}
+                onClick={() => onUpdateField("previousSurgery", opt)} />
+            ))}
           </div>
         </div>
-      </div>
 
-      {/* Section 3 — Conditions */}
-      <div style={sectionStyle}>
-        <FormSectionLabel number="3" label="Health Conditions" />
-        <p style={{ fontSize: 13, color: "#6b7f74", marginTop: 4, marginBottom: 16 }}>
-          Select any that apply — these affect eligibility and procedure recommendations.
-        </p>
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(200px, 1fr))", gap: 8 }}>
-          {conditionList.map(({ key, label }) => {
-            const active = inputs.conditions[key];
-            return (
-              <button
-                key={key}
-                type="button"
-                aria-pressed={active}
-                onClick={() => onToggleCondition(key)}
-                style={{
-                  display: "flex", alignItems: "center", gap: 10,
-                  padding: "10px 14px",
-                  borderRadius: 10,
-                  border: active ? "1.5px solid #145c42" : "1.5px solid #dce6e1",
-                  background: active ? "#f0f7f3" : "#fff",
-                  color: active ? "#145c42" : "#3d4f45",
-                  fontSize: 13, fontWeight: 500,
-                  cursor: "pointer", textAlign: "left",
-                  transition: "all 0.15s",
-                }}
-              >
-                <span style={{
-                  width: 16, height: 16, borderRadius: 4, flexShrink: 0,
-                  border: active ? "none" : "1.5px solid #b0c5bb",
-                  background: active ? "#145c42" : "transparent",
-                  display: "flex", alignItems: "center", justifyContent: "center",
-                }}>
-                  {active && (
-                    <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth={3.5} strokeLinecap="round" strokeLinejoin="round">
-                      <path d="M4.5 12.75l6 6 9-13.5" />
-                    </svg>
-                  )}
-                </span>
-                {label}
-              </button>
-            );
-          })}
-        </div>
-      </div>
-
-      {/* Section 4 — Additional Info */}
-      <div style={{ ...sectionStyle, borderBottom: "none" }}>
-        <FormSectionLabel number="4" label="Additional Information" />
-        <p style={{ fontSize: 13, color: "#6b7f74", marginTop: 4, marginBottom: 20 }}>
-          Optional — helps personalize procedure recommendations.
-        </p>
-        <div style={{ display: "grid", gap: 20, gridTemplateColumns: "1fr 1fr" }}>
-          <div>
-            <label style={labelStyle}>Previous Bariatric Surgery</label>
-            <div style={{ marginTop: 8, display: "grid", gridTemplateColumns: "1fr 1fr", gap: 8 }}>
-              {["Yes", "No"].map(opt => (
-                <ToggleButton
-                  key={opt}
-                  label={opt}
-                  active={inputs.previousSurgery === opt}
-                  onClick={() => onUpdateField("previousSurgery", opt)}
-                />
-              ))}
-            </div>
-          </div>
-
-          <div>
-            <label style={labelStyle}>Smoking Status</label>
-            <div style={{ marginTop: 8, display: "grid", gridTemplateColumns: "1fr 1fr", gap: 8 }}>
-              {["Non-smoker", "Current smoker", "Former smoker"].map(opt => (
-                <ToggleButton
-                  key={opt}
-                  label={opt}
-                  active={inputs.smokingStatus === opt}
-                  onClick={() => onUpdateField("smokingStatus", opt)}
-                  small
-                />
-              ))}
-            </div>
-          </div>
-
-          <div style={{ gridColumn: "span 2" }}>
-            <label style={labelStyle} htmlFor="insuranceProvider">Insurance Provider</label>
-            <div style={{ ...inputWrapStyle, marginTop: 6 }}>
-              <input
-                style={{ ...inputStyle, flex: 1 }}
-                id="insuranceProvider"
-                placeholder="e.g. Anthem, Aetna, UnitedHealthcare, Medicare"
-                type="text"
-                value={inputs.insuranceProvider}
-                onChange={e => onUpdateField("insuranceProvider", e.target.value)}
-              />
-            </div>
+        <div>
+          <label style={labelStyle}>Smoking Status</label>
+          <div style={{ marginTop: 8, display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 8 }}>
+            {["Non-smoker", "Current smoker", "Former smoker"].map(opt => (
+              <ToggleButton key={opt} label={opt} active={inputs.smokingStatus === opt}
+                onClick={() => onUpdateField("smokingStatus", opt)} small />
+            ))}
           </div>
         </div>
-      </div>
 
-      {/* Submit */}
-      <div style={{ padding: "24px 32px", background: "#f8fbf9", borderTop: "1px solid #f0f4f2" }}>
-        <button
-          type="button"
-          disabled={!isValid}
-          onClick={onCalculate}
-          style={{
-            width: "100%",
-            padding: "14px 24px",
-            borderRadius: 12,
-            border: "none",
-            background: isValid ? "#0f3e2e" : "#c8d5cf",
-            color: "#fff",
-            fontSize: 14, fontWeight: 700,
-            cursor: isValid ? "pointer" : "not-allowed",
-            letterSpacing: "0.02em",
-            transition: "background 0.15s",
-          }}
-        >
-          Generate My Personalized Assessment →
-        </button>
-        {!isValid && (
-          <p style={{ marginTop: 8, textAlign: "center", fontSize: 12, color: "#8a9b92" }}>
-            Complete height, weights, age, and sex to continue.
-          </p>
-        )}
+        <div>
+          <label style={labelStyle} htmlFor="insuranceProvider">Insurance Provider</label>
+          <div style={{ ...inputWrap, marginTop: 6 }}>
+            <input
+              style={{ ...inputBase, flex: 1 }}
+              id="insuranceProvider"
+              placeholder="e.g. Anthem, Aetna, UnitedHealthcare, Medicare"
+              type="text"
+              value={inputs.insuranceProvider}
+              onChange={e => onUpdateField("insuranceProvider", e.target.value)}
+            />
+          </div>
+        </div>
       </div>
     </div>
   );
@@ -544,18 +701,46 @@ function AssessmentResultsView({
   inputs,
   pdfState,
   onDownloadPdf,
+  onEditInputs,
 }: {
   result: AssessmentResult;
   inputs: AssessmentInputs;
   pdfState: "idle" | "loading" | "error";
   onDownloadPdf: () => void;
+  onEditInputs: () => void;
 }) {
   const procedures = getProcedureFit(result, inputs);
 
   return (
     <>
-      {/* Assessment Summary */}
+      {/* Compact input summary bar */}
       <div style={{ background: "#fff", borderTop: "1px solid #e4e9e6", borderBottom: "1px solid #e4e9e6" }}>
+        <div style={{ maxWidth: 1024, margin: "0 auto", padding: "14px 24px", display: "flex", alignItems: "center", gap: 0, flexWrap: "wrap" }}>
+          <div style={{ flex: 1, display: "flex", flexWrap: "wrap", gap: "4px 0", alignItems: "center", minWidth: 0 }}>
+            {buildInputSummaryChips(inputs, result).map((chip, i, arr) => (
+              <span key={chip} style={{ fontSize: 12, color: "#586760" }}>
+                <span style={{ fontWeight: i === 0 ? 700 : 500, color: i === 0 ? "#0d1a11" : "#586760" }}>{chip}</span>
+                {i < arr.length - 1 && <span style={{ color: "#c8ddd1", margin: "0 8px" }}>·</span>}
+              </span>
+            ))}
+          </div>
+          <button
+            type="button"
+            onClick={onEditInputs}
+            style={{
+              marginLeft: 16, padding: "6px 14px", borderRadius: 8,
+              border: "1px solid #e4e9e6", background: "#f8f9f8",
+              fontSize: 12, fontWeight: 600, color: "#586760",
+              cursor: "pointer", flexShrink: 0,
+            }}
+          >
+            Edit
+          </button>
+        </div>
+      </div>
+
+      {/* Assessment Summary */}
+      <div style={{ background: "#fff", borderBottom: "1px solid #e4e9e6" }}>
         <div style={{ maxWidth: 1024, margin: "0 auto", padding: "52px 24px" }}>
           <AssessmentSummary result={result} inputs={inputs} />
         </div>
@@ -606,7 +791,7 @@ function AssessmentResultsView({
       </div>
 
       {/* Disclaimer */}
-      <div style={{ maxWidth: 1024, margin: "0 auto", padding: "32px 24px 48px", textAlign: "center" }}>
+      <div style={{ maxWidth: 1024, margin: "0 auto", padding: "28px 24px 48px", textAlign: "center" }}>
         <p style={{ fontSize: 11, lineHeight: 1.7, color: "#9aafa5", maxWidth: 640, margin: "0 auto" }}>
           This assessment is for educational purposes only and does not constitute medical advice, diagnosis, or treatment. Final surgical eligibility requires a comprehensive evaluation by a board-certified bariatric surgeon and multidisciplinary team, including medical history, physical examination, laboratory work, and insurance pre-authorization.{" "}
           <Link href="/contact" style={{ color: "#145c42", textDecoration: "underline" }}>JourneyLite Physicians</Link>
@@ -614,6 +799,29 @@ function AssessmentResultsView({
       </div>
     </>
   );
+}
+
+// Builds the compact summary chips from inputs
+function buildInputSummaryChips(inputs: AssessmentInputs, result: AssessmentResult): string[] {
+  const chips: string[] = [];
+  if (inputs.feet) chips.push(`${inputs.feet}'${inputs.inches || "0"}"`);
+  if (inputs.currentWeight) chips.push(`${inputs.currentWeight} lb current`);
+  if (inputs.startWeight) chips.push(`${inputs.startWeight} lb start`);
+  if (inputs.goalWeight) chips.push(`${inputs.goalWeight} lb goal`);
+  chips.push(`BMI ${result.currentBmi.toFixed(1)}`);
+  if (inputs.age) chips.push(`Age ${inputs.age}`);
+  if (inputs.sex) chips.push(inputs.sex);
+  const selectedConditions = (Object.entries(inputs.conditions) as [keyof Conditions, boolean][])
+    .filter(([, v]) => v)
+    .map(([k]) => ({
+      diabetes: "Diabetes", sleepApnea: "Sleep Apnea",
+      highBloodPressure: "High BP", gerd: "GERD", pcos: "PCOS", jointPain: "Joint Pain",
+    }[k]));
+  if (selectedConditions.length) chips.push(selectedConditions.join(", "));
+  if (inputs.previousSurgery === "Yes") chips.push("Prior surgery");
+  if (inputs.smokingStatus) chips.push(inputs.smokingStatus);
+  if (inputs.insuranceProvider) chips.push(inputs.insuranceProvider);
+  return chips;
 }
 
 // ─── Assessment Summary ────────────────────────────────────────────────────────
@@ -625,13 +833,13 @@ function AssessmentSummary({ result, inputs }: { result: AssessmentResult; input
   return (
     <div style={{ display: "grid", gap: 32, gridTemplateColumns: "1fr auto", alignItems: "start" }}>
       <div>
-        <p style={{ fontSize: 11, fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "#8a9b92", margin: "0 0 16px" }}>
+        <p style={{ fontSize: 11, fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "#8a9b92", margin: "0 0 14px" }}>
           Assessment Summary
         </p>
-        <h2 className="font-serif" style={{ fontSize: "clamp(26px,4vw,38px)", lineHeight: 1.15, color: "#0d1a11", margin: "0 0 16px" }}>
+        <h2 className="font-serif" style={{ fontSize: "clamp(24px,4vw,36px)", lineHeight: 1.15, color: "#0d1a11", margin: "0 0 14px" }}>
           {candCtx.heading}
         </h2>
-        <p style={{ fontSize: 15, lineHeight: 1.75, color: "#586760", maxWidth: 600, margin: "0 0 24px" }}>
+        <p style={{ fontSize: 15, lineHeight: 1.75, color: "#586760", maxWidth: 580, margin: "0 0 22px" }}>
           {candCtx.explanation(result, inputs)}
         </p>
         <div style={{ display: "flex", flexWrap: "wrap", gap: 10 }}>
@@ -644,8 +852,8 @@ function AssessmentSummary({ result, inputs }: { result: AssessmentResult; input
             {candCtx.label}
           </span>
           <span style={{
-            display: "inline-flex", alignItems: "center", gap: 7,
-            padding: "7px 14px", borderRadius: 999, fontSize: 12, fontWeight: 600,
+            display: "inline-flex", alignItems: "center",
+            padding: "7px 14px", borderRadius: 999, fontSize: 12, fontWeight: 500,
             border: "1px solid #e4e9e6", background: "#f8f9f8", color: "#586760",
           }}>
             BMI {result.currentBmi.toFixed(1)} · {bmiCtx.label}
@@ -653,20 +861,19 @@ function AssessmentSummary({ result, inputs }: { result: AssessmentResult; input
         </div>
       </div>
 
-      {/* BMI display card */}
       <div style={{
         display: "flex", flexDirection: "column", alignItems: "center",
-        background: "#f8fbf9", border: "1px solid #e4e9e6", borderRadius: 20,
-        padding: "32px 40px", minWidth: 180,
+        background: "#f8fbf9", border: "1px solid #e4e9e6", borderRadius: 18,
+        padding: "28px 36px", minWidth: 160,
       }}>
-        <p style={{ fontSize: 48, fontWeight: 800, color: "#0d1a11", lineHeight: 1, margin: 0 }}>
+        <p style={{ fontSize: 44, fontWeight: 900, color: "#0d1a11", lineHeight: 1, margin: "0 0 6px" }}>
           {result.currentBmi.toFixed(1)}
         </p>
-        <p style={{ fontSize: 10, fontWeight: 700, letterSpacing: "0.12em", textTransform: "uppercase", color: "#8a9b92", margin: "6px 0 16px" }}>
+        <p style={{ fontSize: 10, fontWeight: 700, letterSpacing: "0.12em", textTransform: "uppercase", color: "#8a9b92", margin: "0 0 14px" }}>
           Current BMI
         </p>
         <MiniBmiBar bmi={result.currentBmi} />
-        <p style={{ fontSize: 12, fontWeight: 600, color: bmiCtx.textColor, marginTop: 10 }}>
+        <p style={{ fontSize: 11, fontWeight: 600, color: bmiCtx.textColor, marginTop: 8 }}>
           {bmiCtx.label}
         </p>
       </div>
@@ -678,102 +885,33 @@ function AssessmentSummary({ result, inputs }: { result: AssessmentResult; input
 
 function ResultsDashboard({ result }: { result: AssessmentResult }) {
   const metrics = [
-    {
-      label: "Current BMI",
-      value: result.currentBmi.toFixed(1),
-      sub: getBmiContext(result.currentBmi).label,
-      accent: true,
-    },
-    {
-      label: "Starting BMI",
-      value: result.startBmi.toFixed(1),
-      sub: getBmiContext(result.startBmi).label,
-    },
-    {
-      label: "Goal BMI",
-      value: result.goalBmi ? result.goalBmi.toFixed(1) : "—",
-      sub: result.goalBmi ? getBmiContext(result.goalBmi).label : "Enter goal weight",
-    },
-    {
-      label: "Current Weight",
-      value: `${result.currentWeight.toFixed(0)} lb`,
-      sub: "Most recent",
-    },
-    {
-      label: "Weight Lost",
-      value: `${Math.abs(result.weightLost).toFixed(0)} lb`,
-      sub: result.weightLost >= 0 ? "from starting weight" : "above start",
-      accent: result.weightLost > 0,
-    },
-    {
-      label: "Remaining to Goal",
-      value: result.remainingToGoal !== undefined
-        ? `${Math.abs(result.remainingToGoal).toFixed(0)} lb`
-        : "—",
-      sub: result.remainingToGoal !== undefined
-        ? result.remainingToGoal > 0 ? "until goal" : "Goal exceeded!"
-        : "Enter goal weight",
-    },
-    {
-      label: "Healthy Weight Range",
-      value: `${result.idealWeightLow.toFixed(0)}–${result.idealWeightHigh.toFixed(0)} lb`,
-      sub: "BMI 18.5–24.9",
-    },
-    {
-      label: "Excess Weight",
-      value: `${result.excessWeight.toFixed(0)} lb`,
-      sub: "above BMI 25",
-    },
-    {
-      label: "% Total Weight Loss",
-      value: `${result.twl.toFixed(1)}%`,
-      sub: "from starting weight",
-      accent: result.twl >= 10,
-    },
-    {
-      label: "% Excess Weight Loss",
-      value: result.ewl !== undefined ? `${result.ewl.toFixed(1)}%` : "—",
-      sub: result.ewl !== undefined ? "of excess weight lost" : "Calculated from start",
-    },
-    {
-      label: "Lbs to BMI 35",
-      value: result.poundsTo35 > 0 ? `${result.poundsTo35.toFixed(0)} lb` : "✓ Reached",
-      sub: result.poundsTo35 > 0 ? "to reach BMI 35" : "Below BMI 35",
-      positive: result.poundsTo35 <= 0,
-    },
-    {
-      label: "Lbs to BMI 30",
-      value: result.poundsTo30 > 0 ? `${result.poundsTo30.toFixed(0)} lb` : "✓ Reached",
-      sub: result.poundsTo30 > 0 ? "to reach BMI 30" : "Below BMI 30",
-      positive: result.poundsTo30 <= 0,
-    },
-    {
-      label: "Lbs to BMI 25",
-      value: result.poundsTo25 > 0 ? `${result.poundsTo25.toFixed(0)} lb` : "✓ Reached",
-      sub: result.poundsTo25 > 0 ? "to reach BMI 25" : "Below BMI 25",
-      positive: result.poundsTo25 <= 0,
-    },
+    { label: "Current BMI", value: result.currentBmi.toFixed(1), sub: getBmiContext(result.currentBmi).label, accent: true },
+    { label: "Starting BMI", value: result.startBmi.toFixed(1), sub: getBmiContext(result.startBmi).label },
+    { label: "Goal BMI", value: result.goalBmi ? result.goalBmi.toFixed(1) : "—", sub: result.goalBmi ? getBmiContext(result.goalBmi).label : "Enter goal weight" },
+    { label: "Current Weight", value: `${result.currentWeight.toFixed(0)} lb`, sub: "Most recent" },
+    { label: "Weight Lost", value: `${Math.abs(result.weightLost).toFixed(0)} lb`, sub: result.weightLost >= 0 ? "from starting weight" : "above start", accent: result.weightLost > 0 },
+    { label: "Remaining to Goal", value: result.remainingToGoal !== undefined ? `${Math.abs(result.remainingToGoal).toFixed(0)} lb` : "—", sub: result.remainingToGoal !== undefined ? (result.remainingToGoal > 0 ? "until goal" : "Goal exceeded") : "Enter goal weight" },
+    { label: "Healthy Weight Range", value: `${result.idealWeightLow.toFixed(0)}–${result.idealWeightHigh.toFixed(0)} lb`, sub: "BMI 18.5–24.9" },
+    { label: "Excess Weight", value: `${result.excessWeight.toFixed(0)} lb`, sub: "above BMI 25" },
+    { label: "% Total Weight Loss", value: `${result.twl.toFixed(1)}%`, sub: "from starting weight", accent: result.twl >= 10 },
+    { label: "% Excess Weight Loss", value: result.ewl !== undefined ? `${result.ewl.toFixed(1)}%` : "—", sub: result.ewl !== undefined ? "of excess weight lost" : "Calculated from start" },
+    { label: "Lbs to BMI 35", value: result.poundsTo35 > 0 ? `${result.poundsTo35.toFixed(0)} lb` : "Reached", sub: result.poundsTo35 > 0 ? "to reach BMI 35" : "Below BMI 35", positive: result.poundsTo35 <= 0 },
+    { label: "Lbs to BMI 30", value: result.poundsTo30 > 0 ? `${result.poundsTo30.toFixed(0)} lb` : "Reached", sub: result.poundsTo30 > 0 ? "to reach BMI 30" : "Below BMI 30", positive: result.poundsTo30 <= 0 },
+    { label: "Lbs to BMI 25", value: result.poundsTo25 > 0 ? `${result.poundsTo25.toFixed(0)} lb` : "Reached", sub: result.poundsTo25 > 0 ? "to reach BMI 25" : "Below BMI 25", positive: result.poundsTo25 <= 0 },
   ];
 
   return (
-    <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(155px, 1fr))", gap: 10 }}>
+    <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(148px, 1fr))", gap: 10 }}>
       {metrics.map(m => (
-        <div
-          key={m.label}
-          style={{
-            borderRadius: 14,
-            border: m.accent ? "1.5px solid #c8ddd1" : "1px solid #e4e9e6",
-            background: m.accent ? "#f0f7f3" : "#fff",
-            padding: "16px 18px",
-          }}
-        >
-          <p style={{ fontSize: 10, fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "#8a9b92", margin: "0 0 10px" }}>
+        <div key={m.label} style={{
+          borderRadius: 14, padding: "15px 16px",
+          border: m.accent ? "1.5px solid #c8ddd1" : "1px solid #e4e9e6",
+          background: m.accent ? "#f0f7f3" : "#fff",
+        }}>
+          <p style={{ fontSize: 10, fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "#8a9b92", margin: "0 0 9px" }}>
             {m.label}
           </p>
-          <p style={{
-            fontSize: 22, fontWeight: 800, lineHeight: 1, margin: "0 0 6px",
-            color: m.accent ? "#0f3e2e" : m.positive ? "#145c42" : "#0d1a11",
-          }}>
+          <p style={{ fontSize: 21, fontWeight: 800, lineHeight: 1, margin: "0 0 5px", color: m.accent ? "#0f3e2e" : m.positive ? "#145c42" : "#0d1a11" }}>
             {m.value}
           </p>
           <p style={{ fontSize: 11, color: "#7a8d84", margin: 0 }}>{m.sub}</p>
@@ -787,22 +925,22 @@ function ResultsDashboard({ result }: { result: AssessmentResult }) {
 
 function SurgeryEligibility({ result, inputs }: { result: AssessmentResult; inputs: AssessmentInputs }) {
   const hasInsurance = inputs.insuranceProvider.trim().length > 0;
-  const isNonSmoker = inputs.smokingStatus === "Non-smoker" || inputs.smokingStatus === "Former smoker";
   const smokingKnown = inputs.smokingStatus.length > 0;
+  const isNonSmoker = inputs.smokingStatus === "Non-smoker" || inputs.smokingStatus === "Former smoker";
 
   const criteria = [
     {
       label: "BMI Qualification",
       status: result.bmiQualifies ? "met" : "not-met",
       note: result.bmiQualifies
-        ? `Your BMI of ${result.currentBmi.toFixed(1)} meets standard criteria (≥ 40, or ≥ 35 with qualifying conditions).`
-        : `Your BMI of ${result.currentBmi.toFixed(1)} is below the standard surgical threshold. Comorbidities and clinical review may affect eligibility.`,
+        ? `BMI ${result.currentBmi.toFixed(1)} meets standard criteria (40 or above, or 35+ with qualifying conditions).`
+        : `BMI ${result.currentBmi.toFixed(1)} is below the standard threshold. Comorbidities and clinical review may affect final eligibility.`,
     },
     {
       label: "Comorbidity Qualification",
-      status: result.comorbidityQualifies ? "met" : (result.conditionCount === 0 ? "neutral" : "not-met"),
+      status: result.comorbidityQualifies ? "met" : "neutral",
       note: result.comorbidityQualifies
-        ? `${result.conditionCount} qualifying condition${result.conditionCount > 1 ? "s" : ""} selected — strengthens eligibility, especially at BMI 35–40.`
+        ? `${result.conditionCount} qualifying condition${result.conditionCount > 1 ? "s" : ""} selected — strengthens eligibility, especially at BMI 35–39.9.`
         : "No qualifying conditions selected. Surgery at lower BMI typically requires a documented comorbidity.",
     },
     {
@@ -816,12 +954,12 @@ function SurgeryEligibility({ result, inputs }: { result: AssessmentResult; inpu
       label: "Smoking Status",
       status: !smokingKnown ? "neutral" : isNonSmoker ? "met" : "caution",
       note: inputs.smokingStatus === "Current smoker"
-        ? "Most programs require smoking cessation before surgery. A structured pre-op plan typically satisfies this requirement."
+        ? "Most programs require smoking cessation before surgery. A pre-op plan can address this — it does not automatically disqualify you."
         : inputs.smokingStatus === "Former smoker"
-        ? "Former smoker — most programs have a cessation period requirement, which you've likely met."
+        ? "Former smoker — most cessation period requirements are typically satisfied."
         : inputs.smokingStatus === "Non-smoker"
         ? "Non-smoker status is favorable for surgical candidacy and recovery."
-        : "Smoking status not entered — most programs review this during evaluation.",
+        : "Smoking status not entered — programs will review this during evaluation.",
     },
   ] as { label: string; status: "met" | "not-met" | "neutral" | "caution"; note: string }[];
 
@@ -831,83 +969,48 @@ function SurgeryEligibility({ result, inputs }: { result: AssessmentResult; inpu
   const scoreLabel = score >= 70 ? "Likely eligible" : score >= 40 ? "Partially eligible" : "Review needed";
 
   return (
-    <div style={{ display: "grid", gap: 20, gridTemplateColumns: "1fr 260px" }}>
-      {/* Criteria */}
+    <div style={{ display: "grid", gap: 20, gridTemplateColumns: "1fr 240px" }}>
       <div style={{ display: "grid", gap: 10 }}>
         {criteria.map(c => {
           const iconColor = c.status === "met" ? "#145c42" : c.status === "caution" ? "#b45309" : c.status === "not-met" ? "#dc2626" : "#94a3b8";
           const iconBg = c.status === "met" ? "#e8f5ee" : c.status === "caution" ? "#fffbeb" : c.status === "not-met" ? "#fef2f2" : "#f8f9f8";
           return (
-            <div key={c.label} style={{
-              display: "flex", gap: 16, padding: "16px 20px",
-              border: "1px solid #e4e9e6", borderRadius: 14, background: "#fff",
-            }}>
-              <div style={{
-                width: 32, height: 32, borderRadius: "50%", flexShrink: 0,
-                background: iconBg, color: iconColor,
-                display: "flex", alignItems: "center", justifyContent: "center",
-              }}>
+            <div key={c.label} style={{ display: "flex", gap: 14, padding: "15px 18px", border: "1px solid #e4e9e6", borderRadius: 14, background: "#fff" }}>
+              <div style={{ width: 30, height: 30, borderRadius: "50%", flexShrink: 0, background: iconBg, color: iconColor, display: "flex", alignItems: "center", justifyContent: "center" }}>
                 {c.status === "met" ? (
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2.5} strokeLinecap="round" strokeLinejoin="round">
-                    <path d="M4.5 12.75l6 6 9-13.5" />
-                  </svg>
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2.5} strokeLinecap="round" strokeLinejoin="round"><path d="M4.5 12.75l6 6 9-13.5" /></svg>
                 ) : c.status === "caution" ? (
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2.5} strokeLinecap="round" strokeLinejoin="round">
-                    <path d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z" />
-                  </svg>
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2.5} strokeLinecap="round" strokeLinejoin="round"><path d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z" /></svg>
                 ) : c.status === "not-met" ? (
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2.5} strokeLinecap="round" strokeLinejoin="round">
-                    <path d="M6 18L18 6M6 6l12 12" />
-                  </svg>
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2.5} strokeLinecap="round" strokeLinejoin="round"><path d="M6 18L18 6M6 6l12 12" /></svg>
                 ) : (
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2.5} strokeLinecap="round" strokeLinejoin="round">
-                    <circle cx="12" cy="12" r="9" /><path d="M12 8v4m0 4h.01" />
-                  </svg>
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2.5} strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="9" /><path d="M12 8v4m0 4h.01" /></svg>
                 )}
               </div>
               <div>
-                <p style={{ fontSize: 14, fontWeight: 700, color: "#0d1a11", margin: "0 0 4px" }}>{c.label}</p>
+                <p style={{ fontSize: 13, fontWeight: 700, color: "#0d1a11", margin: "0 0 3px" }}>{c.label}</p>
                 <p style={{ fontSize: 12, lineHeight: 1.6, color: "#586760", margin: 0 }}>{c.note}</p>
               </div>
             </div>
           );
         })}
-
-        <div style={{
-          padding: "14px 18px", border: "1px solid #e4e9e6", borderRadius: 14,
-          background: "#f8fbf9", fontSize: 12, lineHeight: 1.7, color: "#6b7f74",
-        }}>
-          <strong style={{ color: "#0d1a11" }}>Disclaimer:</strong> This eligibility review is informational only. Final determination requires evaluation by a board-certified bariatric surgeon including medical history, physical exam, lab work, and insurer pre-authorization.
+        <div style={{ padding: "13px 16px", border: "1px solid #e4e9e6", borderRadius: 12, background: "#f8fbf9", fontSize: 11, lineHeight: 1.7, color: "#6b7f74" }}>
+          <strong style={{ color: "#0d1a11" }}>Disclaimer:</strong> This review is informational only. Final determination requires evaluation by a board-certified bariatric surgeon, including history, exam, labs, and insurer pre-authorization.
         </div>
       </div>
 
-      {/* Score panel */}
-      <div style={{
-        display: "flex", flexDirection: "column", alignItems: "center",
-        border: "1px solid #e4e9e6", borderRadius: 20, background: "#fff",
-        padding: "36px 28px", textAlign: "center",
-      }}>
-        <p style={{ fontSize: 10, fontWeight: 700, letterSpacing: "0.12em", textTransform: "uppercase", color: "#8a9b92", margin: "0 0 16px" }}>
-          Overall Score
-        </p>
-        <p style={{ fontSize: 56, fontWeight: 900, lineHeight: 1, color: scoreColor, margin: "0 0 4px" }}>{score}</p>
-        <p style={{ fontSize: 12, color: "#8a9b92", margin: "0 0 16px" }}>out of 100</p>
-        <div style={{ width: "100%", height: 6, borderRadius: 999, background: "#f0f4f2", overflow: "hidden" }}>
+      {/* Score */}
+      <div style={{ display: "flex", flexDirection: "column", alignItems: "center", border: "1px solid #e4e9e6", borderRadius: 18, background: "#fff", padding: "32px 24px", textAlign: "center" }}>
+        <p style={{ fontSize: 10, fontWeight: 700, letterSpacing: "0.12em", textTransform: "uppercase", color: "#8a9b92", margin: "0 0 14px" }}>Overall Score</p>
+        <p style={{ fontSize: 52, fontWeight: 900, lineHeight: 1, color: scoreColor, margin: "0 0 4px" }}>{score}</p>
+        <p style={{ fontSize: 11, color: "#8a9b92", margin: "0 0 14px" }}>out of 100</p>
+        <div style={{ width: "100%", height: 5, borderRadius: 999, background: "#f0f4f2", overflow: "hidden" }}>
           <div style={{ height: "100%", borderRadius: 999, background: scoreFill, width: `${score}%`, transition: "width 1s" }} />
         </div>
-        <p style={{ fontSize: 13, fontWeight: 700, color: scoreColor, margin: "14px 0 6px" }}>{scoreLabel}</p>
-        <p style={{ fontSize: 11, color: "#8a9b92", margin: "0 0 24px", lineHeight: 1.6 }}>
-          Based on BMI, conditions, and inputs entered.
-        </p>
-        <div style={{ width: "100%", borderTop: "1px solid #f0f4f2", paddingTop: 20 }}>
-          <Link
-            href="/contact"
-            style={{
-              display: "block", width: "100%", padding: "12px 20px",
-              borderRadius: 12, background: "#0f3e2e", color: "#fff",
-              fontSize: 13, fontWeight: 700, textAlign: "center", textDecoration: "none",
-            }}
-          >
+        <p style={{ fontSize: 12, fontWeight: 700, color: scoreColor, margin: "12px 0 4px" }}>{scoreLabel}</p>
+        <p style={{ fontSize: 11, color: "#8a9b92", margin: "0 0 20px", lineHeight: 1.5 }}>Based on BMI, conditions, and inputs entered.</p>
+        <div style={{ width: "100%", borderTop: "1px solid #f0f4f2", paddingTop: 18 }}>
+          <Link href="/contact" style={{ display: "block", padding: "11px 16px", borderRadius: 10, background: "#0f3e2e", color: "#fff", fontSize: 12, fontWeight: 700, textAlign: "center", textDecoration: "none" }}>
             Confirm with a Provider
           </Link>
         </div>
@@ -918,17 +1021,9 @@ function SurgeryEligibility({ result, inputs }: { result: AssessmentResult; inpu
 
 // ─── Procedure Fit Cards ──────────────────────────────────────────────────────
 
-function ProcedureFitCards({
-  procedures,
-  result,
-  inputs,
-}: {
-  procedures: Procedure[];
-  result: AssessmentResult;
-  inputs: AssessmentInputs;
-}) {
+function ProcedureFitCards({ procedures, result, inputs }: { procedures: Procedure[]; result: AssessmentResult; inputs: AssessmentInputs }) {
   return (
-    <div style={{ display: "grid", gap: 16, gridTemplateColumns: "repeat(auto-fill, minmax(380px, 1fr))" }}>
+    <div style={{ display: "grid", gap: 16, gridTemplateColumns: "repeat(auto-fill, minmax(360px, 1fr))" }}>
       {procedures.map(proc => (
         <ProcedureCard key={proc.id} procedure={proc} result={result} inputs={inputs} />
       ))}
@@ -941,88 +1036,74 @@ function ProcedureCard({ procedure, result, inputs }: { procedure: Procedure; re
   const fitReason = getProcedureFitReason(procedure, result, inputs);
 
   return (
-    <div style={{ border: "1px solid #e4e9e6", borderRadius: 20, background: "#fff", overflow: "hidden" }}>
-      <div style={{ padding: "24px 24px 20px" }}>
-        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", gap: 16, marginBottom: 16 }}>
+    <div style={{ border: "1px solid #e4e9e6", borderRadius: 18, background: "#fff", overflow: "hidden" }}>
+      <div style={{ padding: "22px 22px 18px" }}>
+        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", gap: 14, marginBottom: 14 }}>
           <div>
-            <p style={{ fontSize: 10, fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "#145c42", margin: "0 0 6px" }}>
+            <p style={{ fontSize: 10, fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "#145c42", margin: "0 0 5px" }}>
               {procedure.isRevision ? "Revision" : "Procedure"}
             </p>
-            <h3 style={{ fontSize: 18, fontWeight: 700, color: "#0d1a11", margin: "0 0 4px" }}>{procedure.name}</h3>
+            <h3 style={{ fontSize: 17, fontWeight: 700, color: "#0d1a11", margin: "0 0 3px" }}>{procedure.name}</h3>
             <p style={{ fontSize: 12, color: "#7a8d84", margin: 0 }}>{procedure.tagline}</p>
           </div>
-          <div style={{
-            flexShrink: 0, background: "#f0f7f3", border: "1px solid #c8ddd1",
-            borderRadius: 10, padding: "8px 12px", textAlign: "center",
-          }}>
-            <p style={{ fontSize: 10, fontWeight: 700, color: "#145c42", margin: "0 0 2px", letterSpacing: "0.05em" }}>MATCH</p>
-            <p style={{ fontSize: 18, color: "#0f3e2e", margin: 0 }}>✓</p>
+          <div style={{ flexShrink: 0, background: "#f0f7f3", border: "1px solid #c8ddd1", borderRadius: 9, padding: "6px 11px", textAlign: "center" }}>
+            <p style={{ fontSize: 10, fontWeight: 700, color: "#145c42", margin: "0 0 1px" }}>MATCH</p>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#0f3e2e" strokeWidth={2.5} strokeLinecap="round" strokeLinejoin="round">
+              <path d="M4.5 12.75l6 6 9-13.5" />
+            </svg>
           </div>
         </div>
 
-        <div style={{ background: "#f8fbf9", border: "1px solid #e8f0eb", borderRadius: 10, padding: "12px 14px", marginBottom: 16 }}>
-          <p style={{ fontSize: 10, fontWeight: 700, color: "#145c42", margin: "0 0 4px", letterSpacing: "0.08em", textTransform: "uppercase" }}>Why this may fit you</p>
+        <div style={{ background: "#f8fbf9", border: "1px solid #e8f0eb", borderRadius: 9, padding: "11px 13px", marginBottom: 14 }}>
+          <p style={{ fontSize: 10, fontWeight: 700, color: "#145c42", margin: "0 0 3px", letterSpacing: "0.06em", textTransform: "uppercase" }}>Why this may fit</p>
           <p style={{ fontSize: 12, lineHeight: 1.6, color: "#4a5e53", margin: 0 }}>{fitReason}</p>
         </div>
 
-        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12, marginBottom: 16 }}>
+        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 10, marginBottom: 14 }}>
           <div>
-            <p style={{ fontSize: 10, fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "#8a9b92", margin: "0 0 4px" }}>Expected Weight Loss</p>
+            <p style={{ fontSize: 10, fontWeight: 700, letterSpacing: "0.09em", textTransform: "uppercase", color: "#8a9b92", margin: "0 0 3px" }}>Expected Weight Loss</p>
             <p style={{ fontSize: 13, fontWeight: 700, color: "#0d1a11", margin: 0 }}>{procedure.weightLoss}</p>
           </div>
           <div>
-            <p style={{ fontSize: 10, fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "#8a9b92", margin: "0 0 4px" }}>Recovery</p>
+            <p style={{ fontSize: 10, fontWeight: 700, letterSpacing: "0.09em", textTransform: "uppercase", color: "#8a9b92", margin: "0 0 3px" }}>Recovery</p>
             <p style={{ fontSize: 13, fontWeight: 700, color: "#0d1a11", margin: 0 }}>{procedure.recovery}</p>
           </div>
         </div>
 
-        <button
-          type="button"
-          onClick={() => setExpanded(!expanded)}
-          style={{
-            display: "flex", alignItems: "center", gap: 6,
-            fontSize: 12, fontWeight: 700, color: "#145c42",
-            background: "none", border: "none", cursor: "pointer", padding: 0,
-          }}
-        >
-          {expanded ? "Show less" : "View benefits, tradeoffs & best for"}
-          <svg
-            width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2.5} strokeLinecap="round" strokeLinejoin="round"
-            style={{ transform: expanded ? "rotate(180deg)" : "none", transition: "transform 0.2s" }}
-          >
+        <button type="button" onClick={() => setExpanded(!expanded)} style={{ display: "flex", alignItems: "center", gap: 5, fontSize: 12, fontWeight: 700, color: "#145c42", background: "none", border: "none", cursor: "pointer", padding: 0 }}>
+          {expanded ? "Show less" : "Benefits, tradeoffs & best for"}
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2.5} strokeLinecap="round" strokeLinejoin="round" style={{ transform: expanded ? "rotate(180deg)" : "none", transition: "transform 0.2s" }}>
             <path d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
           </svg>
         </button>
       </div>
 
       {expanded && (
-        <div style={{ borderTop: "1px solid #f0f4f2", padding: "20px 24px" }}>
-          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 20, marginBottom: 16 }}>
+        <div style={{ borderTop: "1px solid #f0f4f2", padding: "18px 22px" }}>
+          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 18, marginBottom: 14 }}>
             <div>
-              <p style={{ fontSize: 10, fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "#8a9b92", margin: "0 0 10px" }}>Benefits</p>
+              <p style={{ fontSize: 10, fontWeight: 700, letterSpacing: "0.09em", textTransform: "uppercase", color: "#8a9b92", margin: "0 0 8px" }}>Benefits</p>
               <ul style={{ margin: 0, padding: 0, listStyle: "none", display: "grid", gap: 6 }}>
                 {procedure.benefits.map(b => (
-                  <li key={b} style={{ display: "flex", alignItems: "flex-start", gap: 8, fontSize: 12, lineHeight: 1.5, color: "#586760" }}>
-                    <span style={{ width: 6, height: 6, borderRadius: "50%", background: "#145c42", flexShrink: 0, marginTop: 5 }} />
-                    {b}
+                  <li key={b} style={{ display: "flex", alignItems: "flex-start", gap: 7, fontSize: 12, lineHeight: 1.5, color: "#586760" }}>
+                    <span style={{ width: 5, height: 5, borderRadius: "50%", background: "#145c42", flexShrink: 0, marginTop: 5 }} />{b}
                   </li>
                 ))}
               </ul>
             </div>
             <div>
-              <p style={{ fontSize: 10, fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "#8a9b92", margin: "0 0 10px" }}>Considerations</p>
+              <p style={{ fontSize: 10, fontWeight: 700, letterSpacing: "0.09em", textTransform: "uppercase", color: "#8a9b92", margin: "0 0 8px" }}>Considerations</p>
               <ul style={{ margin: 0, padding: 0, listStyle: "none", display: "grid", gap: 6 }}>
                 {procedure.tradeoffs.map(t => (
-                  <li key={t} style={{ display: "flex", alignItems: "flex-start", gap: 8, fontSize: 12, lineHeight: 1.5, color: "#586760" }}>
-                    <span style={{ width: 6, height: 6, borderRadius: "50%", background: "#b0c5bb", flexShrink: 0, marginTop: 5 }} />
-                    {t}
+                  <li key={t} style={{ display: "flex", alignItems: "flex-start", gap: 7, fontSize: 12, lineHeight: 1.5, color: "#586760" }}>
+                    <span style={{ width: 5, height: 5, borderRadius: "50%", background: "#b0c5bb", flexShrink: 0, marginTop: 5 }} />{t}
                   </li>
                 ))}
               </ul>
             </div>
           </div>
-          <div style={{ background: "#f8fbf9", borderRadius: 10, padding: "12px 14px" }}>
-            <p style={{ fontSize: 10, fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "#8a9b92", margin: "0 0 4px" }}>Best For</p>
+          <div style={{ background: "#f8fbf9", borderRadius: 9, padding: "11px 13px" }}>
+            <p style={{ fontSize: 10, fontWeight: 700, letterSpacing: "0.09em", textTransform: "uppercase", color: "#8a9b92", margin: "0 0 3px" }}>Best For</p>
             <p style={{ fontSize: 12, color: "#4a5e53", margin: 0 }}>{procedure.bestFor}</p>
           </div>
         </div>
@@ -1035,28 +1116,24 @@ function ProcedureCard({ procedure, result, inputs }: { procedure: Procedure; re
 
 function ProgressVisuals({ result }: { result: AssessmentResult }) {
   return (
-    <div style={{ display: "grid", gap: 16 }}>
-      {/* Row 1 */}
-      <div style={{ display: "grid", gridTemplateColumns: result.goalProgress !== undefined ? "1.4fr 1fr" : "1fr", gap: 16 }}>
-        <div style={{ border: "1px solid #e4e9e6", borderRadius: 20, background: "#fff", padding: "24px 28px" }}>
-          <p style={{ fontSize: 14, fontWeight: 700, color: "#0d1a11", margin: "0 0 4px" }}>BMI Journey</p>
-          <p style={{ fontSize: 12, color: "#7a8d84", margin: "0 0 28px" }}>From starting weight to current and goal</p>
+    <div style={{ display: "grid", gap: 14 }}>
+      <div style={{ display: "grid", gridTemplateColumns: result.goalProgress !== undefined ? "1.5fr 1fr" : "1fr", gap: 14 }}>
+        <div style={{ border: "1px solid #e4e9e6", borderRadius: 18, background: "#fff", padding: "22px 26px" }}>
+          <p style={{ fontSize: 14, fontWeight: 700, color: "#0d1a11", margin: "0 0 3px" }}>BMI Journey</p>
+          <p style={{ fontSize: 12, color: "#7a8d84", margin: "0 0 24px" }}>Starting weight through current and goal</p>
           <BmiJourneyBar result={result} />
         </div>
-
         {result.goalProgress !== undefined && (
-          <div style={{ border: "1px solid #e4e9e6", borderRadius: 20, background: "#fff", padding: "24px 28px", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center" }}>
-            <p style={{ fontSize: 14, fontWeight: 700, color: "#0d1a11", margin: "0 0 4px", textAlign: "center" }}>Goal Progress</p>
-            <p style={{ fontSize: 12, color: "#7a8d84", margin: "0 0 20px", textAlign: "center" }}>Weight lost toward your goal</p>
+          <div style={{ border: "1px solid #e4e9e6", borderRadius: 18, background: "#fff", padding: "22px 26px", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center" }}>
+            <p style={{ fontSize: 14, fontWeight: 700, color: "#0d1a11", margin: "0 0 3px", textAlign: "center" }}>Goal Progress</p>
+            <p style={{ fontSize: 12, color: "#7a8d84", margin: "0 0 18px", textAlign: "center" }}>Weight lost toward your goal</p>
             <GoalRing progress={result.goalProgress} />
           </div>
         )}
       </div>
-
-      {/* Milestone tracker */}
-      <div style={{ border: "1px solid #e4e9e6", borderRadius: 20, background: "#fff", padding: "24px 28px" }}>
-        <p style={{ fontSize: 14, fontWeight: 700, color: "#0d1a11", margin: "0 0 4px" }}>BMI Milestone Tracker</p>
-        <p style={{ fontSize: 12, color: "#7a8d84", margin: "0 0 28px" }}>Pounds needed to reach each BMI threshold</p>
+      <div style={{ border: "1px solid #e4e9e6", borderRadius: 18, background: "#fff", padding: "22px 26px" }}>
+        <p style={{ fontSize: 14, fontWeight: 700, color: "#0d1a11", margin: "0 0 3px" }}>BMI Milestone Tracker</p>
+        <p style={{ fontSize: 12, color: "#7a8d84", margin: "0 0 24px" }}>Pounds needed to reach each BMI threshold</p>
         <MilestoneTracker result={result} />
       </div>
     </div>
@@ -1066,7 +1143,6 @@ function ProgressVisuals({ result }: { result: AssessmentResult }) {
 function BmiJourneyBar({ result }: { result: AssessmentResult }) {
   const MIN = 15, MAX = 55;
   const pct = (v: number) => ((Math.max(MIN, Math.min(MAX, v)) - MIN) / (MAX - MIN)) * 100;
-
   const zones = [
     { label: "Healthy", color: "#86efac", from: 18.5, to: 25 },
     { label: "Overweight", color: "#fde68a", from: 25, to: 30 },
@@ -1074,76 +1150,39 @@ function BmiJourneyBar({ result }: { result: AssessmentResult }) {
     { label: "Obesity II", color: "#f87171", from: 35, to: 40 },
     { label: "Obesity III", color: "#ef4444", from: 40, to: 55 },
   ];
-
   return (
     <div>
-      <div style={{ position: "relative", height: 40, borderRadius: 999, overflow: "hidden", background: "#f0f4f2", marginBottom: 8 }}>
-        {/* Zone fills */}
+      <div style={{ position: "relative", height: 36, borderRadius: 999, overflow: "hidden", background: "#f0f4f2", marginBottom: 8 }}>
         {zones.map(z => (
-          <div key={z.label} style={{
-            position: "absolute", top: 0, height: "100%", opacity: 0.35,
-            left: `${pct(z.from)}%`,
-            width: `${pct(z.to) - pct(z.from)}%`,
-            background: z.color,
-          }} />
+          <div key={z.label} style={{ position: "absolute", top: 0, height: "100%", opacity: 0.35, left: `${pct(z.from)}%`, width: `${pct(z.to) - pct(z.from)}%`, background: z.color }} />
         ))}
-        {/* Start marker */}
-        <div style={{
-          position: "absolute", top: 4, bottom: 4, width: 3, borderRadius: 2,
-          background: "#9ca3af", left: `calc(${pct(result.startBmi)}% - 1.5px)`,
-        }} />
-        {/* Current marker */}
-        <div style={{
-          position: "absolute", top: 0, bottom: 0, width: 4, borderRadius: 2,
-          background: "#0f3e2e", left: `calc(${pct(result.currentBmi)}% - 2px)`,
-          boxShadow: "0 0 0 3px rgba(15,62,46,0.15)",
-        }} />
-        {/* Goal marker */}
+        <div style={{ position: "absolute", top: 5, bottom: 5, width: 3, borderRadius: 2, background: "#9ca3af", left: `calc(${pct(result.startBmi)}% - 1.5px)` }} />
+        <div style={{ position: "absolute", top: 0, bottom: 0, width: 4, borderRadius: 2, background: "#0f3e2e", left: `calc(${pct(result.currentBmi)}% - 2px)`, boxShadow: "0 0 0 3px rgba(15,62,46,0.15)" }} />
         {result.goalBmi && (
-          <div style={{
-            position: "absolute", top: 4, bottom: 4, width: 2, borderRadius: 2,
-            borderLeft: "2px dashed #145c42", left: `${pct(result.goalBmi)}%`,
-          }} />
+          <div style={{ position: "absolute", top: 5, bottom: 5, width: 2, borderRadius: 2, borderLeft: "2px dashed #145c42", left: `${pct(result.goalBmi)}%` }} />
         )}
       </div>
-
-      {/* Labels row */}
-      <div style={{ position: "relative", height: 36, marginBottom: 20 }}>
+      <div style={{ position: "relative", height: 32, marginBottom: 16 }}>
         {[
           { val: result.startBmi, label: "Start", color: "#9ca3af", bold: false },
           { val: result.currentBmi, label: "Now", color: "#0f3e2e", bold: true },
           ...(result.goalBmi ? [{ val: result.goalBmi, label: "Goal", color: "#145c42", bold: false }] : []),
         ].map(m => (
-          <div key={m.label} style={{
-            position: "absolute", top: 0,
-            left: `${pct(m.val)}%`, transform: "translateX(-50%)",
-            textAlign: "center", minWidth: 50,
-          }}>
-            <p style={{ fontSize: 11, fontWeight: m.bold ? 800 : 600, color: m.color, margin: "0 0 1px" }}>{m.label}</p>
-            <p style={{ fontSize: 11, color: m.color, margin: 0 }}>{m.val.toFixed(1)}</p>
+          <div key={m.label} style={{ position: "absolute", top: 0, left: `${pct(m.val)}%`, transform: "translateX(-50%)", textAlign: "center", minWidth: 44 }}>
+            <p style={{ fontSize: 10, fontWeight: m.bold ? 800 : 600, color: m.color, margin: "0 0 1px" }}>{m.label}</p>
+            <p style={{ fontSize: 10, color: m.color, margin: 0 }}>{m.val.toFixed(1)}</p>
           </div>
         ))}
       </div>
-
-      {/* Scale */}
       <div style={{ display: "flex", justifyContent: "space-between" }}>
-        {[15, 18.5, 25, 30, 35, 40, 55].map(v => (
-          <span key={v} style={{ fontSize: 10, color: "#b0c5bb" }}>{v}</span>
-        ))}
+        {[15, 18.5, 25, 30, 35, 40, 55].map(v => <span key={v} style={{ fontSize: 10, color: "#b0c5bb" }}>{v}</span>)}
       </div>
-
-      {/* Legend */}
-      <div style={{ display: "flex", flexWrap: "wrap", gap: "6px 16px", marginTop: 14 }}>
+      <div style={{ display: "flex", flexWrap: "wrap", gap: "5px 14px", marginTop: 12 }}>
         {zones.map(z => (
           <span key={z.label} style={{ display: "flex", alignItems: "center", gap: 5, fontSize: 10, color: "#7a8d84" }}>
-            <span style={{ width: 8, height: 8, borderRadius: 2, background: z.color, display: "inline-block" }} />
-            {z.label}
+            <span style={{ width: 8, height: 8, borderRadius: 2, background: z.color, display: "inline-block" }} />{z.label}
           </span>
         ))}
-        <span style={{ display: "flex", alignItems: "center", gap: 5, fontSize: 10, color: "#7a8d84" }}>
-          <span style={{ width: 12, height: 3, background: "#0f3e2e", display: "inline-block", borderRadius: 1 }} />
-          Current
-        </span>
       </div>
     </div>
   );
@@ -1151,107 +1190,53 @@ function BmiJourneyBar({ result }: { result: AssessmentResult }) {
 
 function GoalRing({ progress }: { progress: number }) {
   const pct = Math.min(100, Math.max(0, progress));
-  const R = 62, cx = 80, cy = 80, SW = 13;
+  const R = 60, cx = 78, cy = 78, SW = 12;
   const circ = 2 * Math.PI * R;
   const dash = (pct / 100) * circ;
-  const color = pct >= 100 ? "#145c42" : "#0f3e2e";
-
   return (
     <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
-      <svg width="160" height="160" viewBox="0 0 160 160">
+      <svg width="156" height="156" viewBox="0 0 156 156">
         <circle cx={cx} cy={cy} r={R} fill="none" stroke="#f0f4f2" strokeWidth={SW} />
-        <circle
-          cx={cx} cy={cy} r={R} fill="none"
-          stroke={color}
-          strokeDasharray={`${dash} ${circ}`}
-          strokeLinecap="round"
-          strokeWidth={SW}
-          transform={`rotate(-90 ${cx} ${cy})`}
-        />
-        <text x={cx} y={cy - 8} textAnchor="middle" dominantBaseline="middle" fill="#0d1a11" fontSize="22" fontWeight="800">
-          {pct.toFixed(0)}%
-        </text>
-        <text x={cx} y={cy + 14} textAnchor="middle" dominantBaseline="middle" fill="#8a9b92" fontSize="11">
-          to goal
-        </text>
+        <circle cx={cx} cy={cy} r={R} fill="none" stroke={pct >= 100 ? "#145c42" : "#0f3e2e"} strokeDasharray={`${dash} ${circ}`} strokeLinecap="round" strokeWidth={SW} transform={`rotate(-90 ${cx} ${cy})`} />
+        <text x={cx} y={cy - 7} textAnchor="middle" dominantBaseline="middle" fill="#0d1a11" fontSize="21" fontWeight="800">{pct.toFixed(0)}%</text>
+        <text x={cx} y={cx + 12} textAnchor="middle" dominantBaseline="middle" fill="#8a9b92" fontSize="10">to goal</text>
       </svg>
-      <p style={{ fontSize: 12, color: "#7a8d84", marginTop: -8 }}>
-        {pct >= 100 ? "Goal reached!" : `${(100 - pct).toFixed(0)}% remaining`}
-      </p>
+      <p style={{ fontSize: 11, color: "#7a8d84", marginTop: -6 }}>{pct >= 100 ? "Goal reached" : `${(100 - pct).toFixed(0)}% remaining`}</p>
     </div>
   );
 }
 
 function MilestoneTracker({ result }: { result: AssessmentResult }) {
   const milestones = [
-    {
-      bmi: 40,
-      label: "BMI 40",
-      sublabel: "Class III boundary",
-      lbs: result.poundsTo40,
-      reached: result.poundsTo40 <= 0,
-    },
-    {
-      bmi: 35,
-      label: "BMI 35",
-      sublabel: "Surgery threshold",
-      lbs: result.poundsTo35,
-      reached: result.poundsTo35 <= 0,
-    },
-    {
-      bmi: 30,
-      label: "BMI 30",
-      sublabel: "Obesity → Overweight",
-      lbs: result.poundsTo30,
-      reached: result.poundsTo30 <= 0,
-    },
-    {
-      bmi: 25,
-      label: "BMI 25",
-      sublabel: "Healthy weight",
-      lbs: result.poundsTo25,
-      reached: result.poundsTo25 <= 0,
-    },
+    { bmi: 40, label: "BMI 40", sublabel: "Class III boundary", lbs: result.poundsTo40, reached: result.poundsTo40 <= 0 },
+    { bmi: 35, label: "BMI 35", sublabel: "Surgery threshold", lbs: result.poundsTo35, reached: result.poundsTo35 <= 0 },
+    { bmi: 30, label: "BMI 30", sublabel: "Obesity → Overweight", lbs: result.poundsTo30, reached: result.poundsTo30 <= 0 },
+    { bmi: 25, label: "BMI 25", sublabel: "Healthy weight range", lbs: result.poundsTo25, reached: result.poundsTo25 <= 0 },
   ];
-
   return (
-    <div style={{ display: "grid", gap: 14 }}>
+    <div style={{ display: "grid", gap: 13 }}>
       {milestones.map(m => {
         const totalToLose = result.currentWeight - weightForBmi(m.bmi, result.heightIn);
-        const progressPct = m.reached ? 100 : Math.max(5, Math.min(95, ((totalToLose - m.lbs) / Math.max(totalToLose, 1)) * 100));
+        const progressPct = m.reached ? 100 : Math.max(5, Math.min(93, ((totalToLose - m.lbs) / Math.max(totalToLose, 1)) * 100));
         return (
-          <div key={m.bmi} style={{ display: "flex", alignItems: "center", gap: 16 }}>
-            <div style={{
-              width: 40, height: 40, borderRadius: "50%", flexShrink: 0,
-              display: "flex", alignItems: "center", justifyContent: "center",
-              border: m.reached ? "2px solid #145c42" : "2px solid #e4e9e6",
-              background: m.reached ? "#145c42" : "#fff",
-              color: m.reached ? "#fff" : "#8a9b92",
-            }}>
+          <div key={m.bmi} style={{ display: "flex", alignItems: "center", gap: 14 }}>
+            <div style={{ width: 38, height: 38, borderRadius: "50%", flexShrink: 0, display: "flex", alignItems: "center", justifyContent: "center", border: m.reached ? "2px solid #145c42" : "2px solid #e4e9e6", background: m.reached ? "#145c42" : "#fff", color: m.reached ? "#fff" : "#8a9b92" }}>
               {m.reached ? (
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={3} strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M4.5 12.75l6 6 9-13.5" />
-                </svg>
-              ) : (
-                <span style={{ fontSize: 11, fontWeight: 700 }}>{m.bmi}</span>
-              )}
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={3} strokeLinecap="round" strokeLinejoin="round"><path d="M4.5 12.75l6 6 9-13.5" /></svg>
+              ) : <span style={{ fontSize: 10, fontWeight: 700 }}>{m.bmi}</span>}
             </div>
             <div style={{ flex: 1 }}>
-              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline", marginBottom: 6 }}>
+              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline", marginBottom: 5 }}>
                 <div>
-                  <span style={{ fontSize: 14, fontWeight: 700, color: "#0d1a11" }}>{m.label}</span>
-                  <span style={{ fontSize: 12, color: "#8a9b92", marginLeft: 8 }}>{m.sublabel}</span>
+                  <span style={{ fontSize: 13, fontWeight: 700, color: "#0d1a11" }}>{m.label}</span>
+                  <span style={{ fontSize: 11, color: "#8a9b92", marginLeft: 7 }}>{m.sublabel}</span>
                 </div>
-                <span style={{ fontSize: 13, fontWeight: 700, color: m.reached ? "#145c42" : "#0d1a11", flexShrink: 0, marginLeft: 12 }}>
-                  {m.reached ? "Reached ✓" : `${m.lbs.toFixed(0)} lb to go`}
+                <span style={{ fontSize: 12, fontWeight: 700, color: m.reached ? "#145c42" : "#0d1a11", flexShrink: 0, marginLeft: 10 }}>
+                  {m.reached ? "Reached" : `${m.lbs.toFixed(0)} lb`}
                 </span>
               </div>
-              <div style={{ height: 6, borderRadius: 999, background: "#f0f4f2", overflow: "hidden" }}>
-                <div style={{
-                  height: "100%", borderRadius: 999, transition: "width 1s",
-                  background: m.reached ? "#145c42" : "#c8ddd1",
-                  width: `${progressPct}%`,
-                }} />
+              <div style={{ height: 5, borderRadius: 999, background: "#f0f4f2", overflow: "hidden" }}>
+                <div style={{ height: "100%", borderRadius: 999, transition: "width 1s", background: m.reached ? "#145c42" : "#c8ddd1", width: `${progressPct}%` }} />
               </div>
             </div>
           </div>
@@ -1265,7 +1250,7 @@ function MiniBmiBar({ bmi }: { bmi: number }) {
   const pct = ((Math.max(15, Math.min(50, bmi)) - 15) / 35) * 100;
   const color = bmi < 25 ? "#145c42" : bmi < 30 ? "#d97706" : bmi < 35 ? "#f87171" : "#ef4444";
   return (
-    <div style={{ width: "100%", height: 5, borderRadius: 999, background: "#e4e9e6", overflow: "hidden" }}>
+    <div style={{ width: "100%", height: 4, borderRadius: 999, background: "#e4e9e6", overflow: "hidden" }}>
       <div style={{ height: "100%", borderRadius: 999, width: `${pct}%`, background: color }} />
     </div>
   );
@@ -1276,29 +1261,17 @@ function MiniBmiBar({ bmi }: { bmi: number }) {
 function PersonalizedInsights({ result, inputs }: { result: AssessmentResult; inputs: AssessmentInputs }) {
   const insights = getPersonalizedInsights(result, inputs);
   return (
-    <div style={{ display: "grid", gap: 10, gridTemplateColumns: "repeat(auto-fill, minmax(260px, 1fr))" }}>
-      {insights.map((insight, i) => (
+    <div style={{ display: "grid", gap: 10, gridTemplateColumns: "repeat(auto-fill, minmax(240px, 1fr))" }}>
+      {insights.map((ins, i) => (
         <div key={i} style={{
-          borderRadius: 14, padding: "16px 18px",
-          border: insight.type === "positive"
-            ? "1.5px solid #c8ddd1"
-            : insight.type === "caution"
-            ? "1.5px solid #fde68a"
-            : "1px solid #e4e9e6",
-          background: insight.type === "positive"
-            ? "#f0f7f3"
-            : insight.type === "caution"
-            ? "#fffbeb"
-            : "#fff",
+          borderRadius: 13, padding: "15px 17px",
+          border: ins.type === "positive" ? "1.5px solid #c8ddd1" : ins.type === "caution" ? "1.5px solid #fde68a" : "1px solid #e4e9e6",
+          background: ins.type === "positive" ? "#f0f7f3" : ins.type === "caution" ? "#fffbeb" : "#fff",
         }}>
-          <p style={{
-            fontSize: 10, fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase",
-            margin: "0 0 8px",
-            color: insight.type === "positive" ? "#145c42" : insight.type === "caution" ? "#92400e" : "#8a9b92",
-          }}>
-            {insight.category}
+          <p style={{ fontSize: 10, fontWeight: 700, letterSpacing: "0.09em", textTransform: "uppercase", margin: "0 0 7px", color: ins.type === "positive" ? "#145c42" : ins.type === "caution" ? "#92400e" : "#8a9b92" }}>
+            {ins.category}
           </p>
-          <p style={{ fontSize: 13, fontWeight: 500, lineHeight: 1.55, color: "#0d1a11", margin: 0 }}>{insight.text}</p>
+          <p style={{ fontSize: 13, fontWeight: 500, lineHeight: 1.55, color: "#0d1a11", margin: 0 }}>{ins.text}</p>
         </div>
       ))}
     </div>
@@ -1309,92 +1282,42 @@ function PersonalizedInsights({ result, inputs }: { result: AssessmentResult; in
 
 function NextSteps({ pdfState, onDownloadPdf }: { pdfState: "idle" | "loading" | "error"; onDownloadPdf: () => void }) {
   return (
-    <div style={{ display: "grid", gap: 16, gridTemplateColumns: "1fr 1.6fr" }}>
-      {/* Primary CTA */}
-      <div style={{ borderRadius: 20, background: "#0f3e2e", padding: "36px 32px", display: "flex", flexDirection: "column" }}>
-        <p style={{ fontSize: 10, fontWeight: 700, letterSpacing: "0.12em", textTransform: "uppercase", color: "#9fd4aa", margin: "0 0 16px" }}>
-          Recommended Next Step
+    <div style={{ display: "grid", gap: 14, gridTemplateColumns: "1fr 1.6fr" }}>
+      <div style={{ borderRadius: 18, background: "#0f3e2e", padding: "32px 28px", display: "flex", flexDirection: "column" }}>
+        <p style={{ fontSize: 10, fontWeight: 700, letterSpacing: "0.12em", textTransform: "uppercase", color: "#9fd4aa", margin: "0 0 14px" }}>Recommended Next Step</p>
+        <h3 className="font-serif" style={{ fontSize: 24, lineHeight: 1.2, color: "#fff", margin: "0 0 12px" }}>Book a Free Consultation</h3>
+        <p style={{ fontSize: 13, lineHeight: 1.7, color: "#c8e6d4", margin: "0 0 24px", flex: 1 }}>
+          A JourneyLite specialist will review your assessment, answer your coverage questions, and outline a personalized plan — no commitment required.
         </p>
-        <h3 className="font-serif" style={{ fontSize: 26, lineHeight: 1.2, color: "#fff", margin: "0 0 14px" }}>
-          Book a Free Consultation
-        </h3>
-        <p style={{ fontSize: 13, lineHeight: 1.7, color: "#c8e6d4", margin: "0 0 28px", flex: 1 }}>
-          A JourneyLite bariatric specialist will review your assessment, answer your coverage questions, and outline a personalized plan — no commitment required.
-        </p>
-        <Link
-          href="/contact"
-          style={{
-            display: "block", textAlign: "center", padding: "14px 24px",
-            borderRadius: 12, background: "#fff", color: "#0f3e2e",
-            fontSize: 14, fontWeight: 700, textDecoration: "none",
-          }}
-        >
-          Schedule Your Consultation →
+        <Link href="/contact" style={{ display: "block", textAlign: "center", padding: "13px 20px", borderRadius: 11, background: "#fff", color: "#0f3e2e", fontSize: 13, fontWeight: 700, textDecoration: "none" }}>
+          Schedule Your Consultation
         </Link>
-        <p style={{ fontSize: 11, color: "#7db896", textAlign: "center", margin: "10px 0 0" }}>Free · No commitment</p>
+        <p style={{ fontSize: 11, color: "#7db896", textAlign: "center", margin: "9px 0 0" }}>Free · No commitment</p>
       </div>
 
-      {/* Secondary + Tertiary */}
       <div style={{ display: "grid", gap: 12 }}>
-        {/* PDF download */}
-        <div style={{ border: "1px solid #e4e9e6", borderRadius: 16, background: "#fff", padding: "22px 24px" }}>
-          <p style={{ fontSize: 10, fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "#8a9b92", margin: "0 0 8px" }}>Save Your Results</p>
-          <h3 style={{ fontSize: 16, fontWeight: 700, color: "#0d1a11", margin: "0 0 8px" }}>Download PDF Report</h3>
-          <p style={{ fontSize: 12, lineHeight: 1.6, color: "#586760", margin: "0 0 16px" }}>
-            Print or share your assessment with your care team. No personal data is stored.
-          </p>
-          <button
-            type="button"
-            disabled={pdfState === "loading"}
-            onClick={onDownloadPdf}
-            style={{
-              display: "inline-flex", alignItems: "center", gap: 8,
-              padding: "10px 18px", borderRadius: 10,
-              border: "1px solid #e4e9e6", background: "#f8f9f8",
-              color: "#0d1a11", fontSize: 13, fontWeight: 600,
-              cursor: pdfState === "loading" ? "default" : "pointer",
-              opacity: pdfState === "loading" ? 0.6 : 1,
-            }}
-          >
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#145c42" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round">
+        <div style={{ border: "1px solid #e4e9e6", borderRadius: 14, background: "#fff", padding: "20px 22px" }}>
+          <p style={{ fontSize: 10, fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "#8a9b92", margin: "0 0 7px" }}>Save Your Results</p>
+          <h3 style={{ fontSize: 15, fontWeight: 700, color: "#0d1a11", margin: "0 0 7px" }}>Download PDF Report</h3>
+          <p style={{ fontSize: 12, lineHeight: 1.6, color: "#586760", margin: "0 0 14px" }}>Print or share your assessment with your care team. No personal data is stored.</p>
+          <button type="button" disabled={pdfState === "loading"} onClick={onDownloadPdf} style={{ display: "inline-flex", alignItems: "center", gap: 7, padding: "9px 16px", borderRadius: 9, border: "1px solid #e4e9e6", background: "#f8f9f8", color: "#0d1a11", fontSize: 12, fontWeight: 600, cursor: pdfState === "loading" ? "default" : "pointer", opacity: pdfState === "loading" ? 0.6 : 1 }}>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#145c42" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round">
               <path d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3" />
             </svg>
             {pdfState === "loading" ? "Preparing…" : "Download PDF Report"}
           </button>
           {pdfState === "error" && <p style={{ fontSize: 11, color: "#dc2626", marginTop: 6 }}>PDF generation failed — please try again.</p>}
         </div>
-
-        {/* Learn + Shop */}
-        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12 }}>
+        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 10 }}>
           {[
-            {
-              tag: "Learn",
-              title: "Patient Education",
-              desc: "Videos, guides, and nutrition resources.",
-              cta: "Explore →",
-              href: "https://learn.journeylite.com",
-            },
-            {
-              tag: "Shop",
-              title: "Bariatric Supplements",
-              desc: "Vitamins, protein, and post-op supplies.",
-              cta: "Shop now →",
-              href: "/shop",
-            },
+            { tag: "Learn", title: "Patient Education", desc: "Videos, guides, and nutrition resources.", cta: "Explore", href: "https://learn.journeylite.com" },
+            { tag: "Shop", title: "Bariatric Supplements", desc: "Vitamins, protein, and post-op supplies.", cta: "Shop now", href: "/shop" },
           ].map(card => (
-            <Link
-              key={card.tag}
-              href={card.href}
-              style={{
-                display: "flex", flexDirection: "column",
-                border: "1px solid #e4e9e6", borderRadius: 14, background: "#fff",
-                padding: "18px 18px", textDecoration: "none",
-              }}
-            >
-              <p style={{ fontSize: 10, fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "#8a9b92", margin: "0 0 6px" }}>{card.tag}</p>
-              <p style={{ fontSize: 14, fontWeight: 700, color: "#0d1a11", margin: "0 0 6px" }}>{card.title}</p>
-              <p style={{ fontSize: 12, color: "#586760", lineHeight: 1.5, margin: "0 0 12px", flex: 1 }}>{card.desc}</p>
-              <span style={{ fontSize: 12, fontWeight: 700, color: "#145c42" }}>{card.cta}</span>
+            <Link key={card.tag} href={card.href} style={{ display: "flex", flexDirection: "column", border: "1px solid #e4e9e6", borderRadius: 13, background: "#fff", padding: "16px 16px", textDecoration: "none" }}>
+              <p style={{ fontSize: 10, fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "#8a9b92", margin: "0 0 5px" }}>{card.tag}</p>
+              <p style={{ fontSize: 13, fontWeight: 700, color: "#0d1a11", margin: "0 0 5px" }}>{card.title}</p>
+              <p style={{ fontSize: 11, color: "#586760", lineHeight: 1.5, margin: "0 0 10px", flex: 1 }}>{card.desc}</p>
+              <span style={{ fontSize: 11, fontWeight: 700, color: "#145c42" }}>{card.cta} →</span>
             </Link>
           ))}
         </div>
@@ -1403,53 +1326,36 @@ function NextSteps({ pdfState, onDownloadPdf }: { pdfState: "idle" | "loading" |
   );
 }
 
-// ─── Small UI Components ──────────────────────────────────────────────────────
+// ─── Small UI primitives ──────────────────────────────────────────────────────
 
-function FormSectionLabel({ number, label }: { number: string; label: string }) {
+function StepHeader({ title, subtitle }: { title: string; subtitle: string }) {
   return (
-    <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
-      <span style={{
-        width: 24, height: 24, borderRadius: "50%", background: "#0f3e2e",
-        color: "#fff", fontSize: 11, fontWeight: 800,
-        display: "flex", alignItems: "center", justifyContent: "center",
-        flexShrink: 0,
-      }}>{number}</span>
-      <span style={{ fontSize: 11, fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "#0d1a11" }}>{label}</span>
+    <div style={{ marginBottom: 22 }}>
+      <h2 style={{ fontSize: 18, fontWeight: 700, color: "#0d1a11", margin: "0 0 4px" }}>{title}</h2>
+      <p style={{ fontSize: 13, color: "#6b7f74", margin: 0 }}>{subtitle}</p>
     </div>
   );
 }
 
 function ResultsSectionHeader({ title, subtitle }: { title: string; subtitle: string }) {
   return (
-    <div style={{ marginBottom: 24 }}>
-      <h2 style={{ fontSize: 20, fontWeight: 700, color: "#0d1a11", margin: "0 0 4px" }}>{title}</h2>
-      <p style={{ fontSize: 13, color: "#7a8d84", margin: 0 }}>{subtitle}</p>
+    <div style={{ marginBottom: 22 }}>
+      <h2 style={{ fontSize: 19, fontWeight: 700, color: "#0d1a11", margin: "0 0 3px" }}>{title}</h2>
+      <p style={{ fontSize: 12, color: "#7a8d84", margin: 0 }}>{subtitle}</p>
     </div>
   );
 }
 
-function NumberInput({
-  label, id, value, onChange, suffix, placeholder, helper,
-}: {
-  label: string; id: string; value: string;
-  onChange: (v: string) => void; suffix?: string;
-  placeholder?: string; helper?: string;
+function NumberInput({ label, id, value, onChange, suffix, placeholder, helper }: {
+  label: string; id: string; value: string; onChange: (v: string) => void;
+  suffix?: string; placeholder?: string; helper?: string;
 }) {
   return (
     <div>
       <label style={labelStyle} htmlFor={id}>{label}</label>
       {helper && <p style={{ fontSize: 11, color: "#8a9b92", margin: "2px 0 0" }}>{helper}</p>}
-      <div style={{ ...inputWrapStyle, marginTop: 6 }}>
-        <input
-          style={inputStyle}
-          id={id}
-          inputMode="decimal"
-          min="0"
-          placeholder={placeholder}
-          type="number"
-          value={value}
-          onChange={e => onChange(e.target.value)}
-        />
+      <div style={{ ...inputWrap, marginTop: 6 }}>
+        <input style={inputBase} id={id} inputMode="decimal" min="0" placeholder={placeholder} type="number" value={value} onChange={e => onChange(e.target.value)} />
         {suffix && <span style={suffixStyle}>{suffix}</span>}
       </div>
     </div>
@@ -1458,53 +1364,28 @@ function NumberInput({
 
 function ToggleButton({ label, active, onClick, small }: { label: string; active: boolean; onClick: () => void; small?: boolean }) {
   return (
-    <button
-      type="button"
-      aria-pressed={active}
-      onClick={onClick}
-      style={{
-        padding: small ? "8px 8px" : "10px 14px",
-        borderRadius: 10,
-        border: active ? "1.5px solid #145c42" : "1.5px solid #dce6e1",
-        background: active ? "#f0f7f3" : "#fff",
-        color: active ? "#145c42" : "#3d4f45",
-        fontSize: small ? 11 : 13, fontWeight: 600,
-        cursor: "pointer", textAlign: "center",
-        transition: "all 0.15s",
-      }}
-    >
+    <button type="button" aria-pressed={active} onClick={onClick} style={{
+      padding: small ? "8px 6px" : "10px 12px", borderRadius: 9,
+      border: active ? "1.5px solid #145c42" : "1.5px solid #dce6e1",
+      background: active ? "#f0f7f3" : "#fff",
+      color: active ? "#145c42" : "#3d4f45",
+      fontSize: small ? 11 : 13, fontWeight: 600, cursor: "pointer", textAlign: "center",
+      transition: "all 0.15s",
+    }}>
       {label}
     </button>
   );
 }
 
-// Shared styles
 const labelStyle: React.CSSProperties = { fontSize: 13, fontWeight: 700, color: "#0d1a11" };
-const inputWrapStyle: React.CSSProperties = {
-  display: "flex", overflow: "hidden",
-  border: "1.5px solid #dce6e1", borderRadius: 10, background: "#fff",
-};
-const inputStyle: React.CSSProperties = {
-  flex: 1, minWidth: 0, padding: "10px 14px", border: "none",
-  background: "transparent", fontSize: 14, color: "#0d1a11",
-  outline: "none",
-};
-const suffixStyle: React.CSSProperties = {
-  display: "flex", alignItems: "center", padding: "0 12px",
-  background: "#f8fbf9", fontSize: 11, fontWeight: 700, color: "#8a9b92",
-  borderLeft: "1px solid #e8ecea", flexShrink: 0,
-};
+const inputWrap: React.CSSProperties = { display: "flex", overflow: "hidden", border: "1.5px solid #dce6e1", borderRadius: 10, background: "#fff" };
+const inputBase: React.CSSProperties = { flex: 1, minWidth: 0, padding: "10px 13px", border: "none", background: "transparent", fontSize: 14, color: "#0d1a11", outline: "none" };
+const suffixStyle: React.CSSProperties = { display: "flex", alignItems: "center", padding: "0 11px", background: "#f8fbf9", fontSize: 11, fontWeight: 700, color: "#8a9b92", borderLeft: "1px solid #e8ecea", flexShrink: 0 };
 
 // ─── Pure logic ───────────────────────────────────────────────────────────────
 
 function canCalculate(inputs: AssessmentInputs): boolean {
-  return Boolean(
-    toNum(inputs.feet) &&
-    toNum(inputs.currentWeight) &&
-    toNum(inputs.startWeight) &&
-    toNum(inputs.age) &&
-    inputs.sex
-  );
+  return Boolean(toNum(inputs.feet) && toNum(inputs.currentWeight) && toNum(inputs.startWeight) && toNum(inputs.age) && inputs.sex);
 }
 
 function calculateAssessment(inputs: AssessmentInputs): AssessmentResult | undefined {
@@ -1519,21 +1400,16 @@ function calculateAssessment(inputs: AssessmentInputs): AssessmentResult | undef
   const currentBmi = bmiFrom(cw, h);
   const startBmi = bmiFrom(sw, h);
   const goalBmi = gw ? bmiFrom(gw, h) : undefined;
-
   const idealWeightLow = weightForBmi(18.5, h);
   const idealWeightHigh = weightForBmi(24.9, h);
   const idealWeight = weightForBmi(25, h);
-
   const weightLost = sw - cw;
   const remainingToGoal = gw !== undefined ? cw - gw : undefined;
   const excessWeight = Math.max(0, cw - idealWeight);
   const twl = sw > 0 ? (weightLost / sw) * 100 : 0;
   const excessAtStart = Math.max(0, sw - idealWeight);
   const ewl = excessAtStart > 0 ? (weightLost / excessAtStart) * 100 : undefined;
-  const goalProgress = gw !== undefined && sw > gw
-    ? clamp((weightLost / (sw - gw)) * 100, 0, 110)
-    : undefined;
-
+  const goalProgress = gw !== undefined && sw > gw ? clamp((weightLost / (sw - gw)) * 100, 0, 110) : undefined;
   const poundsTo40 = Math.max(0, cw - weightForBmi(40, h));
   const poundsTo35 = Math.max(0, cw - weightForBmi(35, h));
   const poundsTo30 = Math.max(0, cw - weightForBmi(30, h));
@@ -1542,11 +1418,7 @@ function calculateAssessment(inputs: AssessmentInputs): AssessmentResult | undef
   const c = inputs.conditions;
   const qualifyingConditions = [c.diabetes, c.sleepApnea, c.highBloodPressure, c.gerd, c.pcos, c.jointPain];
   const conditionCount = qualifyingConditions.filter(Boolean).length;
-
-  const bmiQualifies =
-    currentBmi >= 40 ||
-    (currentBmi >= 35 && conditionCount >= 1) ||
-    (currentBmi >= 30 && conditionCount >= 2);
+  const bmiQualifies = currentBmi >= 40 || (currentBmi >= 35 && conditionCount >= 1) || (currentBmi >= 30 && conditionCount >= 2);
   const comorbidityQualifies = conditionCount >= 1;
 
   let candidateStatus: CandidateStatus;
@@ -1572,8 +1444,7 @@ function calculateAssessment(inputs: AssessmentInputs): AssessmentResult | undef
 
   return {
     heightIn: h, currentWeight: cw, startWeight: sw, goalWeight: gw,
-    currentBmi, startBmi, goalBmi,
-    idealWeightLow, idealWeightHigh,
+    currentBmi, startBmi, goalBmi, idealWeightLow, idealWeightHigh,
     weightLost, remainingToGoal, excessWeight, twl, ewl, goalProgress,
     poundsTo40, poundsTo35, poundsTo30, poundsTo25,
     candidateStatus, eligibilityScore, bmiQualifies, comorbidityQualifies, conditionCount,
@@ -1590,40 +1461,31 @@ function getBmiContext(bmi: number): { label: string; textColor: string } {
 }
 
 function getCandidateContext(status: CandidateStatus) {
-  type Ctx = {
-    label: string;
-    heading: string;
-    badgeStyle: React.CSSProperties;
-    explanation: (r: AssessmentResult, inputs: AssessmentInputs) => string;
-  };
+  type Ctx = { label: string; heading: string; badgeStyle: React.CSSProperties; explanation: (r: AssessmentResult, i: AssessmentInputs) => string };
   const map: Record<CandidateStatus, Ctx> = {
     strong: {
       label: "Strong Candidate",
       heading: "You appear to be a strong bariatric surgery candidate.",
       badgeStyle: { background: "#f0fdf4", color: "#15803d", border: "1px solid #bbf7d0" },
-      explanation: (r, _i) =>
-        `Your BMI of ${r.currentBmi.toFixed(1)} meets standard bariatric surgery criteria${r.conditionCount > 0 ? `, and you've reported ${r.conditionCount} qualifying health condition${r.conditionCount > 1 ? "s" : ""}` : ""}. These factors suggest you may be an excellent candidate for a surgical consultation and evaluation.`,
+      explanation: (r) => `Your BMI of ${r.currentBmi.toFixed(1)} meets standard bariatric surgery criteria${r.conditionCount > 0 ? `, and you've reported ${r.conditionCount} qualifying health condition${r.conditionCount > 1 ? "s" : ""}` : ""}. These factors suggest you may be an excellent candidate for a surgical consultation and evaluation.`,
     },
     likely: {
       label: "Likely Candidate",
       heading: "You are likely a bariatric surgery candidate.",
       badgeStyle: { background: "#f0fdf4", color: "#166534", border: "1px solid #bbf7d0" },
-      explanation: (r, _i) =>
-        `Your BMI of ${r.currentBmi.toFixed(1)}${r.conditionCount > 0 ? ` with ${r.conditionCount} qualifying condition${r.conditionCount > 1 ? "s" : ""}` : ""} places you in a range commonly considered for bariatric evaluation. A consultation can clarify your specific options and insurance pathway.`,
+      explanation: (r) => `Your BMI of ${r.currentBmi.toFixed(1)}${r.conditionCount > 0 ? ` with ${r.conditionCount} qualifying condition${r.conditionCount > 1 ? "s" : ""}` : ""} places you in a range commonly considered for bariatric evaluation. A consultation can clarify your specific options and insurance pathway.`,
     },
     possible: {
       label: "Possible Candidate",
       heading: "Bariatric surgery may be worth discussing.",
       badgeStyle: { background: "#fffbeb", color: "#92400e", border: "1px solid #fde68a" },
-      explanation: (r, _i) =>
-        `Your BMI of ${r.currentBmi.toFixed(1)}${r.conditionCount > 0 ? " and selected health conditions" : ""} suggest you may qualify for certain procedures or non-surgical medical weight management. A consultation can determine eligibility with a full clinical review.`,
+      explanation: (r) => `Your BMI of ${r.currentBmi.toFixed(1)}${r.conditionCount > 0 ? " and selected health conditions" : ""} suggest you may qualify for certain procedures or non-surgical medical weight management. A consultation can determine eligibility with a full clinical review.`,
     },
     unlikely: {
       label: "Unlikely Surgical Candidate",
       heading: "Surgical options may be limited at this BMI.",
       badgeStyle: { background: "#f8fafc", color: "#64748b", border: "1px solid #e2e8f0" },
-      explanation: (r, _i) =>
-        `Your BMI of ${r.currentBmi.toFixed(1)} falls below the typical surgical threshold. However, medical weight management, GLP-1 medications, and non-surgical options may still be appropriate. A consultation can explore what's available for you.`,
+      explanation: (r) => `Your BMI of ${r.currentBmi.toFixed(1)} falls below the typical surgical threshold. However, medical weight management, GLP-1 medications, and non-surgical options may still be appropriate. A consultation can explore what's available for you.`,
     },
   };
   return map[status];
@@ -1636,15 +1498,9 @@ function getProcedureFit(result: AssessmentResult, inputs: AssessmentInputs): Pr
     fit.push(PROCEDURES.find(p => p.id === "revision")!);
   }
   if (inputs.previousSurgery !== "Yes") {
-    if (result.currentBmi >= 35 && !inputs.conditions.gerd) {
-      fit.push(PROCEDURES.find(p => p.id === "sleeve")!);
-    }
-    if (result.currentBmi >= 30 && (inputs.conditions.gerd || inputs.conditions.diabetes || result.currentBmi >= 35)) {
-      fit.push(PROCEDURES.find(p => p.id === "bypass")!);
-    }
-    if (result.currentBmi >= 40 || (result.currentBmi >= 35 && inputs.conditions.diabetes)) {
-      fit.push(PROCEDURES.find(p => p.id === "sadi")!);
-    }
+    if (result.currentBmi >= 35 && !inputs.conditions.gerd) fit.push(PROCEDURES.find(p => p.id === "sleeve")!);
+    if (result.currentBmi >= 30 && (inputs.conditions.gerd || inputs.conditions.diabetes || result.currentBmi >= 35)) fit.push(PROCEDURES.find(p => p.id === "bypass")!);
+    if (result.currentBmi >= 40 || (result.currentBmi >= 35 && inputs.conditions.diabetes)) fit.push(PROCEDURES.find(p => p.id === "sadi")!);
   }
   return fit.filter((p, i, arr) => p && arr.findIndex(x => x?.id === p.id) === i);
 }
@@ -1668,68 +1524,24 @@ function getProcedureFitReason(procedure: Procedure, result: AssessmentResult, i
     if (result.currentBmi >= 40) return `Your BMI of ${bmi} qualifies for SADI-S, which may achieve 75–90% excess weight loss with superior metabolic outcomes.`;
     return `With diabetes and a BMI of ${bmi}, SADI-S may offer superior metabolic remission beyond bypass alone.`;
   }
-  if (procedure.id === "revision") {
-    return `You indicated a previous bariatric procedure. Revision surgery — commonly sleeve-to-bypass — can address weight regain, GERD, or complications from an original procedure.`;
-  }
+  if (procedure.id === "revision") return `You indicated a previous bariatric procedure. Revision surgery — commonly sleeve-to-bypass — can address weight regain, GERD, or complications from an original procedure.`;
   return "";
 }
 
-function getPersonalizedInsights(
-  result: AssessmentResult,
-  inputs: AssessmentInputs,
-): { category: string; text: string; type: "positive" | "caution" | "neutral" }[] {
+function getPersonalizedInsights(result: AssessmentResult, inputs: AssessmentInputs): { category: string; text: string; type: "positive" | "caution" | "neutral" }[] {
   const insights: { category: string; text: string; type: "positive" | "caution" | "neutral" }[] = [];
-
-  if (result.bmiQualifies) {
-    insights.push({ category: "Eligibility", text: `Your BMI of ${result.currentBmi.toFixed(1)} meets standard bariatric surgery criteria.`, type: "positive" });
-  } else if (result.currentBmi >= 30) {
-    insights.push({ category: "Eligibility", text: `Your BMI of ${result.currentBmi.toFixed(1)} is near — but below — the standard surgery threshold. Conditions and clinical review may affect eligibility.`, type: "neutral" });
-  }
-
-  if (result.poundsTo35 > 0) {
-    insights.push({ category: "Milestone", text: `You are ${result.poundsTo35.toFixed(0)} lbs from BMI 35 — a key surgery eligibility threshold for most programs.`, type: "neutral" });
-  } else if (result.poundsTo30 > 0) {
-    insights.push({ category: "Milestone", text: `You are below BMI 35 and ${result.poundsTo30.toFixed(0)} lbs from the Class I/II boundary at BMI 30.`, type: "positive" });
-  } else {
-    insights.push({ category: "Milestone", text: `You are below BMI 30 — in the overweight range. Medical weight management and prevention strategies may be most relevant.`, type: "positive" });
-  }
-
-  if (result.goalBmi) {
-    insights.push({ category: "Goal", text: `Your goal weight would place you at BMI ${result.goalBmi.toFixed(1)} — ${getBmiContext(result.goalBmi).label.toLowerCase()}.`, type: result.goalBmi < 25 ? "positive" : "neutral" });
-  }
-
-  if (inputs.conditions.gerd) {
-    insights.push({ category: "GERD", text: "Because you selected GERD, gastric bypass may be worth prioritizing — it resolves reflux in the majority of patients.", type: "neutral" });
-  }
-
-  if (inputs.conditions.diabetes) {
-    insights.push({ category: "Diabetes", text: "With type 2 diabetes, metabolic surgery (bypass or SADI-S) can achieve remission in 60–80% of patients.", type: "positive" });
-  }
-
-  if (inputs.conditions.sleepApnea) {
-    insights.push({ category: "Sleep Apnea", text: "Sleep apnea is a recognized comorbidity that may strengthen your eligibility case at BMI 35–39.9.", type: "positive" });
-  }
-
-  if (inputs.smokingStatus === "Current smoker") {
-    insights.push({ category: "Smoking", text: "Most programs require smoking cessation before surgery. A structured pre-op plan can address this — it doesn't disqualify you.", type: "caution" });
-  }
-
-  if (result.twl >= 10) {
-    insights.push({ category: "Progress", text: `You've lost ${result.twl.toFixed(1)}% of your starting weight — a clinically meaningful amount.`, type: "positive" });
-  }
-
-  if (result.ewl !== undefined && result.ewl >= 50) {
-    insights.push({ category: "Excess Weight", text: `${result.ewl.toFixed(0)}% excess weight loss achieved — meeting the benchmark many programs use to define success.`, type: "positive" });
-  }
-
-  if (inputs.previousSurgery === "Yes") {
-    insights.push({ category: "Prior Surgery", text: "Revision procedures require specialized evaluation. JourneyLite performs all major revision types including sleeve-to-bypass.", type: "neutral" });
-  }
-
-  if (!inputs.insuranceProvider) {
-    insights.push({ category: "Insurance", text: "Adding your insurance provider at your consultation helps us clarify coverage and pre-authorization pathways.", type: "neutral" });
-  }
-
+  if (result.bmiQualifies) insights.push({ category: "Eligibility", text: `Your BMI of ${result.currentBmi.toFixed(1)} meets standard bariatric surgery criteria.`, type: "positive" });
+  else if (result.currentBmi >= 30) insights.push({ category: "Eligibility", text: `Your BMI of ${result.currentBmi.toFixed(1)} is near the surgery threshold. Conditions and clinical review may affect final eligibility.`, type: "neutral" });
+  if (result.poundsTo35 > 0) insights.push({ category: "Milestone", text: `You are ${result.poundsTo35.toFixed(0)} lbs from BMI 35 — the surgery threshold for most programs.`, type: "neutral" });
+  else if (result.poundsTo30 > 0) insights.push({ category: "Milestone", text: `You are below BMI 35 and ${result.poundsTo30.toFixed(0)} lbs from the obesity/overweight boundary at BMI 30.`, type: "positive" });
+  if (result.goalBmi) insights.push({ category: "Goal", text: `Your goal weight would place you at BMI ${result.goalBmi.toFixed(1)} — ${getBmiContext(result.goalBmi).label.toLowerCase()}.`, type: result.goalBmi < 25 ? "positive" : "neutral" });
+  if (inputs.conditions.gerd) insights.push({ category: "GERD", text: "Because you selected GERD, gastric bypass may be worth prioritizing — it resolves reflux in the majority of patients.", type: "neutral" });
+  if (inputs.conditions.diabetes) insights.push({ category: "Diabetes", text: "With type 2 diabetes, metabolic surgery (bypass or SADI-S) can achieve remission in 60–80% of patients.", type: "positive" });
+  if (inputs.conditions.sleepApnea) insights.push({ category: "Sleep Apnea", text: "Sleep apnea is a recognized comorbidity that may strengthen your eligibility at BMI 35–39.9.", type: "positive" });
+  if (inputs.smokingStatus === "Current smoker") insights.push({ category: "Smoking", text: "Most programs require cessation before surgery. A structured pre-op plan can address this — it does not automatically disqualify you.", type: "caution" });
+  if (result.twl >= 10) insights.push({ category: "Progress", text: `You have lost ${result.twl.toFixed(1)}% of your starting weight — a clinically meaningful amount.`, type: "positive" });
+  if (result.ewl !== undefined && result.ewl >= 50) insights.push({ category: "Excess Weight", text: `${result.ewl.toFixed(0)}% excess weight loss — meeting the benchmark many programs use to define success.`, type: "positive" });
+  if (inputs.previousSurgery === "Yes") insights.push({ category: "Prior Surgery", text: "Revision procedures require specialized evaluation. JourneyLite performs all major revision types including sleeve-to-bypass.", type: "neutral" });
   return insights.slice(0, 9);
 }
 
@@ -1741,63 +1553,42 @@ async function downloadResultsPdf(inputs: AssessmentInputs, result: AssessmentRe
   const W = doc.internal.pageSize.getWidth();
   const M = 48;
   let y = 0;
-
   const bmiCtx = getBmiContext(result.currentBmi);
   const candCtx = getCandidateContext(result.candidateStatus);
 
-  // Header
   doc.setFillColor("#0f3e2e");
   doc.rect(0, 0, W, 96, "F");
-  doc.setFont("helvetica", "bold");
-  doc.setFontSize(9);
-  doc.setTextColor("#9fd4aa");
+  doc.setFont("helvetica", "bold"); doc.setFontSize(9); doc.setTextColor("#9fd4aa");
   doc.text("JOURNEYLITE BARIATRIC PHYSICIANS", M, 30);
-  doc.setFontSize(20);
-  doc.setTextColor("#ffffff");
+  doc.setFontSize(20); doc.setTextColor("#ffffff");
   doc.text("Personalized Bariatric Assessment", M, 58);
-  doc.setFont("helvetica", "normal");
-  doc.setFontSize(9);
-  doc.setTextColor("#b9d2c5");
+  doc.setFont("helvetica", "normal"); doc.setFontSize(9); doc.setTextColor("#b9d2c5");
   doc.text(`Generated ${new Date().toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric" })}`, M, 80);
   y = 116;
 
-  // Candidate status band
-  doc.setFillColor("#f0f7f3");
-  doc.setDrawColor("#c8ddd1");
+  doc.setFillColor("#f0f7f3"); doc.setDrawColor("#c8ddd1");
   doc.roundedRect(M, y, W - M * 2, 54, 6, 6, "FD");
-  doc.setFont("helvetica", "bold");
-  doc.setFontSize(8);
-  doc.setTextColor("#145c42");
+  doc.setFont("helvetica", "bold"); doc.setFontSize(8); doc.setTextColor("#145c42");
   doc.text(candCtx.label.toUpperCase(), M + 12, y + 16);
-  doc.setFontSize(13);
-  doc.setTextColor("#0d1a11");
-  doc.text(`BMI ${result.currentBmi.toFixed(1)} · ${bmiCtx.label}`, M + 12, y + 32);
-  doc.setFont("helvetica", "normal");
-  doc.setFontSize(8.5);
-  doc.setTextColor("#586760");
+  doc.setFontSize(13); doc.setTextColor("#0d1a11");
+  doc.text(`BMI ${result.currentBmi.toFixed(1)} — ${bmiCtx.label}`, M + 12, y + 32);
+  doc.setFont("helvetica", "normal"); doc.setFontSize(8.5); doc.setTextColor("#586760");
   const expl = doc.splitTextToSize(candCtx.explanation(result, inputs), W - M * 2 - 24);
   doc.text(expl.slice(0, 2), M + 12, y + 46);
   y += 70;
 
   function section(title: string) {
-    y += 12;
-    doc.setFillColor("#f0f7f3");
-    doc.rect(M, y, W - M * 2, 20, "F");
-    doc.setFont("helvetica", "bold");
-    doc.setFontSize(8);
-    doc.setTextColor("#145c42");
-    doc.text(title.toUpperCase(), M + 8, y + 13);
-    y += 28;
+    y += 10; doc.setFillColor("#f0f7f3"); doc.rect(M, y, W - M * 2, 20, "F");
+    doc.setFont("helvetica", "bold"); doc.setFontSize(8); doc.setTextColor("#145c42");
+    doc.text(title.toUpperCase(), M + 8, y + 13); y += 28;
   }
-
   function row(label: string, value: string, alt = false) {
     if (y > 700) { doc.addPage(); y = 48; }
     if (alt) { doc.setFillColor("#f8fbf9"); doc.rect(M, y - 9, W - M * 2, 17, "F"); }
     doc.setFont("helvetica", "bold"); doc.setFontSize(8.5); doc.setTextColor("#0d1a11");
     doc.text(label, M + 4, y);
     doc.setFont("helvetica", "normal"); doc.setTextColor("#586760");
-    doc.text(value, M + 210, y);
-    y += 16;
+    doc.text(value, M + 210, y); y += 16;
   }
 
   section("Key Metrics");
@@ -1817,7 +1608,7 @@ async function downloadResultsPdf(inputs: AssessmentInputs, result: AssessmentRe
   row("BMI Qualification", result.bmiQualifies ? "Meets criteria" : "Below standard threshold", true);
   row("Comorbidity Qualification", result.comorbidityQualifies ? `${result.conditionCount} qualifying condition(s)` : "None selected");
   row("Overall Eligibility Score", `${result.eligibilityScore}/100`, true);
-  row("Candidate Status", getCandidateContext(result.candidateStatus).label);
+  row("Candidate Status", candCtx.label);
 
   section("Patient Inputs");
   row("Height", `${inputs.feet || "0"} ft ${inputs.inches || "0"} in`, true);
@@ -1829,27 +1620,21 @@ async function downloadResultsPdf(inputs: AssessmentInputs, result: AssessmentRe
   if (inputs.smokingStatus) row("Smoking Status", inputs.smokingStatus, true);
   if (inputs.insuranceProvider) row("Insurance Provider", inputs.insuranceProvider);
   row("Previous Surgery", inputs.previousSurgery || "Not specified", true);
-
-  const selectedConditions = Object.entries(inputs.conditions)
+  const conds = (Object.entries(inputs.conditions) as [keyof Conditions, boolean][])
     .filter(([, v]) => v)
-    .map(([k]) => ({ diabetes: "Type 2 Diabetes", sleepApnea: "Sleep Apnea", highBloodPressure: "High Blood Pressure", gerd: "GERD", pcos: "PCOS", jointPain: "Joint Pain" }[k as keyof Conditions] ?? k))
+    .map(([k]) => ({ diabetes: "Type 2 Diabetes", sleepApnea: "Sleep Apnea", highBloodPressure: "High Blood Pressure", gerd: "GERD", pcos: "PCOS", jointPain: "Joint Pain" }[k]))
     .join(", ");
-  if (selectedConditions) row("Health Conditions", selectedConditions);
+  if (conds) row("Health Conditions", conds);
 
-  // Footer
   const pages = doc.getNumberOfPages();
   for (let i = 1; i <= pages; i++) {
     doc.setPage(i);
-    doc.setFillColor("#0f3e2e");
-    doc.rect(0, 770, W, 22, "F");
-    doc.setFont("helvetica", "normal");
-    doc.setFontSize(7.5);
-    doc.setTextColor("#9fd4aa");
+    doc.setFillColor("#0f3e2e"); doc.rect(0, 770, W, 22, "F");
+    doc.setFont("helvetica", "normal"); doc.setFontSize(7.5); doc.setTextColor("#9fd4aa");
     doc.text("JourneyLite Physicians · journeylite.com · For educational use only. Does not replace medical consultation.", M, 784);
     doc.setTextColor("#b9d2c5");
     doc.text(`Page ${i} of ${pages}`, W - M, 784, { align: "right" });
   }
-
   doc.save("journeylite-bariatric-assessment.pdf");
 }
 
