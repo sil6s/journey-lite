@@ -29,6 +29,17 @@ import { FormSubmissionsManager, type FormSubmissionListItem } from "@/component
 import { createFormAction, updateFormAction, deleteFormAction, type FormDefinition, type FormField } from "@/app/admin/content/actions";
 import { useRouter } from "next/navigation";
 
+const SYSTEM_FORMS = [
+  {
+    key: "fmla-short-term-disability-paperwork",
+    name: "FMLA/Short-Term Disability Paperwork",
+    description: "Custom paperwork workflow with PDF upload, Turnstile security, and eStore payment handoff.",
+    href: "/fmla-short-term-disability-paperwork",
+    fields: ["Name", "Email", "DOB", "Phone", "Job type", "Employer", "Fax/email recipient", "PDF upload", "Authorization acknowledgement"],
+    notification: "ma@curryweightloss.com",
+  },
+];
+
 const FIELD_TYPES: Array<{ value: FormField["type"]; label: string; icon: ComponentType<{ className?: string }> }> = [
   { value: "text", label: "Text", icon: Type },
   { value: "email", label: "Email", icon: Mail },
@@ -77,7 +88,7 @@ export function FormsClient({ forms, submissions }: {
         {(["builder", "submissions"] as const).map((t) => (
           <button key={t} onClick={() => setTab(t)}
             className={`rounded-lg px-4 py-1.5 transition-colors capitalize ${tab === t ? "bg-white text-[#0D3D24] shadow-sm" : "text-[#5f6f66] hover:text-[#1f2c25]"}`}>
-            {t === "builder" ? `Form Builder (${forms.length})` : `Submissions (${submissions.length})`}
+            {t === "builder" ? `Form Builder (${forms.length + SYSTEM_FORMS.length})` : `Submissions (${submissions.length})`}
           </button>
         ))}
       </div>
@@ -92,8 +103,17 @@ export function FormsClient({ forms, submissions }: {
             />
           )}
 
+          {SYSTEM_FORMS.map((form) => (
+            <SystemFormCard
+              form={form}
+              key={form.key}
+              submissionCount={submissions.filter((submission) => submission.form_key === form.key).length}
+              onViewSubmissions={() => setTab("submissions")}
+            />
+          ))}
+
           {/* Existing forms */}
-          {forms.length === 0 && !showNew ? (
+          {forms.length === 0 && !showNew && SYSTEM_FORMS.length === 0 ? (
             <div className="rounded-xl border border-dashed border-[#dce4df] bg-zinc-50 py-12 text-center">
               <ClipboardList className="mx-auto mb-3 h-10 w-10 text-[#dce4df]" />
               <p className="font-semibold text-[#5f6f66]">No forms yet</p>
@@ -113,6 +133,44 @@ export function FormsClient({ forms, submissions }: {
       ) : (
         <FormSubmissionsManager submissions={submissions} />
       )}
+    </div>
+  );
+}
+
+function SystemFormCard({ form, submissionCount, onViewSubmissions }: {
+  form: (typeof SYSTEM_FORMS)[number];
+  submissionCount: number;
+  onViewSubmissions: () => void;
+}) {
+  return (
+    <div className="rounded-xl border border-[#b9d0c3] bg-white p-4 shadow-sm">
+      <div className="flex items-start justify-between gap-4">
+        <div>
+          <div className="flex flex-wrap items-center gap-2">
+            <p className="font-semibold text-[#1f2c25]">{form.name}</p>
+            <span className="rounded-full bg-[#edf7f2] px-2 py-0.5 text-[11px] font-semibold text-[#145c42]">System form</span>
+          </div>
+          <p className="mt-1 text-xs leading-5 text-[#5f6f66]">{form.description}</p>
+          <p className="mt-1 text-xs text-[#9aafa5]">
+            {form.fields.length} fields · {submissionCount} submission{submissionCount !== 1 ? "s" : ""} · Sends to {form.notification}
+          </p>
+          <div className="mt-2 flex flex-wrap gap-1.5">
+            {form.fields.map((field) => (
+              <span key={field} className="rounded-full border border-[#dce4df] bg-zinc-50 px-2 py-0.5 text-[11px] text-[#5f6f66]">
+                {field}
+              </span>
+            ))}
+          </div>
+        </div>
+        <div className="flex shrink-0 items-center gap-2">
+          <a className="rounded-lg border border-[#dce4df] px-3 py-1.5 text-xs font-semibold text-[#1f2c25] hover:bg-zinc-50" href={form.href} target="_blank" rel="noreferrer">
+            Open
+          </a>
+          <button onClick={onViewSubmissions} className="rounded-lg bg-[#0D3D24] px-3 py-1.5 text-xs font-semibold text-white hover:bg-[#145c42]">
+            View submissions
+          </button>
+        </div>
+      </div>
     </div>
   );
 }

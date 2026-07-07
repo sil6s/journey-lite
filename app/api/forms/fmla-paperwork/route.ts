@@ -21,8 +21,7 @@ type FmlaPayload = {
   jobType?: string;
   employer?: string;
   sendCompletedTo?: string;
-  permissionToTransmit?: boolean;
-  paymentAcknowledged?: boolean;
+  disclaimerAcknowledged?: boolean;
   additionalInformation?: string;
   upload?: UploadMetadata | null;
   website?: string;
@@ -133,8 +132,7 @@ function validatePayload(payload: FmlaPayload):
   const dobDate = new Date(`${String(payload.dob)}T00:00:00`);
   if (Number.isNaN(dobDate.getTime()) || dobDate > new Date()) return { ok: false, error: "Date of birth must be valid." };
   if (!isValidEmailOrFax(String(payload.sendCompletedTo ?? "").trim())) return { ok: false, error: "Send completed form to must be a valid email address or fax number." };
-  if (!payload.permissionToTransmit) return { ok: false, error: "Permission to transmit is required." };
-  if (!payload.paymentAcknowledged) return { ok: false, error: "Payment acknowledgement is required." };
+  if (!payload.disclaimerAcknowledged) return { ok: false, error: "Authorization and payment acknowledgement is required." };
 
   if (payload.upload) {
     if (!payload.upload.path?.startsWith("fmla-paperwork/") || payload.upload.type !== "application/pdf") {
@@ -156,8 +154,7 @@ function validatePayload(payload: FmlaPayload):
       jobType: String(payload.jobType).trim(),
       employer: String(payload.employer).trim(),
       sendCompletedTo: String(payload.sendCompletedTo).trim(),
-      permissionToTransmit: true,
-      paymentAcknowledged: true,
+      disclaimerAcknowledged: true,
       upload: payload.upload ?? null,
       additionalInformation: String(payload.additionalInformation ?? "").trim(),
     },

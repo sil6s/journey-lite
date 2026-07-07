@@ -382,7 +382,7 @@ export function ShopClient({ products }: { products: ShopifyProduct[] }) {
     <>
       <style>{`
         .jls-shop-shell { min-height: 100vh; background: #f7f8f6; color: #071b13; font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
-        .jls-store-grid { display: grid; grid-template-columns: minmax(0, 1fr) 384px; gap: 0; max-width: 1540px; margin: 0 auto; padding: 0 0 0 24px; }
+        .jls-store-grid { display: grid; grid-template-columns: minmax(0, 1fr) 384px; gap: 0; width: 100%; padding: 0 0 0 24px; }
         .jls-search:focus-within { border-color: #0a4b38; box-shadow: 0 0 0 3px rgba(10, 75, 56, 0.1); }
         .jls-nav-link:hover, .jls-icon-button:hover, .jls-category:hover, .jls-collection:hover { border-color: #adc8b9 !important; transform: translateY(-1px); }
         .jls-product-card:hover { border-color: #adc8b9 !important; box-shadow: 0 10px 24px rgba(13, 61, 36, 0.08); transform: translateY(-1px); }
@@ -453,7 +453,7 @@ export function ShopClient({ products }: { products: ShopifyProduct[] }) {
 function TopStrip() {
   return (
     <div style={{ background: "#003f2d", color: "#fff" }}>
-      <div className="jls-top-strip-inner" style={{ alignItems: "center", display: "grid", gridTemplateColumns: "1fr auto 1fr", margin: "0 auto", maxWidth: 1540, padding: "10px 24px" }}>
+      <div className="jls-top-strip-inner" style={{ alignItems: "center", display: "grid", gridTemplateColumns: "1fr auto 1fr", padding: "10px 24px", width: "100%" }}>
         <Link href="/" style={{ alignItems: "center", color: "#fff", display: "inline-flex", fontSize: 13, fontWeight: 700, gap: 8, textDecoration: "none" }}>
           <ArrowLeft size={15} />
           Return to Main Site
@@ -489,7 +489,7 @@ function Header({
 
   return (
     <header style={{ background: "#fff", borderBottom: "1px solid #e0e6e2" }}>
-      <div className="jls-main-header" style={{ alignItems: "center", display: "grid", gap: 24, gridTemplateColumns: "260px minmax(280px, 1fr) auto", margin: "0 auto", maxWidth: 1540, padding: "18px 24px" }}>
+      <div className="jls-main-header" style={{ alignItems: "center", display: "grid", gap: 24, gridTemplateColumns: "260px minmax(280px, 1fr) auto", padding: "18px 24px", width: "100%" }}>
         <Link href="/" style={{ display: "inline-flex" }}>
           <Image alt="JourneyLite Bariatric Physicians" height={160} priority src="/journeylite-logo.svg" style={{ height: "auto", width: 198 }} width={560} />
         </Link>
@@ -535,7 +535,7 @@ function Header({
       </div>
 
       <nav style={{ borderTop: "1px solid #edf1ee" }}>
-        <div className="jls-nav-inner" style={{ alignItems: "center", display: "flex", gap: 18, margin: "0 auto", maxWidth: 1540, overflowX: "auto", padding: "11px 24px" }}>
+        <div className="jls-nav-inner" style={{ alignItems: "center", display: "flex", gap: 18, overflowX: "auto", padding: "11px 24px", width: "100%" }}>
           <button className="jls-nav-link" style={{ ...navButtonStyle, border: "1px solid #ccd8d1", borderRadius: 6 }}><Menu size={16} /> Shop by Category</button>
           {navItems.map((item, index) => (
             <a className="jls-nav-link" href={`#${navTargets[index]}`} key={item} style={navButtonStyle}>
@@ -769,7 +769,7 @@ function TrustBar() {
 function ShopFooter() {
   return (
     <footer style={{ background: "#003f2d", color: "#fff", marginTop: 12 }}>
-      <div style={{ display: "grid", gap: 46, gridTemplateColumns: "1.2fr 1fr 1fr 1fr 1fr", margin: "0 auto", maxWidth: 1540, padding: "24px" }}>
+      <div style={{ display: "grid", gap: 46, gridTemplateColumns: "1.2fr 1fr 1fr 1fr 1fr", padding: "24px", width: "100%" }}>
         <div>
           <Link href="/" style={{ alignItems: "center", color: "#fff", display: "inline-flex", fontSize: 14, fontWeight: 800, gap: 8, textDecoration: "none" }}><ArrowLeft size={15} /> Return to Main Site</Link>
           <p style={{ color: "#c8ded4", fontSize: 13, lineHeight: 1.5, marginTop: 16 }}>Continue exploring our care, resources, and patient information.</p>

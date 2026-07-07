@@ -1,8 +1,8 @@
 "use client";
 
 import Link from "next/link";
-import { useState, type ComponentType, type FormEvent } from "react";
-import { AlertCircle, AlertTriangle, BriefcaseBusiness, Building2, CalendarDays, CheckCircle2, CreditCard, FileText, Mail, Phone, Send, UploadCloud, UserRound } from "lucide-react";
+import { useState, type ComponentType, type DragEvent, type FormEvent } from "react";
+import { AlertCircle, AlertTriangle, BriefcaseBusiness, Building2, CalendarDays, CheckCircle2, CreditCard, FileText, Mail, Phone, Send, ShieldCheck, UploadCloud, UserRound } from "lucide-react";
 import { TurnstileWidget } from "@/components/site/TurnstileWidget";
 import { addToCart } from "@/lib/shopify/actions";
 import { createClient } from "@/lib/supabase/client";
@@ -28,6 +28,7 @@ export function FmlaPaperworkForm() {
   const [state, setState] = useState<SubmitState>("idle");
   const [message, setMessage] = useState("");
   const [file, setFile] = useState<File | null>(null);
+  const [dragActive, setDragActive] = useState(false);
   const [checkoutUrl, setCheckoutUrl] = useState<string | null>(null);
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [turnstileToken, setTurnstileToken] = useState("");
@@ -113,8 +114,7 @@ export function FmlaPaperworkForm() {
           jobType: String(formData.get("jobType") ?? "").trim(),
           employer: String(formData.get("employer") ?? "").trim(),
           sendCompletedTo: String(formData.get("sendCompletedTo") ?? "").trim(),
-          permissionToTransmit: formData.get("permissionToTransmit") === "on",
-          paymentAcknowledged: formData.get("paymentAcknowledged") === "on",
+          disclaimerAcknowledged: formData.get("disclaimerAcknowledged") === "on",
           additionalInformation: String(formData.get("additionalInformation") ?? "").trim(),
           upload,
           website: String(formData.get("website") ?? ""),
@@ -168,6 +168,18 @@ export function FmlaPaperworkForm() {
 
   const isBusy = state === "uploading" || state === "submitting" || state === "addingToCart";
 
+  function setUploadFile(nextFile: File | null) {
+    setFile(nextFile);
+    setErrors((prev) => ({ ...prev, file: "" }));
+  }
+
+  function handleDrop(event: DragEvent<HTMLLabelElement>) {
+    event.preventDefault();
+    event.stopPropagation();
+    setDragActive(false);
+    setUploadFile(event.dataTransfer.files?.[0] ?? null);
+  }
+
   return (
     <form className="rounded-lg border border-[#dce4df] bg-white p-5 shadow-sm md:p-6" onSubmit={onSubmit}>
       <div className="mb-6 rounded-lg border border-[#c9ded2] bg-[#f4faf6] p-4">
@@ -207,19 +219,36 @@ export function FmlaPaperworkForm() {
         </label>
         <Field error={errors.employer} icon={Building2} label="Employer" name="employer" placeholder="Employer name" required />
         <Field error={errors.sendCompletedTo} helpText="Enter a valid email address or a 10-digit fax number." icon={Send} label="Send Completed Form To Fax/Email" name="sendCompletedTo" placeholder="hr@example.com or (513) 555-1234" required />
-        <label className="group grid cursor-pointer gap-3 rounded-lg border-2 border-dashed border-[#b9d0c3] bg-[#f8fbf9] p-5 text-center transition hover:border-[#145c42] hover:bg-[#f1f8f4] md:col-span-2">
+        <label
+          className={`group grid cursor-pointer gap-3 rounded-lg border-2 border-dashed p-5 text-center transition md:col-span-2 ${dragActive ? "border-[#145c42] bg-[#edf7f2]" : "border-[#b9d0c3] bg-[#f8fbf9] hover:border-[#145c42] hover:bg-[#f1f8f4]"}`}
+          onDragEnter={(event) => {
+            event.preventDefault();
+            event.stopPropagation();
+            setDragActive(true);
+          }}
+          onDragLeave={(event) => {
+            event.preventDefault();
+            event.stopPropagation();
+            setDragActive(false);
+          }}
+          onDragOver={(event) => {
+            event.preventDefault();
+            event.stopPropagation();
+          }}
+          onDrop={handleDrop}
+        >
           <span className="mx-auto flex size-12 items-center justify-center rounded-full bg-white text-[#145c42] shadow-sm">
             {file ? <FileText className="size-6" aria-hidden="true" /> : <UploadCloud className="size-6" aria-hidden="true" />}
           </span>
           <span className="text-sm font-semibold text-[#1f2c25]">Upload scanned FMLA form PDF</span>
           <span className="text-xs font-normal leading-5 text-[#64736b]">
-            Drag-style upload area. Accepted file type: PDF. Max file size: 50 MB. You can also fax it to 513-559-1235.
+            Drag and drop your PDF here, or click to choose a file. Accepted file type: PDF. Max file size: 50 MB. You can also fax it to 513-559-1235.
           </span>
           <input
             accept="application/pdf,.pdf"
             className="sr-only"
             type="file"
-            onChange={(event) => setFile(event.target.files?.[0] ?? null)}
+            onChange={(event) => setUploadFile(event.target.files?.[0] ?? null)}
           />
           {file ? (
             <span className="mx-auto inline-flex items-center gap-2 rounded-full bg-white px-3 py-1 text-xs font-semibold text-[#145c42]">
@@ -249,21 +278,28 @@ export function FmlaPaperworkForm() {
             </div>
           </div>
         </div>
-        <label className="flex gap-3 rounded-md border border-[#dce4df] bg-[#f8fbf9] p-3 text-sm leading-6 text-[#53635b] md:col-span-2">
-          <input className="mt-1" name="permissionToTransmit" required type="checkbox" />
-          <span>I give permission to transmit this info via email or fax.</span>
-        </label>
-        {errors.permissionToTransmit ? <span className="-mt-3 text-xs font-medium text-red-700 md:col-span-2">{errors.permissionToTransmit}</span> : null}
-        <label className="flex gap-3 rounded-md border border-[#dce4df] bg-[#f8fbf9] p-3 text-sm leading-6 text-[#53635b] md:col-span-2">
-          <input className="mt-1" name="paymentAcknowledged" required type="checkbox" />
-          <span>
-            I understand I must complete the $30 FMLA payment after submitting this form and within one hour.{" "}
-            <Link className="font-semibold text-[#145c42] underline-offset-4 hover:underline" href="/shop#services">
-              View eStore
-            </Link>
+        <label className="grid gap-4 rounded-lg border border-[#c9ded2] bg-[#f8fbf9] p-4 text-sm leading-6 text-[#53635b] md:col-span-2">
+          <span className="flex items-start gap-3">
+            <ShieldCheck className="mt-0.5 size-5 shrink-0 text-[#145c42]" aria-hidden="true" />
+            <span>
+              <span className="block font-semibold text-[#1f2c25]">Authorization and payment acknowledgement</span>
+              <span className="mt-2 block">
+                I authorize JourneyLite Bariatric Physicians to use the information provided in this request to complete my FMLA or Short-Term Disability paperwork. I authorize JourneyLite to transmit completed forms and any required supporting documentation to my employer, disability insurance carrier, or other authorized recipient by email, fax, or other secure electronic means, as directed in this request. I understand that it is my responsibility to ensure all information provided is accurate and complete.
+              </span>
+              <span className="mt-3 block">
+                I understand that submission of this request does not begin processing. My request will not be reviewed or completed until the required $30 administrative fee has been paid through the JourneyLite eStore. Payment must be completed within one (1) hour of submitting this form or my request may be delayed or canceled, and I may need to submit a new request. Processing times begin only after both this completed request and payment have been received.
+              </span>
+              <Link className="mt-3 inline-flex font-semibold text-[#145c42] underline-offset-4 hover:underline" href="/shop#services">
+                View eStore
+              </Link>
+            </span>
+          </span>
+          <span className="flex items-start gap-3 rounded-md bg-white p-3 text-[#1f2c25]">
+            <input className="mt-1" name="disclaimerAcknowledged" required type="checkbox" />
+            <span className="font-semibold">I have read and agree to the authorization and payment acknowledgement above.</span>
           </span>
         </label>
-        {errors.paymentAcknowledged ? <span className="-mt-3 text-xs font-medium text-red-700 md:col-span-2">{errors.paymentAcknowledged}</span> : null}
+        {errors.disclaimerAcknowledged ? <span className="-mt-3 text-xs font-medium text-red-700 md:col-span-2">{errors.disclaimerAcknowledged}</span> : null}
         <div className="md:col-span-2">
           <TurnstileWidget
             action="fmla_paperwork"
@@ -310,9 +346,6 @@ export function FmlaPaperworkForm() {
         </p>
       ) : null}
 
-      <p className="mt-4 text-xs leading-5 text-[#64736b]">
-        By clicking the Submit button, I give permission for this information to be transmitted via internet to JourneyLite Physicians.
-      </p>
     </form>
   );
 }
@@ -338,8 +371,7 @@ function validateForm(formData: FormData, file: File | null) {
   }
   const sendCompletedTo = String(formData.get("sendCompletedTo") ?? "").trim();
   if (sendCompletedTo && !isValidEmailOrFax(sendCompletedTo)) errors.sendCompletedTo = "Enter a valid email address or 10-digit fax number.";
-  if (formData.get("permissionToTransmit") !== "on") errors.permissionToTransmit = "Permission to transmit is required.";
-  if (formData.get("paymentAcknowledged") !== "on") errors.paymentAcknowledged = "Payment acknowledgement is required.";
+  if (formData.get("disclaimerAcknowledged") !== "on") errors.disclaimerAcknowledged = "You must agree to the authorization and payment acknowledgement.";
   if (file && file.type !== "application/pdf" && !file.name.toLowerCase().endsWith(".pdf")) errors.file = "Upload must be a PDF.";
   if (file && file.size > MAX_FILE_SIZE) errors.file = "PDF must be 50 MB or smaller.";
 
