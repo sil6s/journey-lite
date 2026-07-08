@@ -14,7 +14,7 @@ export default async function AdminFormsPage() {
         const db = getSupabaseAdminClient();
         const { data } = await db
           .from("form_submissions")
-          .select("id,form_key,form_name,page_slug,status,submitted_at,data,admin_notes")
+          .select("id,form_key,form_name,page_slug,status,submitted_at,data,metadata,admin_notes")
           .order("submitted_at", { ascending: false })
           .limit(200);
         return (data ?? []) as FormSubmissionListItem[];

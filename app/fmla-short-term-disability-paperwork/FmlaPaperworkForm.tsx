@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useState, useTransition, type ComponentType, type DragEvent, type FormEvent } from "react";
-import { AlertCircle, BriefcaseBusiness, Building2, CalendarDays, CheckCircle2, CreditCard, FileText, Mail, Phone, Send, ShieldCheck, UploadCloud, UserRound } from "lucide-react";
+import { AlertCircle, BriefcaseBusiness, Building2, CalendarDays, CheckCircle2, FileText, Mail, Phone, Send, ShieldCheck, UploadCloud, UserRound } from "lucide-react";
 import { TurnstileWidget } from "@/components/site/TurnstileWidget";
 import { addToCart } from "@/lib/shopify/actions";
 import { createClient } from "@/lib/supabase/client";
@@ -121,7 +121,7 @@ export function FmlaPaperworkForm() {
           turnstileToken,
         }),
       });
-      const payload = (await response.json()) as { ok?: boolean; error?: string };
+      const payload = (await response.json()) as { ok?: boolean; submissionId?: string; error?: string };
       if (!response.ok || !payload.ok) {
         throw new Error(payload.error || "Could not submit the paperwork request.");
       }
@@ -130,7 +130,7 @@ export function FmlaPaperworkForm() {
       setFile(null);
       setTurnstileToken("");
       setTurnstileResetKey((key) => key + 1);
-      await maybeAddFmlaProductToCart();
+      await maybeAddFmlaProductToCart(payload.submissionId);
       setState("success");
       setMessage("Request submitted. Next step: pay the $30 paperwork fee.");
     } catch (error) {
@@ -141,13 +141,16 @@ export function FmlaPaperworkForm() {
     }
   }
 
-  async function maybeAddFmlaProductToCart() {
+  async function maybeAddFmlaProductToCart(submissionId?: string) {
     const variantId = new URLSearchParams(window.location.search).get("variantId");
     if (!variantId) return null;
 
     setState("addingToCart");
     const cartId = window.localStorage.getItem(CART_ID_KEY);
-    const result = await addToCart(variantId, cartId);
+    const result = await addToCart(variantId, cartId, [
+      { key: "_journeylite_form_key", value: "fmla-short-term-disability-paperwork" },
+      ...(submissionId ? [{ key: "_journeylite_form_submission_id", value: submissionId }] : []),
+    ]);
     if (result.error) throw new Error(result.error);
 
     if (result.cartId) window.localStorage.setItem(CART_ID_KEY, result.cartId);
@@ -178,32 +181,26 @@ export function FmlaPaperworkForm() {
 
   if (state === "success") {
     return (
-      <div className="rounded-lg border border-[#c9ded2] bg-white p-6 shadow-sm md:p-8">
-        <div className="flex gap-4">
-          <span className="flex size-11 shrink-0 items-center justify-center rounded-full bg-[#edf7f2] text-[#145c42]">
-            <CheckCircle2 className="size-6" aria-hidden="true" />
+      <div className="rounded-xl border border-[#dce4df] bg-white p-6 shadow-sm md:p-8">
+        <SuccessProgress />
+        <div className="mt-8 flex gap-4">
+          <span className="flex size-12 shrink-0 items-center justify-center rounded-full bg-[#edf7f2] text-[#145c42]">
+            <CheckCircle2 className="size-7" aria-hidden="true" />
           </span>
-          <div>
-            <p className="eyebrow">Request submitted</p>
-            <h2 className="mt-2 font-serif text-3xl leading-tight text-[#1f2c25]">Next step: pay the $30 paperwork fee.</h2>
-            <p className="mt-3 max-w-2xl text-sm leading-6 text-[#53635b]">
-              Your paperwork request has been received. Our team reviews FMLA and short-term disability paperwork after both the completed request form and the $30 payment are received.
-            </p>
-            <div className="mt-6 flex flex-wrap gap-3">
-              <Link
-                className="inline-flex min-h-11 items-center justify-center rounded-md bg-[#145c42] px-5 py-3 text-sm font-semibold text-white transition hover:bg-[#0f4d37]"
-                href={checkoutUrl ?? "/shop/forms-admin"}
-              >
-                Pay $30 Fee
+          <div className="max-w-2xl">
+            <p className="eyebrow">Request Submitted</p>
+            <h2 className="mt-2 font-serif text-3xl leading-tight text-[#1f2c25]">Next Step</h2>
+            <p className="mt-3 text-xl font-semibold text-[#1f2c25]">Complete your $30 paperwork payment.</p>
+            <p className="mt-2 text-sm leading-6 text-[#53635b]">Your paperwork will begin processing after payment is received.</p>
+            <div className="mt-7 flex flex-wrap gap-3">
+              <Link className="inline-flex min-h-11 items-center justify-center rounded-md bg-[#145c42] px-5 py-3 text-sm font-semibold text-white transition hover:bg-[#0f4d37]" href={checkoutUrl ?? "/shop/forms-admin"}>
+                Continue to Payment
               </Link>
-              <Link
-                className="inline-flex min-h-11 items-center justify-center rounded-md border border-[#cbd7d0] bg-white px-5 py-3 text-sm font-semibold text-[#17362a] transition hover:border-[#145c42] hover:text-[#145c42]"
-                href="/"
-              >
-                Return to Main Site
+              <Link className="inline-flex min-h-11 items-center justify-center rounded-md px-2 py-3 text-sm font-semibold text-[#145c42] underline-offset-4 hover:underline" href="/">
+                Return to JourneyLite
               </Link>
             </div>
-            {message ? <p className="mt-4 rounded-lg bg-[#edf4ef] p-3 text-sm font-semibold text-[#145c42]" role="status">{message}</p> : null}
+            {message ? <p className="sr-only" role="status">{message}</p> : null}
           </div>
         </div>
       </div>
@@ -211,19 +208,7 @@ export function FmlaPaperworkForm() {
   }
 
   return (
-    <form className="rounded-lg border border-[#dce4df] bg-white p-5 shadow-sm md:p-6" onSubmit={onSubmit}>
-      <div className="mb-6 rounded-lg border border-[#c9ded2] bg-[#f4faf6] p-4">
-        <div className="flex gap-3">
-          <CreditCard className="mt-0.5 size-5 shrink-0 text-[#145c42]" aria-hidden="true" />
-          <div>
-            <h2 className="text-sm font-semibold text-[#1f2c25]">Payment comes after this form</h2>
-            <p className="mt-1 text-sm font-semibold leading-6 text-[#415149]">
-              Payment is required after submitting this form. Your request is not processed until both the form and $30 payment are received.
-            </p>
-          </div>
-        </div>
-      </div>
-
+    <form className="rounded-xl border border-[#dce4df] bg-white p-5 shadow-sm md:p-6" onSubmit={onSubmit}>
       <div className="grid gap-4 md:grid-cols-2">
         <input autoComplete="off" className="hidden" name="website" tabIndex={-1} type="text" />
         <Field autoComplete="given-name" error={errors.firstName} icon={UserRound} label="First Name" name="firstName" placeholder="First name" required />
@@ -297,31 +282,20 @@ export function FmlaPaperworkForm() {
           Additional Information
           <textarea className="min-h-28 rounded-md border border-[#cbd9d1] bg-white px-3 py-2 text-sm outline-none transition focus:border-[#145c42] focus:ring-2 focus:ring-[#145c42]/15" name="additionalInformation" placeholder="Anything else our medical assistants should know?" />
         </label>
-        <label className="grid gap-4 rounded-lg border border-[#c9ded2] bg-[#f8fbf9] p-4 text-sm leading-6 text-[#53635b] md:col-span-2">
-          <span className="flex items-start gap-3">
-            <ShieldCheck className="mt-0.5 size-5 shrink-0 text-[#145c42]" aria-hidden="true" />
-            <span>
-              <span className="block font-semibold text-[#1f2c25]">Authorization and payment acknowledgement</span>
-              <span className="mt-2 block">
-                I authorize JourneyLite Bariatric Physicians to use the information provided in this request to complete my FMLA or Short-Term Disability paperwork.
-              </span>
-              <span className="mt-2 block">
-                I authorize JourneyLite to transmit completed forms and any required supporting documentation to my employer, disability insurance carrier, or other authorized recipient using the contact method I provide.
-              </span>
-              <span className="mt-2 block">
-                I understand that it is my responsibility to make sure the information I provide is accurate and complete.
-              </span>
-              <span className="mt-3 block font-bold text-[#1f2c25]">
-                I understand my paperwork will not be reviewed or completed until both this form and payment are received.
-              </span>
-              <Link className="mt-3 inline-flex font-semibold text-[#145c42] underline-offset-4 hover:underline" href="/shop#services">
-                View eStore
-              </Link>
-            </span>
+        <label className="grid gap-4 rounded-lg border border-[#dce4df] bg-[#f8fbf9] p-4 text-sm leading-6 text-[#53635b] md:col-span-2">
+          <span className="flex items-center gap-2 font-semibold text-[#1f2c25]">
+            <ShieldCheck className="size-5 shrink-0 text-[#145c42]" aria-hidden="true" />
+            Authorization
           </span>
+          <ul className="ml-5 list-disc space-y-2">
+            <li>I authorize JourneyLite Bariatric Physicians to use this information to complete my FMLA or Short-Term Disability paperwork.</li>
+            <li>I authorize JourneyLite to send completed forms and supporting documentation to the contact method I provide.</li>
+            <li>I am responsible for making sure the information I provide is accurate and complete.</li>
+            <li><strong className="text-[#1f2c25]">Your paperwork will not be reviewed until both this request and payment have been received.</strong></li>
+          </ul>
           <span className="flex items-start gap-3 rounded-md bg-white p-3 text-[#1f2c25]">
             <input className="mt-1" name="disclaimerAcknowledged" required type="checkbox" />
-            <span className="font-semibold">I have read and agree to the authorization and payment acknowledgement above.</span>
+            <span className="font-semibold">I have read and agree to the authorization above.</span>
           </span>
         </label>
         {errors.disclaimerAcknowledged ? <span className="-mt-3 text-xs font-medium text-red-700 md:col-span-2">{errors.disclaimerAcknowledged}</span> : null}
@@ -387,28 +361,45 @@ export function FmlaPaymentShortcut({ variantId }: { variantId?: string }) {
   }
 
   return (
-    <div className="rounded-lg border border-amber-200 bg-amber-50 p-4">
-      <p className="text-sm font-semibold leading-6 text-amber-950">
-        Only use this option if you have already submitted the paperwork request form. Payments without a matching form submission may delay processing.
-      </p>
+    <div className="mt-4 text-sm">
+      <span className="text-[#53635b]">Already submitted your request?</span>{" "}
       {variantId ? (
         <button
-          className="mt-3 inline-flex min-h-11 items-center justify-center rounded-md bg-[#145c42] px-5 py-3 text-sm font-semibold text-white transition hover:bg-[#0f4d37] disabled:cursor-not-allowed disabled:opacity-70"
+          className="font-semibold text-[#145c42] underline-offset-4 hover:underline disabled:cursor-not-allowed disabled:opacity-70"
           disabled={isPending}
           onClick={handlePayment}
           type="button"
         >
-          {isPending ? "Opening checkout..." : "I Already Submitted the Form"}
+          {isPending ? "Opening checkout..." : <>Continue to Payment &rarr;</>}
         </button>
       ) : (
-        <Link
-          className="mt-3 inline-flex min-h-11 items-center justify-center rounded-md bg-[#145c42] px-5 py-3 text-sm font-semibold text-white transition hover:bg-[#0f4d37]"
-          href="/shop/forms-admin"
-        >
-          I Already Submitted the Form
+        <Link className="font-semibold text-[#145c42] underline-offset-4 hover:underline" href="/shop/forms-admin">
+          Continue to Payment &rarr;
         </Link>
       )}
       {error ? <p className="mt-2 text-sm font-semibold text-red-700">{error}</p> : null}
+    </div>
+  );
+}
+
+function SuccessProgress() {
+  return (
+    <div aria-label="Paperwork request progress" className="grid items-center gap-4 md:grid-cols-[1fr_auto_1fr]">
+      <div className="flex items-center gap-3 text-[#145c42]">
+        <span className="flex size-9 items-center justify-center rounded-full bg-[#145c42] text-sm font-bold text-white">✓</span>
+        <div>
+          <p className="text-xs font-bold uppercase tracking-[0.16em]">Step 1</p>
+          <p className="font-semibold text-[#1f2c25]">Paperwork Request</p>
+        </div>
+      </div>
+      <div className="hidden h-px w-40 bg-[#cddad2] md:block" />
+      <div className="flex items-center gap-3">
+        <span className="flex size-9 items-center justify-center rounded-full bg-[#145c42] text-sm font-bold text-white">2</span>
+        <div>
+          <p className="text-xs font-bold uppercase tracking-[0.16em] text-[#145c42]">Step 2</p>
+          <p className="font-semibold text-[#1f2c25]">Payment</p>
+        </div>
+      </div>
     </div>
   );
 }

@@ -97,7 +97,7 @@ export async function POST(req: NextRequest) {
     console.error("[fmla-paperwork] Notification email failed:", err);
   }
 
-  return NextResponse.json({ ok: true });
+  return NextResponse.json({ ok: true, submissionId: inserted.id });
 }
 
 function validatePayload(payload: FmlaPayload):

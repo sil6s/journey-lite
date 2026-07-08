@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
-import { CTAButton, SiteFooter, SiteHeader } from "../components/marketing";
+import Link from "next/link";
+import { SiteFooter, SiteHeader } from "../components/marketing";
 import { FmlaPaperworkForm, FmlaPaymentShortcut } from "./FmlaPaperworkForm";
 
 export const metadata: Metadata = {
@@ -19,79 +20,105 @@ export default async function FmlaShortTermDisabilityPaperworkPage({
     <>
       <SiteHeader />
       <main className="bg-[#f7faf7]">
-        <section className="border-b border-[#dce4df] bg-white">
-          <div className="mx-auto grid max-w-6xl gap-8 px-5 py-12 lg:grid-cols-[1.05fr_0.95fr] lg:px-8 lg:py-16">
-            <div>
+        <section className="bg-white">
+          <div className="mx-auto max-w-5xl px-5 py-14 lg:px-8 lg:py-20">
+            <div className="max-w-3xl">
               <p className="eyebrow">FMLA / Short-Term Disability Paperwork</p>
               <h1 className="mt-4 font-serif text-4xl leading-tight text-[#1f2c25] md:text-5xl">
-                Submit the form first, then pay the $30 fee.
+                Complete Your FMLA or Disability Paperwork Request
               </h1>
-              <div className="mt-5 rounded-lg border border-[#f1c27d] bg-[#fff7ed] p-4 text-sm font-semibold leading-6 text-[#7c3f12]">
-                You must submit this form before paying the $30 paperwork fee. After submission, you will be redirected or shown the payment option.
-              </div>
               <p className="mt-5 max-w-2xl text-base leading-7 text-[#53635b]">
-                Our practice charges a $30 fee for completing and submitting FMLA or short-term disability paperwork. Both the request form and payment are required before processing begins.
+                This takes about 3-5 minutes. You&apos;ll complete your paperwork request first. After submission, you&apos;ll continue to the required $30 paperwork payment.
               </p>
-              <div className="mt-7 grid gap-3 md:grid-cols-2">
-                <div className="rounded-lg border border-[#c9ded2] bg-[#f8fbf9] p-4">
-                  <p className="text-xs font-bold uppercase tracking-[0.14em] text-[#145c42]">Step 1</p>
-                  <h2 className="mt-2 text-lg font-semibold text-[#1f2c25]">Submit paperwork request form</h2>
-                  <p className="mt-2 text-sm leading-6 text-[#53635b]">Start here if you have not submitted your paperwork request yet.</p>
-                  <div className="mt-4">
-                    <CTAButton href="#fmla-form">Start Paperwork Request</CTAButton>
-                  </div>
-                </div>
-                <div id="already-submitted-payment">
-                  <p className="mb-2 text-xs font-bold uppercase tracking-[0.14em] text-[#145c42]">Step 2</p>
-                  <FmlaPaymentShortcut variantId={variantId} />
-                </div>
-              </div>
-            </div>
-            <div className="rounded-lg border border-[#dce4df] bg-[#f8fbf9] p-5">
-              <h2 className="text-lg font-semibold text-[#1f2c25]">How this works</h2>
-              <ul className="mt-4 space-y-3 text-sm leading-6 text-[#53635b]">
-                <li>Complete this form and upload your FMLA or disability paperwork.</li>
-                <li>Submit the form.</li>
-                <li>Pay the $30 paperwork fee.</li>
-                <li>Our team reviews the request after both the form and payment are received.</li>
-                <li>Completed paperwork is sent using the contact method you provide.</li>
-              </ul>
-              <div className="mt-5 rounded-lg bg-white p-4 text-sm leading-6 text-[#53635b]">
-                Questions or upload issues? Email <a className="font-semibold text-[#145c42] underline-offset-4 hover:underline" href="mailto:ma@curryweightloss.com">ma@curryweightloss.com</a>.
+              <div className="mt-8">
+                <Link
+                  className="inline-flex min-h-11 items-center justify-center rounded-md bg-[#145c42] px-6 py-3 text-sm font-semibold text-white shadow-sm shadow-[#145c42]/20 transition hover:bg-[#0f4d37]"
+                  href="#fmla-form"
+                >
+                  Start Request
+                </Link>
+                <FmlaPaymentShortcut variantId={variantId} />
               </div>
             </div>
           </div>
         </section>
 
-        <section className="px-5 py-12 lg:px-8 lg:py-16" id="fmla-form">
+        <section className="border-y border-[#dce4df] bg-white px-5 py-6 lg:px-8">
+          <div className="mx-auto max-w-5xl">
+            <WorkflowProgress />
+          </div>
+        </section>
+
+        <section className="px-5 py-12 lg:px-8 lg:py-14" id="fmla-form">
           <div className="mx-auto max-w-3xl">
-            <div className="mb-5 rounded-lg border border-[#dce4df] bg-white p-4">
-              <p className="text-xs font-bold uppercase tracking-[0.14em] text-[#145c42]">Step 1 of 2</p>
-              <h2 className="mt-2 text-xl font-semibold text-[#1f2c25]">Paperwork request form</h2>
-              <p className="mt-2 text-sm leading-6 text-[#53635b]">Submit this request first. The next step is the $30 payment.</p>
-            </div>
-            <FmlaPaperworkForm />
-            <div className="mt-8 rounded-lg border border-[#dce4df] bg-white p-5">
-              <h2 className="text-lg font-semibold text-[#1f2c25]">Quick questions</h2>
-              <div className="mt-4 grid gap-4 text-sm leading-6 text-[#53635b]">
+            <div className="mb-8">
+              <p className="text-xs font-bold uppercase tracking-[0.18em] text-[#145c42]">Step 1 of 2</p>
+              <div className="mt-2 flex flex-wrap items-end justify-between gap-3 border-b border-[#dce4df] pb-5">
                 <div>
-                  <h3 className="font-semibold text-[#1f2c25]">What if I already paid?</h3>
-                  <p className="mt-1">Submit the form anyway so our team can match your payment with your paperwork request.</p>
+                  <h2 className="font-serif text-3xl leading-tight text-[#1f2c25]">Complete Your Request</h2>
+                  <p className="mt-2 text-sm text-[#53635b]">Estimated time: 3-5 minutes</p>
                 </div>
-                <div>
-                  <h3 className="font-semibold text-[#1f2c25]">What if I forgot to upload my paperwork?</h3>
-                  <p className="mt-1">Email your PDF to ma@curryweightloss.com or fax it to 513-559-1235.</p>
-                </div>
-                <div>
-                  <h3 className="font-semibold text-[#1f2c25]">Where will my completed forms be sent?</h3>
-                  <p className="mt-1">We send completed forms to the fax number or email address you provide in this request.</p>
-                </div>
+                <p className="max-w-xs text-sm leading-6 text-[#53635b]">After submitting this form you&apos;ll automatically continue to the next step.</p>
               </div>
             </div>
+            <FmlaPaperworkForm />
+            <FmlaFaq />
           </div>
         </section>
       </main>
       <SiteFooter />
     </>
+  );
+}
+
+function WorkflowProgress() {
+  return (
+    <div aria-label="Paperwork request progress" className="grid items-center gap-4 md:grid-cols-[1fr_auto_1fr]">
+      <div className="flex items-center gap-3">
+        <span className="flex size-9 items-center justify-center rounded-full bg-[#145c42] text-sm font-bold text-white">1</span>
+        <div>
+          <p className="text-xs font-bold uppercase tracking-[0.16em] text-[#145c42]">Step 1</p>
+          <p className="font-semibold text-[#1f2c25]">Paperwork Request</p>
+          <p className="text-xs text-[#53635b]">Active</p>
+        </div>
+      </div>
+      <div className="hidden h-px w-40 bg-[#cddad2] md:block" />
+      <div className="flex items-center gap-3 text-[#53635b]">
+        <span className="flex size-9 items-center justify-center rounded-full border border-[#cddad2] bg-white text-sm font-bold">2</span>
+        <div>
+          <p className="text-xs font-bold uppercase tracking-[0.16em]">Step 2</p>
+          <p className="font-semibold text-[#1f2c25]">Payment</p>
+          <p className="text-xs">Upcoming</p>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function FmlaFaq() {
+  const items = [
+    ["What if I already paid?", "Submit the request so our team can match it to your payment."],
+    ["What if I forgot to upload my paperwork?", "Email your PDF to ma@curryweightloss.com or fax it to 513-559-1235."],
+    ["Where will my paperwork be sent?", "We send completed forms to the fax number or email address you provide."],
+    ["How long does processing take?", "Processing starts after both required items are received. Our team will contact you if anything is missing."],
+  ];
+
+  return (
+    <section className="mt-10 border-t border-[#dce4df] pt-8">
+      <h2 className="text-lg font-semibold text-[#1f2c25]">Questions</h2>
+      <div className="mt-4 divide-y divide-[#dce4df] rounded-lg border border-[#dce4df] bg-white">
+        {items.map(([question, answer]) => (
+          <details className="group p-4" key={question}>
+            <summary className="cursor-pointer list-none text-sm font-semibold text-[#1f2c25] marker:hidden">
+              <span className="flex items-center justify-between gap-4">
+                {question}
+                <span className="text-lg text-[#145c42] group-open:rotate-45">+</span>
+              </span>
+            </summary>
+            <p className="mt-3 text-sm leading-6 text-[#53635b]">{answer}</p>
+          </details>
+        ))}
+      </div>
+    </section>
   );
 }

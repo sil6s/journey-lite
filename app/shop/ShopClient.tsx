@@ -529,6 +529,9 @@ export function ShopClient({ products, initialCategory = "all" }: { products: Sh
         .jls-store-grid { display: grid; grid-template-columns: minmax(0, 1fr); gap: 0; width: 100%; padding: 0 24px; }
         .jls-store-grid.has-cart { grid-template-columns: minmax(0, 1fr) 384px; padding-right: 0; }
         .jls-search:focus-within { border-color: #0a4b38; box-shadow: 0 0 0 3px rgba(10, 75, 56, 0.1); }
+        .jls-nav-inner { scrollbar-width: none; }
+        .jls-nav-inner::-webkit-scrollbar { display: none; }
+        .jls-nav-link { flex: 0 0 auto; white-space: nowrap; }
         .jls-nav-link:hover, .jls-icon-button:hover, .jls-category:hover, .jls-collection:hover { border-color: #adc8b9 !important; transform: translateY(-1px); }
         .jls-product-card:hover { border-color: #adc8b9 !important; box-shadow: 0 10px 24px rgba(13, 61, 36, 0.08); transform: translateY(-1px); }
         .jls-buybtn:hover:not(:disabled), .jls-checkout:hover, .jls-hero-cta:hover { background: #063a2a !important; }
@@ -538,8 +541,8 @@ export function ShopClient({ products, initialCategory = "all" }: { products: Sh
         .jls-g3 { grid-template-columns: repeat(3, minmax(0, 1fr)) !important; }
         @media (max-width: 1320px) { .jls-g5 { grid-template-columns: repeat(4, minmax(0, 1fr)) !important; } }
         @media (max-width: 1180px) { .jls-store-grid, .jls-store-grid.has-cart { grid-template-columns: 1fr; padding: 0 24px; } .jls-side-cart { border: 1px solid #e1e7e3; box-shadow: none; position: static; } .jls-actions-extra { display: none !important; } }
-        @media (max-width: 920px) { .jls-main-header { grid-template-columns: 1fr !important; } .jls-hero { grid-template-columns: 1fr !important; padding: 32px !important; } .jls-g5, .jls-g4, .jls-g3, .jls-services { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; } .jls-product-card { grid-column: auto !important; } }
-        @media (max-width: 640px) { .jls-store-grid { padding: 0 14px; } .jls-top-strip-inner, .jls-main-header, .jls-nav-inner { padding-left: 16px !important; padding-right: 16px !important; } .jls-g5, .jls-g4, .jls-g3, .jls-services, .jls-category-grid, .jls-collections, .jls-trust-grid { grid-template-columns: 1fr !important; } .jls-hero { margin-left: -14px !important; margin-right: -14px !important; padding: 24px !important; } .jls-hero-title { font-size: 38px !important; } .jls-side-cart { display: none; } }
+        @media (max-width: 920px) { .jls-main-header { grid-template-columns: 1fr !important; } .jls-hero { grid-template-columns: 1fr !important; padding: 32px !important; } .jls-g5, .jls-g4, .jls-g3, .jls-services { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; } .jls-product-card { grid-column: auto !important; } .jls-product-modal { grid-template-columns: 1fr !important; max-height: calc(100vh - 28px); overflow: auto; } .jls-product-modal-image { min-height: 240px !important; } }
+        @media (max-width: 640px) { .jls-store-grid, .jls-store-grid.has-cart { padding: 0 14px; } .jls-top-strip-inner, .jls-main-header, .jls-nav-inner { padding-left: 16px !important; padding-right: 16px !important; } .jls-top-strip-inner { display: flex !important; justify-content: center !important; } .jls-top-strip-inner p, .jls-top-strip-inner span { display: none !important; } .jls-main-header { gap: 14px !important; padding-bottom: 12px !important; padding-top: 14px !important; } .jls-main-header > a { justify-content: center; } .jls-shop-actions { justify-content: space-between !important; width: 100%; } .jls-search input { min-width: 0; } .jls-nav-inner { gap: 8px !important; scroll-padding: 16px; } .jls-nav-link { min-height: 38px; padding: 9px 12px !important; } .jls-g5, .jls-g4, .jls-g3, .jls-services, .jls-category-grid, .jls-collections, .jls-trust-grid { grid-template-columns: 1fr !important; } .jls-hero { margin-left: -14px !important; margin-right: -14px !important; min-height: 0 !important; padding: 24px !important; } .jls-hero-title { font-size: 38px !important; } .jls-side-cart { display: none; } .jls-product-modal { border-radius: 10px !important; } .jls-product-modal-content { padding: 22px !important; } }
       `}</style>
 
       <div className="jls-shop-shell">
@@ -660,7 +663,7 @@ function Header({
           <input aria-label="Search products" onChange={(event) => setSearch(event.target.value)} placeholder="Search products, categories, or services..." style={{ border: 0, flex: 1, font: "inherit", outline: "none" }} value={search} />
         </label>
 
-        <div style={{ alignItems: "center", display: "flex", gap: 18, justifyContent: "flex-end" }}>
+        <div className="jls-shop-actions" style={{ alignItems: "center", display: "flex", gap: 18, justifyContent: "flex-end" }}>
           <div className="jls-actions-extra" style={{ position: "relative" }}>
             <button aria-expanded={procedureOpen} aria-haspopup="listbox" className="jls-icon-button" onClick={() => setProcedureOpen((open) => !open)} style={headerActionStyle}>
               <ClipboardList size={20} />
@@ -908,11 +911,11 @@ function ProductDetailModal({ product, onClose }: { product: ShopifyProduct; onC
 
   return (
     <div aria-modal="true" role="dialog" style={{ alignItems: "center", background: "rgba(4, 20, 14, 0.55)", display: "flex", inset: 0, justifyContent: "center", padding: 20, position: "fixed", zIndex: 50 }}>
-      <div style={{ background: "#fff", borderRadius: 12, boxShadow: "0 24px 70px rgba(0,0,0,0.24)", display: "grid", gap: 0, gridTemplateColumns: "minmax(260px, 0.8fr) minmax(300px, 1fr)", maxWidth: 860, overflow: "hidden", width: "100%" }}>
-        <div style={{ background: "#f4f7f5", minHeight: 360, position: "relative" }}>
+      <div className="jls-product-modal" style={{ background: "#fff", borderRadius: 12, boxShadow: "0 24px 70px rgba(0,0,0,0.24)", display: "grid", gap: 0, gridTemplateColumns: "minmax(260px, 0.8fr) minmax(300px, 1fr)", maxWidth: 860, overflow: "hidden", width: "100%" }}>
+        <div className="jls-product-modal-image" style={{ background: "#f4f7f5", minHeight: 360, position: "relative" }}>
           {image ? <Image alt={image.altText || product.title} fill sizes="420px" src={image.url} style={{ objectFit: "contain", padding: 34 }} /> : <ProductPlaceholder />}
         </div>
-        <div style={{ padding: 28, position: "relative" }}>
+        <div className="jls-product-modal-content" style={{ padding: 28, position: "relative" }}>
           <button aria-label="Close product details" onClick={onClose} style={{ alignItems: "center", background: "#fff", border: "1px solid #dfe6e2", borderRadius: 999, cursor: "pointer", display: "inline-flex", height: 34, justifyContent: "center", position: "absolute", right: 18, top: 18, width: 34 }}>
             <X size={18} />
           </button>

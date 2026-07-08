@@ -31,9 +31,10 @@ type AddToCartResult = {
 
 export async function addToCart(
   variantId: string,
-  cartId?: string | null
+  cartId?: string | null,
+  attributes?: Array<{ key: string; value: string }>
 ): Promise<AddToCartResult> {
-  const lines = [{ merchandiseId: variantId, quantity: 1 }];
+  const lines = [{ merchandiseId: variantId, quantity: 1, ...(attributes?.length ? { attributes } : {}) }];
 
   try {
     if (cartId) {
