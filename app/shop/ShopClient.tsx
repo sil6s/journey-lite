@@ -395,14 +395,15 @@ function ServiceGrid({ products, onSelect }: { products: ShopifyProduct[]; onSel
   );
 }
 
-export function ShopClient({ products }: { products: ShopifyProduct[] }) {
-  const [category, setCategory] = useState("all");
+export function ShopClient({ products, initialCategory = "all" }: { products: ShopifyProduct[]; initialCategory?: string }) {
+  const [category, setCategory] = useState(initialCategory);
   const [search, setSearch] = useState("");
   const [selectedProcedure, setSelectedProcedure] = useState("all");
   const [nutritionTab, setNutritionTab] = useState<"vitamins" | "protein" | "meals">("vitamins");
   const [cartUrl, setCartUrl] = useState<string | null>(null);
   const [cartQty, setCartQty] = useState(0);
   const [cart, setCart] = useState<ShopifyCart | null>(null);
+  const [cartVisible, setCartVisible] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState<ShopifyProduct | null>(null);
 
   useEffect(() => {
@@ -415,6 +416,7 @@ export function ShopClient({ products }: { products: ShopifyProduct[] }) {
           setCart(customEvent.detail);
           setCartUrl(customEvent.detail.checkoutUrl);
           setCartQty(customEvent.detail.totalQuantity);
+          setCartVisible(customEvent.detail.totalQuantity > 0);
         }
         return;
       }
@@ -505,6 +507,7 @@ export function ShopClient({ products }: { products: ShopifyProduct[] }) {
       return;
     }
     setCartQty(nextCart.totalQuantity);
+    setCartVisible(nextCart.totalQuantity > 0);
     setCartUrl(nextCart.checkoutUrl);
     window.localStorage.setItem(CART_ID_KEY, nextCart.id);
     window.localStorage.setItem(CART_URL_KEY, nextCart.checkoutUrl);
@@ -517,11 +520,14 @@ export function ShopClient({ products }: { products: ShopifyProduct[] }) {
     if (result.cart) applyCartState(result.cart);
   }
 
+  const showCartSidebar = cartVisible && cartQty > 0;
+
   return (
     <>
       <style>{`
         .jls-shop-shell { min-height: 100vh; background: #f7f8f6; color: #071b13; font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
-        .jls-store-grid { display: grid; grid-template-columns: minmax(0, 1fr) 384px; gap: 0; width: 100%; padding: 0 0 0 24px; }
+        .jls-store-grid { display: grid; grid-template-columns: minmax(0, 1fr); gap: 0; width: 100%; padding: 0 24px; }
+        .jls-store-grid.has-cart { grid-template-columns: minmax(0, 1fr) 384px; padding-right: 0; }
         .jls-search:focus-within { border-color: #0a4b38; box-shadow: 0 0 0 3px rgba(10, 75, 56, 0.1); }
         .jls-nav-link:hover, .jls-icon-button:hover, .jls-category:hover, .jls-collection:hover { border-color: #adc8b9 !important; transform: translateY(-1px); }
         .jls-product-card:hover { border-color: #adc8b9 !important; box-shadow: 0 10px 24px rgba(13, 61, 36, 0.08); transform: translateY(-1px); }
@@ -531,7 +537,7 @@ export function ShopClient({ products }: { products: ShopifyProduct[] }) {
         .jls-g4 { grid-template-columns: repeat(4, minmax(0, 1fr)) !important; }
         .jls-g3 { grid-template-columns: repeat(3, minmax(0, 1fr)) !important; }
         @media (max-width: 1320px) { .jls-g5 { grid-template-columns: repeat(4, minmax(0, 1fr)) !important; } }
-        @media (max-width: 1180px) { .jls-store-grid { grid-template-columns: 1fr; padding-right: 24px; } .jls-side-cart { border: 1px solid #e1e7e3; box-shadow: none; position: static; } .jls-actions-extra { display: none !important; } }
+        @media (max-width: 1180px) { .jls-store-grid, .jls-store-grid.has-cart { grid-template-columns: 1fr; padding: 0 24px; } .jls-side-cart { border: 1px solid #e1e7e3; box-shadow: none; position: static; } .jls-actions-extra { display: none !important; } }
         @media (max-width: 920px) { .jls-main-header { grid-template-columns: 1fr !important; } .jls-hero { grid-template-columns: 1fr !important; padding: 32px !important; } .jls-g5, .jls-g4, .jls-g3, .jls-services { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; } .jls-product-card { grid-column: auto !important; } }
         @media (max-width: 640px) { .jls-store-grid { padding: 0 14px; } .jls-top-strip-inner, .jls-main-header, .jls-nav-inner { padding-left: 16px !important; padding-right: 16px !important; } .jls-g5, .jls-g4, .jls-g3, .jls-services, .jls-category-grid, .jls-collections, .jls-trust-grid { grid-template-columns: 1fr !important; } .jls-hero { margin-left: -14px !important; margin-right: -14px !important; padding: 24px !important; } .jls-hero-title { font-size: 38px !important; } .jls-side-cart { display: none; } }
       `}</style>
@@ -543,7 +549,7 @@ export function ShopClient({ products }: { products: ShopifyProduct[] }) {
           if (value !== "all") setCategory("all");
         }} />
 
-        <div className="jls-store-grid">
+        <div className={`jls-store-grid${showCartSidebar ? " has-cart" : ""}`}>
           <main>
             <Hero products={heroProducts} />
             <CategoryTiles categories={categories} selected={category} setSelected={setCategory} />
@@ -585,9 +591,11 @@ export function ShopClient({ products }: { products: ShopifyProduct[] }) {
             <TrustBar />
           </main>
 
-          <aside className="jls-side-cart">
-            <CartPanel cart={cart} checkoutHref={checkoutHref} suggestedProducts={suggestedProducts} onChangeLine={changeCartLine} />
-          </aside>
+          {showCartSidebar ? (
+            <aside className="jls-side-cart">
+              <CartPanel cart={cart} checkoutHref={checkoutHref} suggestedProducts={suggestedProducts} onChangeLine={changeCartLine} onClose={() => setCartVisible(false)} />
+            </aside>
+          ) : null}
         </div>
 
         <ShopFooter />
@@ -630,8 +638,14 @@ function Header({
   setSelectedProcedure: (value: string) => void;
 }) {
   const [procedureOpen, setProcedureOpen] = useState(false);
-  const navItems = ["Starter Kits", "Vitamins & Supplements", "Protein & Nutrition", "Meals", "Medical Services", "Forms & Admin"];
-  const navTargets = ["starter-kits", "nutrition", "nutrition", "nutrition", "services", "services"];
+  const navItems = [
+    { label: "Starter Kits", href: "/shop/starter-kits" },
+    { label: "Vitamins & Supplements", href: "/shop/vitamins-supplements" },
+    { label: "Protein & Nutrition", href: "/shop/protein-nutrition" },
+    { label: "Meals", href: "/shop/meals" },
+    { label: "Medical Services", href: "/shop/medical-services" },
+    { label: "Forms & Admin", href: "/shop/forms-admin" },
+  ];
   const selectedProcedureLabel = PROCEDURE_OPTIONS.find((option) => option.id === selectedProcedure)?.label ?? "Not selected";
 
   return (
@@ -683,12 +697,11 @@ function Header({
 
       <nav style={{ borderTop: "1px solid #edf1ee" }}>
         <div className="jls-nav-inner" style={{ alignItems: "center", display: "flex", gap: 18, overflowX: "auto", padding: "11px 24px", width: "100%" }}>
-          <button className="jls-nav-link" style={{ ...navButtonStyle, border: "1px solid #ccd8d1", borderRadius: 6 }}><Menu size={16} /> Shop by Category</button>
-          {navItems.map((item, index) => (
-            <a className="jls-nav-link" href={`#${navTargets[index]}`} key={item} style={navButtonStyle}>
-              {item}
-              {index > 0 ? <ChevronDown size={13} /> : null}
-            </a>
+          <Link className="jls-nav-link" href="/shop" style={{ ...navButtonStyle, border: "1px solid #ccd8d1", borderRadius: 6 }}><Menu size={16} /> Shop by Category</Link>
+          {navItems.map((item) => (
+            <Link className="jls-nav-link" href={item.href} key={item.href} style={navButtonStyle}>
+              {item.label}
+            </Link>
           ))}
         </div>
       </nav>
@@ -784,11 +797,13 @@ function CartPanel({
   checkoutHref,
   suggestedProducts,
   onChangeLine,
+  onClose,
 }: {
   cart: ShopifyCart | null;
   checkoutHref: string;
   suggestedProducts: ShopifyProduct[];
   onChangeLine: (lineId: string, quantity: number) => void;
+  onClose: () => void;
 }) {
   const lines = cartLines(cart);
   const subtotal = cartSubtotal(cart);
@@ -800,7 +815,9 @@ function CartPanel({
     <div style={{ background: "#fff", display: "flex", flexDirection: "column", minHeight: "calc(100vh - 124px)", padding: "24px 22px" }}>
       <div style={{ alignItems: "center", display: "flex", justifyContent: "space-between", marginBottom: 18 }}>
         <h2 style={{ fontSize: 19, margin: 0 }}>Your Cart ({cart?.totalQuantity ?? 0})</h2>
-        <X size={20} />
+        <button aria-label="Close cart" onClick={onClose} style={{ alignItems: "center", background: "#fff", border: "1px solid #dfe6e2", borderRadius: 999, cursor: "pointer", display: "inline-flex", height: 32, justifyContent: "center", width: 32 }}>
+          <X size={17} />
+        </button>
       </div>
       <div style={{ display: "grid", gap: 14 }}>
         {lines.length === 0 ? (

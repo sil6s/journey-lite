@@ -1,13 +1,20 @@
 import type { Metadata } from "next";
 import { CTAButton, SiteFooter, SiteHeader } from "../components/marketing";
-import { FmlaPaperworkForm } from "./FmlaPaperworkForm";
+import { FmlaPaperworkForm, FmlaPaymentShortcut } from "./FmlaPaperworkForm";
 
 export const metadata: Metadata = {
   title: "FMLA & Short-Term Disability Paperwork | JourneyLite",
   description: "Complete JourneyLite's FMLA or short-term disability paperwork request before paying the administrative fee.",
 };
 
-export default function FmlaShortTermDisabilityPaperworkPage() {
+export default async function FmlaShortTermDisabilityPaperworkPage({
+  searchParams,
+}: {
+  searchParams?: Promise<Record<string, string | string[] | undefined>>;
+}) {
+  const params = searchParams ? await searchParams : {};
+  const variantId = typeof params.variantId === "string" ? params.variantId : undefined;
+
   return (
     <>
       <SiteHeader />
@@ -17,36 +24,70 @@ export default function FmlaShortTermDisabilityPaperworkPage() {
             <div>
               <p className="eyebrow">FMLA / Short-Term Disability Paperwork</p>
               <h1 className="mt-4 font-serif text-4xl leading-tight text-[#1f2c25] md:text-5xl">
-                Complete your paperwork request
+                Submit the form first, then pay the $30 fee.
               </h1>
+              <div className="mt-5 rounded-lg border border-[#f1c27d] bg-[#fff7ed] p-4 text-sm font-semibold leading-6 text-[#7c3f12]">
+                You must submit this form before paying the $30 paperwork fee. After submission, you will be redirected or shown the payment option.
+              </div>
               <p className="mt-5 max-w-2xl text-base leading-7 text-[#53635b]">
-                Our practice charges a $30 fee for completing and submitting FMLA or short-term disability paperwork.
-                Please complete this form first; the fee will be added to your cart after successful submission.
+                Our practice charges a $30 fee for completing and submitting FMLA or short-term disability paperwork. Both the request form and payment are required before processing begins.
               </p>
-              <div className="mt-7 flex flex-wrap gap-3">
-                <CTAButton href="#fmla-form">Start Form</CTAButton>
-                <CTAButton href="mailto:ma@curryweightloss.com" variant="secondary">
-                  Email Medical Assistants
-                </CTAButton>
+              <div className="mt-7 grid gap-3 md:grid-cols-2">
+                <div className="rounded-lg border border-[#c9ded2] bg-[#f8fbf9] p-4">
+                  <p className="text-xs font-bold uppercase tracking-[0.14em] text-[#145c42]">Step 1</p>
+                  <h2 className="mt-2 text-lg font-semibold text-[#1f2c25]">Submit paperwork request form</h2>
+                  <p className="mt-2 text-sm leading-6 text-[#53635b]">Start here if you have not submitted your paperwork request yet.</p>
+                  <div className="mt-4">
+                    <CTAButton href="#fmla-form">Start Paperwork Request</CTAButton>
+                  </div>
+                </div>
+                <div id="already-submitted-payment">
+                  <p className="mb-2 text-xs font-bold uppercase tracking-[0.14em] text-[#145c42]">Step 2</p>
+                  <FmlaPaymentShortcut variantId={variantId} />
+                </div>
               </div>
             </div>
             <div className="rounded-lg border border-[#dce4df] bg-[#f8fbf9] p-5">
               <h2 className="text-lg font-semibold text-[#1f2c25]">How this works</h2>
               <ul className="mt-4 space-y-3 text-sm leading-6 text-[#53635b]">
-                <li><strong>Step 1:</strong> Complete the form below.</li>
-                <li><strong>Step 2:</strong> The $30 FMLA fee is added to your cart after the form submits.</li>
-                <li><strong>Step 3:</strong> Continue to checkout and complete payment.</li>
-                <li>Upload a PDF copy of your form if JourneyLite has not already received it.</li>
-                <li>You may also fax your paperwork to 513-559-1235.</li>
-                <li>For questions or issues, email ma@curryweightloss.com.</li>
+                <li>Complete this form and upload your FMLA or disability paperwork.</li>
+                <li>Submit the form.</li>
+                <li>Pay the $30 paperwork fee.</li>
+                <li>Our team reviews the request after both the form and payment are received.</li>
+                <li>Completed paperwork is sent using the contact method you provide.</li>
               </ul>
+              <div className="mt-5 rounded-lg bg-white p-4 text-sm leading-6 text-[#53635b]">
+                Questions or upload issues? Email <a className="font-semibold text-[#145c42] underline-offset-4 hover:underline" href="mailto:ma@curryweightloss.com">ma@curryweightloss.com</a>.
+              </div>
             </div>
           </div>
         </section>
 
         <section className="px-5 py-12 lg:px-8 lg:py-16" id="fmla-form">
           <div className="mx-auto max-w-3xl">
+            <div className="mb-5 rounded-lg border border-[#dce4df] bg-white p-4">
+              <p className="text-xs font-bold uppercase tracking-[0.14em] text-[#145c42]">Step 1 of 2</p>
+              <h2 className="mt-2 text-xl font-semibold text-[#1f2c25]">Paperwork request form</h2>
+              <p className="mt-2 text-sm leading-6 text-[#53635b]">Submit this request first. The next step is the $30 payment.</p>
+            </div>
             <FmlaPaperworkForm />
+            <div className="mt-8 rounded-lg border border-[#dce4df] bg-white p-5">
+              <h2 className="text-lg font-semibold text-[#1f2c25]">Quick questions</h2>
+              <div className="mt-4 grid gap-4 text-sm leading-6 text-[#53635b]">
+                <div>
+                  <h3 className="font-semibold text-[#1f2c25]">What if I already paid?</h3>
+                  <p className="mt-1">Submit the form anyway so our team can match your payment with your paperwork request.</p>
+                </div>
+                <div>
+                  <h3 className="font-semibold text-[#1f2c25]">What if I forgot to upload my paperwork?</h3>
+                  <p className="mt-1">Email your PDF to ma@curryweightloss.com or fax it to 513-559-1235.</p>
+                </div>
+                <div>
+                  <h3 className="font-semibold text-[#1f2c25]">Where will my completed forms be sent?</h3>
+                  <p className="mt-1">We send completed forms to the fax number or email address you provide in this request.</p>
+                </div>
+              </div>
+            </div>
           </div>
         </section>
       </main>
