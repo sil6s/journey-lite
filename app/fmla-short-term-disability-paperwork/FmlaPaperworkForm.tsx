@@ -29,7 +29,6 @@ export function FmlaPaperworkForm() {
   const [message, setMessage] = useState("");
   const [file, setFile] = useState<File | null>(null);
   const [dragActive, setDragActive] = useState(false);
-  const [checkoutUrl, setCheckoutUrl] = useState<string | null>(null);
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [turnstileToken, setTurnstileToken] = useState("");
   const [turnstileResetKey, setTurnstileResetKey] = useState(0);
@@ -156,7 +155,6 @@ export function FmlaPaperworkForm() {
     if (result.cartId) window.localStorage.setItem(CART_ID_KEY, result.cartId);
     if (result.checkoutUrl) {
       window.localStorage.setItem(CART_URL_KEY, result.checkoutUrl);
-      setCheckoutUrl(result.checkoutUrl);
     }
     if (typeof result.totalQuantity === "number") {
       window.localStorage.setItem(CART_QTY_KEY, String(result.totalQuantity));
@@ -193,8 +191,8 @@ export function FmlaPaperworkForm() {
             <p className="mt-3 text-xl font-semibold text-[#1f2c25]">Complete your $30 paperwork payment.</p>
             <p className="mt-2 text-sm leading-6 text-[#53635b]">Your paperwork will begin processing after payment is received.</p>
             <div className="mt-7 flex flex-wrap gap-3">
-              <Link className="inline-flex min-h-11 items-center justify-center rounded-md bg-[#145c42] px-5 py-3 text-sm font-semibold text-white transition hover:bg-[#0f4d37]" href={checkoutUrl ?? "/shop/forms-admin"}>
-                Continue to Payment
+              <Link className="inline-flex min-h-11 items-center justify-center rounded-md bg-[#145c42] px-5 py-3 text-sm font-semibold text-white transition hover:bg-[#0f4d37]" href="/shop/cart">
+                Review Cart & Continue
               </Link>
               <Link className="inline-flex min-h-11 items-center justify-center rounded-md px-2 py-3 text-sm font-semibold text-[#145c42] underline-offset-4 hover:underline" href="/">
                 Return to JourneyLite
@@ -356,7 +354,7 @@ export function FmlaPaymentShortcut({ variantId }: { variantId?: string }) {
       if (result.checkoutUrl) window.localStorage.setItem(CART_URL_KEY, result.checkoutUrl);
       if (typeof result.totalQuantity === "number") window.localStorage.setItem(CART_QTY_KEY, String(result.totalQuantity));
       window.dispatchEvent(new CustomEvent(CART_UPDATED_EVENT, { detail: result.cart ?? null }));
-      window.location.href = result.checkoutUrl ?? "/shop/forms-admin";
+      window.location.href = "/shop/cart";
     });
   }
 

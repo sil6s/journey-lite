@@ -400,7 +400,6 @@ export function ShopClient({ products, initialCategory = "all" }: { products: Sh
   const [search, setSearch] = useState("");
   const [selectedProcedure, setSelectedProcedure] = useState("all");
   const [nutritionTab, setNutritionTab] = useState<"vitamins" | "protein" | "meals">("vitamins");
-  const [cartUrl, setCartUrl] = useState<string | null>(null);
   const [cartQty, setCartQty] = useState(0);
   const [cart, setCart] = useState<ShopifyCart | null>(null);
   const [cartVisible, setCartVisible] = useState(false);
@@ -414,16 +413,13 @@ export function ShopClient({ products, initialCategory = "all" }: { products: Sh
       if (customEvent?.detail) {
         if (!cancelled) {
           setCart(customEvent.detail);
-          setCartUrl(customEvent.detail.checkoutUrl);
           setCartQty(customEvent.detail.totalQuantity);
           setCartVisible(customEvent.detail.totalQuantity > 0);
         }
         return;
       }
 
-      const storedCartUrl = window.localStorage.getItem(CART_URL_KEY);
       const storedCartQty = Number(window.localStorage.getItem(CART_QTY_KEY) ?? "0") || 0;
-      setCartUrl(storedCartUrl);
       setCartQty(storedCartQty);
 
       const cartId = window.localStorage.getItem(CART_ID_KEY);
@@ -431,7 +427,6 @@ export function ShopClient({ products, initialCategory = "all" }: { products: Sh
       const result = await getCart(cartId);
       if (!cancelled && result.cart) {
         setCart(result.cart);
-        setCartUrl(result.cart.checkoutUrl);
         setCartQty(result.cart.totalQuantity);
       }
     }
@@ -497,7 +492,6 @@ export function ShopClient({ products, initialCategory = "all" }: { products: Sh
     .filter((product): product is ShopifyProduct => Boolean(product))
     .filter((product) => !cartLines(cart).some((line) => line.merchandise.product.handle === product.handle))
     .slice(0, 2);
-  const checkoutHref = cartUrl ?? (SHOPIFY_STORE_URL ? `${SHOPIFY_STORE_URL}/cart` : "/shop");
   const showSearchResults = category !== "all" || searchTerm.length > 0 || selectedProcedure !== "all";
 
   function applyCartState(nextCart: ShopifyCart | null) {
@@ -508,7 +502,6 @@ export function ShopClient({ products, initialCategory = "all" }: { products: Sh
     }
     setCartQty(nextCart.totalQuantity);
     setCartVisible(nextCart.totalQuantity > 0);
-    setCartUrl(nextCart.checkoutUrl);
     window.localStorage.setItem(CART_ID_KEY, nextCart.id);
     window.localStorage.setItem(CART_URL_KEY, nextCart.checkoutUrl);
     window.localStorage.setItem(CART_QTY_KEY, String(nextCart.totalQuantity));
@@ -547,7 +540,7 @@ export function ShopClient({ products, initialCategory = "all" }: { products: Sh
 
       <div className="jls-shop-shell">
         <TopStrip />
-        <Header checkoutHref={checkoutHref} cartCount={cartQty} cartTotal={cartSubtotal(cart)} search={search} selectedProcedure={selectedProcedure} setSearch={setSearch} setSelectedProcedure={(value) => {
+        <Header cartCount={cartQty} cartTotal={cartSubtotal(cart)} search={search} selectedProcedure={selectedProcedure} setSearch={setSearch} setSelectedProcedure={(value) => {
           setSelectedProcedure(value);
           if (value !== "all") setCategory("all");
         }} />
@@ -596,7 +589,7 @@ export function ShopClient({ products, initialCategory = "all" }: { products: Sh
 
           {showCartSidebar ? (
             <aside className="jls-side-cart">
-              <CartPanel cart={cart} checkoutHref={checkoutHref} suggestedProducts={suggestedProducts} onChangeLine={changeCartLine} onClose={() => setCartVisible(false)} />
+              <CartPanel cart={cart} suggestedProducts={suggestedProducts} onChangeLine={changeCartLine} onClose={() => setCartVisible(false)} />
             </aside>
           ) : null}
         </div>
@@ -624,7 +617,6 @@ function TopStrip() {
 }
 
 function Header({
-  checkoutHref,
   cartCount,
   cartTotal,
   search,
@@ -632,7 +624,6 @@ function Header({
   setSearch,
   setSelectedProcedure,
 }: {
-  checkoutHref: string;
   cartCount: number;
   cartTotal: number;
   search: string;
@@ -688,13 +679,13 @@ function Header({
             ) : null}
           </div>
           <a className="jls-icon-button jls-actions-extra" href={SHOPIFY_STORE_URL ? `${SHOPIFY_STORE_URL}/account` : "#"} style={headerActionStyle}><UserRound size={20} /><span>Account</span></a>
-          <a href={checkoutHref} style={{ alignItems: "center", color: "#071b13", display: "inline-flex", fontSize: 14, fontWeight: 800, gap: 10, textDecoration: "none" }}>
+          <Link href="/shop/cart" style={{ alignItems: "center", color: "#071b13", display: "inline-flex", fontSize: 14, fontWeight: 800, gap: 10, textDecoration: "none" }}>
             <span style={{ position: "relative" }}>
               <ShoppingCart size={28} />
               <span style={{ background: "#0a4b38", borderRadius: 999, color: "#fff", fontSize: 11, fontWeight: 800, minWidth: 19, padding: "2px 6px", position: "absolute", right: -11, textAlign: "center", top: -9 }}>{cartCount}</span>
             </span>
             {cartTotal ? `$${cartTotal.toFixed(2)}` : "Cart"}
-          </a>
+          </Link>
         </div>
       </div>
 
@@ -797,13 +788,11 @@ function CollectionCard({ badge, title, copy, product, onSelect }: { badge: stri
 
 function CartPanel({
   cart,
-  checkoutHref,
   suggestedProducts,
   onChangeLine,
   onClose,
 }: {
   cart: ShopifyCart | null;
-  checkoutHref: string;
   suggestedProducts: ShopifyProduct[];
   onChangeLine: (lineId: string, quantity: number) => void;
   onClose: () => void;
@@ -865,8 +854,7 @@ function CartPanel({
         <strong>{fmtPrice(String(displayTotal), cart?.cost?.subtotalAmount.currencyCode ?? "USD")}</strong>
       </div>
       <div style={{ background: "#fff", bottom: 0, paddingBottom: 4, position: "sticky" }}>
-        <a className="jls-checkout" href={checkoutHref} style={{ alignItems: "center", background: "#004633", borderRadius: 7, color: "#fff", display: "flex", fontSize: 15, fontWeight: 800, gap: 8, justifyContent: "center", padding: "14px 18px", textDecoration: "none" }}><LockKeyhole size={16} /> Checkout Securely</a>
-        <a href={checkoutHref} style={{ color: "#004633", display: "block", fontSize: 14, fontWeight: 800, marginTop: 12, textAlign: "center", textDecoration: "none" }}>View Cart</a>
+        <Link className="jls-checkout" href="/shop/cart" style={{ alignItems: "center", background: "#004633", borderRadius: 7, color: "#fff", display: "flex", fontSize: 15, fontWeight: 800, gap: 8, justifyContent: "center", padding: "14px 18px", textDecoration: "none" }}><LockKeyhole size={16} /> Review Cart</Link>
       </div>
       {suggestedProducts.length > 0 ? (
         <div style={{ borderTop: "1px solid #edf1ee", marginTop: "auto", paddingTop: 18 }}>
