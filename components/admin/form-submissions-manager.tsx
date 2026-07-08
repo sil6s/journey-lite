@@ -17,7 +17,23 @@ export type FormSubmissionListItem = {
   admin_notes: string | null;
 };
 
-const statuses: FormSubmissionListItem["status"][] = ["new", "reviewed", "contacted", "closed", "spam"];
+const statuses: { label: string; value: FormSubmissionListItem["status"] }[] = [
+  { label: "Open", value: "new" },
+  { label: "In progress", value: "reviewed" },
+  { label: "In progress - contacted", value: "contacted" },
+  { label: "Complete", value: "closed" },
+  { label: "Spam", value: "spam" },
+];
+
+const fmlaStatusFilters = [
+  { label: "All", value: "all" },
+  { label: "Open", value: "open" },
+  { label: "In progress", value: "in_progress" },
+  { label: "Complete", value: "complete" },
+  { label: "Spam", value: "spam" },
+] as const;
+
+type FmlaStatusFilter = typeof fmlaStatusFilters[number]["value"];
 
 export function FormSubmissionsManager({ submissions }: { submissions: FormSubmissionListItem[] }) {
   const [items, setItems] = useState(submissions);
@@ -25,8 +41,8 @@ export function FormSubmissionsManager({ submissions }: { submissions: FormSubmi
   const [matching, setMatching] = useState<string | null>(null);
   const fmlaItems = items.filter(isFmlaSubmission);
   const otherItems = items.filter((item) => !isFmlaSubmission(item));
-  const [selectedFmlaId, setSelectedFmlaId] = useState(fmlaItems[0]?.id ?? null);
-  const selectedFmla = fmlaItems.find((item) => item.id === selectedFmlaId) ?? fmlaItems[0] ?? null;
+  const [selectedFmlaId, setSelectedFmlaId] = useState<string | null>(null);
+  const selectedFmla = selectedFmlaId ? fmlaItems.find((item) => item.id === selectedFmlaId) ?? null : null;
 
   async function updateSubmission(id: string, patch: Pick<FormSubmissionListItem, "status" | "admin_notes">) {
     setSaving(id);
@@ -70,6 +86,7 @@ export function FormSubmissionsManager({ submissions }: { submissions: FormSubmi
           matching={matching}
           onMatchOrder={matchShopifyOrder}
           onSelect={setSelectedFmlaId}
+          onBack={() => setSelectedFmlaId(null)}
           onUpdateSubmission={updateSubmission}
           saving={saving}
           selected={selectedFmla}
@@ -110,6 +127,7 @@ type ShopifyOrderMatchPayload = {
 function FmlaSubmissionsWorkspace({
   items,
   matching,
+  onBack,
   onMatchOrder,
   onSelect,
   onUpdateSubmission,
@@ -118,20 +136,54 @@ function FmlaSubmissionsWorkspace({
 }: {
   items: FormSubmissionListItem[];
   matching: string | null;
+  onBack: () => void;
   onMatchOrder: (id: string, payload: ShopifyOrderMatchPayload) => Promise<{ error?: string }>;
   onSelect: (id: string) => void;
   onUpdateSubmission: (id: string, patch: Pick<FormSubmissionListItem, "status" | "admin_notes">) => Promise<void>;
   saving: string | null;
   selected: FormSubmissionListItem | null;
 }) {
+  const [statusFilter, setStatusFilter] = useState<FmlaStatusFilter>("all");
+  const filteredItems = items.filter((item) => fmlaFilterMatches(item, statusFilter));
+
+  if (selected) {
+    return (
+      <FmlaSubmissionDetailView
+        item={selected}
+        matching={matching === selected.id}
+        onBack={onBack}
+        onMatchOrder={(payload) => onMatchOrder(selected.id, payload)}
+        onUpdateSubmission={onUpdateSubmission}
+        saving={saving}
+      />
+    );
+  }
+
   return (
     <section className="grid gap-4">
       <div className="flex flex-wrap items-end justify-between gap-3">
         <div>
           <h2 className="text-lg font-semibold text-[#153f2b]">FMLA paperwork requests</h2>
-          <p className="mt-1 text-sm text-muted-foreground">Click a row to review documents, patient details, status, and Shopify payment match.</p>
+          <p className="mt-1 text-sm text-muted-foreground">Start with the queue. Click a request to review details, documents, status, and payment matching.</p>
         </div>
         <span className="rounded-full bg-[#edf4ef] px-3 py-1 text-xs font-semibold text-[#145c42]">{items.length} request{items.length === 1 ? "" : "s"}</span>
+      </div>
+
+      <div className="flex flex-wrap gap-2">
+        {fmlaStatusFilters.map((filter) => {
+          const count = items.filter((item) => fmlaFilterMatches(item, filter.value)).length;
+          const active = statusFilter === filter.value;
+          return (
+            <button
+              className={`rounded-full border px-3 py-1.5 text-xs font-semibold transition ${active ? "border-[#145c42] bg-[#145c42] text-white" : "border-[#dce6df] bg-white text-[#315545] hover:border-[#145c42]/50"}`}
+              key={filter.value}
+              onClick={() => setStatusFilter(filter.value)}
+              type="button"
+            >
+              {filter.label} <span className={active ? "text-white/80" : "text-[#789083]"}>{count}</span>
+            </button>
+          );
+        })}
       </div>
 
       <div className="overflow-hidden rounded-xl border bg-white shadow-sm">
@@ -148,37 +200,21 @@ function FmlaSubmissionsWorkspace({
               </tr>
             </thead>
             <tbody className="divide-y divide-[#e6eee8]">
-              {items.map((item) => (
-                <FmlaSubmissionRow item={item} key={item.id} onSelect={() => onSelect(item.id)} selected={selected?.id === item.id} />
+              {filteredItems.map((item) => (
+                <FmlaSubmissionRow item={item} key={item.id} onSelect={() => onSelect(item.id)} />
               ))}
             </tbody>
           </table>
         </div>
+        {filteredItems.length === 0 ? (
+          <div className="border-t border-[#e6eee8] px-4 py-8 text-center text-sm text-muted-foreground">No FMLA requests match this filter.</div>
+        ) : null}
       </div>
-
-      {selected ? (
-        <article className="rounded-xl border bg-white p-5 shadow-sm">
-          <div className="grid gap-5 lg:grid-cols-[minmax(0,1fr)_300px]">
-            <div>
-              <SubmissionHeader item={selected} />
-              <FmlaSubmissionDetails data={asRecord(selected.data)} metadata={asRecord(selected.metadata)} submissionId={selected.id} />
-            </div>
-            <div className="grid content-start gap-3">
-              <SubmissionControls item={selected} saving={saving} updateSubmission={onUpdateSubmission} />
-              <ManualShopifyMatchForm
-                disabled={matching === selected.id}
-                initialEmail={stringValue(asRecord(selected.data).email)}
-                onMatch={(payload) => onMatchOrder(selected.id, payload)}
-              />
-            </div>
-          </div>
-        </article>
-      ) : null}
     </section>
   );
 }
 
-function FmlaSubmissionRow({ item, onSelect, selected }: { item: FormSubmissionListItem; onSelect: () => void; selected: boolean }) {
+function FmlaSubmissionRow({ item, onSelect }: { item: FormSubmissionListItem; onSelect: () => void }) {
   const data = asRecord(item.data);
   const metadata = asRecord(item.metadata);
   const payment = asRecord(metadata.shopifyPayment);
@@ -188,7 +224,7 @@ function FmlaSubmissionRow({ item, onSelect, selected }: { item: FormSubmissionL
 
   return (
     <tr
-      className={`cursor-pointer transition hover:bg-[#f7faf7] ${selected ? "bg-[#edf7f2]" : "bg-white"}`}
+      className="cursor-pointer bg-white transition hover:bg-[#f7faf7]"
       onClick={onSelect}
       tabIndex={0}
       onKeyDown={(event) => {
@@ -227,9 +263,52 @@ function FmlaSubmissionRow({ item, onSelect, selected }: { item: FormSubmissionL
         )}
       </td>
       <td className="px-4 py-3">
-        <span className="rounded-full bg-[#edf4ef] px-2.5 py-1 text-xs font-semibold capitalize text-[#145c42]">{item.status}</span>
+        <span className="rounded-full bg-[#edf4ef] px-2.5 py-1 text-xs font-semibold text-[#145c42]">{statusLabel(item.status)}</span>
       </td>
     </tr>
+  );
+}
+
+function FmlaSubmissionDetailView({
+  item,
+  matching,
+  onBack,
+  onMatchOrder,
+  onUpdateSubmission,
+  saving,
+}: {
+  item: FormSubmissionListItem;
+  matching: boolean;
+  onBack: () => void;
+  onMatchOrder: (payload: ShopifyOrderMatchPayload) => Promise<{ error?: string }>;
+  onUpdateSubmission: (id: string, patch: Pick<FormSubmissionListItem, "status" | "admin_notes">) => Promise<void>;
+  saving: string | null;
+}) {
+  const data = asRecord(item.data);
+  const metadata = asRecord(item.metadata);
+
+  return (
+    <section className="grid gap-4">
+      <button className="w-fit text-sm font-semibold text-[#145c42] underline-offset-4 hover:underline" onClick={onBack} type="button">
+        Back to FMLA requests
+      </button>
+
+      <article className="rounded-xl border bg-white p-5 shadow-sm">
+        <SubmissionHeader item={item} />
+
+        <div className="mt-5 grid gap-5">
+          <FmlaSubmissionDetails
+            data={data}
+            initialEmail={stringValue(data.email)}
+            matching={matching}
+            metadata={metadata}
+            onMatchOrder={onMatchOrder}
+            submissionId={item.id}
+          />
+          <SubmissionControls item={item} saving={saving} updateSubmission={onUpdateSubmission} />
+        </div>
+      </article>
+    </section>
   );
 }
 
@@ -238,7 +317,7 @@ function SubmissionHeader({ item }: { item: FormSubmissionListItem }) {
     <>
       <div className="flex flex-wrap items-center gap-2">
         <h3 className="text-lg font-semibold text-[#153f2b]">{item.form_name || item.form_key}</h3>
-        <span className="rounded-full bg-[#edf4ef] px-2.5 py-1 text-xs font-semibold capitalize text-[#145c42]">{item.status}</span>
+        <span className="rounded-full bg-[#edf4ef] px-2.5 py-1 text-xs font-semibold text-[#145c42]">{statusLabel(item.status)}</span>
       </div>
       <p className="mt-1 text-xs text-muted-foreground">
         {new Date(item.submitted_at).toLocaleString()} {item.page_slug ? `- /${item.page_slug}` : ""}
@@ -257,17 +336,21 @@ function SubmissionControls({
   updateSubmission: (id: string, patch: Pick<FormSubmissionListItem, "status" | "admin_notes">) => Promise<void>;
 }) {
   return (
-    <div className="grid content-start gap-3 rounded-xl bg-[#f7faf7] p-4">
-      <label className="grid gap-1 text-sm font-medium">
-        Status
+    <section className="grid content-start gap-3 rounded-xl border border-[#dce6df] bg-[#f7faf7] p-4">
+      <div>
+        <h4 className="text-sm font-semibold text-[#153f2b]">Workflow</h4>
+        <p className="mt-1 text-xs leading-5 text-muted-foreground">Use this to keep the request queue current.</p>
+      </div>
+      <label className="grid gap-1 text-sm font-medium text-[#193f2c]">
+        Request status
         <select
           className="h-10 rounded-md border bg-white px-3 text-sm"
           value={item.status}
           onChange={(event) => updateSubmission(item.id, { status: event.target.value as FormSubmissionListItem["status"], admin_notes: item.admin_notes })}
         >
           {statuses.map((status) => (
-            <option key={status} value={status}>
-              {status}
+            <option key={status.value} value={status.value}>
+              {status.label}
             </option>
           ))}
         </select>
@@ -283,7 +366,7 @@ function SubmissionControls({
       <Button disabled={saving === item.id} size="sm" variant="outline">
         {saving === item.id ? "Saving..." : "Saved on change"}
       </Button>
-    </div>
+    </section>
   );
 }
 
@@ -300,7 +383,21 @@ function GenericSubmissionDetails({ data, submissionId }: { data: Record<string,
   );
 }
 
-function FmlaSubmissionDetails({ data, metadata, submissionId }: { data: Record<string, unknown>; metadata: Record<string, unknown>; submissionId: string }) {
+function FmlaSubmissionDetails({
+  data,
+  initialEmail,
+  matching,
+  metadata,
+  onMatchOrder,
+  submissionId,
+}: {
+  data: Record<string, unknown>;
+  initialEmail: string;
+  matching: boolean;
+  metadata: Record<string, unknown>;
+  onMatchOrder: (payload: ShopifyOrderMatchPayload) => Promise<{ error?: string }>;
+  submissionId: string;
+}) {
   const knownKeys = new Set([
     "firstName",
     "lastName",
@@ -331,7 +428,6 @@ function FmlaSubmissionDetails({ data, metadata, submissionId }: { data: Record<
   ];
 
   const requestRows: TableRow[] = [
-    ["Payment", paymentMatched ? <PaymentMatchSummary key="payment" payment={payment} /> : <span className="font-semibold text-amber-800">Not matched yet</span>],
     ["Authorization", data.disclaimerAcknowledged ? "Acknowledged" : "Not acknowledged"],
     ["Uploaded FMLA form", upload],
     [
@@ -357,6 +453,7 @@ function FmlaSubmissionDetails({ data, metadata, submissionId }: { data: Record<
       </div>
 
       <DataTable caption="Patient and routing details" rows={patientRows} />
+      <PaymentSection initialEmail={initialEmail} matching={matching} onMatchOrder={onMatchOrder} payment={payment} />
       <DataTable caption="Request details" rows={requestRows} />
 
       {extraFields.length > 0 ? (
@@ -366,6 +463,52 @@ function FmlaSubmissionDetails({ data, metadata, submissionId }: { data: Record<
         />
       ) : null}
     </div>
+  );
+}
+
+function PaymentSection({
+  initialEmail,
+  matching,
+  onMatchOrder,
+  payment,
+}: {
+  initialEmail: string;
+  matching: boolean;
+  onMatchOrder: (payload: ShopifyOrderMatchPayload) => Promise<{ error?: string }>;
+  payment: Record<string, unknown>;
+}) {
+  const paymentMatched = Boolean(payment.matchedAt);
+
+  return (
+    <section className="overflow-hidden rounded-xl border border-[#dce6df]">
+      <div className="flex flex-wrap items-start justify-between gap-3 bg-[#f7faf7] px-4 py-3">
+        <div>
+          <h4 className="text-sm font-semibold text-[#153f2b]">Payment</h4>
+          <p className="mt-1 text-xs leading-5 text-muted-foreground">Review the Shopify payment match or manually override it here.</p>
+        </div>
+        <span className={`rounded-full px-3 py-1 text-xs font-semibold ${paymentMatched ? "bg-emerald-100 text-emerald-900" : "bg-amber-100 text-amber-900"}`}>
+          {paymentMatched ? "Matched" : "Unmatched"}
+        </span>
+      </div>
+      <div className="grid gap-4 p-4 lg:grid-cols-[minmax(0,1fr)_360px]">
+        <div className="rounded-lg border border-[#e6eee8] bg-white p-4 text-sm">
+          {paymentMatched ? (
+            <PaymentMatchSummary payment={payment} />
+          ) : (
+            <div className="grid gap-1">
+              <span className="font-semibold text-amber-800">No matching Shopify order yet</span>
+              <span className="text-xs leading-5 text-muted-foreground">If the webhook did not match this request automatically, enter the order details to attach the payment.</span>
+            </div>
+          )}
+        </div>
+        <ManualShopifyMatchForm
+          disabled={matching}
+          initialEmail={initialEmail}
+          isOverride={paymentMatched}
+          onMatch={onMatchOrder}
+        />
+      </div>
+    </section>
   );
 }
 
@@ -385,10 +528,12 @@ function PaymentMatchSummary({ payment }: { payment: Record<string, unknown> }) 
 function ManualShopifyMatchForm({
   disabled,
   initialEmail,
+  isOverride,
   onMatch,
 }: {
   disabled: boolean;
   initialEmail: string;
+  isOverride: boolean;
   onMatch: (payload: ShopifyOrderMatchPayload) => Promise<{ error?: string }>;
 }) {
   const [message, setMessage] = useState("");
@@ -404,14 +549,16 @@ function ManualShopifyMatchForm({
       currency: String(formData.get("currency") ?? "").trim() || "USD",
       orderId: String(formData.get("orderId") ?? "").trim(),
     });
-    setMessage(result.error ? result.error : "Shopify order matched.");
+    setMessage(result.error ? result.error : "Shopify payment match saved.");
   }
 
   return (
-    <form className="grid gap-3 rounded-xl border border-[#dce6df] bg-white p-4" onSubmit={submit}>
+    <form className="grid gap-3 rounded-lg border border-[#dce6df] bg-white p-4" onSubmit={submit}>
       <div>
-        <h3 className="text-sm font-semibold text-[#153f2b]">Match Shopify order</h3>
-        <p className="mt-1 text-xs leading-5 text-muted-foreground">Use this when the webhook did not automatically match the payment.</p>
+        <h3 className="text-sm font-semibold text-[#153f2b]">{isOverride ? "Override Shopify order" : "Match Shopify order"}</h3>
+        <p className="mt-1 text-xs leading-5 text-muted-foreground">
+          {isOverride ? "Use this only if the matched order is wrong." : "Use this when the webhook did not automatically match the payment."}
+        </p>
       </div>
       <label className="grid gap-1 text-xs font-semibold text-[#193f2c]">
         Order number/name
@@ -436,9 +583,9 @@ function ManualShopifyMatchForm({
         <input className={inputClassName} name="orderId" placeholder="Optional" />
       </label>
       <Button disabled={disabled} size="sm" type="submit">
-        {disabled ? "Matching..." : "Match order"}
+        {disabled ? "Saving..." : isOverride ? "Save override" : "Match order"}
       </Button>
-      {message ? <p className={`text-xs font-semibold ${message.includes("matched") ? "text-emerald-800" : "text-red-700"}`}>{message}</p> : null}
+      {message ? <p className={`text-xs font-semibold ${message.includes("saved") ? "text-emerald-800" : "text-red-700"}`}>{message}</p> : null}
     </form>
   );
 }
@@ -492,6 +639,18 @@ function isUploadMetadata(value: unknown): value is { originalName?: string } {
 
 function isFmlaSubmission(item: FormSubmissionListItem) {
   return item.form_key === "fmla-short-term-disability-paperwork" || /fmla|short-term disability/i.test(item.form_name || "");
+}
+
+function fmlaFilterMatches(item: FormSubmissionListItem, filter: FmlaStatusFilter) {
+  if (filter === "all") return true;
+  if (filter === "open") return item.status === "new";
+  if (filter === "in_progress") return item.status === "reviewed" || item.status === "contacted";
+  if (filter === "complete") return item.status === "closed";
+  return item.status === "spam";
+}
+
+function statusLabel(status: FormSubmissionListItem["status"]) {
+  return statuses.find((item) => item.value === status)?.label ?? status;
 }
 
 function stringValue(value: unknown) {

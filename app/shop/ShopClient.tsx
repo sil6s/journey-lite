@@ -474,12 +474,6 @@ export function ShopClient({ products, initialCategory = "all" }: { products: Sh
     return `${product.title} ${product.productType} ${product.tags.join(" ")}`.toLowerCase().includes(searchTerm);
   });
 
-  const productWithImage = (items: ShopifyProduct[]) => items.find((product) => Boolean(product.images.edges[0]?.node));
-  const heroProducts = [
-    productWithImage([...multivitamins, ...starterKits, ...products]),
-    productWithImage([...protein, ...products]),
-    productWithImage([...calcium, ...longTermKits, ...products]),
-  ].filter(Boolean) as ShopifyProduct[];
   const recommendedProducts = [multivitamins[0], protein[0], calcium[0], preOpDiet[0] ?? starterKits[0]].filter(Boolean).slice(0, 4) as ShopifyProduct[];
   const starterFeature = starterKits.slice(0, 4);
   const nutritionProducts = {
@@ -534,8 +528,9 @@ export function ShopClient({ products, initialCategory = "all" }: { products: Sh
         .jls-g3 { grid-template-columns: repeat(3, minmax(0, 1fr)) !important; }
         @media (max-width: 1320px) { .jls-g5 { grid-template-columns: repeat(4, minmax(0, 1fr)) !important; } }
         @media (max-width: 1180px) { .jls-store-grid, .jls-store-grid.has-cart { grid-template-columns: 1fr; padding: 0 24px; } .jls-side-cart { border: 1px solid #e1e7e3; box-shadow: none; position: static; } .jls-actions-extra { display: none !important; } }
-        @media (max-width: 920px) { .jls-main-header { grid-template-columns: 1fr !important; } .jls-hero { grid-template-columns: 1fr !important; padding: 32px !important; } .jls-g5, .jls-g4, .jls-g3, .jls-services { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; } .jls-product-card { grid-column: auto !important; } .jls-product-modal { grid-template-columns: 1fr !important; max-height: calc(100vh - 28px); overflow: auto; } .jls-product-modal-image { min-height: 240px !important; } }
-        @media (max-width: 640px) { .jls-store-grid, .jls-store-grid.has-cart { padding: 0 14px; } .jls-top-strip-inner, .jls-main-header, .jls-nav-inner { padding-left: 16px !important; padding-right: 16px !important; } .jls-top-strip-inner { display: flex !important; justify-content: center !important; } .jls-top-strip-inner p, .jls-top-strip-inner span { display: none !important; } .jls-main-header { gap: 14px !important; padding-bottom: 12px !important; padding-top: 14px !important; } .jls-main-header > a { justify-content: center; } .jls-shop-actions { justify-content: space-between !important; width: 100%; } .jls-search input { min-width: 0; } .jls-nav-inner { gap: 8px !important; scroll-padding: 16px; } .jls-nav-link { min-height: 38px; padding: 9px 12px !important; } .jls-g5, .jls-g4, .jls-g3, .jls-services, .jls-category-grid, .jls-collections, .jls-trust-grid { grid-template-columns: 1fr !important; } .jls-hero { margin-left: -14px !important; margin-right: -14px !important; min-height: 0 !important; padding: 24px !important; } .jls-hero-title { font-size: 38px !important; } .jls-side-cart { display: none; } .jls-product-modal { border-radius: 10px !important; } .jls-product-modal-content { padding: 22px !important; } }
+        @media (max-width: 920px) { .jls-main-header { grid-template-columns: 1fr !important; } .jls-shop-nav { overflow: hidden; } .jls-nav-inner { gap: 10px !important; padding-bottom: 12px !important; padding-top: 12px !important; scroll-padding: 24px; } .jls-nav-link { border: 1px solid #d9e4de !important; border-radius: 999px !important; min-height: 42px; padding: 0 16px !important; } .jls-hero { background-image: linear-gradient(90deg, rgba(255,255,255,0.98) 0%, rgba(255,255,255,0.94) 43%, rgba(255,255,255,0.5) 76%, rgba(255,255,255,0.1) 100%), url('/shop/shop-hero.webp') !important; background-position: center, 61% center !important; min-height: 390px !important; padding: 46px 36px !important; } .jls-hero-copy { max-width: 560px !important; } .jls-g5, .jls-g4, .jls-g3, .jls-services { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; } .jls-product-card { grid-column: auto !important; } .jls-product-modal { grid-template-columns: 1fr !important; max-height: calc(100vh - 28px); overflow: auto; } .jls-product-modal-image { min-height: 240px !important; } }
+        @media (max-width: 640px) { .jls-store-grid, .jls-store-grid.has-cart { padding: 0 14px; } .jls-top-strip-inner, .jls-main-header, .jls-nav-inner { padding-left: 16px !important; padding-right: 16px !important; } .jls-top-strip-inner { display: flex !important; justify-content: center !important; } .jls-top-strip-inner p, .jls-top-strip-inner span { display: none !important; } .jls-main-header { gap: 14px !important; padding-bottom: 12px !important; padding-top: 14px !important; } .jls-main-header > a { justify-content: center; } .jls-shop-actions { justify-content: space-between !important; width: 100%; } .jls-search { min-height: 44px !important; padding: 0 12px !important; } .jls-search input { min-width: 0; } .jls-nav-inner { gap: 8px !important; scroll-padding: 16px; } .jls-nav-link { font-size: 12px !important; min-height: 40px; padding: 0 13px !important; } .jls-g5, .jls-g4, .jls-g3, .jls-services, .jls-category-grid, .jls-collections, .jls-trust-grid { grid-template-columns: 1fr !important; } .jls-hero { background-image: linear-gradient(180deg, rgba(255,255,255,0.08) 0%, rgba(255,255,255,0.2) 30%, rgba(255,255,255,0.96) 56%, #fff 100%), url('/shop/shop-hero.webp') !important; background-position: center, 64% top !important; background-repeat: no-repeat !important; background-size: 100% 100%, auto 292px !important; margin-left: -14px !important; margin-right: -14px !important; min-height: 0 !important; padding: 292px 20px 30px !important; } .jls-hero-copy { max-width: none !important; } .jls-hero-title { font-size: 38px !important; line-height: 1.02 !important; } .jls-hero-copy p:not(:first-child) { font-size: 15px !important; line-height: 1.5 !important; } .jls-hero-copy a { flex: 1 1 100%; justify-content: center; text-align: center; } .jls-side-cart { display: none; } .jls-product-modal { border-radius: 10px !important; } .jls-product-modal-content { padding: 22px !important; } }
+        @media (max-width: 390px) { .jls-hero { background-size: 100% 100%, auto 252px !important; padding-top: 258px !important; } .jls-hero-title { font-size: 34px !important; } }
       `}</style>
 
       <div className="jls-shop-shell">
@@ -547,7 +542,7 @@ export function ShopClient({ products, initialCategory = "all" }: { products: Sh
 
         <div className={`jls-store-grid${showCartSidebar ? " has-cart" : ""}`}>
           <main>
-            <Hero products={heroProducts} />
+            <Hero />
             <CategoryTiles categories={categories} selected={category} setSelected={setCategory} />
 
             {showSearchResults ? (
@@ -689,7 +684,7 @@ function Header({
         </div>
       </div>
 
-      <nav style={{ borderTop: "1px solid #edf1ee" }}>
+      <nav className="jls-shop-nav" style={{ borderTop: "1px solid #edf1ee" }}>
         <div className="jls-nav-inner" style={{ alignItems: "center", display: "flex", gap: 18, overflowX: "auto", padding: "11px 24px", width: "100%" }}>
           <Link className="jls-nav-link" href="/shop" style={{ ...navButtonStyle, border: "1px solid #ccd8d1", borderRadius: 6 }}><Menu size={16} /> Shop by Category</Link>
           {navItems.map((item) => (
@@ -703,21 +698,22 @@ function Header({
   );
 }
 
-function Hero({ products }: { products: ShopifyProduct[] }) {
-  const fallbackVisuals = [
-    { alt: "Bariatric vitamin bottle", url: "/legacy-blog/495__BA-dark-cherry-MVI-chew.jpg.webp" },
-    { alt: "Bariatric vitamin D capsules", url: "/legacy-blog/495__BA-vitamin-d-capsule-5000-IU-60-ct-500x500.jpg.webp" },
-    { alt: "Procedure-specific vitamin kit", url: "/legacy-blog/vitamins__SADI-600x600-1.jpg.webp" },
-  ];
-  const productVisuals = products
-    .map((product) => product.images.edges[0]?.node)
-    .filter((image): image is NonNullable<typeof image> => Boolean(image))
-    .map((image) => ({ alt: image.altText || "JourneyLite shop product", url: image.url }));
-  const uniqueVisuals = [...productVisuals, ...fallbackVisuals].filter((image, index, images) => images.findIndex((item) => item.url === image.url) === index).slice(0, 3);
-
+function Hero() {
   return (
-    <section className="jls-hero" style={{ background: "linear-gradient(90deg, #fff 0%, #f7f5ef 56%, #ebe5da 100%)", borderBottom: "1px solid #e1e6e2", display: "grid", gap: 32, gridTemplateColumns: "minmax(0, 0.95fr) minmax(420px, 1.05fr)", margin: "0 -24px", minHeight: 380, overflow: "hidden", padding: "62px 78px 48px" }}>
-      <div style={{ alignSelf: "center", maxWidth: 620 }}>
+    <section
+      className="jls-hero"
+      style={{
+        backgroundImage: "linear-gradient(90deg, rgba(255,255,255,0.98) 0%, rgba(255,255,255,0.9) 36%, rgba(255,255,255,0.18) 68%, rgba(255,255,255,0) 100%), url('/shop/shop-hero.webp')",
+        backgroundPosition: "center",
+        backgroundSize: "cover",
+        borderBottom: "1px solid #e1e6e2",
+        margin: "0 -24px",
+        minHeight: 430,
+        overflow: "hidden",
+        padding: "72px 78px 58px",
+      }}
+    >
+      <div className="jls-hero-copy" style={{ maxWidth: 640 }}>
         <p style={{ color: "#00624b", fontSize: 12, fontWeight: 900, letterSpacing: 0.9, margin: "0 0 12px", textTransform: "uppercase" }}>JourneyLite Store</p>
         <h1 className="jls-hero-title" style={{ color: "#052b1f", fontFamily: "Georgia, 'Times New Roman', serif", fontSize: 60, fontWeight: 400, lineHeight: 0.98, margin: "0 0 20px" }}>Bariatric essentials, curated by your care team.</h1>
         <p style={{ color: "#3f4d46", fontSize: 18, lineHeight: 1.6, margin: "0 0 28px", maxWidth: 540 }}>Shop procedure kits, vitamins, protein, meals, and administrative services selected to support each phase of care.</p>
@@ -725,15 +721,6 @@ function Hero({ products }: { products: ShopifyProduct[] }) {
           <a className="jls-hero-cta" href="#featured" style={{ background: "#004633", borderRadius: 7, color: "#fff", fontSize: 14, fontWeight: 800, padding: "14px 30px", textDecoration: "none" }}>Shop Recommended</a>
           <a href="#starter-kits" style={{ background: "#fff", border: "1px solid #ccd8d1", borderRadius: 7, color: "#0a2e21", fontSize: 14, fontWeight: 800, padding: "13px 28px", textDecoration: "none" }}>Find Starter Kits</a>
         </div>
-      </div>
-      <div style={{ alignItems: "end", display: "flex", justifyContent: "center", minHeight: 310, position: "relative" }}>
-        {uniqueVisuals.map((image, index) => {
-          return (
-            <div key={image.url} style={{ filter: "drop-shadow(0 18px 32px rgba(14, 45, 31, 0.16))", height: index === 1 ? 300 : 215, marginLeft: index === 0 ? 0 : -8, position: "relative", width: index === 1 ? 250 : 178, zIndex: index === 1 ? 2 : 1 }}>
-              <Image alt={image.alt} fill priority={index === 1} sizes="220px" src={image.url} style={{ objectFit: "contain" }} />
-            </div>
-          );
-        })}
       </div>
     </section>
   );
