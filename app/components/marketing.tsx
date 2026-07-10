@@ -9,6 +9,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { cn } from "@/lib/utils";
 import { LocaleLanguageSwitcher } from "@/components/site/locale-language-switcher";
+import { buildSiteSearchItems, getSiteNavGroups } from "@/lib/site/navigation";
 import {
   cincinnatiLocation,
   comparisonRows,
@@ -18,8 +19,6 @@ import {
   phoneNumber,
   reviewBadge,
   reviewCards,
-  siteSearchItems,
-  sortedNavGroups,
 } from "./data";
 import { MobileNav } from "./MobileNav";
 import { SiteSearch } from "./SiteSearch";
@@ -57,7 +56,10 @@ export function CTAButton({
   );
 }
 
-export function SiteHeader() {
+export async function SiteHeader() {
+  const navGroups = await getSiteNavGroups();
+  const searchItems = buildSiteSearchItems(navGroups);
+
   return (
     <header className="sticky top-0 z-40 border-b border-[#dce4df] bg-white/95 backdrop-blur">
       <div className="mx-auto flex max-w-[96rem] items-center justify-between gap-4 px-5 py-2 lg:px-8">
@@ -76,7 +78,7 @@ export function SiteHeader() {
         </Link>
 
         <nav aria-label="Primary navigation" className="hidden items-center gap-1 lg:flex">
-          {sortedNavGroups.map((group) => (
+          {navGroups.map((group) => (
             <div className="group relative" key={group.label}>
               <button
                 aria-haspopup="true"
@@ -105,7 +107,7 @@ export function SiteHeader() {
         </nav>
 
         <div className="hidden items-center gap-2 lg:flex">
-          <SiteSearch items={siteSearchItems} />
+          <SiteSearch items={searchItems} />
           <Link
             href="/shop"
             aria-label="Shop JourneyLite products"
@@ -123,7 +125,7 @@ export function SiteHeader() {
           <BookConsultButton />
         </div>
 
-        <MobileNav navGroups={sortedNavGroups} phoneHref={phoneHref} phoneNumber={phoneNumber} searchItems={siteSearchItems} />
+        <MobileNav navGroups={navGroups} phoneHref={phoneHref} phoneNumber={phoneNumber} searchItems={searchItems} />
       </div>
     </header>
   );

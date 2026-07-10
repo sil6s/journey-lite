@@ -3,14 +3,19 @@ import { client } from "@/src/lib/sanity/client";
 import { allTestimonialsQuery } from "@/src/lib/sanity/queries";
 import type { TestimonialCard } from "@/src/lib/sanity/types";
 import { TestimonialCard as TestimonialCardComponent } from "@/app/components/TestimonialCard";
+import { getReactPageMetadata } from "@/lib/site/overrides";
 
 export const revalidate = 60;
 
-export const metadata: Metadata = {
+const fallbackMetadata: Metadata = {
   title: "Patient Stories | JourneyLite Physicians",
   description:
     "Read real patient stories from JourneyLite weight loss surgery and medical weight loss patients across Ohio, Kentucky, and Indiana.",
 };
+
+export function generateMetadata() {
+  return getReactPageMetadata("/patient-stories", fallbackMetadata);
+}
 
 export default async function PatientStoriesPage() {
   const testimonials: TestimonialCard[] = await client.fetch(allTestimonialsQuery);

@@ -302,6 +302,67 @@ export const adminFormDefinitionsQuery = groq`
   }
 `;
 
+const reactPageOverrideFields = groq`
+  _id,
+  title,
+  path,
+  status,
+  adminWarning,
+  eyebrow,
+  headline,
+  summary,
+  contentBlocks[] {
+    _key,
+    heading,
+    body,
+    link
+  },
+  seoTitle,
+  seoDescription,
+  focusKeyword,
+  canonicalUrl,
+  robots,
+  ogTitle,
+  ogDescription,
+  ogImage,
+  structuredDataType,
+  _updatedAt
+`;
+
+export const reactPageOverrideByPathQuery = groq`
+  *[
+    _type == "reactPageOverride" &&
+    status == "active" &&
+    path == $path
+  ][0] {
+    ${reactPageOverrideFields}
+  }
+`;
+
+export const adminReactPageOverridesQuery = groq`
+  *[_type == "reactPageOverride"] | order(path asc) {
+    ${reactPageOverrideFields}
+  }
+`;
+
+export const siteSettingsQuery = groq`
+  *[_type == "siteSettings"][0] {
+    _id,
+    title,
+    navGroups[] {
+      _key,
+      label,
+      items[] {
+        _key,
+        label,
+        href,
+        description,
+        hidden
+      }
+    }
+  }
+`;
+
 // Testimonial fields reused across queries
 const testimonialCardFields = groq`
   _id,

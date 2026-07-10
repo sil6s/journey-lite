@@ -1,12 +1,17 @@
 import type { Metadata } from "next";
 import { AboutHero, CTASection } from "../components";
 import { LocationCards, Section, SiteFooter, SiteHeader } from "../../components/marketing";
+import { getReactPageMetadata } from "@/lib/site/overrides";
 
-export const metadata: Metadata = {
+const fallbackMetadata: Metadata = {
   title: "JourneyLite Locations | Cincinnati, Columbus, Dayton, Kentucky & Indiana",
   description:
     "Find JourneyLite locations serving Cincinnati, Columbus, Dayton, Northern Kentucky, Indianapolis, and surrounding communities for weight loss surgery and medical weight loss.",
 };
+
+export function generateMetadata() {
+  return getReactPageMetadata("/about/locations", fallbackMetadata);
+}
 
 export default function AboutLocationsPage() {
   return (

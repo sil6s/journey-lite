@@ -3,12 +3,17 @@ import Link from "next/link";
 import { ContactExperience } from "./ContactForm";
 import { CTAButton, FAQAccordion, Section, SiteFooter, SiteHeader } from "../components/marketing";
 import { cincinnatiLocation, locationGroups, phoneHref, phoneNumber } from "../components/data";
+import { getReactPageMetadata } from "@/lib/site/overrides";
 
-export const metadata: Metadata = {
+const fallbackMetadata: Metadata = {
   title: "Weight Loss Consultation Ohio | Contact JourneyLite",
   description:
     "Contact JourneyLite to request a weight loss consultation, ask about pricing, insurance, medications, surgery, or regional locations.",
 };
+
+export function generateMetadata() {
+  return getReactPageMetadata("/contact", fallbackMetadata);
+}
 
 const contactFaqs = [
   {

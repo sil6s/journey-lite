@@ -2,12 +2,17 @@ import type { Metadata } from "next";
 import { AboutHero, CardGrid, CTASection, FaqList, LinkCardGrid } from "../components";
 import { historyFaqs, historyTimeline, legacyHighlights, qualityRecognitions } from "../data";
 import { Section, SiteFooter, SiteHeader } from "../../components/marketing";
+import { getReactPageMetadata } from "@/lib/site/overrides";
 
-export const metadata: Metadata = {
+const fallbackMetadata: Metadata = {
   title: "JourneyLite History | 20 Years of Bariatric Surgery Excellence",
   description:
     "Explore JourneyLite's 20-year history of bariatric surgery innovation, outpatient surgery leadership, gastric balloon firsts, accreditation milestones, and patient support.",
 };
+
+export function generateMetadata() {
+  return getReactPageMetadata("/about/history", fallbackMetadata);
+}
 
 const historyLinks = [
   {

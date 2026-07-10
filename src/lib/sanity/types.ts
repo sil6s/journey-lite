@@ -90,6 +90,55 @@ export type CtaLink = {
   href?: string;
 };
 
+export type SiteNavItem = {
+  _key?: string;
+  label: string;
+  href: string;
+  description?: string;
+  hidden?: boolean;
+};
+
+export type SiteNavGroup = {
+  _key?: string;
+  label: string;
+  items: SiteNavItem[];
+};
+
+export type SiteSettings = {
+  _id?: string;
+  title?: string;
+  navGroups?: SiteNavGroup[];
+};
+
+export type ReactPageContentBlock = {
+  _key?: string;
+  heading?: string;
+  body?: string;
+  link?: CtaLink;
+};
+
+export type ReactPageOverride = {
+  _id: string;
+  title: string;
+  path: string;
+  status?: "active" | "draft" | "archived";
+  adminWarning?: string;
+  eyebrow?: string;
+  headline?: string;
+  summary?: string;
+  contentBlocks?: ReactPageContentBlock[];
+  seoTitle?: string;
+  seoDescription?: string;
+  focusKeyword?: string;
+  canonicalUrl?: string;
+  robots?: "index,follow" | "noindex,follow" | "noindex,nofollow";
+  ogTitle?: string;
+  ogDescription?: string;
+  ogImage?: SanityImageAsset;
+  structuredDataType?: "WebPage" | "MedicalWebPage" | "AboutPage" | "ContactPage" | "CollectionPage";
+  _updatedAt?: string;
+};
+
 export type FormFieldOption = {
   label?: string;
   value?: string;

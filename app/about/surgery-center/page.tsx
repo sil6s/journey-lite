@@ -2,12 +2,17 @@ import type { Metadata } from "next";
 import { AboutHero, CardGrid, CTASection, FaqList } from "../components";
 import { historyFaqs, qualityRecognitions, surgeryCenterHighlights } from "../data";
 import { Section, SiteFooter, SiteHeader } from "../../components/marketing";
+import { getReactPageMetadata } from "@/lib/site/overrides";
 
-export const metadata: Metadata = {
+const fallbackMetadata: Metadata = {
   title: "JourneyLite Surgery Center | Cincinnati Outpatient Bariatric Surgery Center",
   description:
     "Learn about JourneyLite Surgery Center, a Cincinnati outpatient bariatric surgery center with AAAHC accreditation, MBSAQIP recognition, revisions, gastric balloons, and patient safety focus.",
 };
+
+export function generateMetadata() {
+  return getReactPageMetadata("/about/surgery-center", fallbackMetadata);
+}
 
 const procedureCards: [string, string][] = [
   ["Bariatric surgery", "Gastric sleeve, gastric bypass, Lap Band, SADI-S, and related bariatric procedures where appropriate."],

@@ -31,12 +31,17 @@ import {
   physicianCards,
   surgicalOptions,
 } from "./components/data";
+import { getReactPageMetadata } from "@/lib/site/overrides";
 
-export const metadata: Metadata = {
+const fallbackMetadata: Metadata = {
   title: "JourneyLite Physicians | Weight Loss Surgery and Medical Weight Loss in Ohio",
   description:
     "Compare bariatric surgery, gastric sleeve, gastric bypass, gastric balloon, medications, and medical weight loss options with JourneyLite Physicians in Ohio, Kentucky, and Indiana.",
 };
+
+export function generateMetadata() {
+  return getReactPageMetadata("/", fallbackMetadata);
+}
 
 const pathComparisonCards = [
   {

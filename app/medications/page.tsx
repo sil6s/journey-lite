@@ -11,8 +11,9 @@ import {
   type MedicationFaq,
   type MedicationOptionTab,
 } from "./MedicationDecisionTools";
+import { getReactPageMetadata } from "@/lib/site/overrides";
 
-export const metadata: Metadata = {
+const fallbackMetadata: Metadata = {
   title: "Medication Weight Loss in Ohio | Wegovy, Zepbound, Oral Medications | JourneyLite",
   description:
     "Compare medication weight loss options in Ohio with JourneyLite. Learn about Wegovy, Zepbound, phentermine, Qsymia, Contrave, oral medications, pricing, and physician-supervised care.",
@@ -20,6 +21,10 @@ export const metadata: Metadata = {
     canonical: "/medications",
   },
 };
+
+export function generateMetadata() {
+  return getReactPageMetadata("/medications", fallbackMetadata);
+}
 
 const stats = [
   ["40.3%", "U.S. adult obesity prevalence", "CDC/NCHS public health context"],
@@ -566,7 +571,7 @@ const medicalWebPageSchema = {
   "@context": "https://schema.org",
   "@type": "MedicalWebPage",
   name: "Medication Weight Loss in Ohio",
-  description: metadata.description,
+  description: fallbackMetadata.description,
   url: "https://journeylite.com/medications",
   about: "Medical weight loss medications",
   medicalAudience: "Patient",

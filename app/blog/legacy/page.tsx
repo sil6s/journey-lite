@@ -6,15 +6,20 @@ import { client } from "@/src/lib/sanity/client";
 import { migratedPostsQuery } from "@/src/lib/sanity/queries";
 import type { BlogPost } from "@/src/lib/sanity/types";
 import { urlFor } from "@/src/lib/sanity/image";
+import { getReactPageMetadata } from "@/lib/site/overrides";
 
 export const revalidate = 60;
 
-export const metadata: Metadata = {
+const fallbackMetadata: Metadata = {
   title: "Archived Blog Posts | JourneyLite",
   description:
     "Articles migrated from the previous JourneyLite WordPress blog. Content is preserved as-is — formatting may not be perfect.",
   robots: { index: false },
 };
+
+export function generateMetadata() {
+  return getReactPageMetadata("/blog/legacy", fallbackMetadata);
+}
 
 type LegacyPageProps = {
   searchParams?: Promise<{ category?: string }>;

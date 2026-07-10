@@ -3,12 +3,17 @@ import { AboutHero, CardGrid, CTASection } from "../components";
 import { physicianSeoCards, qualityRecognitions } from "../data";
 import { PhysicianProfileCard, Section, SiteFooter, SiteHeader } from "../../components/marketing";
 import { physicianCards } from "../../components/data";
+import { getReactPageMetadata } from "@/lib/site/overrides";
 
-export const metadata: Metadata = {
+const fallbackMetadata: Metadata = {
   title: "JourneyLite Physicians | Bariatric Surgeons & Clinical Leadership",
   description:
     "Meet JourneyLite's bariatric physicians, including Dr. Trace Curry and Dr. James Augusta, serving surgical and medical weight loss patients.",
 };
+
+export function generateMetadata() {
+  return getReactPageMetadata("/about/physicians", fallbackMetadata);
+}
 
 const physicianFocus: [string, string][] = [
   ["Surgical expertise", "Evaluation for gastric sleeve, gastric bypass, Lap Band, SADI-S, revision procedures, and related surgical needs."],

@@ -12,12 +12,17 @@ import {
 } from "./data";
 import { PhysicianProfileCard, Section, SiteFooter, SiteHeader } from "../components/marketing";
 import { physicianCards } from "../components/data";
+import { getReactPageMetadata } from "@/lib/site/overrides";
 
-export const metadata: Metadata = {
+const fallbackMetadata: Metadata = {
   title: "About JourneyLite | 20 Years of Bariatric Surgery & Medical Weight Loss",
   description:
     "Meet JourneyLite's bariatric surgeons, registered dietitians, surgery center team, accreditations, and 20-year history of weight loss surgery innovation.",
 };
+
+export function generateMetadata() {
+  return getReactPageMetadata("/about", fallbackMetadata);
+}
 
 export default function AboutPage() {
   const drCurry = physicianCards.find((physician) => physician.slug === "dr-trace-curry");

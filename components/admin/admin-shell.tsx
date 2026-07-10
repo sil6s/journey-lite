@@ -10,12 +10,14 @@ import {
   FileText,
   Globe,
   Images,
+  LayoutList,
   LogOut,
   MapPin,
   Menu,
   MessageSquareQuote,
   Search,
   Settings,
+  SearchCheck,
   ShieldCheck,
   UserRound,
   Users,
@@ -49,7 +51,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Sheet, SheetContent, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 import { cn } from "@/lib/utils";
-import { useMemo, useState, useEffect } from "react";
+import { useMemo, useState } from "react";
 
 // URL of the Patient LMS admin portal — override with NEXT_PUBLIC_LMS_URL env var
 const LMS_URL = process.env.NEXT_PUBLIC_LMS_URL ?? "https://learn.journeylite.com";
@@ -57,6 +59,9 @@ const LMS_URL = process.env.NEXT_PUBLIC_LMS_URL ?? "https://learn.journeylite.co
 const navigation = [
   { title: "Dashboard",           href: "/admin",                icon: BarChart3,   exact: true },
   { title: "Content",             href: "/admin/content",        icon: FileText },
+  { title: "React Pages",         href: "/admin/react-pages",    icon: LayoutList },
+  { title: "Navbar",              href: "/admin/navigation",     icon: Menu },
+  { title: "SEO",                 href: "/admin/seo",            icon: SearchCheck },
   { title: "Forms",               href: "/admin/forms",          icon: ClipboardList },
   { title: "Media Library",       href: "/admin/media",          icon: Images },
   { title: "Translations",        href: "/admin/translations",   icon: Globe },
@@ -70,10 +75,10 @@ const navigation = [
 
 const navSections = [
   { label: "",               items: navigation.slice(0, 1) },
-  { label: "Content",        items: navigation.slice(1, 5) },
-  { label: "Access",         items: navigation.slice(5, 7) },
-  { label: "People & Places",items: navigation.slice(7, 10) },
-  { label: "System",         items: navigation.slice(10) },
+  { label: "Content",        items: navigation.slice(1, 8) },
+  { label: "Access",         items: navigation.slice(8, 10) },
+  { label: "People & Places",items: navigation.slice(10, 13) },
+  { label: "System",         items: navigation.slice(13) },
 ];
 
 type AdminShellUser = {
@@ -249,11 +254,6 @@ function SidebarContent({
   onNavigate?: () => void;
 }) {
   const [navigatingTo, setNavigatingTo] = useState<string | null>(null);
-
-  // Clear loading state when pathname actually changes
-  useEffect(() => {
-    setNavigatingTo(null);
-  }, [pathname]);
 
   return (
     <div className="flex h-full flex-col">

@@ -4,12 +4,17 @@ import { AboutHero, CardGrid, CTASection, DietitianCard, PathwayCard } from "../
 import { dietitians } from "../data";
 import { PhysicianProfileCard, Section, SiteFooter, SiteHeader } from "../../components/marketing";
 import { physicianCards } from "../../components/data";
+import { getReactPageMetadata } from "@/lib/site/overrides";
 
-export const metadata: Metadata = {
+const fallbackMetadata: Metadata = {
   title: "JourneyLite Team | Physicians, Dietitians & Weight Loss Support",
   description:
     "Meet the JourneyLite team, including bariatric surgeons, registered dietitians, medical providers, and support staff focused on long-term weight loss care.",
 };
+
+export function generateMetadata() {
+  return getReactPageMetadata("/about/our-team", fallbackMetadata);
+}
 
 const teamSupportCards: [string, string][] = [
   ["Bariatric surgery team", "Surgeons, clinical staff, and patient support professionals help patients prepare for procedures and understand follow-up."],

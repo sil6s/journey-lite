@@ -2,12 +2,17 @@ import type { Metadata } from "next";
 import { AboutHero, CardGrid, CTASection, DietitianCard, FaqList } from "../components";
 import { dietitianFaqs, dietitianSeoCards, dietitianSupport, dietitians } from "../data";
 import { Section, SiteFooter, SiteHeader } from "../../components/marketing";
+import { getReactPageMetadata } from "@/lib/site/overrides";
 
-export const metadata: Metadata = {
+const fallbackMetadata: Metadata = {
   title: "JourneyLite Dietitians | Registered Dietitians for Weight Loss",
   description:
     "Meet JourneyLite's registered dietitians providing bariatric nutrition, GLP-1 support, meal planning, protein guidance, and long-term weight loss support.",
 };
+
+export function generateMetadata() {
+  return getReactPageMetadata("/about/dietitians", fallbackMetadata);
+}
 
 const supportCards: [string, string][] = [
   ["Pre-op and post-op nutrition guidance", "Clear diet-stage education before and after weight loss surgery."],

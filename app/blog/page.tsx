@@ -7,14 +7,19 @@ import { client } from "@/src/lib/sanity/client";
 import { categoriesQuery, newPostsQuery, migratedPostsQuery } from "@/src/lib/sanity/queries";
 import type { BlogCategory, BlogPost } from "@/src/lib/sanity/types";
 import { urlFor } from "@/src/lib/sanity/image";
+import { getReactPageMetadata } from "@/lib/site/overrides";
 
 export const revalidate = 30;
 
-export const metadata: Metadata = {
+const fallbackMetadata: Metadata = {
   title: "Weight Loss Blog | JourneyLite",
   description:
     "Read JourneyLite articles about bariatric surgery, gastric balloon treatment, prescription weight loss medications, pricing, and patient preparation.",
 };
+
+export function generateMetadata() {
+  return getReactPageMetadata("/blog", fallbackMetadata);
+}
 
 type BlogPageProps = {
   searchParams?: Promise<{ category?: string }>;

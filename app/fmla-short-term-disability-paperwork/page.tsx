@@ -2,11 +2,16 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { SiteFooter, SiteHeader } from "../components/marketing";
 import { FmlaPaperworkForm, FmlaPaymentShortcut } from "./FmlaPaperworkForm";
+import { getReactPageMetadata } from "@/lib/site/overrides";
 
-export const metadata: Metadata = {
+const fallbackMetadata: Metadata = {
   title: "FMLA & Short-Term Disability Paperwork | JourneyLite",
   description: "Complete JourneyLite's FMLA or short-term disability paperwork request before paying the administrative fee.",
 };
+
+export function generateMetadata() {
+  return getReactPageMetadata("/fmla-short-term-disability-paperwork", fallbackMetadata);
+}
 
 export default async function FmlaShortTermDisabilityPaperworkPage({
   searchParams,
