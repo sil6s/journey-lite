@@ -10,14 +10,12 @@ import {
   FileText,
   Globe,
   Images,
-  LayoutList,
   LogOut,
   MapPin,
   Menu,
   MessageSquareQuote,
   Search,
   Settings,
-  SearchCheck,
   ShieldCheck,
   UserRound,
   Users,
@@ -59,9 +57,7 @@ const LMS_URL = process.env.NEXT_PUBLIC_LMS_URL ?? "https://learn.journeylite.co
 const navigation = [
   { title: "Dashboard",           href: "/admin",                icon: BarChart3,   exact: true },
   { title: "Content",             href: "/admin/content",        icon: FileText },
-  { title: "React Pages",         href: "/admin/react-pages",    icon: LayoutList },
   { title: "Navbar",              href: "/admin/navigation",     icon: Menu },
-  { title: "SEO",                 href: "/admin/seo",            icon: SearchCheck },
   { title: "Forms",               href: "/admin/forms",          icon: ClipboardList },
   { title: "Media Library",       href: "/admin/media",          icon: Images },
   { title: "Translations",        href: "/admin/translations",   icon: Globe },
@@ -75,10 +71,10 @@ const navigation = [
 
 const navSections = [
   { label: "",               items: navigation.slice(0, 1) },
-  { label: "Content",        items: navigation.slice(1, 8) },
-  { label: "Access",         items: navigation.slice(8, 10) },
-  { label: "People & Places",items: navigation.slice(10, 13) },
-  { label: "System",         items: navigation.slice(13) },
+  { label: "Content",        items: navigation.slice(1, 6) },
+  { label: "Access",         items: navigation.slice(6, 8) },
+  { label: "People & Places",items: navigation.slice(8, 11) },
+  { label: "System",         items: navigation.slice(11) },
 ];
 
 type AdminShellUser = {

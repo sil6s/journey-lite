@@ -440,6 +440,14 @@ export const blogPost = defineType({
       validation: (rule) => rule.max(170).warning("Meta descriptions usually work best around 150 to 160 characters."),
     }),
     defineField({
+      name: "focusKeyword",
+      title: "Primary keyword",
+      type: "string",
+      group: "seo",
+      description: "Main keyword or phrase used by the admin SEO score.",
+      validation: (rule) => rule.max(80),
+    }),
+    defineField({
       name: "ogImage",
       title: "Social share image",
       type: "image",

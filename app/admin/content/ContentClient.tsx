@@ -12,11 +12,13 @@ import {
 import { marked } from "marked";
 import TurndownService from "turndown";
 import type { RichTextEditorHandle } from "@/components/admin/rich-text-editor";
+import { scoreSeo, type SeoScoreResult } from "@/lib/seo/scoring";
 import type { ContentItem, ContentDetail, FormDefinition } from "./actions";
 import {
   fetchContentById,
   createBlogPostAction, updateBlogPostAction, deleteBlogPostAction,
   createPageAction, updatePageAction, deletePageAction,
+  updateReactPageOverrideAction,
   uploadContentImage,
 } from "./actions";
 
@@ -42,6 +44,32 @@ function mdToHtml(md: string): string {
 function fmtDate(iso?: string) {
   if (!iso) return "—";
   return new Date(iso).toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" });
+}
+function flattenText(value?: string | string[]) {
+  if (!value) return "";
+  return Array.isArray(value) ? value.flat(3).filter(Boolean).join(" ") : value;
+}
+function stripHtml(value = "") {
+  return value.replace(/<[^>]*>/g, " ").replace(/\s+/g, " ").trim();
+}
+function contentSeoScore(item: ContentItem) {
+  const url = item._type === "blogPost" ? `/blog/${item.slug}` : item._type === "reactPageOverride" ? item.path || item.slug : `/${item.slug}`;
+  const bodyText = stripHtml(flattenText(item.bodyText) || item.htmlBody || "");
+  return scoreSeo({
+    url,
+    title: item.seoTitle || item.title,
+    description: item.seoDescription || item.excerpt,
+    h1Texts: [item.headline || item.title],
+    h2Count: (bodyText.match(/\b[A-Z][^.!?]{8,80}\b/g) ?? []).length > 2 ? 1 : 0,
+    firstParagraph: item.excerpt || item.summary || bodyText.slice(0, 260),
+    bodyText,
+    focusKeyword: item.focusKeyword,
+    canonicalUrl: `https://journeylite.com${url?.startsWith("/") ? url : `/${url}`}`,
+    robots: item._type === "reactPageOverride" ? undefined : "index,follow",
+    structuredData: item._type !== "reactPageOverride",
+    ogTitle: item.seoTitle || item.title,
+    ogDescription: item.seoDescription || item.excerpt,
+  });
 }
 
 /* ── types ────────────────────────────────────────────────────────────────── */
@@ -79,6 +107,10 @@ export function ContentClient({
     if (selectedId === item._id) return;
     setSelectedId(item._id);
     setDetail(null);
+    if (item._id.startsWith("__react_page__")) {
+      setDetail({ ...item, slug: item.slug || item.path || "/", adminWarning: item.adminWarning });
+      return;
+    }
     setDetailLoading(true);
     try {
       const d = await fetchContentById(item._id);
@@ -134,7 +166,11 @@ export function ContentClient({
               className={`w-full border-b border-[#dce4df] px-4 py-3 text-left transition-colors hover:bg-white ${selectedId === item._id ? "bg-white border-l-2 border-l-[#0D3D24]" : ""}`}>
               <div className="flex items-start justify-between gap-2">
                 <span className={`truncate text-xs font-semibold ${selectedId === item._id ? "text-[#0D3D24]" : "text-[#1f2c25]"}`}>{item.title || "Untitled"}</span>
-                <StatusDot status={item.status} />
+                <div className="flex shrink-0 items-center gap-1">
+                  {item._type === "reactPageOverride" ? <span className="rounded bg-violet-50 px-1.5 py-0.5 text-[9px] font-bold uppercase text-violet-700">React</span> : null}
+                  <SeoScoreBadge score={contentSeoScore(item).score} />
+                  <StatusDot status={item.status} />
+                </div>
               </div>
               <p className="mt-0.5 truncate text-[11px] text-[#9aafa5]">/{item.slug || "—"} · {fmtDate(item.updatedAt || item.publishedAt)}</p>
             </button>
@@ -152,19 +188,32 @@ export function ContentClient({
           <EmptyState onNewBlog={() => { setActiveTab("blog"); setSelectedId("__new_blog"); setDetail({ _id: "__new_blog", _type: "blogPost", title: "", slug: "", htmlBody: "" }); }}
             onNewPage={() => { setActiveTab("pages"); setSelectedId("__new_page"); setDetail({ _id: "__new_page", _type: "sitePage", title: "", slug: "", htmlBody: "" }); }} />
         ) : (
-          <ContentEditor
-            key={detail._id}
-            detail={detail}
-            categories={categories}
-            authors={authors}
-            forms={forms}
-            onSaved={(newId?: string) => { if (newId) setSelectedId(newId); refresh(); }}
-            onDelete={() => { deselect(); refresh(); }}
-          />
+          detail._type === "reactPageOverride" ? (
+            <ReactPageOverrideEditor
+              key={detail._id}
+              detail={detail}
+              onSaved={() => refresh()}
+            />
+          ) : (
+            <ContentEditor
+              key={detail._id}
+              detail={detail}
+              categories={categories}
+              authors={authors}
+              forms={forms}
+              onSaved={(newId?: string) => { if (newId) setSelectedId(newId); refresh(); }}
+              onDelete={() => { deselect(); refresh(); }}
+            />
+          )
         )}
       </main>
     </div>
   );
+}
+
+function SeoScoreBadge({ score }: { score: number }) {
+  const color = score >= 90 ? "bg-emerald-50 text-emerald-700" : score >= 75 ? "bg-green-50 text-green-700" : score >= 60 ? "bg-amber-50 text-amber-700" : "bg-red-50 text-red-700";
+  return <span className={`rounded px-1.5 py-0.5 text-[9px] font-bold ${color}`}>{score}</span>;
 }
 
 /* ── Status dot ───────────────────────────────────────────────────────────── */
@@ -251,6 +300,7 @@ function ContentEditor({
   const [tags, setTags]             = useState((detail.tags || []).join(", "));
   const [seoTitle, setSeoTitle]     = useState(detail.seoTitle || "");
   const [seoDesc, setSeoDesc]       = useState(detail.seoDescription || "");
+  const [focusKeyword, setFocusKeyword] = useState(detail.focusKeyword || "");
 
   // page meta
   const [subtitle, setSubtitle]     = useState(detail.subtitle || "");
@@ -336,6 +386,24 @@ function ContentEditor({
     if (mode === "markdown") return mdToHtml(mdDraft);
     return htmlBody;
   }
+
+  const renderHtml = mode === "markdown" ? mdToHtml(mdDraft) : htmlBody;
+  const currentBodyText = stripHtml(renderHtml);
+  const seoResult = scoreSeo({
+    url: `${isBlog ? "/blog/" : "/"}${slug || slugify(title)}`,
+    title: seoTitle || title,
+    description: isBlog ? (seoDesc || excerpt) : (seoDesc || metaDesc || subtitle),
+    h1Texts: [title],
+    h2Count: (renderHtml.match(/<h2\b/gi) ?? []).length,
+    firstParagraph: isBlog ? excerpt : subtitle || currentBodyText.slice(0, 260),
+    bodyText: currentBodyText,
+    focusKeyword,
+    canonicalUrl: `https://journeylite.com${isBlog ? "/blog/" : "/"}${slug || slugify(title)}`,
+    robots: "index,follow",
+    structuredData: isBlog,
+    ogTitle: seoTitle || title,
+    ogDescription: isBlog ? (seoDesc || excerpt) : (seoDesc || metaDesc || subtitle),
+  });
 
   async function handleImageRequest() {
     const input = document.createElement("input");
@@ -451,6 +519,7 @@ function ContentEditor({
           publishedAt: new Date(publishedAt).toISOString(),
           seoTitle: seoTitle || undefined,
           seoDescription: seoDesc || undefined,
+          focusKeyword: focusKeyword || undefined,
           tags: tags.split(",").map((t) => t.trim()).filter(Boolean),
           categoryId: categoryId || undefined,
           authorId: authorId || undefined,
@@ -465,6 +534,9 @@ function ContentEditor({
           subtitle: subtitle || undefined,
           pageType,
           metaDescription: metaDesc || undefined,
+          seoTitle: seoTitle || undefined,
+          seoDescription: seoDesc || metaDesc || undefined,
+          focusKeyword: focusKeyword || undefined,
           status: asDraft ? "draft" : "published",
         };
         if (isNew) { const id = await createPageAction(data); onSaved(id); }
@@ -620,6 +692,8 @@ function ContentEditor({
               tags={tags} setTags={setTags}
               seoTitle={seoTitle} setSeoTitle={setSeoTitle}
               seoDesc={seoDesc} setSeoDesc={setSeoDesc}
+              focusKeyword={focusKeyword} setFocusKeyword={setFocusKeyword}
+              seoResult={seoResult}
               categories={categories} authors={authors}
             />
           ) : (
@@ -627,6 +701,10 @@ function ContentEditor({
               subtitle={subtitle} setSubtitle={setSubtitle}
               pageType={pageType} setPageType={setPageType}
               metaDesc={metaDesc} setMetaDesc={setMetaDesc}
+              seoTitle={seoTitle} setSeoTitle={setSeoTitle}
+              seoDesc={seoDesc} setSeoDesc={setSeoDesc}
+              focusKeyword={focusKeyword} setFocusKeyword={setFocusKeyword}
+              seoResult={seoResult}
             />
           )}
         </aside>
@@ -742,7 +820,7 @@ function ContentEditor({
           authorName={authors.find((a) => a._id === authorId)?.name}
           categoryName={categories.find((c) => c._id === categoryId)?.name}
           isBlog={isBlog}
-          html={getFinalHtml()}
+          html={renderHtml}
           forms={forms}
           onClose={() => setPreviewOpen(false)}
           onPublish={handlePublishFromPreview}
@@ -781,8 +859,185 @@ function ContentEditor({
   );
 }
 
+function ReactPageOverrideEditor({ detail, onSaved }: { detail: ContentDetail; onSaved: () => void }) {
+  const [title, setTitle] = useState(detail.title || "");
+  const [path, setPath] = useState(detail.path || detail.slug || "/");
+  const [status, setStatus] = useState<"active" | "draft" | "archived">((detail.status as "active" | "draft" | "archived") || "active");
+  const [warning, setWarning] = useState(detail.adminWarning || "This is a React-coded page. You can edit SEO and managed content blocks here, but layout, core widgets, forms, and complex page sections still require code changes.");
+  const [headline, setHeadline] = useState(detail.headline || "");
+  const [summary, setSummary] = useState(detail.summary || "");
+  const [blocks, setBlocks] = useState(detail.contentBlocks || []);
+  const [seoTitle, setSeoTitle] = useState(detail.seoTitle || "");
+  const [seoDesc, setSeoDesc] = useState(detail.seoDescription || "");
+  const [focusKeyword, setFocusKeyword] = useState(detail.focusKeyword || "");
+  const [canonicalUrl, setCanonicalUrl] = useState(detail.canonicalUrl || "");
+  const [robots, setRobots] = useState<"index,follow" | "noindex,follow" | "noindex,nofollow">(detail.robots || "index,follow");
+  const [ogTitle, setOgTitle] = useState(detail.ogTitle || "");
+  const [ogDescription, setOgDescription] = useState(detail.ogDescription || "");
+  const [structuredDataType, setStructuredDataType] = useState(detail.structuredDataType || "WebPage");
+  const [saving, setSaving] = useState(false);
+  const [saveStatus, setSaveStatus] = useState<"idle" | "saved" | "error">("idle");
+
+  const bodyText = [headline, summary, ...blocks.flatMap((block) => [block.heading, block.body])].filter(Boolean).join(" ");
+  const seoResult = scoreSeo({
+    url: path,
+    title: seoTitle || title,
+    description: seoDesc || summary,
+    h1Texts: [headline || title],
+    h2Count: blocks.filter((block) => block.heading).length,
+    firstParagraph: summary || blocks[0]?.body,
+    bodyText,
+    focusKeyword,
+    canonicalUrl,
+    robots,
+    structuredData: Boolean(structuredDataType),
+    ogTitle: ogTitle || seoTitle || title,
+    ogDescription: ogDescription || seoDesc || summary,
+  });
+
+  async function save() {
+    setSaving(true);
+    try {
+      await updateReactPageOverrideAction(detail._id, {
+        title,
+        path,
+        status,
+        adminWarning: warning,
+        headline,
+        summary,
+        contentBlocks: blocks,
+        seoTitle,
+        seoDescription: seoDesc,
+        focusKeyword,
+        canonicalUrl,
+        robots,
+        ogTitle,
+        ogDescription,
+        structuredDataType,
+      });
+      setSaveStatus("saved");
+      setTimeout(() => setSaveStatus("idle"), 2500);
+      onSaved();
+    } catch {
+      setSaveStatus("error");
+    } finally {
+      setSaving(false);
+    }
+  }
+
+  return (
+    <div className="flex flex-1 flex-col overflow-hidden">
+      <div className="flex items-center gap-3 border-b border-[#dce4df] bg-white px-5 py-2.5">
+        <span className="rounded-full bg-violet-50 px-2 py-0.5 text-[11px] font-bold uppercase tracking-wide text-violet-700">React Page</span>
+        <input value={title} onChange={(e) => setTitle(e.target.value)}
+          placeholder="React page title" className="flex-1 bg-transparent text-base font-bold text-[#1f2c25] outline-none placeholder-[#9aafa5]" />
+        {saveStatus === "saved" && <span className="flex items-center gap-1 text-xs font-semibold text-emerald-600"><Check className="h-3.5 w-3.5" />Saved</span>}
+        {saveStatus === "error" && <span className="text-xs font-semibold text-red-600">Save failed</span>}
+        <button onClick={save} disabled={saving}
+          className="flex items-center gap-1.5 rounded-lg bg-[#0D3D24] px-3.5 py-1.5 text-xs font-semibold text-white hover:bg-[#145c42] disabled:opacity-50">
+          {saving ? <Loader2 className="h-3.5 w-3.5 animate-spin" /> : <Save className="h-3.5 w-3.5" />}
+          Save
+        </button>
+      </div>
+
+      <div className="flex flex-1 overflow-hidden">
+        <div className="flex flex-1 flex-col gap-5 overflow-y-auto px-6 py-4">
+          <div className="rounded-lg border border-amber-200 bg-amber-50 p-4 text-sm text-amber-900">
+            <div className="flex items-center gap-2 font-semibold"><AlertTriangle className="h-4 w-4" /> React-coded page warning</div>
+            <textarea value={warning} onChange={(e) => setWarning(e.target.value)} rows={3}
+              className="mt-3 w-full resize-none rounded-lg border border-amber-200 bg-white/70 px-3 py-2 text-xs text-amber-950 outline-none focus:border-amber-500" />
+          </div>
+
+          <div className="grid gap-4 md:grid-cols-2">
+            <Field label="URL path">
+              <input value={path} onChange={(e) => setPath(e.target.value)} className={inputCls} />
+            </Field>
+            <Field label="Status">
+              <select value={status} onChange={(e) => setStatus(e.target.value as typeof status)} className={inputCls}>
+                <option value="active">Active</option>
+                <option value="draft">Draft</option>
+                <option value="archived">Archived</option>
+              </select>
+            </Field>
+          </div>
+
+          <Section title="Managed content">
+            <Field label="Headline">
+              <input value={headline} onChange={(e) => setHeadline(e.target.value)} className={inputCls} />
+            </Field>
+            <Field label="Summary">
+              <textarea value={summary} onChange={(e) => setSummary(e.target.value)} rows={4}
+                className="w-full resize-none rounded-lg border border-[#dce4df] bg-white px-3 py-2 text-xs text-[#1f2c25] outline-none focus:border-[#145c42]" />
+            </Field>
+            <div className="space-y-3">
+              <div className="flex items-center justify-between">
+                <p className="text-[11px] font-semibold text-[#5f6f66]">Extra content blocks</p>
+                <button className="rounded-lg border border-[#dce4df] px-2 py-1 text-xs font-semibold text-[#5f6f66] hover:bg-white"
+                  onClick={() => setBlocks([...blocks, { _key: crypto.randomUUID(), heading: "", body: "" }])}>
+                  Add block
+                </button>
+              </div>
+              {blocks.map((block, index) => (
+                <div className="rounded-lg border border-[#dce4df] bg-white p-3" key={block._key ?? index}>
+                  <input value={block.heading || ""} onChange={(e) => updateBlock(index, { ...block, heading: e.target.value })} placeholder="Heading" className={inputCls} />
+                  <textarea value={block.body || ""} onChange={(e) => updateBlock(index, { ...block, body: e.target.value })} rows={4} placeholder="Body"
+                    className="mt-2 w-full resize-none rounded-lg border border-[#dce4df] bg-white px-3 py-2 text-xs text-[#1f2c25] outline-none focus:border-[#145c42]" />
+                </div>
+              ))}
+            </div>
+          </Section>
+        </div>
+
+        <aside className="w-72 shrink-0 overflow-y-auto border-l border-[#dce4df] bg-zinc-50 px-4 py-4">
+          <div className="space-y-5">
+            <Section title="SEO">
+              <SeoScorePanel result={seoResult} />
+              <Field label="Primary keyword">
+                <input value={focusKeyword} onChange={(e) => setFocusKeyword(e.target.value)} className={inputCls} />
+              </Field>
+              <Field label="SEO title">
+                <input value={seoTitle} onChange={(e) => setSeoTitle(e.target.value)} className={inputCls} />
+                <p className="mt-0.5 text-[11px] text-[#9aafa5]">{seoTitle.length}/70</p>
+              </Field>
+              <Field label="SEO description">
+                <textarea value={seoDesc} onChange={(e) => setSeoDesc(e.target.value)} rows={3}
+                  className="w-full resize-none rounded-lg border border-[#dce4df] bg-white px-3 py-2 text-xs text-[#1f2c25] outline-none focus:border-[#145c42]" />
+                <p className="mt-0.5 text-[11px] text-[#9aafa5]">{seoDesc.length}/170</p>
+              </Field>
+              <Field label="Canonical URL">
+                <input value={canonicalUrl} onChange={(e) => setCanonicalUrl(e.target.value)} className={inputCls} />
+              </Field>
+              <Field label="Robots">
+                <select value={robots} onChange={(e) => setRobots(e.target.value as typeof robots)} className={inputCls}>
+                  <option value="index,follow">Index, follow</option>
+                  <option value="noindex,follow">Noindex, follow</option>
+                  <option value="noindex,nofollow">Noindex, nofollow</option>
+                </select>
+              </Field>
+              <Field label="Open Graph title">
+                <input value={ogTitle} onChange={(e) => setOgTitle(e.target.value)} className={inputCls} />
+              </Field>
+              <Field label="Open Graph description">
+                <textarea value={ogDescription} onChange={(e) => setOgDescription(e.target.value)} rows={3}
+                  className="w-full resize-none rounded-lg border border-[#dce4df] bg-white px-3 py-2 text-xs text-[#1f2c25] outline-none focus:border-[#145c42]" />
+              </Field>
+              <Field label="Structured data type">
+                <input value={structuredDataType} onChange={(e) => setStructuredDataType(e.target.value)} className={inputCls} />
+              </Field>
+            </Section>
+          </div>
+        </aside>
+      </div>
+    </div>
+  );
+
+  function updateBlock(index: number, block: NonNullable<ContentDetail["contentBlocks"]>[number]) {
+    setBlocks(blocks.map((item, itemIndex) => itemIndex === index ? block : item));
+  }
+}
+
 /* ── Settings panels ─────────────────────────────────────────────────────── */
-function BlogSettings({ excerpt, setExcerpt, publishedAt, setPublishedAt, categoryId, setCategoryId, authorId, setAuthorId, tags, setTags, seoTitle, setSeoTitle, seoDesc, setSeoDesc, categories, authors }: {
+function BlogSettings({ excerpt, setExcerpt, publishedAt, setPublishedAt, categoryId, setCategoryId, authorId, setAuthorId, tags, setTags, seoTitle, setSeoTitle, seoDesc, setSeoDesc, focusKeyword, setFocusKeyword, seoResult, categories, authors }: {
   excerpt: string; setExcerpt: (v: string) => void;
   publishedAt: string; setPublishedAt: (v: string) => void;
   categoryId: string; setCategoryId: (v: string) => void;
@@ -790,6 +1045,8 @@ function BlogSettings({ excerpt, setExcerpt, publishedAt, setPublishedAt, catego
   tags: string; setTags: (v: string) => void;
   seoTitle: string; setSeoTitle: (v: string) => void;
   seoDesc: string; setSeoDesc: (v: string) => void;
+  focusKeyword: string; setFocusKeyword: (v: string) => void;
+  seoResult: SeoScoreResult;
   categories: Category[]; authors: Author[];
 }) {
   return (
@@ -821,6 +1078,10 @@ function BlogSettings({ excerpt, setExcerpt, publishedAt, setPublishedAt, catego
         <p className="mt-0.5 text-[11px] text-[#9aafa5]">{excerpt.length}/220</p>
       </Section>
       <Section title="SEO">
+        <SeoScorePanel result={seoResult} />
+        <Field label="Primary keyword">
+          <input value={focusKeyword} onChange={(e) => setFocusKeyword(e.target.value)} placeholder="gastric sleeve cost" className={inputCls} />
+        </Field>
         <Field label="SEO title">
           <input value={seoTitle} onChange={(e) => setSeoTitle(e.target.value)} placeholder="Defaults to post title" className={inputCls} />
           <p className="mt-0.5 text-[11px] text-[#9aafa5]">{seoTitle.length}/70</p>
@@ -835,10 +1096,14 @@ function BlogSettings({ excerpt, setExcerpt, publishedAt, setPublishedAt, catego
   );
 }
 
-function PageSettings({ subtitle, setSubtitle, pageType, setPageType, metaDesc, setMetaDesc }: {
+function PageSettings({ subtitle, setSubtitle, pageType, setPageType, metaDesc, setMetaDesc, seoTitle, setSeoTitle, seoDesc, setSeoDesc, focusKeyword, setFocusKeyword, seoResult }: {
   subtitle: string; setSubtitle: (v: string) => void;
   pageType: string; setPageType: (v: string) => void;
   metaDesc: string; setMetaDesc: (v: string) => void;
+  seoTitle: string; setSeoTitle: (v: string) => void;
+  seoDesc: string; setSeoDesc: (v: string) => void;
+  focusKeyword: string; setFocusKeyword: (v: string) => void;
+  seoResult: SeoScoreResult;
 }) {
   const types = ["general", "service", "campaign", "education", "faq", "financing", "procedure"];
   return (
@@ -854,12 +1119,63 @@ function PageSettings({ subtitle, setSubtitle, pageType, setPageType, metaDesc, 
         </Field>
       </Section>
       <Section title="SEO">
+        <SeoScorePanel result={seoResult} />
+        <Field label="Primary keyword">
+          <input value={focusKeyword} onChange={(e) => setFocusKeyword(e.target.value)} placeholder="weight loss consultation" className={inputCls} />
+        </Field>
+        <Field label="SEO title">
+          <input value={seoTitle} onChange={(e) => setSeoTitle(e.target.value)} placeholder="Defaults to page title" className={inputCls} />
+          <p className="mt-0.5 text-[11px] text-[#9aafa5]">{seoTitle.length}/70</p>
+        </Field>
+        <Field label="SEO description">
+          <textarea value={seoDesc} onChange={(e) => setSeoDesc(e.target.value)} rows={3} placeholder="Defaults to meta description"
+            className="w-full resize-none rounded-lg border border-[#dce4df] bg-white px-3 py-2 text-xs text-[#1f2c25] outline-none focus:border-[#145c42]" />
+          <p className="mt-0.5 text-[11px] text-[#9aafa5]">{seoDesc.length}/170</p>
+        </Field>
         <Field label="Meta description">
           <textarea value={metaDesc} onChange={(e) => setMetaDesc(e.target.value)} rows={4} placeholder="Brief description for search engines"
             className="w-full resize-none rounded-lg border border-[#dce4df] bg-white px-3 py-2 text-xs text-[#1f2c25] outline-none focus:border-[#145c42]" />
           <p className="mt-0.5 text-[11px] text-[#9aafa5]">{metaDesc.length}/170</p>
         </Field>
       </Section>
+    </div>
+  );
+}
+
+function SeoScorePanel({ result }: { result: SeoScoreResult }) {
+  const bar = result.score >= 90 ? "bg-emerald-500" : result.score >= 75 ? "bg-green-500" : result.score >= 60 ? "bg-amber-500" : "bg-red-500";
+  return (
+    <div className="rounded-lg border border-[#dce4df] bg-white p-3">
+      <div className="flex items-center justify-between gap-2">
+        <div>
+          <p className="text-xs font-bold text-[#1f2c25]">SEO score</p>
+          <p className="text-[11px] text-[#9aafa5]">{result.label}</p>
+        </div>
+        <SeoScoreBadge score={result.score} />
+      </div>
+      <div className="mt-3 h-1.5 overflow-hidden rounded-full bg-zinc-100">
+        <div className={`h-full ${bar}`} style={{ width: `${result.score}%` }} />
+      </div>
+      <div className="mt-3 grid gap-2 text-[11px]">
+        <SeoIssueGroup label="Errors" rows={result.errors.slice(0, 3)} tone="text-red-700" />
+        <SeoIssueGroup label="Warnings" rows={result.warnings.slice(0, 4)} tone="text-amber-700" />
+        <SeoIssueGroup label="Passed" rows={result.passed.slice(0, 4)} tone="text-emerald-700" />
+      </div>
+    </div>
+  );
+}
+
+function SeoIssueGroup({ label, rows, tone }: { label: string; rows: { label: string }[]; tone: string }) {
+  return (
+    <div>
+      <p className={`font-bold ${tone}`}>{label}</p>
+      {rows.length ? (
+        <ul className="mt-1 space-y-1 text-[#5f6f66]">
+          {rows.map((row) => <li key={row.label}>• {row.label}</li>)}
+        </ul>
+      ) : (
+        <p className="mt-1 text-[#9aafa5]">None</p>
+      )}
     </div>
   );
 }
